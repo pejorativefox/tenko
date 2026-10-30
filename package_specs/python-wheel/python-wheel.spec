@@ -1,5 +1,5 @@
 Name:       python-wheel
-Version:    0.41.1
+Version:    0.48.0
 Release:    1
 Summary:    The official binary distribution format for Python 
 License:    GPL
@@ -16,15 +16,20 @@ The official binary distribution format for Python
 
 %install
 rm -rf %{buildroot}
-python3 setup.py install --root %{buildroot}
-mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
+python3 -m pip install --root=%{buildroot} --prefix=/usr --no-deps --no-warn-script-location .
+if [ -d %{buildroot}/usr/lib/python3.14 ]; then
+  mkdir -p %{buildroot}/usr/lib64
+  mv %{buildroot}/usr/lib/python3.14 %{buildroot}/usr/lib64/
+fi
 
 %files
-/usr/bin/wheel
-/usr/lib64/python3.11/site-packages/wheel/
-/usr/lib64/python3.11/site-packages/wheel-0.41.1-py3.11.egg-info
+/usr/bin/
+/usr/lib64/python3.14/site-packages/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 0.48.0
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 0.41.1
 - Version bump
 

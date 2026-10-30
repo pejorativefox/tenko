@@ -1,5 +1,5 @@
 Name:       python-setuptools
-Version:    68.1.2
+Version:    84.0.0
 Release:    1
 Summary:    Python setuptools build system.
 License:    LGPL
@@ -16,17 +16,18 @@ Python setuptools build system.
 
 %install
 rm -rf %{buildroot}
-#python3 bootstrap.py
-python3 setup.py install --root %{buildroot}
-mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
+python3 -m pip install --root=%{buildroot} --prefix=/usr --no-deps --no-warn-script-location .
+if [ -d %{buildroot}/usr/lib/python3.14 ]; then
+  mkdir -p %{buildroot}/usr/lib64
+  mv %{buildroot}/usr/lib/python3.14 %{buildroot}/usr/lib64/
+fi
 
 %files
-/usr/lib64/python3.11/site-packages/setuptools/
-/usr/lib64/python3.11/site-packages/pkg_resources/
-/usr/lib64/python3.11/site-packages/_distutils_hack/
-/usr/lib64/python3.11/site-packages/setuptools-68.1.2-py3.11.egg-info/
-/usr/lib64/python3.11/site-packages/distutils-precedence.pth
+/usr/lib64/python3.14/site-packages/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 84.0.0
+- Sync with LFS r13.1
+
 * Tue Dec 11 2019 Chris Statzer <chris.statzer@qq.com> 42.0.2
 - Initial rpm package

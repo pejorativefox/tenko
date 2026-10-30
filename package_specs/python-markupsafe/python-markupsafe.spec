@@ -1,38 +1,34 @@
 Name:       python-markupsafe
-Version:    2.1.3
+Version:    3.0.3
 Release:    1
 Summary:    Safely add untrusted strings to HTML/XML markup.
 License:    BSD
-Source0:    MarkupSafe-%{version}.tar.gz
+Source0:    markupsafe-3.0.3.tar.gz
 Prefix:     /usr
 
 %description
 Safely add untrusted strings to HTML/XML markup.
 
 %prep
-%setup -n MarkupSafe-%{version}
+%setup -n markupsafe-%{version}
 
 %build
 
 %install
 rm -rf %{buildroot}
-python3 setup.py install --root %{buildroot}
+MARKUPSAFE_PURE_PYTHON=1 python3 -m pip install --root=%{buildroot} --prefix=/usr --no-deps --no-warn-script-location .
+if [ -d %{buildroot}/usr/lib/python3.14 ]; then
+  mkdir -p %{buildroot}/usr/lib64
+  mv %{buildroot}/usr/lib/python3.14 %{buildroot}/usr/lib64/
+fi
 
 %files
-/usr/lib64/python3.11/site-packages/MarkupSafe-2.1.3-py3.11.egg-info/PKG-INFO
-/usr/lib64/python3.11/site-packages/MarkupSafe-2.1.3-py3.11.egg-info/SOURCES.txt
-/usr/lib64/python3.11/site-packages/MarkupSafe-2.1.3-py3.11.egg-info/dependency_links.txt
-/usr/lib64/python3.11/site-packages/MarkupSafe-2.1.3-py3.11.egg-info/top_level.txt
-/usr/lib64/python3.11/site-packages/markupsafe/__init__.py
-/usr/lib64/python3.11/site-packages/markupsafe/__pycache__/__init__.cpython-311.pyc
-/usr/lib64/python3.11/site-packages/markupsafe/__pycache__/_native.cpython-311.pyc
-/usr/lib64/python3.11/site-packages/markupsafe/_native.py
-/usr/lib64/python3.11/site-packages/markupsafe/_speedups.c
-/usr/lib64/python3.11/site-packages/markupsafe/_speedups.cpython-311-x86_64-linux-gnu.so
-/usr/lib64/python3.11/site-packages/markupsafe/_speedups.pyi
-/usr/lib64/python3.11/site-packages/markupsafe/py.typed
+/usr/lib64/python3.14/site-packages/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 3.0.3
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump
 

@@ -1,5 +1,5 @@
 Name:       python-packaging
-Version:    19.2
+Version:    26.3
 Release:    1
 Summary:    Core utilities for Python packages
 License:    GPL
@@ -16,12 +16,18 @@ Core utilities for Python packages
 
 %install
 rm -rf %{buildroot}
-python3 setup.py install --root %{buildroot}
-mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
+python3 -m pip install --root=%{buildroot} --prefix=/usr --no-deps --no-warn-script-location .
+if [ -d %{buildroot}/usr/lib/python3.14 ]; then
+  mkdir -p %{buildroot}/usr/lib64
+  mv %{buildroot}/usr/lib/python3.14 %{buildroot}/usr/lib64/
+fi
 
 %files
-/usr/lib64/python3.11/site-packages/
+/usr/lib64/python3.14/site-packages/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 26.3
+- Sync with LFS r13.1
+
 * Tue Dec 11 2019 Chris Statzer <chris.statzer@qq.com> 19.2
 - Initial rpm package
