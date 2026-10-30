@@ -428,12 +428,11 @@ localhost login:
 
 ### B. Close the last base package
 
-- [ ] B1. `grub 2.14`. Current state: after disabling LTO and hardened flags
-      it fails at configure with "cannot run C compiled programs" due to
-      `--target=x86_64` cross detection. Options: build in a Fedora 39/40
-      container (matches LFS era), add a proper `--host`/`--build` pair, or
-      defer until the kernel/boot phase. It is **not needed** for the runtime
-      base.
+- [x] B1. `grub 2.14` now builds in the self-hosted container.  The host
+      failure was Fedora toolchain/LTO/cross detection; the container build
+      installs everything under `/usr/bin` because rpm's `_sbindir` is
+      `/usr/bin` there, and that is reflected in `%files`.  Booting through
+      grub and installing it to a disk are still untested.
 
 ### C. Remaining base hardening before phase-2 boot
 
