@@ -41,6 +41,13 @@ VERSION_ENTITY_BLOCKLIST = {
     "blfs-version",
 }
 
+# Some packages publish their sources under a different entity prefix.
+SOURCE_NAME_FALLBACKS = {
+    "pcre": ["pcre2"],
+    "libelf": ["elfutils"],
+    "procps": ["procps-ng"],
+}
+
 # browneye spec directory for LFS package names that do not match 1:1.
 DEFAULT_ALIASES = {
     "pcre": "pcre2",
@@ -121,6 +128,36 @@ def base_packages(repo, tag):
     return names
 
 
+def canonical_name(resolved, name):
+    """Return the entity name that actually defines the package version."""
+    for candidate in [name] + SOURCE_NAME_FALLBACKS.get(name, []):
+        if "{}-version".format(candidate) in resolved:
+            return candidate
+    return name
+
+
+def package_sources(resolved, packages):
+    """Return the main source URL/md5 for packages that publish one."""
+    sources = {}
+    for name in packages:
+        canonical = canonical_name(resolved, name)
+        url = resolved.get("{}-url".format(canonical))
+        md5 = resolved.get("{}-md5".format(canonical))
+        if not url or not md5:
+            continue
+        if not re.fullmatch(r"[0-9a-f]{32}", md5):
+            continue
+        if "&" in url or "%" in url:
+            continue
+        url = url.replace("github.com//", "github.com/")
+        sources[canonical] = {
+            "url": url,
+            "md5": md5,
+            "size": resolved.get("{}-size".format(canonical), ""),
+        }
+    return sources
+
+
 def patches(repo, tag, resolved, patches_base):
     found = {}
     for name, value in resolved.items():
@@ -168,12 +205,13 @@ def main():
     except subprocess.CalledProcessError:
         sys.exit(f"error: tag {args.tag!r} not found in {repo}")
 
+    general_ent = parse_entities(git_show(repo, args.tag, "general.ent"))
     packages_ent = parse_entities(git_show(repo, args.tag, "packages.ent"))
     patches_ent = parse_entities(git_show(repo, args.tag, "patches.ent"))
 
     # Patch file names reference package versions (coreutils-&coreutils-version;),
     # so resolve both entity sets together.
-    all_entities = {**packages_ent, **patches_ent}
+    all_entities = {**general_ent, **packages_ent, **patches_ent}
     resolved = resolve_all(all_entities)
     resolved_packages = resolved
     resolved_patches = resolved
@@ -192,6 +230,11 @@ def main():
         "base_packages": base_packages(repo, args.tag),
         "aliases": DEFAULT_ALIASES,
         "packages": package_versions(resolved_packages),
+        "canonical_names": {
+            name: canonical_name(resolved_packages, name)
+            for name in base_packages(repo, args.tag)
+        },
+        "sources": package_sources(resolved_packages, base_packages(repo, args.tag)),
         "patches": patches(repo, args.tag, resolved_patches, patches_base),
     }
 

@@ -1,5 +1,5 @@
 Name:       m4
-Version:    1.4.19
+Version:    1.4.21
 Release:    1
 Summary:    M4 macro processor
 License:    GPL3
@@ -30,5 +30,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/locale/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 1.4.21
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 1.4.19
 - Version bump

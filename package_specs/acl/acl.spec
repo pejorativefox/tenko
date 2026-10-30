@@ -1,5 +1,5 @@
 Name:       acl
-Version:    2.3.1
+Version:    2.4.0
 Release:    1
 Summary:    Linux access control lists.
 License:    LGPL
@@ -38,6 +38,9 @@ rm -rf %{buildroot}
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 2.4.0
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump
 

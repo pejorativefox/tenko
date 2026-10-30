@@ -1,5 +1,5 @@
 Name:       file
-Version:    5.45
+Version:    5.48
 Release:    1
 Summary:    A file type guesser
 License:    GPL3
@@ -31,5 +31,8 @@ rm -rf %{buildroot}
 /usr/share/misc/magic.mgc
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 5.48
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 5.45
 - Version bump

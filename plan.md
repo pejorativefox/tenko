@@ -104,6 +104,10 @@ Init is *not* a divergence: the base follows the book's systemd variant
       perl bison flex gawk gettext-devel`.
       *Status 2026-10-30:* `rpm-build` is present; `createrepo_c`, `gperf`,
       `texinfo` are still missing and `sudo` requires a password here.
+      Host builds also need Fedora devel packages for LFS build deps discovered
+      so far: `attr-devel` (acl), `ncurses-devel` (less), and likely
+      `zlib-devel openssl-devel libffi-devel gdbm-devel readline-devel
+      bzip2-devel xz-devel zstd-devel pcre2-devel` for later waves.
 - [x] 1.3.2 Create `~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}`.
 - [ ] 1.3.3 Install `rpmsupport/rpmmacros` (patched per 1.4) to `~/.rpmmacros` and
       put `rpmsupport/strip_debug.sh` on `PATH`.
@@ -113,7 +117,7 @@ Init is *not* a divergence: the base follows the book's systemd variant
 
 ### 1.4 RPM layout (`/usr/lib64`, D2)
 
-- [ ] 1.4.1 `rpmsupport/rpmmacros`: keep `%_libdir /usr/lib64`, set
+- [x] 1.4.1 `rpmsupport/rpmmacros`: keep `%_libdir /usr/lib64`, set
       `%_lib /usr/lib64`, `%_prefix /usr`, `%_unitdir /usr/lib/systemd/system`,
       `%_udevrulesdir /usr/lib/udev/rules.d`,
       `%_build_id_links none`, and a minimal `%__spec_install_post` that does not
@@ -196,7 +200,7 @@ Source URL + md5 + `Version:` + filelist path updates only.
 | zlib | 1.2.13 | 1.3.2 | |
 | zstd | 1.5.5 | 1.5.7 | |
 
-- [ ] 1.6.1 Bump in batches of ~10, building each batch.
+- [~] 1.6.1 Bump in batches of ~10, building each batch. *First batch done.*
 - [ ] 1.6.2 Convert enumerated `%files` to globs while touching each spec.
 - **Done when:** all Wave A packages build and pass `rpm -qpl` path checks.
 
@@ -548,5 +552,19 @@ to upgrade the remaining (non-base) specs with the target toolchain.
     parsing, disabled-package skipping.
   - Baseline harness check: `./bbuild build zlib` produced
     `~/rpmbuild/RPMS/x86_64/zlib-1.2.13-1.x86_64.rpm`.
+- **2026-10-30** — 1.2 extended: `lfs.lock` now also carries `sources`
+  (url/md5/size, 80/80 base packages) and `canonical_names`
+  (`pcre→pcre2`, `libelf→elfutils`, `procps→procps-ng`, `sqlite→sqlite`).
+  Added `scripts/sync_lfs_spec.py` (dry-run by default; `--write` for the
+  mechanical Version/source/changelog updates).
+- **2026-10-30** — Wave A batch 1 synced and built: `zlib 1.3.2`,
+  `attr 2.6.0`, `file 5.48`, `sed 4.10`, `gdbm 1.26`, `expat 2.8.3`,
+  `m4 1.4.21` all build. `acl 2.4.0` and `less 704` are synced but blocked on
+  host `attr-devel` / `ncurses-devel`. `%files` fixes applied: attr soname
+  `1.1.2600`, expat soname `1.12.3` + `xmlwf.1`, gdbm locale glob.
+- **2026-10-30** — `rpmsupport/rpmmacros` updated (`%_libdir /usr/lib64`,
+  `%_unitdir`, `%_udevrulesdir`, no debuginfo, no build-id) but not yet
+  installed as `~/.rpmmacros`.
 - **Pending** — 1.3 needs root: install `createrepo_c`, `gperf`, `texinfo`,
-  then install `rpmsupport/rpmmacros` and put `strip_debug.sh` on `PATH`.
+  `attr-devel`, `ncurses-devel`; then install `rpmsupport/rpmmacros` and put
+  `strip_debug.sh` on `PATH`.

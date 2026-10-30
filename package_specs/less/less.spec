@@ -1,5 +1,5 @@
 Name:       less
-Version:    643
+Version:    704
 Release:    1
 Summary:    open-source file pager. 
 License:    GPL3
@@ -31,5 +31,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/lesskey.1.gz
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 704
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 643-1
  Version bump
