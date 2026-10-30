@@ -1,5 +1,5 @@
 Name:       vim
-Version:    9.0.1677 
+Version:    9.2.1025
 Release:    1
 Summary:    vi Improved Text editor
 License:    GPL3
@@ -23,7 +23,8 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 rm %{buildroot}/usr/share/applications/gvim.desktop
 rm -rf %{buildroot}/usr/share/icons/*
-rm -rf %{buildroot}/usr/share/vim/vim90/tools/vim132
+rm -rf %{buildroot}/usr/share/vim/vim92/tools/vim132
+rm -f %{buildroot}/usr/share/vim/vim92/tools/demoserver.py
 
 %files
 /usr/bin/ex
@@ -39,6 +40,9 @@ rm -rf %{buildroot}/usr/share/vim/vim90/tools/vim132
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 9.2.1025
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 9.0.1677-1
 - Version bump
 

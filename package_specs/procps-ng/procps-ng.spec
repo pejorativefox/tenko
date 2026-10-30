@@ -1,5 +1,5 @@
 Name:       procps-ng
-Version:    4.0.3
+Version:    4.0.7
 Release:    1
 Summary:    Process monitoring utilities
 License:    GPL3
@@ -49,14 +49,18 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/libproc2/vmstat.h
 /usr/include/libproc2/xtra-procps-debug.h
 /usr/lib64/libproc2.so
-/usr/lib64/libproc2.so.0
-/usr/lib64/libproc2.so.0.0.1
+/usr/lib64/libproc2.so.1
+/usr/lib64/libproc2.so.1.0.2
 /usr/lib64/pkgconfig/libproc2.pc
-/usr/sbin/sysctl
+/usr/bin/hugetop
+/usr/bin/sysctl
 /usr/share/doc/
 /usr/share/locale/
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 4.0.7
+- Sync with LFS r13.1
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 4.0.3-1
 - Version bump

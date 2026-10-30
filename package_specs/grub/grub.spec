@@ -1,21 +1,25 @@
+%global __global_ldflags %{nil}
+%global _lto_cflags %{nil}
+
 Name:       grub
-Version:    2.06
+Version:    2.14
 Release:    1
 Summary:    GNU GRUB is a Multiboot boot loader.
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
-Patch: grub-2.06-upstream_fixes-1.patch
 
 %description
 GNU GRUB is a Multiboot boot loader. It was derived from GRUB, the GRand Unified Bootloader, which was originally designed and implemented by Erich Stefan Boleyn.
 
 %prep
 %setup -q -a0
-%patch -p1
 
 %build
+export LDFLAGS=""
+export CFLAGS="-O2 -g"
+export CXXFLAGS="-O2 -g"
 
 %configure  --prefix=/usr        \
             --sysconfdir=/etc    \
@@ -24,7 +28,7 @@ GNU GRUB is a Multiboot boot loader. It was derived from GRUB, the GRand Unified
             --target=x86_64      \
             --disable-werror
 
-%make_build
+%make_build LDFLAGS=""
 
 %install
 rm -rf %{buildroot}
@@ -52,6 +56,9 @@ mv -v %{buildroot}/etc/bash_completion.d/grub %{buildroot}/usr/share/bash-comple
 /usr/share/locale/ 
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 2.14
+- Sync with LFS r13.1
+
 * Tue Jun 13 2023 Chris Statzer <chris.statzer@gmail.com> 2.06-1
 - Updating grub to allow a clean patch to fix a bug: https://wiki.linuxfromscratch.org/lfs/ticket/4354
 

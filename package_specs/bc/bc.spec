@@ -1,47 +1,40 @@
 Name:       bc
-Version:    1.07.1
+Version:    7.0.3
 Release:    1
 Summary:    Bc, an arbitrary precision numeric processing language. 
 License:    GPL3
-Source0:    %{name}-%{version}.tar.gz
+Source0:    bc-7.0.3.tar.xz
 Prefix:     /usr
 
 %description
 TODO
 
 %prep
-%setup -q -a0
+%setup -q
 
 %build
-cat > bc/fix-libmath_h << "EOF"
-#! /bin/bash
-sed -e '1   s/^/{"/' \
-    -e     's/$/",/' \
-    -e '2,$ s/^/"/'  \
-    -e   '$ d'       \
-    -i libmath.h
-
-sed -e '$ s/$/0}/' \
-    -i libmath.h
-EOF
-sed -i -e '/flex/s/as_fn_error/: ;; # &/' configure
-%configure --with-readline --mandir=/usr/share/man --infodir=/usr/share/info
+CC='gcc -std=c99' ./configure --prefix=/usr -G -O3 -r
 %make_build
 
 %install
 rm -rf %{buildroot}
-%make_install
-rm -vf %{buildroot}%{_infodir}/dir*
+make install_locales DESTDIR=%{buildroot}
+install -Dm755 bin/bc %{buildroot}%{_bindir}/bc
+install -Dm755 bin/dc %{buildroot}%{_bindir}/dc
+install -Dm644 manuals/bc.1 %{buildroot}%{_mandir}/man1/bc.1
+install -Dm644 manuals/dc.1 %{buildroot}%{_mandir}/man1/dc.1
 
 %files
 /usr/bin/bc
 /usr/bin/dc
-/usr/share/info/bc.info.gz
-/usr/share/info/dc.info.gz
 /usr/share/man/man1/bc.1.gz
 /usr/share/man/man1/dc.1.gz
+/usr/share/locale/
 
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 7.0.3
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - added missing changelog :)

@@ -1,5 +1,5 @@
 Name:       groff
-Version:    1.23.0
+Version:    1.24.1
 Release:    1
 Summary:    GNU typesetting system
 License:    GPL3
@@ -26,5 +26,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/groff.filelist
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 1.24.1
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump
