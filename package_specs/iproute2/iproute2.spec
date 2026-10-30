@@ -1,5 +1,5 @@
 Name:       iproute2
-Version:    6.4.0
+Version:    7.1.0
 Release:    1
 Summary:    kernel networking tool
 License:    GPL3
@@ -23,15 +23,15 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files
-/etc/iproute2/bpf_pinning
-/etc/iproute2/ematch_map
-/etc/iproute2/group
-/etc/iproute2/nl_protos
-/etc/iproute2/rt_dsfield
-/etc/iproute2/rt_protos
-/etc/iproute2/rt_realms
-/etc/iproute2/rt_scopes
-/etc/iproute2/rt_tables
+/usr/share/iproute2/bpf_pinning
+/usr/share/iproute2/ematch_map
+/usr/share/iproute2/group
+/usr/share/iproute2/nl_protos
+/usr/share/iproute2/rt_dsfield
+/usr/share/iproute2/rt_protos
+/usr/share/iproute2/rt_realms
+/usr/share/iproute2/rt_scopes
+/usr/share/iproute2/rt_tables
 /usr/sbin/bridge
 /usr/sbin/ctstat
 /usr/sbin/genl
@@ -45,8 +45,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/sbin/rtstat
 /usr/sbin/ss
 /usr/sbin/tc
-/usr/lib/tc/experimental.dist
-/usr/lib/tc/normal.dist
+/usr/lib/tc/
+/usr/share/bash-completion/completions/dpll
 /usr/lib/tc/pareto.dist
 /usr/lib/tc/paretonormal.dist
 /usr/share/bash-completion/completions/devlink
@@ -55,5 +55,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 7.1.0
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 6.4.0-1
 - Version bump

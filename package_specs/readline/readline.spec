@@ -1,5 +1,5 @@
 Name:       readline
-Version:    8.2
+Version:    8.3
 Release:    1
 Summary:    Library for command line editing
 License:    GPL3
@@ -20,7 +20,7 @@ sed -i '/{OLDSUFF}/c:' support/shlib-install
 %configure --prefix=/usr    \
             --disable-static \
             --with-curses    \
-            --docdir=/usr/share/doc/readline-8.2 \
+            --docdir=/usr/share/doc/readline-%{version} \
             --libdir=%{_libdir}
 
 %make_build SHLIB_LIBS="-lncursesw" 
@@ -41,10 +41,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/readline/tilde.h
 /usr/lib64/libhistory.so
 /usr/lib64/libhistory.so.8
-/usr/lib64/libhistory.so.8.2
+/usr/lib64/libhistory.so.8.3
 /usr/lib64/libreadline.so
 /usr/lib64/libreadline.so.8
-/usr/lib64/libreadline.so.8.2
+/usr/lib64/libreadline.so.8.3
 /usr/lib64/pkgconfig/history.pc
 /usr/lib64/pkgconfig/readline.pc
 /usr/share/doc/
@@ -52,4 +52,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 8.3
+- Sync with LFS r13.1
+
 # let's skip this for now

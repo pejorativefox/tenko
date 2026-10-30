@@ -569,6 +569,13 @@ to upgrade the remaining (non-base) specs with the target toolchain.
 - **2026-10-30** — 1.3 complete (host seed + `~/.rpmmacros` installed;
   `strip_debug.sh` put on `PATH` by `bbuild`). Toolchain: gcc 16.2.1,
   binutils 2.46.1, rpm 6.0.2. Debuginfo subpackages are now disabled.
+- **2026-10-30** — Wave A batch 4 built: `man-pages 6.18`, `iana-etc 20260805`,
+  `inetutils 2.8`, `iproute2 7.1.0`, `libffi 3.8.0`, `readline 8.3`.
+  Fixes: man-pages needs `make -R` and now ships helper scripts; inetutils needs
+  `-Wformat` added to CFLAGS on host gcc 16 and ships `talk`; iproute2 moved
+  config to `/usr/share/iproute2` and added `dpll` completion; libffi soname
+  `8.5.0`; readline soname `8.3`. Project macros now set
+  `%__brp_check_rpaths %{nil}` (standard `/usr/lib64` runpaths are accepted).
 - **2026-10-30** — Wave A batch 3 built: `diffutils 3.12`, `findutils 4.11.0`,
   `libpipeline 1.5.8`, `libcap 2.78`, `xz 5.8.3`, `zstd 1.5.7`,
   `gperf 3.3`, `libtool 2.6.2`. Fixes: libcap sonames `2.78`; zstd now uses
