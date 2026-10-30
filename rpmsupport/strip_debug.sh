@@ -1,7 +1,7 @@
 echo "*** STRIPPING BINS ***"
 BUILDROOT=$1
 
-for f in `find $BUILDROOT -type f -executable -exec sh -c "file '{}' | grep -q 'not stripped'" \\; -print`
+for f in `find $BUILDROOT -type f -writable -executable -exec sh -c "file '{}' | grep -q 'not stripped'" \\; -print`
 do
 	strip -v -g $f
 done

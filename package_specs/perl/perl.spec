@@ -1,5 +1,5 @@
 Name:       perl
-Version:    5.38.0
+Version:    5.44.0
 Release:    1
 Summary:    Perl programming language
 License:    GPL3
@@ -9,7 +9,7 @@ Prefix:     /usr
 AutoReq: no
 
 Provides: /bin/perl
-Provides: perl = 5.38.0-1
+Provides: perl = 5.44.0-1
 Provides: perl >= 1:5.6
 Provides: libperl.so
 Provides: perl(File::HomeDir)
@@ -48,10 +48,16 @@ unset BUILD_ZLIB BUILD_BZIP2
 rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
-rm %{buildroot}/usr/share/man/man3/Thread.3
+rm -f %{buildroot}/usr/share/man/man3/Thread.3
 
-%files -f %{_sourcedir}/perl.filelist
+%files
+/usr/bin/
+/usr/lib64/
+/usr/share/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 5.44.0
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 5.38.0-1
 - Version bump
