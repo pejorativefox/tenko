@@ -47,6 +47,11 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - The second-generation full rebuild against that image passed **93/93**
   (`build/container-rebuild-selfhost-20261031/`).  The container can now
   rebuild every base package from its own RPMs, offline (`--network=none`).
+- `bootstrap_selfhosted.sh` was run once more from the second-generation
+  output, so the final `localhost/browneye/base:r13.1-selfhost-20261031`
+  image, `build/repo-selfhost`, and `build/rootfs-selfhost` all come from
+  self-hosted RPMs.  Smoke builds of `zlib` and `python-flit-core` pass in
+  that image; `rpm -Va` is clean except podman's `/etc/hosts` overlay.
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
@@ -494,11 +499,13 @@ localhost login:
 - `linux-api-headers` is copied from the **host's** `kernel-headers` 7.2.4,
   not built from kernel source. It is a bootstrap-only package; replace it
   with `make headers_install` from the pinned kernel in phase 2.
-- `rpm`, `libarchive`, `lua`, and `popt` were built against host devel
-  prefixes (`build/deps/*`) and/or host toolchain. They are in-repo, but the
-  RPM toolchain is not yet self-hosted (no ch5–7 bootstrap).
+- The RPM toolchain (`rpm`, `libarchive`, `lua`, `popt`) was initially built
+  against host devel prefixes (`build/deps/*`), but the second-generation
+  rebuild compiled it inside the self-hosted image. Ch5–7 bootstrap is still
+  absent; the container relies on the chapter-8 toolchain.
 - The container has no `dnf`/`createrepo_c`; host tools are required to
-  assemble a new rootfs or refresh the repo.
+  assemble a new rootfs or refresh the repo. The **build** is self-hosted;
+  the **assembly** is still host-assisted.
 - `build/repo` is not pruned: 111 RPMs include old versions, debuginfo from
   early builds, and both `sqlite` and the retired `sqlite3` name.
 - The kernel config is derived from the old 6.4.12 LFS config plus hand-picked
