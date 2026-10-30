@@ -1,5 +1,5 @@
 Name:       elfutils
-Version:    0.189
+Version:    0.195
 Release:    1
 Summary:    ELF file handling library
 License:    GPL3
@@ -36,5 +36,8 @@ rm %{buildroot}/usr/lib64/libelf.a
 /usr/lib64/pkgconfig/libelf.pc
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 0.195
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 0.189-1
 - Version bump

@@ -1,1 +1,2 @@
-040b4b7acaf89499834bfc79609af29f https://ftp.gnu.org/gnu/coreutils/coreutils-9.3.tar.xz
+e52e9857e4aa9ae38ef32f8ed6a27604 https://ftpmirror.gnu.org/coreutils/coreutils-9.11.tar.xz
+900d64d9936516b68613271c9ebc0059 https://www.linuxfromscratch.org/patches/lfs/13.1/coreutils-9.11-i18n-1.patch coreutils-9.11-i18n-1.patch
