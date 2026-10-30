@@ -44,8 +44,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `localhost/browneye/base:r13.1-selfhost-20261031`.  The new image verified
   `pip 26.2.1`, `tclsh`, `makeinfo 7.3`, `/usr/sbin/init` owned by systemd,
   `gcc 16.2.0`, `rpmbuild 4.18.1`, and 93 installed packages.
-- The second-generation full rebuild is running against that image; see
-  `build/container-rebuild-selfhost-20261031/`.
+- The second-generation full rebuild against that image passed **93/93**
+  (`build/container-rebuild-selfhost-20261031/`).  The container can now
+  rebuild every base package from its own RPMs, offline (`--network=none`).
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
@@ -459,10 +460,10 @@ localhost login:
 - [ ] C10. Add an initramfs (dracut in the target or a custom cpio) and a
       bootloader path; the current QEMU boot relies on built-in virtio/ext4
       and `-kernel`.
-- [ ] C11. Close the self-hosting gaps found by rebuilding the base inside the
-      container: rebuild texinfo before makeinfo users, bootstrap pip, and
-      install the new RPMs into a fresh rootfs/image to prove the next
-      generation does not depend on host-built binaries.
+- [x] C11. Close the self-hosting gaps found by rebuilding the base inside the
+      container: rebuild texinfo/tcl before their users, bootstrap pip, and
+      install the new RPMs into a fresh rootfs/image.  The fresh image rebuilt
+      all 93 packages offline in the second-generation run.
 
 ### D. Phase 2 (explicitly out of current scope)
 
@@ -516,18 +517,16 @@ localhost login:
 
 ## 8. Suggested first three actions for the new agent
 
-1. **Finish the in-container base rebuild.** Run
-   `./scripts/verify_base_in_container.sh`, inspect failures with
-   `./scripts/show_rebuild_failures.sh`, and rerun only the failed packages.
-   The current bootstrap fixes are texinfo (Perl 5.44), pip/ensurepip, and
-   systemd's `/usr/sbin/init` ownership.
-2. **Prove the next generation.** Once every package passes, run
-   `./scripts/bootstrap_selfhosted.sh build/container-rebuild-...` to build a
-   clean repo from the rebuilt RPMs, install a fresh rootfs/image, and rerun
-   the build (at least a representative subset) inside that image.
-3. **Add an initramfs and bootloader path.** The current QEMU boot depends on
+1. **Add an initramfs and bootloader path.** The current QEMU boot depends on
    virtio/ext4/serial being built into the kernel. For real hardware and
-   module-based storage, add dracut (or a custom cpio) and finish grub.
+   module-based storage, add dracut (or a custom cpio) and finish the grub
+   install/boot path.
+2. **Replace the host-derived `linux-api-headers`** with
+   `make headers_install` from the pinned 7.1.8 source, then rebuild the
+   packages that consume UAPI headers.
+3. **Decide whether rootfs assembly must also be self-hosted.** The build is
+   now self-hosted; `dnf` + `createrepo_c` are still host tools. Build them
+   only if the assembly pipeline itself must run in the container.
 
 ---
 
