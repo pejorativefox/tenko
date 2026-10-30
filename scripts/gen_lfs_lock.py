@@ -52,7 +52,6 @@ SOURCE_NAME_FALLBACKS = {
 DEFAULT_ALIASES = {
     "pcre": "pcre2",
     "procps": "procps-ng",
-    "sqlite": "sqlite3",
     "libelf": "elfutils",
     "flit-core": "python-flit-core",
     "packaging": "python-packaging",

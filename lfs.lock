@@ -8,7 +8,6 @@
     "pcre": "pcre2",
     "procps": "procps-ng",
     "setuptools": "python-setuptools",
-    "sqlite": "sqlite3",
     "wheel": "python-wheel"
   },
   "base_packages": [

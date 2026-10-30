@@ -102,6 +102,8 @@ def sync_one(name, lock, index, write=False, note="Sync with LFS r13.1"):
         return {"name": name, "status": "no-spec"}
 
     new_version = lock["packages"][lfs_name]
+    if lfs_name == "sqlite" and "sqlite-short" in lock["packages"]:
+        new_version = lock["packages"]["sqlite-short"]
     source = lock.get("sources", {}).get(lfs_name)
     spec_text = open(spec_path, "r", encoding="utf-8").read()
 
