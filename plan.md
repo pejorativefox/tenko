@@ -29,6 +29,24 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - `dnf` and `createrepo_c` are **not** in the image yet. Decision: keep repo
   assembly and rootfs installs on the host for now (§6 A3/A4).
 
+**Self-hosted rebuild (2026-10-31).**
+
+- All **93** specs in the base set (80 LFS + bootstrap extras + glue +
+  `browneye-base`) build inside `browneye/base:r13.1-rpm5-20261030` with
+  `--network=none`.
+- The first full run exposed and fixed: host-Perl texinfo (`MiscXS.so`),
+  missing pip, `makeinfo`-using packages, tcl's split-library path, ncurses
+  `tinfo.pc`, gettext's C# assembly, grub's `/usr/sbin` payload, groff PDF
+  generation without URW fonts, and sqlite's autosetup host-triplet compiler
+  lookup.
+- `scripts/bootstrap_selfhosted.sh` assembled `build/repo-selfhost` (97
+  RPMs), installed `build/rootfs-selfhost` (93 packages), and built
+  `localhost/browneye/base:r13.1-selfhost-20261031`.  The new image verified
+  `pip 26.2.1`, `tclsh`, `makeinfo 7.3`, `/usr/sbin/init` owned by systemd,
+  `gcc 16.2.0`, `rpmbuild 4.18.1`, and 93 installed packages.
+- The second-generation full rebuild is running against that image; see
+  `build/container-rebuild-selfhost-20261031/`.
+
 **Phase 2 boot smoke test is green (2026-10-30).**
 
 - Kernel **7.1.8** built with virtio-blk/virtio-pci/serial/ext4 built in;
@@ -227,17 +245,42 @@ The wrapper mounts with `:z` (shared SELinux label), not `:Z`: starting a
 second container with `:Z` relabels the shared `package_specs` tree and makes
 a running rebuild fail with `Permission denied` on every later spec.
 
-Two bootstrap steps happen inside the container before the parallel queue:
+Bootstrap steps happen inside the container before the parallel queue:
 
 1. **texinfo** is rebuilt first and installed into the throw-away container.
    The old image's texinfo was built on the host with Perl 5.42, but the image
    ships Perl 5.44; its `MiscXS.so` cannot load and every `makeinfo` caller
    (dejagnu, binutils, gcc, ...) fails. The rebuilt texinfo is installed with
    `rpm -Uvh --replacepkgs --replacefiles`.
-2. **pip** is bootstrapped with `python3 -m ensurepip` because the current
+2. **tcl** is rebuilt next and installed the same way. The old image's
+   `tclsh8.6` was built with `/usr/lib/tcl8.6` compiled in but the library was
+   moved to `/usr/lib64/lib/tcl8.6`; sqlite's autosetup/configure needs a
+   working `tclsh`. The rebuilt tcl adds `/usr/bin/tclsh` and a
+   `/usr/lib/tcl8.6` compatibility symlink, and packages its `tzdata`.
+3. **pip** is bootstrapped with `python3 -m ensurepip` because the current
    image was built with `--without-ensurepip`. The Python module specs also
    use `--no-build-isolation --ignore-installed`, so they build offline and
-   do not try to uninstall the rpm-owned copy in the running image.
+   do not try to uninstall the rpm-owned copy in the running image. The
+   rebuilt python spec installs pip from the bundled wheel into the RPM
+   buildroot, so the next image does not need this bootstrap.
+
+After the rebuild, assemble a clean repo and next-generation image:
+
+```bash
+./scripts/bootstrap_selfhosted.sh build/container-rebuild-YYYYMMDD-N
+# creates build/repo-selfhost, build/rootfs-selfhost,
+# build/rootfs-selfhost.tar.gz, and
+# localhost/browneye/base:r13.1-selfhost-YYYYMMDD
+
+IMAGE=localhost/browneye/base:r13.1-selfhost-YYYYMMDD \
+  OUT=build/container-rebuild-selfhost \
+  ./scripts/verify_base_in_container.sh
+```
+
+`bootstrap_selfhosted.sh` refuses to run if any status file says `fail`.
+It copies only RPMs produced by the container rebuild; the phase-2 kernel
+RPMs are copied from `~/rpmbuild` as an optional boot payload and are not
+part of `browneye-base`.
 
 ### Boot the rootfs under QEMU
 
