@@ -42,6 +42,7 @@ rm -rf %{buildroot}/usr/share/man
 /etc/ssl/openssl.cnf
 /etc/ssl/openssl.cnf.dist
 /usr/bin/openssl
+/usr/lib64/cmake/OpenSSL/
 /usr/lib64/libcrypto.so                                                                                                                                                                               
 /usr/lib64/libcrypto.so.4                                                                                                                                                                             
 /usr/lib64/libssl.so                                                                                                                                                                                  
