@@ -1,5 +1,5 @@
 Name:       xz
-Version:    5.4.4
+Version:    5.8.3
 Release:    1
 Summary:    Free general-purpose data compression software
 License:    GPL3
@@ -15,7 +15,7 @@ XZ Utils is free general-purpose data compression software with a high compressi
 %build
 ./configure --prefix=/usr    \
             --disable-static \
-            --docdir=/usr/share/doc/xz-5.4.4 \
+            --docdir=/usr/share/doc/xz-%{version} \
             --libdir=%{_libdir}
 %make_build
 
@@ -71,5 +71,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 5.8.3
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 5.4.4
 - Version bump

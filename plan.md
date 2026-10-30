@@ -569,6 +569,13 @@ to upgrade the remaining (non-base) specs with the target toolchain.
 - **2026-10-30** — 1.3 complete (host seed + `~/.rpmmacros` installed;
   `strip_debug.sh` put on `PATH` by `bbuild`). Toolchain: gcc 16.2.1,
   binutils 2.46.1, rpm 6.0.2. Debuginfo subpackages are now disabled.
+- **2026-10-30** — Wave A batch 3 built: `diffutils 3.12`, `findutils 4.11.0`,
+  `libpipeline 1.5.8`, `libcap 2.78`, `xz 5.8.3`, `zstd 1.5.7`,
+  `gperf 3.3`, `libtool 2.6.2`. Fixes: libcap sonames `2.78`; zstd now uses
+  `DESTDIR` so `libzstd.pc` has no buildroot path; libtool touches its
+  pre-generated man pages (no host `help2man`) and adds
+  `libtool-next-version` + `libltdl.so.7.3.6`; libpipeline needed a retry of
+  the Savannah download (TLS flake).
 - **2026-10-30** — Wave A batch 2 built: `grep 3.12`, `ninja 1.13.2`,
   `libxcrypt 4.5.2`, `gawk 5.4.1`, `psmisc 23.7`, `pkgconf 3.0.5`,
   `mpfr 4.2.2`, `mpc 1.4.1`. `acl 2.4.0` and `less 704` now build too.

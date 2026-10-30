@@ -1,5 +1,5 @@
 Name:       libtool
-Version:    2.4.7
+Version:    2.6.2
 Release:    1
 Summary:    Generic library support script
 License:    GPL3
@@ -14,6 +14,8 @@ Generic library support script
 
 %build
 %configure
+# keep pre-generated man pages; help2man is not in the seed
+touch doc/libtool.1 doc/libtoolize.1
 %make_build
 
 %install    
@@ -23,6 +25,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files
 /usr/bin/libtool
+/usr/bin/libtool-next-version
 /usr/bin/libtoolize
 /usr/include/libltdl/lt_dlloader.h
 /usr/include/libltdl/lt_error.h
@@ -31,7 +34,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/libltdl.a
 /usr/lib64/libltdl.so
 /usr/lib64/libltdl.so.7
-/usr/lib64/libltdl.so.7.3.2
+/usr/lib64/libltdl.so.7.3.6
 /usr/share/aclocal/libtool.m4
 /usr/share/aclocal/ltargz.m4
 /usr/share/aclocal/ltdl.m4
@@ -84,9 +87,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/libtool/ltdl.h
 /usr/share/libtool/ltdl.mk
 /usr/share/libtool/slist.c
+/usr/share/man/man1/libtool-next-version.1.gz
 /usr/share/man/man1/libtool.1.gz
 /usr/share/man/man1/libtoolize.1.gz
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 2.6.2
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.4.7-1
 - Version bump
