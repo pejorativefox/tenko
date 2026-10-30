@@ -1,6 +1,7 @@
 import os
 import logging
 import sqlite3 as sql
+import threading
 
 
 DEFAULT_DATABASE_PATH = "./.package.sqlite"
@@ -49,73 +50,78 @@ SQL_GET_FAILED = """
 SELECT * FROM package WHERE failed=TRUE;
 """
 
+
 class PackageDatabase(object):
     def __init__(self, path=DEFAULT_DATABASE_PATH):
         self._path = path
+        self._lock = threading.RLock()
         if os.path.isfile(path) == False:
             print("Creating database @", self._path)
             self._create_package_database(self._path)
         else:
             #print("Aldeady have a database @", self._path)
             pass
-        
-        self._connection = sql.connect(self._path)
+
+        # build_all(--jobs) shares this connection between worker threads
+        self._connection = sql.connect(self._path, check_same_thread=False)
 
     def _create_package_database(self, path=DEFAULT_DATABASE_PATH):
         connection = sql.connect(path)
         with connection:
             connection.execute(SQL_CREATE_TABLES)
         connection.close()
-    
+
     def _check_package_exists(self, package_name):
-        cur = self._connection.cursor()
-        cur.execute(SQL_CHECK_PACKAGE_EXISTS.format(package_name))
-        rows = cur.fetchall()
-        if len(rows) > 0:
-            return True
-        return False
+        with self._lock:
+            cur = self._connection.cursor()
+            cur.execute(SQL_CHECK_PACKAGE_EXISTS.format(package_name))
+            rows = cur.fetchall()
+        return len(rows) > 0
 
     def add_package(self, name):
         if self._check_package_exists(name) is False:
             if os.getenv("BBUILD_VERBOSE"):
                 print("new package: ", name)
-            self._connection.execute(SQL_ADD_PACKAGE.format(name))
-            self._connection.commit()
+            with self._lock:
+                self._connection.execute(SQL_ADD_PACKAGE.format(name))
+                self._connection.commit()
             return True
         else:
             #print("Already exists: ", name)
             return False
 
     def is_built(self, name):
-        cur = self._connection.cursor()
-        cur.execute(SQL_IS_BUILT.format(name))
-        row = cur.fetchone()
-        if row[0] == 1:
-            return True
-        return False
+        with self._lock:
+            cur = self._connection.cursor()
+            cur.execute(SQL_IS_BUILT.format(name))
+            row = cur.fetchone()
+        return bool(row and row[0] == 1)
 
     def set_built(self, name):
-        cur = self._connection.cursor()
-        cur.execute(SQL_SET_BUILT.format(name))
-        self._connection.commit()
+        with self._lock:
+            cur = self._connection.cursor()
+            cur.execute(SQL_SET_BUILT.format(name))
+            self._connection.commit()
 
     def set_unbuilt(self, name):
-        cur = self._connection.cursor()
-        cur.execute(SQL_SET_UNBUILT.format(name))
-        self._connection.commit()
-    
+        with self._lock:
+            cur = self._connection.cursor()
+            cur.execute(SQL_SET_UNBUILT.format(name))
+            self._connection.commit()
+
     def set_failed(self, name):
-        cur = self._connection.cursor()
-        cur.execute(SQL_SET_FAILED.format(name))
-        self._connection.commit()
-    
+        with self._lock:
+            cur = self._connection.cursor()
+            cur.execute(SQL_SET_FAILED.format(name))
+            self._connection.commit()
+
     def get_failed(self):
-        cur = self._connection.cursor()
-        cur.execute(SQL_GET_FAILED)
-        rows = cur.fetchall()
+        with self._lock:
+            cur = self._connection.cursor()
+            cur.execute(SQL_GET_FAILED)
+            rows = cur.fetchall()
         return rows
-        
-        
+
 
 if __name__ == "__main__":
     import package

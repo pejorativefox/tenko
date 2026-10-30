@@ -28,14 +28,14 @@ pushd build
              --enable-stack-protector=strong          \
              --with-headers=/usr/include              \
              --libdir=%{_libdir}
-make
+%make_build
 popd
 
 %install
 rm -rf %{buildroot}
 pushd build
 sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile
-make install_root=%{buildroot} install
+make -j%{_smp_build_ncpus} install_root=%{buildroot} install
 sed '/RTLDLIST=/s@/usr@@g' -i %{buildroot}/usr/bin/ldd
 popd
 

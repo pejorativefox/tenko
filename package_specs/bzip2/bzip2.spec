@@ -16,10 +16,10 @@ bzip2 is a free and open-source file compression program that uses the Burrows-W
 rm -rf %{buildroot}
 sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
 sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
-make -f Makefile-libbz2_so
+make -j%{_smp_build_ncpus} -f Makefile-libbz2_so
 make clean
-make
-make PREFIX=%{buildroot}/usr install
+%make_build
+make -j%{_smp_build_ncpus} PREFIX=%{buildroot}/usr install
 mkdir -pv %{buildroot}/usr/lib64
 cp -av libbz2.so.* %{buildroot}/usr/lib64
 ln -sv libbz2.so.1.0.8 %{buildroot}/usr/lib64/libbz2.so

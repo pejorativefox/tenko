@@ -2,6 +2,7 @@ import logging
 import os
 import glob
 import shutil
+from concurrent.futures import ThreadPoolExecutor
 
 from db import PackageDatabase
 from process import run_process
@@ -103,9 +104,27 @@ class PackageBuilder(object):
         self._record(package, success)
         return success
 
-    def build_all(self):
+    @staticmethod
+    def default_jobs():
+        """Parallel package builds. Each rpmbuild itself gets -j<ncpus>."""
+        cpus = os.cpu_count() or 4
+        return max(4, min(8, cpus // 2))
+
+    def build_packages(self, names, jobs=0):
+        jobs = jobs or self.default_jobs()
+        if jobs <= 1 or len(names) <= 1:
+            results = []
+            for name in names:
+                results.append(self.build_package(name))
+            return results
+        print("Building {} packages with {} workers.".format(len(names), jobs))
+        with ThreadPoolExecutor(max_workers=min(jobs, len(names))) as pool:
+            return list(pool.map(self.build_package, names))
+
+    def build_all(self, jobs=0):
         order = load_order()
         seen = set()
+        queue = []
         for name in order:
             resolved = resolve_package_name(name, self.packages, self.aliases)
             if resolved is None:
@@ -115,7 +134,7 @@ class PackageBuilder(object):
             if self.package_db.is_built(resolved):
                 print(resolved, "is already built, skipping.")
                 continue
-            self.build_package(resolved)
+            queue.append(resolved)
 
         # Anything not listed in ORDER still gets built, in discovery order.
         for package_name in self.packages:
@@ -124,7 +143,9 @@ class PackageBuilder(object):
             if self.package_db.is_built(package_name):
                 print(package_name, "is already built, skipping.")
                 continue
-            self.build_package(package_name)
+            queue.append(package_name)
+
+        self.build_packages(queue, jobs=jobs)
 
 
 if __name__ == "__main__":

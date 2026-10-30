@@ -569,6 +569,11 @@ to upgrade the remaining (non-base) specs with the target toolchain.
 - **2026-10-30** — 1.3 complete (host seed + `~/.rpmmacros` installed;
   `strip_debug.sh` put on `PATH` by `bbuild`). Toolchain: gcc 16.2.1,
   binutils 2.46.1, rpm 6.0.2. Debuginfo subpackages are now disabled.
+- **2026-10-30** — Build parallelism: `bbuild build all` and
+  `bbuild build <pkg...>` now build packages concurrently (auto: 8 workers on
+  this 16-core / 32 GB box), source downloads run 12-way, and the remaining
+  bare `make` calls in base specs (glibc, bzip2) use `-j%{_smp_build_ncpus}`.
+  rpm already reports 16 ncpus, so `%make_build` is `-j16`.
 - **2026-10-30** — Wave A batch 4 built: `man-pages 6.18`, `iana-etc 20260805`,
   `inetutils 2.8`, `iproute2 7.1.0`, `libffi 3.8.0`, `readline 8.3`.
   Fixes: man-pages needs `make -R` and now ships helper scripts; inetutils needs

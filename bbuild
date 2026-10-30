@@ -23,8 +23,10 @@ build_parser = command_parsers.add_parser('build')
 query_parser = command_parsers.add_parser('query')
 
 # build
-build_parser.add_argument("package_name",
-                          help="package name, LFS alias, 'all', or a path to a .spec")
+build_parser.add_argument("package_name", nargs="+",
+                          help="package name(s), LFS aliases, 'all', or a path to a .spec")
+build_parser.add_argument("--jobs", type=int, default=0,
+                          help="parallel package builds (0 = auto, default)")
 # query
 query_parser.add_argument("mode")
 args = parser.parse_args()
@@ -39,11 +41,11 @@ if args.command == "query":
             print(p[1])
 
 if args.command == "build":
-    if args.package_name == "all":
-        pbuilder.build_all()
-    elif args.package_name.endswith(".spec") or os.sep in args.package_name:
-        logging.basicConfig(level=logging.DEBUG)
-        pbuilder.build_spec(args.package_name)
+    names = args.package_name
+    logging.basicConfig(level=logging.DEBUG)
+    if names == ["all"]:
+        pbuilder.build_all(jobs=args.jobs)
+    elif len(names) == 1 and (names[0].endswith(".spec") or os.sep in names[0]):
+        pbuilder.build_spec(names[0])
     else:
-        logging.basicConfig(level=logging.DEBUG)
-        pbuilder.build_package(args.package_name)
+        pbuilder.build_packages(names, jobs=args.jobs)
