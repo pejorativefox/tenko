@@ -14,13 +14,17 @@ groff (GNU roff) is a typesetting system that reads plain text input files that 
 
 %build
 export PAGE=letter
-%configure 
-%make_build
+%configure
+%make_build MOMPROCESSEDEXAMPLEFILES= PROCESSEDDOCFILES_PDF= \
+    nodist_docpdfdoc_DATA= nodist_momprocessedexample_DATA= \
+    nodist_sboxespdfdoc_DATA=
 unset PAGE
 
 %install
 rm -rf %{buildroot}
-%make_install
+%make_install MOMPROCESSEDEXAMPLEFILES= PROCESSEDDOCFILES_PDF= \
+    nodist_docpdfdoc_DATA= nodist_momprocessedexample_DATA= \
+    nodist_sboxespdfdoc_DATA= PDFDOCFILE=
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/groff.filelist

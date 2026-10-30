@@ -29,7 +29,6 @@ ln -sf usr/bin  %{buildroot}/bin
 ln -sf usr/lib  %{buildroot}/lib
 ln -sf usr/lib64 %{buildroot}/lib64
 ln -sf usr/sbin %{buildroot}/sbin
-ln -sf /usr/lib/systemd/systemd %{buildroot}/usr/sbin/init
 
 %files
 /bin
@@ -41,7 +40,6 @@ ln -sf /usr/lib/systemd/systemd %{buildroot}/usr/sbin/init
 /usr/lib
 /usr/lib64
 /usr/sbin
-/usr/sbin/init
 /usr/include
 /usr/libexec
 /usr/share

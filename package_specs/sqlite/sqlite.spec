@@ -18,7 +18,8 @@ CPPFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1 \
           -DSQLITE_ENABLE_UNLOCK_NOTIFY=1 \
           -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
           -DSQLITE_SECURE_DELETE=1" \
-%configure --disable-static --enable-fts{4,5}
+./configure --prefix=/usr --libdir=%{_libdir} --disable-static \
+    --enable-fts4 --enable-fts5
 %make_build
 
 %install

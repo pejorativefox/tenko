@@ -37,6 +37,17 @@ patch -Np1 -i %{_sourcedir}/Python-3.14.7-openssl_4-1.patch
 %install
 rm -rf %{buildroot}
 %make_install
+# Install pip from the bundled wheel.  ensurepip itself skips this because the
+# build container already has pip in its host site-packages; an explicit
+# --ignore-installed install targets the RPM buildroot instead.
+python3 -m pip install --root=%{buildroot} --prefix=/usr --no-deps \
+    --ignore-installed --force-reinstall \
+    %{buildroot}/usr/lib64/python3.14/ensurepip/_bundled/pip-*.whl
+if [ -d %{buildroot}/usr/lib/python3.14 ]; then
+    mkdir -p %{buildroot}/usr/lib64/python3.14
+    cp -a %{buildroot}/usr/lib/python3.14/. %{buildroot}/usr/lib64/python3.14/
+    rm -rf %{buildroot}/usr/lib/python3.14
+fi
 rm -vf %{buildroot}%{_infodir}/dir*
 sed -i 's|#!/usr/bin/env python$|#!/usr/bin/env python3|' %{buildroot}/usr/lib64/python3.14/encodings/rot_13.py
 ln -s python3.14 %{buildroot}/usr/bin/python

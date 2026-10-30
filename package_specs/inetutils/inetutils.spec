@@ -14,13 +14,16 @@ Collection of common network programs.
 
 %build
 CFLAGS="$CFLAGS -Wformat"
+LIBS="-lncurses -ltinfo"
+export LIBS
 %configure  --disable-logger     \
             --disable-whois      \
             --disable-rcp        \
             --disable-rexec      \
             --disable-rlogin     \
             --disable-rsh        \
-            --disable-servers 
+            --disable-ncurses    \
+            --disable-servers
 %make_build
 
 %install

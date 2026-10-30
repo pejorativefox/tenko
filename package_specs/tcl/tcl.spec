@@ -42,6 +42,9 @@ pushd unix
 %make_install
 DESTDIR=%{buildroot} make install-private-headers
 mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
+mkdir -p %{buildroot}/usr/lib
+ln -sf tclsh8.6 %{buildroot}/usr/bin/tclsh
+ln -sfn /usr/lib64/lib/tcl8.6 %{buildroot}/usr/lib/tcl8.6
 popd
 
 %files -f %{_sourcedir}/tcl.filelist

@@ -1153,3 +1153,6 @@
 /usr/share/man/mann/yield.n.gz
 /usr/share/man/mann/yieldto.n.gz
 /usr/share/man/mann/zlib.n.gz
+/usr/bin/tclsh
+/usr/lib/tcl8.6
+/usr/lib64/lib/tcl8.6/tzdata/

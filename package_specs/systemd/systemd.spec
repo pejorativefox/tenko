@@ -48,6 +48,7 @@ popd
 /usr/include/
 /usr/lib/
 /usr/lib64/
+/usr/sbin/
 /usr/share/
 
 %changelog

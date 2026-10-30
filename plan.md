@@ -209,6 +209,36 @@ rpm -Uvh --nodeps /rpmbuild/RPMS/x86_64/chello-1.0-1.x86_64.rpm
 rpm -q chello && /usr/bin/chello && rpm -e chello
 ```
 
+### Rebuild the whole base inside the container
+
+This is the self-hosting check. The host only creates the package list and
+bind-mounts specs, sources, and output; every `rpmbuild` runs in the image.
+
+```bash
+cd ~/browneye
+OUT=build/container-rebuild-$(date +%Y%m%d-%H%M%S) \
+  ./scripts/verify_base_in_container.sh
+
+# failed package names + log tails
+./scripts/show_rebuild_failures.sh build/container-rebuild-YYYYMMDD-N
+```
+
+The wrapper mounts with `:z` (shared SELinux label), not `:Z`: starting a
+second container with `:Z` relabels the shared `package_specs` tree and makes
+a running rebuild fail with `Permission denied` on every later spec.
+
+Two bootstrap steps happen inside the container before the parallel queue:
+
+1. **texinfo** is rebuilt first and installed into the throw-away container.
+   The old image's texinfo was built on the host with Perl 5.42, but the image
+   ships Perl 5.44; its `MiscXS.so` cannot load and every `makeinfo` caller
+   (dejagnu, binutils, gcc, ...) fails. The rebuilt texinfo is installed with
+   `rpm -Uvh --replacepkgs --replacefiles`.
+2. **pip** is bootstrapped with `python3 -m ensurepip` because the current
+   image was built with `--without-ensurepip`. The Python module specs also
+   use `--no-build-isolation --ignore-installed`, so they build offline and
+   do not try to uninstall the rpm-owned copy in the running image.
+
 ### Boot the rootfs under QEMU
 
 ```bash
@@ -386,6 +416,10 @@ localhost login:
 - [ ] C10. Add an initramfs (dracut in the target or a custom cpio) and a
       bootloader path; the current QEMU boot relies on built-in virtio/ext4
       and `-kernel`.
+- [ ] C11. Close the self-hosting gaps found by rebuilding the base inside the
+      container: rebuild texinfo before makeinfo users, bootstrap pip, and
+      install the new RPMs into a fresh rootfs/image to prove the next
+      generation does not depend on host-built binaries.
 
 ### D. Phase 2 (explicitly out of current scope)
 
@@ -439,16 +473,18 @@ localhost login:
 
 ## 8. Suggested first three actions for the new agent
 
-1. **Make the boot test a real login test.** Set a root password (or add a
-   test user), boot, log in over `ttyS0`, and run `systemctl status`,
-   `journalctl`, `python3`, and `gcc` inside the VM.
-2. **Add an initramfs and bootloader path.** The current QEMU boot depends on
+1. **Finish the in-container base rebuild.** Run
+   `./scripts/verify_base_in_container.sh`, inspect failures with
+   `./scripts/show_rebuild_failures.sh`, and rerun only the failed packages.
+   The current bootstrap fixes are texinfo (Perl 5.44), pip/ensurepip, and
+   systemd's `/usr/sbin/init` ownership.
+2. **Prove the next generation.** Once every package passes, run
+   `./scripts/bootstrap_selfhosted.sh build/container-rebuild-...` to build a
+   clean repo from the rebuilt RPMs, install a fresh rootfs/image, and rerun
+   the build (at least a representative subset) inside that image.
+3. **Add an initramfs and bootloader path.** The current QEMU boot depends on
    virtio/ext4/serial being built into the kernel. For real hardware and
    module-based storage, add dracut (or a custom cpio) and finish grub.
-3. **Decide whether the build pipeline must be fully self-hosted.** Today
-   rootfs assembly uses host dnf/createrepo; the container builds RPMs but
-   cannot install a dependency graph. Building `dnf` + `createrepo_c` is a
-   large dependency project; do it only if self-hosting is required.
 
 ---
 

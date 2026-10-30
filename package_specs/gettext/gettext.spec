@@ -28,7 +28,6 @@ rm -rf %{buildroot}/usr/share/doc/gettext-%{version}/examples
 %files
 /usr/bin/
 /usr/include/
-/usr/lib64/GNU.Gettext.dll
 /usr/lib64/gettext/
 /usr/lib64/libasprintf.so*
 /usr/lib64/libgettextlib*

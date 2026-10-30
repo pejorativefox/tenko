@@ -48,9 +48,25 @@ ln -sfv libncursesw.so %{buildroot}%{_libdir}/libcurses.so
 ln -sfv libncursesw.so.6 %{buildroot}%{_libdir}/libtinfo.so.6
 ln -sfv libncursesw.so %{buildroot}%{_libdir}/libtinfo.so
 
+# ncurses ships a separate libtinfo; readline 8.3's readline.pc declares
+# "Requires.private: tinfo", so provide the matching pkg-config file.
+cat > %{buildroot}%{_libdir}/pkgconfig/tinfo.pc <<'EOF'
+prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib64
+includedir=/usr/include
+
+Name: Tinfo
+Description: Terminal information library
+Version: 6.6
+Libs: -L${libdir} -ltinfo
+Cflags: -I${includedir}
+EOF
+
 %files
 /usr/bin/
 /usr/include/
+/usr/lib/
 /usr/lib64/
 /usr/share/
 

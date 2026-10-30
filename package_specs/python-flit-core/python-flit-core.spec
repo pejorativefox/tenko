@@ -16,7 +16,7 @@ Flit is a simple way to put Python packages and modules on PyPI.
 
 %install
 rm -rf %{buildroot}
-python3 -m pip install --root=%{buildroot} --prefix=/usr --no-deps --no-warn-script-location .
+python3 -m pip install --root=%{buildroot} --prefix=/usr --no-deps --no-build-isolation --ignore-installed --no-warn-script-location .
 if [ -d %{buildroot}/usr/lib/python3.14 ]; then
   mkdir -p %{buildroot}/usr/lib64
   mv %{buildroot}/usr/lib/python3.14 %{buildroot}/usr/lib64/

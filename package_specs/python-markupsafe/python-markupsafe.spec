@@ -16,7 +16,7 @@ Safely add untrusted strings to HTML/XML markup.
 
 %install
 rm -rf %{buildroot}
-MARKUPSAFE_PURE_PYTHON=1 python3 -m pip install --root=%{buildroot} --prefix=/usr --no-deps --no-warn-script-location .
+MARKUPSAFE_PURE_PYTHON=1 python3 -m pip install --root=%{buildroot} --prefix=/usr --no-deps --no-build-isolation --ignore-installed --no-warn-script-location .
 if [ -d %{buildroot}/usr/lib/python3.14 ]; then
   mkdir -p %{buildroot}/usr/lib64
   mv %{buildroot}/usr/lib/python3.14 %{buildroot}/usr/lib64/
