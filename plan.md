@@ -230,6 +230,8 @@ rpm -q chello && /usr/bin/chello && rpm -e chello
    - `openssl/`, `sqlite/` — needed to link `python` to our 4.0/3.53 ABI
    - `libmd/` — needed by `libbsd`
    - `py/` — jinja2/markupsafe for systemd's meson check
+   - `popt/`, `file/`, `libarchive/`, `lua/`, `libelf/` — RPM toolchain
+     build prefixes (see §4 “Rebuild the RPM toolchain”)
    Rebuild commands (examples):
    ```bash
    E=$PWD/build/deps/expat/usr; O=$PWD/build/deps/openssl/usr; S=$PWD/build/deps/sqlite/usr
