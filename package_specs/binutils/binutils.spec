@@ -1,29 +1,29 @@
 Name:       binutils
-Version:    2.41
+Version:    2.47
 Release:    1
 Summary:    GNU binutils
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
-Patch0:     binutils-libtool-lib64.patch 
 %description
 TODO
 
 %prep
 %setup -q
-%patch -p1
 
 %build
 mkdir build
 pushd build
 ../configure --prefix=/usr       \
              --sysconfdir=/etc   \
-             --enable-gold       \
              --enable-ld=default \
              --enable-plugins    \
              --enable-shared     \
              --disable-werror    \
              --enable-64-bit-bfd \
+             --enable-new-dtags  \
+             --with-lib-path=/usr/lib64 \
+             --enable-default-hash-style=gnu \
              --with-system-zlib  \
              --libdir=%{_libdir}
 %make_build tooldir=/usr
@@ -37,9 +37,19 @@ rm -vf %{buildroot}%{_infodir}/dir*
 rm -fv %{buildroot}/usr/lib/lib{bfd,ctf,ctf-nobfd,gprofng,opcodes,sframe}.a
 popd
 
-%files -f %{_sourcedir}/binutils.filelist
+%files
+/etc/
+/usr/bin/
+/usr/lib/
+
+/usr/include/
+/usr/lib64/
+/usr/share/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 2.47
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.41
 - Version bump
 

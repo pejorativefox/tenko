@@ -1,5 +1,5 @@
 Name:       glibc
-Version:    2.38
+Version:    2.44
 Release:    1
 Summary:    Provides the GNU glibc library
 License:    GPL3
@@ -17,17 +17,20 @@ kluged to work around: https://www.linuxquestions.org/questions/slackware-14/bug
 %setup -q
 
 %build
-patch -Np1 -i %{_sourcedir}/glibc-2.38-fhs-1.patch
-patch -Np1 -i %{_sourcedir}/glibc-2.38-memalign_fix-1.patch
+export CFLAGS="-O2 -g"
+export CXXFLAGS="-O2 -g"
+export LDFLAGS=""
+patch -Np1 -i %{_sourcedir}/glibc-fhs-1.patch
+patch -Np1 -i %{_sourcedir}/glibc-2.44-upstream_fixes-1.patch
 
 mkdir build
 pushd build
 ../configure --prefix=/usr                            \
              --disable-werror                         \
-             --enable-kernel=4.14                     \
-             --enable-stack-protector=strong          \
-             --with-headers=/usr/include              \
-             --libdir=%{_libdir}
+             --disable-nscd                           \
+             libc_cv_slibdir=/usr/lib64               \
+             --enable-kernel=5.10                     \
+             --enable-stack-protector=strong
 %make_build
 popd
 
@@ -73,8 +76,21 @@ EOF
 mkdir -pv %{buildroot}/etc/ld.so.conf.d
 touch %{buildroot}/etc/ld.so.conf.d/.keep
 
-%files -f %{_sourcedir}/glibc.filelist
+%files
+/etc/
+/sbin/
+/usr/libexec/
+/var/
+/usr/bin/
+/usr/include/
+/usr/lib/
+/usr/lib64/
+/usr/sbin/
+/usr/share/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 2.44
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.38
 - Version bump
