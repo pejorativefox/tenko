@@ -1,36 +1,32 @@
 Name:       libseccomp
-Version:    2.4.2
+Version:    2.6.0
 Release:    1
-Summary:    Kernel syscall interface library
-License:    GPL3
+Summary:    Seccomp userspace library
+License:    LGPL
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 %description
-Platform independent, interface to the Linux Kernel's syscall filtering mechanism. 
+Userspace library for the Linux seccomp filter.
 
 %prep
-%setup -q 
+%setup -q
 
 %build
-%configure --prefix=/usr --disable-static
+%configure --disable-static
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
-rm -vf %{buildroot}%{_infodir}/dir*
 
 %files
-/usr/bin/scmp_sys_resolver
-/usr/include/seccomp-syscalls.h
-/usr/include/seccomp.h
-/usr/lib64/libseccomp.so
-/usr/lib64/libseccomp.so.2
-/usr/lib64/libseccomp.so.2.4.2
-/usr/lib64/pkgconfig/libseccomp.pc
+/usr/bin/
+/usr/include/
+/usr/lib64/libseccomp.so*
+/usr/lib64/pkgconfig/
 /usr/share/man/
 
 %changelog
-* Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.4.2-1
-- Version bump
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 2.6.0
+- Bootstrap dependency for man-db/systemd

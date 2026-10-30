@@ -17,7 +17,7 @@ patch -Np1 -i %{_sourcedir}/coreutils-9.11-i18n-1.patch
 %build
 
 export FORCE_UNSAFE_CONFIGURE=1  
-%configure --enable-no-install-program=kill,uptime
+%configure --enable-no-install-program=kill,uptime --without-selinux --without-openssl
 %make_build 
 unset FORCE_UNSAFE_CONFIGURE
 

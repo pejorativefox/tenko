@@ -18,7 +18,7 @@ patch -Np1 -i %{_sourcedir}/kbd-2.10.0-backspace-1.patch
 sed -i 's/\(RESIZECONS_PROGS=\)yes/\1no/g' configure
 sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
 
-%configure --disable-vlock
+%configure --disable-vlock --disable-xkb
 %make_build
 
 %install

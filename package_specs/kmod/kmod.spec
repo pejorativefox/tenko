@@ -15,7 +15,7 @@ The Kmod package contains libraries and utilities for loading kernel modules
 %build
 mkdir -p build
 pushd build
-meson setup --prefix=/usr --libdir=%{_libdir} -D manpages=false ..
+meson setup --prefix=/usr --libdir=%{_libdir} -D manpages=false -D openssl=disabled ..
 ninja -j%{_smp_build_ncpus}
 popd
 

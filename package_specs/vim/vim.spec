@@ -14,7 +14,7 @@ Vim is a highly configurable text editor built to make creating and changing any
 
 %build
 echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
-%configure --enable-gui=no --without-x
+%configure --enable-gui=no --without-x --disable-selinux --without-wayland
 %make_build
 
 %install

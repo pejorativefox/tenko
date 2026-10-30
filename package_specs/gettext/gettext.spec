@@ -14,7 +14,7 @@ GNU Internationalization utilities
 
 %build
 CFLAGS="$CFLAGS -Wformat"
-%configure --disable-static \
+%configure --with-included-libxml --without-selinux --disable-static \
            --docdir=/usr/share/doc/gettext-%{version}
 %make_build
 

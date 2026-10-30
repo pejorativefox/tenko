@@ -24,6 +24,8 @@ pushd build
              --enable-new-dtags  \
              --with-lib-path=/usr/lib64 \
              --enable-default-hash-style=gnu \
+             --without-debuginfod \
+             --disable-gprofng \
              --with-system-zlib  \
              --libdir=%{_libdir}
 %make_build tooldir=/usr
@@ -38,7 +40,6 @@ rm -fv %{buildroot}/usr/lib/lib{bfd,ctf,ctf-nobfd,gprofng,opcodes,sframe}.a
 popd
 
 %files
-/etc/
 /usr/bin/
 /usr/lib/
 

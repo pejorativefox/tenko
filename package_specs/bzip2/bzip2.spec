@@ -5,6 +5,7 @@ Summary:    bzip2 is a free and open-source file compression program
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+Provides:   libbz2.so.1()(64bit)
 
 %description
 bzip2 is a free and open-source file compression program that uses the Burrows-Wheeler algorithm.
@@ -23,6 +24,7 @@ make -j%{_smp_build_ncpus} PREFIX=%{buildroot}/usr install
 mkdir -pv %{buildroot}/usr/lib64
 cp -av libbz2.so.* %{buildroot}/usr/lib64
 ln -sv libbz2.so.1.0.8 %{buildroot}/usr/lib64/libbz2.so
+ln -sv libbz2.so.1.0.8 %{buildroot}/usr/lib64/libbz2.so.1
 
 cp -v bzip2-shared %{buildroot}/usr/bin/bzip2
 for i in %{buildroot}/usr/bin/{bzcat,bunzip2}; do
@@ -44,6 +46,7 @@ rm -rf %{buildroot}/usr/lib
 /usr/bin/bzmore
 /usr/lib64/libbz2.so
 /usr/lib64/libbz2.so.1.0
+/usr/lib64/libbz2.so.1
 /usr/lib64/libbz2.so.1.0.8
 /usr/include/bzlib.h
 /usr/share/man

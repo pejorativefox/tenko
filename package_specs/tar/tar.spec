@@ -15,7 +15,7 @@ patch -Np1 -i %{_sourcedir}/tar-1.35-acl_fix-1.patch
 
 %build
 export FORCE_UNSAFE_CONFIGURE=1
-%configure 
+%configure --without-selinux 
 %make_build
 unset FORCE_UNSAFE_CONFIGURE
 %install

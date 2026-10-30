@@ -13,7 +13,7 @@ sed (stream editor) is a non-interactive command-line text editor.
 %setup -q
 
 %build
-%configure
+%configure --without-selinux
 %make_build
 
 %install    

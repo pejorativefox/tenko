@@ -17,7 +17,7 @@ D-BUS is a system for sending messages between applications.
 %build
 mkdir -p build
 pushd build
-meson setup --prefix=/usr --buildtype=release --wrap-mode=nofallback ..
+meson setup --prefix=/usr --buildtype=release --wrap-mode=nofallback -D selinux=disabled ..
 ninja -j%{_smp_build_ncpus}
 popd
 

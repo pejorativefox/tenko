@@ -4,6 +4,12 @@ Release:    1
 Summary:    Base filesystem layout for Browneye Linux
 License:    MIT
 Prefix:     /
+Provides:   filesystem(unmerged-sbin-symlinks)
+Provides:   cmake-filesystem
+Provides:   cmake-filesystem(x86-64)
+Provides:   filesystem(merged-sbin-symlinks)
+Provides:   filesystem(unmerged-usr-symlinks)
+Provides:   filesystem(merged-usr-symlinks)
 
 %description
 Owns the base directory layout and the merged-/usr symlinks.

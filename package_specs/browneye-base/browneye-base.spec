@@ -5,9 +5,6 @@ Summary:    Browneye Linux base system (LFS r13.1)
 License:    MIT
 Prefix:     /usr
 
-%description
-Meta-package pulling in the LFS r13.1 base system.
-
 Requires: man-pages
 Requires: iana-etc
 Requires: glibc
@@ -88,9 +85,15 @@ Requires: man-db
 Requires: procps-ng
 Requires: util-linux
 Requires: e2fsprogs
+Requires: libseccomp
+Requires: libbsd
+Requires: libmd
 Requires: browneye-basefs
 Requires: browneye-sysconfig
 Requires: browneye-release
+
+%description
+Meta-package pulling in the LFS r13.1 base system.
 
 %prep
 

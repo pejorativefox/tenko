@@ -13,7 +13,7 @@ The GNU Find Utilities are the basic directory searching utilities of the GNU op
 %setup -q
 
 %build
-%configure 
+%configure --without-selinux 
 %make_build
 
 %install

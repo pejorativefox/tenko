@@ -5,6 +5,7 @@ Summary:    SQLite database engine
 License:    Public Domain
 Source0:    sqlite-autoconf-3530400.tar.gz
 Prefix:     /usr
+Provides:   libsqlite3.so()(64bit)
 
 %description
 SQLite is a C library that implements an SQL database engine.

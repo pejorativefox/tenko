@@ -28,6 +28,7 @@ pushd build
 ../configure --prefix=/usr                            \
              --disable-werror                         \
              --disable-nscd                           \
+             --without-selinux                        \
              libc_cv_slibdir=/usr/lib64               \
              --enable-kernel=5.10                     \
              --enable-stack-protector=strong
@@ -39,6 +40,7 @@ rm -rf %{buildroot}
 pushd build
 sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile
 make -j%{_smp_build_ncpus} install_root=%{buildroot} install
+if [ -d %{buildroot}/sbin ]; then mkdir -p %{buildroot}/usr/sbin; mv %{buildroot}/sbin/* %{buildroot}/usr/sbin/; rmdir %{buildroot}/sbin; fi
 sed '/RTLDLIST=/s@/usr@@g' -i %{buildroot}/usr/bin/ldd
 popd
 
@@ -78,7 +80,6 @@ touch %{buildroot}/etc/ld.so.conf.d/.keep
 
 %files
 /etc/
-/sbin/
 /usr/libexec/
 /var/
 /usr/bin/

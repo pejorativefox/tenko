@@ -5,6 +5,12 @@ Summary:    Text based user interface library
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+Provides:   libtinfo.so.6()(64bit)
+Provides:   libncurses.so.6()(64bit)
+Provides:   libform.so.6()(64bit)
+Provides:   libpanel.so.6()(64bit)
+Provides:   libmenu.so.6()(64bit)
+Provides:   libtinfo.so.6(NCURSES_6.0)(64bit)
 
 %description
 The ncurses (new curses) library is a free software emulation of curses in System V Release 4.0 (SVr4), and more. 
@@ -34,7 +40,13 @@ for lib in ncurses form panel menu ; do
     ln -sfv lib${lib}w.so %{buildroot}%{_libdir}/lib${lib}.so
     ln -sfv ${lib}w.pc   %{buildroot}%{_libdir}/pkgconfig/${lib}.pc
 done
+ln -sfv libncursesw.so.6 %{buildroot}%{_libdir}/libncurses.so.6
+ln -sfv libformw.so.6 %{buildroot}%{_libdir}/libform.so.6
+ln -sfv libpanelw.so.6 %{buildroot}%{_libdir}/libpanel.so.6
+ln -sfv libmenuw.so.6 %{buildroot}%{_libdir}/libmenu.so.6
 ln -sfv libncursesw.so %{buildroot}%{_libdir}/libcurses.so
+ln -sfv libncursesw.so.6 %{buildroot}%{_libdir}/libtinfo.so.6
+ln -sfv libncursesw.so %{buildroot}%{_libdir}/libtinfo.so
 
 %files
 /usr/bin/

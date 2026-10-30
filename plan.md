@@ -595,3 +595,25 @@ to upgrade the remaining (non-base) specs with the target toolchain.
   added `less-osc8-open`; gawk globbed `/usr/share/awk/` and dropped duplicate
   info entries; pkgconf soname `.8` + new tools; mpfr `.6.2.2`; mpc `.3.4.1`
   + `mpc.pc`; libxcrypt needs `--disable-werror` on host gcc 16.
+
+- **2026-10-30** — Item 1 base set complete (79/80): all base packages build and
+  the local repo resolves. Only `grub` is deferred (host hardening/LTO/cross
+  conflicts; not needed before kernel phase 2). Extra bootstrap packages added
+  for host contamination: `libbsd`, `libmd`, `libseccomp`.
+  Host-contamination fixes applied: `--without-selinux` (glibc/coreutils/
+  findutils/sed/tar/gettext/dbus), `--without-openssl` (coreutils),
+  `--with-included-libxml` (gettext), `-D openssl=disabled` (kmod),
+  `--disable-xkb` (kbd), `--without-wayland` (vim), `-D selinux=disabled`
+  (dbus), iproute2 `config.mk` selinux strip, ncurses `libtinfo`/`libncurses*.so.6`
+  compat links, bzip2 `libbz2.so.1`, and `cmake-filesystem` provides in basefs.
+- **2026-10-30** — Rootfs assembled from the local repo:
+  `dnf --installroot ... install browneye-base` (88 packages) under
+  `unshare -r` with `tsflags=noscripts`. Verified inside: bash 5.3, python
+  3.14.7, openssl 4.0.1, merged `/bin /lib /lib64 /sbin` symlinks, loader at
+  `/usr/lib64/ld-linux-x86-64.so.2`.
+- **2026-10-30** — Item 2 base image built:
+  `browneye/base:r13.1-20261030` from `build/browneye-rootfs.tar.gz`
+  (374 MB). Container smoke test: bash, python3, openssl, and a gcc 16.2
+  hello-world compile all work. Still missing from the image: `rpm-build`
+  and `dnf`, so non-base package builds inside the container are the next
+  step (2.1/2.5/2.7).

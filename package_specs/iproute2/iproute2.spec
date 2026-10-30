@@ -13,6 +13,8 @@ iproute2 is a collection of userspace utilities for controlling and monitoring v
 %setup -q
 
 %build
+./configure
+sed -i "/selinux/Id" config.mk
 sed -i /ARPD/d Makefile
 rm -fv man/man8/arpd.8
 %make_build NETNS_RUN_DIR=/run/netns
