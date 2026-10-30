@@ -1,5 +1,7 @@
+%global _python_bytecompile_errors_terminate_build 0
+
 Name:       python
-Version:    3.11.4
+Version:    3.14.7
 Release:    1
 Summary:    The Python programming language
 License:    GPL3
@@ -28,6 +30,7 @@ The Python programming language
             --with-system-ffi      \
             --enable-optimizations \
             --with-platlibdir=lib64 \
+            --without-static-libpython \
             --without-ensurepip
 %make_build
 
@@ -35,10 +38,18 @@ The Python programming language
 rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
-ln -s python3.11 %{buildroot}/usr/bin/python
+sed -i 's|#!/usr/bin/env python$|#!/usr/bin/env python3|' %{buildroot}/usr/lib64/python3.14/encodings/rot_13.py
+ln -s python3.14 %{buildroot}/usr/bin/python
 
-%files -f %{_sourcedir}/python.filelist
+%files
+/usr/bin/
+/usr/include/
+/usr/lib64/
+/usr/share/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 3.14.7
+- Sync with LFS r13.1
+
 * Tue May 19 2020 Chris Statzer <chris.statzer@qq.com> 3.7.2-2
 - Removed left over tests folder.
