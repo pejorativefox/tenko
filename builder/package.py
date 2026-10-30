@@ -1,44 +1,90 @@
-
 import glob
+import json
+import os
+
+LFS_LOCK = "lfs.lock"
+
 
 class Package(object):
     def __init__(self, name, path, spec_file):
         self.name = name
         self.path = path
         self.spec_file = spec_file
-        self.has_sources = True
+        self.has_sources = os.path.isfile(self.get_full_sources_path())
+        self.has_nosources = os.path.isfile(os.path.join(path, "nosources"))
         self.needs_root = False
 
     def get_full_spec_path(self):
         return self.path + "/" + self.spec_file
-    
+
     def get_full_sources_path(self):
         return self.path + "/sources"
-    
+
     def get_files_path(self):
         return self.path + "/files"
 
-def check_has_sources(path):
-    return True
+    def needs_download(self):
+        return self.has_sources
 
-def check_needs_root(path):
-    return False
+    def is_buildable(self):
+        return self.has_sources or self.has_nosources
+
 
 def discover_packages(path="package_specs/"):
     packages = []
-    package_glob = glob.glob(path + "*")
-    for package_path in package_glob:
-        #print("- Found Package Path: ", package_path)
-        for spec in glob.glob("{}/*.spec".format(package_path)): # TODO: check multiple and warn
-            #print("    Found spec: ", spec)
-            spec_file = spec.split("/")[-1]
-            package_name = spec.split(".")[0].split("/")[-1]
-            # TODO: check needs root and has sources
-            packages.append(Package(package_name, package_path, spec_file))
+    for package_path in sorted(glob.glob(path + "*")):
+        if not os.path.isdir(package_path):
+            continue
+        specs = sorted(glob.glob("{}/*.spec".format(package_path)))
+        if not specs:
+            # Disabled packages (``.spec.disabled``) and empty directories are
+            # intentionally skipped instead of aborting the whole run.
+            continue
+        if len(specs) > 1:
+            print("warning: {} has {} specs, using the first".format(
+                package_path, len(specs)))
+        spec_file = os.path.basename(specs[0])
+        package_name = spec_file[:-len(".spec")]
+        packages.append(Package(package_name, package_path, spec_file))
     print("Found {} packages.".format(len(packages)))
     return packages
 
- 
+
+def load_aliases(path=LFS_LOCK):
+    """Return LFS package name -> spec directory name mappings."""
+    if not os.path.isfile(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as handle:
+            data = json.load(handle)
+    except (OSError, ValueError) as exc:
+        print("warning: could not read {}: {}".format(path, exc))
+        return {}
+    return data.get("aliases", {})
+
+
+def load_order(path="package_specs/ORDER"):
+    """Return the preferred build order as a list of package names."""
+    if not os.path.isfile(path):
+        return []
+    order = []
+    with open(path, "r", encoding="utf-8") as handle:
+        for line in handle:
+            line = line.split("#", 1)[0].strip()
+            if line:
+                order.append(line)
+    return order
+
+
+def resolve_package_name(name, packages, aliases=None):
+    """Resolve an LFS or spec name to a discovered package name."""
+    aliases = aliases or {}
+    for candidate in (name, aliases.get(name)):
+        if candidate and candidate in packages:
+            return candidate
+    return None
+
+
 if __name__ == "__main__":
     for p in discover_packages():
         print(p.get_full_spec_path())

@@ -73,26 +73,26 @@ Init is *not* a divergence: the base follows the book's systemd variant
 
 ### 1.1 Work root and branch
 
-- [ ] 1.1.1 Create `~/browneye` as a git worktree so the `master` checkout stays
+- [x] 1.1.1 Create `~/browneye` as a git worktree so the `master` checkout stays
       untouched:
       ```bash
       git -C ~/repos/browneye worktree add -b lfs-r13.1 ~/browneye origin/gcc-13-update
       ```
       Fallback: `git clone ~/repos/browneye ~/browneye && git -C ~/browneye switch gcc-13-update`.
-- [ ] 1.1.2 Copy/commit this `plan.md` into `~/browneye`.
-- [ ] 1.1.3 Add `lfs.lock` (`LFS_TAG=r13.1`, `LFS_COMMIT=71ef60ba…`).
+- [x] 1.1.2 Copy/commit this `plan.md` into `~/browneye`.
+- [x] 1.1.3 Add `lfs.lock` (`LFS_TAG=r13.1`, `LFS_COMMIT=71ef60ba…`).
 
 ### 1.2 Pin the LFS snapshot and generate the inventory
 
-- [ ] 1.2.1 Generate `lfs.lock` from **`git show r13.1:packages.ent`** and
+- [x] 1.2.1 Generate `lfs.lock` from **`git show r13.1:packages.ent`** and
       `r13.1:patches.ent` (expand compound entities: `perl 5.44.0`, `linux`,
       `sqlite 3.53.4`). Include md5 + URL for every source and patch.
-- [ ] 1.2.2 Build the LFS ↔ spec mapping table (`lfs_name -> package_specs/dir`):
+- [x] 1.2.2 Build the LFS ↔ spec mapping table (`lfs_name -> package_specs/dir`):
       `procps -> procps-ng`, `sqlite -> sqlite3`, `libelf -> elfutils`,
       `flit-core -> python-flit-core`, `packaging -> python-packaging`,
       `wheel -> python-wheel`, `setuptools -> python-setuptools`,
       `jinja2 -> python-jinja`, `markupsafe -> python-markupsafe`.
-- [ ] 1.2.3 Flag packages outside base scope: pcre1, python2-*, yum, eudev,
+- [x] 1.2.3 Flag packages outside base scope: pcre1, python2-*, yum, eudev,
       systemd-sysvinit variant packages, and the repo's non-LFS init stack
       (`finit`, `libite`, `libuev`, `sysklogd`) which is retired from the base.
 - **Done when:** `lfs.lock` regenerates deterministically from the tag.
@@ -102,7 +102,9 @@ Init is *not* a divergence: the base follows the book's systemd variant
 - [ ] 1.3.1 Install on Fedora 44: `rpm-build rpmdevtools createrepo_c
       squashfs-tools syslinux genisoimage dracut gperf texinfo python3-devel
       perl bison flex gawk gettext-devel`.
-- [ ] 1.3.2 Create `~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}`.
+      *Status 2026-10-30:* `rpm-build` is present; `createrepo_c`, `gperf`,
+      `texinfo` are still missing and `sudo` requires a password here.
+- [x] 1.3.2 Create `~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}`.
 - [ ] 1.3.3 Install `rpmsupport/rpmmacros` (patched per 1.4) to `~/.rpmmacros` and
       put `rpmsupport/strip_debug.sh` on `PATH`.
 - [ ] 1.3.4 Record host `gcc`/`binutils`/`rpm` versions in `lfs.lock`.
@@ -128,15 +130,15 @@ Init is *not* a divergence: the base follows the book's systemd variant
 
 ### 1.5 Build-system fixes (`bbuild` / `builder/`)
 
-- [ ] 1.5.1 `builder/build.py`: create `~/rpmbuild/{SOURCES,BUILD,...}` before
+- [x] 1.5.1 `builder/build.py`: create `~/rpmbuild/{SOURCES,BUILD,...}` before
       `fetch_sources()`.
-- [ ] 1.5.2 `builder/package.py`: skip dirs without a `.spec` or without
+- [x] 1.5.2 `builder/package.py`: skip dirs without a `.spec` or without
       `sources`/`nosources` instead of hard-`exit()`.
-- [ ] 1.5.3 `builder/sources.py`: tolerate comment lines; keep md5 verification;
+- [x] 1.5.3 `builder/sources.py`: tolerate comment lines; keep md5 verification;
       support `file://` and local `files/` entries.
-- [ ] 1.5.4 Add `package_specs/ORDER` (book order) and make `build_all()` follow it.
-- [ ] 1.5.5 Resolve spec names via `lfs.lock` aliases.
-- [ ] 1.5.6 Add `bbuild build <spec-path>` for out-of-tree specs (used by Item 2).
+- [x] 1.5.4 Add `package_specs/ORDER` (book order) and make `build_all()` follow it.
+- [x] 1.5.5 Resolve spec names via `lfs.lock` aliases.
+- [x] 1.5.6 Add `bbuild build <spec-path>` for out-of-tree specs (used by Item 2).
 - **Done when:** `bbuild build all` walks book order and `.package.sqlite` reports
   failures accurately.
 
@@ -529,3 +531,22 @@ to upgrade the remaining (non-base) specs with the target toolchain.
     ├── status.tsv
     └── base-manifest.json
 ```
+
+---
+
+## 5. Progress log
+
+- **2026-10-30** — `gcc-13-update` merged into `master` (fast-forward, `a530acf`);
+  worktree `~/browneye` created on branch `lfs-r13.1` off the merged `master`.
+- **2026-10-30** — Item 1.1–1.2 and 1.5 complete:
+  - `scripts/gen_lfs_lock.py` generates a deterministic `lfs.lock` from
+    `git show r13.1:` (`71ef60ba`), 80 base packages, 104 version entries,
+    9 patches.
+  - `package_specs/ORDER` generated from the systemd-variant chapter 8 list.
+  - `builder/`: rpmbuild tree creation, alias resolution (`lfs.lock`),
+    ORDER-driven `build all`, out-of-tree spec builds, tolerant `sources`
+    parsing, disabled-package skipping.
+  - Baseline harness check: `./bbuild build zlib` produced
+    `~/rpmbuild/RPMS/x86_64/zlib-1.2.13-1.x86_64.rpm`.
+- **Pending** — 1.3 needs root: install `createrepo_c`, `gperf`, `texinfo`,
+  then install `rpmsupport/rpmmacros` and put `strip_debug.sh` on `PATH`.

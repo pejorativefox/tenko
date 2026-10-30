@@ -3,6 +3,9 @@ import os
 from urllib.parse import urlparse
 from process import run_process
 
+SOURCES_DIR = os.path.expanduser("~/rpmbuild/SOURCES")
+
+
 def get_md5(filename):
     """Get an md5 for a file on the filesystem by running the md5sum tool.
 
@@ -25,36 +28,33 @@ def parse_sources(sources_filename):
         param1 (str) sources_filename: the full path to a valid sources file
 
     Returns:
-        list of (str:md5sum, str:url, str:override_filename) 
-                or 
-                (str:md5sum, str:url, bool:has_override)
-    
+        list of (str:md5sum, str:url, str:override_filename)
+
+    Blank lines and lines starting with '#' are ignored.
     """
-    fbuff = ""
-    with open(sources_filename, "r") as fd:
-        fbuff = fd.readlines()
     sources = []
-    for line in fbuff:
-        split_line = line.rstrip().split(" ")
-        line_length = len(split_line)
-        if line_length == 2 or line_length == 3:
-            pass
-        else:
-            print("{} appears to have a mangled line...".format(sources_filename))
-            exit()
-        md5 = split_line[0]
-        url = split_line[1]
-        if len(split_line) == 3:
-            filename = split_line[2]
-        else:
-            filename = None
-        sources.append([md5, url, filename])
+    with open(sources_filename, "r") as fd:
+        for line in fd:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            split_line = line.split()
+            line_length = len(split_line)
+            if line_length not in (2, 3):
+                print("{} appears to have a mangled line...".format(sources_filename))
+                exit()
+            md5 = split_line[0]
+            url = split_line[1]
+            filename = split_line[2] if line_length == 3 else None
+            sources.append([md5, url, filename])
     return sources
 
 
 BASE_PATH = os.path.expanduser('~') # TODO: maybe not best location
 
+
 def fetch_sources(sources, override_filename=None):
+    os.makedirs(SOURCES_DIR, exist_ok=True)
     return_code = True
     for source in sources:
         md5, url, override_filename = source
@@ -63,11 +63,11 @@ def fetch_sources(sources, override_filename=None):
             filename = override_filename
         else:
             filename = os.path.basename(urlparse(url).path)
-        out_file = BASE_PATH + "/rpmbuild/SOURCES/{}".format(filename)
+        out_file = os.path.join(SOURCES_DIR, filename)
         if os.path.isfile(out_file):
             print("  + Already present (cached)")
         else:
-            print("Downloading {} to {}".format(url, BASE_PATH + "/rpmbuild/SOURCES/{}".format(filename)))
+            print("Downloading {} to {}".format(url, out_file))
             cmd = ["curl", "-fL", "-o", out_file, url]
             #cmd = ["wget", "-N", "-c", "-O", out_file, url]
             if os.getenv("USE_PROXYCHAINS"):
@@ -78,7 +78,7 @@ def fetch_sources(sources, override_filename=None):
                 return False
             #subprocess.call(cmd)
 
-        target_md5 = get_md5(BASE_PATH + "/rpmbuild/SOURCES/{}".format(filename))
+        target_md5 = get_md5(out_file)
         if md5 == target_md5:
             print("  + md5 good")
         else:
