@@ -14,6 +14,8 @@ GNU parser generator
 
 %build
 %configure --docdir=/usr/share/doc/bison-%{version}
+# keep the shipped man page; the help2man rule is fragile in rpmbuild
+touch doc/bison.1
 %make_build
 
 %install    

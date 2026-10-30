@@ -11,6 +11,7 @@ The Tar package provides the ability to create tar archives as well as perform v
 
 %prep
 %setup -q
+patch -Np1 -i %{_sourcedir}/tar-1.35-acl_fix-1.patch
 
 %build
 export FORCE_UNSAFE_CONFIGURE=1
