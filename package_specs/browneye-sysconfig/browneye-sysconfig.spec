@@ -1,28 +1,54 @@
 Name:       browneye-sysconfig
-Version:    0.05
+Version:    13.1
 Release:    1
-Summary:    Initial configuration for Browneye Linux.
+Summary:    Base configuration for Browneye Linux
 License:    MIT
-Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 %description
-Package of configuration files for Browneye Linux.
+Base configuration files for Browneye Linux.
 
 %prep
-%setup
+
+%build
 
 %install
 rm -rf %{buildroot}
-mkdir -pv %{buildroot}/etc
-cp -r etc/* %{buildroot}/etc/
+mkdir -p %{buildroot}/etc
+cat > %{buildroot}/etc/hosts <<'EOF2'
+127.0.0.1 localhost
+::1       localhost
+EOF2
+cat > %{buildroot}/etc/shells <<'EOF2'
+/bin/sh
+/bin/bash
+EOF2
+cat > %{buildroot}/etc/inputrc <<'EOF2'
+set bell-style none
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+EOF2
+cat > %{buildroot}/etc/vimrc <<'EOF2'
+set nocompatible
+set backspace=2
+syntax on
+EOF2
+cat > %{buildroot}/etc/profile <<'EOF2'
+export PS1='(\h) \u:\w\$ '
+alias ls='ls --color'
+for f in /etc/profile.d/*.sh; do
+    [ -r "$f" ] && . "$f"
+done
+unset f
+EOF2
 
 %files
-/etc/*
+/etc/hosts
+/etc/shells
+/etc/inputrc
+/etc/vimrc
+/etc/profile
 
 %changelog
-* Wed May 13 2020 Chris Statzer <chris.statzer@qq.com> 0.03
-- Moved PAM config and added some startup items.
-
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 0.01
-- Initial package.
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 13.1
+- Base configuration for LFS r13.1
