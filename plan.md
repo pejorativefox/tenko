@@ -29,6 +29,17 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - `dnf` and `createrepo_c` are **not** in the image yet. Decision: keep repo
   assembly and rootfs installs on the host for now (§6 A3/A4).
 
+**Phase 2 boot smoke test is green (2026-10-30).**
+
+- Kernel **7.1.8** built with virtio-blk/virtio-pci/serial/ext4 built in;
+  packages are `linux-kernel` and `linux-modules`.
+- `scripts/qemu_boot.sh` installs the kernel into the rootfs, materializes
+  sysusers, builds a raw ext4 image, and boots it under QEMU/KVM.
+- Boot log: no `FAILED` units, `Reached target Multi-User System`, serial
+  `login:` prompt, `Browneye Linux 13.1 / Kernel 7.1.8`.
+- This is still a serial-console/login test; no bootloader, initramfs, or
+  root password policy yet.
+
 ---
 
 ## 2. Environment and layout
@@ -196,6 +207,36 @@ rpm -Uvh --nodeps /rpmbuild/RPMS/x86_64/chello-1.0-1.x86_64.rpm
 rpm -q chello && /usr/bin/chello && rpm -e chello
 ```
 
+### Boot the rootfs under QEMU
+
+```bash
+cd ~/browneye
+./bbuild build linux                  # once, ~5-10 min
+./scripts/qemu_boot.sh                # installs kernel + modules, boots
+```
+
+`qemu_boot.sh` does:
+
+1. copies `linux-kernel`/`linux-modules` into `build/repo`;
+2. `dnf --installroot build/rootfs install linux-kernel linux-modules`;
+3. runs `systemd-sysusers` inside the rootfs (install scriptlets were skipped);
+4. writes a machine-id and runs `depmod -b`;
+5. `mke2fs -d build/rootfs` → `build/rootfs.img` (3 GB);
+6. boots with `root=/dev/vda console=ttyS0` and logs to `build/qemu-boot.log`.
+
+Expected tail:
+
+```
+[  OK  ] Reached target Multi-User System.
+...
+Browneye Linux 13.1
+Kernel 7.1.8 on an x86_64 (ttyS0)
+localhost login:
+```
+
+`timeout 180` kills QEMU on purpose (exit 124). Check
+`grep -a FAILED build/qemu-boot.log`; it should be empty.
+
 ---
 
 ## 5. Critical gotchas
@@ -316,13 +357,17 @@ rpm -q chello && /usr/bin/chello && rpm -e chello
 ### C. Remaining base hardening before phase-2 boot
 
 - [ ] C1. glibc locales (`glibc-locales` subpackage) — currently skipped.
-- [ ] C2. QEMU boot test: the rootfs has not been booted. No kernel, initramfs,
-      bootloader, machine-id, or `/etc/fstab` yet.
+- [x] C2. QEMU boot test: kernel 7.1.8 + ext4 rootfs boots to multi-user and
+      a serial login prompt. `scripts/qemu_boot.sh` is the reproducible path.
+      No initramfs or bootloader yet.
 - [ ] C3. systemd chapter-9 config: unit presets/enablement, journald/networkd
-      defaults, udev rules, `/etc/systemd/*`. `browneye-sysconfig` only has
-      the bare `/etc` files.
-- [ ] C4. `/etc/passwd`/`group`/`shadow` baseline: shadow ships tools, but no
-      users are created. Add a base users/groups step.
+      defaults, udev rules, `/etc/systemd/*`. Current state: `default.target`
+      and `serial-getty@ttyS0` are symlinked by `browneye-sysconfig`, and
+      `qemu_boot.sh` runs `systemd-sysusers` before imaging. Presets and
+      network/journal configuration are still bare.
+- [ ] C4. `/etc/passwd`/`group`/`shadow` baseline: root and system users now
+      exist through `systemd-sysusers`, but there is no root password policy
+      and no login test beyond the `agetty` prompt.
 - [ ] C5. Clean `build/repo` of stale/duplicate/debuginfo RPMs, regenerate.
 - [ ] C6. Tighten broad `%files` back to filelists/globs per package; regenerate
       the remaining static filelists (`glib`, `gobject-introspection`, `groff`,
@@ -335,6 +380,9 @@ rpm -q chello && /usr/bin/chello && rpm -e chello
       or `browneye-base`; extend it or document the two-phase order.
 - [ ] C9. Replace the host-derived `linux-api-headers` with
       `make headers_install` from the pinned kernel source (7.1.8).
+- [ ] C10. Add an initramfs (dracut in the target or a custom cpio) and a
+      bootloader path; the current QEMU boot relies on built-in virtio/ext4
+      and `-kernel`.
 
 ### D. Phase 2 (explicitly out of current scope)
 
@@ -372,16 +420,27 @@ rpm -q chello && /usr/bin/chello && rpm -e chello
   assemble a new rootfs or refresh the repo.
 - `build/repo` is not pruned: 111 RPMs include old versions, debuginfo from
   early builds, and both `sqlite` and the retired `sqlite3` name.
+- The kernel config is derived from the old 6.4.12 LFS config plus hand-picked
+  virtio/ext4/serial options. It is a QEMU-test config, not a general-purpose
+  distro config. No initramfs, no firmware, no module signing.
+- The kernel spec copies `arch/x86/boot/bzImage` directly instead of using
+  `make install`; the latter tried to write a systemd-boot entry to the host
+  `/boot/efi` during rpmbuild.
+- `scripts/qemu_boot.sh` uses `unshare -r` for `mke2fs -d` because
+  `/etc/shadow` and `/etc/gshadow` are mode 000.
+- The QEMU test does not log in; it only proves agetty/systemd reach a prompt.
+  Root is locked and there is no password/login test yet.
 
 ---
 
 ## 8. Suggested first three actions for the new agent
 
-1. **Boot the rootfs (phase 2 entry).** Add kernel + initramfs +
-   `/etc/fstab` + `machine-id` + systemd presets, then boot in QEMU. This is
-   the real acceptance test for Item 1. The rootfs has never been booted.
-2. **Close or explicitly defer grub.** It is excluded from `browneye-base`;
-   build it in a Fedora-era container or defer to the boot phase.
+1. **Make the boot test a real login test.** Set a root password (or add a
+   test user), boot, log in over `ttyS0`, and run `systemctl status`,
+   `journalctl`, `python3`, and `gcc` inside the VM.
+2. **Add an initramfs and bootloader path.** The current QEMU boot depends on
+   virtio/ext4/serial being built into the kernel. For real hardware and
+   module-based storage, add dracut (or a custom cpio) and finish grub.
 3. **Decide whether the build pipeline must be fully self-hosted.** Today
    rootfs assembly uses host dnf/createrepo; the container builds RPMs but
    cannot install a dependency graph. Building `dnf` + `createrepo_c` is a

@@ -14,7 +14,9 @@ Base configuration files for Browneye Linux.
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/etc
+mkdir -p %{buildroot}/etc %{buildroot}/etc/systemd/system/getty.target.wants
+ln -sf /usr/lib/systemd/system/multi-user.target %{buildroot}/etc/systemd/system/default.target
+ln -sf /usr/lib/systemd/system/serial-getty@ttyS0.service %{buildroot}/etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
 cat > %{buildroot}/etc/hosts <<'EOF2'
 127.0.0.1 localhost
 ::1       localhost
@@ -33,6 +35,10 @@ set nocompatible
 set backspace=2
 syntax on
 EOF2
+cat > %{buildroot}/etc/fstab <<'EOF2'
+# <file system> <mount point> <type> <options> <dump> <pass>
+tmpfs /tmp tmpfs defaults 0 0
+EOF2
 cat > %{buildroot}/etc/profile <<'EOF2'
 export PS1='(\h) \u:\w\$ '
 alias ls='ls --color'
@@ -43,6 +49,9 @@ unset f
 EOF2
 
 %files
+/etc/fstab
+/etc/systemd/system/default.target
+/etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
 /etc/hosts
 /etc/shells
 /etc/inputrc

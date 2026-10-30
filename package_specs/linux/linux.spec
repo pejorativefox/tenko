@@ -1,78 +1,64 @@
 Name:       linux
-Version:    6.4.12
+Version:    7.1.8
 Release:    1
-Summary:    Linux
-License:    GPL3
+Summary:    Linux kernel
+License:    GPL2
 Prefix:     /usr
 Source0:    linux-%{version}.tar.xz
 Source1:    linux-%{version}.config
 
 %description
-Linux
+Linux kernel for Browneye Linux, built for QEMU/virtio boot testing.
 
 %prep
 %setup -q -n linux-%{version}
 
 %build
 make mrproper
-cp -v %{SOURCE1} ./.config
-#%make_build
-make -j4
-make modules
+cp -v %{SOURCE1} .config
+for opt in \
+    VIRTIO VIRTIO_PCI VIRTIO_BLK VIRTIO_NET VIRTIO_CONSOLE \
+    HW_RANDOM_VIRTIO PCI PCI_MSI \
+    SERIAL_8250 SERIAL_8250_CONSOLE \
+    DEVTMPFS DEVTMPFS_MOUNT TMPFS \
+    EXT4_FS \
+    NET_9P NET_9P_VIRTIO 9P_FS ; do
+    scripts/config --enable "$opt"
+done
+make olddefconfig
+%make_build
 
-%install    
-# kernel
-mkdir -pv %{buildroot}/boot
-%make_install INSTALL_PATH=%{buildroot}/boot
-mv %{buildroot}/boot/vmlinuz %{buildroot}/boot/vmlinuz-%{version}
-
-# headers 
-make INSTALL_HDR_PATH=dest headers_install
-find dest/include \( -name .install -o -name ..install.cmd \) -delete
-mkdir -pv %{buildroot}/usr/include
-cp -rv dest/include/* %{buildroot}/usr/include
-
-# modules
-make INSTALL_MOD_PATH=%{buildroot} modules_install
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}/boot
+install -m644 arch/x86/boot/bzImage %{buildroot}/boot/vmlinuz-%{version}
+install -m644 System.map %{buildroot}/boot/System.map-%{version}
+install -m644 .config %{buildroot}/boot/config-%{version}
+make INSTALL_MOD_PATH=%{buildroot}/usr modules_install
+rm -f %{buildroot}/usr/lib/modules/%{version}/build \
+      %{buildroot}/usr/lib/modules/%{version}/source
 
 %package kernel
-Summary: Linux Kernel
+Summary:    Linux kernel image
 %description kernel
-Linux kernel
+Linux kernel image, System.map, and configuration.
 
 %files kernel
-/boot/System.map
 /boot/vmlinuz-%{version}
-
-%package headers
-Summary: Linux kernel headers
-%description headers
-Linux kernel headers
-
-%files headers
-/usr/include/*
+/boot/System.map-%{version}
+/boot/config-%{version}
 
 %package modules
-Summary: Linux kernel modules
+Summary:    Linux kernel modules
 %description modules
-Linux kernel modules
+Linux kernel modules.
 
 %files modules
-/lib/modules/*
+/usr/lib/modules/%{version}/
 
 %post modules
-depmod
+depmod %{version}
 
 %changelog
-* Wed May 27 2020 Chris Statzer <chris.statzer@qq.com> 5.6.14-1
-- Upgraded kernel to current stable
-
-* Sat May 16 2020 Chris Statzer <chris.statzer@qq.com> 5.3.16-2
-- Fixed vmlinuz filenames to include version so they can be auto
-  added by grubmkconfig.
-
-* Mon Dec 16 2019 Chris Statzer <chris.statzer@qq.com> 5.3.16
-- Kernel upgrade
-
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 4.20.12
-- Initial RPM
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 7.1.8
+- Sync with LFS r13.1; QEMU/virtio boot configuration

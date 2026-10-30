@@ -22,7 +22,7 @@ meson setup ..                  \
       -D firstboot=false        \
       -D install-tests=false    \
       -D ldconfig=false         \
-      -D sysusers=false         \
+      -D sysusers=true         \
       -D rpmmacrosdir=no        \
       -D homed=disabled         \
       -D man=disabled           \

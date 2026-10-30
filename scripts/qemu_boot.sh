@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# Boot the installed Browneye rootfs under QEMU.
+#
+# Prerequisites:
+#   - build/rootfs exists and was installed with browneye-base
+#   - kernel RPMs for $KVER are in ~/rpmbuild/RPMS/x86_64
+#
+# The script installs linux + linux-modules into the rootfs, creates a raw
+# ext4 image from it, boots it with virtio-blk/serial, and writes the serial
+# log to build/qemu-boot.log.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+KVER="${KVER:-7.1.8}"
+ROOTFS="$PWD/build/rootfs"
+IMG="$PWD/build/rootfs.img"
+LOG="$PWD/build/qemu-boot.log"
+
+[ -x "$ROOTFS/usr/bin/bash" ] || { echo "missing rootfs: $ROOTFS" >&2; exit 1; }
+ls ~/rpmbuild/RPMS/x86_64/linux-kernel-"$KVER"-*.rpm ~/rpmbuild/RPMS/x86_64/linux-modules-"$KVER"-*.rpm >/dev/null 2>&1 || {
+    echo "missing kernel RPMs for $KVER; run: ./bbuild build linux" >&2; exit 1
+}
+
+# Make the kernel available to the rootfs transaction.
+cp ~/rpmbuild/RPMS/x86_64/linux-kernel-"$KVER"-*.rpm ~/rpmbuild/RPMS/x86_64/linux-modules-"$KVER"-*.rpm build/repo/
+createrepo_c --quiet --update build/repo
+
+unshare -r dnf -y --nogpgcheck \
+  --installroot "$ROOTFS" --releasever=13.1 \
+  --disablerepo='*' --repofrompath=browneye,file://$PWD/build/repo \
+  --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
+  install linux-kernel linux-modules
+
+# systemd-sysusers was disabled in the base build (scripts are skipped at
+# install time), so materialize the sysusers baseline before imaging.
+if [ -x "$ROOTFS/usr/bin/systemd-sysusers" ]; then
+    unshare -r chroot "$ROOTFS" /usr/bin/systemd-sysusers || true
+fi
+
+# A persistent machine-id is needed by systemd; first boot would normally
+# commit one, but the test image should already have it.
+if [ ! -s "$ROOTFS/etc/machine-id" ]; then
+    openssl rand -hex 16 > "$ROOTFS/etc/machine-id"
+fi
+
+# depmod runs as a package scriptlet, which we skipped above.
+depmod -b "$ROOTFS" "$KVER" || true
+
+# Build a raw ext4 image populated directly from the rootfs tree.
+rm -f "$IMG"
+truncate -s 3G "$IMG"
+unshare -r mke2fs -q -t ext4 -d "$ROOTFS" "$IMG"
+
+# Boot with virtio-blk as /dev/vda and serial console.
+set +e
+timeout 180 qemu-system-x86_64 \
+    -enable-kvm -cpu host -m 2048 -smp 4 \
+    -kernel "$ROOTFS/boot/vmlinuz-$KVER" \
+    -append "root=/dev/vda rw console=ttyS0 systemd.log_level=info systemd.show_status=1" \
+    -drive file="$IMG",format=raw,if=virtio \
+    -nographic -no-reboot > "$LOG" 2>&1
+rc=$?
+set -e
+echo "qemu exit: $rc (124 = timeout, expected for a running system)"
+tail -80 "$LOG"
