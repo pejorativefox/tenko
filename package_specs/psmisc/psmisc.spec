@@ -1,5 +1,5 @@
 Name:       psmisc
-Version:    23.6
+Version:    23.7
 Release:    1
 Summary:    procfs tools
 License:    GPL3
@@ -34,5 +34,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 23.7
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump

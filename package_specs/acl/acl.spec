@@ -31,7 +31,7 @@ rm -rf %{buildroot}
 /usr/include/sys/acl.h
 /usr/lib64/libacl.so
 /usr/lib64/libacl.so.1
-/usr/lib64/libacl.so.1.1.2301
+/usr/lib64/libacl.so.1.2.2400
 /usr/lib64/pkgconfig/libacl.pc
 /usr/share/doc/acl-%{version}/
 /usr/share/locale/

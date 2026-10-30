@@ -1,5 +1,5 @@
 Name:       pkgconf
-Version:    2.0.1
+Version:    3.0.5
 Release:    1
 Summary:    Successor to pkg-config
 License:    GPL3
@@ -26,22 +26,26 @@ ln -sv pkgconf.1 %{buildroot}/usr/share/man/man1/pkg-config.1
 
 %files
 /usr/bin/bomtool
+/usr/bin/pccritic
 /usr/bin/pkg-config
 /usr/bin/pkgconf
+/usr/bin/spdxtool
 /usr/include/pkgconf/libpkgconf/bsdstubs.h
 /usr/include/pkgconf/libpkgconf/iter.h
 /usr/include/pkgconf/libpkgconf/libpkgconf-api.h
 /usr/include/pkgconf/libpkgconf/libpkgconf.h
 /usr/include/pkgconf/libpkgconf/stdinc.h
 /usr/lib64/libpkgconf.so
-/usr/lib64/libpkgconf.so.4
-/usr/lib64/libpkgconf.so.4.0.0
+/usr/lib64/libpkgconf.so.8
+/usr/lib64/libpkgconf.so.8.0.0
 /usr/lib64/pkgconfig/libpkgconf.pc
 /usr/share/aclocal/pkg.m4
-/usr/share/doc/pkgconf-2.0.1/AUTHORS
-/usr/share/doc/pkgconf-2.0.1/README.md
+/usr/share/doc/pkgconf-%{version}/
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 3.0.5
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.0.1
 - Initial rpm

@@ -1,5 +1,5 @@
 Name:       gawk
-Version:    5.2.2
+Version:    5.4.1
 Release:    1
 Summary:    GNU pattern scanner
 License:    GPL3
@@ -44,41 +44,41 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/gawk/time.so
 /usr/libexec/awk/grcat
 /usr/libexec/awk/pwcat
-/usr/share/awk/isnumeric.awk
-/usr/share/awk/ns_passwd.awk
-/usr/share/awk/assert.awk
-/usr/share/awk/bits2str.awk
-/usr/share/awk/cliff_rand.awk
-/usr/share/awk/ctime.awk
-/usr/share/awk/ftrans.awk
-/usr/share/awk/getopt.awk
-/usr/share/awk/gettime.awk
-/usr/share/awk/group.awk
-/usr/share/awk/have_mpfr.awk
-/usr/share/awk/inplace.awk
-/usr/share/awk/intdiv0.awk
-/usr/share/awk/join.awk
-/usr/share/awk/libintl.awk
-/usr/share/awk/noassign.awk
-/usr/share/awk/ord.awk
-/usr/share/awk/passwd.awk
-/usr/share/awk/processarray.awk
-/usr/share/awk/quicksort.awk
-/usr/share/awk/readable.awk
-/usr/share/awk/readfile.awk
-/usr/share/awk/rewind.awk
-/usr/share/awk/round.awk
-/usr/share/awk/shellquote.awk
-/usr/share/awk/strtonum.awk
-/usr/share/awk/walkarray.awk
-/usr/share/awk/zerofile.awk
-/usr/share/info/gawk.info.gz
-/usr/share/info/gawkinet.info.gz
-/usr/share/info/gawkworkflow.info.gz
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
+/usr/share/awk/
 /usr/share/locale/
 /usr/share/man/
 /usr/share/info/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 5.4.1
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 5.2.2-1
 - Version bump

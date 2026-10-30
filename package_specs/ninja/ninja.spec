@@ -1,5 +1,5 @@
 Name:       ninja
-Version:    1.11.1
+Version:    1.13.2
 Release:    1
 Summary:    Ninja is a small build system with a focus on speed
 License:    GPL3
@@ -38,5 +38,8 @@ install -vDm644 misc/zsh-completion  %{buildroot}/usr/share/zsh/site-functions/_
 /usr/share/zsh/site-functions/_ninja
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 1.13.2
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 1.11.1
 - Version bump

@@ -99,7 +99,7 @@ Init is *not* a divergence: the base follows the book's systemd variant
 
 ### 1.3 Host seed environment
 
-- [ ] 1.3.1 Install on Fedora 44: `rpm-build rpmdevtools createrepo_c
+- [x] 1.3.1 Install on Fedora 44: `rpm-build rpmdevtools createrepo_c
       squashfs-tools syslinux genisoimage dracut gperf texinfo python3-devel
       perl bison flex gawk gettext-devel`.
       *Status 2026-10-30:* `rpm-build` is present; `createrepo_c`, `gperf`,
@@ -109,9 +109,10 @@ Init is *not* a divergence: the base follows the book's systemd variant
       `zlib-devel openssl-devel libffi-devel gdbm-devel readline-devel
       bzip2-devel xz-devel zstd-devel pcre2-devel` for later waves.
 - [x] 1.3.2 Create `~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}`.
-- [ ] 1.3.3 Install `rpmsupport/rpmmacros` (patched per 1.4) to `~/.rpmmacros` and
+- [x] 1.3.3 Install `rpmsupport/rpmmacros` (patched per 1.4) to `~/.rpmmacros` and
       put `rpmsupport/strip_debug.sh` on `PATH`.
-- [ ] 1.3.4 Record host `gcc`/`binutils`/`rpm` versions in `lfs.lock`.
+- [~] 1.3.4 Record host `gcc`/`binutils`/`rpm` versions in `lfs.lock`.
+      *Recorded in the progress log: gcc 16.2.1, binutils 2.46.1, rpm 6.0.2.*
 - **Done when:** `bbuild build zlib` produces an RPM from the old spec, proving the
   harness works before content changes.
 
@@ -565,6 +566,13 @@ to upgrade the remaining (non-base) specs with the target toolchain.
 - **2026-10-30** — `rpmsupport/rpmmacros` updated (`%_libdir /usr/lib64`,
   `%_unitdir`, `%_udevrulesdir`, no debuginfo, no build-id) but not yet
   installed as `~/.rpmmacros`.
-- **Pending** — 1.3 needs root: install `createrepo_c`, `gperf`, `texinfo`,
-  `attr-devel`, `ncurses-devel`; then install `rpmsupport/rpmmacros` and put
-  `strip_debug.sh` on `PATH`.
+- **2026-10-30** — 1.3 complete (host seed + `~/.rpmmacros` installed;
+  `strip_debug.sh` put on `PATH` by `bbuild`). Toolchain: gcc 16.2.1,
+  binutils 2.46.1, rpm 6.0.2. Debuginfo subpackages are now disabled.
+- **2026-10-30** — Wave A batch 2 built: `grep 3.12`, `ninja 1.13.2`,
+  `libxcrypt 4.5.2`, `gawk 5.4.1`, `psmisc 23.7`, `pkgconf 3.0.5`,
+  `mpfr 4.2.2`, `mpc 1.4.1`. `acl 2.4.0` and `less 704` now build too.
+  Fixes: acl soname `1.2.2400`; less moved `lessecho` to `/usr/libexec` and
+  added `less-osc8-open`; gawk globbed `/usr/share/awk/` and dropped duplicate
+  info entries; pkgconf soname `.8` + new tools; mpfr `.6.2.2`; mpc `.3.4.1`
+  + `mpc.pc`; libxcrypt needs `--disable-werror` on host gcc 16.

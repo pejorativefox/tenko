@@ -1,5 +1,5 @@
 Name:       grep
-Version:    3.11
+Version:    3.12
 Release:    1
 Summary:    Text searching cli tool
 License:    GPL3
@@ -75,5 +75,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 3.12
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump

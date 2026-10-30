@@ -24,8 +24,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files
 /usr/bin/less
-/usr/bin/lessecho
 /usr/bin/lesskey
+/usr/libexec/lessecho
+/usr/libexec/less-osc8-open
 /usr/share/man/man1/less.1.gz
 /usr/share/man/man1/lessecho.1.gz
 /usr/share/man/man1/lesskey.1.gz
