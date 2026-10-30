@@ -100,6 +100,10 @@ chmod +w %{buildroot}/usr/lib64/*.a
 /usr/include/ext2fs/tdb.h
 /usr/include/ss/ss.h
 /usr/include/ss/ss_err.h
+/etc/cron.d/
+/usr/lib/systemd/system/e2scrub*
+/usr/lib/udev/rules.d/64-ext4.rules
+/usr/libexec/e2fsprogs/
 /usr/sbin/e2freefrag
 /usr/sbin/e4crypt
 /usr/sbin/e4defrag

@@ -28,6 +28,7 @@ sed -i -e 's@#ENCRYPT_METHOD DES@ENCRYPT_METHOD SHA512@' \
 %install
 rm -rf %{buildroot}
 %make_install
+rm -f %{buildroot}/usr/lib64/libsubid.a
 rm -vf %{buildroot}%{_infodir}/dir*
 rm -rf %{buildroot}/etc/pam.d
 
@@ -36,50 +37,12 @@ pwconv
 grpconv
 
 %files
-/usr/bin/chage                                                                              
-/usr/bin/chfn                                                                               
-/usr/bin/chsh                                                                               
-/usr/bin/expiry                                                                             
-/usr/bin/faillog                                                                            
-/usr/bin/getsubids                                                                          
-/usr/bin/gpasswd                                                                            
-/usr/bin/lastlog                                                                            
-/usr/bin/login                                                                              
-/usr/bin/newgidmap                                                                          
-/usr/bin/newgrp                                                                             
-/usr/bin/newuidmap                                                                          
-/usr/bin/passwd                                                                             
-/usr/bin/sg                                                                                 
-/usr/bin/su                                                                                 
-/usr/etc/limits                                                                             
-/usr/etc/login.access                                                                       
-/usr/etc/login.defs                                                                         
-/usr/include/shadow/subid.h                                                                 
-/usr/lib64/libsubid.a                                                                       
-/usr/lib64/libsubid.so                                                                      
-/usr/lib64/libsubid.so.4                                                                    
-/usr/lib64/libsubid.so.4.0.0                                                                
-/usr/sbin/chgpasswd                                                                         
-/usr/sbin/chpasswd                                                                          
-/usr/sbin/groupadd                                                                          
-/usr/sbin/groupdel                                                                          
-/usr/sbin/groupmems                                                                         
-/usr/sbin/groupmod                                                                          
-/usr/sbin/grpck                                                                             
-/usr/sbin/grpconv                                                                           
-/usr/sbin/grpunconv                                                                         
-/usr/sbin/logoutd                                                                           
-/usr/sbin/newusers     
-/usr/sbin/nologin
-/usr/sbin/pwck  
-/usr/sbin/pwconv
-/usr/sbin/pwunconv
-/usr/sbin/useradd
-/usr/sbin/userdel
-/usr/sbin/usermod
-/usr/sbin/vigr
-/usr/sbin/vipw
-/usr/share/locale/
+/etc/
+/usr/include/
+/usr/bin/
+/usr/sbin/
+/usr/lib64/libsubid.so*
+/usr/share/
 
 %changelog
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 4.20.2

@@ -47,7 +47,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/libexec/man-db/globbing
 /usr/libexec/man-db/manconv
 /usr/libexec/man-db/zsoelim
-/usr/sbin/accessdb
+/usr/bin/accessdb
 /usr/share/doc/
 /usr/share/locale/
 /usr/share/man/
