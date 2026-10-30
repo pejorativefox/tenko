@@ -22,12 +22,12 @@ R=5.4.6
 prefix=/usr
 INSTALL_BIN=${prefix}/bin
 INSTALL_INC=${prefix}/include
-INSTALL_LIB=${prefix}/lib
+INSTALL_LIB=${prefix}/lib64
 INSTALL_MAN=${prefix}/share/man/man1
 INSTALL_LMOD=${prefix}/share/lua/${V}
-INSTALL_CMOD=${prefix}/lib/lua/${V}
+INSTALL_CMOD=${prefix}/lib64/lua/${V}
 exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
+libdir=${exec_prefix}/lib64
 includedir=${prefix}/include
 
 Name: Lua

@@ -88,6 +88,12 @@ Requires: e2fsprogs
 Requires: libseccomp
 Requires: libbsd
 Requires: libmd
+Requires: linux-api-headers
+Requires: rpm
+Requires: popt
+Requires: libarchive
+Requires: lua
+Requires: browneye-rpm-config
 Requires: browneye-basefs
 Requires: browneye-sysconfig
 Requires: browneye-release

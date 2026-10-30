@@ -12,17 +12,22 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 **Item 1 (LFS version parity) is effectively complete for the base system.**
 
 - 79 of 80 chapter-8 packages build from specs. Only **grub** is deferred.
-- Local repo: `build/repo`, 105 RPMs.
-- `browneye-base` meta resolves and installs 88 packages into `build/rootfs`.
+- Local repo: `build/repo`, 111 RPMs (includes old versions/debuginfo; clean before publish).
+- `browneye-base` meta resolves and installs 93 packages into `build/rootfs`.
 - Rootfs verified inside a chroot: bash 5.3, python 3.14.7, openssl 4.0.1,
   merged `/usr` layout, loader at `/usr/lib64/ld-linux-x86-64.so.2`.
 
-**Item 2 (build container) is partially complete.**
+**Item 2 (build container) now has a working RPM toolchain.**
 
-- Image `localhost/browneye/base:r13.1-20261030` exists (1.27 GB).
-- Smoke-tested: bash, python3, openssl, and a gcc hello-world compile.
-- The image does **not** yet contain `rpmbuild`, `dnf`, or `createrepo_c`, so it
-  cannot build RPMs yet. That is the next task.
+- Image `localhost/browneye/base:r13.1-rpm5-20261030` exists (1.3 GB).
+- Contains `rpm` 4.18.1 + `rpmbuild`, `browneye-rpm-config`, and the base
+  toolchain. `rpm -qa` sees all 93 installed packages (sqlite rpmdb at
+  `/usr/lib/sysimage/rpm`).
+- Verified inside the container: build a C package with `rpmbuild -bb`,
+  install it with `rpm -Uvh`, run it, remove it; and build `which-2.21`
+  directly from `package_specs/`.
+- `dnf` and `createrepo_c` are **not** in the image yet. Decision: keep repo
+  assembly and rootfs installs on the host for now (§6 A3/A4).
 
 ---
 
@@ -130,12 +135,66 @@ unshare -r dnf -y --nogpgcheck \
 unshare -r tar -C build/rootfs -czf build/browneye-rootfs.tar.gz .
 podman build -t browneye/base:r13.1-$(date +%Y%m%d) .
 
-podman run --rm browneye/base:r13.1-20261030 /usr/bin/bash -lc \
-  'bash --version | head -1; python3 -V; openssl version'
+podman run --rm browneye/base:r13.1-rpm5-20261030 /usr/bin/bash -lc \
+  'bash --version | head -1; python3 -V; openssl version; rpmbuild --version'
 ```
 
 `tsflags=noscripts` is required because the install runs as a fake root and
 package scriptlets (ldconfig, systemd sysusers, shadow) fail without real root.
+
+### Rebuild the RPM toolchain
+
+`rpm` needs several of our own libraries as a build prefix. `bbuild` alone is
+not enough; use the extracted prefixes under `build/deps/`:
+
+```bash
+cd ~/browneye
+P=$PWD/build/deps/popt/usr; O=$PWD/build/deps/openssl/usr
+F=$PWD/build/deps/file/usr; A=$PWD/build/deps/libarchive/usr
+L=$PWD/build/deps/lua/usr;  E=$PWD/build/deps/libelf/usr
+S=$PWD/build/deps/sqlite/usr
+CPPFLAGS="-I$P/include -I$O/include -I$F/include -I$A/include -I$L/include -I$E/include -I$S/include" \
+CFLAGS="$CPPFLAGS" \
+LDFLAGS="-L$P/lib64 -L$O/lib64 -L$F/lib64 -L$A/lib64 -L$L/lib64 -L$E/lib64 -L$S/lib64" \
+PKG_CONFIG_PATH="$P/lib64/pkgconfig:$O/lib64/pkgconfig:$F/lib64/pkgconfig:$A/lib64/pkgconfig:$L/lib64/pkgconfig:$E/lib64/pkgconfig:$S/lib64/pkgconfig" \
+./bbuild build popt libarchive lua rpm browneye-rpm-config
+
+# rpm links libdw if the host headers are visible; libdw is not needed when
+# debuginfo is disabled:
+#   export ac_cv_header_elfutils_libdwelf_h=no   (already in rpm.spec)
+```
+
+The rpm spec uses:
+
+```
+--without-lua --without-python --without-selinux --without-cap --without-acl
+--without-readline --disable-plugins --disable-nls --enable-libelf=yes
+--enable-sqlite=yes --with-crypto=openssl
+```
+
+`rpm` itself still needs Lua at runtime (for its macro engine), so `lua` is a
+runtime dependency even though Python bindings are disabled.
+
+### Build a package inside the container
+
+```bash
+podman run --rm \
+  -v "$PWD/package_specs/which:/spec:ro,Z" \
+  -v "$HOME/rpmbuild/SOURCES:/sources:ro,Z" \
+  browneye/base:r13.1-rpm5-20261030 \
+  /usr/bin/bash -lc \
+  'rpmbuild -bb --define "_sourcedir /sources" /spec/which.spec'
+```
+
+RPMs land in `/rpmbuild/RPMS/<arch>/` inside that container (rpm 4.18's
+default `_topdir`). Compile, install, and remove them in the same container to
+test the full cycle:
+
+```bash
+rpmbuild -bb /tmp/chello.spec
+rpm -Uvh --nodeps /rpmbuild/RPMS/x86_64/chello-1.0-1.x86_64.rpm
+rpm -q chello && /usr/bin/chello && rpm -e chello
+```
 
 ---
 
@@ -200,25 +259,48 @@ package scriptlets (ldconfig, systemd sysusers, shadow) fail without real root.
     `build_iso*.sh`, `podman_build.py`, `create_root_filesystem.sh` still
     assume the old finit/`/usr -> .` hack and the unreachable
     `192.168.31.94` repo. Do not use them for the current flow.
+11. **The RPM toolchain needs build prefixes.** `rpm` links `popt`, `libelf`,
+    `sqlite`, `libarchive`, `libmagic`, `liblua`, and OpenSSL 4. The exact
+    env is in §4 “Rebuild the RPM toolchain”. `--enable-libelf=yes` is
+    required for automatic ELF `Requires`/`Provides`; without it `rpmdeps`
+    silently emits no library dependencies. `--enable-sqlite=yes` is
+    required so the container's rpm reads the rpmdb written by the host dnf
+    (path `/usr/lib/sysimage/rpm`, set by `browneye-rpm-config`).
+12. **Kernel headers are a bootstrap package.** `linux-api-headers` is built
+    by copying the host's `kernel-headers` 7.2.4 UAPI directories
+    (`linux/`, `asm/`, `asm-generic/`, `drm/`, …). It is required to compile
+    anything that includes `<limits.h>`/`<linux/limits.h>`. Phase 2 should
+    replace it with headers generated from the pinned kernel source via
+    `make headers_install`. Do not treat it as a reproducible LFS package.
+13. **`rpm` owns `/rpmbuild` by default.** The container writes build trees
+    under `/rpmbuild` (not `/build`). Mount sources read-only and copy RPMs
+    out, or change `%_topdir` in `browneye-rpm-config` deliberately.
 
 ---
 
 ## 6. What remains
 
-### A. Item 2 bootstrap (highest priority)
+### A. Item 2 bootstrap (DONE)
 
-- [ ] A1. Build `rpm` (spec exists at 4.18.1) and split/create `rpm-build`.
-- [ ] A2. Add `rpm-build` + `rpm` to `browneye-base` and refresh the image.
-- [ ] A3. Create a `createrepo_c` spec (missing) or provide repo tooling another way.
-- [ ] A4. Build `dnf` (spec exists, 4.16.2) **or** decide to bind-mount the
-      host's `dnf`/`rpmbuild` into the container for the outer build phase.
-      dnf's dependency chain (`libdnf`, `libsolv`, python modules) is large;
-      estimate before committing.
-- [ ] A5. Create `browneye-rpm-config` (rpm macros + `strip_debug.sh`) so the
-      container's `rpmbuild` does not depend on Fedora `brp-*` paths.
-- [ ] A6. Verify inside the container:
-      `rpmbuild -bb`, `rpm --eval '%_libdir'` = `/usr/lib64`, and build one
-      non-base package (e.g. `glib`) from `package_specs/`.
+- [x] A1. Build `rpm` 4.18.1 (upstream installs `rpmbuild` in the same
+      package; no separate `rpm-build` split was needed).
+- [x] A2. Add `rpm` + `popt` + `libarchive` + `lua` + `linux-api-headers` to
+      `browneye-base`; refreshed repo/rootfs/image.
+- [x] A3. Repo tooling decision: **keep `createrepo_c` on the host** for now.
+      A `createrepo_c` spec is still missing; building it needs curl/glib/
+      libxml2/rpm devel and is not required for `rpmbuild`.
+- [x] A4. dnf decision: **do not build dnf yet.** Use host dnf for repo/rootfs
+      assembly and `rpm -Uvh --nodeps` inside the container for incremental
+      installs. Revisit for a fully self-hosted pipeline.
+- [x] A5. `browneye-rpm-config` now installs
+      `/usr/lib/rpm/macros.d/macros.browneye` (`_libdir=/usr/lib64`,
+      `_dbpath=/usr/lib/sysimage/rpm`, debuginfo off, check-rpaths off,
+      bytecompile errors non-fatal) and
+      `/usr/lib/rpm/browneye/strip_debug.sh`.
+- [x] A6. Verified inside `browneye/base:r13.1-rpm5-20261030`:
+      `rpmbuild --version` = 4.18.1, `_libdir` = `/usr/lib64`,
+      `rpm -qa | wc -l` = 93, C package build/install/run/remove works, and
+      `which-2.21` builds from `package_specs/` with ELF auto-requires.
 
 ### B. Close the last base package
 
@@ -245,9 +327,12 @@ package scriptlets (ldconfig, systemd sysusers, shadow) fail without real root.
       `gtk2`, `gtk3`, `imagemagick`, `kbd`, `llvm`, `tcl`).
 - [ ] C7. Revisit duplicate/disabled specs: `browneye-basefs-nousr.spec.disabled`,
       `browneye-init.spec.disabled`, `sysvinit.spec.disabled`, `yum.disabled`.
-- [ ] C8. `package_specs/ORDER` does not include the bootstrap extras
-      (`libbsd`, `libmd`, `libseccomp`, `libmd`) or `browneye-base`; extend it
-      or document the two-phase order.
+- [ ] C8. `package_specs/ORDER` now includes the bootstrap extras
+      (`linux-api-headers`, `popt`, `libarchive`, `lua`, `rpm`,
+      `browneye-rpm-config`) but still not `libbsd`, `libmd`, `libseccomp`,
+      or `browneye-base`; extend it or document the two-phase order.
+- [ ] C9. Replace the host-derived `linux-api-headers` with
+      `make headers_install` from the pinned kernel source (7.1.8).
 
 ### D. Phase 2 (explicitly out of current scope)
 
@@ -265,8 +350,9 @@ package scriptlets (ldconfig, systemd sysusers, shadow) fail without real root.
   rootfs after adding packages.
 - Many `%files` sections are directory globs. This hides file ownership bugs
   and makes upgrades noisy.
-- `browneye-base` has 86 `Requires:` (generated from `lfs.lock`); it is not
-  regenerated automatically when versions change.
+- `browneye-base` has 92 `Requires:` (generated from `lfs.lock` plus the
+  manual bootstrap list); it is not regenerated automatically when versions
+  change.
 - The repo is unsigned and can contain several versions of the same package.
 - Rootfs installs use `--setopt=tsflags=noscripts`; scriptlet correctness has
   not been tested outside the fake-root install.
@@ -274,19 +360,30 @@ package scriptlets (ldconfig, systemd sysusers, shadow) fail without real root.
   not pushed anywhere.
 - `package_specs/browneye-release` currently owns `/etc/os-release` as a
   symlink into `/usr/lib`; verify package ownership if you change it.
+- `linux-api-headers` is copied from the **host's** `kernel-headers` 7.2.4,
+  not built from kernel source. It is a bootstrap-only package; replace it
+  with `make headers_install` from the pinned kernel in phase 2.
+- `rpm`, `libarchive`, `lua`, and `popt` were built against host devel
+  prefixes (`build/deps/*`) and/or host toolchain. They are in-repo, but the
+  RPM toolchain is not yet self-hosted (no ch5–7 bootstrap).
+- The container has no `dnf`/`createrepo_c`; host tools are required to
+  assemble a new rootfs or refresh the repo.
+- `build/repo` is not pruned: 111 RPMs include old versions, debuginfo from
+  early builds, and both `sqlite` and the retired `sqlite3` name.
 
 ---
 
 ## 8. Suggested first three actions for the new agent
 
-1. **Make the container able to build RPMs:** add `rpm` + `rpm-build` +
-   `browneye-rpm-config` to the base, rebuild repo/rootfs/image, and run
-   `rpmbuild -bb` on a trivial spec inside the image.
-2. **Decide the dnf path:** either build `dnf` 4.16.2 and its dependency chain,
-   or bind-mount the host `dnf`/rpmbuild into the container and document it.
-   Do not start the 400-package outer upgrade until this is settled.
-3. **Boot the rootfs:** add kernel + initramfs + fstab/machine-id (phase 2
-   entry), then boot in QEMU. This is the real acceptance test for Item 1.
+1. **Boot the rootfs (phase 2 entry).** Add kernel + initramfs +
+   `/etc/fstab` + `machine-id` + systemd presets, then boot in QEMU. This is
+   the real acceptance test for Item 1. The rootfs has never been booted.
+2. **Close or explicitly defer grub.** It is excluded from `browneye-base`;
+   build it in a Fedora-era container or defer to the boot phase.
+3. **Decide whether the build pipeline must be fully self-hosted.** Today
+   rootfs assembly uses host dnf/createrepo; the container builds RPMs but
+   cannot install a dependency graph. Building `dnf` + `createrepo_c` is a
+   large dependency project; do it only if self-hosting is required.
 
 ---
 

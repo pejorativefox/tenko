@@ -82,6 +82,14 @@ procps
 util-linux
 e2fsprogs
 
+# bootstrap extras for the build container
+linux-api-headers
+popt
+libarchive
+lua
+rpm
+browneye-rpm-config
+
 # browneye glue
 browneye-basefs
 browneye-sysconfig

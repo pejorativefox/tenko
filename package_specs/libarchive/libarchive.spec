@@ -13,7 +13,7 @@ The libarchive library provides a single interface for reading/writing various c
 %setup -q
 
 %build
-%configure
+%configure --without-xml2 --without-openssl
 %make_build
 
 %install    

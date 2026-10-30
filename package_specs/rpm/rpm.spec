@@ -13,50 +13,32 @@ Programs to manage, build and install using the RPM package format.
 %setup -q
 
 %build
-export PYTHON=/bin/python3.11
-%configure --without-lua --enable-python --localstatedir=/var/
+export ac_cv_header_elfutils_libdwelf_h=no
+%configure --without-lua \
+           --without-python \
+           --without-selinux \
+           --without-cap \
+           --without-acl \
+           --without-readline \
+           --disable-plugins \
+           --disable-nls \
+           --enable-libelf=yes \
+           --enable-sqlite=yes \
+           --with-crypto=openssl
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
+rmdir %{buildroot}/var/tmp 2>/dev/null || true
+rmdir %{buildroot}/var 2>/dev/null || true
 
 %files
-/usr/bin/gendiff
-/usr/bin/rpm
-/usr/bin/rpm2archive
-/usr/bin/rpm2cpio
-/usr/bin/rpmbuild
-/usr/bin/rpmdb
-/usr/bin/rpmgraph
-/usr/bin/rpmkeys
-/usr/bin/rpmquery
-/usr/bin/rpmsign
-/usr/bin/rpmspec
-/usr/bin/rpmverify
-/usr/bin/rpmlua
-/usr/lib64/python3.11/site-packages/rpm-4.18.1-py3.11.egg-info
-/usr/lib64/python3.11/site-packages/rpm/__init__.py
-/usr/lib64/python3.11/site-packages/rpm/_rpm.so
-/usr/lib64/python3.11/site-packages/rpm/transaction.py
-/usr/lib64/librpm.so
-/usr/lib64/librpm.so.9
-/usr/lib64/librpm.so.9.4.0
-/usr/lib64/librpmbuild.so
-/usr/lib64/librpmbuild.so.9
-/usr/lib64/librpmbuild.so.9.4.0
-/usr/lib64/librpmio.so
-/usr/lib64/librpmio.so.9
-/usr/lib64/librpmio.so.9.4.0
-/usr/lib64/librpmsign.so
-/usr/lib64/librpmsign.so.9
-/usr/lib64/librpmsign.so.9.4.0
-/usr/lib64/pkgconfig/rpm.pc
-/usr/include/rpm/
-/usr/lib/rpm/
-/usr/lib64/rpm-plugins/
-/usr/share/locale/
+/usr/bin/
+/usr/include/
+/usr/lib/
+/usr/lib64/
 
 %changelog
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 4.18.1-1
