@@ -40,12 +40,10 @@ def discover_packages(path="package_specs/"):
             # Disabled packages (``.spec.disabled``) and empty directories are
             # intentionally skipped instead of aborting the whole run.
             continue
-        if len(specs) > 1:
-            print("warning: {} has {} specs, using the first".format(
-                package_path, len(specs)))
-        spec_file = os.path.basename(specs[0])
-        package_name = spec_file[:-len(".spec")]
-        packages.append(Package(package_name, package_path, spec_file))
+        for spec in specs:
+            spec_file = os.path.basename(spec)
+            package_name = spec_file[:-len(".spec")]
+            packages.append(Package(package_name, package_path, spec_file))
     print("Found {} packages.".format(len(packages)))
     return packages
 

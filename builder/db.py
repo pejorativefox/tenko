@@ -77,7 +77,8 @@ class PackageDatabase(object):
 
     def add_package(self, name):
         if self._check_package_exists(name) is False:
-            print("new package: ", name)
+            if os.getenv("BBUILD_VERBOSE"):
+                print("new package: ", name)
             self._connection.execute(SQL_ADD_PACKAGE.format(name))
             self._connection.commit()
             return True

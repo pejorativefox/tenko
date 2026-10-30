@@ -1,9 +1,9 @@
 Name:       zlib
-Version:    1.2.13
+Version:    1.3.2
 Release:    1
 Summary:    zlib compression library
 License:    GPL3
-Source0:    %{name}-%{version}.tar.xz
+Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 %description
@@ -26,11 +26,14 @@ rm -fv %{buildroot}/usr/lib64/libz.a
 /usr/include/zlib.h
 /usr/lib64/libz.so
 /usr/lib64/libz.so.1
-/usr/lib64/libz.so.1.2.13
+/usr/lib64/libz.so.1.3.2
 /usr/lib64/pkgconfig/zlib.pc
 /usr/share/man/man3/zlib.3.gz
 
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 1.3.2
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 1.2.13
 - Version bump
