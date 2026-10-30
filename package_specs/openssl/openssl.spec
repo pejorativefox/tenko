@@ -1,5 +1,5 @@
 Name:       openssl
-Version:    3.1.2
+Version:    4.0.1
 Release:    1
 Summary:    OpenSSL software library
 License:    GPL3
@@ -8,7 +8,7 @@ Prefix:     /usr
 
 AutoReq: no
 
-Requires: perl >= 0:5.004, libc.so.6()(64bit), libcrypto.so.3()(64bit), libdl.so.2()(64bit), libpthread.so.0()(64bit), libssl.so.3()(64bit)
+Requires: perl >= 0:5.004, libc.so.6()(64bit), libcrypto.so.4()(64bit), libdl.so.2()(64bit), libpthread.so.0()(64bit), libssl.so.4()(64bit)
 
 
 %description
@@ -41,21 +41,19 @@ rm -rf %{buildroot}/usr/share/man
 /etc/ssl/misc/tsget.pl
 /etc/ssl/openssl.cnf
 /etc/ssl/openssl.cnf.dist
-/usr/bin/c_rehash
 /usr/bin/openssl
-/usr/lib64/engines-3/afalg.so                                                                                                                                                                         
-/usr/lib64/engines-3/capi.so                                                                                                                                                                          
-/usr/lib64/engines-3/loader_attic.so                                                                                                                                                                  
-/usr/lib64/engines-3/padlock.so                                                                                                                                                                       
 /usr/lib64/libcrypto.so                                                                                                                                                                               
-/usr/lib64/libcrypto.so.3                                                                                                                                                                             
+/usr/lib64/libcrypto.so.4                                                                                                                                                                             
 /usr/lib64/libssl.so                                                                                                                                                                                  
-/usr/lib64/libssl.so.3                                                                                                                                                                                
+/usr/lib64/libssl.so.4                                                                                                                                                                                
 /usr/lib64/ossl-modules/legacy.so                                                                                                                                                                     
 /usr/lib64/pkgconfig/libcrypto.pc                                                                                                                                                                     
 /usr/lib64/pkgconfig/libssl.pc                                                                                                                                                                        
 /usr/lib64/pkgconfig/openssl.pc
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 4.0.1
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 3.1.2-1
 - Version bump

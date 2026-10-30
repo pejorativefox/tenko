@@ -37,7 +37,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 rm -fv %{buildroot}/usr/lib/lib{bfd,ctf,ctf-nobfd,gprofng,opcodes,sframe}.a
 popd
 
-%files -f ../../SOURCES/binutils.filelist
+%files -f %{_sourcedir}/binutils.filelist
 
 %changelog
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.41

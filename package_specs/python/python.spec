@@ -37,7 +37,7 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 ln -s python3.11 %{buildroot}/usr/bin/python
 
-%files -f ../../SOURCES/python.filelist
+%files -f %{_sourcedir}/python.filelist
 
 %changelog
 * Tue May 19 2020 Chris Statzer <chris.statzer@qq.com> 3.7.2-2

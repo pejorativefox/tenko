@@ -1,5 +1,5 @@
 Name:       man-db
-Version:    2.11.2
+Version:    2.13.1
 Release:    1
 Summary:    Man page utilities
 License:    GPL3
@@ -53,5 +53,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 2.13.1
+- Sync with LFS r13.1
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.11.12-1
 - Version bump

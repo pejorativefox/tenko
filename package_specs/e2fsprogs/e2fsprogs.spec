@@ -1,5 +1,5 @@
 Name:       e2fsprogs
-Version:    1.47.0
+Version:    1.47.4
 Release:    1
 Summary:    ext filesystem utilities
 License:    GPL3
@@ -114,4 +114,7 @@ chmod +w %{buildroot}/usr/lib64/*.a
 /usr/share/ss/ct_c.sed
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 1.47.4
+- Sync with LFS r13.1
+
 # let's skip this for now

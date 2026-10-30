@@ -1,5 +1,5 @@
 Name:       texinfo
-Version:    7.0.3
+Version:    7.3
 Release:    1
 Summary:    GNU texinfo utility
 License:    GPL3
@@ -35,14 +35,16 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/bin/texi2dvi
 /usr/bin/texi2pdf
 /usr/bin/texindex
-/usr/lib64/texinfo/MiscXS.so
-/usr/lib64/texinfo/Parsetexi.so
-/usr/lib64/texinfo/XSParagraph.so
 /usr/share/info/
+/usr/lib64/texi2any/
+/usr/share/texi2any/
 /usr/share/texinfo/
 /usr/share/locale/
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 7.3
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 7.0.3-1
 - Version bump

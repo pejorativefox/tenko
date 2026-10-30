@@ -50,7 +50,7 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 rm %{buildroot}/usr/share/man/man3/Thread.3
 
-%files -f ../../SOURCES/perl.filelist
+%files -f %{_sourcedir}/perl.filelist
 
 %changelog
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 5.38.0-1

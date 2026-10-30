@@ -39,7 +39,7 @@ DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files -f ../../SOURCES/glib.filelist
+%files -f %{_sourcedir}/glib.filelist
 
 %changelog
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 2.77.2

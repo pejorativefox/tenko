@@ -26,7 +26,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files -f ../../SOURCES/kbd.filelist
+%files -f %{_sourcedir}/kbd.filelist
 
 %changelog
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.6.1-1

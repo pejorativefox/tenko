@@ -38,7 +38,7 @@ Libs: -L${libdir} -llua -lm -ldl
 Cflags: -I${includedir}
 EOF
 
-patch -Np1 -i ../../SOURCES/lua-5.4.6-shared_library-1.patch 
+patch -Np1 -i %{_sourcedir}/lua-5.4.6-shared_library-1.patch 
 make linux
 
 %install    

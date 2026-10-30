@@ -17,8 +17,8 @@ kluged to work around: https://www.linuxquestions.org/questions/slackware-14/bug
 %setup -q
 
 %build
-patch -Np1 -i ../../SOURCES/glibc-2.38-fhs-1.patch
-patch -Np1 -i ../../SOURCES/glibc-2.38-memalign_fix-1.patch
+patch -Np1 -i %{_sourcedir}/glibc-2.38-fhs-1.patch
+patch -Np1 -i %{_sourcedir}/glibc-2.38-memalign_fix-1.patch
 
 mkdir build
 pushd build
@@ -73,7 +73,7 @@ EOF
 mkdir -pv %{buildroot}/etc/ld.so.conf.d
 touch %{buildroot}/etc/ld.so.conf.d/.keep
 
-%files -f ../../SOURCES/glibc.filelist
+%files -f %{_sourcedir}/glibc.filelist
 
 %changelog
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.38

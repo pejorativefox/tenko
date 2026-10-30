@@ -35,7 +35,7 @@ EOF
 %post
 gtk-query-immodules-2.0 --update-cache
 
-%files -f ../../SOURCES/gtk2.filelist
+%files -f %{_sourcedir}/gtk2.filelist
 
 %changelog
 # let's skip this for now

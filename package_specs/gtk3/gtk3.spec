@@ -38,7 +38,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %post
 gtk-query-immodules-3.0 --update-cache
 
-%files -f ../../SOURCES/gtk3.filelist
+%files -f %{_sourcedir}/gtk3.filelist
 
 %changelog
 # let's skip this for now

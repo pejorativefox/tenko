@@ -15,7 +15,7 @@ TODO
 %setup -q
 
 %build
-patch -Np1 -i ../../SOURCES/nss-3.92-standalone-1.patch
+patch -Np1 -i %{_sourcedir}/nss-3.92-standalone-1.patch
 pushd nss
 %make_build BUILD_OPT=1                  \
   NSPR_INCLUDE_DIR=/usr/include/nspr  \

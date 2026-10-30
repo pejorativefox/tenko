@@ -48,7 +48,7 @@ pushd build
 DESTDIR=%{buildroot} ninja install 
 popd
 
-%files -f ../../SOURCES/llvm.filelist
+%files -f %{_sourcedir}/llvm.filelist
 
 %changelog
 * Tue Jun 13 2023 Chris Statzer <chris.statzer@gmail.com> 16.0.5

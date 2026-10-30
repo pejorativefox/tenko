@@ -26,7 +26,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files -f ../../SOURCES/imagemagick.filelist
+%files -f %{_sourcedir}/imagemagick.filelist
 
 %changelog
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 7.1.1-1

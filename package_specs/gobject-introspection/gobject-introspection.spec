@@ -32,7 +32,7 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 
-%files -f ../../SOURCES/gobject-introspection.filelist
+%files -f %{_sourcedir}/gobject-introspection.filelist
 
 %changelog
 # let's skip this for now

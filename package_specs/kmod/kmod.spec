@@ -1,5 +1,5 @@
 Name:       kmod
-Version:    30
+Version:    34.2
 Release:    1
 Summary:    Kernel module utilities
 License:    GPL3
@@ -13,16 +13,17 @@ The Kmod package contains libraries and utilities for loading kernel modules
 %setup -q
 
 %build
-%configure  --with-openssl         \
-            --with-xz              \
-            --with-zstd            \
-            --with-zlib
-%make_build
+mkdir -p build
+pushd build
+meson setup --prefix=/usr --libdir=%{_libdir} -D manpages=false ..
+ninja -j%{_smp_build_ncpus}
+popd
 
 %install
 rm -rf %{buildroot}
-%make_install
-rm -vf %{buildroot}%{_infodir}/dir*
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 
 mkdir -pv %{buildroot}/usr/sbin
 
@@ -40,24 +41,20 @@ ln -sfv kmod %{buildroot}/usr/bin/lsmod
 /usr/sbin/modinfo
 /usr/sbin/modprobe
 /usr/sbin/rmmod
+/usr/sbin/lsmod
 /usr/include/libkmod.h
 /usr/lib64/libkmod.so
 /usr/lib64/libkmod.so.2
-/usr/lib64/libkmod.so.2.4.0
+/usr/lib64/libkmod.so.2.5.1
 /usr/lib64/pkgconfig/libkmod.pc
-/usr/share/bash-completion/completions/kmod
-/usr/share/man/man5/depmod.d.5.gz
-/usr/share/man/man5/modprobe.d.5.gz
-/usr/share/man/man5/modules.dep.5.gz
-/usr/share/man/man5/modules.dep.bin.5.gz
-/usr/share/man/man8/depmod.8.gz
-/usr/share/man/man8/insmod.8.gz
-/usr/share/man/man8/kmod.8.gz
-/usr/share/man/man8/lsmod.8.gz
-/usr/share/man/man8/modinfo.8.gz
-/usr/share/man/man8/modprobe.8.gz
-/usr/share/man/man8/rmmod.8.gz
+/usr/share/bash-completion/completions/
+/usr/share/fish/vendor_functions.d/
+/usr/share/zsh/site-functions/
+/usr/share/pkgconfig/kmod.pc
 
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 34.2
+- Sync with LFS r13.1
+
 # let's skip this for now

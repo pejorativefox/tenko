@@ -79,7 +79,7 @@ The GCC low-level runtime library
 /usr/lib64/libgcc_s.so
 /usr/lib64/libgcc_s.so.1
 
-%files -f ../../SOURCES/gcc.filelist
+%files -f %{_sourcedir}/gcc.filelist
 
 %changelog
 * Sun Sep 3 2023 Chris Statzer <chris.statzer@gmail.com> 13.2.0

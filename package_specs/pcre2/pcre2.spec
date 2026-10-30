@@ -1,5 +1,5 @@
 Name:       pcre2
-Version:    10.34
+Version:    10.47
 Release:    1
 Summary:    TODO
 License:    GPL3
@@ -15,7 +15,7 @@ TODO
 
 %build
 %configure  --prefix=/usr                       \
-            --docdir=/usr/share/doc/pcre2-10.34 \
+            --docdir=/usr/share/doc/pcre2-%{version} \
             --enable-unicode                    \
             --enable-jit                        \
             --enable-pcre2-16                   \
@@ -39,23 +39,26 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/pcre2posix.h
 /usr/lib64/libpcre2-16.so
 /usr/lib64/libpcre2-16.so.0
-/usr/lib64/libpcre2-16.so.0.9.0
+/usr/lib64/libpcre2-16.so.0.15.0
 /usr/lib64/libpcre2-32.so
 /usr/lib64/libpcre2-32.so.0
-/usr/lib64/libpcre2-32.so.0.9.0
+/usr/lib64/libpcre2-32.so.0.15.0
 /usr/lib64/libpcre2-8.so
 /usr/lib64/libpcre2-8.so.0
-/usr/lib64/libpcre2-8.so.0.9.0
+/usr/lib64/libpcre2-8.so.0.15.0
 /usr/lib64/libpcre2-posix.so
-/usr/lib64/libpcre2-posix.so.2
-/usr/lib64/libpcre2-posix.so.2.0.3
+/usr/lib64/libpcre2-posix.so.3
+/usr/lib64/libpcre2-posix.so.3.0.7
 /usr/lib64/pkgconfig/libpcre2-16.pc
 /usr/lib64/pkgconfig/libpcre2-32.pc
 /usr/lib64/pkgconfig/libpcre2-8.pc
 /usr/lib64/pkgconfig/libpcre2-posix.pc
-/usr/share/doc/pcre2-10.34/*
+/usr/share/doc/pcre2-%{version}/*
 /usr/share/man/*
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 10.47
+- Sync with LFS r13.1
+
 # let's skip this for now
 
