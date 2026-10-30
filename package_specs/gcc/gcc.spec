@@ -1,5 +1,5 @@
 Name:       gcc
-Version:    13.2.0
+Version:    16.2.0
 Release:    2
 Summary:    The GNU Compiler Collection
 License:    GPL3
@@ -16,6 +16,9 @@ The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran
 
 
 %build
+export CFLAGS="-O2 -g"
+export CXXFLAGS="-O2 -g"
+export LDFLAGS=""
 case $(uname -m) in
   x86_64)
     sed -e '/m64=/s/lib64/lib/' \
@@ -33,6 +36,8 @@ pushd build
              --enable-languages=c,c++ \
              --enable-default-pie     \
              --enable-default-ssp     \
+             --enable-host-pie        \
+             --enable-targets=all     \
              --disable-multilib       \
              --disable-bootstrap      \
              --disable-fixincludes    \
@@ -56,32 +61,17 @@ Summary: The GNU Standard C++ Library v3
 %description -n libstdc++
 The GNU Standard C++ Library v3 is an ongoing project to implement the ISO 14882 C++ Standard Library as described in clauses 20 through 33 and annex D (prior to the 2017 standard the library clauses started with 17).
 
-%files -n libstdc++
-/usr/lib64/libstdc++.a
-/usr/lib64/libstdc++.so
-/usr/lib64/libstdc++.so.6
-/usr/lib64/libstdc++.so.6.0.32
-/usr/lib64/libstdc++.so.6.0.32-gdb.py
-/usr/lib64/libstdc++fs.a
-/usr/lib64/libstdc++exp.a
-/usr/share/gcc-13.2.0/python/libstdcxx/__init__.py
-/usr/share/gcc-13.2.0/python/libstdcxx/v6/__init__.py
-/usr/share/gcc-13.2.0/python/libstdcxx/v6/printers.py
-/usr/share/gcc-13.2.0/python/libstdcxx/v6/xmethods.py
-
-%package -n libgcc
-Summary: GCC low-level runtime library
-Provides: libgcc_s.so.1()(64bit), libgcc_s.so.1(GCC_3.0)(64bit), libgcc_s.so.1(GCC_3.3)(64bit), libgcc_s.so.1(GCC_4.2.0)(64bit), libgcc_s.so.1(GCC_3.4)(64bit), libgcc_s.so.1(GCC_3.3.1)(64bit), libgcc_s.so.1(GCC_4.7.0)(64bit)
-%description -n libgcc
-The GCC low-level runtime library
-
-%files -n libgcc
-/usr/lib64/libgcc_s.so
-/usr/lib64/libgcc_s.so.1
-
-%files -f %{_sourcedir}/gcc.filelist
+%files
+/usr/bin/
+/usr/include/
+/usr/lib64/
+/usr/libexec/
+/usr/share/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 16.2.0
+- Sync with LFS r13.1
+
 * Sun Sep 3 2023 Chris Statzer <chris.statzer@gmail.com> 13.2.0
 - Version bump
 
