@@ -37,8 +37,10 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   sysusers, builds a raw ext4 image, and boots it under QEMU/KVM.
 - Boot log: no `FAILED` units, `Reached target Multi-User System`, serial
   `login:` prompt, `Browneye Linux 13.1 / Kernel 7.1.8`.
-- This is still a serial-console/login test; no bootloader, initramfs, or
-  root password policy yet.
+- Interactive check passed: temporary root password, `root` login over
+  `ttyS0`, `id` = `uid=0(root)`, `uname -a` = 7.1.8, then `poweroff -f`.
+  The temporary password was restored; root is locked by default.
+- Still missing: bootloader, initramfs, and a real root password policy.
 
 ---
 
@@ -365,9 +367,10 @@ localhost login:
       and `serial-getty@ttyS0` are symlinked by `browneye-sysconfig`, and
       `qemu_boot.sh` runs `systemd-sysusers` before imaging. Presets and
       network/journal configuration are still bare.
-- [ ] C4. `/etc/passwd`/`group`/`shadow` baseline: root and system users now
-      exist through `systemd-sysusers`, but there is no root password policy
-      and no login test beyond the `agetty` prompt.
+- [x] C4. `/etc/passwd`/`group`/`shadow` baseline: root and system users
+      exist through `systemd-sysusers`; a temporary-password root login over
+      `ttyS0` was tested (`LOGIN_OK`, `uid=0`, kernel 7.1.8). Root is locked
+      again after the test; a password/first-boot policy is still future work.
 - [ ] C5. Clean `build/repo` of stale/duplicate/debuginfo RPMs, regenerate.
 - [ ] C6. Tighten broad `%files` back to filelists/globs per package; regenerate
       the remaining static filelists (`glib`, `gobject-introspection`, `groff`,
@@ -428,8 +431,9 @@ localhost login:
   `/boot/efi` during rpmbuild.
 - `scripts/qemu_boot.sh` uses `unshare -r` for `mke2fs -d` because
   `/etc/shadow` and `/etc/gshadow` are mode 000.
-- The QEMU test does not log in; it only proves agetty/systemd reach a prompt.
-  Root is locked and there is no password/login test yet.
+- The QEMU login test used a temporary SHA-512 root password, then restored
+  the locked shadow entry. There is no first-boot password setup or account
+  policy yet.
 
 ---
 
