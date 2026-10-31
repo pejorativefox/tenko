@@ -24,53 +24,12 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/lzcat
-/usr/bin/lzcmp
-/usr/bin/lzdiff
-/usr/bin/lzegrep
-/usr/bin/lzfgrep
-/usr/bin/lzgrep
-/usr/bin/lzless
-/usr/bin/lzma
-/usr/bin/lzmadec
-/usr/bin/lzmainfo
-/usr/bin/lzmore
-/usr/bin/unlzma
-/usr/bin/unxz
-/usr/bin/xz
-/usr/bin/xzcat
-/usr/bin/xzcmp
-/usr/bin/xzdec
-/usr/bin/xzdiff
-/usr/bin/xzegrep
-/usr/bin/xzfgrep
-/usr/bin/xzgrep
-/usr/bin/xzless
-/usr/bin/xzmore
-/usr/include/lzma.h
-/usr/include/lzma/base.h
-/usr/include/lzma/bcj.h
-/usr/include/lzma/block.h
-/usr/include/lzma/check.h
-/usr/include/lzma/container.h
-/usr/include/lzma/delta.h
-/usr/include/lzma/filter.h
-/usr/include/lzma/hardware.h
-/usr/include/lzma/index.h
-/usr/include/lzma/index_hash.h
-/usr/include/lzma/lzma12.h
-/usr/include/lzma/stream_flags.h
-/usr/include/lzma/version.h
-/usr/include/lzma/vli.h
-/usr/lib64/liblzma.so
-/usr/lib64/liblzma.so.5
-/usr/lib64/liblzma.so.%{version}
-/usr/lib64/pkgconfig/liblzma.pc
-/usr/share/
-
+%files -f %{_sourcedir}/xz.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 5.8.3
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 5.8.3
 - Sync with LFS r13.1
 

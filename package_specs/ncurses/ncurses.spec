@@ -63,14 +63,12 @@ Libs: -L${libdir} -ltinfo
 Cflags: -I${includedir}
 EOF
 
-%files
-/usr/bin/
-/usr/include/
-/usr/lib/
-/usr/lib64/
-/usr/share/
+%files -f %{_sourcedir}/ncurses.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 6.6
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 6.6
 - Sync with LFS r13.1
 

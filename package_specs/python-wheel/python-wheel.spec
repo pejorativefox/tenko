@@ -22,11 +22,12 @@ if [ -d %{buildroot}/usr/lib/python3.14 ]; then
   mv %{buildroot}/usr/lib/python3.14 %{buildroot}/usr/lib64/
 fi
 
-%files
-/usr/bin/
-/usr/lib64/python3.14/site-packages/
+%files -f %{_sourcedir}/python-wheel.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 0.48.0
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 0.48.0
 - Sync with LFS r13.1
 

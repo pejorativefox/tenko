@@ -1,0 +1,442 @@
+%dir /usr/bin
+/usr/bin/autopoint
+/usr/bin/envsubst
+/usr/bin/gettext
+/usr/bin/gettext.sh
+/usr/bin/gettextize
+/usr/bin/msgattrib
+/usr/bin/msgcat
+/usr/bin/msgcmp
+/usr/bin/msgcomm
+/usr/bin/msgconv
+/usr/bin/msgen
+/usr/bin/msgexec
+/usr/bin/msgfilter
+/usr/bin/msgfmt
+/usr/bin/msggrep
+/usr/bin/msginit
+/usr/bin/msgmerge
+/usr/bin/msgpre
+/usr/bin/msgunfmt
+/usr/bin/msguniq
+/usr/bin/ngettext
+/usr/bin/po-fetch
+/usr/bin/printf_gettext
+/usr/bin/printf_ngettext
+/usr/bin/recode-sr-latin
+/usr/bin/spit
+/usr/bin/xgettext
+%dir /usr/include
+/usr/include/autosprintf.h
+/usr/include/gettext-po.h
+%dir /usr/include/textstyle
+/usr/include/textstyle.h
+/usr/include/textstyle/version.h
+/usr/include/textstyle/woe32dll.h
+%dir /usr/lib64/gettext
+/usr/lib64/libasprintf.so
+/usr/lib64/libasprintf.so.0
+/usr/lib64/libasprintf.so.0.0.0
+/usr/lib64/libgettextlib-1.0.so
+/usr/lib64/libgettextlib.so
+/usr/lib64/libgettextpo.so
+/usr/lib64/libgettextpo.so.0
+/usr/lib64/libgettextpo.so.0.6.0
+/usr/lib64/libgettextsrc-1.0.so
+/usr/lib64/libgettextsrc.so
+/usr/lib64/libtextstyle.so
+/usr/lib64/libtextstyle.so.0
+/usr/lib64/libtextstyle.so.0.2.7
+/usr/lib64/preloadable_libintl.so
+%dir /usr/libexec/gettext
+/usr/libexec/gettext/cldr-plurals
+/usr/libexec/gettext/hostname
+/usr/libexec/gettext/project-id
+/usr/libexec/gettext/urlget
+/usr/libexec/gettext/user-email
+%dir /usr/share
+%dir /usr/share/aclocal
+/usr/share/aclocal/nls.m4
+%dir /usr/share/doc
+%dir /usr/share/doc/gettext-1.0
+%doc /usr/share/doc/gettext-1.0/FAQ.html
+%doc /usr/share/doc/gettext-1.0/autopoint.1.html
+%doc /usr/share/doc/gettext-1.0/autosprintf_all.html
+%doc /usr/share/doc/gettext-1.0/bind_textdomain_codeset.3.html
+%doc /usr/share/doc/gettext-1.0/bindtextdomain.3.html
+%dir /usr/share/doc/gettext-1.0/csharpdoc
+%doc /usr/share/doc/gettext-1.0/csharpdoc/GNU_Gettext.html
+%doc /usr/share/doc/gettext-1.0/csharpdoc/GNU_Gettext_GettextResourceManager.html
+%doc /usr/share/doc/gettext-1.0/csharpdoc/GNU_Gettext_GettextResourceSet.html
+%doc /usr/share/doc/gettext-1.0/csharpdoc/begin.html
+%doc /usr/share/doc/gettext-1.0/csharpdoc/index.html
+%doc /usr/share/doc/gettext-1.0/csharpdoc/namespaces.html
+%doc /usr/share/doc/gettext-1.0/envsubst.1.html
+%doc /usr/share/doc/gettext-1.0/gettext.1.html
+%doc /usr/share/doc/gettext-1.0/gettext.3.html
+%doc /usr/share/doc/gettext-1.0/gettext_1.html
+%doc /usr/share/doc/gettext-1.0/gettext_10.html
+%doc /usr/share/doc/gettext-1.0/gettext_11.html
+%doc /usr/share/doc/gettext-1.0/gettext_12.html
+%doc /usr/share/doc/gettext-1.0/gettext_13.html
+%doc /usr/share/doc/gettext-1.0/gettext_14.html
+%doc /usr/share/doc/gettext-1.0/gettext_15.html
+%doc /usr/share/doc/gettext-1.0/gettext_16.html
+%doc /usr/share/doc/gettext-1.0/gettext_17.html
+%doc /usr/share/doc/gettext-1.0/gettext_18.html
+%doc /usr/share/doc/gettext-1.0/gettext_19.html
+%doc /usr/share/doc/gettext-1.0/gettext_2.html
+%doc /usr/share/doc/gettext-1.0/gettext_20.html
+%doc /usr/share/doc/gettext-1.0/gettext_21.html
+%doc /usr/share/doc/gettext-1.0/gettext_22.html
+%doc /usr/share/doc/gettext-1.0/gettext_23.html
+%doc /usr/share/doc/gettext-1.0/gettext_24.html
+%doc /usr/share/doc/gettext-1.0/gettext_25.html
+%doc /usr/share/doc/gettext-1.0/gettext_26.html
+%doc /usr/share/doc/gettext-1.0/gettext_27.html
+%doc /usr/share/doc/gettext-1.0/gettext_28.html
+%doc /usr/share/doc/gettext-1.0/gettext_29.html
+%doc /usr/share/doc/gettext-1.0/gettext_3.html
+%doc /usr/share/doc/gettext-1.0/gettext_30.html
+%doc /usr/share/doc/gettext-1.0/gettext_31.html
+%doc /usr/share/doc/gettext-1.0/gettext_32.html
+%doc /usr/share/doc/gettext-1.0/gettext_4.html
+%doc /usr/share/doc/gettext-1.0/gettext_5.html
+%doc /usr/share/doc/gettext-1.0/gettext_6.html
+%doc /usr/share/doc/gettext-1.0/gettext_7.html
+%doc /usr/share/doc/gettext-1.0/gettext_8.html
+%doc /usr/share/doc/gettext-1.0/gettext_9.html
+%doc /usr/share/doc/gettext-1.0/gettext_abt.html
+%doc /usr/share/doc/gettext-1.0/gettext_fot.html
+%doc /usr/share/doc/gettext-1.0/gettext_toc.html
+%doc /usr/share/doc/gettext-1.0/gettextize.1.html
+%dir /usr/share/doc/gettext-1.0/javadoc2
+%doc /usr/share/doc/gettext-1.0/javadoc2/allclasses-frame.html
+%doc /usr/share/doc/gettext-1.0/javadoc2/deprecated-list.html
+%dir /usr/share/doc/gettext-1.0/javadoc2/gnu
+%dir /usr/share/doc/gettext-1.0/javadoc2/gnu/gettext
+%doc /usr/share/doc/gettext-1.0/javadoc2/gnu/gettext/GettextResource.html
+%doc /usr/share/doc/gettext-1.0/javadoc2/gnu/gettext/package-frame.html
+%doc /usr/share/doc/gettext-1.0/javadoc2/gnu/gettext/package-summary.html
+%doc /usr/share/doc/gettext-1.0/javadoc2/gnu/gettext/package-tree.html
+%doc /usr/share/doc/gettext-1.0/javadoc2/help-doc.html
+%doc /usr/share/doc/gettext-1.0/javadoc2/index-all.html
+%doc /usr/share/doc/gettext-1.0/javadoc2/index.html
+%doc /usr/share/doc/gettext-1.0/javadoc2/overview-tree.html
+%doc /usr/share/doc/gettext-1.0/javadoc2/package-list
+%doc /usr/share/doc/gettext-1.0/javadoc2/packages.html
+%doc /usr/share/doc/gettext-1.0/javadoc2/serialized-form.html
+%doc /usr/share/doc/gettext-1.0/javadoc2/stylesheet.css
+%doc /usr/share/doc/gettext-1.0/libtextstyle_1.html
+%doc /usr/share/doc/gettext-1.0/libtextstyle_2.html
+%doc /usr/share/doc/gettext-1.0/libtextstyle_3.html
+%doc /usr/share/doc/gettext-1.0/libtextstyle_4.html
+%doc /usr/share/doc/gettext-1.0/libtextstyle_5.html
+%doc /usr/share/doc/gettext-1.0/libtextstyle_6.html
+%doc /usr/share/doc/gettext-1.0/libtextstyle_7.html
+%doc /usr/share/doc/gettext-1.0/libtextstyle_abt.html
+%doc /usr/share/doc/gettext-1.0/libtextstyle_toc.html
+%doc /usr/share/doc/gettext-1.0/msgattrib.1.html
+%doc /usr/share/doc/gettext-1.0/msgcat.1.html
+%doc /usr/share/doc/gettext-1.0/msgcmp.1.html
+%doc /usr/share/doc/gettext-1.0/msgcomm.1.html
+%doc /usr/share/doc/gettext-1.0/msgconv.1.html
+%doc /usr/share/doc/gettext-1.0/msgen.1.html
+%doc /usr/share/doc/gettext-1.0/msgexec.1.html
+%doc /usr/share/doc/gettext-1.0/msgfilter.1.html
+%doc /usr/share/doc/gettext-1.0/msgfmt.1.html
+%doc /usr/share/doc/gettext-1.0/msggrep.1.html
+%doc /usr/share/doc/gettext-1.0/msginit.1.html
+%doc /usr/share/doc/gettext-1.0/msgmerge.1.html
+%doc /usr/share/doc/gettext-1.0/msgpre.1.html
+%doc /usr/share/doc/gettext-1.0/msgunfmt.1.html
+%doc /usr/share/doc/gettext-1.0/msguniq.1.html
+%doc /usr/share/doc/gettext-1.0/ngettext.1.html
+%doc /usr/share/doc/gettext-1.0/ngettext.3.html
+%doc /usr/share/doc/gettext-1.0/po-fetch.1.html
+%doc /usr/share/doc/gettext-1.0/printf_gettext.1.html
+%doc /usr/share/doc/gettext-1.0/printf_ngettext.1.html
+%doc /usr/share/doc/gettext-1.0/recode-sr-latin.1.html
+%doc /usr/share/doc/gettext-1.0/spit.1.html
+%doc /usr/share/doc/gettext-1.0/textdomain.3.html
+%doc /usr/share/doc/gettext-1.0/tutorial.html
+%doc /usr/share/doc/gettext-1.0/xgettext.1.html
+%dir /usr/share/gettext
+%dir /usr/share/gettext-1.0
+%dir /usr/share/gettext-1.0/its
+/usr/share/gettext-1.0/its/docbook.loc
+/usr/share/gettext-1.0/its/docbook4.its
+/usr/share/gettext-1.0/its/docbook5.its
+/usr/share/gettext-1.0/its/glade.loc
+/usr/share/gettext-1.0/its/glade1.its
+/usr/share/gettext-1.0/its/glade2.its
+/usr/share/gettext-1.0/its/gsettings.its
+/usr/share/gettext-1.0/its/gsettings.loc
+/usr/share/gettext-1.0/its/gtkbuilder.its
+/usr/share/gettext-1.0/its/metainfo.its
+/usr/share/gettext-1.0/its/metainfo.loc
+/usr/share/gettext/ABOUT-NLS
+/usr/share/gettext/archive.dir.tar.xz
+/usr/share/gettext/config.rpath
+/usr/share/gettext/disclaim-translations.txt
+/usr/share/gettext/gettext.h
+/usr/share/gettext/javaversion.class
+%dir /usr/share/gettext/m4
+/usr/share/gettext/m4/build-to-host.m4
+/usr/share/gettext/m4/gettext.m4
+/usr/share/gettext/m4/host-cpu-c-abi.m4
+/usr/share/gettext/m4/iconv.m4
+/usr/share/gettext/m4/intlmacosx.m4
+/usr/share/gettext/m4/lib-ld.m4
+/usr/share/gettext/m4/lib-link.m4
+/usr/share/gettext/m4/lib-prefix.m4
+/usr/share/gettext/m4/nls.m4
+/usr/share/gettext/m4/po.m4
+/usr/share/gettext/m4/progtest.m4
+/usr/share/gettext/msgunfmt.tcl
+%dir /usr/share/gettext/po
+/usr/share/gettext/po/Makefile.in.in
+/usr/share/gettext/po/Makevars.template
+/usr/share/gettext/po/Rules-quot
+/usr/share/gettext/po/boldquot.sed
+/usr/share/gettext/po/en@boldquot.header
+/usr/share/gettext/po/en@quot.header
+/usr/share/gettext/po/fetch-po
+/usr/share/gettext/po/insert-header.sed
+/usr/share/gettext/po/quot.sed
+/usr/share/gettext/po/remove-potcdate.sed
+%dir /usr/share/gettext/projects
+%dir /usr/share/gettext/projects/GNOME
+/usr/share/gettext/projects/GNOME/team-address
+/usr/share/gettext/projects/GNOME/teams.html
+/usr/share/gettext/projects/GNOME/teams.url
+/usr/share/gettext/projects/GNOME/trigger
+%dir /usr/share/gettext/projects/KDE
+/usr/share/gettext/projects/KDE/team-address
+/usr/share/gettext/projects/KDE/teams.html
+/usr/share/gettext/projects/KDE/teams.url
+/usr/share/gettext/projects/KDE/trigger
+%dir /usr/share/gettext/projects/TP
+/usr/share/gettext/projects/TP/team-address
+/usr/share/gettext/projects/TP/teams.html
+/usr/share/gettext/projects/TP/teams.url
+/usr/share/gettext/projects/TP/trigger
+/usr/share/gettext/projects/index
+/usr/share/gettext/projects/team-address
+%dir /usr/share/gettext/schema
+/usr/share/gettext/schema/its-extensions.xsd
+/usr/share/gettext/schema/its.xsd10
+/usr/share/gettext/schema/its.xsd11
+/usr/share/gettext/schema/locating-rules.xsd10
+/usr/share/gettext/schema/locating-rules.xsd11
+%dir /usr/share/gettext/styles
+/usr/share/gettext/styles/po-default.css
+/usr/share/gettext/styles/po-emacs-x.css
+/usr/share/gettext/styles/po-emacs-xterm.css
+/usr/share/gettext/styles/po-emacs-xterm16.css
+/usr/share/gettext/styles/po-emacs-xterm256.css
+/usr/share/gettext/styles/po-vim.css
+%dir /usr/share/info
+%doc /usr/share/info/autosprintf.info.gz
+%doc /usr/share/info/gettext.info.gz
+%doc /usr/share/info/libtextstyle.info.gz
+%dir /usr/share/locale
+%dir /usr/share/locale/ast
+%dir /usr/share/locale/ast/LC_MESSAGES
+/usr/share/locale/ast/LC_MESSAGES/gettext-runtime.mo
+%dir /usr/share/locale/be
+%dir /usr/share/locale/be/LC_MESSAGES
+/usr/share/locale/be/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/be/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/bg
+%dir /usr/share/locale/bg/LC_MESSAGES
+/usr/share/locale/bg/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/bg/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+/usr/share/locale/ca/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/ca/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+/usr/share/locale/cs/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/cs/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+/usr/share/locale/da/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/da/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+/usr/share/locale/de/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/de/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/el
+%dir /usr/share/locale/el/LC_MESSAGES
+/usr/share/locale/el/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/el/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/eo
+%dir /usr/share/locale/eo/LC_MESSAGES
+/usr/share/locale/eo/LC_MESSAGES/gettext-runtime.mo
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+/usr/share/locale/es/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/es/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/et
+%dir /usr/share/locale/et/LC_MESSAGES
+/usr/share/locale/et/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/et/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/eu
+%dir /usr/share/locale/eu/LC_MESSAGES
+/usr/share/locale/eu/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+/usr/share/locale/fi/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/fi/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+/usr/share/locale/fr/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/fr/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/ga
+%dir /usr/share/locale/ga/LC_MESSAGES
+/usr/share/locale/ga/LC_MESSAGES/gettext-runtime.mo
+%dir /usr/share/locale/gl
+%dir /usr/share/locale/gl/LC_MESSAGES
+/usr/share/locale/gl/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/gl/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/hr
+%dir /usr/share/locale/hr/LC_MESSAGES
+/usr/share/locale/hr/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/hr/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/hu
+%dir /usr/share/locale/hu/LC_MESSAGES
+/usr/share/locale/hu/LC_MESSAGES/gettext-runtime.mo
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+/usr/share/locale/id/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/id/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+/usr/share/locale/it/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/it/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+/usr/share/locale/ja/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/ja/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+/usr/share/locale/ka/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/ka/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/ko
+%dir /usr/share/locale/ko/LC_MESSAGES
+/usr/share/locale/ko/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/ko/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/nb
+%dir /usr/share/locale/nb/LC_MESSAGES
+/usr/share/locale/nb/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/nb/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+/usr/share/locale/nl/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/nl/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/nn
+%dir /usr/share/locale/nn/LC_MESSAGES
+/usr/share/locale/nn/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/nn/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/pa
+%dir /usr/share/locale/pa/LC_MESSAGES
+/usr/share/locale/pa/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+/usr/share/locale/pl/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/pl/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/pt
+%dir /usr/share/locale/pt/LC_MESSAGES
+/usr/share/locale/pt/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/pt/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+/usr/share/locale/pt_BR/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/pt_BR/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/ro
+%dir /usr/share/locale/ro/LC_MESSAGES
+/usr/share/locale/ro/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/ro/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+/usr/share/locale/ru/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/ru/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/sk
+%dir /usr/share/locale/sk/LC_MESSAGES
+/usr/share/locale/sk/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/sk/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/sl
+%dir /usr/share/locale/sl/LC_MESSAGES
+/usr/share/locale/sl/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/sl/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+/usr/share/locale/sr/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/sr/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+/usr/share/locale/sv/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/sv/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+/usr/share/locale/tr/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/tr/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+/usr/share/locale/uk/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/uk/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/vi
+%dir /usr/share/locale/vi/LC_MESSAGES
+/usr/share/locale/vi/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/vi/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+/usr/share/locale/zh_CN/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/zh_CN/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/locale/zh_HK
+%dir /usr/share/locale/zh_HK/LC_MESSAGES
+/usr/share/locale/zh_HK/LC_MESSAGES/gettext-runtime.mo
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+/usr/share/locale/zh_TW/LC_MESSAGES/gettext-runtime.mo
+/usr/share/locale/zh_TW/LC_MESSAGES/gettext-tools.mo
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/autopoint.1.gz
+%doc /usr/share/man/man1/envsubst.1.gz
+%doc /usr/share/man/man1/gettext.1.gz
+%doc /usr/share/man/man1/gettextize.1.gz
+%doc /usr/share/man/man1/msgattrib.1.gz
+%doc /usr/share/man/man1/msgcat.1.gz
+%doc /usr/share/man/man1/msgcmp.1.gz
+%doc /usr/share/man/man1/msgcomm.1.gz
+%doc /usr/share/man/man1/msgconv.1.gz
+%doc /usr/share/man/man1/msgen.1.gz
+%doc /usr/share/man/man1/msgexec.1.gz
+%doc /usr/share/man/man1/msgfilter.1.gz
+%doc /usr/share/man/man1/msgfmt.1.gz
+%doc /usr/share/man/man1/msggrep.1.gz
+%doc /usr/share/man/man1/msginit.1.gz
+%doc /usr/share/man/man1/msgmerge.1.gz
+%doc /usr/share/man/man1/msgpre.1.gz
+%doc /usr/share/man/man1/msgunfmt.1.gz
+%doc /usr/share/man/man1/msguniq.1.gz
+%doc /usr/share/man/man1/ngettext.1.gz
+%doc /usr/share/man/man1/po-fetch.1.gz
+%doc /usr/share/man/man1/printf_gettext.1.gz
+%doc /usr/share/man/man1/printf_ngettext.1.gz
+%doc /usr/share/man/man1/recode-sr-latin.1.gz
+%doc /usr/share/man/man1/spit.1.gz
+%doc /usr/share/man/man1/xgettext.1.gz
+%dir /usr/share/man/man3
+%doc /usr/share/man/man3/bind_textdomain_codeset.3.gz
+%doc /usr/share/man/man3/bindtextdomain.3.gz
+%doc /usr/share/man/man3/dcgettext.3.gz
+%doc /usr/share/man/man3/dcngettext.3.gz
+%doc /usr/share/man/man3/dgettext.3.gz
+%doc /usr/share/man/man3/dngettext.3.gz
+%doc /usr/share/man/man3/gettext.3.gz
+%doc /usr/share/man/man3/ngettext.3.gz
+%doc /usr/share/man/man3/textdomain.3.gz

@@ -25,20 +25,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 chmod -v 0755 %{buildroot}/usr/lib64/preloadable_libintl.so
 rm -rf %{buildroot}/usr/share/doc/gettext-%{version}/examples
 
-%files
-/usr/bin/
-/usr/include/
-/usr/lib64/gettext/
-/usr/lib64/libasprintf.so*
-/usr/lib64/libgettextlib*
-/usr/lib64/libgettextpo.so*
-/usr/lib64/libgettextsrc*
-/usr/lib64/libtextstyle.so*
-/usr/lib64/preloadable_libintl.so
-/usr/libexec/gettext/
-/usr/share/
+%files -f %{_sourcedir}/gettext.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.0
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.0
 - Sync with LFS r13.1
 

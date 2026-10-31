@@ -50,12 +50,12 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 rm -f %{buildroot}/usr/share/man/man3/Thread.3
 
-%files
-/usr/bin/
-/usr/lib64/
-/usr/share/
+%files -f %{_sourcedir}/perl.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 5.44.0
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 5.44.0
 - Sync with LFS r13.1
 

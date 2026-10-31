@@ -36,15 +36,12 @@ rm -rf %{buildroot}/etc/pam.d
 pwconv
 grpconv
 
-%files
-/etc/
-/usr/include/
-/usr/bin/
-/usr/sbin/
-/usr/lib64/libsubid.so*
-/usr/share/
+%files -f %{_sourcedir}/shadow.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.2
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 4.20.2
 - Sync with LFS r13.1
 

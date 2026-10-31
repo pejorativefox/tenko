@@ -29,13 +29,12 @@ install -v -m644   doc/dejagnu.{html,txt} %{buildroot}/usr/share/doc/dejagnu-1.6
 rm %{buildroot}/usr/share/info/dir
 popd
 
-%files
-/usr/bin/dejagnu                                                                            
-/usr/bin/runtest                                                                            
-/usr/include/dejagnu.h  
-/usr/share/
+%files -f %{_sourcedir}/dejagnu.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.6.3
+- Replace directory globs with a generated static filelist
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Initial RPM
 

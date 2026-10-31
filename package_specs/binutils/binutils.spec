@@ -39,15 +39,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 rm -fv %{buildroot}/usr/lib/lib{bfd,ctf,ctf-nobfd,gprofng,opcodes,sframe}.a
 popd
 
-%files
-/usr/bin/
-/usr/lib/
-
-/usr/include/
-/usr/lib64/
-/usr/share/
+%files -f %{_sourcedir}/binutils.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 2.47
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.47
 - Sync with LFS r13.1
 

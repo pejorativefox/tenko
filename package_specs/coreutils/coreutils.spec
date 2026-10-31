@@ -26,14 +26,12 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/
-/usr/libexec/coreutils/
-/usr/share/info/
-/usr/share/locale/
-/usr/share/man/
+%files -f %{_sourcedir}/coreutils.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 9.11
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 9.11
 - Sync with LFS r13.1
 

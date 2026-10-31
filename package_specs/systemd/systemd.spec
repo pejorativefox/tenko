@@ -42,16 +42,12 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/etc/
-/usr/bin/
-/usr/include/
-/usr/lib/
-/usr/lib64/
-/usr/sbin/
-/usr/share/
+%files -f %{_sourcedir}/systemd.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 261.2
+- Replace directory globs with a generated static filelist
+
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 245
 - Initial RPM
 

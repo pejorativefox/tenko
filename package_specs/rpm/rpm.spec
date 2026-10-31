@@ -34,13 +34,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 rmdir %{buildroot}/var/tmp 2>/dev/null || true
 rmdir %{buildroot}/var 2>/dev/null || true
 
-%files
-/usr/bin/
-/usr/include/
-/usr/lib/
-/usr/lib64/
+%files -f %{_sourcedir}/rpm.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.18.1
+- Replace directory globs with a generated static filelist
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 4.18.1-1
 - Version bump
 

@@ -23,9 +23,11 @@ for d in asm asm-generic cxl drm fwctl linux misc mtd rdma regulator scsi sound 
     cp -a /usr/include/$d %{buildroot}/usr/include/
 done
 
-%files
-/usr/include/
+%files -f %{_sourcedir}/linux-api-headers.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 7.2.4
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 7.2.4
 - Bootstrap UAPI headers for the build container

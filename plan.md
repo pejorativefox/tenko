@@ -67,7 +67,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `bootstrap_selfhosted.sh` regenerated `build/repo-selfhost` (**98** RPMs),
   `build/rootfs-selfhost` (**94** packages), and the image.  The new rootfs
   carries the full glibc locale archive and the systemd chapter-9 defaults
-  (presets applied, networkd/resolved enabled, empty machine-id).
+  (presets applied, networkd/resolved enabled, empty machine-id).  C6b then
+  replaced the base specs' directory globs with static filelists
+  (`build/container-filelists-20261031`) and the run was re-bootstrapped.
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
@@ -116,7 +118,8 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 │   └── strip_debug.sh
 ├── scripts/
 │   ├── gen_lfs_lock.py        # regenerate lfs.lock from a tag
-│   └── sync_lfs_spec.py       # dry-run/--write version+source sync
+│   ├── sync_lfs_spec.py       # dry-run/--write version+source sync
+│   ├── gen_filelist.py        # snapshot a built RPM into a %files list
 ├── lfs.lock                   # pinned versions/sources/patches/base list
 ├── Containerfile              # FROM scratch + rootfs tarball
 └── build/
@@ -500,9 +503,21 @@ localhost login:
 - [x] C6a. Base static filelists regenerated: `tcl` (including tzdata and
       symlinks) and `groff` (removed PDF/URW-only entries); `kbd`'s existing
       filelist builds unchanged.
-- [ ] C6b. Tighten the remaining broad `%files` and regenerate non-base static
-      filelists (`glib`, `gobject-introspection`, `gtk2`, `gtk3`,
-      `imagemagick`, `llvm`, ...).
+- [x] C6b. Base `%files` tightened: 21 specs that used top-level directory
+      globs now use generated static filelists.  `scripts/gen_filelist.py`
+      snapshots the current build's paths, `%dir` entries, and
+      `%config`/`%doc` flags.  Verified by rebuilding all 21 offline and
+      diffing `rpm -qlp` against the previous build: file sets are identical
+      except that the shared top-level dirs (`/etc`, `/var`, `/var/cache`,
+      `/var/lib`) are no longer owned.  Non-base `glib` was regenerated too
+      (447 entries, unchanged).
+- [ ] C6c. Regenerate the remaining non-base static filelists, blocked on
+      their dependency stacks: `gobject-introspection` fails on Python 3.14
+      (`distutils.msvccompiler` was removed; needs a patch or version bump);
+      `gtk2`/`gtk3` need the X11/cairo/pango/atk/gdk-pixbuf stack (`libX11`
+      has no spec); `imagemagick` has no filelist at all and needs its
+      delegate libraries; `llvm` 16 needs CMake >= 3.20 (the `cmake` spec is
+      3.17.2).
 - [ ] C7. Revisit duplicate/disabled specs: `browneye-basefs-nousr.spec.disabled`,
       `browneye-init.spec.disabled`, `sysvinit.spec.disabled`, `yum.disabled`.
 - [x] C8. Two-phase order documented: `package_specs/ORDER` stays
@@ -557,8 +572,9 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   `r13.1-selfhost-20261031` passed 93/93, but `bbuild` on the host remains a
   useful fast path and can reintroduce a host-only `DT_NEEDED`. Always verify
   with a container rebuild and reinstall the rootfs after adding packages.
-- Many `%files` sections are directory globs. This hides file ownership bugs
-  and makes upgrades noisy.
+- The base set and `glib` use generated static filelists; upstream file
+  additions now fail the build (intended).  `gtk2`, `gtk3`, `imagemagick`,
+  and `llvm` still use directory globs or stale lists (C6c).
 - `browneye-base` has 93 `Requires:` (generated from `lfs.lock` plus the
   manual bootstrap list); it is not regenerated automatically when versions
   change.

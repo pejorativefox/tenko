@@ -61,14 +61,12 @@ Summary: The GNU Standard C++ Library v3
 %description -n libstdc++
 The GNU Standard C++ Library v3 is an ongoing project to implement the ISO 14882 C++ Standard Library as described in clauses 20 through 33 and annex D (prior to the 2017 standard the library clauses started with 17).
 
-%files
-/usr/bin/
-/usr/include/
-/usr/lib64/
-/usr/libexec/
-/usr/share/
+%files -f %{_sourcedir}/gcc.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 16.2.0
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 16.2.0
 - Sync with LFS r13.1
 

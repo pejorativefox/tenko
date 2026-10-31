@@ -20,12 +20,11 @@ Message digest library used by libbsd.
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/include/
-/usr/lib64/libmd.so*
-/usr/lib64/pkgconfig/
-/usr/share/man/
+%files -f %{_sourcedir}/libmd.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.3.0
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.3.0
 - Bootstrap dependency for shadow/libbsd

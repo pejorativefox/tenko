@@ -21,13 +21,11 @@ floating point arithmetic.
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/include/
-/usr/lib64/libmpdec*.so*
-/usr/lib64/pkgconfig/
-/usr/share/doc/%{name}-%{version}/
-/usr/share/man/
+%files -f %{_sourcedir}/mpdecimal.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.0.1
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 4.0.1
 - Initial package (LFS r13.1)

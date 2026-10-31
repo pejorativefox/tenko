@@ -92,22 +92,13 @@ EOF
 mkdir -pv %{buildroot}/etc/ld.so.conf.d
 touch %{buildroot}/etc/ld.so.conf.d/.keep
 
-%files
-/etc/
-/usr/libexec/
-/var/
-/usr/bin/
-/usr/include/
-/usr/lib/
-/usr/lib64/
-/usr/sbin/
-/usr/share/
+%files -f %{_sourcedir}/glibc.filelist
 %exclude /usr/lib/locale/
 
-%files locales
-/usr/lib/locale/
-
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 2.44
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.44
 - Sync with LFS r13.1
 

@@ -38,14 +38,11 @@ chmod 4755 %{buildroot}%{_bindir}/mount %{buildroot}%{_bindir}/umount
 chmod 2755 %{buildroot}%{_bindir}/wall
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/
-/usr/include/
-/usr/lib64/
-/usr/sbin/
-/usr/share/
+%files -f %{_sourcedir}/util-linux.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 2.42.2
+- Replace directory globs with a generated static filelist
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.42.2
 - Sync with LFS r13.1
 

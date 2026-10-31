@@ -20,13 +20,11 @@ make -j%{_smp_build_ncpus} BUILD_STATIC=no PREFIX=/usr
 rm -rf %{buildroot}
 make BUILD_STATIC=no PREFIX=/usr libdir=/usr/lib64 DESTDIR=%{buildroot} install
 
-%files
-/usr/bin/
-/usr/include/
-/usr/lib64/liblz4.so*
-/usr/lib64/pkgconfig/
-/usr/share/man/
+%files -f %{_sourcedir}/lz4.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.10.0
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.10.0
 - Initial package (LFS r13.1)

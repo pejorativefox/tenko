@@ -52,13 +52,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 sed -i 's|#!/usr/bin/env python$|#!/usr/bin/env python3|' %{buildroot}/usr/lib64/python3.14/encodings/rot_13.py
 ln -s python3.14 %{buildroot}/usr/bin/python
 
-%files
-/usr/bin/
-/usr/include/
-/usr/lib64/
-/usr/share/
+%files -f %{_sourcedir}/python.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 3.14.7
+- Replace directory globs with a generated static filelist
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 3.14.7
 - Sync with LFS r13.1
 
