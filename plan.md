@@ -502,12 +502,13 @@ localhost login:
     silently emits no library dependencies. `--enable-sqlite=yes` is
     required so the container's rpm reads the rpmdb written by the host dnf
     (path `/usr/lib/sysimage/rpm`, set by `browneye-rpm-config`).
-12. **Kernel headers are a bootstrap package.** `linux-api-headers` is built
-    by copying the host's `kernel-headers` 7.2.4 UAPI directories
-    (`linux/`, `asm/`, `asm-generic/`, `drm/`, …). It is required to compile
-    anything that includes `<limits.h>`/`<linux/limits.h>`. Phase 2 should
-    replace it with headers generated from the pinned kernel source via
-    `make headers_install`. Do not treat it as a reproducible LFS package.
+12. **Kernel headers come from the pinned kernel.** `linux-api-headers`
+    7.1.8 runs `make headers` and copies the sanitised `usr/include` tree
+    from the linux-7.1.8 source; the file set matches `headers_install`
+    exactly (1085 entries) without needing `rsync`.  It is required to
+    compile anything that includes `<limits.h>`/`<linux/limits.h>`.  C9
+    rebuilt the main UAPI consumers; the `1701` rule for a fresh full base
+    run is documented in §8.
 13. **`rpm` owns `/rpmbuild` by default.** The container writes build trees
     under `/rpmbuild` (not `/build`). Mount sources read-only and copy RPMs
     out, or change `%_topdir` in `browneye-rpm-config` deliberately.
@@ -814,9 +815,11 @@ These are the current caveats that do not yet have a checkbox elsewhere.
    is the current session entry point.
    After that, **add an initramfs and bootloader path** (dracut or a custom
    cpio, grub disk boot) for hardware and module-based storage.
-2. **Replace the host-derived `linux-api-headers`** with
-   `make headers_install` from the pinned 7.1.8 source, then rebuild the
-   packages that consume UAPI headers.
+2. **Rebuild the full base set against the 7.1.8 headers.**  C9 rebuilt the
+   key consumers (`glibc`, `systemd`, `util-linux`, `kmod`, `iproute2`,
+   `e2fsprogs`, `procps-ng`, `shadow`, `libcap`, `libseccomp`); run all 93
+   specs in a fresh self-hosted image, then regenerate
+   `repo-selfhost`/`rootfs-selfhost`/the container image.
 3. **Decide whether rootfs assembly must also be self-hosted.** The build is
    now self-hosted; `dnf` + `createrepo_c` are still host tools. Build them
    only if the assembly pipeline itself must run in the container.
