@@ -17,7 +17,7 @@ libepoxy is a library for handling OpenGL function pointer management.
 %build
 mkdir -pv build
 pushd build
-meson --prefix=/usr
+meson setup .. --prefix=/usr -Dtests=false
 ninja
 popd
 
@@ -28,18 +28,8 @@ DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/epoxy/common.h
-/usr/include/epoxy/egl.h
-/usr/include/epoxy/egl_generated.h
-/usr/include/epoxy/gl.h
-/usr/include/epoxy/gl_generated.h
-/usr/include/epoxy/glx.h
-/usr/include/epoxy/glx_generated.h
-/usr/lib64/libepoxy.so
-/usr/lib64/libepoxy.so.0
-/usr/lib64/libepoxy.so.0.0.0
-/usr/lib64/pkgconfig/epoxy.pc
+%files -f %{_sourcedir}/libepoxy.filelist
+
 
 %changelog
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.5.10-1

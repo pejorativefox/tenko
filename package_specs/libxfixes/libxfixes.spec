@@ -1,11 +1,10 @@
 Name:       libxfixes
-Version:    6.0.1
+Version:    6.0.2
 Release:    1
 Summary:    Xlib-based library for the XFIXES Extension.
 License:    GPL3
 Prefix:     /usr
 Source0:    libXfixes-%{version}.tar.xz
-
 %description
 Xlib-based library for the XFIXES Extension.
 
@@ -21,15 +20,12 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/extensions/Xfixes.h
-/usr/lib64/libXfixes.a
-/usr/lib64/libXfixes.so
-/usr/lib64/libXfixes.so.3
-/usr/lib64/libXfixes.so.3.1.0
-/usr/lib64/pkgconfig/xfixes.pc
-/usr/share/man/man3/Xfixes.3.gz
+%files -f %{_sourcedir}/libxfixes.filelist
+
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 6.0.2
+- Sync with BLFS r13.1 (6.0.1)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 6.0.1-1
 - Version bump

@@ -1,11 +1,10 @@
 Name:       freetype
-Version:    2.13.1
+Version:    2.14.3
 Release:    1
 Summary:    TrueType font library
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
-
 BuildRequires: harfbuzz >= 8.1.1
 
 Provides: pkgconfig(freetype2)
@@ -29,16 +28,12 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/freetype-config
-/usr/include/freetype2/
-/usr/lib64/libfreetype.so
-/usr/lib64/libfreetype.so.6
-/usr/lib64/libfreetype.so.6.20.0
-/usr/lib64/pkgconfig/freetype2.pc
-/usr/share/aclocal/freetype2.m4
-/usr/share/man/man1/freetype-config.1.gz
+%files -f %{_sourcedir}/freetype.filelist
+
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 2.14.3
+- Sync with BLFS r13.1 (2.13.1)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.13.1-1
 - Version bump

@@ -1,0 +1,28 @@
+%dir /usr/bin
+/usr/bin/libpng-config
+/usr/bin/libpng16-config
+/usr/bin/png-fix-itxt
+/usr/bin/pngfix
+%dir /usr/include
+%dir /usr/include/libpng16
+/usr/include/libpng16/png.h
+/usr/include/libpng16/pngconf.h
+/usr/include/libpng16/pnglibconf.h
+/usr/include/png.h
+/usr/include/pngconf.h
+/usr/include/pnglibconf.h
+%dir /usr/lib64
+/usr/lib64/libpng.so
+/usr/lib64/libpng16.so
+/usr/lib64/libpng16.so.16
+/usr/lib64/libpng16.so.16.58.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libpng.pc
+/usr/lib64/pkgconfig/libpng16.pc
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man3
+%doc /usr/share/man/man3/libpng.3.gz
+%doc /usr/share/man/man3/libpngpf.3.gz
+%dir /usr/share/man/man5
+%doc /usr/share/man/man5/png.5.gz

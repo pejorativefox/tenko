@@ -1,3 +1,2 @@
-d9185fc007c32aea27a6de3c7c1eb90d https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.5/llvm-16.0.5.src.tar.xz
-8b506e49e5fa4c41186ba8ba7da5af82 https://anduin.linuxfromscratch.org/BLFS/llvm/llvm-third-party.src.tar.xz
-356a1aff675d281d7c76165269d33bd5 https://anduin.linuxfromscratch.org/BLFS/llvm/llvm-cmake.src.tar.xz
+69065494ebcb1150b2a329c1b3db7584 https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.8/llvm-project-22.1.8.src.tar.xz llvm-project-22.1.8.src.tar.xz
+9149a344a225b5a6ee626ed2d3b23c4b https://www.linuxfromscratch.org/patches/blfs/13.1/llvm-22.1.8-upstream_fix-1.patch llvm-22.1.8-upstream_fix-1.patch

@@ -1,5 +1,5 @@
 Name:       gobject-introspection
-Version:    1.76.1
+Version:    1.86.0
 Release:    1
 Summary:    TODO
 License:    GPL3
@@ -11,17 +11,12 @@ Source0:    %{name}-%{version}.tar.xz
 TODO
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 mkdir build
 pushd build
-meson setup --prefix=/usr \
-            --buildtype=release \
-            -Dcairo=disabled \
-            -Ddoctool=disabled \
-            -Dgtk_doc=false \
-            ..
+meson setup .. --prefix=/usr --buildtype=release
 ninja
 popd
 
@@ -30,9 +25,10 @@ rm -rf %{buildroot}
 pushd build
 DESTDIR=%{buildroot} ninja install
 popd
-
+rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/gobject-introspection.filelist
+
 
 %changelog
 # let's skip this for now

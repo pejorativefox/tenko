@@ -1,11 +1,10 @@
 Name:       libxrandr
-Version:    1.5.3
+Version:    1.5.5
 Release:    1
 Summary:    Xlib Resize, Rotate and Reflection (RandR) extension library.
 License:    GPL3
 Prefix:     /usr
 Source0:    libXrandr-%{version}.tar.xz
-
 %description
 Xlib Resize, Rotate and Reflection (RandR) extension library.
 
@@ -21,15 +20,12 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
- /usr/include/X11/extensions/Xrandr.h
-/usr/lib64/libXrandr.a
-/usr/lib64/libXrandr.so
-/usr/lib64/libXrandr.so.2
-/usr/lib64/libXrandr.so.2.2.0
-/usr/lib64/pkgconfig/xrandr.pc
-/usr/share/man/
+%files -f %{_sourcedir}/libxrandr.filelist
+
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.5.5
+- Sync with BLFS r13.1 (1.5.3)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.5.3-1
 - Version bump

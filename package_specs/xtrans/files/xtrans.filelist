@@ -1,0 +1,18 @@
+%dir /usr/include
+%dir /usr/include/X11
+%dir /usr/include/X11/Xtrans
+/usr/include/X11/Xtrans/Xtrans.c
+/usr/include/X11/Xtrans/Xtrans.h
+/usr/include/X11/Xtrans/Xtransint.h
+/usr/include/X11/Xtrans/Xtranslcl.c
+/usr/include/X11/Xtrans/Xtranssock.c
+/usr/include/X11/Xtrans/Xtransutil.c
+/usr/include/X11/Xtrans/transport.c
+%dir /usr/share
+%dir /usr/share/aclocal
+/usr/share/aclocal/xtrans.m4
+%dir /usr/share/doc
+%dir /usr/share/doc/xtrans
+%doc /usr/share/doc/xtrans/xtrans.xml
+%dir /usr/share/pkgconfig
+/usr/share/pkgconfig/xtrans.pc

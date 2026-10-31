@@ -1,11 +1,10 @@
 Name:       libxft
-Version:    2.3.8
+Version:    2.3.9
 Release:    1
 Summary:    Xorg font rendering library
 License:    GPL3
 Prefix:     /usr
 Source0:    libXft-%{version}.tar.xz
-
 %description
 Client side font rendering library, using libfreetype, libX11, and the X Render extension to display anti-aliased text.
 
@@ -21,16 +20,12 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/Xft/Xft.h
-/usr/include/X11/Xft/XftCompat.h
-/usr/lib64/libXft.a
-/usr/lib64/libXft.so
-/usr/lib64/libXft.so.2
-/usr/lib64/libXft.so.2.3.8
-/usr/lib64/pkgconfig/xft.pc
-/usr/share/man/
+%files -f %{_sourcedir}/libxft.filelist
+
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 2.3.9
+- Sync with BLFS r13.1 (2.3.8)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.3.8-1
 - Version bump

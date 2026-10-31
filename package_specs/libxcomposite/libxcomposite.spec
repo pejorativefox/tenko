@@ -1,11 +1,10 @@
 Name:       libxcomposite
-Version:    0.4.6
+Version:    0.4.7
 Release:    1
 Summary:    Xorg composite ext library
 License:    GPL3
 Prefix:     /usr
 Source0:    libXcomposite-%{version}.tar.xz
-
 BuildRequires: libxfixes
 
 %description
@@ -23,15 +22,12 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/extensions/Xcomposite.h
-/usr/lib64/libXcomposite.a
-/usr/lib64/libXcomposite.so
-/usr/lib64/libXcomposite.so.1
-/usr/lib64/libXcomposite.so.1.0.0
-/usr/lib64/pkgconfig/xcomposite.pc
-/usr/share/man/
+%files -f %{_sourcedir}/libxcomposite.filelist
+
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 0.4.7
+- Sync with BLFS r13.1 (0.4.6)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 0.4.6-1
 - Version bump

@@ -1,5 +1,5 @@
 Name:       libxtst
-Version:    1.2.4
+Version:    1.2.5
 Release:    1
 Summary:    Xlib-based library for XTEST & RECORD
 License:    GPL3
@@ -23,17 +23,8 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/extensions/XTest.h
-/usr/include/X11/extensions/record.h
-/usr/lib64/libXtst.a
-/usr/lib64/libXtst.so
-/usr/lib64/libXtst.so.6
-/usr/lib64/libXtst.so.6.1.0
-/usr/lib64/pkgconfig/xtst.pc
-/usr/share/doc/libXtst/recordlib.xml
-/usr/share/doc/libXtst/xtestlib.xml
-/usr/share/man/
+%files -f %{_sourcedir}/libxtst.filelist
+
 
 %changelog
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.2.4-1

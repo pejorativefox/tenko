@@ -1,0 +1,10 @@
+%dir /usr/include
+%dir /usr/include/pixman-1
+/usr/include/pixman-1/pixman-version.h
+/usr/include/pixman-1/pixman.h
+%dir /usr/lib64
+/usr/lib64/libpixman-1.so
+/usr/lib64/libpixman-1.so.0
+/usr/lib64/libpixman-1.so.0.46.4
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/pixman-1.pc
