@@ -36,6 +36,8 @@ Requires:   xrdb
 Requires:   xset
 Requires:   xmodmap
 Requires:   xhost
+Requires:   xwininfo
+Requires:   xwd
 Requires:   hicolor-icon-theme
 Requires:   browneye-desktop-config
 
