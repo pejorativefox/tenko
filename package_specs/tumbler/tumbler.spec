@@ -1,5 +1,5 @@
 Name:       tumbler
-Version:    4.19.0
+Version:    4.20.2
 Release:    1
 Summary:    D-Bus service for applications to request thumbnails
 License:    GPL2
@@ -28,6 +28,9 @@ rm -rf %{buildroot}
 /usr/lib/systemd/user/
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.2
+- Sync with BLFS r13.1 (4.19.0)
+
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.19.0
 - Version bump
 

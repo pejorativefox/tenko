@@ -1,5 +1,5 @@
 Name:       xfce4-session
-Version:    4.19.1
+Version:    4.20.4
 Release:    1
 Summary:    A session manager for Xfce
 License:    GPL
@@ -29,6 +29,9 @@ rm -rf %{buildroot}
 /usr/share/
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.4
+- Sync with BLFS r13.1 (4.19.1)
+
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.19.1
 - Version bump
 

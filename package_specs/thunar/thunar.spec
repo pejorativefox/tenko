@@ -1,9 +1,9 @@
 Name:       thunar
-Version:    4.18.6
+Version:    4.20.9
 Release:    1
 Summary:    Modern file manager for Xfce
 License:    GPL2
-Source0:   %{name}-%{version}.tar.bz2
+Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
 %description
@@ -29,6 +29,9 @@ rm -rf %{buildroot}
 /usr/share/
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.9
+- Sync with BLFS r13.1 (4.18.6)
+
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.18.6
 - Version bump
 

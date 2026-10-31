@@ -1,5 +1,5 @@
 Name:       xfce4-panel
-Version:    4.19.1
+Version:    4.20.8
 Release:    1
 Summary:    Panel for the Xfce desktop environment
 License:    GPL2
@@ -34,6 +34,9 @@ rm -rf %{buildroot}
 /usr/etc/xdg/xfce4/panel/default.xml
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.8
+- Sync with BLFS r13.1 (4.19.1)
+
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.19.1
 - Version bump
 

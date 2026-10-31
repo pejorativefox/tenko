@@ -1,5 +1,5 @@
 Name:       libxfce4windowing
-Version:    4.19.2
+Version:    4.20.7
 Release:    1
 Summary:    Abstraction library for windowing concepts
 License:    LGPL
@@ -28,6 +28,9 @@ rm -rf %{buildroot}
 /usr/lib64/
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.7
+- Sync with BLFS r13.1 (4.19.2)
+
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.19.2
 - Initial RPM
 
