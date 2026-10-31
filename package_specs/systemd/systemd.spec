@@ -32,6 +32,9 @@ meson setup ..                  \
       -D nobody-group=nogroup   \
       -D sysupdate=disabled     \
       -D ukify=disabled         \
+      -D importd=disabled      \
+      -D remote=disabled       \
+      -D imds=disabled         \
       -D docdir=/usr/share/doc/systemd-%{version}
 ninja -j%{_smp_build_ncpus}
 popd

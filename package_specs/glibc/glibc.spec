@@ -95,6 +95,9 @@ touch %{buildroot}/etc/ld.so.conf.d/.keep
 %files -f %{_sourcedir}/glibc.filelist
 %exclude /usr/lib/locale/
 
+%files locales
+/usr/lib/locale/locale-archive
+
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.44
 - Replace directory globs with a generated static filelist

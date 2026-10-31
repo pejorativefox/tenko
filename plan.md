@@ -611,8 +611,16 @@ localhost login:
       chapter-8 + bootstrap extras, and `scripts/verify_base_in_container.sh`
       appends `libbsd`, `libmd`, `libseccomp`, and `browneye-base` for the
       full 93-package run.
-- [ ] C9. Replace the host-derived `linux-api-headers` with
-      `make headers_install` from the pinned kernel source (7.1.8).
+- [x] C9. `linux-api-headers` is now generated from the pinned
+      **linux-7.1.8** tarball (`make headers`, then copy the sanitised
+      `usr/include` tree).  The file set is identical to the
+      `headers_install` output (1085 entries) and no longer needs `rsync` in
+      a clean build image.  Rebuilt the UAPI consumers against it: `glibc`
+      2.44 with `glibc-locales`, `systemd` 261.2, `util-linux` 2.42.2,
+      `kmod` 34.2, `iproute2` 7.1.0, `e2fsprogs` 1.47.4, `procps-ng` 4.0.7,
+      `shadow` 4.20.2, `libcap` 2.78, `libseccomp` 2.6.0.  The base repo now
+      ships `linux-api-headers-7.1.8` (the host-derived 7.2.4 RPM is gone).
+      The glibc spec regained its `%files locales` section (`locale-archive`).
 - [ ] C10. Add an initramfs (dracut in the target or a custom cpio) and a
       bootloader path; the current QEMU boot relies on built-in virtio/ext4
       and `-kernel`. E3 covers a grub disk boot, E4 the generator/config.
@@ -754,6 +762,10 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - The QEMU login test used a temporary SHA-512 root password, then restored
   the locked shadow entry. There is no first-boot password setup or account
   policy yet.
+- `systemd` is configured with `importd=disabled`, `remote=disabled`, and
+  `imds=disabled` so the base build does not depend on `curl`; as a result
+  `systemd-journal-remote` is not shipped.  The static filelist was
+  regenerated for that configuration.
 - **No Mesa:** there is no `libGL`/GLX.  `xorg-server` is built with
   `-Dglx=false` and logs "No glamor support in the X Server"; `xfwm4`
   compositing is disabled in the test session, and `xf86-video-amdgpu`
