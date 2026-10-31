@@ -1,6 +1,6 @@
 # Handoff — browneye LFS r13.1 base rebuild
 
-Last updated: 2026-10-30. Branch: `lfs-r13.1`. Work root: `~/browneye`.
+Last updated: 2026-10-31. Branch: `lfs-r13.1`. Work root: `~/browneye`.
 
 Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 `git log` and the old text is no longer the source of truth.
@@ -11,23 +11,29 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 
 **Item 1 (LFS version parity) is effectively complete for the base system.**
 
-- 79 of 80 chapter-8 packages build from specs. Only **grub** is deferred.
-- Local repo: `build/repo`, 111 RPMs (includes old versions/debuginfo; clean before publish).
-- `browneye-base` meta resolves and installs 93 packages into `build/rootfs`.
-- Rootfs verified inside a chroot: bash 5.3, python 3.14.7, openssl 4.0.1,
-  merged `/usr` layout, loader at `/usr/lib64/ld-linux-x86-64.so.2`.
+- **80/80** LFS chapter-8 systemd packages build from specs, including
+  **grub 2.14**; the full base set is **93/93** specs.
+- `build/repo` is the old host-built repo and still contains stale versions;
+  `build/repo-selfhost` is the clean repo produced by the container rebuild.
+- `browneye-base` meta resolves and installs 93 packages into
+  `build/rootfs` and `build/rootfs-selfhost`.
+- The rootfs is QEMU-booted to multi-user and a serial root login; bash 5.3,
+  python 3.14.7, openssl 4.0.1, merged `/usr`, loader at
+  `/usr/lib64/ld-linux-x86-64.so.2`.
 
 **Item 2 (build container) now has a working RPM toolchain.**
 
-- Image `localhost/browneye/base:r13.1-rpm5-20261030` exists (1.3 GB).
+- Bootstrap image `localhost/browneye/base:r13.1-rpm5-20261030` exists (1.3 GB);
+  final self-hosted image is
+  `localhost/browneye/base:r13.1-selfhost-20261031`.
 - Contains `rpm` 4.18.1 + `rpmbuild`, `browneye-rpm-config`, and the base
   toolchain. `rpm -qa` sees all 93 installed packages (sqlite rpmdb at
   `/usr/lib/sysimage/rpm`).
 - Verified inside the container: build a C package with `rpmbuild -bb`,
   install it with `rpm -Uvh`, run it, remove it; and build `which-2.21`
   directly from `package_specs/`.
-- `dnf` and `createrepo_c` are **not** in the image yet. Decision: keep repo
-  assembly and rootfs installs on the host for now (§6 A3/A4).
+- `dnf` and `createrepo_c` are **not** in the image yet. The **build** is
+  self-hosted; repo/rootfs **assembly** is still host-assisted (§6 E1).
 
 **Self-hosted rebuild (2026-10-31).**
 
@@ -99,9 +105,12 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 ├── lfs.lock                   # pinned versions/sources/patches/base list
 ├── Containerfile              # FROM scratch + rootfs tarball
 └── build/
-    ├── repo/                  # createrepo_c output (105 rpms, some stale)
-    ├── rootfs/                # installed base system (1.3 GB)
-    ├── browneye-rootfs.tar.gz # 374 MB, built under unshare -r
+    ├── repo/                  # old host-built createrepo output (stale)
+    ├── repo-selfhost/         # clean repo from the container rebuild (97 rpms)
+    ├── rootfs/                # old installed base system
+    ├── rootfs-selfhost/       # installed from repo-selfhost (93 packages)
+    ├── browneye-rootfs.tar.gz # old image payload
+    ├── container-rebuild-*/   # per-package logs/RPMs from verify runs
     └── deps/                  # extracted devel prefixes (see §5)
 ```
 
@@ -113,8 +122,8 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 |---|---|---|
 | D1 | Init | **systemd 261.2** (book systemd variant) |
 | D2 | Library layout | **`/usr/lib64`**, merged `/usr` via basefs symlinks |
-| D3 | Kernel | **deferred to phase 2** |
-| D4 | Bootstrap | **chapter 8 built with host toolchain** (ch5–7 deferred) |
+| D3 | Kernel | **7.1.8 packaged for QEMU**; self-hosted kernel rebuild tracked as E2 |
+| D4 | Bootstrap | **chapter 8 self-hosted**; ch5–7 deferred (D2) |
 | D5 | LFS pin | **r13.1 tag** (`71ef60ba`) |
 
 Consequences already implemented:
@@ -448,7 +457,7 @@ localhost login:
 - [x] C4. `/etc/passwd`/`group`/`shadow` baseline: root and system users
       exist through `systemd-sysusers`; a temporary-password root login over
       `ttyS0` was tested (`LOGIN_OK`, `uid=0`, kernel 7.1.8). Root is locked
-      again after the test; a password/first-boot policy is still future work.
+      again after the test; E5 tracks a first-boot password/account policy.
 - [ ] C5. Clean `build/repo` of stale/duplicate/debuginfo RPMs, regenerate.
 - [ ] C6. Tighten broad `%files` back to filelists/globs per package; regenerate
       the remaining static filelists (`glib`, `gobject-introspection`, `groff`,
@@ -463,7 +472,7 @@ localhost login:
       `make headers_install` from the pinned kernel source (7.1.8).
 - [ ] C10. Add an initramfs (dracut in the target or a custom cpio) and a
       bootloader path; the current QEMU boot relies on built-in virtio/ext4
-      and `-kernel`.
+      and `-kernel`. E3 covers a grub disk boot, E4 the generator/config.
 - [x] C11. Close the self-hosting gaps found by rebuilding the base inside the
       container: rebuild texinfo/tcl before their users, bootstrap pip, and
       install the new RPMs into a fresh rootfs/image.  The fresh image rebuilt
@@ -471,18 +480,42 @@ localhost login:
 
 ### D. Phase 2 (explicitly out of current scope)
 
-- [ ] D1. Kernel packaging (linux 7.1.8 from the tag) + `.config`.
+- [x] D1. Kernel packaging: `linux-kernel`/`linux-modules` 7.1.8 with the
+      QEMU config. These RPMs are still host-built; rebuilding them inside
+      the self-hosted image is tracked as E2.
 - [ ] D2. Chapters 5–7 self-hosted toolchain as bootstrap RPMs.
 - [ ] D3. X/Wayland/desktop stack, BLFS packages.
+
+### E. Self-hosting and boot follow-ups (open)
+
+These are the current caveats that do not yet have a checkbox elsewhere.
+
+- [ ] E1. Build `dnf`/`libdnf` + `createrepo_c` (and their dependency stack)
+      and move repo/rootfs assembly into the self-hosted image. Today
+      `scripts/bootstrap_selfhosted.sh` still calls host `dnf`/`createrepo_c`
+      (see A3/A4 and §7).
+- [ ] E2. Rebuild `linux-kernel` and `linux-modules` 7.1.8 inside the
+      self-hosted container and add them to the self-hosted repo. The current
+      kernel RPMs were built on the host and are not part of the 93-package
+      base set used for the second-generation proof.
+- [ ] E3. Install grub to a disk image and boot without QEMU `-kernel`.
+      grub builds and packages now, but only the direct-kernel QEMU path has
+      been tested; C10 still covers the initramfs/bootloader-policy work.
+- [ ] E4. Replace the QEMU-test kernel config with a general-purpose config,
+      and add firmware, module signing, and initramfs generation. The current
+      config has virtio/ext4/serial built in and no firmware/signing.
+- [ ] E5. Add a first-boot root password/account policy. The login test used
+      a temporary password and restored the locked shadow entry.
 
 ---
 
 ## 7. Known technical debt
 
-- Base packages were built against the **host** (Fedora 44) compiler and
-  libraries. We removed the obvious leaks, but any new build can reintroduce
-  a host-only `DT_NEEDED`. Always test dependency closure by reinstalling the
-  rootfs after adding packages.
+- The first-generation base was built against the **host** (Fedora 44)
+  compiler and libraries. The second-generation rebuild inside
+  `r13.1-selfhost-20261031` passed 93/93, but `bbuild` on the host remains a
+  useful fast path and can reintroduce a host-only `DT_NEEDED`. Always verify
+  with a container rebuild and reinstall the rootfs after adding packages.
 - Many `%files` sections are directory globs. This hides file ownership bugs
   and makes upgrades noisy.
 - `browneye-base` has 92 `Requires:` (generated from `lfs.lock` plus the
@@ -497,7 +530,7 @@ localhost login:
   symlink into `/usr/lib`; verify package ownership if you change it.
 - `linux-api-headers` is copied from the **host's** `kernel-headers` 7.2.4,
   not built from kernel source. It is a bootstrap-only package; replace it
-  with `make headers_install` from the pinned kernel in phase 2.
+  with `make headers_install` from the pinned 7.1.8 kernel (C9).
 - The RPM toolchain (`rpm`, `libarchive`, `lua`, `popt`) was initially built
   against host devel prefixes (`build/deps/*`), but the second-generation
   rebuild compiled it inside the self-hosted image. Ch5–7 bootstrap is still
@@ -507,9 +540,12 @@ localhost login:
   the **assembly** is still host-assisted.
 - `build/repo` is not pruned: 111 RPMs include old versions, debuginfo from
   early builds, and both `sqlite` and the retired `sqlite3` name.
+- The kernel RPMs (`linux-kernel`, `linux-modules`) are **host-built** and are
+  not part of the 93-package base set; E2 tracks rebuilding them inside the
+  self-hosted container.
 - The kernel config is derived from the old 6.4.12 LFS config plus hand-picked
   virtio/ext4/serial options. It is a QEMU-test config, not a general-purpose
-  distro config. No initramfs, no firmware, no module signing.
+  distro config. No initramfs, no firmware, no module signing (E4).
 - The kernel spec copies `arch/x86/boot/bzImage` directly instead of using
   `make install`; the latter tried to write a systemd-boot entry to the host
   `/boot/efi` during rpmbuild.
