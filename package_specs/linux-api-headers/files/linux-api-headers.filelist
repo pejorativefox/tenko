@@ -170,12 +170,23 @@
 /usr/include/linux/aspeed-video.h
 /usr/include/linux/atalk.h
 /usr/include/linux/atm.h
+/usr/include/linux/atm_eni.h
+/usr/include/linux/atm_he.h
+/usr/include/linux/atm_idt77105.h
+/usr/include/linux/atm_nicstar.h
+/usr/include/linux/atm_tcp.h
+/usr/include/linux/atm_zatm.h
 /usr/include/linux/atmapi.h
+/usr/include/linux/atmarp.h
 /usr/include/linux/atmbr2684.h
+/usr/include/linux/atmclip.h
 /usr/include/linux/atmdev.h
 /usr/include/linux/atmioc.h
+/usr/include/linux/atmlec.h
+/usr/include/linux/atmmpc.h
 /usr/include/linux/atmppp.h
 /usr/include/linux/atmsap.h
+/usr/include/linux/atmsvc.h
 /usr/include/linux/audit.h
 /usr/include/linux/auto_dev-ioctl.h
 /usr/include/linux/auto_fs.h
@@ -262,9 +273,6 @@
 /usr/include/linux/dns_resolver.h
 /usr/include/linux/dpll.h
 /usr/include/linux/dqblk_xfs.h
-/usr/include/linux/drbd.h
-/usr/include/linux/drbd_genl.h
-/usr/include/linux/drbd_limits.h
 %dir /usr/include/linux/dvb
 /usr/include/linux/dvb/audio.h
 /usr/include/linux/dvb/ca.h
@@ -808,7 +816,6 @@
 /usr/include/linux/string.h
 %dir /usr/include/linux/sunrpc
 /usr/include/linux/sunrpc/debug.h
-/usr/include/linux/sunrpc_netlink.h
 %dir /usr/include/linux/surface_aggregator
 /usr/include/linux/surface_aggregator/cdev.h
 /usr/include/linux/surface_aggregator/dtx.h
@@ -816,6 +823,7 @@
 /usr/include/linux/swab.h
 /usr/include/linux/switchtec_ioctl.h
 /usr/include/linux/sync_file.h
+/usr/include/linux/synclink.h
 /usr/include/linux/sysctl.h
 /usr/include/linux/sysinfo.h
 /usr/include/linux/target_core_user.h
@@ -931,7 +939,6 @@
 /usr/include/linux/virtio_balloon.h
 /usr/include/linux/virtio_blk.h
 /usr/include/linux/virtio_bt.h
-/usr/include/linux/virtio_can.h
 /usr/include/linux/virtio_config.h
 /usr/include/linux/virtio_console.h
 /usr/include/linux/virtio_crypto.h
@@ -1034,14 +1041,11 @@
 /usr/include/scsi/fc/fc_fs.h
 /usr/include/scsi/fc/fc_gs.h
 /usr/include/scsi/fc/fc_ns.h
-/usr/include/scsi/scsi.h
 /usr/include/scsi/scsi_bsg_fc.h
 /usr/include/scsi/scsi_bsg_mpi3mr.h
 /usr/include/scsi/scsi_bsg_ufs.h
-/usr/include/scsi/scsi_ioctl.h
 /usr/include/scsi/scsi_netlink.h
 /usr/include/scsi/scsi_netlink_fc.h
-/usr/include/scsi/sg.h
 %dir /usr/include/sound
 /usr/include/sound/asequencer.h
 /usr/include/sound/asoc.h

@@ -603,8 +603,10 @@ localhost login:
       static filelists for the whole chain; all of the named targets except
       LLVM were rebuilt with their filelists to verify (the LLVM list is a
       snapshot of a successful build; rebuilding it costs ~35 min).
-- [ ] C7. Revisit duplicate/disabled specs: `browneye-basefs-nousr.spec.disabled`,
-      `browneye-init.spec.disabled`, `sysvinit.spec.disabled`, `yum.disabled`.
+- [x] C7. Removed every stale disabled spec: `browneye-basefs-nousr`,
+      `browneye-init`, `libwnck2`, `lxterminal`, `python2-urlgrabber`,
+      `sysvinit`, `valgrind`, `webkitgtk`, `yum`.  Their directories (and
+      `webkitgtk/sources`) are gone; no `.disabled` files remain.
 - [x] C8. Two-phase order documented: `package_specs/ORDER` stays
       chapter-8 + bootstrap extras, and `scripts/verify_base_in_container.sh`
       appends `libbsd`, `libmd`, `libseccomp`, and `browneye-base` for the
@@ -726,9 +728,9 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   not pushed anywhere.
 - `package_specs/browneye-release` currently owns `/etc/os-release` as a
   symlink into `/usr/lib`; verify package ownership if you change it.
-- `linux-api-headers` is copied from the **host's** `kernel-headers` 7.2.4,
-  not built from kernel source. It is a bootstrap-only package; replace it
-  with `make headers_install` from the pinned 7.1.8 kernel (C9).
+- `linux-api-headers` is generated from the pinned 7.1.8 kernel source with
+  `make headers` + `cp -a usr/include` (no rsync needed); the resulting file
+  set matches the previous `headers_install` tree exactly (1085 entries).
 - The RPM toolchain (`rpm`, `libarchive`, `lua`, `popt`) was initially built
   against host devel prefixes (`build/deps/*`), but the second-generation
   rebuild compiled it inside the self-hosted image. Ch5–7 bootstrap is still
