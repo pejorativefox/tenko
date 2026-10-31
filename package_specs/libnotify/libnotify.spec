@@ -1,10 +1,10 @@
 Name:       libnotify
-Version:    0.7.8
+Version:    0.8.8
 Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.xz
+Source0:    libnotify-0.8.8.tar.xz
 
 %description
 TODO
@@ -13,33 +13,25 @@ TODO
 %setup -a 0
 
 %build
-mkdir -pv build
+mkdir build
 pushd build
-meson --prefix=/usr -Dgtk_doc=false .. &&
+meson setup .. --prefix=/usr --buildtype=release -D gtk_doc=false -D man=false -D tests=false
 ninja
 popd
 
-%install    
+%install
 rm -rf %{buildroot}
 pushd build
 DESTDIR=%{buildroot} ninja install
 popd
-rm -vf %{buildroot}%{_infodir}/dir*
 
 %files
-/usr/bin/notify-send
-/usr/include/libnotify/notification.h
-/usr/include/libnotify/notify-enum-types.h
-/usr/include/libnotify/notify-features.h
-/usr/include/libnotify/notify.h
-/usr/lib64/girepository-1.0/Notify-0.7.typelib
-/usr/lib64/libnotify.so
-/usr/lib64/libnotify.so.4
-/usr/lib64/libnotify.so.4.0.0
-/usr/lib64/pkgconfig/libnotify.pc
-/usr/share/gir-1.0/Notify-0.7.gir
+/usr/
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 0.8.8
+- Sync with BLFS r13.1 (0.7.8)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 0.7.8-1
 - Version bump
 

@@ -4,7 +4,9 @@
 # package; each RPM is also kept under build/blfs-parity-<date>/build/<pkg>.
 #
 # PHASE=core  X libraries, GLib/GI, cairo, GTK2/GTK3 (default)
-# PHASE=rest  CMake, libjpeg-turbo, ImageMagick, LLVM (reuses the container)
+# PHASE=rest  CMake, libjpeg-turbo, ImageMagick, LLVM
+# PHASE=xfce-deps  XFCE 4.20 dependencies
+# PHASE=xfce  the XFCE 4.20 core desktop (X11 only)
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
@@ -67,8 +69,22 @@ freetype fontconfig libxft fribidi"
              libxkbcommon gtk2 gtk3; do
         build "$p" "$p" || exit 1
     done
-else
+elif [ "$PHASE" = "rest" ]; then
     for p in curl libuv cmake libjpeg-turbo imagemagick llvm; do
+        build "$p" "$p" || exit 1
+    done
+elif [ "$PHASE" = "xfce-deps" ]; then
+    for p in xcb-util libice libsm libxres libxkbfile hwdata libdisplay-info \
+             iso-codes libogg libvorbis libgudev libnotify libusb upower duktape \
+             polkit startup-notification libwnck libxklavier libcanberra \
+             desktop-file-utils libexif; do
+        build "$p" "$p" || exit 1
+    done
+elif [ "$PHASE" = "xfce" ]; then
+    for p in libxfce4util xfconf libxfce4ui exo garcon xfce4-dev-tools \
+             libxfce4windowing xfce4-panel xfwm4 xfce4-session xfce4-settings \
+             thunar thunar-volman tumbler xfce4-appfinder xfdesktop \
+             xfce4-power-manager; do
         build "$p" "$p" || exit 1
     done
 fi

@@ -15,7 +15,7 @@ Libxfce4windowing is an abstraction library that attempts to present windowing c
 %setup
 
 %build
-%configure
+%configure --enable-x11 --disable-wayland --disable-debug
 %make_build
 
 %install

@@ -1,10 +1,10 @@
 Name:       libsm
-Version:    1.2.4
+Version:    1.2.6
 Release:    1
 Summary:    X Session Management Library
 License:    GPL3
 Prefix:     /usr
-Source0:    libSM-%{version}.tar.xz
+Source0:    libSM-1.2.6.tar.xz
 
 BuildRequires: libice
 
@@ -24,17 +24,11 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files
-/usr/include/X11/SM/SM.h
-/usr/include/X11/SM/SMlib.h
-/usr/include/X11/SM/SMproto.h
-/usr/lib64/libSM.a
-/usr/lib64/libSM.so
-/usr/lib64/libSM.so.6
-/usr/lib64/libSM.so.6.0.1
-/usr/lib64/pkgconfig/sm.pc
-/usr/share/doc/libSM/SMlib.xml
-/usr/share/doc/libSM/xsmp.xml
+/usr/
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.2.6
+- Sync with BLFS r13.1 (1.2.4)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.2.4-1
 - Version bump

@@ -13,7 +13,8 @@ Modern file manager for Xfce
 %setup 
 
 %build
-%configure
+sed -i 's/\tinstall-systemd_userDATA/\t/' Makefile.in
+%configure --docdir=/usr/share/doc/thunar-%{version}
 %make_build
 
 %install

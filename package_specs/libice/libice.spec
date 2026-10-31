@@ -1,10 +1,10 @@
 Name:       libice
-Version:    1.1.1
+Version:    1.1.2
 Release:    1
 Summary:    Inter-Client Exchange Library.
 License:    GPL3
 Prefix:     /usr
-Source0:    libICE-%{version}.tar.xz
+Source0:    libICE-1.1.2.tar.xz
 
 %description
 Inter-Client Exchange Library.
@@ -22,20 +22,11 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files
-/usr/include/X11/ICE/ICE.h
-/usr/include/X11/ICE/ICEconn.h
-/usr/include/X11/ICE/ICElib.h
-/usr/include/X11/ICE/ICEmsg.h
-/usr/include/X11/ICE/ICEproto.h
-/usr/include/X11/ICE/ICEutil.h
-/usr/lib64/libICE.a
-/usr/lib64/libICE.so
-/usr/lib64/libICE.so.6
-/usr/lib64/libICE.so.6.3.0
-/usr/lib64/pkgconfig/ice.pc
-/usr/share/doc/libICE/ICElib.xml
-/usr/share/doc/libICE/ice.xml
+/usr/
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.1.2
+- Sync with BLFS r13.1 (1.1.1)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.1.1-1
 - Version bump

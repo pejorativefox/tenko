@@ -15,7 +15,7 @@ A session manager for Xfce
 %setup
 
 %build
-%configure
+%configure --disable-legacy-sm
 %make_build
 
 %install

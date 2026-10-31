@@ -154,7 +154,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D3 | Kernel | **7.1.8 packaged for QEMU**; self-hosted kernel rebuild tracked as E2 |
 | D4 | Bootstrap | **chapter 8 self-hosted**; ch5–7 deferred (D2) |
 | D5 | LFS pin | **r13.1 tag** (`71ef60ba`) |
-| D6 | Desktop | **XFCE 4.20** (BLFS r13.1); not GNOME |
+| D6 | Desktop | **XFCE 4.20** (BLFS r13.1), **X11 only**; not GNOME, zero Wayland |
 
 Consequences already implemented:
 
@@ -592,17 +592,21 @@ localhost login:
       QEMU config. These RPMs are still host-built; rebuilding them inside
       the self-hosted image is tracked as E2.
 - [ ] D2. Chapters 5–7 self-hosted toolchain as bootstrap RPMs.
-- [ ] D3. **XFCE 4.20** desktop (BLFS r13.1), not GNOME.  The GTK3/GTK2/
-      GLib/GI stack completed in C6c is shared infrastructure, but the XFCE
-      specs are still 4.18/4.19 and need a BLFS r13.1 parity pass and build:
-      `exo`, `garcon`, `libxfce4ui`, `libxfce4util`, `libxfce4windowing`,
-      `thunar`, `thunar-volman`, `tumbler`, `xfce4-appfinder`,
-      `xfce4-dev-tools`, `xfce4-panel`, `xfce4-power-manager`,
-      `xfce4-session`, `xfce4-settings`, `xfconf`, `xfdesktop`, `xfwm4`.
-      Missing specs needed by that set: `libdisplay-info`, `libXpresent`,
-      `startup-notification` (check), and optional `libexif`/`libwebp`/
-      `gvfs` for Thunar/Tumbler.  `ImageMagick` (Tumbler thumbnails) and
-      `LLVM` (Mesa) from C6c remain useful.
+- [ ] D3. **XFCE 4.20** desktop (BLFS r13.1), **X11 only, zero Wayland**;
+      not GNOME.  The core specs are synced to 4.20.x: `exo`, `garcon`,
+      `libxfce4ui`, `libxfce4util`, `libxfce4windowing`, `thunar`,
+      `thunar-volman`, `tumbler`, `xfce4-appfinder`, `xfce4-dev-tools`,
+      `xfce4-panel`, `xfce4-power-manager`, `xfce4-session`,
+      `xfce4-settings`, `xfconf`, `xfdesktop`, `xfwm4`.  Dependencies also
+      synced: `libwnck` 43.1, `libdisplay-info` 0.4.0, `libgudev` 238,
+      `libnotify` 0.8.8, `upower` 1.91.3, `polkit` 127, `startup-notification`,
+      `libxklavier`, `libcanberra`, `desktop-file-utils` 0.28, `libexif`,
+      `duktape`, `iso-codes`, `libvorbis`, `libusb`.  New specs were written
+      for `hwdata`, `libdisplay-info`, `desktop-file-utils`, `libexif`, and
+      `duktape`.  GTK3 stays without the Wayland backend and
+      `libxfce4windowing` builds `--enable-x11 --disable-wayland`.
+      `ImageMagick` (Tumbler thumbnails) and `LLVM` (Mesa) from C6c remain
+      useful.
 
 ### E. Self-hosting and boot follow-ups (open)
 

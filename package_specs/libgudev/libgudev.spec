@@ -1,10 +1,10 @@
 Name:       libgudev
-Version:    230
+Version:    238
 Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.xz
+Source0:    libgudev-238.tar.xz
 
 %description
 TODO
@@ -13,30 +13,24 @@ TODO
 %setup -a 0
 
 %build
-%configure
-%make_build
+mkdir build
+pushd build
+meson setup .. --prefix=/usr --buildtype=release
+ninja
+popd
 
-%install    
+%install
 rm -rf %{buildroot}
-%make_install
-rm -vf %{buildroot}%{_infodir}/dir*
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 
 %files
-/usr/include/gudev-1.0/gudev/gudev.h
-/usr/include/gudev-1.0/gudev/gudevclient.h
-/usr/include/gudev-1.0/gudev/gudevdevice.h
-/usr/include/gudev-1.0/gudev/gudevenumerator.h
-/usr/include/gudev-1.0/gudev/gudevenums.h
-/usr/include/gudev-1.0/gudev/gudevenumtypes.h
-/usr/include/gudev-1.0/gudev/gudevtypes.h
-/usr/lib64/girepository-1.0/GUdev-1.0.typelib
-/usr/lib64/libgudev-1.0.so
-/usr/lib64/libgudev-1.0.so.0
-/usr/lib64/libgudev-1.0.so.0.2.0
-/usr/lib64/pkgconfig/gudev-1.0.pc
-/usr/share/gir-1.0/GUdev-1.0.gir
-
+/usr/
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 238
+- Sync with BLFS r13.1 (230)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 230-1
 - Version bump

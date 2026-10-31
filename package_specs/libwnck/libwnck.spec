@@ -1,9 +1,9 @@
 Name:       libwnck
-Version:    3.32.0
+Version:    43.1
 Release:    1
 Summary:    Library to manage X windows and workspaces (via pagers, tasklists, etc.)
 License:    LGPL
-Source0:    %{name}-%{version}.tar.xz
+Source0:    libwnck-43.1.tar.xz
 Prefix:     /usr
 
 Requires: startup-notification
@@ -17,7 +17,7 @@ Library to manage X windows and workspaces (via pagers, tasklists, etc.)
 %build
 mkdir build
 pushd build
-meson --prefix=/usr ..
+meson setup .. --prefix=/usr --buildtype=release
 ninja
 popd
 
@@ -28,30 +28,12 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files
-/usr/bin/wnck-urgency-monitor
-/usr/bin/wnckprop
-/usr/include/libwnck-3.0/libwnck/application.h
-/usr/include/libwnck-3.0/libwnck/class-group.h
-/usr/include/libwnck-3.0/libwnck/libwnck.h
-/usr/include/libwnck-3.0/libwnck/pager.h
-/usr/include/libwnck-3.0/libwnck/screen.h
-/usr/include/libwnck-3.0/libwnck/selector.h
-/usr/include/libwnck-3.0/libwnck/tasklist.h
-/usr/include/libwnck-3.0/libwnck/util.h
-/usr/include/libwnck-3.0/libwnck/version.h
-/usr/include/libwnck-3.0/libwnck/window-action-menu.h
-/usr/include/libwnck-3.0/libwnck/window.h
-/usr/include/libwnck-3.0/libwnck/wnck-enum-types.h
-/usr/include/libwnck-3.0/libwnck/workspace.h
-/usr/share/gir-1.0/Wnck-3.0.gir
-/usr/share/locale/*
-/usr/lib64/girepository-1.0/Wnck-3.0.typelib
-/usr/lib64/libwnck-3.so
-/usr/lib64/libwnck-3.so.0
-/usr/lib64/libwnck-3.so.0.3.0
-/usr/lib64/pkgconfig/libwnck-3.0.pc
+/usr/
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 43.1
+- Sync with BLFS r13.1 (3.32.0)
+
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 3.32.0
 - Initial RPM
 

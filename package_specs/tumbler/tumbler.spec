@@ -19,6 +19,7 @@ D-Bus service for applications to request thumbnails
 %install
 rm -rf %{buildroot}
 %make_install
+rm -f %{buildroot}/usr/lib/systemd/user/tumblerd.service
 
 %files
 /usr/etc/
