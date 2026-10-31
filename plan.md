@@ -101,6 +101,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - Main checkout: `~/repos/browneye` on `master` (contains the merged
   `gcc-13-update` history).
 - Work root: `~/browneye`, a git worktree on branch `lfs-r13.1`.
+- Canonical Git remote: `ssh://pjfox-git/daspork/browneye.git` (Gitea at
+  `https://pjfox.xyz/git/daspork/browneye`); `github` is a mirror remote.
+  The `pjfox-git` SSH alias lives in `~/.dotfiles/ssh_config`.
 - LFS source of truth: `~/repos/lfs`, pinned to tag **r13.1** (`71ef60ba`).
   Do not read versions from the working tree (it is trunk/r13.1+16).
 - Build outputs: `~/rpmbuild/{SOURCES,RPMS/x86_64,BUILD,...}`.
