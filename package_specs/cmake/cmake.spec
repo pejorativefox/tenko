@@ -31,8 +31,8 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/
+%files -f %{_sourcedir}/cmake.filelist
+
 
 %changelog
 * Wed May 13 2020 Chris Statzer <chris.statzer@qq.com> 3.17.2

@@ -21,8 +21,8 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/
+%files -f %{_sourcedir}/curl.filelist
+
 
 %changelog
 # let's skip this for now

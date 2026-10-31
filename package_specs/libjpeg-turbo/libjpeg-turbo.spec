@@ -34,8 +34,8 @@ pushd build
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/
+%files -f %{_sourcedir}/libjpeg-turbo.filelist
+
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 3.2.0

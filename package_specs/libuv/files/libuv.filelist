@@ -1,0 +1,14 @@
+%dir /usr/include
+%dir /usr/include/uv
+/usr/include/uv.h
+/usr/include/uv/errno.h
+/usr/include/uv/linux.h
+/usr/include/uv/threadpool.h
+/usr/include/uv/unix.h
+/usr/include/uv/version.h
+%dir /usr/lib64
+/usr/lib64/libuv.so
+/usr/lib64/libuv.so.1
+/usr/lib64/libuv.so.1.0.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libuv.pc
