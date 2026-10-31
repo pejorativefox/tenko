@@ -12,8 +12,10 @@ REPO=${REPO:-build/repo-selfhost}
 STAGE=${STAGE:-build/repo-publish/$VERSION}
 REMOTE=${REMOTE:-tomfool8@192.200.112.194}
 PORT=${PORT:-53211}
-DEST=${DEST:-public_html/browneye/packages/$VERSION/}
+PUBLIC=${PUBLIC:-public_html/browneye}
+DEST=${DEST:-$PUBLIC/packages/$VERSION/}
 URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/}
+INDEX=${INDEX:-web/index.html}
 
 [ -d "$REPO" ] || { echo "missing repo directory: $REPO" >&2; exit 1; }
 rpm_count=$(find "$REPO" -maxdepth 1 -name '*.rpm' | wc -l)
@@ -53,6 +55,9 @@ The repository is unsigned; gpgcheck is disabled.
 EOF
 
 echo "staged $rpm_count RPMs in $STAGE"
-ssh -p "$PORT" "$REMOTE" "mkdir -p ~/public_html/browneye/packages"
+ssh -p "$PORT" "$REMOTE" "mkdir -p ~/$PUBLIC/packages"
 rsync -av --delete -e "ssh -p $PORT" "$STAGE/" "$REMOTE:$DEST"
+if [ -f "$INDEX" ]; then
+    rsync -av -e "ssh -p $PORT" "$INDEX" "$REMOTE:$PUBLIC/index.html"
+fi
 echo "published $URL"
