@@ -24,14 +24,10 @@ Panel for the Xfce desktop environment
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/bin/
-/usr/include/
-/usr/lib64/
-/usr/share/
-/usr/etc/xdg/xfce4/panel/default.xml
+%files -f %{_sourcedir}/xfce4-panel.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.8

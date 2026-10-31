@@ -18,14 +18,10 @@ Power manager for Xfce desktop
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/bin/
-/usr/etc/
-/usr/lib64/
-/usr/sbin/
-/usr/share/
+%files -f %{_sourcedir}/xfce4-power-manager.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.1

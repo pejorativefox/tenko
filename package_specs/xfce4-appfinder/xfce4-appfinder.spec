@@ -18,11 +18,10 @@ An application finder for Xfce
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/bin/
-/usr/share/
+%files -f %{_sourcedir}/xfce4-appfinder.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0

@@ -20,8 +20,7 @@ libcanberra is an implementation of the XDG Sound Theme and Name Specifications
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/
+%files -f %{_sourcedir}/libcanberra.filelist
 
 %changelog
 * Sun May 17 2020 Chris Statzer <chris.statzer@qq.com> 0.30

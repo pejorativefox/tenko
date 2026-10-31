@@ -32,9 +32,7 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/
-/etc/
+%files -f %{_sourcedir}/polkit.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 127

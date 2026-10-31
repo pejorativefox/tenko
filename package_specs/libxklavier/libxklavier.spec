@@ -20,8 +20,7 @@ High-level API for X Keyboard Extension
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/
+%files -f %{_sourcedir}/libxklavier.filelist
 
 %changelog
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 5.4

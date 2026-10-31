@@ -18,13 +18,10 @@ Settings manager of the Xfce desktop
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/bin
-/usr/etc/xdg/
-/usr/lib64/
-/usr/share/
+%files -f %{_sourcedir}/xfce4-settings.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.5

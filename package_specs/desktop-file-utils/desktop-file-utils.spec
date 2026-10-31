@@ -26,8 +26,7 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/
+%files -f %{_sourcedir}/desktop-file-utils.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 0.28

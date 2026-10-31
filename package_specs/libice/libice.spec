@@ -21,8 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/
+%files -f %{_sourcedir}/libice.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.1.2

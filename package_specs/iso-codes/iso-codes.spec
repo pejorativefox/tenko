@@ -25,8 +25,7 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/
+%files -f %{_sourcedir}/iso-codes.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.1

@@ -20,8 +20,7 @@ libexif is a library for parsing, editing and saving EXIF metadata.
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/
+%files -f %{_sourcedir}/libexif.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 0.6.26

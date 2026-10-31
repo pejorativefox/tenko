@@ -77,7 +77,7 @@ elif [ "$PHASE" = "xfce-deps" ]; then
     for p in xcb-util libice libsm libxres libxkbfile hwdata libdisplay-info \
              iso-codes libogg libvorbis libgudev libnotify libusb upower duktape \
              polkit startup-notification libwnck libxklavier libcanberra \
-             desktop-file-utils libexif; do
+             desktop-file-utils libexif libxslt iceauth; do
         build "$p" "$p" || exit 1
     done
 elif [ "$PHASE" = "xfce" ]; then

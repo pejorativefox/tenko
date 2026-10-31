@@ -23,8 +23,7 @@ TODO
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/
+%files -f %{_sourcedir}/libogg.filelist
 
 %changelog
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.3.3-1

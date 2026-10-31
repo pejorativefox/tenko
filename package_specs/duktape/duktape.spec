@@ -20,8 +20,7 @@ make -f Makefile.sharedlibrary INSTALL_PREFIX=/usr
 rm -rf %{buildroot}
 make -f Makefile.sharedlibrary INSTALL_PREFIX=%{buildroot}/usr install
 
-%files
-/usr/
+%files -f %{_sourcedir}/duktape.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.7.0

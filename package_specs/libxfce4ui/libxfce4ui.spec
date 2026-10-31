@@ -20,14 +20,10 @@ Commonly used Xfce widgets among Xfce applications
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/share/
-/usr/include/xfce4/
-/usr/bin/xfce4-about
-/usr/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
-/usr/lib64/
+%files -f %{_sourcedir}/libxfce4ui.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.2

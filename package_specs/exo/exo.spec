@@ -18,13 +18,10 @@ Application library for Xfce
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/bin/
-/usr/include/
-/usr/lib64/
-/usr/share/
+%files -f %{_sourcedir}/exo.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0

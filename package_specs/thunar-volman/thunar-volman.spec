@@ -18,12 +18,10 @@ Automatic management of removeable devices in Thunar
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/bin/thunar-volman
-/usr/bin/thunar-volman-settings
-/usr/share/
+%files -f %{_sourcedir}/thunar-volman.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0

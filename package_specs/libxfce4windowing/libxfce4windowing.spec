@@ -20,12 +20,10 @@ Libxfce4windowing is an abstraction library that attempts to present windowing c
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/share/
-/usr/include/
-/usr/lib64/
+%files -f %{_sourcedir}/libxfce4windowing.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.7

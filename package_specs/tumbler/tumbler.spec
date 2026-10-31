@@ -18,15 +18,11 @@ D-Bus service for applications to request thumbnails
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -f %{buildroot}/usr/lib/systemd/user/tumblerd.service
 
-%files
-/usr/etc/
-/usr/include/
-/usr/lib64/
-/usr/share/
-/usr/lib/systemd/user/
+%files -f %{_sourcedir}/tumbler.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.2

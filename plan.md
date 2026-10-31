@@ -75,6 +75,8 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   C6c synced the non-base X/GNOME chain to BLFS r13.1, built it offline in
   `build/blfs-parity-20261031`, and generated its filelists (LLVM 22.1.8
   with clang and compiler-rt).
+- **XFCE 4.20 core (17 packages) builds X11-only** on that stack; Wayland is
+  absent from the image by design.  See `build/blfs-parity-*` and D3.
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
@@ -592,21 +594,21 @@ localhost login:
       QEMU config. These RPMs are still host-built; rebuilding them inside
       the self-hosted image is tracked as E2.
 - [ ] D2. Chapters 5–7 self-hosted toolchain as bootstrap RPMs.
-- [ ] D3. **XFCE 4.20** desktop (BLFS r13.1), **X11 only, zero Wayland**;
-      not GNOME.  The core specs are synced to 4.20.x: `exo`, `garcon`,
-      `libxfce4ui`, `libxfce4util`, `libxfce4windowing`, `thunar`,
-      `thunar-volman`, `tumbler`, `xfce4-appfinder`, `xfce4-dev-tools`,
-      `xfce4-panel`, `xfce4-power-manager`, `xfce4-session`,
-      `xfce4-settings`, `xfconf`, `xfdesktop`, `xfwm4`.  Dependencies also
-      synced: `libwnck` 43.1, `libdisplay-info` 0.4.0, `libgudev` 238,
-      `libnotify` 0.8.8, `upower` 1.91.3, `polkit` 127, `startup-notification`,
-      `libxklavier`, `libcanberra`, `desktop-file-utils` 0.28, `libexif`,
-      `duktape`, `iso-codes`, `libvorbis`, `libusb`.  New specs were written
-      for `hwdata`, `libdisplay-info`, `desktop-file-utils`, `libexif`, and
-      `duktape`.  GTK3 stays without the Wayland backend and
-      `libxfce4windowing` builds `--enable-x11 --disable-wayland`.
-      `ImageMagick` (Tumbler thumbnails) and `LLVM` (Mesa) from C6c remain
-      useful.
+- [x] D3. **XFCE 4.20 core built, X11 only, zero Wayland.**  All 17 core
+      packages build offline on the C6c stack: `libxfce4util`, `xfconf`,
+      `libxfce4ui`, `exo`, `garcon`, `xfce4-dev-tools`,
+      `libxfce4windowing`, `xfce4-panel`, `xfwm4`, `xfce4-session`,
+      `xfce4-settings`, `thunar`, `thunar-volman`, `tumbler`,
+      `xfce4-appfinder`, `xfdesktop`, `xfce4-power-manager`.  Dependencies
+      built too: `libwnck` 43.1, `libdisplay-info` 0.4.0, `libgudev` 238,
+      `libnotify` 0.8.8, `upower` 1.91.3, `polkit` 127 (shadow auth, no PAM),
+      `startup-notification`, `libxklavier`, `libcanberra`,
+      `desktop-file-utils` 0.28, `libexif`, `duktape`, `iso-codes` 4.20.1,
+      `libvorbis`/`libogg`, `libusb`, `libxslt`, `iceauth`, plus the X
+      libraries.  `libxfce4windowing` is configured
+      `--enable-x11 --disable-wayland`; the container has **no Wayland
+      libraries or packages**.  Generated static filelists for the whole
+      XFCE set and rebuilt all 17 packages with them.
 
 ### E. Self-hosting and boot follow-ups (open)
 
@@ -650,6 +652,10 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   the BLFS default relies on glycin, which is not in the base.
 - `curl` is built with `--without-libpsl` (libpsl is not in the base); CMake
   only needs curl for its own network features.
+- `scripts/build_blfs_stack.sh` defaults `OUT` to `build/blfs-parity-$(date)`.
+  The XFCE build crossed midnight, so its statuses are split between
+  `blfs-parity-20261031` and `blfs-parity-20261101`; pass `OUT=...` to keep a
+  run together.
 - `browneye-base` has 93 `Requires:` (generated from `lfs.lock` plus the
   manual bootstrap list); it is not regenerated automatically when versions
   change.

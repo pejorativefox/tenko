@@ -18,11 +18,10 @@ A desktop manager for Xfce
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/bin/
-/usr/share/
+%files -f %{_sourcedir}/xfdesktop.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.2

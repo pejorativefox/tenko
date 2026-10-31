@@ -1,0 +1,39 @@
+%dir /usr/include
+%dir /usr/include/libxklavier
+/usr/include/libxklavier/xkl-enum-types.h
+/usr/include/libxklavier/xkl_config_item.h
+/usr/include/libxklavier/xkl_config_rec.h
+/usr/include/libxklavier/xkl_config_registry.h
+/usr/include/libxklavier/xkl_engine.h
+/usr/include/libxklavier/xkl_engine_marshal.h
+/usr/include/libxklavier/xklavier.h
+%dir /usr/lib64
+%dir /usr/lib64/girepository-1.0
+/usr/lib64/girepository-1.0/Xkl-1.0.typelib
+/usr/lib64/libxklavier.a
+/usr/lib64/libxklavier.so
+/usr/lib64/libxklavier.so.16
+/usr/lib64/libxklavier.so.16.4.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libxklavier.pc
+%dir /usr/share
+%dir /usr/share/gir-1.0
+/usr/share/gir-1.0/Xkl-1.0.gir
+%dir /usr/share/gtk-doc
+%dir /usr/share/gtk-doc/html
+%dir /usr/share/gtk-doc/html/libxklavier
+%doc /usr/share/gtk-doc/html/libxklavier/XklConfigItem.html
+%doc /usr/share/gtk-doc/html/libxklavier/XklConfigRec.html
+%doc /usr/share/gtk-doc/html/libxklavier/XklConfigRegistry.html
+%doc /usr/share/gtk-doc/html/libxklavier/ch01.html
+%doc /usr/share/gtk-doc/html/libxklavier/ch02.html
+%doc /usr/share/gtk-doc/html/libxklavier/home.png
+%doc /usr/share/gtk-doc/html/libxklavier/index.html
+%doc /usr/share/gtk-doc/html/libxklavier/index.sgml
+%doc /usr/share/gtk-doc/html/libxklavier/left.png
+%doc /usr/share/gtk-doc/html/libxklavier/libxklavier-xkl-engine.html
+%doc /usr/share/gtk-doc/html/libxklavier/libxklavier-xklavier.html
+%doc /usr/share/gtk-doc/html/libxklavier/libxklavier.devhelp2
+%doc /usr/share/gtk-doc/html/libxklavier/right.png
+%doc /usr/share/gtk-doc/html/libxklavier/style.css
+%doc /usr/share/gtk-doc/html/libxklavier/up.png

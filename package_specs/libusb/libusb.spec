@@ -19,8 +19,7 @@ TODO
 %install
 %make_install
 
-%files
-/usr/
+%files -f %{_sourcedir}/libusb.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.0.30

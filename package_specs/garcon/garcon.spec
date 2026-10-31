@@ -20,14 +20,10 @@ Implementation of the freedesktop.org menu specification
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/etc/xdg/menus/xfce-applications.menu
-/usr/include/garcon-1/garcon/
-/usr/include/garcon-gtk3-1/garcon-gtk/
-/usr/lib64/
-/usr/share/
+%files -f %{_sourcedir}/garcon.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0

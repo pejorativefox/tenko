@@ -18,11 +18,10 @@ The Xfce development tools are a collection of tools and macros for Xfce develop
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/bin/
-/usr/share/
+%files -f %{_sourcedir}/xfce4-dev-tools.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0

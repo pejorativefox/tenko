@@ -20,8 +20,7 @@ Hardware identification and configuration data (pci.ids, usb.ids, etc.).
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/
+%files -f %{_sourcedir}/hwdata.filelist
 
 %changelog
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 0.410
