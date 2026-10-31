@@ -8,6 +8,7 @@ Prefix:     /usr
 Requires: man-pages
 Requires: iana-etc
 Requires: glibc
+Requires: glibc-locales
 Requires: zlib
 Requires: bzip2
 Requires: xz

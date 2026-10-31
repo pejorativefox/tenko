@@ -12,6 +12,14 @@ Provides: rtld(GNU_HASH)
 TODO
 kluged to work around: https://www.linuxquestions.org/questions/slackware-14/bug-while-building-glibc-2-27-with-new-gcc-8-1-1-and-perl-5-28-0-a-4175632782/
 
+%package locales
+Summary:    Locale data for glibc
+Requires:   glibc = %{version}-%{release}
+
+%description locales
+Compiled locale definitions for every locale listed in glibc's
+localedata/SUPPORTED, installed as /usr/lib/locale/locale-archive.
+
 
 %prep
 %setup -q
@@ -42,6 +50,12 @@ sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile
 make -j%{_smp_build_ncpus} install_root=%{buildroot} install
 if [ -d %{buildroot}/sbin ]; then mkdir -p %{buildroot}/usr/sbin; mv %{buildroot}/sbin/* %{buildroot}/usr/sbin/; rmdir %{buildroot}/sbin; fi
 sed '/RTLDLIST=/s@/usr@@g' -i %{buildroot}/usr/bin/ldd
+
+# Build and install every locale from localedata/SUPPORTED as a single
+# locale-archive.  This mirrors LFS chapter 8; it is slow (one localedef
+# plus iconv per locale) but gives full test-suite coverage.
+make -j%{_smp_build_ncpus} localedata/install-locales \
+     install_root=%{buildroot}
 popd
 
 cp -v nscd/nscd.conf %{buildroot}/etc/nscd.conf
@@ -88,6 +102,10 @@ touch %{buildroot}/etc/ld.so.conf.d/.keep
 /usr/lib64/
 /usr/sbin/
 /usr/share/
+%exclude /usr/lib/locale/
+
+%files locales
+/usr/lib/locale/
 
 %changelog
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.44

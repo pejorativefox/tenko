@@ -15,8 +15,40 @@ Base configuration files for Browneye Linux.
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc %{buildroot}/etc/systemd/system/getty.target.wants
+mkdir -p %{buildroot}/etc/systemd/journald.conf.d %{buildroot}/etc/systemd/network
 ln -sf /usr/lib/systemd/system/multi-user.target %{buildroot}/etc/systemd/system/default.target
 ln -sf /usr/lib/systemd/system/serial-getty@ttyS0.service %{buildroot}/etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
+
+# Locale and console defaults (LFS chapter 9).
+cat > %{buildroot}/etc/locale.conf <<'EOF2'
+LANG=C.UTF-8
+EOF2
+cat > %{buildroot}/etc/vconsole.conf <<'EOF2'
+KEYMAP=us
+EOF2
+
+# Keep journals across reboots but bound their size.
+cat > %{buildroot}/etc/systemd/journald.conf.d/10-browneye.conf <<'EOF2'
+[Journal]
+Storage=persistent
+SystemMaxUse=512M
+RuntimeMaxUse=64M
+EOF2
+
+# DHCP on the usual wired interfaces; systemd-networkd/resolved are enabled
+# by "systemctl preset-all" during rootfs assembly.
+cat > %{buildroot}/etc/systemd/network/10-dhcp.network <<'EOF2'
+[Match]
+Name=en* eth*
+
+[Network]
+DHCP=yes
+EOF2
+ln -sf /run/systemd/resolve/stub-resolv.conf %{buildroot}/etc/resolv.conf
+
+# Empty by design: systemd generates a unique id on first boot.
+: > %{buildroot}/etc/machine-id
+chmod 0444 %{buildroot}/etc/machine-id
 cat > %{buildroot}/etc/hosts <<'EOF2'
 127.0.0.1 localhost
 ::1       localhost
@@ -52,12 +84,22 @@ EOF2
 /etc/fstab
 /etc/systemd/system/default.target
 /etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
+/etc/systemd/journald.conf.d/10-browneye.conf
+%dir /etc/systemd/journald.conf.d
+/etc/systemd/network/10-dhcp.network
 /etc/hosts
 /etc/shells
 /etc/inputrc
 /etc/vimrc
 /etc/profile
+/etc/locale.conf
+/etc/vconsole.conf
+/etc/resolv.conf
+/etc/machine-id
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 13.1
+- Add locale/vconsole, journald, networkd, resolv.conf, and machine-id defaults
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 13.1
 - Base configuration for LFS r13.1

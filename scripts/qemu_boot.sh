@@ -11,9 +11,9 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 KVER="${KVER:-7.1.8}"
-ROOTFS="$PWD/build/rootfs"
-IMG="$PWD/build/rootfs.img"
-LOG="$PWD/build/qemu-boot.log"
+ROOTFS="${ROOTFS:-$PWD/build/rootfs}"
+IMG="${IMG:-$PWD/build/rootfs.img}"
+LOG="${LOG:-$PWD/build/qemu-boot.log}"
 
 [ -x "$ROOTFS/usr/bin/bash" ] || { echo "missing rootfs: $ROOTFS" >&2; exit 1; }
 ls ~/rpmbuild/RPMS/x86_64/linux-kernel-"$KVER"-*.rpm ~/rpmbuild/RPMS/x86_64/linux-modules-"$KVER"-*.rpm >/dev/null 2>&1 || {
@@ -36,11 +36,13 @@ if [ -x "$ROOTFS/usr/bin/systemd-sysusers" ]; then
     unshare -r chroot "$ROOTFS" /usr/bin/systemd-sysusers || true
 fi
 
-# A persistent machine-id is needed by systemd; first boot would normally
-# commit one, but the test image should already have it.
-if [ ! -s "$ROOTFS/etc/machine-id" ]; then
-    openssl rand -hex 16 > "$ROOTFS/etc/machine-id"
+# Apply unit presets offline, as LFS chapter 8 does.
+if [ -x "$ROOTFS/usr/bin/systemctl" ]; then
+    unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ preset-all || true
 fi
+
+# /etc/machine-id is shipped empty by browneye-sysconfig; systemd generates a
+# persistent id on first boot and commits it to the writable root filesystem.
 
 # depmod runs as a package scriptlet, which we skipped above.
 depmod -b "$ROOTFS" "$KVER" || true

@@ -54,6 +54,13 @@ if [ -x "$ROOTFS/usr/bin/systemd-sysusers" ]; then
     unshare -r chroot "$ROOTFS" /usr/bin/systemd-sysusers || true
 fi
 
+# Apply the systemd unit presets (networkd, resolved, timesyncd, getty, ...)
+# the same way LFS chapter 8 does.  systemctl --root works offline without a
+# running PID 1.
+if [ -x "$ROOTFS/usr/bin/systemctl" ]; then
+    unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ preset-all || true
+fi
+
 echo "packing $ROOTFS"
 unshare -r tar -C "$ROOTFS" -czf "$TARBALL" .
 

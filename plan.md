@@ -12,10 +12,11 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 **Item 1 (LFS version parity) is effectively complete for the base system.**
 
 - **80/80** LFS chapter-8 systemd packages build from specs, including
-  **grub 2.14**; the full base set is **93/93** specs.
+  **grub 2.14**; the full base set is **93/93** specs (**94** RPMs, because
+  glibc now ships a `glibc-locales` subpackage).
 - `build/repo` is the old host-built repo and still contains stale versions;
   `build/repo-selfhost` is the clean repo produced by the container rebuild.
-- `browneye-base` meta resolves and installs 93 packages into
+- `browneye-base` meta resolves and installs **94** packages into
   `build/rootfs` and `build/rootfs-selfhost`.
 - The rootfs is QEMU-booted to multi-user and a serial root login; bash 5.3,
   python 3.14.7, openssl 4.0.1, merged `/usr`, loader at
@@ -27,7 +28,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   final self-hosted image is
   `localhost/browneye/base:r13.1-selfhost-20261031`.
 - Contains `rpm` 4.18.1 + `rpmbuild`, `browneye-rpm-config`, and the base
-  toolchain. `rpm -qa` sees all 93 installed packages (sqlite rpmdb at
+  toolchain. `rpm -qa` sees all 94 installed packages (sqlite rpmdb at
   `/usr/lib/sysimage/rpm`).
 - Verified inside the container: build a C package with `rpmbuild -bb`,
   install it with `rpm -Uvh`, run it, remove it; and build `which-2.21`
@@ -59,6 +60,15 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   self-hosted RPMs.  Smoke builds of `zlib` and `python-flit-core` pass in
   that image; `rpm -Va` is clean except podman's `/etc/hosts` overlay.
 
+**C1/C3 refresh (2026-10-31).**
+
+- `build/container-rebuild-20261031-locale` rebuilt all **93** specs
+  (**94** RPMs) offline against `r13.1-selfhost-20261031`.
+  `bootstrap_selfhosted.sh` regenerated `build/repo-selfhost` (**98** RPMs),
+  `build/rootfs-selfhost` (**94** packages), and the image.  The new rootfs
+  carries the full glibc locale archive and the systemd chapter-9 defaults
+  (presets applied, networkd/resolved enabled, empty machine-id).
+
 **Phase 2 boot smoke test is green (2026-10-30).**
 
 - Kernel **7.1.8** built with virtio-blk/virtio-pci/serial/ext4 built in;
@@ -71,6 +81,11 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `ttyS0`, `id` = `uid=0(root)`, `uname -a` = 7.1.8, then `poweroff -f`.
   The temporary password was restored; root is locked by default.
 - Still missing: bootloader, initramfs, and a real root password policy.
+- Re-booted `build/rootfs-selfhost` after C1/C3 (2026-10-31): **zero
+  `FAILED` units**, `Reached target Multi-User System`, serial getty and
+  networkd running, and systemd generated a machine-id on first boot
+  (`ROOTFS=... ./scripts/qemu_boot.sh`).  The boot log is
+  `build/qemu-boot-selfhost.log`.
 
 ---
 
@@ -106,9 +121,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 ├── Containerfile              # FROM scratch + rootfs tarball
 └── build/
     ├── repo/                  # old host-built createrepo output (stale)
-    ├── repo-selfhost/         # clean repo from the container rebuild (97 rpms)
+    ├── repo-selfhost/         # clean repo from the container rebuild (98 rpms)
     ├── rootfs/                # old installed base system
-    ├── rootfs-selfhost/       # installed from repo-selfhost (93 packages)
+    ├── rootfs-selfhost/       # installed from repo-selfhost (94 packages)
     ├── browneye-rootfs.tar.gz # old image payload
     ├── container-rebuild-*/   # per-package logs/RPMs from verify runs
     └── deps/                  # extracted devel prefixes (see §5)
@@ -295,7 +310,9 @@ IMAGE=localhost/browneye/base:r13.1-selfhost-YYYYMMDD \
 `bootstrap_selfhosted.sh` refuses to run if any status file says `fail`.
 It copies only RPMs produced by the container rebuild; the phase-2 kernel
 RPMs are copied from `~/rpmbuild` as an optional boot payload and are not
-part of `browneye-base`.
+part of `browneye-base`.  It then materializes sysusers, applies
+`systemctl --root=/ preset-all` in the new rootfs, packs it, and builds the
+container image.
 
 ### Boot the rootfs under QEMU
 
@@ -309,10 +326,15 @@ cd ~/browneye
 
 1. copies `linux-kernel`/`linux-modules` into `build/repo`;
 2. `dnf --installroot build/rootfs install linux-kernel linux-modules`;
-3. runs `systemd-sysusers` inside the rootfs (install scriptlets were skipped);
-4. writes a machine-id and runs `depmod -b`;
+3. runs `systemd-sysusers` and `systemctl --root=/ preset-all` inside the
+   rootfs (install scriptlets were skipped);
+4. runs `depmod -b` (kernel module scriptlets were skipped);
 5. `mke2fs -d build/rootfs` → `build/rootfs.img` (3 GB);
 6. boots with `root=/dev/vda console=ttyS0` and logs to `build/qemu-boot.log`.
+
+`ROOTFS`, `IMG`, and `LOG` can be overridden in the environment, e.g. to boot
+`build/rootfs-selfhost`; `/etc/machine-id` is left empty so systemd generates
+one on first boot.
 
 Expected tail:
 
@@ -445,15 +467,28 @@ localhost login:
 
 ### C. Remaining base hardening before phase-2 boot
 
-- [ ] C1. glibc locales (`glibc-locales` subpackage) — currently skipped.
+- [x] C1. `glibc-locales` subpackage: `make localedata/install-locales`
+      installs the full `localedata/SUPPORTED` set as a single
+      `/usr/lib/locale/locale-archive` (223 MB, 886 locales).  It builds
+      offline in the container, is required by `browneye-base`, and the
+      installed rootfs reports 888 entries from `locale -a`;
+      `de_DE.UTF-8` and `ja_JP.UTF-8` were checked at runtime.
 - [x] C2. QEMU boot test: kernel 7.1.8 + ext4 rootfs boots to multi-user and
       a serial login prompt. `scripts/qemu_boot.sh` is the reproducible path.
+      Re-verified for `build/rootfs-selfhost` on 2026-10-31 after C1/C3.
       No initramfs or bootloader yet.
-- [ ] C3. systemd chapter-9 config: unit presets/enablement, journald/networkd
-      defaults, udev rules, `/etc/systemd/*`. Current state: `default.target`
-      and `serial-getty@ttyS0` are symlinked by `browneye-sysconfig`, and
-      `qemu_boot.sh` runs `systemd-sysusers` before imaging. Presets and
-      network/journal configuration are still bare.
+- [x] C3. systemd chapter-9 config: `browneye-sysconfig` now ships
+      `/etc/locale.conf` (`LANG=C.UTF-8`), `/etc/vconsole.conf`
+      (`KEYMAP=us`), an empty `/etc/machine-id` (systemd generates one on
+      first boot), `/etc/resolv.conf` → `/run/systemd/resolve/stub-resolv.conf`,
+      `/etc/systemd/journald.conf.d/10-browneye.conf` (persistent journal,
+      512M cap), and `/etc/systemd/network/10-dhcp.network` (DHCP=yes on
+      `en*`/`eth*`).  `bootstrap_selfhosted.sh` and `qemu_boot.sh` run
+      `systemctl --root=/ preset-all`, which enables networkd, resolved,
+      timesyncd, getty, oomd, and the other unit presets (42 symlinks in the
+      fresh rootfs).  `serial-getty@ttyS0` and `default.target` remain
+      explicit symlinks; udev rules ship from systemd in
+      `/usr/lib/udev/rules.d` with an empty `/etc/udev/rules.d` override dir.
 - [x] C4. `/etc/passwd`/`group`/`shadow` baseline: root and system users
       exist through `systemd-sysusers`; a temporary-password root login over
       `ttyS0` was tested (`LOGIN_OK`, `uid=0`, kernel 7.1.8). Root is locked
@@ -524,7 +559,7 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   with a container rebuild and reinstall the rootfs after adding packages.
 - Many `%files` sections are directory globs. This hides file ownership bugs
   and makes upgrades noisy.
-- `browneye-base` has 92 `Requires:` (generated from `lfs.lock` plus the
+- `browneye-base` has 93 `Requires:` (generated from `lfs.lock` plus the
   manual bootstrap list); it is not regenerated automatically when versions
   change.
 - The repo is unsigned and can contain several versions of the same package.
@@ -560,6 +595,16 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - The QEMU login test used a temporary SHA-512 root password, then restored
   the locked shadow entry. There is no first-boot password setup or account
   policy yet.
+- `/etc/machine-id` is deliberately shipped empty and mode 0444; systemd
+  generates/commits one on first boot. `qemu_boot.sh` no longer pre-fills it.
+- The journal is persistent (`/var/log/journal`, 512M cap) and the network
+  default is DHCP on `en*`/`eth*` via networkd/resolved. Both are distro
+  policy choices rather than LFS requirements.
+- The full C1/C3 run (`build/container-rebuild-20261031-locale`) built 93
+  specs, but `browneye-sysconfig` was rebuilt separately in
+  `build/container-sysconfig-20261031` (same self-hosted image, offline) and
+  substituted into the run output; remeasure with a fresh full run when
+  convenient.
 
 ---
 
