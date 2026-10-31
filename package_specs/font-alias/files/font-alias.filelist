@@ -1,0 +1,10 @@
+%dir /usr/share
+%dir /usr/share/fonts
+%dir /usr/share/fonts/100dpi
+/usr/share/fonts/100dpi/fonts.alias
+%dir /usr/share/fonts/75dpi
+/usr/share/fonts/75dpi/fonts.alias
+%dir /usr/share/fonts/cyrillic
+/usr/share/fonts/cyrillic/fonts.alias
+%dir /usr/share/fonts/misc
+/usr/share/fonts/misc/fonts.alias

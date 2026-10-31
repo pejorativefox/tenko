@@ -1,0 +1,17 @@
+%dir /usr/include
+%dir /usr/include/xorg
+/usr/include/xorg/libinput-properties.h
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/xorg-libinput.pc
+%dir /usr/lib64/xorg
+%dir /usr/lib64/xorg/modules
+%dir /usr/lib64/xorg/modules/input
+/usr/lib64/xorg/modules/input/libinput_drv.so
+%dir /usr/share
+%dir /usr/share/X11
+%dir /usr/share/X11/xorg.conf.d
+/usr/share/X11/xorg.conf.d/40-libinput.conf
+%dir /usr/share/man
+%dir /usr/share/man/man4
+%doc /usr/share/man/man4/libinput.4.gz

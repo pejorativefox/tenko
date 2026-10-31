@@ -1,5 +1,5 @@
 Name:       hicolor-icon-theme
-Version:    0.17
+Version:    0.18
 Release:    1
 Summary:    Gnome hicolor icon theme.
 License:    GPL
@@ -13,15 +13,19 @@ Gnome hicolor icon theme
 %setup
 
 %build
-%configure
-%make_build
+mkdir build
+pushd build
+meson setup .. --prefix=/usr --buildtype=release
+ninja
+popd
 
 %install
 rm -rf %{buildroot}
-%make_install
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 
-%files
-/usr/share/icons/hicolor/index.theme
+%files -f %{_sourcedir}/hicolor-icon-theme.filelist
 
 %changelog
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 0.17

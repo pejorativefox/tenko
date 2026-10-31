@@ -122,6 +122,7 @@
     <p>Packages for the Browneye base system, built from Linux From Scratch r13.1 with the self-hosted Browneye container toolchain.</p>
     <div class="actions">
       <a class="btn primary" href="packages/13.1/">Browse packages</a>
+      <a class="btn" href="packages/13.1/desktop/">XFCE desktop</a>
       <a class="btn" href="packages/13.1/browneye-13.1.repo">browneye-13.1.repo</a>
       <a class="btn" href="https://pjfox.xyz/git/daspork/browneye">Source</a>
     </div>
@@ -141,7 +142,12 @@ sudo dnf install browneye-base</code></pre>
     <p>Or use it directly, without installing a repo file:</p>
 <pre><code>sudo dnf --repofrompath=browneye,https://tomfool.8bit.ca/browneye/packages/13.1/ \
   --disablerepo='*' install browneye-base</code></pre>
-    <p class="muted">The repository is unsigned (<code>gpgcheck=0</code>).</p>
+    <p>The XFCE 4.20 desktop lives in a separate repository (X11 only, no Wayland):</p>
+<pre><code>sudo curl -o /etc/yum.repos.d/browneye-13.1-desktop.repo \
+  https://tomfool.8bit.ca/browneye/packages/13.1/desktop/browneye-13.1-desktop.repo
+
+sudo dnf install xfce-desktop</code></pre>
+    <p class="muted">The repositories are unsigned (<code>gpgcheck=0</code>).</p>
   </section>
 
   <section>
@@ -173,6 +179,7 @@ sudo dnf install browneye-base</code></pre>
       <tbody>
         <tr><td><code>packages/13.1/</code></td><td>RPMs and <code>repodata/</code> (createrepo_c, x86_64)</td></tr>
         <tr><td><code>packages/13.1/browneye-13.1.repo</code></td><td>dnf repository definition</td></tr>
+        <tr><td><code>packages/13.1/desktop/</code></td><td>XFCE 4.20 desktop RPMs and <code>xfce-desktop</code> meta-package</td></tr>
         <tr><td><code>packages/13.1/README.txt</code></td><td>Short install notes</td></tr>
       </tbody>
     </table>

@@ -19,7 +19,7 @@ Abstraction for enumerating power devices, listening to device events and queryi
 %build
 mkdir build
 pushd build
-meson setup .. --prefix=/usr --buildtype=release -D gtk-doc=false -D man=false -D systemdsystemunitdir=no -D udevrulesdir=/usr/lib/udev/rules.d
+meson setup .. --prefix=/usr --buildtype=release -D gtk-doc=false -D man=false -D systemdsystemunitdir=/usr/lib/systemd/system -D udevrulesdir=/usr/lib/udev/rules.d
 ninja
 popd
 

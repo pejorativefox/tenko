@@ -8,13 +8,16 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 VERSION=${VERSION:-13.1}
+SUBDIR=${SUBDIR:-}
 REPO=${REPO:-build/repo-selfhost}
-STAGE=${STAGE:-build/repo-publish/$VERSION}
+REPO_ID=browneye-$VERSION${SUBDIR:+-$SUBDIR}
+META=${META:-browneye-base}
+STAGE=${STAGE:-build/repo-publish/$VERSION${SUBDIR:+-$SUBDIR}}
 REMOTE=${REMOTE:-tomfool8@192.200.112.194}
 PORT=${PORT:-53211}
 PUBLIC=${PUBLIC:-public_html/browneye}
-DEST=${DEST:-$PUBLIC/packages/$VERSION/}
-URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/}
+DEST=${DEST:-$PUBLIC/packages/$VERSION/${SUBDIR:+$SUBDIR/}}
+URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/${SUBDIR:+$SUBDIR/}}
 INDEX=${INDEX:-web/index.html}
 
 [ -d "$REPO" ] || { echo "missing repo directory: $REPO" >&2; exit 1; }
@@ -27,9 +30,9 @@ mkdir -p "$STAGE"
 cp -p "$REPO"/*.rpm "$STAGE"/
 createrepo_c --quiet "$STAGE"
 
-cat > "$STAGE/browneye-$VERSION.repo" <<EOF
-[browneye-$VERSION]
-name=Browneye Linux $VERSION
+cat > "$STAGE/$REPO_ID.repo" <<EOF
+[$REPO_ID]
+name=Browneye Linux $VERSION${SUBDIR:+ ($SUBDIR)}
 baseurl=$URL
 enabled=1
 gpgcheck=0
@@ -37,19 +40,19 @@ repo_gpgcheck=0
 EOF
 
 cat > "$STAGE/README.txt" <<EOF
-Browneye Linux $VERSION package repository
+Browneye Linux $VERSION${SUBDIR:+ $SUBDIR} package repository
 
   baseurl: $URL
 
 Install the repo definition:
 
-  curl -o /etc/yum.repos.d/browneye-$VERSION.repo \\
-    ${URL}browneye-$VERSION.repo
+  curl -o /etc/yum.repos.d/$REPO_ID.repo \\
+    ${URL}$REPO_ID.repo
 
 Or use it directly:
 
   dnf --repofrompath=browneye,$URL \\
-      --disablerepo='*' install browneye-base
+      --disablerepo='*' install $META
 
 The repository is unsigned; gpgcheck is disabled.
 EOF
@@ -57,12 +60,12 @@ EOF
 echo "staged $rpm_count RPMs in $STAGE"
 
 # Generate a package listing because the web server has directory indexes off.
-python3 - "$STAGE" "$VERSION" "$URL" <<'PY'
+python3 - "$STAGE" "$VERSION" "$URL" "$REPO_ID" <<'PY'
 import html
 import os
 import sys
 
-stage, version, url = sys.argv[1:4]
+stage, version, url, repo_id = sys.argv[1:5]
 rpms = sorted(f for f in os.listdir(stage) if f.endswith(".rpm"))
 rows = []
 for name in rpms:
@@ -100,7 +103,7 @@ page = """<!DOCTYPE html>
 <body><div class="wrap">
 <h1>Browneye Linux {version} — packages</h1>
 <p><a href="../../">&larr; repository overview</a> · {count} RPMs ·
-   <a href="browneye-{version}.repo">browneye-{version}.repo</a></p>
+   <a href="{repo_id}.repo">{repo_id}.repo</a></p>
 <table>
   <thead><tr><th>Package</th><th>Size</th></tr></thead>
   <tbody>
@@ -108,7 +111,7 @@ page = """<!DOCTYPE html>
   </tbody>
 </table>
 </div></body></html>
-""".format(version=version, count=len(rpms), rows="\n".join(rows))
+""".format(version=version, repo_id=repo_id, count=len(rpms), rows="\n".join(rows))
 
 with open(os.path.join(stage, "index.html"), "w", encoding="utf-8") as handle:
     handle.write(page)

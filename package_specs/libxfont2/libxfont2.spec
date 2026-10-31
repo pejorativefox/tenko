@@ -23,13 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/fonts/libxfont2.h
-/usr/lib64/libXfont2.a
-/usr/lib64/libXfont2.so
-/usr/lib64/libXfont2.so.2
-/usr/lib64/libXfont2.so.2.0.0
-/usr/lib64/pkgconfig/xfont2.pc
+%files -f %{_sourcedir}/libxfont2.filelist
 
 %changelog
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.0.6-1

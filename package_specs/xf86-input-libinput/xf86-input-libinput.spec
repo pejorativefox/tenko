@@ -1,35 +1,29 @@
 Name:       xf86-input-libinput
-Version:    0.28.2
+Version:    1.5.0
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Xorg libinput input driver
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
-
+Source0:    xf86-input-libinput-1.5.0.tar.xz
 
 %description
-TODO
+The Xorg driver that feeds libinput events into the X server.
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/xorg/libinput-properties.h
-/usr/lib64/pkgconfig/xorg-libinput.pc
-/usr/lib64/xorg/modules/input/libinput_drv.la
-/usr/lib64/xorg/modules/input/libinput_drv.so
-/usr/share/X11/xorg.conf.d/40-libinput.conf
-/usr/share/man/man4/libinput.4.gz
+%files -f %{_sourcedir}/xf86-input-libinput.filelist
 
 %changelog
-# let's skip this for now
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.5.0-1
+- Initial package (BLFS r13.1)

@@ -7,6 +7,7 @@
 # PHASE=rest  CMake, libjpeg-turbo, ImageMagick, LLVM
 # PHASE=xfce-deps  XFCE 4.20 dependencies
 # PHASE=xfce  the XFCE 4.20 core desktop (X11 only)
+# PHASE=desktop  Xorg server, input/video drivers, xinit, fonts (X11 only)
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
@@ -85,6 +86,16 @@ elif [ "$PHASE" = "xfce" ]; then
              libxfce4windowing xfce4-panel xfwm4 xfce4-session xfce4-settings \
              thunar thunar-volman tumbler xfce4-appfinder xfdesktop \
              xfce4-power-manager; do
+        build "$p" "$p" || exit 1
+    done
+elif [ "$PHASE" = "desktop" ]; then
+    for p in util-macros font-util libfontenc mkfontscale encodings \
+             libxcvt libtirpc libpciaccess libdrm xkeyboard-config \
+             libxfont2 libxt libxmu xkbcomp font-alias font-bh-ttf dbus xorg-server xinit xauth \
+             libevdev mtdev libinput xf86-input-libinput \
+             xf86-video-vesa \
+             xrdb xset xmodmap xhost xwininfo xwd hicolor-icon-theme \
+             browneye-desktop-config xfce-desktop; do
         build "$p" "$p" || exit 1
     done
 fi

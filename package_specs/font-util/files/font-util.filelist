@@ -1,0 +1,32 @@
+%dir /usr/bin
+/usr/bin/bdftruncate
+/usr/bin/ucs2any
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/fontutil.pc
+%dir /usr/share
+%dir /usr/share/aclocal
+/usr/share/aclocal/fontutil.m4
+%dir /usr/share/fonts
+%dir /usr/share/fonts/util
+/usr/share/fonts/util/map-ISO8859-1
+/usr/share/fonts/util/map-ISO8859-10
+/usr/share/fonts/util/map-ISO8859-11
+/usr/share/fonts/util/map-ISO8859-13
+/usr/share/fonts/util/map-ISO8859-14
+/usr/share/fonts/util/map-ISO8859-15
+/usr/share/fonts/util/map-ISO8859-16
+/usr/share/fonts/util/map-ISO8859-2
+/usr/share/fonts/util/map-ISO8859-3
+/usr/share/fonts/util/map-ISO8859-4
+/usr/share/fonts/util/map-ISO8859-5
+/usr/share/fonts/util/map-ISO8859-6
+/usr/share/fonts/util/map-ISO8859-7
+/usr/share/fonts/util/map-ISO8859-8
+/usr/share/fonts/util/map-ISO8859-9
+/usr/share/fonts/util/map-JISX0201.1976-0
+/usr/share/fonts/util/map-KOI8-R
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/bdftruncate.1.gz
+%doc /usr/share/man/man1/ucs2any.1.gz

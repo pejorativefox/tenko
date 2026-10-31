@@ -1,34 +1,29 @@
 Name:       libfontenc
-Version:    1.1.7
+Version:    1.1.9
 Release:    1
-Summary:    X font encoding library.
-License:    GPL3
+Summary:    X.org font encoding library
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.xz
+Source0:    libfontenc-1.1.9.tar.xz
 
 %description
-X font encoding library.
+libfontenc decodes the various font encodings used by X.
 
 %prep
 %setup -q
 
 %build
-%configure 
+%configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/fonts/fontenc.h
-/usr/lib64/libfontenc.a
-/usr/lib64/libfontenc.so
-/usr/lib64/libfontenc.so.1
-/usr/lib64/libfontenc.so.1.0.0
-/usr/lib64/pkgconfig/fontenc.pc
+%files -f %{_sourcedir}/libfontenc.filelist
 
 %changelog
-* Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.1.7-1
-- Version bump
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.1.9-1
+- Initial package (BLFS r13.1)

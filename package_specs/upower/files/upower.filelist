@@ -15,6 +15,9 @@
 /usr/include/libupower-glib/up-version.h
 /usr/include/libupower-glib/upower.h
 %dir /usr/lib
+%dir /usr/lib/systemd
+%dir /usr/lib/systemd/system
+/usr/lib/systemd/system/upower.service
 %dir /usr/lib/udev
 %dir /usr/lib/udev/hwdb.d
 /usr/lib/udev/hwdb.d/60-upower-battery.hwdb

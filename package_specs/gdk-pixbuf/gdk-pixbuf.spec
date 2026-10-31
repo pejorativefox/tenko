@@ -6,7 +6,6 @@ License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 Provides: pkgconfig(gdk-pixbuf-2.0)
-Requires: librsvg
 
 %description
 GdkPixbuf is a library that loads image data in various formats and stores it as linear buffers in memory.
@@ -22,7 +21,7 @@ meson setup ..                \
       --buildtype=release     \
       -D png=enabled          \
       -D gif=disabled         \
-      -D jpeg=disabled        \
+      -D jpeg=enabled        \
       -D tiff=disabled        \
       -D thumbnailer=disabled \
       -D glycin=disabled      \

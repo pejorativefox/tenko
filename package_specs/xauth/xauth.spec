@@ -1,32 +1,29 @@
 Name:       xauth
-Version:    1.0.10
+Version:    1.1.5
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    X authority file utility
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
-
-
+Source0:    xauth-1.1.5.tar.xz
 
 %description
-TODO
+xauth manages the X authorization files used by Xorg.
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
-%configure 
+%configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xauth
-/usr/share/man/man1/xauth.1.gz
+%files -f %{_sourcedir}/xauth.filelist
 
 %changelog
-# let's skip this for now
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.1.5-1
+- Initial package (BLFS r13.1)

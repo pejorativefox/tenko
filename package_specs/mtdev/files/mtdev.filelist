@@ -1,0 +1,13 @@
+%dir /usr/bin
+/usr/bin/mtdev-test
+%dir /usr/include
+/usr/include/mtdev-mapping.h
+/usr/include/mtdev-plumbing.h
+/usr/include/mtdev.h
+%dir /usr/lib64
+/usr/lib64/libmtdev.a
+/usr/lib64/libmtdev.so
+/usr/lib64/libmtdev.so.1
+/usr/lib64/libmtdev.so.1.0.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/mtdev.pc

@@ -1,35 +1,29 @@
 Name:       xf86-video-vesa
-Version:    2.4.0
+Version:    2.3.3
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Xorg generic VESA video driver
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.gz
-
-
+Source0:    xf86-video-vesa-2.3.3.tar.bz2
 
 %description
-TODO
+The generic VESA video driver for Xorg.
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-
-%files
-/usr/lib64/xorg/modules/drivers/vesa_drv.la
-/usr/lib64/xorg/modules/drivers/vesa_drv.so
-/usr/share/man/man4/vesa.4.gz
-
+%files -f %{_sourcedir}/xf86-video-vesa.filelist
 
 %changelog
-# let's skip this for now
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.3.3-1
+- Initial package (BLFS r13.1)

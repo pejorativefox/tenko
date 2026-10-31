@@ -1,34 +1,29 @@
 Name:       font-alias
-Version:    1.0.3
+Version:    1.0.6
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    X.org font aliases
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
-
-
+Source0:    font-alias-1.0.6.tar.xz
 
 %description
-TODO
+font-alias provides the X core font alias files.
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
-%configure 
+%configure --with-fontrootdir=/usr/share/fonts
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/share/fonts/X11/100dpi/fonts.alias
-/usr/share/fonts/X11/75dpi/fonts.alias
-/usr/share/fonts/X11/cyrillic/fonts.alias
-/usr/share/fonts/X11/misc/fonts.alias
+%files -f %{_sourcedir}/font-alias.filelist
 
 %changelog
-# let's skip this for now
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.0.6-1
+- Initial package (BLFS r13.1)

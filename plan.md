@@ -78,8 +78,14 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - **XFCE 4.20 core (17 packages) builds X11-only** on that stack; Wayland is
   absent from the image by design.  Dependencies and the desktop build in
   `build/blfs-parity-20261031` (deps) and `build/blfs-parity-20261101`
-  (desktop run).  XFCE is not yet meta-packaged, published, or booted into a
-  graphical session; see D3 and §7.
+  (desktop run).
+- **The XFCE desktop now boots graphically.**  D4 adds the X11 runtime
+  (Xorg 21.1.24, dbus, libinput, xinit, fonts) and the `xfce-desktop` meta;
+  `scripts/qemu_boot_graphical.sh` boots it in QEMU and captures the session.
+  The desktop repo is published at
+  `https://tomfool.8bit.ca/browneye/packages/13.1/desktop/`.  Remaining
+  visual gaps: no Mesa (no libGL/GLX/compositing) and no SVG icon loader;
+  see D4/D5 and §7.
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
@@ -134,7 +140,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 │   ├── sync_lfs_spec.py       # dry-run/--write version+source sync
 │   ├── gen_filelist.py        # snapshot a built RPM into a %files list
 │   ├── publish_repo.sh        # stage + rsync repo to tomfool.8bit.ca
-│   ├── build_blfs_stack.sh    # BLFS r13.1 X/GNOME + XFCE stack (phases)
+│   ├── build_blfs_stack.sh    # BLFS r13.1 X/GNOME/XFCE/desktop stack (phases)
+│   ├── assemble_desktop_repo.sh # base + non-base RPMs -> build/repo-desktop
+│   ├── qemu_boot_graphical.sh # boot the XFCE desktop and capture it
 ├── lfs.lock                   # pinned versions/sources/patches/base list
 ├── Containerfile              # FROM scratch + rootfs tarball
 ├── web/index.html             # landing page for the published repo
@@ -145,7 +153,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
     ├── rootfs-selfhost/       # installed from repo-selfhost (94 packages)
     ├── browneye-rootfs.tar.gz # old image payload
     ├── container-rebuild-*/   # per-package logs/RPMs from verify runs
-    ├── blfs-parity-*/         # non-base X/GNOME + XFCE builds (phases)
+    ├── blfs-parity-*/         # non-base X/GNOME + XFCE + desktop builds
+    ├── repo-desktop/          # base + desktop RPMs (215), published as .../desktop
+    ├── rootfs-desktop/        # installed base + xfce-desktop (graphical test)
     └── deps/                  # extracted devel prefixes (see §5)
 ```
 
@@ -363,6 +373,7 @@ KEEP=0 PHASE=core      ./scripts/build_blfs_stack.sh  # X libs, GLib/GI, GTK2/3
 KEEP=1 PHASE=rest      ./scripts/build_blfs_stack.sh  # curl, libuv, cmake, libjpeg, ImageMagick, LLVM
 KEEP=1 PHASE=xfce-deps ./scripts/build_blfs_stack.sh  # XFCE 4.20 dependencies
 KEEP=1 PHASE=xfce      ./scripts/build_blfs_stack.sh  # 17 XFCE 4.20 core packages
+KEEP=1 PHASE=desktop   ./scripts/build_blfs_stack.sh  # Xorg, input, drivers, fonts, meta
 ```
 
 `PHASE=core` includes the two-pass GLib build (first without introspection so
@@ -371,7 +382,18 @@ script skips packages already marked `ok` in `build/blfs-parity-*/status`, so
 it is resumable.  XFCE is built X11-only: `libxfce4windowing` gets
 `--enable-x11 --disable-wayland`, and no Wayland libraries are installed.
 Pass `OUT=build/blfs-parity-YYYYMMDD` to keep a multi-phase run in one place
-(the default is date-stamped).
+(the default is date-stamped).  The container mounts `/out` at creation time,
+so a resumed run keeps writing RPMs to the first `OUT` even if a new `OUT` is
+passed; status/logs follow the new one.
+
+Assemble, publish, and boot the desktop:
+
+```bash
+./scripts/assemble_desktop_repo.sh        # base + non-base RPMs -> build/repo-desktop
+SUBDIR=desktop REPO=build/repo-desktop META=xfce-desktop \
+    ./scripts/publish_repo.sh             # -> packages/13.1/desktop/
+./scripts/qemu_boot_graphical.sh          # desktop rootfs + X session + xwd capture
+```
 
 ### Boot the rootfs under QEMU
 
@@ -618,6 +640,35 @@ localhost login:
       `--enable-x11 --disable-wayland`; the container has **no Wayland
       libraries or packages**.  Generated static filelists for the whole
       XFCE set and rebuilt all 17 packages with them.
+- [x] D4. **X11 runtime and graphical boot, X11 only.**  Added and built:
+      `dbus` 1.16.2 (system + session bus, systemd units), `xorg-server`
+      21.1.24 (meson; `-Dglamor=true -Dglx=false -Dsuid_wrapper=true
+      -Dsystemd_logind=false`), X libraries (`libxcvt` 0.1.3, `libtirpc`
+      1.3.7, `libpciaccess` 0.19, `libdrm` 2.4.134, `libxfont2` 2.0.6,
+      `libXt` 1.3.1, `libXmu` 1.3.1, `xkbcomp` 1.5.0), input (`libevdev`
+      1.13.6, `mtdev` 1.1.7, `libinput` 1.31.3, `xf86-input-libinput`
+      1.5.0), `xf86-video-vesa` 2.3.3, `xkeyboard-config` 2.48, `xinit`
+      1.4.4, `xauth` 1.1.5, `xrdb`/`xset`/`xmodmap`/`xhost`/`xwininfo`/`xwd`,
+      fonts (`font-util` 1.4.2, `encodings` 1.1.0, `font-alias` 1.0.6,
+      `font-bh-ttf` 1.0.4), `hicolor-icon-theme` 0.18, and an `upower`
+      rebuild that installs its systemd unit.  New specs: `xfce-desktop`
+      (meta) and `browneye-desktop-config` (`/etc/X11/xinit/xinitrc` →
+      `startxfce4`; xinit now ships that file, `%config(noreplace)`-style).
+      `scripts/qemu_boot_graphical.sh` boots a fresh desktop rootfs under
+      QEMU/KVM with `-vga std`, starts X on tty1 through a one-shot
+      `xfce-test.service`, and captures the session with `xwd` over a 9p
+      share (the QEMU std-VGA screendump is blank with modesetting).
+      Verified: `xfce4-session`, `xfwm4`, `xfce4-panel`, `xfdesktop`,
+      `xfsettingsd`, `xfce4-power-manager`, `dbus`, `xfconf`, panel and dock
+      all running; panel 1280x27 at the top and the launcher dock at the
+      bottom.
+- [x] D5. **Desktop repository published.**  `scripts/assemble_desktop_repo.sh`
+      collects the base repo plus every BLFS/XFCE/desktop RPM into
+      `build/repo-desktop` (215 RPMs).  `scripts/publish_repo.sh` gained
+      `SUBDIR`/`META` support; the desktop repo is
+      `https://tomfool.8bit.ca/browneye/packages/13.1/desktop/` with
+      `browneye-13.1-desktop.repo` and the `xfce-desktop` meta.  The landing
+      page links it.
 
 ### E. Self-hosting and boot follow-ups (open)
 
@@ -701,9 +752,25 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - The QEMU login test used a temporary SHA-512 root password, then restored
   the locked shadow entry. There is no first-boot password setup or account
   policy yet.
-- XFCE 4.20 builds and is installed into the throw-away container, but it is
-  not yet in a meta-package, not published to `repo-selfhost`, and has not
-  been booted into a graphical session.  There is no display manager yet.
+- **No Mesa:** there is no `libGL`/GLX.  `xorg-server` is built with
+  `-Dglx=false` and logs "No glamor support in the X Server"; `xfwm4`
+  compositing is disabled in the test session, and `xf86-video-amdgpu`
+  cannot build (it needs `gbm`).  The `modesetting` DDX is used for KMS
+  hardware; `xf86-video-vesa` is the fallback.
+- **No SVG loader:** `gdk-pixbuf` is built with `glycin` disabled and
+  `librsvg` is absent, so SVG icons/wallpapers do not render.  The hicolor
+  PNG icons from XFCE work (`hicolor-icon-theme` is required by the meta).
+- **No display manager:** `startx` (xinit) starts `startxfce4`; `lightdm`
+  needs Linux-PAM, which the base does not have, plus a PAM-enabled systemd
+  rebuild.
+- The QEMU std-VGA `screendump` is blank with the modesetting driver, so
+  `qemu_boot_graphical.sh` captures the root window with `xwd` over a 9p
+  share (the debug unit also dumps `ps`, `xwininfo -root -tree`, the journal,
+  and `Xorg.0.log` into `build/qemu-share/`).
+- `xkeyboard-config` 2.48 emits "Could not resolve keysym ..." warnings with
+  `xkbcomp` 1.5.0; they are non-fatal.
+- The graphical test uses a one-shot `xfce-test.service` and a temporary
+  root password; it is not a login/account policy (E5).
 - `polkit` 127 is built with `authfw=shadow` (no Linux-PAM in the base) and
   `libnotify` is built with `-Dtests=false` (its tests pull GTK4).
 - `xfce4-session` needs `iceauth` and `xfce4-dev-tools` needs `libxslt`;
@@ -724,11 +791,15 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 
 ## 8. Suggested first three actions for the new agent
 
-1. **Add an initramfs and bootloader path.** The current QEMU boot depends on
-   virtio/ext4/serial being built into the kernel. For real hardware and
-   module-based storage, add dracut (or a custom cpio) and finish the grub
-   install/boot path.  After that, package XFCE (`xfce-desktop` meta),
-   publish its RPMs, and boot a graphical session.
+1. **Build Mesa, then re-enable compositing.** Mesa provides `libGL`/GLX
+   and `gbm`; without it Xorg records "No glamor support", xfwm4 cannot
+   composite, and `xf86-video-amdgpu` cannot build.  Then rebuild
+   `xorg-server` with `-Dglx=true`, test the xfwm4 compositor, and add
+   `librsvg` or `glycin` for SVG icons/wallpapers.  A display manager
+   (`lightdm`) needs Linux-PAM and a PAM-enabled systemd rebuild; `startx`
+   is the current session entry point.
+   After that, **add an initramfs and bootloader path** (dracut or a custom
+   cpio, grub disk boot) for hardware and module-based storage.
 2. **Replace the host-derived `linux-api-headers`** with
    `make headers_install` from the pinned 7.1.8 source, then rebuild the
    packages that consume UAPI headers.

@@ -1,32 +1,29 @@
 Name:       mkfontscale
-Version:    1.1.3
+Version:    1.2.4
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Create index of scalable font files
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
-
-
+Source0:    mkfontscale-1.2.4.tar.xz
 
 %description
-TODO
+mkfontscale creates the fonts.scale index for X font directories.
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
-%configure 
+%configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/mkfontscale
-/usr/share/man/man1/mkfontscale.1.gz
+%files -f %{_sourcedir}/mkfontscale.filelist
 
 %changelog
-# let's skip this for now
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.4-1
+- Initial package (BLFS r13.1)

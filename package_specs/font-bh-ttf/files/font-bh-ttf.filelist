@@ -1,0 +1,22 @@
+%dir /etc/fonts
+%dir /etc/fonts/conf.avail
+/etc/fonts/conf.avail/42-luxi-mono.conf
+%dir /etc/fonts/conf.d
+/etc/fonts/conf.d/42-luxi-mono.conf
+%dir /usr/share
+%dir /usr/share/fonts
+%dir /usr/share/fonts/TTF
+/usr/share/fonts/TTF/fonts.dir
+/usr/share/fonts/TTF/fonts.scale
+/usr/share/fonts/TTF/luximb.ttf
+/usr/share/fonts/TTF/luximbi.ttf
+/usr/share/fonts/TTF/luximr.ttf
+/usr/share/fonts/TTF/luximri.ttf
+/usr/share/fonts/TTF/luxirb.ttf
+/usr/share/fonts/TTF/luxirbi.ttf
+/usr/share/fonts/TTF/luxirr.ttf
+/usr/share/fonts/TTF/luxirri.ttf
+/usr/share/fonts/TTF/luxisb.ttf
+/usr/share/fonts/TTF/luxisbi.ttf
+/usr/share/fonts/TTF/luxisr.ttf
+/usr/share/fonts/TTF/luxisri.ttf
