@@ -19,6 +19,7 @@ PUBLIC=${PUBLIC:-public_html/browneye}
 DEST=${DEST:-$PUBLIC/packages/$VERSION/${SUBDIR:+$SUBDIR/}}
 URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/${SUBDIR:+$SUBDIR/}}
 INDEX=${INDEX:-web/index.html}
+RSYNC_OPTS=${RSYNC_OPTS:-}
 
 [ -d "$REPO" ] || { echo "missing repo directory: $REPO" >&2; exit 1; }
 rpm_count=$(find "$REPO" -maxdepth 1 -name '*.rpm' | wc -l)
@@ -118,7 +119,7 @@ with open(os.path.join(stage, "index.html"), "w", encoding="utf-8") as handle:
 PY
 
 ssh -p "$PORT" "$REMOTE" "mkdir -p ~/$PUBLIC/packages"
-rsync -av --delete -e "ssh -p $PORT" "$STAGE/" "$REMOTE:$DEST"
+rsync -av $RSYNC_OPTS --delete -e "ssh -p $PORT" "$STAGE/" "$REMOTE:$DEST"
 if [ -f "$INDEX" ]; then
     rsync -av -e "ssh -p $PORT" "$INDEX" "$REMOTE:$PUBLIC/index.html"
 fi

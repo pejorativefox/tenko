@@ -390,7 +390,7 @@ Assemble, publish, and boot the desktop:
 
 ```bash
 ./scripts/assemble_desktop_repo.sh        # base + non-base RPMs -> build/repo-desktop
-SUBDIR=desktop REPO=build/repo-desktop META=xfce-desktop \
+SUBDIR=desktop REPO=build/repo-desktop META=xfce-desktop RSYNC_OPTS=-c \
     ./scripts/publish_repo.sh             # -> packages/13.1/desktop/
 ./scripts/qemu_boot_graphical.sh          # desktop rootfs + X session + xwd capture
 ```
