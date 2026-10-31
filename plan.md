@@ -507,8 +507,8 @@ localhost login:
     from the linux-7.1.8 source; the file set matches `headers_install`
     exactly (1085 entries) without needing `rsync`.  It is required to
     compile anything that includes `<limits.h>`/`<linux/limits.h>`.  C9
-    rebuilt the main UAPI consumers; the `1701` rule for a fresh full base
-    run is documented in §8.
+    rebuilt the main UAPI consumers; a full base rebuild is the next step
+    in §8.
 13. **`rpm` owns `/rpmbuild` by default.** The container writes build trees
     under `/rpmbuild` (not `/build`). Mount sources read-only and copy RPMs
     out, or change `%_topdir` in `browneye-rpm-config` deliberately.
