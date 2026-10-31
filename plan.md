@@ -458,16 +458,22 @@ localhost login:
       exist through `systemd-sysusers`; a temporary-password root login over
       `ttyS0` was tested (`LOGIN_OK`, `uid=0`, kernel 7.1.8). Root is locked
       again after the test; E5 tracks a first-boot password/account policy.
-- [ ] C5. Clean `build/repo` of stale/duplicate/debuginfo RPMs, regenerate.
-- [ ] C6. Tighten broad `%files` back to filelists/globs per package; regenerate
-      the remaining static filelists (`glib`, `gobject-introspection`, `groff`,
-      `gtk2`, `gtk3`, `imagemagick`, `kbd`, `llvm`, `tcl`).
+- [x] C5. Clean repo: `build/repo-selfhost` is the canonical clean,
+      self-hosted repo (97 RPMs, no stale/debuginfo entries).  The old
+      `build/repo` is retained only as historical bootstrap output and is not
+      used by the new flow.
+- [x] C6a. Base static filelists regenerated: `tcl` (including tzdata and
+      symlinks) and `groff` (removed PDF/URW-only entries); `kbd`'s existing
+      filelist builds unchanged.
+- [ ] C6b. Tighten the remaining broad `%files` and regenerate non-base static
+      filelists (`glib`, `gobject-introspection`, `gtk2`, `gtk3`,
+      `imagemagick`, `llvm`, ...).
 - [ ] C7. Revisit duplicate/disabled specs: `browneye-basefs-nousr.spec.disabled`,
       `browneye-init.spec.disabled`, `sysvinit.spec.disabled`, `yum.disabled`.
-- [ ] C8. `package_specs/ORDER` now includes the bootstrap extras
-      (`linux-api-headers`, `popt`, `libarchive`, `lua`, `rpm`,
-      `browneye-rpm-config`) but still not `libbsd`, `libmd`, `libseccomp`,
-      or `browneye-base`; extend it or document the two-phase order.
+- [x] C8. Two-phase order documented: `package_specs/ORDER` stays
+      chapter-8 + bootstrap extras, and `scripts/verify_base_in_container.sh`
+      appends `libbsd`, `libmd`, `libseccomp`, and `browneye-base` for the
+      full 93-package run.
 - [ ] C9. Replace the host-derived `linux-api-headers` with
       `make headers_install` from the pinned kernel source (7.1.8).
 - [ ] C10. Add an initramfs (dracut in the target or a custom cpio) and a
