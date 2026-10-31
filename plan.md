@@ -18,6 +18,8 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `build/repo-selfhost` is the clean repo produced by the container rebuild.
 - `browneye-base` meta resolves and installs **94** packages into
   `build/rootfs` and `build/rootfs-selfhost`.
+- The base repo is published at
+  `http://tomfool.8bit.ca/browneye/packages/13.1/` (unsigned).
 - The rootfs is QEMU-booted to multi-user and a serial root login; bash 5.3,
   python 3.14.7, openssl 4.0.1, merged `/usr`, loader at
   `/usr/lib64/ld-linux-x86-64.so.2`.
@@ -120,6 +122,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 │   ├── gen_lfs_lock.py        # regenerate lfs.lock from a tag
 │   ├── sync_lfs_spec.py       # dry-run/--write version+source sync
 │   ├── gen_filelist.py        # snapshot a built RPM into a %files list
+│   ├── publish_repo.sh        # stage + rsync repo to tomfool.8bit.ca
 ├── lfs.lock                   # pinned versions/sources/patches/base list
 ├── Containerfile              # FROM scratch + rootfs tarball
 └── build/
@@ -316,6 +319,20 @@ RPMs are copied from `~/rpmbuild` as an optional boot payload and are not
 part of `browneye-base`.  It then materializes sysusers, applies
 `systemctl --root=/ preset-all` in the new rootfs, packs it, and builds the
 container image.
+
+### Publish the repo
+
+```bash
+cd ~/browneye
+./scripts/publish_repo.sh
+# -> http://tomfool.8bit.ca/browneye/packages/13.1/
+```
+
+The script stages `build/repo-selfhost` into `build/repo-publish/13.1`, runs
+`createrepo_c`, writes `browneye-13.1.repo` and `README.txt`, and rsyncs to
+`tomfool8@192.200.112.194:public_html/browneye/packages/13.1/` (SSH port
+53211; the `ssh_tomfool` alias in `~/.bashrc.d/ssh_alias.sh` matches).  The
+repo is unsigned (`gpgcheck=0`).
 
 ### Boot the rootfs under QEMU
 
