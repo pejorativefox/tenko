@@ -126,6 +126,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 │   ├── sync_lfs_spec.py       # dry-run/--write version+source sync
 │   ├── gen_filelist.py        # snapshot a built RPM into a %files list
 │   ├── publish_repo.sh        # stage + rsync repo to tomfool.8bit.ca
+│   ├── build_blfs_stack.sh    # non-base BLFS r13.1 X/GNOME stack
 ├── lfs.lock                   # pinned versions/sources/patches/base list
 ├── Containerfile              # FROM scratch + rootfs tarball
 ├── web/index.html             # landing page for the published repo
@@ -341,6 +342,22 @@ repo is unsigned (`gpgcheck=0`).  It also uploads `web/index.html` to
 has directory indexes off).  Landing page:
 <https://tomfool.8bit.ca/browneye/>.
 
+### Rebuild the non-base BLFS stack
+
+The X/GNOME stack used by the non-base filelists builds in a persistent
+container so each RPM's dependencies are visible to the next package:
+
+```bash
+cd ~/browneye
+KEEP=0 PHASE=core ./scripts/build_blfs_stack.sh   # X libs, GLib/GI, GTK2/3
+KEEP=1 PHASE=rest ./scripts/build_blfs_stack.sh   # curl, libuv, cmake, libjpeg, ImageMagick, LLVM
+```
+
+`PHASE=core` includes the two-pass GLib build (first without introspection so
+`gobject-introspection` can link against it, then again with GI data).  The
+script skips packages already marked `ok` in `build/blfs-parity-*/status`, so
+it is resumable.
+
 ### Boot the rootfs under QEMU
 
 ```bash
@@ -535,13 +552,20 @@ localhost login:
       except that the shared top-level dirs (`/etc`, `/var`, `/var/cache`,
       `/var/lib`) are no longer owned.  Non-base `glib` was regenerated too
       (447 entries, unchanged).
-- [ ] C6c. Regenerate the remaining non-base static filelists, blocked on
-      their dependency stacks: `gobject-introspection` fails on Python 3.14
-      (`distutils.msvccompiler` was removed; needs a patch or version bump);
-      `gtk2`/`gtk3` need the X11/cairo/pango/atk/gdk-pixbuf stack (`libX11`
-      has no spec); `imagemagick` has no filelist at all and needs its
-      delegate libraries; `llvm` 16 needs CMake >= 3.20 (the `cmake` spec is
-      3.17.2).
+- [ ] C6c. Non-base stack synced to BLFS r13.1 and rebuilt offline in a
+      persistent container (see `scripts/build_blfs_stack.sh`): X libraries
+      (`xorgproto` 2025.1 through `libXtst` 1.2.5, `libXft` 2.3.9), `pixman`
+      0.46.4, `libpng` 1.6.58, `libjpeg-turbo` 3.2.0, `freetype` 2.14.3,
+      `fontconfig` 2.18.3, `harfbuzz` 14.3.1, `fribidi` 1.0.16, `glib`
+      2.88.3 (two-pass GObject Introspection), `gobject-introspection`
+      1.86.0, `cairo` 1.18.4, `at-spi2-core` 2.60.6, `gdk-pixbuf` 2.44.7,
+      `pango` 1.58.2, `libepoxy` 1.5.10, `libxkbcommon` 1.13.2,
+      `shared-mime-info` 2.5.1, `libxml2` 2.15.3, `gtk2` 2.24.33,
+      `gtk3` 3.24.52, `imagemagick` 7.1.2, `curl` 8.21.0, `libuv` 1.52.1,
+      `cmake` 4.4.2.  Generated static filelists for the whole chain;
+      `gtk2`/`gtk3`/`gobject-introspection`/`imagemagick` were rebuilt with
+      their filelists to verify.  Remaining: `llvm` 22.1.8 (source download
+      is slow on this link; the spec is already ported).
 - [ ] C7. Revisit duplicate/disabled specs: `browneye-basefs-nousr.spec.disabled`,
       `browneye-init.spec.disabled`, `sysvinit.spec.disabled`, `yum.disabled`.
 - [x] C8. Two-phase order documented: `package_specs/ORDER` stays
@@ -597,8 +621,17 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   useful fast path and can reintroduce a host-only `DT_NEEDED`. Always verify
   with a container rebuild and reinstall the rootfs after adding packages.
 - The base set and `glib` use generated static filelists; upstream file
-  additions now fail the build (intended).  `gtk2`, `gtk3`, `imagemagick`,
-  and `llvm` still use directory globs or stale lists (C6c).
+  additions now fail the build (intended).  The non-base X/GNOME chain is
+  synced to BLFS r13.1 and also uses generated filelists (C6c).
+- GTK2's BLFS consolidated-fixes patch is no longer published; it builds
+  with GCC 16 diagnostic relaxations (`-Wno-error=incompatible-pointer-types`,
+  `-Wno-error=implicit-int`, ...) instead.
+- `libepoxy` is built with GL/EGL headers copied from the host into the
+  throwaway container (it `dlopen`s libGL at runtime, so the RPM has no
+  dependency on a host library).  `gdk-pixbuf` keeps the PNG loader because
+  the BLFS default relies on glycin, which is not in the base.
+- `curl` is built with `--without-libpsl` (libpsl is not in the base); CMake
+  only needs curl for its own network features.
 - `browneye-base` has 93 `Requires:` (generated from `lfs.lock` plus the
   manual bootstrap list); it is not regenerated automatically when versions
   change.
