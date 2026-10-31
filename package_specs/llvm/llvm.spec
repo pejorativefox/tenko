@@ -12,7 +12,7 @@ The LLVM Project is a collection of modular and reusable compiler and toolchain 
 %prep
 %setup -q -n llvm-project-%{version}.src
 patch -Np1 -i %{_sourcedir}/llvm-%{version}-upstream_fix-1.patch
-grep -rl '#!.*python$' . | xargs sed -i '1s/python$/python3/'
+grep -rl '#!.*python$' . | xargs -r sed -i '1s/python$/python3/'
 sed -i 's/utility/tool/' llvm/utils/FileCheck/CMakeLists.txt
 
 %build
@@ -46,9 +46,8 @@ for i in clang clang++; do
     echo -fstack-protector-strong > %{buildroot}/etc/clang/$i.cfg
 done
 
-%files
-/usr/
-/etc/
+%files -f %{_sourcedir}/llvm.filelist
+
 
 %changelog
 * Tue Jun 13 2023 Chris Statzer <chris.statzer@gmail.com> 16.0.5

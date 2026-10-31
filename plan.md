@@ -72,6 +72,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   (presets applied, networkd/resolved enabled, empty machine-id).  C6b then
   replaced the base specs' directory globs with static filelists
   (`build/container-filelists-20261031`) and the run was re-bootstrapped.
+  C6c synced the non-base X/GNOME chain to BLFS r13.1, built it offline in
+  `build/blfs-parity-20261031`, and generated its filelists (LLVM 22.1.8
+  with clang and compiler-rt).
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
@@ -552,7 +555,7 @@ localhost login:
       except that the shared top-level dirs (`/etc`, `/var`, `/var/cache`,
       `/var/lib`) are no longer owned.  Non-base `glib` was regenerated too
       (447 entries, unchanged).
-- [ ] C6c. Non-base stack synced to BLFS r13.1 and rebuilt offline in a
+- [x] C6c. Non-base stack synced to BLFS r13.1 and rebuilt offline in a
       persistent container (see `scripts/build_blfs_stack.sh`): X libraries
       (`xorgproto` 2025.1 through `libXtst` 1.2.5, `libXft` 2.3.9), `pixman`
       0.46.4, `libpng` 1.6.58, `libjpeg-turbo` 3.2.0, `freetype` 2.14.3,
@@ -562,10 +565,10 @@ localhost login:
       `pango` 1.58.2, `libepoxy` 1.5.10, `libxkbcommon` 1.13.2,
       `shared-mime-info` 2.5.1, `libxml2` 2.15.3, `gtk2` 2.24.33,
       `gtk3` 3.24.52, `imagemagick` 7.1.2, `curl` 8.21.0, `libuv` 1.52.1,
-      `cmake` 4.4.2.  Generated static filelists for the whole chain;
-      `gtk2`/`gtk3`/`gobject-introspection`/`imagemagick` were rebuilt with
-      their filelists to verify.  Remaining: `llvm` 22.1.8 (source download
-      is slow on this link; the spec is already ported).
+      `cmake` 4.4.2, `llvm` 22.1.8 (with clang and compiler-rt).  Generated
+      static filelists for the whole chain; all of the named targets except
+      LLVM were rebuilt with their filelists to verify (the LLVM list is a
+      snapshot of a successful build; rebuilding it costs ~35 min).
 - [ ] C7. Revisit duplicate/disabled specs: `browneye-basefs-nousr.spec.disabled`,
       `browneye-init.spec.disabled`, `sysvinit.spec.disabled`, `yum.disabled`.
 - [x] C8. Two-phase order documented: `package_specs/ORDER` stays
