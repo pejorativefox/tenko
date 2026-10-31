@@ -1,6 +1,6 @@
 # Handoff — browneye LFS r13.1 base rebuild
 
-Last updated: 2026-10-31. Branch: `lfs-r13.1`. Work root: `~/browneye`.
+Last updated: 2026-11-01. Branch: `lfs-r13.1`. Work root: `~/browneye`.
 
 Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 `git log` and the old text is no longer the source of truth.
@@ -62,7 +62,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   self-hosted RPMs.  Smoke builds of `zlib` and `python-flit-core` pass in
   that image; `rpm -Va` is clean except podman's `/etc/hosts` overlay.
 
-**C1/C3 refresh (2026-10-31).**
+**C1–C6c and XFCE refresh (2026-10-31 → 11-01).**
 
 - `build/container-rebuild-20261031-locale` rebuilt all **93** specs
   (**94** RPMs) offline against `r13.1-selfhost-20261031`.
@@ -76,7 +76,10 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `build/blfs-parity-20261031`, and generated its filelists (LLVM 22.1.8
   with clang and compiler-rt).
 - **XFCE 4.20 core (17 packages) builds X11-only** on that stack; Wayland is
-  absent from the image by design.  See `build/blfs-parity-*` and D3.
+  absent from the image by design.  Dependencies and the desktop build in
+  `build/blfs-parity-20261031` (deps) and `build/blfs-parity-20261101`
+  (desktop run).  XFCE is not yet meta-packaged, published, or booted into a
+  graphical session; see D3 and §7.
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
@@ -131,7 +134,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 │   ├── sync_lfs_spec.py       # dry-run/--write version+source sync
 │   ├── gen_filelist.py        # snapshot a built RPM into a %files list
 │   ├── publish_repo.sh        # stage + rsync repo to tomfool.8bit.ca
-│   ├── build_blfs_stack.sh    # non-base BLFS r13.1 X/GNOME stack
+│   ├── build_blfs_stack.sh    # BLFS r13.1 X/GNOME + XFCE stack (phases)
 ├── lfs.lock                   # pinned versions/sources/patches/base list
 ├── Containerfile              # FROM scratch + rootfs tarball
 ├── web/index.html             # landing page for the published repo
@@ -142,6 +145,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
     ├── rootfs-selfhost/       # installed from repo-selfhost (94 packages)
     ├── browneye-rootfs.tar.gz # old image payload
     ├── container-rebuild-*/   # per-package logs/RPMs from verify runs
+    ├── blfs-parity-*/         # non-base X/GNOME + XFCE builds (phases)
     └── deps/                  # extracted devel prefixes (see §5)
 ```
 
@@ -355,14 +359,19 @@ container so each RPM's dependencies are visible to the next package:
 
 ```bash
 cd ~/browneye
-KEEP=0 PHASE=core ./scripts/build_blfs_stack.sh   # X libs, GLib/GI, GTK2/3
-KEEP=1 PHASE=rest ./scripts/build_blfs_stack.sh   # curl, libuv, cmake, libjpeg, ImageMagick, LLVM
+KEEP=0 PHASE=core      ./scripts/build_blfs_stack.sh  # X libs, GLib/GI, GTK2/3
+KEEP=1 PHASE=rest      ./scripts/build_blfs_stack.sh  # curl, libuv, cmake, libjpeg, ImageMagick, LLVM
+KEEP=1 PHASE=xfce-deps ./scripts/build_blfs_stack.sh  # XFCE 4.20 dependencies
+KEEP=1 PHASE=xfce      ./scripts/build_blfs_stack.sh  # 17 XFCE 4.20 core packages
 ```
 
 `PHASE=core` includes the two-pass GLib build (first without introspection so
 `gobject-introspection` can link against it, then again with GI data).  The
 script skips packages already marked `ok` in `build/blfs-parity-*/status`, so
-it is resumable.
+it is resumable.  XFCE is built X11-only: `libxfce4windowing` gets
+`--enable-x11 --disable-wayland`, and no Wayland libraries are installed.
+Pass `OUT=build/blfs-parity-YYYYMMDD` to keep a multi-phase run in one place
+(the default is date-stamped).
 
 ### Boot the rootfs under QEMU
 
@@ -588,7 +597,7 @@ localhost login:
       install the new RPMs into a fresh rootfs/image.  The fresh image rebuilt
       all 93 packages offline in the second-generation run.
 
-### D. Phase 2 (explicitly out of current scope)
+### D. Phase 2 (D3 done; D2 remains out of current scope)
 
 - [x] D1. Kernel packaging: `linux-kernel`/`linux-modules` 7.1.8 with the
       QEMU config. These RPMs are still host-built; rebuilding them inside
@@ -692,6 +701,14 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - The QEMU login test used a temporary SHA-512 root password, then restored
   the locked shadow entry. There is no first-boot password setup or account
   policy yet.
+- XFCE 4.20 builds and is installed into the throw-away container, but it is
+  not yet in a meta-package, not published to `repo-selfhost`, and has not
+  been booted into a graphical session.  There is no display manager yet.
+- `polkit` 127 is built with `authfw=shadow` (no Linux-PAM in the base) and
+  `libnotify` is built with `-Dtests=false` (its tests pull GTK4).
+- `xfce4-session` needs `iceauth` and `xfce4-dev-tools` needs `libxslt`;
+  both are built as XFCE build dependencies.  BLFS r13.1's `libwnck` 43.1
+  checksum is stale; the actual tarball md5 is used.
 - `/etc/machine-id` is deliberately shipped empty and mode 0444; systemd
   generates/commits one on first boot. `qemu_boot.sh` no longer pre-fills it.
 - The journal is persistent (`/var/log/journal`, 512M cap) and the network
@@ -710,7 +727,8 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 1. **Add an initramfs and bootloader path.** The current QEMU boot depends on
    virtio/ext4/serial being built into the kernel. For real hardware and
    module-based storage, add dracut (or a custom cpio) and finish the grub
-   install/boot path.
+   install/boot path.  After that, package XFCE (`xfce-desktop` meta),
+   publish its RPMs, and boot a graphical session.
 2. **Replace the host-derived `linux-api-headers`** with
    `make headers_install` from the pinned 7.1.8 source, then rebuild the
    packages that consume UAPI headers.
