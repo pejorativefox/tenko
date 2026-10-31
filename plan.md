@@ -128,6 +128,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 │   ├── publish_repo.sh        # stage + rsync repo to tomfool.8bit.ca
 ├── lfs.lock                   # pinned versions/sources/patches/base list
 ├── Containerfile              # FROM scratch + rootfs tarball
+├── web/index.html             # landing page for the published repo
 └── build/
     ├── repo/                  # old host-built createrepo output (stale)
     ├── repo-selfhost/         # clean repo from the container rebuild (98 rpms)
@@ -335,7 +336,10 @@ The script stages `build/repo-selfhost` into `build/repo-publish/13.1`, runs
 `createrepo_c`, writes `browneye-13.1.repo` and `README.txt`, and rsyncs to
 `tomfool8@192.200.112.194:public_html/browneye/packages/13.1/` (SSH port
 53211; the `ssh_tomfool` alias in `~/.bashrc.d/ssh_alias.sh` matches).  The
-repo is unsigned (`gpgcheck=0`).
+repo is unsigned (`gpgcheck=0`).  It also uploads `web/index.html` to
+`browneye/` and generates a per-version `index.html` listing (the web server
+has directory indexes off).  Landing page:
+<https://tomfool.8bit.ca/browneye/>.
 
 ### Boot the rootfs under QEMU
 
