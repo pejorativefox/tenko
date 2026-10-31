@@ -13,7 +13,7 @@ STAGE=${STAGE:-build/repo-publish/$VERSION}
 REMOTE=${REMOTE:-tomfool8@192.200.112.194}
 PORT=${PORT:-53211}
 DEST=${DEST:-public_html/browneye/packages/$VERSION/}
-URL=${URL:-http://tomfool.8bit.ca/browneye/packages/$VERSION/}
+URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/}
 
 [ -d "$REPO" ] || { echo "missing repo directory: $REPO" >&2; exit 1; }
 rpm_count=$(find "$REPO" -maxdepth 1 -name '*.rpm' | wc -l)

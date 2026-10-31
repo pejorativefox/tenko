@@ -19,7 +19,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - `browneye-base` meta resolves and installs **94** packages into
   `build/rootfs` and `build/rootfs-selfhost`.
 - The base repo is published at
-  `http://tomfool.8bit.ca/browneye/packages/13.1/` (unsigned).
+  `https://tomfool.8bit.ca/browneye/packages/13.1/` (unsigned).
 - The rootfs is QEMU-booted to multi-user and a serial root login; bash 5.3,
   python 3.14.7, openssl 4.0.1, merged `/usr`, loader at
   `/usr/lib64/ld-linux-x86-64.so.2`.
@@ -328,7 +328,7 @@ container image.
 ```bash
 cd ~/browneye
 ./scripts/publish_repo.sh
-# -> http://tomfool.8bit.ca/browneye/packages/13.1/
+# -> https://tomfool.8bit.ca/browneye/packages/13.1/
 ```
 
 The script stages `build/repo-selfhost` into `build/repo-publish/13.1`, runs
