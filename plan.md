@@ -761,8 +761,8 @@ LUKS/LVM) dracut now builds one; the NVMe test boot used
       all 93 packages offline in the second-generation run.
 - [x] C10. **Initramfs via dracut-ng 112 + cpio 2.15.**  dracut-ng is the
       maintained successor to dracut; the old spec was 050 from 2019.
-      VTE-style subprojects are not involved here: dracut builds against
-      the container's libkmod 34.2 and libsystemd 261.  A `--no-hostonly`
+      Unlike VTE, dracut has no bundled subprojects; it builds against the
+      container's libkmod 34.2 and libsystemd 261.  A `--no-hostonly`
       initramfs for 7.2.6 was generated under `--sysroot` and booted with
       the root on QEMU NVMe (`root=/dev/nvme0n1p2`), reaching multi-user
       and a serial login.  The kernel-install hook is not wired into the
@@ -843,8 +843,8 @@ These are the current caveats that do not yet have a checkbox elsewhere.
       (see A3/A4 and §7).
 - [x] E2. `linux-kernel`/`linux-modules` **7.2.6** are now built inside the
       self-hosted container (with `DRM_VGEM`) and collected into the single
-      repo; the host-built 7.1.8 RPMs are gone.  E4 still covers firmware,
-      signing, and the general-purpose config.
+      repo; the host-built 7.1.8 RPMs are gone.  E4 now covers module
+      signing and automatic initramfs generation.
 - [x] E3. **GRUB disk boot works (UEFI).**  `scripts/make_efi_disk.sh` builds a
       GPT image: a 64 MiB FAT ESP with a standalone `BOOTX64.EFI`
       (`grub-mkstandalone`, ext2/linux/part_gpt modules), and an ext4 root
@@ -921,8 +921,9 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - The kernel config is a sanitized forward-port of the Fedora 44 host
   config (3,030 built-in / 4,691 modules after the QEMU overrides), not
   the old 6.4.12 minimal config.  Debug info, SELinux/IMA, lockdown and
-  module signing, Rust/BTF, UBSAN and MAXSMP are off.  There is still no
-  an initramfs generator (dracut-ng 112) and no module signing (E4).
+  module signing, Rust/BTF, UBSAN and MAXSMP are off.  There is now an
+  initramfs generator (dracut-ng 112); module signing and automatic
+  generation remain (E4).
 - `linux-firmware` is a curated 20261019 snapshot (GPUs, wireless,
   Bluetooth, Realtek NICs, AMD microcode) plus wireless-regdb 2026.09.03,
   401 MB installed and xz-compressed.  It is not a book package; the user
@@ -950,6 +951,12 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - `xfce4-terminal` is built with `-Ddoc=false` because the container lacks
   `docbook-xsl-nons`; the binary and desktop files are complete, only the
   man page is omitted.
+- The first VTE/xfce4-terminal RPMs were produced with `rpmbuild
+  --short-circuit` and carried `rpmlib(ShortCircuited)`; the image install
+  rejected them.  Both were rebuilt normally, and the current repo is
+  clean.  This is the concrete reason for the no-short-circuit rule in §5.
+- The 222-RPM staging tree is backed up at `~/backup/browneye-current`
+  with a verified `SHA256SUMS`.
 - The Fedora config leaves `CONFIG_DRM_PANIC_SCREEN="qr_code"` without the
   QR-code option, so boot logs one cosmetic fallback warning; set it to
   `user` or disable `CONFIG_DRM_PANIC` on the next rebuild.
