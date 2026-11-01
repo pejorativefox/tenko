@@ -1,10 +1,11 @@
 Name:       gcc
 Version:    16.2.0
-Release:    2
+Release:    3
 Summary:    The GNU Compiler Collection
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+Requires:   gcc-libs = %{version}-%{release}
 
 
 %description
@@ -56,14 +57,23 @@ rm -vf %{buildroot}%{_infodir}/dir*
 ln -sfv gcc %{buildroot}/usr/bin/cc
 
 
-%package -n libstdc++
-Summary: The GNU Standard C++ Library v3
-%description -n libstdc++
-The GNU Standard C++ Library v3 is an ongoing project to implement the ISO 14882 C++ Standard Library as described in clauses 20 through 33 and annex D (prior to the 2017 standard the library clauses started with 17).
+%package libs
+Summary:    GCC runtime libraries
+License:    GPL3
+
+%description libs
+The GCC runtime support libraries: libgcc_s, libstdc++, libatomic, libgomp,
+libquadmath, libitm, libasan, libhwasan, liblsan, libtsan, libubsan, libssp
+and libcc1.  The compiler in gcc requires this package; runtime-only installs
+can use it without pulling the compiler.
 
 %files -f %{_sourcedir}/gcc.filelist
+%files libs -f %{_sourcedir}/gcc-libs.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 16.2.0-3
+- Split the runtime libraries into gcc-libs; gcc requires it (size audit P0)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 16.2.0
 - Replace directory globs with a generated static filelist
 

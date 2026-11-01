@@ -1,6 +1,6 @@
 Name:       vim
 Version:    9.2.1099
-Release:    1
+Release:    2
 Summary:    vi Improved Text editor
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
@@ -14,7 +14,7 @@ Vim is a highly configurable text editor built to make creating and changing any
 
 %build
 echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
-%configure --enable-gui=no --without-x --disable-selinux --without-wayland
+%configure --enable-gui=no --without-x --disable-selinux --disable-canberra --without-wayland
 %make_build
 
 %install
@@ -40,6 +40,9 @@ rm -f %{buildroot}/usr/share/vim/vim92/tools/demoserver.py
 /usr/share/man/
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 9.2.1099-2
+- Disable libcanberra so the base editor does not pull GTK3 (size audit P0)
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 9.2.1025
 - Sync with LFS r13.1
 

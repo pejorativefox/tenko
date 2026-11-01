@@ -1,6 +1,6 @@
 Name:       browneye-base
 Version:    13.1
-Release:    2
+Release:    3
 Summary:    Browneye Linux base system (LFS r13.1)
 License:    MIT
 Prefix:     /usr
@@ -70,6 +70,7 @@ Requires: findutils
 Requires: groff
 Requires: gzip
 Requires: iproute2
+Requires: libtirpc
 Requires: kbd
 Requires: libpipeline
 Requires: make
@@ -113,6 +114,9 @@ Meta-package pulling in the LFS r13.1 base system.
 %files
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-3
+- Require libtirpc for iproute2 (size audit P0)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-2
 - Require linux-pam (systemd is PAM-enabled) and browneye-firstboot
   (root password policy, E5)
