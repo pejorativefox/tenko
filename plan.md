@@ -18,9 +18,12 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `build/repo-selfhost` is the clean repo produced by the container rebuild.
 - `browneye-base` meta resolves and installs **94** packages into
   `build/rootfs` and `build/rootfs-selfhost`.
-- The single base+desktop repo (222 RPMs) is staged in `build/repo-all`;
-  `https://tomfool.8bit.ca/browneye/packages/13.1/` still has the previous
-  217-RPM revision until the next publish (deferred at the user's request).
+- The single base+desktop repo (222 RPMs) was **published 2026-11-01** to
+  `https://tomfool.8bit.ca/browneye/packages/13.1/` from the staged
+  `build/repo-all`; all 222 RPMs verified by Content-Length and the remote
+  repo resolves.  This revision has kernel 7.2.6-2 / sysconfig 13.1-1; the
+  E4 7.2.6-3, sysconfig 13.1-2, and kmod 34.2-2 are **not** published yet
+  and will go out with the next incremental republish.
 - The rootfs is QEMU-booted to multi-user and a serial root login; bash 5.3,
   python 3.14.7, openssl 4.0.2, merged `/usr`, loader at
   `/usr/lib64/ld-linux-x86-64.so.2`.
@@ -247,6 +250,11 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D14 | Initramfs | automatic on kernel install; generic `hostonly=no`, xz; `/boot/initramfs-<ver>.img` |
 | D15 | Module signing | **off**; no shim/MOK, Secure Boot explicitly unsupported |
 | D16 | AMD GPU driver | `xf86-video-amdgpu` 23.0.0 packaged, **optional** (not in `xfce-desktop`) |
+| D17 | Node.js | **26.13.0 LTS** (upstream LTS; book is 26.9.0 — user-approved exception) |
+| D18 | sshd | **OpenSSH 10.5p1 with Linux-PAM + password auth**; root login with password; first-boot root password (E5) |
+| D19 | Agent tools | **opencode-bin 2.2.5 / herdr 0.9.5** prebuilt binary RPMs (not in LFS/BLFS — user-approved) |
+| D20 | Workstation meta | new `browneye-workstation`; `browneye-base`/`xfce-desktop` unchanged |
+| D21 | CA store | `make-ca` with a pinned Mozilla certdata snapshot; no network at build |
 
 Consequences already implemented:
 
@@ -896,9 +904,21 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - [ ] E5. Add a first-boot root password/account policy. The login test used
       a temporary password and restored the locked shadow entry.
 
-### F. Developer workstation wave (nodejs/opencode/sshd/herdr) — awaiting approval
+### F. Developer workstation wave (nodejs/opencode/sshd/herdr) — approved, running
 
-Investigation only (2026-11-01); no files changed.
+The user approved the scope on 2026-11-01: Node 26.13.0 LTS, Linux-PAM +
+password-auth sshd, prebuilt opencode/herdr RPMs, and a new meta.  Four
+independent subagent worktrees were created off `c25180a`:
+
+| branch / worktree | owns |
+|---|---|
+| `nodejs` / `browneye-nodejs` | brotli, icu, libuv, c-ares, nghttp2, simdutf, nodejs 26.13.0 |
+| `pam-sshd` / `browneye-pamsshd` | linux-pam 1.7.3, PAM-enabled systemd, openssh 10.5p1, first-boot root password |
+| `ca-tools` / `browneye-ca` | libtasn1, p11-kit, make-ca + certdata, git 2.55.0, which 2.25 |
+| `agent-tools` / `browneye-agents` | opencode-bin, herdr binary RPMs |
+
+The main session owns `browneye-workstation`, QEMU SSH forwarding, merges,
+image/rootfs rebuilds, and publishing.  Original investigation notes follow.
 
 - opencode 2.0.12 on the host is a Bun-compiled self-contained ELF
   (glibc 2.17); herdr 0.9.1 is a static musl PIE.  **Neither needs Node at
@@ -921,9 +941,11 @@ Investigation only (2026-11-01); no files changed.
 - Proposed new meta `browneye-workstation` (nodejs, openssh, git,
   ca-certificates, which, opencode-bin, herdr); `browneye-base` and
   `xfce-desktop` stay untouched.
-- Pending approval: Node 26.13.0 vs book 26.9.0; key-only root sshd;
-  opencode/herdr binary RPMs (not in the books); the new meta.  Estimate:
-  ~12 specs, ~1.5–2 h machine time, ~650 MB installed.
+- Approved decisions: Node 26.13.0 (D17), PAM + password auth with root
+  login (D18), prebuilt agent binaries (D19), new `browneye-workstation`
+  meta (D20).  PAM also means the E5 first-boot root password must land in
+  this wave; the test image keeps its temporary `root`/`root` until then.
+  Estimate: ~13 specs, ~1.5–2 h machine time, ~650 MB installed.
 
 ### G. Size audit — for review
 
@@ -986,10 +1008,11 @@ The 222-RPM publish in flight predates these fixes; republish after P0.
   change.
 - The repo is unsigned.  `scripts/prune_repo.sh` keeps the newest RPM per
   package, so the published repo has one version per name.
-- The 222-RPM staging tree (`build/repo-all`, including kernel 7.2.6-2,
-  firmware 20261019-2, VTE 0.84.1 and xfce4-terminal 1.2.0) is ready but
-  **not published yet**: the remote still has the previous 217-RPM
-  revision.  Publish on request.
+- The 222-RPM staging tree was published on 2026-11-01 (kernel 7.2.6-2,
+  firmware 20261019-2, VTE 0.84.1, xfce4-terminal 1.2.0).  `build/repo-all`
+  has not yet been refreshed with E4 (kernel 7.2.6-3, sysconfig 13.1-2,
+  kmod 34.2-2) or the size-audit P0 fixes; do that and republish
+  incrementally.  The E4 test artifacts are in `build/repo-e4`.
 - Rootfs installs use `--setopt=tsflags=noscripts`; scriptlet correctness has
   not been tested outside the fake-root install.
 - The container image is rootless/local (`localhost/browneye/base:...`) and
@@ -1132,12 +1155,12 @@ The 222-RPM publish in flight predates these fixes; republish after P0.
 
 ## 8. Suggested next actions
 
-1. **Approve and execute the developer workstation wave (F).**  Node 26.13.0
-   (book 26.9.0 — needs an AGENTS.md exception), key-only root sshd
-   (OpenSSH 10.5p1, no PAM), prebuilt opencode/herdr RPMs (not in the
-   books — needs approval), CA store + git + which, and the new
-   `browneye-workstation` meta.  This is the wave that makes working inside
-   the booted system practical.
+1. **Developer workstation wave (F) — approved and running.**  Node 26.13.0
+   (D17 exception), Linux-PAM + password-auth sshd (D18: OpenSSH 10.5p1,
+   root login, first-boot password), prebuilt opencode/herdr RPMs (D19),
+   CA store + git + which, and the new `browneye-workstation` meta (D20).
+   Four subagents own the independent trees; the main session integrates,
+   adds QEMU SSH forwarding, rebuilds the image, and validates.
 2. **Fix the size-audit P0 regressions (G) and re-bootstrap.**  `vim`
    must not link libcanberra; split `gcc-libs`; `libarchive` without
    libxml2; add `libtirpc`.  Then rebuild the affected base packages,
