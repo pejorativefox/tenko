@@ -1,0 +1,12 @@
+%dir /etc/ssl
+%dir /etc/ssl/certs
+%dir /etc/ssl/private
+%dir /usr/lib64
+%dir /usr/lib64/ossl-modules
+/etc/ssl/ct_log_list.cnf
+/etc/ssl/ct_log_list.cnf.dist
+/etc/ssl/openssl.cnf
+/etc/ssl/openssl.cnf.dist
+/usr/lib64/libcrypto.so.4
+/usr/lib64/libssl.so.4
+/usr/lib64/ossl-modules/legacy.so

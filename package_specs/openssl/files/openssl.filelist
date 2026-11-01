@@ -1,0 +1,4 @@
+%dir /usr/bin
+%dir /usr/share
+%dir /usr/share/doc
+/usr/bin/openssl

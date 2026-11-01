@@ -1,13 +1,52 @@
 Name:       gettext
 Version:    1.0
-Release:    1
+Release:    2
 Summary:    GNU Internationalization utilities
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+Requires:   gettext-libs = %{version}-%{release}
+Requires:   gettext-tools = %{version}-%{release}
+
 %description
-GNU Internationalization utilities
+GNU Internationalization utilities.  This package is a meta-package that
+pulls in the runtime libraries and the build tools.
+
+%package libs
+Summary:    GNU gettext runtime libraries
+License:    GPL3
+
+%description libs
+The GNU gettext runtime libraries: libintl (preloadable_libintl), libasprintf,
+libgettextpo, libtextstyle and the private libgettextlib/libgettextsrc helper
+libraries.  Packages that only need translated messages at runtime need this
+package, not the gettext build tools.
+
+%package tools
+Summary:    GNU gettext build tools
+License:    GPL3
+Requires:   gettext-libs = %{version}-%{release}
+
+%description tools
+The GNU gettext development and build tools, including xgettext, msgfmt,
+msgmerge, msgcat and the rest of the msg* utilities, plus the headers,
+autopoint/gettextize data and libtool/autoconf macros.
+
+%package lang
+Summary:    Translations for GNU gettext
+License:    GPL3
+Requires:   gettext-libs = %{version}-%{release}
+
+%description lang
+Translated messages for the gettext tools and runtime.
+
+%package doc
+Summary:    Documentation for GNU gettext
+License:    GPL3
+
+%description doc
+Info, man and HTML documentation for GNU gettext.
 
 %prep
 %setup -q
@@ -25,10 +64,19 @@ rm -vf %{buildroot}%{_infodir}/dir*
 chmod -v 0755 %{buildroot}/usr/lib64/preloadable_libintl.so
 rm -rf %{buildroot}/usr/share/doc/gettext-%{version}/examples
 
-%files -f %{_sourcedir}/gettext.filelist
+%files
+%files libs -f %{_sourcedir}/gettext-libs.filelist
+%files tools -f %{_sourcedir}/gettext-tools.filelist
+%files lang -f %{_sourcedir}/gettext-lang.filelist
+%files doc -f %{_sourcedir}/gettext-doc.filelist
 
 %changelog
-* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.0
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.0-2
+- Split runtime libraries, build tools, translations and documentation;
+  gettext is now a meta-package requiring gettext-libs and gettext-tools
+  (size audit §7)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.0-1
 - Replace directory globs with a generated static filelist
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.0
