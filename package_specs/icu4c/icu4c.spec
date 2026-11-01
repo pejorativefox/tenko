@@ -1,6 +1,6 @@
 Name:       icu4c
 Version:    78.3
-Release:    1
+Release:    2
 Summary:    International Components for Unicode (C/C++ libraries)
 License:    Unicode-3.0
 URL:        https://icu.unicode.org/
@@ -11,6 +11,13 @@ Prefix:     /usr
 ICU is a mature, widely used set of C/C++ libraries providing Unicode and
 globalization support for software applications.  This package provides the
 icu4c libraries and tools.
+
+%package devel
+Summary:    icu4c development files
+Requires:   icu4c = %{version}-%{release}
+
+%description devel
+Development files for icu4c.
 
 %prep
 %setup -q -n icu
@@ -29,8 +36,13 @@ popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/icu4c.filelist
+%files devel -f %{_sourcedir}/icu4c-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 78.3-2
+- Split devel payload into icu4c-devel (size audit)
+
 * Sun Nov 01 2026 Browneye Node.js wave <daspork@browneye.invalid> 78.3-1
 - Update 73.2 -> 78.3 (BLFS r13.1 packages.ent icu-version 78.3).
   The spec directory and RPM name stay icu4c; BLFS calls the package "icu".

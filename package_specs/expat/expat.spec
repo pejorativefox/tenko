@@ -1,6 +1,6 @@
 Name:       expat
 Version:    2.8.4
-Release:    1
+Release:    2
 Summary:    stream-oriented XML parser
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 stream-oriented XML parser
+
+%package devel
+Summary:    expat development files
+Requires:   expat = %{version}-%{release}
+
+%description devel
+Development files for expat.
 
 %prep
 %setup -q
@@ -22,20 +29,14 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xmlwf
-/usr/include/expat.h
-/usr/include/expat_config.h
-/usr/include/expat_external.h
-/usr/lib64/cmake/expat-%{version}/
-/usr/lib64/libexpat.so.1.12.4
-/usr/lib64/libexpat.so
-/usr/lib64/libexpat.so.1
-/usr/lib64/pkgconfig/expat.pc
-/usr/share/doc/expat-%{version}/
-/usr/share/man/man1/xmlwf.1.gz
+%files -f %{_sourcedir}/expat.filelist
+%files devel -f %{_sourcedir}/expat-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.8.4-2
+- Split devel payload into expat-devel (size audit)
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.8.3
 - Sync with LFS r13.1
 

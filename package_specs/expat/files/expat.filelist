@@ -1,0 +1,7 @@
+/usr/bin/xmlwf
+/usr/lib64/libexpat.so.1
+/usr/lib64/libexpat.so.1.12.4
+%dir /usr/share/doc/expat-2.8.4
+/usr/share/doc/expat-2.8.4/AUTHORS
+/usr/share/doc/expat-2.8.4/changelog
+/usr/share/man/man1/xmlwf.1.gz

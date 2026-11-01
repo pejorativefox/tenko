@@ -1,12 +1,26 @@
 Name:       libjpeg-turbo
 Version:    3.2.0
-Release:    1
+Release:    2
 Summary:    JPEG library
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 %description
 libjpeg-turbo is a fork of the original IJG libjpeg which uses SIMD to accelerate baseline JPEG compression and decompression.
+
+%package doc
+Summary:    libjpeg-turbo documentation
+Requires:   libjpeg-turbo = %{version}-%{release}
+
+%description doc
+Documentation for libjpeg-turbo.
+
+%package devel
+Summary:    libjpeg-turbo development files
+Requires:   libjpeg-turbo = %{version}-%{release}
+
+%description devel
+Development files for libjpeg-turbo.
 
 %prep
 %setup -q
@@ -35,9 +49,14 @@ popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libjpeg-turbo.filelist
+%files doc -f %{_sourcedir}/libjpeg-turbo-doc.filelist
+%files devel -f %{_sourcedir}/libjpeg-turbo-devel.filelist
 
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 3.2.0-2
+- Split doc, devel payload into libjpeg-turbo-doc, libjpeg-turbo-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 3.2.0
 - Sync with BLFS r13.1 (3.0.0)
 
