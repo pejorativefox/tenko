@@ -1,6 +1,6 @@
 Name:       sqlite
 Version:    3.53.4
-Release:    2
+Release:    3
 Summary:    SQLite database engine
 License:    Public Domain
 Source0:    sqlite-autoconf-3530400.tar.gz
@@ -38,6 +38,12 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 3.53.4-3
+- Keep /usr/lib64/libsqlite3.so in the runtime package.  This build has no
+  SONAME (the library is libsqlite3.so.3.53.4), so every consumer, including
+  rpm and Python's _sqlite3, records NEEDED libsqlite3.so.  The -devel split
+  had moved it out and broke rpm on the installed system; -devel now ships
+  only the headers and sqlite3.pc
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.53.4-2
 - Split devel payload into sqlite-devel (size audit)
 

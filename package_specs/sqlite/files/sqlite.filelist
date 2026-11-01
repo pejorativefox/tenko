@@ -1,6 +1,7 @@
 /usr/bin/sqlite3
 /usr/lib64/libsqlite3.so.0
 /usr/lib64/libsqlite3.so.3.53.4
+/usr/lib64/libsqlite3.so
 %dir /usr/share/man
 %dir /usr/share/man/man1
 /usr/share/man/man1/sqlite3.1.gz
