@@ -1,0 +1,8 @@
+%dir /usr/bin
+/usr/bin/which
+%dir /usr/share
+%dir /usr/share/info
+%doc /usr/share/info/which.info.gz
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/which.1.gz

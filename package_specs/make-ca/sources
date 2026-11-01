@@ -1,2 +1,7 @@
-5b68cf77b02d5681f8419b8acfd139c0 http://ftp.oregonstate.edu/.1/blfs/conglomeration/make-ca/make-ca-1.2.tar.xz
-2d6d427421952cac0783548ef929175f https://hg.mozilla.org/releases/mozilla-beta/raw-file/default/security/nss/lib/ckfw/builtins/certdata.txt
+bf9cea2d24fc5344d4951b49f275c595 https://github.com/lfs-book/make-ca/archive/v1.16.1/make-ca-1.16.1.tar.gz
+# Mozilla certdata.txt snapshot is shipped in files/certdata.txt:
+#   https://hg-edge.mozilla.org/releases/mozilla-release/raw-file/default/security/nss/lib/ckfw/builtins/certdata.txt
+#   raw md5 e66a4b50d8cc441b2a10f185310c7901
+#   raw sha256 beb7e6dfe6499926e52c075c27bcfbe4c957f8609c575b3860273ae2806f63eb
+#   shipped md5 4900ad4c4b7189533000eaeb30f62cc6 (adds "# Revision:20261101")
+#   shipped sha256 fe159c29bbf50b3f0a8e60396e6a534efef1f4c349fda2436675530ce810ea98
