@@ -75,7 +75,9 @@ texinfo
 vim
 markupsafe
 jinja2
+linux-pam
 systemd
+openssh
 dbus
 man-db
 procps
@@ -93,4 +95,5 @@ browneye-rpm-config
 # browneye glue
 browneye-basefs
 browneye-sysconfig
+browneye-firstboot
 browneye-release

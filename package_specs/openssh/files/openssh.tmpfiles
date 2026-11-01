@@ -1,0 +1,6 @@
+# Runtime directory used by sshd.
+d /run/sshd 0755 root root -
+
+# Privilege-separation directory.  OpenSSH requires root ownership and no
+# group/world write access; sshd's group owns it.
+d /var/lib/sshd 0700 root sshd -

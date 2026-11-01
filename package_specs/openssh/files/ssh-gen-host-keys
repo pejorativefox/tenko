@@ -1,0 +1,18 @@
+#!/bin/sh
+# Generate the OpenSSH host keys on first boot.
+#
+# DSA is deliberately not generated.  Existing keys are left untouched so
+# this script is idempotent and safe to run on every boot.
+set -eu
+
+umask 022
+install -d -m 0755 /etc/ssh
+
+for type in rsa ecdsa ed25519; do
+    key="/etc/ssh/ssh_host_${type}_key"
+    if [ ! -s "$key" ]; then
+        /usr/bin/ssh-keygen -q -t "$type" -N '' -f "$key"
+    fi
+    chmod 600 "$key"
+    [ -f "${key}.pub" ] && chmod 644 "${key}.pub"
+done
