@@ -65,6 +65,7 @@ findutils
 groff
 grub
 gzip
+libtirpc
 iproute2
 kbd
 libpipeline
