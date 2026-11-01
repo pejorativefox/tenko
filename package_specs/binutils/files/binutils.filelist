@@ -1,4 +1,9 @@
 %dir /usr/bin
+%dir /usr/lib
+%dir /usr/lib/ldscripts
+%dir /usr/lib64
+%dir /usr/lib64/bfd-plugins
+%dir /usr/share
 /usr/bin/addr2line
 /usr/bin/ar
 /usr/bin/as
@@ -15,20 +20,6 @@
 /usr/bin/size
 /usr/bin/strings
 /usr/bin/strip
-%dir /usr/include
-/usr/include/ansidecl.h
-/usr/include/bfd.h
-/usr/include/bfdlink.h
-/usr/include/ctf-api.h
-/usr/include/ctf.h
-/usr/include/diagnostics.h
-/usr/include/dis-asm.h
-/usr/include/plugin-api.h
-/usr/include/sframe-api.h
-/usr/include/sframe.h
-/usr/include/symcat.h
-%dir /usr/lib
-%dir /usr/lib/ldscripts
 /usr/lib/ldscripts/elf32_x86_64.x
 /usr/lib/ldscripts/elf32_x86_64.xbn
 /usr/lib/ldscripts/elf32_x86_64.xc
@@ -123,237 +114,12 @@
 /usr/lib/ldscripts/elf_x86_64.xwe
 /usr/lib/ldscripts/elf_x86_64.xwer
 /usr/lib/ldscripts/stamp
-%dir /usr/lib64
-%dir /usr/lib64/bfd-plugins
 /usr/lib64/bfd-plugins/libdep.so
 /usr/lib64/libbfd-2.47.20260726.so
-/usr/lib64/libbfd.a
-/usr/lib64/libbfd.so
-/usr/lib64/libctf-nobfd.a
-/usr/lib64/libctf-nobfd.so
 /usr/lib64/libctf-nobfd.so.0
 /usr/lib64/libctf-nobfd.so.0.0.0
-/usr/lib64/libctf.a
-/usr/lib64/libctf.so
 /usr/lib64/libctf.so.0
 /usr/lib64/libctf.so.0.0.0
 /usr/lib64/libopcodes-2.47.20260726.so
-/usr/lib64/libopcodes.a
-/usr/lib64/libopcodes.so
-/usr/lib64/libsframe.a
-/usr/lib64/libsframe.so
 /usr/lib64/libsframe.so.3
 /usr/lib64/libsframe.so.3.0.0
-%dir /usr/share
-%dir /usr/share/info
-%doc /usr/share/info/as.info.gz
-%doc /usr/share/info/bfd.info.gz
-%doc /usr/share/info/binutils.info.gz
-%doc /usr/share/info/ctf-spec.info.gz
-%doc /usr/share/info/gprof.info.gz
-%doc /usr/share/info/ld.info.gz
-%doc /usr/share/info/ldint.info.gz
-%doc /usr/share/info/sframe-spec.info.gz
-%dir /usr/share/locale
-%dir /usr/share/locale/ar
-%dir /usr/share/locale/ar/LC_MESSAGES
-/usr/share/locale/ar/LC_MESSAGES/binutils.mo
-%dir /usr/share/locale/bg
-%dir /usr/share/locale/bg/LC_MESSAGES
-/usr/share/locale/bg/LC_MESSAGES/binutils.mo
-/usr/share/locale/bg/LC_MESSAGES/gprof.mo
-/usr/share/locale/bg/LC_MESSAGES/ld.mo
-%dir /usr/share/locale/ca
-%dir /usr/share/locale/ca/LC_MESSAGES
-/usr/share/locale/ca/LC_MESSAGES/binutils.mo
-%dir /usr/share/locale/da
-%dir /usr/share/locale/da/LC_MESSAGES
-/usr/share/locale/da/LC_MESSAGES/bfd.mo
-/usr/share/locale/da/LC_MESSAGES/binutils.mo
-/usr/share/locale/da/LC_MESSAGES/gprof.mo
-/usr/share/locale/da/LC_MESSAGES/ld.mo
-/usr/share/locale/da/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/de
-%dir /usr/share/locale/de/LC_MESSAGES
-/usr/share/locale/de/LC_MESSAGES/binutils.mo
-/usr/share/locale/de/LC_MESSAGES/gprof.mo
-/usr/share/locale/de/LC_MESSAGES/ld.mo
-/usr/share/locale/de/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/eo
-%dir /usr/share/locale/eo/LC_MESSAGES
-/usr/share/locale/eo/LC_MESSAGES/gprof.mo
-%dir /usr/share/locale/es
-%dir /usr/share/locale/es/LC_MESSAGES
-/usr/share/locale/es/LC_MESSAGES/bfd.mo
-/usr/share/locale/es/LC_MESSAGES/binutils.mo
-/usr/share/locale/es/LC_MESSAGES/gas.mo
-/usr/share/locale/es/LC_MESSAGES/gprof.mo
-/usr/share/locale/es/LC_MESSAGES/ld.mo
-/usr/share/locale/es/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/fi
-%dir /usr/share/locale/fi/LC_MESSAGES
-/usr/share/locale/fi/LC_MESSAGES/bfd.mo
-/usr/share/locale/fi/LC_MESSAGES/binutils.mo
-/usr/share/locale/fi/LC_MESSAGES/gas.mo
-/usr/share/locale/fi/LC_MESSAGES/gprof.mo
-/usr/share/locale/fi/LC_MESSAGES/ld.mo
-/usr/share/locale/fi/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/fr
-%dir /usr/share/locale/fr/LC_MESSAGES
-/usr/share/locale/fr/LC_MESSAGES/bfd.mo
-/usr/share/locale/fr/LC_MESSAGES/binutils.mo
-/usr/share/locale/fr/LC_MESSAGES/gas.mo
-/usr/share/locale/fr/LC_MESSAGES/gprof.mo
-/usr/share/locale/fr/LC_MESSAGES/ld.mo
-/usr/share/locale/fr/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/ga
-%dir /usr/share/locale/ga/LC_MESSAGES
-/usr/share/locale/ga/LC_MESSAGES/gprof.mo
-/usr/share/locale/ga/LC_MESSAGES/ld.mo
-/usr/share/locale/ga/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/hr
-%dir /usr/share/locale/hr/LC_MESSAGES
-/usr/share/locale/hr/LC_MESSAGES/bfd.mo
-/usr/share/locale/hr/LC_MESSAGES/binutils.mo
-%dir /usr/share/locale/hu
-%dir /usr/share/locale/hu/LC_MESSAGES
-/usr/share/locale/hu/LC_MESSAGES/gprof.mo
-%dir /usr/share/locale/id
-%dir /usr/share/locale/id/LC_MESSAGES
-/usr/share/locale/id/LC_MESSAGES/bfd.mo
-/usr/share/locale/id/LC_MESSAGES/binutils.mo
-/usr/share/locale/id/LC_MESSAGES/gas.mo
-/usr/share/locale/id/LC_MESSAGES/gprof.mo
-/usr/share/locale/id/LC_MESSAGES/ld.mo
-/usr/share/locale/id/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/it
-%dir /usr/share/locale/it/LC_MESSAGES
-/usr/share/locale/it/LC_MESSAGES/binutils.mo
-/usr/share/locale/it/LC_MESSAGES/gprof.mo
-/usr/share/locale/it/LC_MESSAGES/ld.mo
-/usr/share/locale/it/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/ja
-%dir /usr/share/locale/ja/LC_MESSAGES
-/usr/share/locale/ja/LC_MESSAGES/bfd.mo
-/usr/share/locale/ja/LC_MESSAGES/binutils.mo
-/usr/share/locale/ja/LC_MESSAGES/gas.mo
-/usr/share/locale/ja/LC_MESSAGES/gprof.mo
-/usr/share/locale/ja/LC_MESSAGES/ld.mo
-%dir /usr/share/locale/ka
-%dir /usr/share/locale/ka/LC_MESSAGES
-/usr/share/locale/ka/LC_MESSAGES/bfd.mo
-/usr/share/locale/ka/LC_MESSAGES/binutils.mo
-/usr/share/locale/ka/LC_MESSAGES/gas.mo
-/usr/share/locale/ka/LC_MESSAGES/gprof.mo
-/usr/share/locale/ka/LC_MESSAGES/ld.mo
-/usr/share/locale/ka/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/ms
-%dir /usr/share/locale/ms/LC_MESSAGES
-/usr/share/locale/ms/LC_MESSAGES/bfd.mo
-/usr/share/locale/ms/LC_MESSAGES/gprof.mo
-%dir /usr/share/locale/nl
-%dir /usr/share/locale/nl/LC_MESSAGES
-/usr/share/locale/nl/LC_MESSAGES/gprof.mo
-/usr/share/locale/nl/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/pt
-%dir /usr/share/locale/pt/LC_MESSAGES
-/usr/share/locale/pt/LC_MESSAGES/bfd.mo
-/usr/share/locale/pt/LC_MESSAGES/binutils.mo
-%dir /usr/share/locale/pt_BR
-%dir /usr/share/locale/pt_BR/LC_MESSAGES
-/usr/share/locale/pt_BR/LC_MESSAGES/gprof.mo
-/usr/share/locale/pt_BR/LC_MESSAGES/ld.mo
-/usr/share/locale/pt_BR/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/ro
-%dir /usr/share/locale/ro/LC_MESSAGES
-/usr/share/locale/ro/LC_MESSAGES/bfd.mo
-/usr/share/locale/ro/LC_MESSAGES/binutils.mo
-/usr/share/locale/ro/LC_MESSAGES/gas.mo
-/usr/share/locale/ro/LC_MESSAGES/gprof.mo
-/usr/share/locale/ro/LC_MESSAGES/ld.mo
-/usr/share/locale/ro/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/ru
-%dir /usr/share/locale/ru/LC_MESSAGES
-/usr/share/locale/ru/LC_MESSAGES/bfd.mo
-/usr/share/locale/ru/LC_MESSAGES/binutils.mo
-/usr/share/locale/ru/LC_MESSAGES/gas.mo
-/usr/share/locale/ru/LC_MESSAGES/gprof.mo
-/usr/share/locale/ru/LC_MESSAGES/ld.mo
-%dir /usr/share/locale/rw
-%dir /usr/share/locale/rw/LC_MESSAGES
-/usr/share/locale/rw/LC_MESSAGES/bfd.mo
-/usr/share/locale/rw/LC_MESSAGES/binutils.mo
-/usr/share/locale/rw/LC_MESSAGES/gas.mo
-/usr/share/locale/rw/LC_MESSAGES/gprof.mo
-%dir /usr/share/locale/sk
-%dir /usr/share/locale/sk/LC_MESSAGES
-/usr/share/locale/sk/LC_MESSAGES/binutils.mo
-%dir /usr/share/locale/sr
-%dir /usr/share/locale/sr/LC_MESSAGES
-/usr/share/locale/sr/LC_MESSAGES/bfd.mo
-/usr/share/locale/sr/LC_MESSAGES/binutils.mo
-/usr/share/locale/sr/LC_MESSAGES/gprof.mo
-/usr/share/locale/sr/LC_MESSAGES/ld.mo
-/usr/share/locale/sr/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/sv
-%dir /usr/share/locale/sv/LC_MESSAGES
-/usr/share/locale/sv/LC_MESSAGES/bfd.mo
-/usr/share/locale/sv/LC_MESSAGES/binutils.mo
-/usr/share/locale/sv/LC_MESSAGES/gas.mo
-/usr/share/locale/sv/LC_MESSAGES/gprof.mo
-/usr/share/locale/sv/LC_MESSAGES/ld.mo
-/usr/share/locale/sv/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/tr
-%dir /usr/share/locale/tr/LC_MESSAGES
-/usr/share/locale/tr/LC_MESSAGES/bfd.mo
-/usr/share/locale/tr/LC_MESSAGES/binutils.mo
-/usr/share/locale/tr/LC_MESSAGES/gas.mo
-/usr/share/locale/tr/LC_MESSAGES/gprof.mo
-/usr/share/locale/tr/LC_MESSAGES/ld.mo
-/usr/share/locale/tr/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/uk
-%dir /usr/share/locale/uk/LC_MESSAGES
-/usr/share/locale/uk/LC_MESSAGES/bfd.mo
-/usr/share/locale/uk/LC_MESSAGES/binutils.mo
-/usr/share/locale/uk/LC_MESSAGES/gas.mo
-/usr/share/locale/uk/LC_MESSAGES/gprof.mo
-/usr/share/locale/uk/LC_MESSAGES/ld.mo
-/usr/share/locale/uk/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/vi
-%dir /usr/share/locale/vi/LC_MESSAGES
-/usr/share/locale/vi/LC_MESSAGES/bfd.mo
-/usr/share/locale/vi/LC_MESSAGES/binutils.mo
-/usr/share/locale/vi/LC_MESSAGES/gprof.mo
-/usr/share/locale/vi/LC_MESSAGES/ld.mo
-/usr/share/locale/vi/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/zh_CN
-%dir /usr/share/locale/zh_CN/LC_MESSAGES
-/usr/share/locale/zh_CN/LC_MESSAGES/bfd.mo
-/usr/share/locale/zh_CN/LC_MESSAGES/binutils.mo
-/usr/share/locale/zh_CN/LC_MESSAGES/gas.mo
-/usr/share/locale/zh_CN/LC_MESSAGES/ld.mo
-/usr/share/locale/zh_CN/LC_MESSAGES/opcodes.mo
-%dir /usr/share/locale/zh_TW
-%dir /usr/share/locale/zh_TW/LC_MESSAGES
-/usr/share/locale/zh_TW/LC_MESSAGES/binutils.mo
-/usr/share/locale/zh_TW/LC_MESSAGES/ld.mo
-%dir /usr/share/man
-%dir /usr/share/man/man1
-%doc /usr/share/man/man1/addr2line.1.gz
-%doc /usr/share/man/man1/ar.1.gz
-%doc /usr/share/man/man1/as.1.gz
-%doc /usr/share/man/man1/c++filt.1.gz
-%doc /usr/share/man/man1/dlltool.1.gz
-%doc /usr/share/man/man1/elfedit.1.gz
-%doc /usr/share/man/man1/gprof.1.gz
-%doc /usr/share/man/man1/ld.1.gz
-%doc /usr/share/man/man1/nm.1.gz
-%doc /usr/share/man/man1/objcopy.1.gz
-%doc /usr/share/man/man1/objdump.1.gz
-%doc /usr/share/man/man1/ranlib.1.gz
-%doc /usr/share/man/man1/readelf.1.gz
-%doc /usr/share/man/man1/size.1.gz
-%doc /usr/share/man/man1/strings.1.gz
-%doc /usr/share/man/man1/strip.1.gz
-%doc /usr/share/man/man1/windmc.1.gz
-%doc /usr/share/man/man1/windres.1.gz

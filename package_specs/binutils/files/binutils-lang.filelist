@@ -1,0 +1,183 @@
+%dir /usr/share/locale
+%dir /usr/share/locale/ar
+%dir /usr/share/locale/ar/LC_MESSAGES
+%dir /usr/share/locale/bg
+%dir /usr/share/locale/bg/LC_MESSAGES
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+%dir /usr/share/locale/eo
+%dir /usr/share/locale/eo/LC_MESSAGES
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+%dir /usr/share/locale/ga
+%dir /usr/share/locale/ga/LC_MESSAGES
+%dir /usr/share/locale/hr
+%dir /usr/share/locale/hr/LC_MESSAGES
+%dir /usr/share/locale/hu
+%dir /usr/share/locale/hu/LC_MESSAGES
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+%dir /usr/share/locale/ms
+%dir /usr/share/locale/ms/LC_MESSAGES
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+%dir /usr/share/locale/pt
+%dir /usr/share/locale/pt/LC_MESSAGES
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+%dir /usr/share/locale/ro
+%dir /usr/share/locale/ro/LC_MESSAGES
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+%dir /usr/share/locale/rw
+%dir /usr/share/locale/rw/LC_MESSAGES
+%dir /usr/share/locale/sk
+%dir /usr/share/locale/sk/LC_MESSAGES
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+%dir /usr/share/locale/vi
+%dir /usr/share/locale/vi/LC_MESSAGES
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+/usr/share/locale/ar/LC_MESSAGES/binutils.mo
+/usr/share/locale/bg/LC_MESSAGES/binutils.mo
+/usr/share/locale/bg/LC_MESSAGES/gprof.mo
+/usr/share/locale/bg/LC_MESSAGES/ld.mo
+/usr/share/locale/ca/LC_MESSAGES/binutils.mo
+/usr/share/locale/da/LC_MESSAGES/bfd.mo
+/usr/share/locale/da/LC_MESSAGES/binutils.mo
+/usr/share/locale/da/LC_MESSAGES/gprof.mo
+/usr/share/locale/da/LC_MESSAGES/ld.mo
+/usr/share/locale/da/LC_MESSAGES/opcodes.mo
+/usr/share/locale/de/LC_MESSAGES/binutils.mo
+/usr/share/locale/de/LC_MESSAGES/gprof.mo
+/usr/share/locale/de/LC_MESSAGES/ld.mo
+/usr/share/locale/de/LC_MESSAGES/opcodes.mo
+/usr/share/locale/eo/LC_MESSAGES/gprof.mo
+/usr/share/locale/es/LC_MESSAGES/bfd.mo
+/usr/share/locale/es/LC_MESSAGES/binutils.mo
+/usr/share/locale/es/LC_MESSAGES/gas.mo
+/usr/share/locale/es/LC_MESSAGES/gprof.mo
+/usr/share/locale/es/LC_MESSAGES/ld.mo
+/usr/share/locale/es/LC_MESSAGES/opcodes.mo
+/usr/share/locale/fi/LC_MESSAGES/bfd.mo
+/usr/share/locale/fi/LC_MESSAGES/binutils.mo
+/usr/share/locale/fi/LC_MESSAGES/gas.mo
+/usr/share/locale/fi/LC_MESSAGES/gprof.mo
+/usr/share/locale/fi/LC_MESSAGES/ld.mo
+/usr/share/locale/fi/LC_MESSAGES/opcodes.mo
+/usr/share/locale/fr/LC_MESSAGES/bfd.mo
+/usr/share/locale/fr/LC_MESSAGES/binutils.mo
+/usr/share/locale/fr/LC_MESSAGES/gas.mo
+/usr/share/locale/fr/LC_MESSAGES/gprof.mo
+/usr/share/locale/fr/LC_MESSAGES/ld.mo
+/usr/share/locale/fr/LC_MESSAGES/opcodes.mo
+/usr/share/locale/ga/LC_MESSAGES/gprof.mo
+/usr/share/locale/ga/LC_MESSAGES/ld.mo
+/usr/share/locale/ga/LC_MESSAGES/opcodes.mo
+/usr/share/locale/hr/LC_MESSAGES/bfd.mo
+/usr/share/locale/hr/LC_MESSAGES/binutils.mo
+/usr/share/locale/hu/LC_MESSAGES/gprof.mo
+/usr/share/locale/id/LC_MESSAGES/bfd.mo
+/usr/share/locale/id/LC_MESSAGES/binutils.mo
+/usr/share/locale/id/LC_MESSAGES/gas.mo
+/usr/share/locale/id/LC_MESSAGES/gprof.mo
+/usr/share/locale/id/LC_MESSAGES/ld.mo
+/usr/share/locale/id/LC_MESSAGES/opcodes.mo
+/usr/share/locale/it/LC_MESSAGES/binutils.mo
+/usr/share/locale/it/LC_MESSAGES/gprof.mo
+/usr/share/locale/it/LC_MESSAGES/ld.mo
+/usr/share/locale/it/LC_MESSAGES/opcodes.mo
+/usr/share/locale/ja/LC_MESSAGES/bfd.mo
+/usr/share/locale/ja/LC_MESSAGES/binutils.mo
+/usr/share/locale/ja/LC_MESSAGES/gas.mo
+/usr/share/locale/ja/LC_MESSAGES/gprof.mo
+/usr/share/locale/ja/LC_MESSAGES/ld.mo
+/usr/share/locale/ka/LC_MESSAGES/bfd.mo
+/usr/share/locale/ka/LC_MESSAGES/binutils.mo
+/usr/share/locale/ka/LC_MESSAGES/gas.mo
+/usr/share/locale/ka/LC_MESSAGES/gprof.mo
+/usr/share/locale/ka/LC_MESSAGES/ld.mo
+/usr/share/locale/ka/LC_MESSAGES/opcodes.mo
+/usr/share/locale/ms/LC_MESSAGES/bfd.mo
+/usr/share/locale/ms/LC_MESSAGES/gprof.mo
+/usr/share/locale/nl/LC_MESSAGES/gprof.mo
+/usr/share/locale/nl/LC_MESSAGES/opcodes.mo
+/usr/share/locale/pt/LC_MESSAGES/bfd.mo
+/usr/share/locale/pt/LC_MESSAGES/binutils.mo
+/usr/share/locale/pt_BR/LC_MESSAGES/gprof.mo
+/usr/share/locale/pt_BR/LC_MESSAGES/ld.mo
+/usr/share/locale/pt_BR/LC_MESSAGES/opcodes.mo
+/usr/share/locale/ro/LC_MESSAGES/bfd.mo
+/usr/share/locale/ro/LC_MESSAGES/binutils.mo
+/usr/share/locale/ro/LC_MESSAGES/gas.mo
+/usr/share/locale/ro/LC_MESSAGES/gprof.mo
+/usr/share/locale/ro/LC_MESSAGES/ld.mo
+/usr/share/locale/ro/LC_MESSAGES/opcodes.mo
+/usr/share/locale/ru/LC_MESSAGES/bfd.mo
+/usr/share/locale/ru/LC_MESSAGES/binutils.mo
+/usr/share/locale/ru/LC_MESSAGES/gas.mo
+/usr/share/locale/ru/LC_MESSAGES/gprof.mo
+/usr/share/locale/ru/LC_MESSAGES/ld.mo
+/usr/share/locale/rw/LC_MESSAGES/bfd.mo
+/usr/share/locale/rw/LC_MESSAGES/binutils.mo
+/usr/share/locale/rw/LC_MESSAGES/gas.mo
+/usr/share/locale/rw/LC_MESSAGES/gprof.mo
+/usr/share/locale/sk/LC_MESSAGES/binutils.mo
+/usr/share/locale/sr/LC_MESSAGES/bfd.mo
+/usr/share/locale/sr/LC_MESSAGES/binutils.mo
+/usr/share/locale/sr/LC_MESSAGES/gprof.mo
+/usr/share/locale/sr/LC_MESSAGES/ld.mo
+/usr/share/locale/sr/LC_MESSAGES/opcodes.mo
+/usr/share/locale/sv/LC_MESSAGES/bfd.mo
+/usr/share/locale/sv/LC_MESSAGES/binutils.mo
+/usr/share/locale/sv/LC_MESSAGES/gas.mo
+/usr/share/locale/sv/LC_MESSAGES/gprof.mo
+/usr/share/locale/sv/LC_MESSAGES/ld.mo
+/usr/share/locale/sv/LC_MESSAGES/opcodes.mo
+/usr/share/locale/tr/LC_MESSAGES/bfd.mo
+/usr/share/locale/tr/LC_MESSAGES/binutils.mo
+/usr/share/locale/tr/LC_MESSAGES/gas.mo
+/usr/share/locale/tr/LC_MESSAGES/gprof.mo
+/usr/share/locale/tr/LC_MESSAGES/ld.mo
+/usr/share/locale/tr/LC_MESSAGES/opcodes.mo
+/usr/share/locale/uk/LC_MESSAGES/bfd.mo
+/usr/share/locale/uk/LC_MESSAGES/binutils.mo
+/usr/share/locale/uk/LC_MESSAGES/gas.mo
+/usr/share/locale/uk/LC_MESSAGES/gprof.mo
+/usr/share/locale/uk/LC_MESSAGES/ld.mo
+/usr/share/locale/uk/LC_MESSAGES/opcodes.mo
+/usr/share/locale/vi/LC_MESSAGES/bfd.mo
+/usr/share/locale/vi/LC_MESSAGES/binutils.mo
+/usr/share/locale/vi/LC_MESSAGES/gprof.mo
+/usr/share/locale/vi/LC_MESSAGES/ld.mo
+/usr/share/locale/vi/LC_MESSAGES/opcodes.mo
+/usr/share/locale/zh_CN/LC_MESSAGES/bfd.mo
+/usr/share/locale/zh_CN/LC_MESSAGES/binutils.mo
+/usr/share/locale/zh_CN/LC_MESSAGES/gas.mo
+/usr/share/locale/zh_CN/LC_MESSAGES/ld.mo
+/usr/share/locale/zh_CN/LC_MESSAGES/opcodes.mo
+/usr/share/locale/zh_TW/LC_MESSAGES/binutils.mo
+/usr/share/locale/zh_TW/LC_MESSAGES/ld.mo

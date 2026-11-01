@@ -1,6 +1,6 @@
 Name:       perl
 Version:    5.44.0
-Release:    1
+Release:    2
 Summary:    Perl programming language
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -9,7 +9,7 @@ Prefix:     /usr
 AutoReq: no
 
 Provides: /bin/perl
-Provides: perl = 5.44.0-1
+Provides: perl = %{version}-%{release}
 Provides: perl >= 1:5.6
 Provides: libperl.so
 Provides: perl(File::HomeDir)
@@ -50,9 +50,32 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 rm -f %{buildroot}/usr/share/man/man3/Thread.3
 
+%package devel
+Summary:    Perl development files (CORE headers and linker files)
+License:    GPL3
+Requires:   perl = %{version}-%{release}
+
+%description devel
+The Perl CORE headers, configuration headers and libperl.so linker stub
+needed to build and embed XS extensions.  ExtUtils::MakeMaker and the rest
+of the module toolchain remain in the perl runtime package.
+
+%package doc
+Summary:    Perl documentation
+License:    GPL3
+
+%description doc
+Perl man pages and the core Perl POD documentation.
+
 %files -f %{_sourcedir}/perl.filelist
+%files devel -f %{_sourcedir}/perl-devel.filelist
+%files doc -f %{_sourcedir}/perl-doc.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 5.44.0-2
+- Split CORE development files and documentation into perl-devel and
+  perl-doc (packaging only; versions unchanged)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 5.44.0
 - Replace directory globs with a generated static filelist
 
