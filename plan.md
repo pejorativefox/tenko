@@ -18,12 +18,12 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `build/repo-selfhost` is the clean repo produced by the container rebuild.
 - `browneye-base` meta resolves and installs **94** packages into
   `build/rootfs` and `build/rootfs-selfhost`.
-- The combined **258-RPM** repo was **published 2026-11-01** to
+- The combined **504-RPM** repo was **published 2026-11-02** to
   `https://tomfool.8bit.ca/browneye/packages/13.1/` (base + desktop +
-  E4/PAM/Node/CA/agents/P0 + E1 build tools).  Verified: `.repo`, repomd,
-  index (258 rows), and key RPMs return 200 with matching Content-Length;
-  closures were base 98, desktop+workstation 219, build 116.  The
-  firmware/Python/base runtime split waves will need the next republish.
+  workstation + all split waves + locales + Firefox).  Verified: `.repo`
+  and repomd return 200, the index lists 504 RPMs, key RPMs return 200 with
+  matching Content-Length, and a remote `dnf --assumeno install browneye-base
+  xfce-desktop` resolves 212 packages / 322 MiB from the published URL.
 - The rootfs is QEMU-booted to multi-user and a serial root login; bash 5.3,
   python 3.14.7, openssl 4.0.2, merged `/usr`, loader at
   `/usr/lib64/ld-linux-x86-64.so.2`.
@@ -1305,12 +1305,14 @@ All 502 `SUPPORTED` entries are covered by the archive (13) or a directory
   change.
 - The repo is unsigned.  `scripts/prune_repo.sh` keeps the newest RPM per
   package, so the published repo has one version per name.
-- The **258-RPM** tree was published on 2026-11-01 (E4 kernel 7.2.6-3,
-  sysconfig 13.1-2, kmod 34.2-2, PAM/sshd, Node, CA/git, agent tools, P0
-  fixes, E1 build tools); HTTPS verification passed.  `build/repo-all` and
-  `build/repo-publish/13.1` are the published tree.  The firmware/Python/
-  base runtime splits are newer and are not in it yet.  The E4 test
-  artifacts remain in `build/repo-e4`.
+- The **504-RPM** tree was published on 2026-11-02, superseding the
+  258-RPM 2026-11-01 tree.  It carries every split wave (firmware, Python,
+  LLVM, runtime/toolchain/base, desktop `-lang`/`-doc`/`-tests`/`-static`/
+  `-devel`), the glibc locale split, mesa 26.2.3-4 (+ `mesa-devel`), sqlite
+  3.53.4-3, kernel 7.2.6-4, firefox-bin 159.0, alsa-lib 1.2.16.1 and the
+  `browneye-base-runtime`/`-build` + `xfce-desktop-core`/`-hardware`/`-full`
+  metas.  `build/repo-all` and `build/repo-publish/13.1` are the published
+  tree.  The E4 test artifacts remain in `build/repo-e4`.
 - Rootfs installs use `--setopt=tsflags=noscripts`; scriptlet correctness has
   not been tested outside the fake-root install.
 - The container image is rootless/local (`localhost/browneye/base:...`) and
@@ -1534,13 +1536,10 @@ the Firefox 159.0 and alsa-lib 1.2.16.1 tarballs and the split-wave sources, inc
    GnuTLS/VTE is fixed (`dfc1327`) and Rust 1.99.0 is packaged as an
    official binary under `/opt` (D31).  Next: rebuild/repackage after the
    split waves and republish.
-2. **Repo — 258-RPM tree published 2026-11-01; the tree is now stale.**
-   `build/repo-all` carries 307 RPMs: the split waves, kernel 7.2.6-4,
-   mesa 26.2.3-3 (virgl) and the make-ca fix.  The firmware-split RPMs had
-   never been copied in (the repo still had monolithic
-   `linux-firmware-20261019-2`), which is why the first desktop image
-   rebuild failed to resolve; they were added by hand.  Next: `createrepo_c`
-   + `publish_repo.sh` once the remaining splits land.
+2. **Repo — 504-RPM tree published 2026-11-02.**  `build/repo-all` and
+   `build/repo-publish/13.1` are the published tree; the remote URL serves
+   the `.repo`, repomd, a 504-row index and byte-identical RPMs, and a
+   remote `dnf install browneye-base xfce-desktop` resolves 212 packages.
 3. **Package splits (H/I/J/L, done).**  Firmware, Python, LLVM, the
    runtime/toolchain split, the systemd/vim/kernel base split, the
    `glibc-locales`/`-extra` split and the 111-package desktop/runtime
