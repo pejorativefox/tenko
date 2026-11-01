@@ -67,7 +67,7 @@ freetype fontconfig libxft fribidi"
     build glib glib || exit 1
 
     for p in harfbuzz cairo libxml2 at-spi2-core shared-mime-info gdk-pixbuf pango libepoxy \
-             libxkbcommon gtk3; do
+             libxkbcommon gtk3 vte; do
         build "$p" "$p" || exit 1
     done
 elif [ "$PHASE" = "rest" ]; then
@@ -82,7 +82,7 @@ elif [ "$PHASE" = "xfce-deps" ]; then
         build "$p" "$p" || exit 1
     done
 elif [ "$PHASE" = "xfce" ]; then
-    for p in libxfce4util xfconf libxfce4ui exo garcon xfce4-dev-tools \
+    for p in libxfce4util xfconf libxfce4ui xfce4-terminal exo garcon xfce4-dev-tools \
              libxfce4windowing xfce4-panel xfwm4 xfce4-session xfce4-settings \
              thunar thunar-volman tumbler xfce4-appfinder xfdesktop \
              xfce4-power-manager; do

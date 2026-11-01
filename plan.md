@@ -18,7 +18,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `build/repo-selfhost` is the clean repo produced by the container rebuild.
 - `browneye-base` meta resolves and installs **94** packages into
   `build/rootfs` and `build/rootfs-selfhost`.
-- The single base+desktop repo (218 RPMs) is staged in `build/repo-all`;
+- The single base+desktop repo (222 RPMs) is staged in `build/repo-all`;
   `https://tomfool.8bit.ca/browneye/packages/13.1/` still has the previous
   217-RPM revision until the next publish (deferred at the user's request).
 - The rootfs is QEMU-booted to multi-user and a serial root login; bash 5.3,
@@ -103,6 +103,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `linux-firmware` 20261019 curated subset (401 MB installed) plus
   wireless-regdb is required by `xfce-desktop`.  The XFCE screenshot and
   the UEFI GRUB disk boot were both re-tested with this kernel.
+- **Terminal (2026-11-01):** VTE 0.84.1 and `xfce4-terminal` 1.2.0 are in
+  the desktop meta; the terminal was launched in the QEMU XFCE session and
+  reported `xfce4-terminal 1.2.0 (Xfce 4.20)`.
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
@@ -196,7 +199,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
     ├── browneye-rootfs.tar.gz # old image payload
     ├── container-rebuild-*/   # per-package logs/RPMs from verify runs
     ├── blfs-parity-*/         # non-base X/GNOME + XFCE + desktop builds
-    ├── repo-all/              # base + desktop RPMs (217), the published repo
+    ├── repo-all/              # base + desktop RPMs (222), the published repo
     ├── rootfs-desktop/        # installed base + xfce-desktop (graphical test)
     ├── rootfs-xfce-test/      # rootfs behind build/xfce-test.img
     ├── xfce-test.img          # ready-to-boot interactive XFCE test image
@@ -223,6 +226,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D10 | Firmware | **linux-firmware 20261019** curated subset (401 MB installed) + wireless-regdb 2026.09.03; `xfce-desktop` requires it |
 | D11 | Initramfs | **dracut-ng 112** (package `dracut`) + **cpio 2.15**; generated and NVMe-boot-tested for 7.2.6 |
 | D12 | SELinux | **None**: kernel SELinux off (forced in the spec), no libselinux/policy; only XCB's xselinux protocol headers and kernel UAPI headers remain |
+| D13 | Terminal | **VTE 0.84.1** + **xfce4-terminal 1.2.0**; installed by the `xfce-desktop` meta |
 
 Consequences already implemented:
 
@@ -775,7 +779,8 @@ LUKS/LVM) dracut now builds one; the NVMe test boot used
       `libxfce4ui`, `exo`, `garcon`, `xfce4-dev-tools`,
       `libxfce4windowing`, `xfce4-panel`, `xfwm4`, `xfce4-session`,
       `xfce4-settings`, `thunar`, `thunar-volman`, `tumbler`,
-      `xfce4-appfinder`, `xfdesktop`, `xfce4-power-manager`.  Dependencies
+      `xfce4-appfinder`, `xfdesktop`, `xfce4-power-manager`, plus
+      `vte` 0.84.1 and `xfce4-terminal` 1.2.0.  Dependencies
       built too: `libwnck` 43.1, `libdisplay-info` 0.4.0, `libgudev` 238,
       `libnotify` 0.8.8, `upower` 1.91.3, `polkit` 127 (shadow auth, no PAM),
       `startup-notification`, `libxklavier`, `libcanberra`,
@@ -822,7 +827,7 @@ LUKS/LVM) dracut now builds one; the NVMe test boot used
       present) but is not packaged yet.
 - [x] D5. **One published repository (base + desktop).**  There is no
       separate desktop repo.  `scripts/assemble_repo.sh` collects the base
-      repo plus every BLFS/XFCE/desktop RPM into `build/repo-all` (217
+      repo plus every BLFS/XFCE/desktop RPM into `build/repo-all` (222
       RPMs, newest version per package); `scripts/publish_repo.sh` publishes it to
       `https://tomfool.8bit.ca/browneye/packages/13.1/` with the usual
       `browneye-13.1.repo`.  `xfce-desktop` installs from the same baseurl,
@@ -888,9 +893,10 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   change.
 - The repo is unsigned.  `scripts/prune_repo.sh` keeps the newest RPM per
   package, so the published repo has one version per name.
-- The 218-RPM staging tree (`build/repo-all`, including kernel 7.2.6-2 and
-  firmware 20261019-2) is ready but **not published yet**: the remote still
-  has the previous 217-RPM revision.  Publish on request.
+- The 222-RPM staging tree (`build/repo-all`, including kernel 7.2.6-2,
+  firmware 20261019-2, VTE 0.84.1 and xfce4-terminal 1.2.0) is ready but
+  **not published yet**: the remote still has the previous 217-RPM
+  revision.  Publish on request.
 - Rootfs installs use `--setopt=tsflags=noscripts`; scriptlet correctness has
   not been tested outside the fake-root install.
 - The container image is rootless/local (`localhost/browneye/base:...`) and
@@ -936,6 +942,14 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   package installs `/usr/lib/dracut`, systemd units, and
   `/etc/dracut.conf`.  The initramfs is currently generated explicitly;
   automatic generation is the next E4 step.
+- VTE 0.84.1 bundles simdutf 8.2.0, fmt 12.1.0 and fast_float 8.1.0 from
+  its own subproject wraps for offline builds.  BLFS lists newer standalone
+  versions, but these are static/header-only internals compiled into VTE,
+  not separately shipped packages.  VTE is built GTK3/X11 only with
+  gnutls/icu/gtk4/vapi/gir disabled.
+- `xfce4-terminal` is built with `-Ddoc=false` because the container lacks
+  `docbook-xsl-nons`; the binary and desktop files are complete, only the
+  man page is omitted.
 - The Fedora config leaves `CONFIG_DRM_PANIC_SCREEN="qr_code"` without the
   QR-code option, so boot logs one cosmetic fallback warning; set it to
   `user` or disable `CONFIG_DRM_PANIC` on the next rebuild.
