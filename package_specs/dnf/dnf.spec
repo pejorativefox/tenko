@@ -10,7 +10,7 @@ Requires:   libdnf = 0.76.0
 Requires:   libcomps >= 0.1.24
 Requires:   libmodulemd >= 2.15.3
 Requires:   python3-rpm
-Requires:   python3 >= 3.9
+Requires:   /usr/bin/python3
 Requires:   coreutils
 
 %description

@@ -58,6 +58,10 @@ Outputs:
 - `build/e1/out/logs/<package>.log`
 - `build/e1/out/status/<package>`
 
+`build/e1/out/build/glib-pass1/` is a bootstrap-only RPM: it is the
+same NEVRA as the final `glib` package but without introspection data, and
+it must **not** be added to a repository.  Collectors skip it explicitly.
+
 Static filelists live in `package_specs/<package>/files/<package>.filelist`.
 A package whose filelist is missing or empty is built once with
 `_unpackaged_files_terminate_build 0`, the list is generated from the
@@ -105,3 +109,45 @@ and assembly tools.
   downloading).
 - The repo is still unsigned (`gpgcheck=0`), so gpgme's signature helpers
   are not exercised at assembly time.
+
+## Verification (2026-11-01)
+
+Built offline in `localhost/browneye/base:r13.1-selfhost-20261031`
+(26 packages, all `ok`; `build/e1/out/logs/`).  Tested with an image that
+carries the resulting toolchain:
+
+- `dnf --version` -> `4.24.0`
+- `createrepo_c --version` -> `1.2.6 (Features: LegacyWeakdeps
+  ThreadedXzEncoder)`; it writes `repodata/repomd.xml` for an empty
+  directory.
+- `dnf install browneye-base` into a fresh `--installroot` from a local
+  `file://` repo with `--setopt=tsflags=noscripts`: 95 packages installed,
+  `rpm --root` reports `browneye-base-13.1-1`, `/usr/bin/bash` present.
+- a real (non-noscripts) install of a test package whose `%post` writes a
+  marker: the marker exists in the installroot.
+- the new RPMs carry ELF Requires (`libsolv`, `librepo`, `libcrypto`,
+  `libxml2.so.16`, `libcomps.so.0`, ...), and dnf carries the explicit
+  `Requires: libdnf = 0.76.0`, `libcomps >= 0.1.24`,
+  `libmodulemd >= 2.15.3`, `python3-rpm`, `/usr/bin/python3`.
+- `scripts/make_build_tools_image.sh` installs `browneye-base` +
+  `browneye-build` from a local repo into a fresh rootfs, builds
+  `…:r13.1-build-<date>`, and the image reports dnf/createrepo_c; a second
+  run using that image as `TOOL_IMAGE` performs createrepo_c and the dnf
+  install inside the image.
+
+## Notes for integration (found while verifying)
+
+These are pre-existing issues in the main tree's current staging repos, not
+caused by the new toolchain, but they affect `bootstrap_selfhosted.sh`:
+
+- `build/repo-selfhost/iproute2-7.2.0` requires `libtirpc.so.3`, but the
+  base repo has no `libtirpc` (the C13 iproute2 rebuild was linked against
+  the desktop build container's libtirpc).  Installing browneye-base from
+  repo-selfhost therefore fails until iproute2 is rebuilt without libtirpc
+  (or libtirpc is added to the base set).
+- `build/repo-all/vim-9.2.1099` requires `libcanberra.so.0` (same cause), so
+  installing browneye-base from the merged repo pulls libcanberra -> GTK3
+  and the whole desktop stack (131 packages instead of 95).
+- The verification repo therefore takes the base set from repo-selfhost and
+  only adds missing packages (libtirpc) from repo-all, keeping the older
+  vim; see `scripts/verify_build_tools.sh` (`BASE_REPO`, `EXTRA_REPO`).
