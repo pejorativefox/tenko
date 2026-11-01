@@ -109,6 +109,12 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - **Terminal (2026-11-01):** VTE 0.84.1 and `xfce4-terminal` 1.2.0 are in
   the desktop meta; the terminal was launched in the QEMU XFCE session and
   reported `xfce4-terminal 1.2.0 (Xfce 4.20)`.
+- **Interactive test image (2026-11-01).**  `build/xfce-test.img` (5 GB) now
+  carries `openssh` 10.5p1, `opencode-bin` 2.2.5, `herdr` 0.9.5, `git`
+  2.55.0, `make-ca` 1.16.1, and `linux-pam` 1.7.3.  Verified over SSH
+  (`SSH_FWD=2222 ./scripts/qemu_run_desktop.sh`, `root`/`root`): sshd is
+  active, opencode/herdr/git run, and HTTPS plus `git ls-remote` work with
+  the 121-root CA bundle.  Node.js is **not** in this image yet.
 - **Workstation wave (2026-11-01, in progress).**  Merged: Linux-PAM 1.7.3 +
   PAM-enabled systemd 261.3-2 + OpenSSH 10.5p1 (password auth, root login),
   `browneye-firstboot` root-password service, and the CA/git/which wave
@@ -1154,7 +1160,11 @@ The 222-RPM publish in flight predates these fixes; republish after P0.
 - `xkeyboard-config` 2.48 emits "Could not resolve keysym ..." warnings with
   `xkbcomp` 1.5.0; they are non-fatal.
 - The graphical test uses a one-shot `xfce-test.service` and a temporary
-  root password; it is not a login/account policy (E5).
+  `root`/`root` password; it is not a login/account policy (E5).  The image
+  is 5 GB (`IMGSIZE`) and `qemu_run_desktop.sh` defaults to installing
+  `openssh`, `opencode-bin`, and `herdr`; `SSH_FWD=2222` adds a hostfwd to
+  guest port 22.  `SNAPSHOT=1` (default) discards guest changes; use
+  `SNAPSHOT=0` for a persistent session.
 - `polkit` 127 is built with `authfw=shadow` (no Linux-PAM in the base) and
   `libnotify` is built with `-Dtests=false` (its tests pull GTK4).
 - `xfce4-session` needs `iceauth` and `xfce4-dev-tools` needs `libxslt`;
