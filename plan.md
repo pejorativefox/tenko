@@ -1393,7 +1393,11 @@ installed tree runs `python3 -c "import rpm"` and `dnf --version` (4.24.0).
   3.53.4-3, kernel 7.2.6-4, firefox-bin 159.0, alsa-lib 1.2.16.1 and the
   `browneye-base-runtime`/`-build` + `xfce-desktop-core`/`-hardware`/`-full`
   metas.  `build/repo-all` and `build/repo-publish/13.1` are the published
-  tree.  The E4 test artifacts remain in `build/repo-e4`.
+  tree.  The E4 test artifacts remain in `build/repo-e4`.  Republished later
+  on 2026-11-02 with the M metadata fixes, `system-minimal` 0.1-4 and `rpm`
+  4.18.1-4 (+ a real `python3-rpm` 4.18.1-4); only the changed RPMs and the
+  repo metadata were re-uploaded, and a remote `dnf install` resolves
+  `browneye-build` (62 packages) and `browneye-base xfce-desktop` (212).
 - Rootfs installs use `--setopt=tsflags=noscripts`; scriptlet correctness has
   not been tested outside the fake-root install.
 - The container image is rootless/local (`localhost/browneye/base:...`) and
