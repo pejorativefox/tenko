@@ -67,7 +67,7 @@ freetype fontconfig libxft fribidi"
     build glib glib || exit 1
 
     for p in harfbuzz cairo libxml2 at-spi2-core shared-mime-info gdk-pixbuf pango libepoxy \
-             libxkbcommon gtk2 gtk3; do
+             libxkbcommon gtk3; do
         build "$p" "$p" || exit 1
     done
 elif [ "$PHASE" = "rest" ]; then

@@ -21,7 +21,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - The base repo is published at
   `https://tomfool.8bit.ca/browneye/packages/13.1/` (unsigned).
 - The rootfs is QEMU-booted to multi-user and a serial root login; bash 5.3,
-  python 3.14.7, openssl 4.0.1, merged `/usr`, loader at
+  python 3.14.7, openssl 4.0.2, merged `/usr`, loader at
   `/usr/lib64/ld-linux-x86-64.so.2`.
 
 **Item 2 (build container) now has a working RPM toolchain.**
@@ -99,16 +99,19 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
-- Kernel **7.1.8** built with virtio-blk/virtio-pci/serial/ext4 built in;
-  packages are `linux-kernel` and `linux-modules`.
+- Kernel **7.2.6** (self-hosted, `DRM_VGEM`/`DRM_BOCHS`/`DRM_VIRTIO_GPU`)
+  built with virtio-blk/virtio-pci/serial/ext4 built in; packages are
+  `linux-kernel` and `linux-modules`.
 - `scripts/qemu_boot.sh` installs the kernel into the rootfs, materializes
   sysusers, builds a raw ext4 image, and boots it under QEMU/KVM.
 - Boot log: no `FAILED` units, `Reached target Multi-User System`, serial
-  `login:` prompt, `Browneye Linux 13.1 / Kernel 7.1.8`.
+  `login:` prompt, `Browneye Linux 13.1 / Kernel 7.2.6`.
 - Interactive check passed: temporary root password, `root` login over
-  `ttyS0`, `id` = `uid=0(root)`, `uname -a` = 7.1.8, then `poweroff -f`.
+  `ttyS0`, `id` = `uid=0(root)`, `uname -a` = 7.2.6, then `poweroff -f`.
   The temporary password was restored; root is locked by default.
-- Still missing: bootloader, initramfs, and a real root password policy.
+- Bootloader: **E3** adds a UEFI GRUB disk image that boots without
+  `-kernel`; the initramfs is deferred to E4 (all storage drivers are
+  built in).  Still missing: a real root password policy (E5).
 - Re-booted `build/rootfs-selfhost` after C1/C3 (2026-10-31): **zero
   `FAILED` units**, `Reached target Multi-User System`, serial getty and
   networkd running, and systemd generated a machine-id on first boot
@@ -128,8 +131,10 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - Canonical Git remote: `ssh://pjfox-git/daspork/browneye.git` (Gitea at
   `https://pjfox.xyz/git/daspork/browneye`); `github` is a mirror remote.
   The `pjfox-git` SSH alias lives in `~/.dotfiles/ssh_config`.
-- LFS source of truth: `~/repos/lfs`, pinned to tag **r13.1** (`71ef60ba`).
-  Do not read versions from the working tree (it is trunk/r13.1+16).
+- LFS/BLFS source of truth: the book checkouts `~/repos/lfs` and
+  `~/repos/blfs` (branch `trunk`, the r13.1 line), as required by
+  `AGENTS.md`.  The r13.1 tag (`71ef60ba`) predates several versions used by
+  C13, so take versions from the checkouts, not the tag.
 - Build outputs: `~/rpmbuild/{SOURCES,RPMS/x86_64,BUILD,...}`.
 - `~/.rpmmacros` is installed from `rpmsupport/rpmmacros`.
 
@@ -149,6 +154,11 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 │   ├── gen_lfs_lock.py        # regenerate lfs.lock from a tag
 │   ├── sync_lfs_spec.py       # dry-run/--write version+source sync
 │   ├── gen_filelist.py        # snapshot a built RPM into a %files list
+│   ├── gen_filelist_tree.py   # snapshot an install tree (new version/file set)
+│   ├── audit_versions.py      # RPM/spec versions vs the LFS/BLFS books
+│   ├── book_source.py         # resolve/download a book source URL + md5
+│   ├── prune_repo.sh          # keep the newest RPM per package
+│   ├── make_efi_disk.sh       # GPT/UEFI GRUB disk image (no -kernel)
 │   ├── publish_repo.sh        # stage + rsync repo to tomfool.8bit.ca
 │   ├── build_blfs_stack.sh    # BLFS r13.1 X/GNOME/XFCE/desktop stack (phases)
 │   ├── assemble_repo.sh       # base + non-base RPMs -> build/repo-all
@@ -165,10 +175,12 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
     ├── browneye-rootfs.tar.gz # old image payload
     ├── container-rebuild-*/   # per-package logs/RPMs from verify runs
     ├── blfs-parity-*/         # non-base X/GNOME + XFCE + desktop builds
-    ├── repo-all/              # base + desktop RPMs (216), the published repo
+    ├── repo-all/              # base + desktop RPMs (217), the published repo
     ├── rootfs-desktop/        # installed base + xfce-desktop (graphical test)
     ├── rootfs-xfce-test/      # rootfs behind build/xfce-test.img
     ├── xfce-test.img          # ready-to-boot interactive XFCE test image
+    ├── browneye-efi.img       # GPT/UEFI GRUB disk (E3), no -kernel
+    ├── efi-work/              # ESP/root partitions used to build the disk
     └── deps/                  # extracted devel prefixes (see §5)
 ```
 
@@ -178,12 +190,14 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 
 | # | Decision | Value |
 |---|---|---|
-| D1 | Init | **systemd 261.2** (book systemd variant) |
+| D1 | Init | **systemd 261.3** (book systemd variant) |
 | D2 | Library layout | **`/usr/lib64`**, merged `/usr` via basefs symlinks |
-| D3 | Kernel | **7.1.8 packaged for QEMU**; self-hosted kernel rebuild tracked as E2 |
+| D3 | Kernel | **7.2.6**, self-hosted (E2), QEMU/virtio config with `DRM_VGEM` |
 | D4 | Bootstrap | **chapter 8 self-hosted**; ch5–7 deferred (D2) |
-| D5 | LFS pin | **r13.1 tag** (`71ef60ba`) |
+| D5 | Book pin | **current LFS/BLFS checkouts** (trunk, r13.1 line); see `AGENTS.md` |
 | D6 | Desktop | **XFCE 4.20** (BLFS r13.1), **X11 only**; not GNOME, zero Wayland |
+| D7 | glibc patch | **upstream_fixes-3** (the book's `-2` is 404; user-approved) |
+| D8 | Legacy GTK | **GTK2 dropped** (archive-only); `libcanberra` rebuilt GTK3-only |
 
 Consequences already implemented:
 
@@ -366,8 +380,10 @@ cd ~/browneye
 # -> https://tomfool.8bit.ca/browneye/packages/13.1/
 ```
 
-The script stages `build/repo-selfhost` into `build/repo-publish/13.1`, runs
-`createrepo_c`, writes `browneye-13.1.repo` and `README.txt`, and rsyncs to
+The script stages `build/repo-all` into `build/repo-publish/13.1`, runs
+`scripts/prune_repo.sh` first so only the newest RPM of each package is
+published, runs `createrepo_c`, writes `browneye-13.1.repo` and
+`README.txt`, and rsyncs with `--delete` to
 `tomfool8@192.200.112.194:public_html/browneye/packages/13.1/` (SSH port
 53211; the `ssh_tomfool` alias in `~/.bashrc.d/ssh_alias.sh` matches).  The
 repo is unsigned (`gpgcheck=0`).  It also uploads `web/index.html` to
@@ -382,7 +398,7 @@ container so each RPM's dependencies are visible to the next package:
 
 ```bash
 cd ~/browneye
-KEEP=0 PHASE=core      ./scripts/build_blfs_stack.sh  # X libs, GLib/GI, GTK2/3
+KEEP=0 PHASE=core      ./scripts/build_blfs_stack.sh  # X libs, GLib/GI, GTK3 (GTK2 removed)
 KEEP=1 PHASE=rest      ./scripts/build_blfs_stack.sh  # curl, libuv, cmake, libjpeg, ImageMagick, LLVM
 KEEP=1 PHASE=xfce-deps ./scripts/build_blfs_stack.sh  # XFCE 4.20 dependencies
 KEEP=1 PHASE=xfce      ./scripts/build_blfs_stack.sh  # 17 XFCE 4.20 core packages
@@ -422,7 +438,8 @@ cd ~/browneye
 
 `qemu_boot.sh` does:
 
-1. copies `linux-kernel`/`linux-modules` into `build/repo`;
+1. copies the self-hosted `linux-kernel`/`linux-modules` from
+   `build/repo-all` into `build/repo`;
 2. `dnf --installroot build/rootfs install linux-kernel linux-modules`;
 3. runs `systemd-sysusers` and `systemctl --root=/ preset-all` inside the
    rootfs (install scriptlets were skipped);
@@ -440,12 +457,32 @@ Expected tail:
 [  OK  ] Reached target Multi-User System.
 ...
 Browneye Linux 13.1
-Kernel 7.1.8 on an x86_64 (ttyS0)
+Kernel 7.2.6 on an x86_64 (ttyS0)
 localhost login:
 ```
 
 `timeout 180` kills QEMU on purpose (exit 124). Check
 `grep -a FAILED build/qemu-boot.log`; it should be empty.
+
+### Boot the UEFI disk image (no `-kernel`)
+
+```bash
+cd ~/browneye
+./scripts/make_efi_disk.sh                 # -> build/browneye-efi.img
+cp /usr/share/OVMF/OVMF_VARS.fd build/OVMF_VARS.fd
+qemu-system-x86_64 -enable-kvm -cpu host -m 3072 -smp 4 \
+  -drive if=pflash,format=raw,readonly=on,file=/usr/share/OVMF/OVMF_CODE.fd \
+  -drive if=pflash,format=raw,file=build/OVMF_VARS.fd \
+  -drive file=build/browneye-efi.img,format=raw,if=virtio \
+  -display gtk -serial file:/tmp/efi-serial.log
+```
+
+`make_efi_disk.sh` builds a GPT disk (64 MiB FAT ESP + ext4 root), writes a
+standalone `grub-mkstandalone` `BOOTX64.EFI`, and sets
+`root=(hd0,gpt2)` / `root=/dev/vda2`.  The grub package is EFI-only (BLFS
+builds `--with-platform=efi`); BIOS boot would need the `i386-pc` modules.
+No initramfs is used because virtio-blk/NVMe/AHCI/SCSI/USB-storage/ext4 are
+built into the kernel.
 
 ---
 
@@ -519,16 +556,25 @@ localhost login:
     silently emits no library dependencies. `--enable-sqlite=yes` is
     required so the container's rpm reads the rpmdb written by the host dnf
     (path `/usr/lib/sysimage/rpm`, set by `browneye-rpm-config`).
-12. **Kernel headers come from the pinned kernel.** `linux-api-headers`
-    7.1.8 runs `make headers` and copies the sanitised `usr/include` tree
-    from the linux-7.1.8 source; the file set matches `headers_install`
-    exactly (1085 entries) without needing `rsync`.  It is required to
-    compile anything that includes `<limits.h>`/`<linux/limits.h>`.  C9
-    rebuilt the main UAPI consumers; a full base rebuild is the next step
-    in §8.
+12. **Kernel headers come from the kernel source.** `linux-api-headers`
+    7.2.6 runs `make headers` and copies the sanitised `usr/include` tree
+    from the linux-7.2.6 source; the file set matches `headers_install`
+    (1078 entries) without needing `rsync`.  It is required to compile
+    anything that includes `<limits.h>`/`<linux/limits.h>`.  C13 rebuilt
+    glibc and the UAPI consumers against it.
 13. **`rpm` owns `/rpmbuild` by default.** The container writes build trees
     under `/rpmbuild` (not `/build`). Mount sources read-only and copy RPMs
     out, or change `%_topdir` in `browneye-rpm-config` deliberately.
+14. **LLVM installs into `/usr/lib`, not `/usr/lib64`.**  Mesa's
+    `libgallium` depends on `libLLVM.so.23.1` there, so `xorg-server` needs
+    `-Wl,-rpath-link,/usr/lib`, and image builds must add `/usr/lib` to
+    `/etc/ld.so.conf` and run `ldconfig`.  See §7 for the clean fix.
+15. **Static filelists need care when versions change.**  Regenerate them
+    from the populated buildroot with `scripts/gen_filelist_tree.py` (it
+    quotes paths with spaces and lists symlinked directories as files, not
+    `%dir`).  Do not repackage with `rpmbuild --short-circuit`: the RPM
+    carries an unsatisfiable `rpmlib(ShortCircuited)` requirement.  Rebuild
+    normally after generating the list.
 
 ---
 
@@ -561,8 +607,8 @@ localhost login:
 - [x] B1. `grub 2.14` now builds in the self-hosted container.  The host
       failure was Fedora toolchain/LTO/cross detection; the container build
       installs everything under `/usr/bin` because rpm's `_sbindir` is
-      `/usr/bin` there, and that is reflected in `%files`.  Booting through
-      grub and installing it to a disk are still untested.
+      `/usr/bin` there, and that is reflected in `%files`.  E3 now builds a
+      UEFI disk image with GRUB and boots it without `-kernel`.
 
 ### C. Remaining base hardening before phase-2 boot
 
@@ -572,10 +618,10 @@ localhost login:
       offline in the container, is required by `browneye-base`, and the
       installed rootfs reports 888 entries from `locale -a`;
       `de_DE.UTF-8` and `ja_JP.UTF-8` were checked at runtime.
-- [x] C2. QEMU boot test: kernel 7.1.8 + ext4 rootfs boots to multi-user and
-      a serial login prompt. `scripts/qemu_boot.sh` is the reproducible path.
-      Re-verified for `build/rootfs-selfhost` on 2026-10-31 after C1/C3.
-      No initramfs or bootloader yet.
+- [x] C2. QEMU boot test: kernel 7.2.6 + ext4 rootfs boots to multi-user and
+      a serial login prompt. `scripts/qemu_boot.sh` is the direct-kernel
+      path; `scripts/make_efi_disk.sh` is the GRUB/UEFI path (E3).  The
+      initramfs is deferred to E4 because all storage drivers are built in.
 - [x] C3. systemd chapter-9 config: `browneye-sysconfig` now ships
       `/etc/locale.conf` (`LANG=C.UTF-8`), `/etc/vconsole.conf`
       (`KEYMAP=us`), an empty `/etc/machine-id` (systemd generates one on
@@ -590,7 +636,7 @@ localhost login:
       `/usr/lib/udev/rules.d` with an empty `/etc/udev/rules.d` override dir.
 - [x] C4. `/etc/passwd`/`group`/`shadow` baseline: root and system users
       exist through `systemd-sysusers`; a temporary-password root login over
-      `ttyS0` was tested (`LOGIN_OK`, `uid=0`, kernel 7.1.8). Root is locked
+      `ttyS0` was tested (`LOGIN_OK`, `uid=0`, kernel 7.2.6). Root is locked
       again after the test; E5 tracks a first-boot password/account policy.
 - [x] C5. Clean repo: `build/repo-selfhost` is the canonical clean,
       self-hosted repo (97 RPMs, no stale/debuginfo entries).  The old
@@ -607,8 +653,9 @@ localhost login:
       except that the shared top-level dirs (`/etc`, `/var`, `/var/cache`,
       `/var/lib`) are no longer owned.  Non-base `glib` was regenerated too
       (447 entries, unchanged).
-- [x] C6c. Non-base stack synced to BLFS r13.1 and rebuilt offline in a
-      persistent container (see `scripts/build_blfs_stack.sh`): X libraries
+- [x] C6c. *(Historical versions; C13 brought these to current.)* Non-base
+      stack synced to BLFS r13.1 and rebuilt offline in a persistent
+      container (see `scripts/build_blfs_stack.sh`): X libraries
       (`xorgproto` 2025.1 through `libXtst` 1.2.5, `libXft` 2.3.9), `pixman`
       0.46.4, `libpng` 1.6.58, `libjpeg-turbo` 3.2.0, `freetype` 2.14.3,
       `fontconfig` 2.18.3, `harfbuzz` 14.3.1, `fribidi` 1.0.16, `glib`
@@ -639,20 +686,18 @@ localhost login:
       `shadow` 4.20.2, `libcap` 2.78, `libseccomp` 2.6.0.  The base repo now
       ships `linux-api-headers-7.1.8` (the host-derived 7.2.4 RPM is gone).
       The glibc spec regained its `%files locales` section (`locale-archive`).
-- [x] C12. **Version parity audit.** `scripts/audit_versions.py` compares every
-      RPM in `build/repo-all` and every spec against the LFS/BLFS entities and
-      reports outdated packages.  Current result: 36 built packages are below
-      the book (including systemd 261.3, openssl 4.0.2, linux 7.2.6, LLVM
-      23.1.0, harfbuzz 14.5.0, libinput 1.32.0, thunar 4.20.10); 132 further
-      spec-only entries are packages the distro does not build.  The rule is
-      now recorded in `AGENTS.md`: update the package and its dependency
-      chain to at least the book versions before building, and ask before
-      substituting anything not in LFS/BLFS.  `scripts/gen_filelist_tree.py`
-      rebuilds a static `%files` list from an install tree when a rebuild
-      changes the file set.  The Mesa chain is being brought current first
-      (libxshmfence 1.3.3, expat 2.8.4, LLVM 23.1.0, Mesa 26.2.3, kernel
-      7.2.6 with DRM_VGEM, xorg-server rebuilt with GLX); the remaining
-      outdated packages are the next parity wave.
+      *Superseded by C13:* headers are now 7.2.6 (1078 entries) and the
+      consumers above were rebuilt again against them.
+- [x] C12. **Version parity audit and rule.** `scripts/audit_versions.py`
+      compares every RPM in `build/repo-all` and every spec against the
+      LFS/BLFS entities and reports outdated packages.  The rule is recorded
+      in `AGENTS.md`: update the package and its dependency chain to at least
+      the book versions before building, and ask before substituting anything
+      not in LFS/BLFS.  The initial audit found 36 built packages below the
+      books and 127 non-built spec-only entries; C13 closed the former.
+      `scripts/gen_filelist_tree.py` rebuilds a static `%files` list from an
+      install tree, and `scripts/book_source.py` resolves/downloads a book
+      source with its md5.
 - [x] C13. **Bring the built set to book versions (parity wave) — done 2026-11-01.**  The audit
       found these shipped packages below LFS/BLFS trunk:
       *base:* `linux-api-headers` 7.1.8→7.2.6, `openssl` 4.0.1→4.0.2,
@@ -677,19 +722,23 @@ localhost login:
       spec-only "outdated" entries are packages the distro does not build
       (GNOME/Bluetooth/CUPS/ffmpeg/…); they only need updating if they are
       ever built.
- (dracut in the target or a custom cpio) and a
-      bootloader path; the current QEMU boot relies on built-in virtio/ext4
-      and `-kernel`. E3 covers a grub disk boot, E4 the generator/config.
 - [x] C11. Close the self-hosting gaps found by rebuilding the base inside the
       container: rebuild texinfo/tcl before their users, bootstrap pip, and
       install the new RPMs into a fresh rootfs/image.  The fresh image rebuilt
       all 93 packages offline in the second-generation run.
+- [ ] C10. Add an initramfs (dracut in the target or a custom cpio).
+      **Deferred to E4:** the 7.2.6 QEMU config builds `VIRTIO_BLK`,
+      `BLK_DEV_NVME`, `SATA_AHCI`, `SCSI`, `USB_STORAGE`, and `EXT4_FS`
+      in (`=y`), so the GRUB disk image boots without an initramfs (E3).
+      An initramfs is only needed once E4 switches to a general-purpose
+      modular config.  No dracut package is in the current BLFS book, so a
+      custom cpio is the intended route.
+
 
 ### D. Phase 2 (D3 done; D2 remains out of current scope)
 
-- [x] D1. Kernel packaging: `linux-kernel`/`linux-modules` 7.1.8 with the
-      QEMU config. These RPMs are still host-built; rebuilding them inside
-      the self-hosted image is tracked as E2.
+- [x] D1. Kernel packaging: `linux-kernel`/`linux-modules` **7.2.6** with the
+      QEMU config, now built inside the self-hosted container (E2).
 - [ ] D2. Chapters 5–7 self-hosted toolchain as bootstrap RPMs.
 - [x] D3. **XFCE 4.20 core built, X11 only, zero Wayland.**  All 17 core
       packages build offline on the C6c stack: `libxfce4util`, `xfconf`,
@@ -790,9 +839,9 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - The base set and `glib` use generated static filelists; upstream file
   additions now fail the build (intended).  The non-base X/GNOME chain is
   synced to BLFS r13.1 and also uses generated filelists (C6c).
-- GTK2's BLFS consolidated-fixes patch is no longer published; it builds
-  with GCC 16 diagnostic relaxations (`-Wno-error=incompatible-pointer-types`,
-  `-Wno-error=implicit-int`, ...) instead.
+- GTK2 was removed from the distro (it is archive-only in BLFS): the spec
+  and RPM are gone and `libcanberra` is built without its GTK2 module.
+  XFCE 4.20 is GTK3-only.
 - `libepoxy` is built with GL/EGL headers copied from the host into the
   throwaway container (it `dlopen`s libGL at runtime, so the RPM has no
   dependency on a host library).  `gdk-pixbuf` keeps the PNG loader because
@@ -806,16 +855,17 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - `browneye-base` has 93 `Requires:` (generated from `lfs.lock` plus the
   manual bootstrap list); it is not regenerated automatically when versions
   change.
-- The repo is unsigned and can contain several versions of the same package.
+- The repo is unsigned.  `scripts/prune_repo.sh` keeps the newest RPM per
+  package, so the published repo has one version per name.
 - Rootfs installs use `--setopt=tsflags=noscripts`; scriptlet correctness has
   not been tested outside the fake-root install.
 - The container image is rootless/local (`localhost/browneye/base:...`) and
   not pushed anywhere.
 - `package_specs/browneye-release` currently owns `/etc/os-release` as a
   symlink into `/usr/lib`; verify package ownership if you change it.
-- `linux-api-headers` is generated from the pinned 7.1.8 kernel source with
+- `linux-api-headers` is generated from the 7.2.6 kernel source with
   `make headers` + `cp -a usr/include` (no rsync needed); the resulting file
-  set matches the previous `headers_install` tree exactly (1085 entries).
+  set is 1078 entries.
 - The RPM toolchain (`rpm`, `libarchive`, `lua`, `popt`) was initially built
   against host devel prefixes (`build/deps/*`), but the second-generation
   rebuild compiled it inside the self-hosted image. Ch5–7 bootstrap is still
@@ -825,9 +875,9 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   the **assembly** is still host-assisted.
 - `build/repo` is not pruned: 111 RPMs include old versions, debuginfo from
   early builds, and both `sqlite` and the retired `sqlite3` name.
-- The kernel RPMs (`linux-kernel`, `linux-modules`) are **host-built** and are
-  not part of the 93-package base set; E2 tracks rebuilding them inside the
-  self-hosted container.
+- The kernel (`linux-kernel`/`linux-modules` **7.2.6**) is built in the
+  container (E2) and collected from `build/blfs-parity-*/build/linux`; the
+  old host-built 7.1.8 RPMs are gone.
 - The kernel config is derived from the old 6.4.12 LFS config plus hand-picked
   virtio/ext4/serial options. It is a QEMU-test config, not a general-purpose
   distro config. No initramfs, no firmware, no module signing (E4).
@@ -855,6 +905,13 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   build adds `/usr/lib` to `/etc/ld.so.conf` and runs `ldconfig`.  The clean
   fix is to build LLVM with `LLVM_LIBDIR_SUFFIX=64` (or move `libLLVM` into
   `/usr/lib64`).
+- **Parity deviations:** glibc uses `upstream_fixes-3` because the book's
+  `-2` patch is 404 (user-approved); `rsync` is built with `--disable-idn`
+  because no `libidn2` headers are built; the lua 5.4.8 shared-library patch
+  is the 5.4.6 file renamed (identical md5; the book's 5.4.8 URL is 404);
+  `gdk-pixbuf` keeps PNG/JPEG and no glycin (no Rust).  The audit reports
+  0 outdated built packages; 127 spec-only entries remain for packages the
+  distro does not build.
 - **No SVG loader:** `gdk-pixbuf` is built with `glycin` disabled and
   `librsvg` is absent, so SVG icons/wallpapers do not render.  The hicolor
   PNG icons from XFCE work (`hicolor-icon-theme` is required by the meta).
@@ -895,40 +952,38 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 
 ---
 
-## 8. Suggested first three actions for the new agent
+## 8. Suggested next actions
 
-1. **Mesa/compositing — done (D4b).**  Remaining visual work: an SVG loader
-   (needs Rust for librsvg/glycin; not in the current build) and a display
-   manager (needs Linux-PAM).  Next boot work: C10+E4 (general kernel config,
-   initramfs, firmware, signing) and E3 is done.
-2. **Build Mesa, then re-enable compositing.** Mesa provides `libGL`/GLX
-   and `gbm`; without it Xorg records "No glamor support", xfwm4 cannot
-   composite, and `xf86-video-amdgpu` cannot build.  Then rebuild
-   `xorg-server` with `-Dglx=true`, test the xfwm4 compositor, and add
-   `librsvg` or `glycin` for SVG icons/wallpapers.  A display manager
-   (`lightdm`) needs Linux-PAM and a PAM-enabled systemd rebuild; `startx`
-   is the current session entry point.
-   After that, **add an initramfs and bootloader path** (dracut or a custom
-   cpio, grub disk boot) for hardware and module-based storage.
-2. **Rebuild the full base set against the 7.1.8 headers.**  C9 rebuilt the
-   key consumers (`glibc`, `systemd`, `util-linux`, `kmod`, `iproute2`,
-   `e2fsprogs`, `procps-ng`, `shadow`, `libcap`, `libseccomp`); run all 93
-   specs in a fresh self-hosted image, then regenerate
-   `repo-selfhost`/`rootfs-selfhost`/the container image.
-3. **Decide whether rootfs assembly must also be self-hosted.** The build is
-   now self-hosted; `dnf` + `createrepo_c` are still host tools. Build them
-   only if the assembly pipeline itself must run in the container.
+1. **C10 + E4 — general kernel config, initramfs, firmware, signing.**
+   Replace the QEMU-test config with a general-purpose modular one (storage
+   drivers as modules), add firmware and module signing, and generate a
+   custom-cpio initramfs.  Then boot the UEFI disk image with it.  This is
+   the main remaining boot gap.
+2. **E1 — self-hosted repo/rootfs assembly.** Build `dnf`/`libdnf` and
+   `createrepo_c` (plus dependencies) inside the container so assembly no
+   longer needs host tools.
+3. **Desktop polish and account policy.** SVG icons need Rust
+   (`librsvg`/`glycin`); a display manager (`lightdm`) needs Linux-PAM and a
+   PAM-enabled systemd rebuild; E5 needs a first-boot root
+   password/account policy.  D2 (chapters 5–7 bootstrap RPMs) remains the
+   largest self-hosting gap.
 
 ---
 
 ## 9. Useful one-liners
 
 ```bash
-# what base packages are still missing from the repo?
+# audit every shipped RPM/spec against the LFS/BLFS books
+python3 scripts/audit_versions.py | head -40
+
+# keep one (newest) version per package in the repo
+./scripts/prune_repo.sh build/repo-all
+
+# what base packages are missing from the repo?
 python3 - <<'PY'
 import json, glob, os, subprocess
 lock=json.load(open('lfs.lock')); names=set()
-for p in glob.glob(os.path.expanduser('~/rpmbuild/RPMS/x86_64/*.rpm')):
+for p in glob.glob('build/repo-all/*.rpm'):
     if 'debug' in os.path.basename(p): continue
     try: names.add(subprocess.check_output(['rpm','-qp','--qf','%{NAME}',p],text=True))
     except Exception: pass
@@ -939,8 +994,8 @@ print([n for n in lock['base_packages'] if not present(n)])
 PY
 
 # inspect base meta requirements
-rpm -qpR ~/rpmbuild/RPMS/x86_64/browneye-base-13.1-1.x86_64.rpm | sort
+rpm -qpR build/repo-all/browneye-base-13.1-1.x86_64.rpm | sort
 
 # find host-contaminated requires across the repo
-for r in build/repo/*.rpm; do rpm -qpR "$r" 2>/dev/null | grep -qE 'libselinux|libxml2|libwayland|libxkbcommon|libcrypto\.so\.3|libssl\.so\.3' && basename "$r"; done
+for r in build/repo-all/*.rpm; do rpm -qpR "$r" 2>/dev/null | grep -qE 'libselinux|libxml2|libwayland|libxkbcommon|libcrypto\.so\.3|libssl\.so\.3' && basename "$r"; done
 ```
