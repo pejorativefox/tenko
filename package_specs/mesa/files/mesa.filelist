@@ -41,6 +41,7 @@
 /usr/lib64/dri/kms_swrast_dri.so
 /usr/lib64/dri/libdril_dri.so
 /usr/lib64/dri/swrast_dri.so
+/usr/lib64/dri/virtio_gpu_dri.so
 /usr/lib64/gbm/dri_gbm.so
 /usr/lib64/libEGL.so
 /usr/lib64/libEGL.so.1
@@ -66,3 +67,4 @@
 /usr/lib64/pkgconfig/glesv2.pc
 /usr/lib64/pkgconfig/glx.pc
 /usr/share/drirc.d/00-mesa-defaults.conf
+/usr/share/drirc.d/00-virtio_gpu-defaults.conf

@@ -1,6 +1,6 @@
 Name:       mesa
 Version:    26.2.3
-Release:    2
+Release:    3
 Summary:    Mesa 3D Graphics Library
 License:    MIT
 Prefix:     /usr
@@ -11,8 +11,9 @@ BuildRequires: libxcb, libxshmfence, libdrm, llvm-devel
 Requires:   libxshmfence
 
 %description
-Open source implementations of OpenGL, OpenGL ES, EGL, GBM and the
-llvmpipe software rasterizer, built for X11 only (no Wayland, no Vulkan).
+Open source implementations of OpenGL, OpenGL ES, EGL, GBM, the
+llvmpipe software rasterizer and the virgl guest driver for QEMU's
+virtio-gpu 3D device, built for X11 only (no Wayland, no Vulkan).
 
 %prep
 %setup -q
@@ -24,7 +25,7 @@ meson setup ..                \
       --prefix=/usr           \
       --buildtype=release     \
       -Dplatforms=x11         \
-      -Dgallium-drivers=llvmpipe \
+      -Dgallium-drivers=llvmpipe,virgl \
       -Dvulkan-drivers=       \
       -Dglx=dri               \
       -Dglvnd=disabled        \
@@ -50,6 +51,12 @@ popd
 %files -f %{_sourcedir}/mesa.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 26.2.3-3
+- Add the virgl gallium driver (-Dgallium-drivers=llvmpipe,virgl) so a
+  guest booted with QEMU -device virtio-vga-gl can use host-gl accelerated
+  GL instead of falling back to llvmpipe.  BLFS lists virgl as a supported
+  gallium driver for virglrender-enabled QEMU virtual GPUs.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 26.2.3-2
 - Build against llvm-devel after the Fedora-style LLVM split; the old
   monolithic llvm package no longer carries headers/CMake/llvm-config
