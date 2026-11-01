@@ -175,17 +175,17 @@
     "zstd": "zstd"
   },
   "lfs": {
-    "commit": "71ef60ba3cf255023d1919135c9ce1e1a426f2d8",
-    "commit_date": "tag r13.1\nTagger: Bruce Dubbs <bdubbs@linuxfromscratch.org>\n\nTag r13.1.\n2026-08-31T14:44:21-05:00",
+    "commit": "581459fa304177f34084f03da92149b9aed59197",
+    "commit_date": "2026-09-22T19:18:15-05:00",
     "repo": "https://git.linuxfromscratch.org/lfs.git",
-    "tag": "r13.1"
+    "tag": "trunk"
   },
   "packages": {
     "acl": "2.4.0",
-    "am-minor": "1.18",
+    "am-minor": "1.19",
     "attr": "2.6.0",
     "autoconf": "2.73",
-    "automake": "1.18.1",
+    "automake": "1.19",
     "bash": "5.3",
     "bc": "7.0.3",
     "binutils": "2.47",
@@ -196,9 +196,9 @@
     "dejagnu": "1.6.3",
     "diffutils": "3.12",
     "e2fsprogs": "1.47.4",
-    "elfutils": "0.195",
-    "expat": "2.8.3",
-    "expat-dl": "2_8_3",
+    "elfutils": "0.196",
+    "expat": "2.8.4",
+    "expat-dl": "2_8_4",
     "expect": "5.45.4",
     "file": "5.48",
     "findutils": "4.11.0",
@@ -215,9 +215,9 @@
     "groff": "1.24.1",
     "grub": "2.14",
     "gzip": "1.14",
-    "iana-etc": "20260805",
+    "iana-etc": "20260911",
     "inetutils": "2.8",
-    "iproute2": "7.1.0",
+    "iproute2": "7.2.0",
     "jinja2": "3.1.6",
     "kbd": "2.10.0",
     "kmod": "34.2",
@@ -234,16 +234,16 @@
     "libstdcpp": "6.0.36",
     "libtool": "2.6.2",
     "libxcrypt": "4.5.2",
-    "linux": "7.1.8",
-    "linux-majmin": "7.1",
+    "linux": "7.2.6",
+    "linux-majmin": "7.2",
     "linux-major": "7",
-    "linux-minor": "1",
-    "linux-patch": "8",
+    "linux-minor": "2",
+    "linux-patch": "6",
     "lz4": "1.10.0",
     "m4": "1.4.21",
     "make": "4.4.1",
     "man-db": "2.13.1",
-    "man-pages": "6.18",
+    "man-pages": "6.19",
     "markupsafe": "3.0.3",
     "meson": "1.12.0",
     "mpc": "1.4.1",
@@ -252,12 +252,12 @@
     "ncurses": "6.6",
     "ncurses-base": "6.6",
     "ninja": "1.13.2",
-    "openssl": "4.0.1",
+    "openssl": "4.0.2",
     "packaging": "26.3",
     "patch": "2.8",
-    "pcre2": "10.47",
+    "pcre2": "10.48",
     "perl": "5.44.0",
-    "pkgconf": "3.0.5",
+    "pkgconf": "3.0.7",
     "procps-ng": "4.0.7",
     "psmisc": "23.7",
     "python": "3.14.7",
@@ -269,20 +269,20 @@
     "sqlite-doc": "3530400",
     "sqlite-short": "3.53.4",
     "sysklogd": "2.7.2",
-    "systemd": "261.2",
-    "systemd-man": "261.2",
+    "systemd": "261.3",
+    "systemd-man": "261.3",
     "sysvinit": "3.14",
     "tar": "1.35",
     "tcl": "8.6.18",
     "tcl-major": "8.6",
     "texinfo": "7.3",
-    "tzdata": "2026c",
+    "tzdata": "2026d",
     "udev-lfs": "udev-lfs-20230818",
     "util-linux": "2.42.2",
-    "vim": "9.2.1025",
+    "vim": "9.2.1099",
     "wheel": "0.48.0",
     "xml-parser": "2.57",
-    "xz": "5.8.3",
+    "xz": "5.8.4",
     "zlib": "1.3.2",
     "zstd": "1.5.7"
   },
@@ -312,10 +312,10 @@
       "url": "https://www.linuxfromscratch.org/patches/lfs/13.1/glibc-fhs-1.patch"
     },
     "glibc-upstream-patch": {
-      "file": "glibc-2.44-upstream_fixes-1.patch",
-      "md5": "990574184b25aa3029a2444e81865098",
-      "size": "172 KB",
-      "url": "https://www.linuxfromscratch.org/patches/lfs/13.1/glibc-2.44-upstream_fixes-1.patch"
+      "file": "glibc-2.44-upstream_fixes-2.patch",
+      "md5": "43de9c569686ebb3f8ff01c68d8ce385",
+      "size": "269 KB",
+      "url": "https://www.linuxfromscratch.org/patches/downloads/glibc/glibc-2.44-upstream_fixes-2.patch"
     },
     "kbd-backspace-patch": {
       "file": "kbd-2.10.0-backspace-1.patch",
@@ -359,9 +359,9 @@
       "url": "https://ftpmirror.gnu.org/autoconf/autoconf-2.73.tar.xz"
     },
     "automake": {
-      "md5": "cea31dbf1120f890cbf2a3032cfb9a68",
-      "size": "1,614 KB",
-      "url": "https://ftpmirror.gnu.org/automake/automake-1.18.1.tar.xz"
+      "md5": "da9b5c852b94089c7b7b16071ce8803c",
+      "size": "1,644 KB",
+      "url": "https://ftpmirror.gnu.org/automake/automake-1.19.tar.xz"
     },
     "bash": {
       "md5": "977c8c0c5ae6309191e7768e28ebc951",
@@ -414,14 +414,14 @@
       "url": "https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.47.4/e2fsprogs-1.47.4.tar.gz"
     },
     "elfutils": {
-      "md5": "3e8ef51c43beceddbbb74879549cf72c",
-      "size": "11,751 KB",
-      "url": "https://sourceware.org/ftp/elfutils/0.195/elfutils-0.195.tar.bz2"
+      "md5": "8d3f6cf81a8d27d6fa917ac1b566d8ff",
+      "size": "11,881 KB",
+      "url": "https://sourceware.org/ftp/elfutils/0.196/elfutils-0.196.tar.bz2"
     },
     "expat": {
-      "md5": "1747f5a57b191f0373baeb5adc8078ca",
-      "size": "506 KB",
-      "url": "https://github.com/libexpat/libexpat/releases/download/R_2_8_3/expat-2.8.3.tar.xz"
+      "md5": "5191131c5e0f68ff2c0dba654d31ee7a",
+      "size": "508 KB",
+      "url": "https://github.com/libexpat/libexpat/releases/download/R_2_8_4/expat-2.8.4.tar.xz"
     },
     "expect": {
       "md5": "00fce8de158422f5ccd2666512329bd2",
@@ -504,9 +504,9 @@
       "url": "https://ftpmirror.gnu.org/gzip/gzip-1.14.tar.xz"
     },
     "iana-etc": {
-      "md5": "f6d2619cfac3a68f91392e28fe4067c3",
-      "size": "596 KB",
-      "url": "https://github.com/Mic92/iana-etc/releases/download/20260805/iana-etc-20260805.tar.gz"
+      "md5": "eb4409ab36f1b54fdc1ee9d94dafbbab",
+      "size": "597 KB",
+      "url": "https://github.com/Mic92/iana-etc/releases/download/20260911/iana-etc-20260911.tar.gz"
     },
     "inetutils": {
       "md5": "f0f9ad13045a67da9c882148f9efae6b",
@@ -514,9 +514,9 @@
       "url": "https://ftpmirror.gnu.org/inetutils/inetutils-2.8.tar.gz"
     },
     "iproute2": {
-      "md5": "4f322144fb9a0877c5f9ef71b2f11180",
-      "size": "943 KB",
-      "url": "https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-7.1.0.tar.xz"
+      "md5": "39ac272829043f933aaf863f4aa6b212",
+      "size": "949 KB",
+      "url": "https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-7.2.0.tar.xz"
     },
     "jinja2": {
       "md5": "66d4c25ff43d1deaf9637ccda523dec8",
@@ -584,9 +584,9 @@
       "url": "https://download.savannah.gnu.org/releases/man-db/man-db-2.13.1.tar.xz"
     },
     "man-pages": {
-      "md5": "44915a91e4a28161dc421636a193fb3a",
-      "size": "1,859 KB",
-      "url": "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-6.18.tar.xz"
+      "md5": "c15f688fe8b6b4b22ac62a845d3b5d07",
+      "size": "1,864 KB",
+      "url": "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-6.19.tar.xz"
     },
     "markupsafe": {
       "md5": "13a73126d25afa72a1ff0daed072f5fe",
@@ -624,9 +624,9 @@
       "url": "https://github.com/ninja-build/ninja/archive/v1.13.2/ninja-1.13.2.tar.gz"
     },
     "openssl": {
-      "md5": "07e316afe26b61e72206b81706b497bb",
-      "size": "53,789 KB",
-      "url": "https://github.com/openssl/openssl/releases/download/openssl-4.0.1/openssl-4.0.1.tar.gz"
+      "md5": "9d256ddfa581e1982c005ab03890754d",
+      "size": "53,862 KB",
+      "url": "https://github.com/openssl/openssl/releases/download/openssl-4.0.2/openssl-4.0.2.tar.gz"
     },
     "packaging": {
       "md5": "c6809ec56986682ceffe573b8778a1ce",
@@ -639,9 +639,9 @@
       "url": "https://ftpmirror.gnu.org/patch/patch-2.8.tar.xz"
     },
     "pcre2": {
-      "md5": "aded5840ab5a7d772dd4e16fc294b665",
-      "size": "2,096 KB",
-      "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.47/pcre2-10.47.tar.bz2"
+      "md5": "98013efc5ebfe0a7b82ae53a43b8fd72",
+      "size": "2,162 KB",
+      "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.48/pcre2-10.48.tar.bz2"
     },
     "perl": {
       "md5": "55761cf1543af326492fd194647796d1",
@@ -649,9 +649,9 @@
       "url": "https://www.cpan.org/src/5.0/perl-5.44.0.tar.xz"
     },
     "pkgconf": {
-      "md5": "18c528161e6b04ae36dc981af8c4d97e",
-      "size": "417 KB",
-      "url": "https://distfiles.ariadne.space/pkgconf/pkgconf-3.0.5.tar.xz"
+      "md5": "dd1ba6724bc1792b55600d54346ce5ba",
+      "size": "418 KB",
+      "url": "https://distfiles.ariadne.space/pkgconf/pkgconf-3.0.7.tar.xz"
     },
     "procps-ng": {
       "md5": "d47bdda51c4bd595a1ab21b8e538bcb3",
@@ -694,9 +694,9 @@
       "url": "https://sqlite.org/2026/sqlite-autoconf-3530400.tar.gz"
     },
     "systemd": {
-      "md5": "e3f04ccc83a28ec5e80c5432bb8329f5",
-      "size": "18,024 KB",
-      "url": "https://github.com/systemd/systemd/archive/v261.2/systemd-261.2.tar.gz"
+      "md5": "21d1d4ea580c2f111f067ee8184e7952",
+      "size": "18,126 KB",
+      "url": "https://github.com/systemd/systemd/archive/v261.3/systemd-261.3.tar.gz"
     },
     "tar": {
       "md5": "a2d8042658cfd8ea939e6d911eaf4152",
@@ -719,9 +719,9 @@
       "url": "https://www.kernel.org/pub/linux/utils/util-linux/v2.42/util-linux-2.42.2.tar.xz"
     },
     "vim": {
-      "md5": "060c9c0d7e2bdb5e5d80daad596cae02",
-      "size": "19,662 KB",
-      "url": "https://github.com/vim/vim/archive/v9.2.1025/vim-9.2.1025.tar.gz"
+      "md5": "09719a43a902b678d40e2b90857c80e9",
+      "size": "19,704 KB",
+      "url": "https://github.com/vim/vim/archive/v9.2.1099/vim-9.2.1099.tar.gz"
     },
     "wheel": {
       "md5": "f668e4885de814378b332eceea04a8a0",
@@ -729,9 +729,9 @@
       "url": "https://pypi.org/packages/source/w/wheel/wheel-0.48.0.tar.gz"
     },
     "xz": {
-      "md5": "a02753f34e5546d20213b87f876a0933",
-      "size": "1,512 KB",
-      "url": "https://github.com/tukaani-project/xz/releases/download/v5.8.3/xz-5.8.3.tar.xz"
+      "md5": "8b2f092ad33e560bc04ffdbe3101daa7",
+      "size": "1,531 KB",
+      "url": "https://github.com/tukaani-project/xz/releases/download/v5.8.4/xz-5.8.4.tar.xz"
     },
     "zlib": {
       "md5": "a1e6c958597af3c67d162995a342138a",

@@ -1,1 +1,5 @@
 62b490407489521db863b523a7f86375 https://ftp.osuosl.org/pub/blfs/conglomeration/unzip/unzip60.tar.gz
+# unzip is archive-only in BLFS and is not built by this distro.  The spec
+# still applies unzip-6.0-consolidated_fixes-1.patch via %setup -a 0, but that
+# patch is no longer served (404 under patches/blfs/13.1) and is not in the
+# tree, so this package cannot be built without a fresh copy of the patch.

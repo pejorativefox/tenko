@@ -314,7 +314,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D4 | Bootstrap | **chapter 8 self-hosted**; ch5–7 deferred (D2) |
 | D5 | Book pin | **current LFS/BLFS checkouts** (trunk, r13.1 line); see `AGENTS.md` |
 | D6 | Desktop | **XFCE 4.20** (BLFS r13.1), **X11 only**; not GNOME, zero Wayland |
-| D7 | glibc patch | **upstream_fixes-3** (the book's `-2` is 404; user-approved) |
+| D7 | glibc patch | **upstream_fixes-3** (one revision newer than the book's `-2`; the two differ only in the patch header's CVE list) |
 | D8 | Legacy GTK | **GTK2 dropped** (archive-only); `libcanberra` rebuilt GTK3-only |
 | D9 | Kernel config | Sanitized Fedora 44 host config: debug info, SELinux/IMA, lockdown/signing, Rust/BTF, UBSAN and MAXSMP off; QEMU boot pieces built in |
 | D10 | Firmware | **linux-firmware 20261019** curated subset (401 MB installed) + wireless-regdb 2026.09.03; `xfce-desktop` requires it |
@@ -1275,6 +1275,85 @@ All 502 `SUPPORTED` entries are covered by the archive (13) or a directory
 (489).  Static `-extra` filelist is diffed against the install tree during
 `%install`, so a missing locale fails the build.
 
+### M. Spec/repo metadata fixes (2026-11-02)
+
+The shipped-package defects from the §K audit are fixed.  Every `sources`
+manifest is now the reproducibility record it is meant to be; a cold
+`~/rpmbuild/SOURCES` (the tarballs in it are untracked binaries) now resolves
+from the manifest instead of silently relying on a stale cache.
+
+- **`cpio`:** manifest was `cpio-2.13.tar.gz`; the spec builds 2.15, so a
+  clean host died in `%prep`.  Now the book URL and md5
+  (`3394d444…`, matching BLFS `general/sysutils/cpio.xml`).
+- **`dracut`:** manifest was `dracut-050.tar.xz` (the 2019 package the spec
+  replaced) with an `.xz`/`.gz` name mismatch.  Source0 is dracut-ng's signed
+  GitHub tag archive; SHA256 `839d21eb…` and the extracted `dracut-112/` top
+  dir were verified byte-for-byte, so the manifest now uses the 3-field form
+  (`…/tags/112.tar.gz dracut-112.tar.gz`).  The URL is
+  `github.com/dracut-ng/dracut` (the `dracut-ng` path redirects); dracut-ng
+  publishes only a `.sig`, no release tarball, which is why the git archive is
+  the pinned artifact.
+- **`linux-firmware`:** manifest was `20230515` and `Source2`
+  (wireless-regdb) was untracked — the exact failure mode that once put the
+  monolithic firmware RPM back into the repo.  Now 20261019 (`31b0c3f7…`,
+  sha256 matches the spec changelog) plus wireless-regdb 2026.09.03
+  (`953b6a54…`).
+- **`dnf-plugins-core`:** the 4.4.2 URL was pinned to the local filename
+  `dnf-plugins-core-4.2.2.tar.gz`; the md5 was already 4.4.2, so only the
+  override name was wrong.
+- **`lua`:** `%prep` applied `lua-5.4.8-shared_library-1.patch`, which existed
+  only in `~/rpmbuild/SOURCES`.  It is now tracked in `package_specs/lua/files/`
+  (`dd9bafa2…`, identical to the 5.4.6 file; the book's 5.4.8 URL is still
+  404), and the deviation is noted in `sources`.
+- **`autoconf`/`unzip`** (spec-only, archive-only in BLFS): the 2.13 tarball
+  is now recorded (book md5); the referenced consolidated patches are gone
+  from `patches/blfs/13.1` (404) and are documented as such in `sources`, so
+  nobody assumes they are merely missing from the tree.
+- **`fuse`/`fuse2`:** the audit's "swapped URLs" finding is **not** real —
+  both tarballs were downloaded and their md5s match the manifest
+  (`9bd4ce81…` = 2.9.7, `b0be7abb…` = 3.2.5).  No change.
+- **`coreutils`:** dropped the dead `Patch: coreutils-8.30-i18n-1.patch`
+  header; `%prep` has applied the 9.11 patch explicitly for a while.
+- **`sqlite3`:** deleted the 3.24.0 spec left behind by the sqlite rename
+  (`sqlite/sources` belongs to `sqlite.spec`; nothing references `sqlite3`).
+- **Source-less specs:** `browneye-build` and `browneye-desktop-config` now
+  carry `nosources` (`xfce-desktop` already had one, so that audit row was
+  stale).
+- **`system-minimal` 0.1-4:** dropped the five unsatisfiable `Requires`
+  (`NetworkManager`, `finit`, `sysklogd`, `dhcp`, `wpa-supplicant`; none is
+  built, and the last two are the removed sysvinit path) and the duplicate
+  `grep`; rebuilt and re-assembled into `build/repo-all`.
+- **`lfs.lock` regenerated from trunk** (commit `581459fa`), not the r13.1
+  tag, so `sync_lfs_spec.py` can no longer downgrade base packages.
+  `scripts/gen_lfs_lock.py` gained `--release` because a branch ref cannot
+  imply the patch directory (`…/patches/lfs/13.1/`).  `base_packages`,
+  `aliases`, `canonical_names` and the patch set are unchanged; the 12 base
+  versions that were frozen at the tag are now at trunk.  `--all-base`
+  reports **80/80 up-to-date** (it previously proposed 12 downgrades).
+  The lock's patch URLs are now all live: the glibc upstream-fixes series is
+  served from `patches/downloads/glibc/`, not the release directory, so
+  `gen_lfs_lock.py` has a per-patch base override.  Verified: **the book's
+  `glibc-2.44-upstream_fixes-2.patch` does exist** (md5 `43de9c56…`, matching
+  `patches.ent`) — the earlier "404" note came from testing the release path.
+  We ship `-3`, which is the same patch with a corrected CVE list in its
+  header (the only diff), so D7 becomes "one revision newer", not "book patch
+  unavailable".
+
+Validated: cold-cache `bbuild` re-downloaded `cpio-2.15.tar.bz2` and
+`dracut-112.tar.gz` from the new URLs (md5 good; cpio built on the host,
+dracut built in `r13.1-selfhost-20261031` because the host has no
+`libkmod.pc`), plus `lua`, `coreutils` and `system-minimal` rebuild.
+
+**New defect found while validating (not fixed here):** the repo ships
+`python3-rpm-4.18.1-2` while `rpm` is 4.18.1-3, and `python3-rpm` requires
+`rpm = 4.18.1-2`, so `dnf install python3-rpm` (and therefore `dnf`,
+`browneye-build`, `system-minimal`) fails to resolve.  The 4.18.1-3 spec
+keeps the `%package -n python3-rpm` stanza but has no `%files -n python3-rpm`;
+the bindings are still owned by `rpm.filelist`, so no -3 python3-rpm was
+produced.  Fixing it means moving the
+`/usr/lib64/python3.14/site-packages/rpm*` paths into a `python3-rpm`
+filelist, rebuilding `rpm` (container) and republishing.
+
 ---
 
 ## 7. Known technical debt
@@ -1451,8 +1530,10 @@ the Firefox 159.0 and alsa-lib 1.2.16.1 tarballs and the split-wave sources, inc
   build adds `/usr/lib` to `/etc/ld.so.conf` and runs `ldconfig`.  The clean
   fix is to build LLVM with `LLVM_LIBDIR_SUFFIX=64` (or move `libLLVM` into
   `/usr/lib64`).
-- **Parity deviations:** glibc uses `upstream_fixes-3` because the book's
-  `-2` patch is 404 (user-approved); `rsync` is built with `--disable-idn`
+- **Parity deviations:** glibc uses `upstream_fixes-3`, one revision newer than
+  the book's `-2` (the two patches differ only in the header's CVE list; both
+  are served from `patches/downloads/glibc/`, and `lfs.lock` now records that
+  path because the release-directory URL 404s); `rsync` is built with `--disable-idn`
   because no `libidn2` headers are built; the lua 5.4.8 shared-library patch
   is the 5.4.6 file renamed (identical md5; the book's 5.4.8 URL is 404);
   `gdk-pixbuf` keeps PNG/JPEG and no glycin (no Rust).  The audit reports
@@ -1549,12 +1630,15 @@ the Firefox 159.0 and alsa-lib 1.2.16.1 tarballs and the split-wave sources, inc
    `-gir` splits, and the installer ISO live/target sets, which are blocked
    on a user decision for `squashfs-tools`/`mtools`/`syslinux`/`busybox`
    (not in LFS/BLFS).
-4. **Fix shipped metadata defects from the spec audit (K).**  Correct the
-   `cpio`/`dracut`/`linux-firmware` sources, restore/record the `lua`
-   patch, rebuild the five drifted specs, fix or retire `system-minimal`,
-   and regenerate `lfs.lock` from trunk so `sync_lfs_spec.py` cannot
-   downgrade base packages.  Then update the 154 spec-only packages if
-   they are to be built.
+4. **Shipped metadata defects from the spec audit (K) — done 2026-11-02 (M).**
+   `cpio`/`dracut`/`linux-firmware`/`dnf-plugins-core` manifests corrected,
+   the `lua` patch is tracked, `system-minimal` 0.1-4 is installable, the
+   dead `coreutils` patch header and the retired `sqlite3` spec are gone, and
+   `lfs.lock` is regenerated from trunk (80/80 base specs up-to-date).
+   Still open from that audit: **`python3-rpm` vs `rpm` -3 drift** — it makes
+   `dnf`/`browneye-build` unresolvable from the repo and needs a `%files`
+   split + `rpm` rebuild (see M).  The 154 spec-only packages still need
+   updating if they are ever built.
 5. **E1 — self-hosted repo/rootfs assembly (done, `a4f7df9`).**  `dnf`
    4.24.0 + `createrepo_c` 1.2.6 and the `browneye-build` meta work inside
    the image; `bootstrap_selfhosted.sh` can use `TOOL_IMAGE` instead of host

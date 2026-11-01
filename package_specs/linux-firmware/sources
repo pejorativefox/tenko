@@ -1,1 +1,4 @@
-1d772dd254157642842bbc020103d136 https://cdn.kernel.org/pub/linux/kernel/firmware/linux-firmware-20230515.tar.xz
+# Curated 20261019 snapshot (plan D10; not a book package).  sha256 is recorded
+# in the spec changelog.  Source2 is the wireless-regdb regulatory database.
+31b0c3f7e9abcb97d746b28b6329b0a9 https://mirrors.edge.kernel.org/pub/linux/kernel/firmware/linux-firmware-20261019.tar.xz
+953b6a545787190ee025f278b6f2fa62 https://www.kernel.org/pub/software/network/wireless-regdb/wireless-regdb-2026.09.03.tar.xz

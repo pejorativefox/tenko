@@ -4,7 +4,6 @@ Release:    2
 Summary:    GNU operating system tools
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
-Patch:      coreutils-8.30-i18n-1.patch
 Prefix:     /usr
 
 %description

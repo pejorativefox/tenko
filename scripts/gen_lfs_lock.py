@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Generate lfs.lock from an LFS book checkout.
 
-Pins a tag of the LFS book and extracts:
+Pins a reference of the LFS book (a release tag, or the trunk branch together
+with --release for the patch URLs) and extracts:
 
   * the package versions from packages.ent
   * the base package list from chapter08/chapter08.xml (systemd variant)
@@ -46,6 +47,13 @@ SOURCE_NAME_FALLBACKS = {
     "pcre": ["pcre2"],
     "libelf": ["elfutils"],
     "procps": ["procps-ng"],
+}
+
+# Patches that live in the general patch store rather than the release
+# directory.  LFS keeps the glibc upstream-fixes series under
+# patches/downloads/glibc/; the release URL 404s for it.
+PATCH_BASE_OVERRIDES = {
+    "glibc-upstream-patch": "https://www.linuxfromscratch.org/patches/downloads/glibc/",
 }
 
 # browneye spec directory for LFS package names that do not match 1:1.
@@ -172,7 +180,7 @@ def patches(repo, tag, resolved, patches_base):
             "file": value,
             "md5": md5,
             "size": size or "",
-            "url": patches_base + value,
+            "url": PATCH_BASE_OVERRIDES.get(name, patches_base) + value,
         }
     return found
 
@@ -184,7 +192,13 @@ def main():
         default=os.environ.get("LFS_REPO", os.path.expanduser("~/repos/lfs")),
         help="path to the LFS book git checkout (default: ~/repos/lfs)",
     )
-    parser.add_argument("--tag", default="r13.1", help="LFS tag to pin")
+    parser.add_argument("--tag", default="r13.1", help="LFS tag (or branch) to pin")
+    parser.add_argument(
+        "--release",
+        default=None,
+        help="book release number for the patch URLs (default: derived from --tag); "
+        "required for non-release refs such as trunk",
+    )
     parser.add_argument(
         "--output", default="lfs.lock", help="output file (default: lfs.lock)"
     )
@@ -215,7 +229,12 @@ def main():
     resolved_packages = resolved
     resolved_patches = resolved
 
-    release = args.tag.lstrip("r")
+    release = args.release or args.tag.lstrip("r")
+    if not re.fullmatch(r"[0-9]+(\.[0-9]+)*", release):
+        sys.exit(
+            f"error: cannot derive the book release from {args.tag!r}; "
+            "pass --release (for trunk, --release 13.1)"
+        )
     patches_base = f"https://www.linuxfromscratch.org/patches/lfs/{release}/"
 
     lock = {
