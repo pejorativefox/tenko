@@ -39,8 +39,10 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - Verified inside the container: build a C package with `rpmbuild -bb`,
   install it with `rpm -Uvh`, run it, remove it; and build `which-2.21`
   directly from `package_specs/`.
-- `dnf` and `createrepo_c` are **not** in the image yet. The **build** is
-  self-hosted; repo/rootfs **assembly** is still host-assisted (§6 E1).
+- E1 added a self-hosted **assembly** path: `dnf` 4.24.0, `createrepo_c`
+  1.2.6, and the `browneye-build` meta image.  `bootstrap_selfhosted.sh`
+  uses `TOOL_IMAGE` for fully in-image repo/rootfs assembly and keeps a
+  host-tool fallback for the first run (D22).
 
 **Self-hosted rebuild (2026-10-31).**
 
@@ -267,6 +269,8 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D19 | Agent tools | **opencode-bin 2.2.5 / herdr 0.9.5** prebuilt binary RPMs (not in LFS/BLFS — user-approved) |
 | D20 | Workstation meta | new `browneye-workstation`; `browneye-base`/`xfce-desktop` unchanged |
 | D21 | CA store | `make-ca` with a pinned Mozilla certdata snapshot; no network at build |
+| D22 | Build tools | `dnf` 4.24.0 + `libdnf`/`librepo`/`libsolv`/`createrepo_c` stack, separate `browneye-build` meta (not in LFS/BLFS — user-approved); rpm 4.18.1-2 + `python3-rpm` |
+| D23 | P0 fixes | `vim` without canberra, `gcc-libs` split, `libarchive` without libxml2, `libtirpc` in base |
 
 Consequences already implemented:
 
@@ -877,10 +881,18 @@ LUKS/LVM) dracut now builds one; the NVMe test boot used
 
 These are the current caveats that do not yet have a checkbox elsewhere.
 
-- [ ] E1. Build `dnf`/`libdnf` + `createrepo_c` (and their dependency stack)
-      and move repo/rootfs assembly into the self-hosted image. Today
-      `scripts/bootstrap_selfhosted.sh` still calls host `dnf`/`createrepo_c`
-      (see A3/A4 and §7).
+- [x] E1. **Self-hosted repo/rootfs assembly — done 2026-11-01.**  Built
+      `dnf` 4.24.0, `libdnf` 0.76.0, `librepo` 1.21.3, `libcomps` 0.1.24,
+      `libmodulemd` 2.15.3, `libsolv` 0.7.41, `zchunk` 1.5.5, `createrepo_c`
+      1.2.6, `rpm` 4.18.1-2 with `python3-rpm`, and a separate
+      `browneye-build` meta (base/desktop untouched).  Verified offline:
+      in-image `dnf install` into a fresh `--installroot`, in-image
+      `createrepo_c`, real `%post` execution, and an end-to-end
+      `bootstrap_selfhosted.sh` with no host dnf/createrepo.  These packages
+      are not in LFS/BLFS; the user approved the versions (D22).  Branch
+      `e1-dnf-createrepo`, merged as `a4f7df9`.
+      The run also confirmed the pre-existing `iproute2`/`vim` regressions
+      handled by the P0 wave (G).
 - [x] E2. `linux-kernel`/`linux-modules` **7.2.6** are now built inside the
       self-hosted container (with `DRM_VGEM`) and collected into the single
       repo; the host-built 7.1.8 RPMs are gone.  E4 now covers module
@@ -991,7 +1003,9 @@ installer live runtime **225 MB** (~140–170 MB media).  ISO tooling
 blockers: `squashfs-tools`, `mtools`, `syslinux`, `busybox` are not
 LFS/BLFS (user decision); `efivar`/`xorriso` are below book versions.
 
-The 222-RPM publish in flight predates these fixes; republish after P0.
+The 222-RPM publish predates these fixes; republish after P0.  **Status
+(2026-11-01):** P0 fix wave running in worktree `browneye-p0`, branch
+`p0-fixes` (vim, gcc-libs, libarchive, libtirpc).
 
 ---
 
@@ -1041,9 +1055,13 @@ The 222-RPM publish in flight predates these fixes; republish after P0.
   against host devel prefixes (`build/deps/*`), but the second-generation
   rebuild compiled it inside the self-hosted image. Ch5–7 bootstrap is still
   absent; the container relies on the chapter-8 toolchain.
-- The container has no `dnf`/`createrepo_c`; host tools are required to
-  assemble a new rootfs or refresh the repo. The **build** is self-hosted;
-  the **assembly** is still host-assisted.
+- E1 removed the host-tool dependency for assembly: `dnf` 4.24.0,
+  `createrepo_c` 1.2.6, and their chain are built into a separate
+  `browneye-build` meta/image (`scripts/make_build_tools_image.sh`).
+  `bootstrap_selfhosted.sh` uses in-image tools when `TOOL_IMAGE` is set and
+  still falls back to host binaries for the first run.  These are not
+  LFS/BLFS packages (D22, user-approved).  `rpm` is now 4.18.1-2 with a
+  `python3-rpm` subpackage; dnf 5 was not used because it requires rpm >= 4.19.
 - `build/repo` is not pruned: 111 RPMs include old versions, debuginfo from
   early builds, and both `sqlite` and the retired `sqlite3` name.
 - The kernel (`linux-kernel`/`linux-modules` **7.2.6**) is built in the
@@ -1193,12 +1211,13 @@ The 222-RPM publish in flight predates these fixes; republish after P0.
    adds QEMU SSH forwarding, rebuilds the image, and validates.
 2. **Fix the size-audit P0 regressions (G) and re-bootstrap.**  `vim`
    must not link libcanberra; split `gcc-libs`; `libarchive` without
-   libxml2; add `libtirpc`.  Then rebuild the affected base packages,
-   regenerate `rootfs-selfhost`, and republish.  The 222-RPM publish in
-   flight predates these fixes.
-3. **E1 — self-hosted repo/rootfs assembly (subagent running).**  Build
-   `dnf`/`libdnf` and `createrepo_c` plus dependencies in the container and
-   move assembly off the host.  Merge only after its report is reviewed.
+   libxml2; add `libtirpc`.  Branch `p0-fixes` is running.  Then rebuild the
+   affected base packages, regenerate `rootfs-selfhost`, and republish.
+   The 222-RPM publish predates these fixes.
+3. **E1 — self-hosted repo/rootfs assembly (done, `a4f7df9`).**  `dnf`
+   4.24.0 + `createrepo_c` 1.2.6 and the `browneye-build` meta work inside
+   the image; `bootstrap_selfhosted.sh` can use `TOOL_IMAGE` instead of host
+   tools.  D22 records the user-approved non-BLFS versions.
 4. **Merge `xf86-video-amdgpu` (optional)** and decide whether to add it to
    `xfce-desktop` for AMD hardware.
 5. **E5 / LUKS/LVM/RAID / desktop polish.**  First-boot account policy
