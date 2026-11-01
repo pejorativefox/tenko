@@ -32,7 +32,9 @@ ls "$REPO"/xfce-desktop-*.rpm >/dev/null 2>&1 || { echo "repo has no xfce-deskto
 
 if [ "$SKIP_INSTALL" != "1" ]; then
     echo "installing desktop rootfs (base + xfce-desktop)"
-    rm -rf "$ROOTFS"
+    # CA trust directories are read-only; remove them with fake-root
+    # privileges so a rebuild can start from a clean tree.
+    unshare -r rm -rf "$ROOTFS"
     unshare -r dnf -y --nogpgcheck \
         --installroot "$ROOTFS" --releasever=13.1 \
         --disablerepo='*' --repofrompath=desktop,file://$REPO \

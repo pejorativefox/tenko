@@ -26,10 +26,12 @@ DISPLAY_MODE=${DISPLAY_MODE:-auto}
 VNC_ADDR=${VNC_ADDR:-127.0.0.1:1}
 SERIAL=${SERIAL:-$PWD/build/xfce-serial.sock}
 MON=${MON:-$PWD/build/xfce-monitor.sock}
+# Optional host->guest SSH forward, e.g. SSH_FWD=2222 -> ssh -p 2222 root@127.0.0.1
+SSH_FWD=${SSH_FWD:-}
 
 # Test-only extras: repo packages (default opencode-bin + herdr) and any
 # RPM files found in build/extra-rpms.
-EXTRA_PACKAGES=${EXTRA_PACKAGES-opencode-bin herdr}
+EXTRA_PACKAGES=${EXTRA_PACKAGES-openssh opencode-bin herdr}
 EXTRA_RPMS=${EXTRA_RPMS:-}
 if [ -z "$EXTRA_RPMS" ] && [ -d "$PWD/build/extra-rpms" ]; then
     EXTRA_RPMS=$(find "$PWD/build/extra-rpms" -maxdepth 1 -name '*.rpm' -print | sort | tr '\n' ' ')
@@ -78,6 +80,11 @@ esac
 
 rm -f "$SERIAL" "$MON"
 
+nic=()
+if [ -n "$SSH_FWD" ]; then
+    nic=(-nic "user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:${SSH_FWD}-:22")
+fi
+
 initrd=()
 if [ "${USE_INITRD:-1}" = 1 ] && [ -f "$ROOTFS/boot/initramfs-$KVER.img" ]; then
     initrd=(-initrd "$ROOTFS/boot/initramfs-$KVER.img")
@@ -98,6 +105,9 @@ cat <<EOF
   monitor: socat - UNIX-CONNECT:$MON   (screendump/sendkey)
   stop:    Ctrl-C
 EOF
+if [ -n "$SSH_FWD" ]; then
+    echo "  SSH:     ssh -p $SSH_FWD root@127.0.0.1"
+fi
 echo
 
 exec qemu-system-x86_64 \
@@ -105,6 +115,7 @@ exec qemu-system-x86_64 \
     -m "$MEM" -smp "$SMP" \
     -kernel "$ROOTFS/boot/vmlinuz-$KVER" \
     "${initrd[@]}" \
+    "${nic[@]}" \
     -append "root=/dev/vda rw console=ttyS0 loglevel=6 systemd.show_status=1" \
     -drive "file=$IMG,format=raw,if=virtio" \
     -vga std \

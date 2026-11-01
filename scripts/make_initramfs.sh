@@ -23,6 +23,14 @@ OUT=${OUT:-/boot/initramfs-$KVER.img}
 [ -x "$ROOTFS/usr/bin/dracut" ] || {
     echo "dracut is not installed in $ROOTFS; nothing to generate" >&2; exit 1; }
 
+# A staged rootfs has no devtmpfs yet, and mknod is not permitted in the
+# fake-root build.  dracut's helper and shell redirections need /dev/null;
+# the real installed system gets proper device nodes from devtmpfs.
+mkdir -p "$ROOTFS/dev"
+for dev in null zero random urandom; do
+    [ -e "$ROOTFS/dev/$dev" ] || : > "$ROOTFS/dev/$dev"
+done
+
 echo "generating $OUT for kernel $KVER in $ROOTFS"
 # hostonly=no is also set in /etc/dracut.conf.d/10-browneye.conf; pass it
 # explicitly so staged rootfs images without the current sysconfig still get
