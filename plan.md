@@ -1315,6 +1315,11 @@ full package remains available as `-extra`.
   clean.  This is the concrete reason for the no-short-circuit rule in §5.
 - The 222-RPM staging tree is backed up at `~/backup/browneye-current`
   with a verified `SHA256SUMS`.
+- All build inputs are backed up at `~/backup/browneye/sources/`
+  (2026-11-01, 447 files / 2.8 GB from `~/rpmbuild/SOURCES`, including the
+  kernel, linux-firmware/wireless-regdb, patches, configs and the pinned
+  `certdata.txt`) with a verified `~/backup/browneye/sources.sha256` and a
+  restore note in `~/backup/browneye/README.md`.
 - The Fedora config leaves `CONFIG_DRM_PANIC_SCREEN="qr_code"` without the
   QR-code option, so boot logs one cosmetic fallback warning; set it to
   `user` or disable `CONFIG_DRM_PANIC` on the next rebuild.
