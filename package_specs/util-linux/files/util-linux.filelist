@@ -514,3 +514,5 @@
 %doc /usr/share/man/man8/wdctl.8.gz
 %doc /usr/share/man/man8/wipefs.8.gz
 %doc /usr/share/man/man8/zramctl.8.gz
+/usr/sbin/agetty
+/usr/sbin/nologin

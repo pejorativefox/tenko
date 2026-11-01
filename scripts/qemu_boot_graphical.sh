@@ -39,6 +39,8 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     if [ -x "$ROOTFS/usr/bin/systemctl" ]; then
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ preset-all || true
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ enable dbus.socket || true
+        unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ mask getty@tty1.service || true
+        rm -f "$ROOTFS/etc/systemd/system/getty.target.wants/getty@tty1.service"
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ set-default graphical.target || true
     fi
 
@@ -75,6 +77,7 @@ export DISPLAY=:0 XAUTHORITY=/root/.Xauthority
 mkdir -p /mnt
 mount -t 9p -o trans=virtio,version=9p2000.L host0 /mnt 2>/dev/null || true
 {
+    echo "===VT==="; cat /sys/class/tty/tty0/active 2>&1
     echo "===PROCS==="; ps -ef
     echo "===PANELCFG==="; cat /root/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml 2>&1
     echo "===XWININFO==="; xwininfo -root -tree 2>&1

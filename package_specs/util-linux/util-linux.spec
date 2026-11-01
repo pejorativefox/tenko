@@ -34,6 +34,10 @@ util-linux is a random collection of Linux utilities
 rm -rf %{buildroot}
 # install hooks chown/chgrp to root/tty, which a non-root build cannot do
 make -k install DESTDIR=%{buildroot} || true
+# systemd's getty units and the system-user shell expect /usr/sbin paths.
+mkdir -p %{buildroot}/usr/sbin
+ln -sf ../bin/agetty %{buildroot}/usr/sbin/agetty
+ln -sf ../bin/nologin %{buildroot}/usr/sbin/nologin
 chmod 4755 %{buildroot}%{_bindir}/mount %{buildroot}%{_bindir}/umount
 chmod 2755 %{buildroot}%{_bindir}/wall
 rm -vf %{buildroot}%{_infodir}/dir*

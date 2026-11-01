@@ -777,6 +777,14 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - **No SVG loader:** `gdk-pixbuf` is built with `glycin` disabled and
   `librsvg` is absent, so SVG icons/wallpapers do not render.  The hicolor
   PNG icons from XFCE work (`hicolor-icon-theme` is required by the meta).
+- **`/usr/sbin` compatibility:** `util-linux` installs `agetty`/`nologin` in
+  `/usr/bin` (rpm `_sbindir`), but systemd's `getty@.service` and the
+  `sysusers` shell default use `/usr/sbin/…`.  The spec now creates
+  `/usr/sbin/agetty` and `/usr/sbin/nologin` symlinks.  Without them getty
+  fails and restarts with `TTYVTDisallocate=yes`, which switches the console
+  off tty1 and kicks X off its VT (looks exactly like a session crash).
+  The graphical test image masks `getty@tty1.service` because its one-shot X
+  service owns tty1; serial getty works normally.
 - **No display manager:** `startx` (xinit) starts `startxfce4`; `lightdm`
   needs Linux-PAM, which the base does not have, plus a PAM-enabled systemd
   rebuild.
