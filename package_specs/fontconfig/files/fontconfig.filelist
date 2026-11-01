@@ -1,3 +1,4 @@
+%dir /etc
 %dir /etc/fonts
 %dir /etc/fonts/conf.d
 /etc/fonts/conf.d/10-hinting-slight.conf
@@ -36,16 +37,9 @@
 /usr/bin/fc-scan
 /usr/bin/fc-validate
 %dir /usr/include
-%dir /usr/include/fontconfig
-/usr/include/fontconfig/fcfreetype.h
-/usr/include/fontconfig/fcprivate.h
-/usr/include/fontconfig/fontconfig.h
 %dir /usr/lib64
-/usr/lib64/libfontconfig.so
 /usr/lib64/libfontconfig.so.1
 /usr/lib64/libfontconfig.so.1.16.1
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/fontconfig.pc
 %dir /usr/share
 %dir /usr/share/fontconfig
 %dir /usr/share/fontconfig/conf.avail

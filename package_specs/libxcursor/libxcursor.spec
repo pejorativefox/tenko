@@ -1,6 +1,6 @@
 Name:       libxcursor
 Version:    1.2.3
-Release:    1
+Release:    2
 Summary:    Xlib-based Cursor management library
 License:    GPL3
 Prefix:     /usr
@@ -9,6 +9,20 @@ BuildRequires: libxrender
 
 %description
 Xlib-based Cursor management library
+
+%package devel
+Summary:    libxcursor development files
+Requires:   libxcursor = %{version}-%{release}
+
+%description devel
+Development files for libxcursor.
+
+%package static
+Summary:    libxcursor static libraries
+Requires:   libxcursor = %{version}-%{release}
+
+%description static
+Static libraries for libxcursor.
 
 %prep
 %setup -q -n libXcursor-%{version}
@@ -23,9 +37,14 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxcursor.filelist
+%files devel -f %{_sourcedir}/libxcursor-devel.filelist
+%files static -f %{_sourcedir}/libxcursor-static.filelist
 
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.3-2
+- Split devel, static payload into libxcursor-devel, libxcursor-static (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.2.3
 - Sync with BLFS r13.1 (1.2.1)
 

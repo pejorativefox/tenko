@@ -1,11 +1,4 @@
 %dir /usr/include
-%dir /usr/include/X11
-%dir /usr/include/X11/extensions
-/usr/include/X11/extensions/Xdamage.h
 %dir /usr/lib64
-/usr/lib64/libXdamage.a
-/usr/lib64/libXdamage.so
 /usr/lib64/libXdamage.so.1
 /usr/lib64/libXdamage.so.1.1.0
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/xdamage.pc
