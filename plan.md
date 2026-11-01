@@ -1621,8 +1621,9 @@ the Firefox 159.0 and alsa-lib 1.2.16.1 tarballs and the split-wave sources, inc
    (D18), opencode/herdr binaries (D19), CA/git/which, and the
    `browneye-workstation` meta (D20) work in the test image over SSH.
    GnuTLS/VTE is fixed (`dfc1327`) and Rust 1.99.0 is packaged as an
-   official binary under `/opt` (D31).  Next: rebuild/repackage after the
-   split waves and republish.
+   official binary under `/opt` (D31).  The post-split repackage is done:
+   the repo was republished with the M metadata fixes, `system-minimal`
+   0.1-4 and `rpm` 4.18.1-4.
 2. **Repo — 504-RPM tree published 2026-11-02.**  `build/repo-all` and
    `build/repo-publish/13.1` are the published tree; the remote URL serves
    the `.repo`, repomd, a 504-row index and byte-identical RPMs, and a
