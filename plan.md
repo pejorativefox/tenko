@@ -1344,15 +1344,17 @@ Validated: cold-cache `bbuild` re-downloaded `cpio-2.15.tar.bz2` and
 dracut built in `r13.1-selfhost-20261031` because the host has no
 `libkmod.pc`), plus `lua`, `coreutils` and `system-minimal` rebuild.
 
-**New defect found while validating (not fixed here):** the repo ships
-`python3-rpm-4.18.1-2` while `rpm` is 4.18.1-3, and `python3-rpm` requires
-`rpm = 4.18.1-2`, so `dnf install python3-rpm` (and therefore `dnf`,
-`browneye-build`, `system-minimal`) fails to resolve.  The 4.18.1-3 spec
-keeps the `%package -n python3-rpm` stanza but has no `%files -n python3-rpm`;
-the bindings are still owned by `rpm.filelist`, so no -3 python3-rpm was
-produced.  Fixing it means moving the
-`/usr/lib64/python3.14/site-packages/rpm*` paths into a `python3-rpm`
-filelist, rebuilding `rpm` (container) and republishing.
+**`python3-rpm` drift fixed (2026-11-02).** The repo shipped
+`python3-rpm-4.18.1-2` while `rpm` was already 4.18.1-3, so `dnf install
+python3-rpm`/`dnf`/`browneye-build`/`system-minimal` could not resolve.  The
+4.18.1-3 spec declared `%package -n python3-rpm` but never added a `%files`
+section (the E1 filelist `rpm-python.filelist` was added and never wired up),
+so the bindings stayed inside `rpm` and no `python3-rpm` was built.  `rpm`
+4.18.1-4 adds `%files -n python3-rpm -f rpm-python.filelist` and drops the
+five `/usr/lib64/python3.14/site-packages/rpm*` paths from `rpm.filelist`.
+Verified in the container (build + `import rpm` → 4.18.1), then a real
+`dnf install browneye-build` into a fresh rootfs resolves 62 packages and the
+installed tree runs `python3 -c "import rpm"` and `dnf --version` (4.24.0).
 
 ---
 
@@ -1635,10 +1637,10 @@ the Firefox 159.0 and alsa-lib 1.2.16.1 tarballs and the split-wave sources, inc
    the `lua` patch is tracked, `system-minimal` 0.1-4 is installable, the
    dead `coreutils` patch header and the retired `sqlite3` spec are gone, and
    `lfs.lock` is regenerated from trunk (80/80 base specs up-to-date).
-   Still open from that audit: **`python3-rpm` vs `rpm` -3 drift** — it makes
-   `dnf`/`browneye-build` unresolvable from the repo and needs a `%files`
-   split + `rpm` rebuild (see M).  The 154 spec-only packages still need
-   updating if they are ever built.
+   Still open from that audit: the 154 spec-only packages need updating if
+   they are ever built.  The `python3-rpm`/`rpm` -3 drift found while
+   validating this is fixed: `rpm` 4.18.1-4 splits the bindings properly and
+   `browneye-build` now installs (see M).
 5. **E1 — self-hosted repo/rootfs assembly (done, `a4f7df9`).**  `dnf`
    4.24.0 + `createrepo_c` 1.2.6 and the `browneye-build` meta work inside
    the image; `bootstrap_selfhosted.sh` can use `TOOL_IMAGE` instead of host

@@ -1,6 +1,6 @@
 Name:       rpm
 Version:    4.18.1
-Release:    3
+Release:    4
 Summary:    RPM package manager
 License:    GPL3
 Source0:    %{name}-%{version}.tar.bz2
@@ -49,11 +49,21 @@ rm -vf %{buildroot}%{_infodir}/dir*
 rmdir %{buildroot}/var/tmp 2>/dev/null || true
 rmdir %{buildroot}/var 2>/dev/null || true
 
+# The Python bindings are their own subpackage: rpm.filelist must not list
+# these paths or rpmbuild fails with "File listed twice".
 %files -f %{_sourcedir}/rpm.filelist
+%files -n python3-rpm -f %{_sourcedir}/rpm-python.filelist
 %files devel -f %{_sourcedir}/rpm-devel.filelist
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.18.1-4
+- Wire up the python3-rpm subpackage: the spec declared it since 4.18.1-2
+  but never added a %files section, so the bindings shipped inside rpm and
+  the stale python3-rpm-4.18.1-2 required rpm = 4.18.1-2 (no provider).
+  The five /usr/lib64/python3.14/site-packages/rpm* paths move to
+  rpm-python.filelist; rpm.filelist no longer lists them.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.18.1-3
 - Split devel payload into rpm-devel (size audit)
 
