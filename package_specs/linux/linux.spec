@@ -1,14 +1,18 @@
 Name:       linux
 Version:    7.2.6
-Release:    1
+Release:    2
 Summary:    Linux kernel
 License:    GPL2
 Prefix:     /usr
 Source0:    linux-%{version}.tar.xz
 Source1:    linux-%{version}.config
+BuildRequires: xz
 
 %description
-Linux kernel for Browneye Linux, built for QEMU/virtio boot testing.
+General-purpose Linux kernel for Browneye Linux.  The configuration is
+based on the Fedora 44 host kernel config, forward-ported to this version
+and sanitized for our packaging (no debug info, no SELinux/IMA, no module
+signing, no Rust/BTF).
 
 %prep
 %setup -q -n linux-%{version}
@@ -16,13 +20,15 @@ Linux kernel for Browneye Linux, built for QEMU/virtio boot testing.
 %build
 make mrproper
 cp -v %{SOURCE1} .config
+# Keep the direct-kernel QEMU test image self-contained: root on virtio-blk,
+# the 9p debug share, and virtio-gpu built in.  The rest of the hardware
+# support comes from the general config as modules.
 for opt in \
-    VIRTIO VIRTIO_PCI VIRTIO_BLK VIRTIO_NET VIRTIO_CONSOLE \
-    DRM DRM_VIRTIO_GPU DRM_VGEM DRM_BOCHS DRM_GEM_SHMEM_HELPER \
-    HW_RANDOM_VIRTIO PCI PCI_MSI \
+    VIRTIO_PCI VIRTIO_BLK VIRTIO_CONSOLE \
+    DRM_VIRTIO_GPU DRM_VGEM DRM_BOCHS DRM_GEM_SHMEM_HELPER \
     SERIAL_8250 SERIAL_8250_CONSOLE \
     DEVTMPFS DEVTMPFS_MOUNT TMPFS \
-    EXT4_FS \
+    EXT4_FS MODULE_COMPRESS_ALL \
     NET_9P NET_9P_VIRTIO 9P_FS ; do
     scripts/config --enable "$opt"
 done
@@ -51,6 +57,7 @@ Linux kernel image, System.map, and configuration.
 
 %package modules
 Summary:    Linux kernel modules
+Requires(post): kmod
 %description modules
 Linux kernel modules.
 
@@ -61,5 +68,10 @@ Linux kernel modules.
 depmod %{version}
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 7.2.6-2
+- Adopt the sanitized Fedora 44 host config as the general-purpose baseline
+  (debug info, SELinux/IMA, lockdown/signing, Rust/BTF, UBSAN and MAXSMP off)
+- Keep virtio-blk, ext4, 9p and virtio-gpu built in for the QEMU test image
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 7.1.8
 - Sync with LFS r13.1; QEMU/virtio boot configuration

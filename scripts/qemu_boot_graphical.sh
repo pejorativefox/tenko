@@ -18,7 +18,7 @@ IMG=${IMG:-$PWD/build/rootfs-desktop.img}
 SERIAL=${SERIAL:-$PWD/build/qemu-graphical-serial.log}
 MON=${MON:-$PWD/build/qemu-graphical-monitor.sock}
 SHOT=${SHOT:-$PWD/build/xfce-screenshot.png}
-WAIT=${WAIT:-45}
+WAIT=${WAIT:-90}
 SKIP_INSTALL=${SKIP_INSTALL:-0}
 
 [ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }

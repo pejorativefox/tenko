@@ -18,8 +18,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `build/repo-selfhost` is the clean repo produced by the container rebuild.
 - `browneye-base` meta resolves and installs **94** packages into
   `build/rootfs` and `build/rootfs-selfhost`.
-- The base repo is published at
-  `https://tomfool.8bit.ca/browneye/packages/13.1/` (unsigned).
+- The single base+desktop repo (218 RPMs) is staged in `build/repo-all`;
+  `https://tomfool.8bit.ca/browneye/packages/13.1/` still has the previous
+  217-RPM revision until the next publish (deferred at the user's request).
 - The rootfs is QEMU-booted to multi-user and a serial root login; bash 5.3,
   python 3.14.7, openssl 4.0.2, merged `/usr`, loader at
   `/usr/lib64/ld-linux-x86-64.so.2`.
@@ -96,12 +97,20 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   (`root`/`root`) and a QEMU monitor socket.  The old "crash a few seconds
   after the desktop loads" was `getty@tty1` failing and disallocating the VT;
   fixed in util-linux (§7) and the test image masks `getty@tty1`.
+- **General kernel and firmware (2026-11-01):** `linux-kernel`/
+  `linux-modules` **7.2.6-2** use the sanitized Fedora 44 config (3,030
+  built-in / 4,691 modules, 4,849 xz-compressed module files).  The
+  `linux-firmware` 20261019 curated subset (401 MB installed) plus
+  wireless-regdb is required by `xfce-desktop`.  The XFCE screenshot and
+  the UEFI GRUB disk boot were both re-tested with this kernel.
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
-- Kernel **7.2.6** (self-hosted, `DRM_VGEM`/`DRM_BOCHS`/`DRM_VIRTIO_GPU`)
-  built with virtio-blk/virtio-pci/serial/ext4 built in; packages are
-  `linux-kernel` and `linux-modules`.
+- Kernel **7.2.6** (self-hosted) now uses the general sanitized config
+  (D9); virtio-blk/virtio-pci/serial/ext4/9p/virtio-gpu are still built in,
+  so the QEMU image boots without an initramfs.  Packages are
+  `linux-kernel` and `linux-modules`; `linux-firmware` 20261019 (D10) is
+  installed by the `xfce-desktop` meta-package.
 - `scripts/qemu_boot.sh` installs the kernel into the rootfs, materializes
   sysusers, builds a raw ext4 image, and boots it under QEMU/KVM.
 - Boot log: no `FAILED` units, `Reached target Multi-User System`, serial
@@ -110,13 +119,20 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `ttyS0`, `id` = `uid=0(root)`, `uname -a` = 7.2.6, then `poweroff -f`.
   The temporary password was restored; root is locked by default.
 - Bootloader: **E3** adds a UEFI GRUB disk image that boots without
-  `-kernel`; the initramfs is deferred to E4 (all storage drivers are
-  built in).  Still missing: a real root password policy (E5).
+  `-kernel`.  The initramfs is still deferred to E4: the QEMU image uses
+  built-in virtio/ext4, while real NVMe/LUKS/LVM roots need one.  Still
+  missing: a real root password policy (E5).
 - Re-booted `build/rootfs-selfhost` after C1/C3 (2026-10-31): **zero
   `FAILED` units**, `Reached target Multi-User System`, serial getty and
   networkd running, and systemd generated a machine-id on first boot
   (`ROOTFS=... ./scripts/qemu_boot.sh`).  The boot log is
   `build/qemu-boot-selfhost.log`.
+- Re-tested 2026-11-01 with the general kernel + firmware: the graphical
+  test image reached the XFCE session (screenshot
+  `build/xfce-screenshot.png`), and the UEFI disk boot reached
+  multi-user/login with zero `FAILED` units.  The only kernel log oddity is
+  a cosmetic `CONFIG_DRM_PANIC_SCREEN='qr_code'` fallback warning inherited
+  from the Fedora config.
 
 ---
 
@@ -192,12 +208,14 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 |---|---|---|
 | D1 | Init | **systemd 261.3** (book systemd variant) |
 | D2 | Library layout | **`/usr/lib64`**, merged `/usr` via basefs symlinks |
-| D3 | Kernel | **7.2.6**, self-hosted (E2), QEMU/virtio config with `DRM_VGEM` |
+| D3 | Kernel | **7.2.6**, self-hosted (E2), general config based on the Fedora 44 host kernel |
 | D4 | Bootstrap | **chapter 8 self-hosted**; ch5–7 deferred (D2) |
 | D5 | Book pin | **current LFS/BLFS checkouts** (trunk, r13.1 line); see `AGENTS.md` |
 | D6 | Desktop | **XFCE 4.20** (BLFS r13.1), **X11 only**; not GNOME, zero Wayland |
 | D7 | glibc patch | **upstream_fixes-3** (the book's `-2` is 404; user-approved) |
 | D8 | Legacy GTK | **GTK2 dropped** (archive-only); `libcanberra` rebuilt GTK3-only |
+| D9 | Kernel config | Sanitized Fedora 44 host config: debug info, SELinux/IMA, lockdown/signing, Rust/BTF, UBSAN and MAXSMP off; QEMU boot pieces built in |
+| D10 | Firmware | **linux-firmware 20261019** curated subset (401 MB installed) + wireless-regdb 2026.09.03; `xfce-desktop` requires it |
 
 Consequences already implemented:
 
@@ -481,8 +499,9 @@ qemu-system-x86_64 -enable-kvm -cpu host -m 3072 -smp 4 \
 standalone `grub-mkstandalone` `BOOTX64.EFI`, and sets
 `root=(hd0,gpt2)` / `root=/dev/vda2`.  The grub package is EFI-only (BLFS
 builds `--with-platform=efi`); BIOS boot would need the `i386-pc` modules.
-No initramfs is used because virtio-blk/NVMe/AHCI/SCSI/USB-storage/ext4 are
-built into the kernel.
+No initramfs is used because virtio-blk and ext4 are built into the
+kernel; NVMe, SCSI and USB-storage are modules, so a real hardware root
+needs the E4 initramfs.
 
 ---
 
@@ -821,9 +840,10 @@ These are the current caveats that do not yet have a checkbox elsewhere.
       built; the image also needs no initramfs because virtio/ext4 are
       built in.  C10 still covers an initramfs for hardware whose storage
       drivers are modules.
-- [ ] E4. Replace the QEMU-test kernel config with a general-purpose config,
-      and add firmware, module signing, and initramfs generation. The current
-      config has virtio/ext4/serial built in and no firmware/signing.
+- [ ] E4. The general-purpose config and firmware are done (D9/D10); the
+      initramfs generator and module signing remain.  The config keeps
+      virtio-blk/ext4/9p/virtio-gpu built in for the initramfs-less QEMU
+      boot.
 - [ ] E5. Add a first-boot root password/account policy. The login test used
       a temporary password and restored the locked shadow entry.
 
@@ -857,6 +877,9 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   change.
 - The repo is unsigned.  `scripts/prune_repo.sh` keeps the newest RPM per
   package, so the published repo has one version per name.
+- The 218-RPM staging tree (`build/repo-all`, including kernel 7.2.6-2 and
+  firmware 20261019-2) is ready but **not published yet**: the remote still
+  has the previous 217-RPM revision.  Publish on request.
 - Rootfs installs use `--setopt=tsflags=noscripts`; scriptlet correctness has
   not been tested outside the fake-root install.
 - The container image is rootless/local (`localhost/browneye/base:...`) and
@@ -878,9 +901,23 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - The kernel (`linux-kernel`/`linux-modules` **7.2.6**) is built in the
   container (E2) and collected from `build/blfs-parity-*/build/linux`; the
   old host-built 7.1.8 RPMs are gone.
-- The kernel config is derived from the old 6.4.12 LFS config plus hand-picked
-  virtio/ext4/serial options. It is a QEMU-test config, not a general-purpose
-  distro config. No initramfs, no firmware, no module signing (E4).
+- The kernel config is a sanitized forward-port of the Fedora 44 host
+  config (3,030 built-in / 4,691 modules after the QEMU overrides), not
+  the old 6.4.12 minimal config.  Debug info, SELinux/IMA, lockdown and
+  module signing, Rust/BTF, UBSAN and MAXSMP are off.  There is still no
+  initramfs and no module signing (E4).
+- `linux-firmware` is a curated 20261019 snapshot (GPUs, wireless,
+  Bluetooth, Realtek NICs, AMD microcode) plus wireless-regdb 2026.09.03,
+  401 MB installed and xz-compressed.  It is not a book package; the user
+  approved a curated snapshot because BLFS only documents firmware.  The
+  tarballs live in `~/rpmbuild/SOURCES`; URLs and sha256 are in the spec
+  changelog.
+- The kernel modules are xz-compressed at install, so kmod must be built
+  with xz support (ours reports `+XZ`).  `CONFIG_MODULE_COMPRESS_XZ` alone
+  is not enough on 7.2: `CONFIG_MODULE_COMPRESS_ALL` must also be enabled.
+- The Fedora config leaves `CONFIG_DRM_PANIC_SCREEN="qr_code"` without the
+  QR-code option, so boot logs one cosmetic fallback warning; set it to
+  `user` or disable `CONFIG_DRM_PANIC` on the next rebuild.
 - The kernel spec copies `arch/x86/boot/bzImage` directly instead of using
   `make install`; the latter tried to write a systemd-boot entry to the host
   `/boot/efi` during rpmbuild.
@@ -954,11 +991,10 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 
 ## 8. Suggested next actions
 
-1. **C10 + E4 — general kernel config, initramfs, firmware, signing.**
-   Replace the QEMU-test config with a general-purpose modular one (storage
-   drivers as modules), add firmware and module signing, and generate a
-   custom-cpio initramfs.  Then boot the UEFI disk image with it.  This is
-   the main remaining boot gap.
+1. **C10 + E4 — initramfs and module signing.**  The general config and
+   firmware are in place; generate a custom-cpio initramfs for NVMe/LUKS/LVM
+   roots and decide the module-signing/Secure Boot story.  Then boot the
+   UEFI disk image with the initramfs.
 2. **E1 — self-hosted repo/rootfs assembly.** Build `dnf`/`libdnf` and
    `createrepo_c` (plus dependencies) inside the container so assembly no
    longer needs host tools.

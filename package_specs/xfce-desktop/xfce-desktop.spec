@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    1
+Release:    2
 Summary:    Browneye XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -40,6 +40,7 @@ Requires:   xwininfo
 Requires:   xwd
 Requires:   hicolor-icon-theme
 Requires:   browneye-desktop-config
+Requires:   linux-firmware
 
 %description
 The Browneye XFCE 4.20 desktop: X11 only, no Wayland.
@@ -57,5 +58,8 @@ touch %{buildroot}/usr/share/browneye/xfce-desktop
 /usr/share/browneye/xfce-desktop
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20-2
+- Require linux-firmware for the desktop/hardware install
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20-1
 - Initial XFCE 4.20 desktop meta-package
