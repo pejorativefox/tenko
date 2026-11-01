@@ -1,2 +1,1 @@
-69065494ebcb1150b2a329c1b3db7584 https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.8/llvm-project-22.1.8.src.tar.xz llvm-project-22.1.8.src.tar.xz
-9149a344a225b5a6ee626ed2d3b23c4b https://www.linuxfromscratch.org/patches/blfs/13.1/llvm-22.1.8-upstream_fix-1.patch llvm-22.1.8-upstream_fix-1.patch
+3159f9d5d76f74e54e083582d660b08d https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.0/llvm-project-23.1.0.src.tar.xz llvm-project-23.1.0.src.tar.xz

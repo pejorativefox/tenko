@@ -25,6 +25,7 @@ def parse_entities(paths):
             text = open(path, encoding="utf-8", errors="replace").read()
         except OSError:
             continue
+        text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
         for name, value in ENTITY_RE.findall(text):
             ents.setdefault(name, value)
     return ents
@@ -51,6 +52,10 @@ def book_versions():
             v = resolve(value, ents)
             if re.fullmatch(r"[\d][\w.+-]*", v or ""):
                 key = norm(pkg)
+                if key == "glib2":
+                    key = "glib"
+                if key == "sqlite" and v.isdigit() and len(v) == 7:
+                    v = v[0] + "." + v[1:3] + "." + v[3]
                 # LFS wins for base packages; BLFS fills the rest.
                 vers.setdefault(key, (v, src, name))
     return vers

@@ -21,11 +21,8 @@ for dir in build/blfs-parity-*/build/*/RPMS/*/; do
     cp -pf "$dir"*.rpm "$REPO"/ 2>/dev/null || true
 done
 
-# Local host-built kernel RPMs (needed by the QEMU boot test).
-for rpm in "$HOME"/rpmbuild/RPMS/x86_64/linux-kernel-*.rpm \
-           "$HOME"/rpmbuild/RPMS/x86_64/linux-modules-*.rpm; do
-    [ -f "$rpm" ] && cp -p "$rpm" "$REPO"/
-done
+# The kernel is built in the container (E2) and is collected above with
+# every other blfs-parity RPM; no host copy is needed.
 
 count=$(find "$REPO" -maxdepth 1 -name '*.rpm' | wc -l)
 echo "repo RPMs: $count"

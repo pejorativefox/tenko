@@ -83,11 +83,12 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   (Xorg 21.1.24, dbus, libinput, xinit, fonts) and the `xfce-desktop` meta;
   `scripts/qemu_boot_graphical.sh` boots it in QEMU and captures the session.
   The desktop ships in the **same** repository as the base
-  (`https://tomfool.8bit.ca/browneye/packages/13.1/`).  Remaining
-  visual gaps: no Mesa (no libGL/GLX/compositing) and no SVG icon loader;
-  see D4/D5 and §7.
+  (`https://tomfool.8bit.ca/browneye/packages/13.1/`).  Mesa 26.2.3
+  (llvmpipe) is built and `xorg-server` now ships GLX/glamor, so the XFCE
+  compositor is enabled (XRender on the VM; GLX on real GPUs).  Remaining
+  visual gap: no SVG icon loader; see D4/D5 and §7.
 - **Ready-to-boot test image:** `build/xfce-test.img` (base + `xfce-desktop`,
-  kernel 7.1.8) starts the XFCE session on tty1; `scripts/qemu_run_desktop.sh`
+  kernel 7.2.6) starts the XFCE session on tty1; `scripts/qemu_run_desktop.sh`
   opens it in a GTK window or over VNC, with a serial console
   (`root`/`root`) and a QEMU monitor socket.  The old "crash a few seconds
   after the desktop loads" was `getty@tty1` failing and disallocating the VT;
@@ -649,7 +650,31 @@ localhost login:
       (libxshmfence 1.3.3, expat 2.8.4, LLVM 23.1.0, Mesa 26.2.3, kernel
       7.2.6 with DRM_VGEM, xorg-server rebuilt with GLX); the remaining
       outdated packages are the next parity wave.
-- [ ] C10. Add an initramfs (dracut in the target or a custom cpio) and a
+- [ ] C13. **Bring the built set to book versions (parity wave).**  The audit
+      found these shipped packages below LFS/BLFS trunk:
+      *base:* `linux-api-headers` 7.1.8→7.2.6, `openssl` 4.0.1→4.0.2,
+      `xz` 5.8.3→5.8.4, `pcre2` 10.47→10.48, `elfutils` 0.195→0.196,
+      `systemd` 261.2→261.3, `iproute2` 7.1.0→7.2.0, `automake` 1.18.1→1.19,
+      `pkgconf` 3.0.5→3.0.7, `lua` 5.4.6→5.4.8, `vim` 9.2.1025→9.2.1099,
+      `man-pages` 6.18→6.19, `iana-etc` 20260805→20260911;
+      *desktop:* `glib` 2.88.3→2.90.0, `at-spi2-core` 2.60.6→2.62.0.1,
+      `cairo` 1.18.4→1.18.6, `cmake` 4.4.2→4.4.3, `curl` 8.21.0→8.22.0,
+      `fribidi` 1.0.16→1.0.17, `gdk-pixbuf` 2.44.7→2.44.8,
+      `harfbuzz` 14.3.1→14.5.0, `hwdata` 0.410→0.411,
+      `libarchive` 3.7.1→3.8.9, `libevdev` 1.13.6→1.13.7,
+      `libinput` 1.31.3→1.32.0, `libseccomp` 2.6.0→2.6.1,
+      `libtirpc` 1.3.7→1.3.8, `libuv` 1.52.1→1.53.0,
+      `libwnck` 43.1→43.3, `libxfont2` 2.0.6→2.0.9,
+      `libxml2` 2.15.3→2.15.4, `rsync` 3.5.0→3.5.1,
+      `thunar` 4.20.9→4.20.10, `upower` 1.91.3→1.91.4.
+      Order: headers → glibc → its consumers → the rest of the base → a
+      fresh base rootfs, then the desktop libraries (glib first) and a
+      desktop rootfs/image rebuild.  `sqlite`'s `3530400` entity is the
+      autoconf form of 3.53.4 and is already current.  The 127 other
+      spec-only "outdated" entries are packages the distro does not build
+      (GNOME/Bluetooth/CUPS/ffmpeg/…); they only need updating if they are
+      ever built.
+ (dracut in the target or a custom cpio) and a
       bootloader path; the current QEMU boot relies on built-in virtio/ext4
       and `-kernel`. E3 covers a grub disk boot, E4 the generator/config.
 - [x] C11. Close the self-hosting gaps found by rebuilding the base inside the
@@ -680,8 +705,8 @@ localhost login:
       XFCE set and rebuilt all 17 packages with them.
 - [x] D4. **X11 runtime and graphical boot, X11 only.**  Added and built:
       `dbus` 1.16.2 (system + session bus, systemd units), `xorg-server`
-      21.1.24 (meson; `-Dglamor=true -Dglx=false -Dsuid_wrapper=true
-      -Dsystemd_logind=false`), X libraries (`libxcvt` 0.1.3, `libtirpc`
+      21.1.24 (meson; `-Dglamor=true -Dglx=true -Ddri3=true
+      -Dsuid_wrapper=true -Dsystemd_logind=false`), X libraries (`libxcvt` 0.1.3, `libtirpc`
       1.3.7, `libpciaccess` 0.19, `libdrm` 2.4.134, `libxfont2` 2.0.6,
       `libXt` 1.3.1, `libXmu` 1.3.1, `xkbcomp` 1.5.0), input (`libevdev`
       1.13.6, `mtdev` 1.1.7, `libinput` 1.31.3, `xf86-input-libinput`
@@ -700,9 +725,22 @@ localhost login:
       `xfsettingsd`, `xfce4-power-manager`, `dbus`, `xfconf`, panel and dock
       all running; panel 1280x27 at the top and the launcher dock at the
       bottom.
+- [x] D4b. **Mesa and GLX, X11 only.**  `libxshmfence` 1.3.3, `expat`
+      2.8.4, `LLVM` 23.1.0 (self-hosted, filelist regenerated from the
+      buildroot), and `mesa` 26.2.3 (`-Dplatforms=x11
+      -Dgallium-drivers=llvmpipe -Dvulkan-drivers= -Dglx=dri
+      -Dglvnd=disabled`; no Wayland/Vulkan) are built.  `xorg-server` was
+      rebuilt with GLX/DRI3 and its filelist regenerated; `libglx.so`,
+      `libglamoregl.so`, and the DRISWRAST provider load.  The test image
+      enables `use_compositing` and boots with kernel 7.2.6
+      (`DRM_VGEM`, `DRM_BOCHS`, `DRM_VIRTIO_GPU`).  On the VM, modesetting
+      refuses glamor on llvmpipe and xfwm4 blacklists llvmpipe for its GLX
+      compositor, so compositing uses XRender; a GLX client still gets a
+      working llvmpipe renderer.  `xf86-video-amdgpu` can now build (gbm is
+      present) but is not packaged yet.
 - [x] D5. **One published repository (base + desktop).**  There is no
       separate desktop repo.  `scripts/assemble_repo.sh` collects the base
-      repo plus every BLFS/XFCE/desktop RPM into `build/repo-all` (216
+      repo plus every BLFS/XFCE/desktop RPM into `build/repo-all` (218
       RPMs); `scripts/publish_repo.sh` publishes it to
       `https://tomfool.8bit.ca/browneye/packages/13.1/` with the usual
       `browneye-13.1.repo`.  `xfce-desktop` installs from the same baseurl,
@@ -716,10 +754,10 @@ These are the current caveats that do not yet have a checkbox elsewhere.
       and move repo/rootfs assembly into the self-hosted image. Today
       `scripts/bootstrap_selfhosted.sh` still calls host `dnf`/`createrepo_c`
       (see A3/A4 and §7).
-- [ ] E2. Rebuild `linux-kernel` and `linux-modules` 7.1.8 inside the
-      self-hosted container and add them to the self-hosted repo. The current
-      kernel RPMs were built on the host and are not part of the 93-package
-      base set used for the second-generation proof.
+- [x] E2. `linux-kernel`/`linux-modules` **7.2.6** are now built inside the
+      self-hosted container (with `DRM_VGEM`) and collected into the single
+      repo; the host-built 7.1.8 RPMs are gone.  E4 still covers firmware,
+      signing, and the general-purpose config.
 - [ ] E3. Install grub to a disk image and boot without QEMU `-kernel`.
       grub builds and packages now, but only the direct-kernel QEMU path has
       been tested; C10 still covers the initramfs/bootloader-policy work.
@@ -794,11 +832,18 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   `imds=disabled` so the base build does not depend on `curl`; as a result
   `systemd-journal-remote` is not shipped.  The static filelist was
   regenerated for that configuration.
-- **No Mesa:** there is no `libGL`/GLX.  `xorg-server` is built with
-  `-Dglx=false` and logs "No glamor support in the X Server"; `xfwm4`
-  compositing is disabled in the test session, and `xf86-video-amdgpu`
-  cannot build (it needs `gbm`).  The `modesetting` DDX is used for KMS
-  hardware; `xf86-video-vesa` is the fallback.
+- **Mesa on llvmpipe:** `mesa` 26.2.3 and GLX are present, but the VM has no
+  GPU.  `modesetting` logs "Refusing to try glamor on llvmpipe" and falls
+  back to shadowfb; `xfwm4` blacklists llvmpipe for its GLX compositor and
+  uses XRender instead.  This is expected for software rendering and does
+  not affect real GPUs.  `xf86-video-amdgpu` can now build (gbm exists) but
+  is not packaged yet.
+- **Library directory split:** `llvm` installs into `/usr/lib` while the rest
+  of the distro uses `/usr/lib64`.  `xorg-server` needs
+  `-Wl,-rpath-link,/usr/lib` to link against `libgallium`, and the image
+  build adds `/usr/lib` to `/etc/ld.so.conf` and runs `ldconfig`.  The clean
+  fix is to build LLVM with `LLVM_LIBDIR_SUFFIX=64` (or move `libLLVM` into
+  `/usr/lib64`).
 - **No SVG loader:** `gdk-pixbuf` is built with `glycin` disabled and
   `librsvg` is absent, so SVG icons/wallpapers do not render.  The hicolor
   PNG icons from XFCE work (`hicolor-icon-theme` is required by the meta).

@@ -1,5 +1,5 @@
 Name:       expat
-Version:    2.8.3
+Version:    2.8.4
 Release:    1
 Summary:    stream-oriented XML parser
 License:    GPL3
@@ -28,7 +28,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/expat_config.h
 /usr/include/expat_external.h
 /usr/lib64/cmake/expat-%{version}/
-/usr/lib64/libexpat.so.1.12.3
+/usr/lib64/libexpat.so.1.12.4
 /usr/lib64/libexpat.so
 /usr/lib64/libexpat.so.1
 /usr/lib64/pkgconfig/expat.pc

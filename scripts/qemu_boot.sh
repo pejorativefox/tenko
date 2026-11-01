@@ -10,7 +10,7 @@
 # log to build/qemu-boot.log.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-KVER="${KVER:-7.1.8}"
+KVER="${KVER:-7.2.6}"
 ROOTFS="${ROOTFS:-$PWD/build/rootfs}"
 IMG="${IMG:-$PWD/build/rootfs.img}"
 LOG="${LOG:-$PWD/build/qemu-boot.log}"
@@ -43,6 +43,10 @@ fi
 
 # /etc/machine-id is shipped empty by browneye-sysconfig; systemd generates a
 # persistent id on first boot and commits it to the writable root filesystem.
+
+# Some packages (LLVM) install into /usr/lib instead of /usr/lib64.
+grep -qx '/usr/lib' "$ROOTFS/etc/ld.so.conf" 2>/dev/null || echo /usr/lib >> "$ROOTFS/etc/ld.so.conf"
+unshare -r chroot "$ROOTFS" /sbin/ldconfig || true
 
 # depmod runs as a package scriptlet, which we skipped above.
 depmod -b "$ROOTFS" "$KVER" || true

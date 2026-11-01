@@ -20,11 +20,14 @@ The Xorg X11 server, built X11-only with glamor and the setuid wrapper
 %setup -q
 
 %build
+# Mesa's libgallium lives in /usr/lib64 but needs libLLVM from /usr/lib.
+export LDFLAGS="${LDFLAGS:-} -Wl,-rpath-link,/usr/lib"
 mkdir build
 pushd build
 meson setup .. --prefix=/usr --localstatedir=/var --buildtype=release \
       -Dglamor=true        \
-      -Dglx=false          \
+      -Dglx=true           \
+      -Ddri3=true          \
       -Dsystemd_logind=false \
       -Dsuid_wrapper=true  \
       -Dxkb_output_dir=/var/lib/xkb

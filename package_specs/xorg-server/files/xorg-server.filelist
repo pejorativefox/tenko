@@ -1,15 +1,31 @@
 %dir /etc/X11
 %dir /etc/X11/xorg.conf.d
 %dir /etc/sysconfig
-/etc/sysconfig/createfiles
 %dir /usr/bin
+%dir /usr/include
+%dir /usr/include/xorg
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+%dir /usr/lib64/xorg
+%dir /usr/lib64/xorg/modules
+%dir /usr/lib64/xorg/modules/drivers
+%dir /usr/lib64/xorg/modules/extensions
+%dir /usr/lib64/xorg/modules/input
+%dir /usr/libexec
+%dir /usr/share
+%dir /usr/share/X11
+%dir /usr/share/X11/xorg.conf.d
+%dir /usr/share/aclocal
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/man/man4
+%dir /usr/share/man/man5
+/etc/sysconfig/createfiles
 /usr/bin/X
 /usr/bin/Xnest
 /usr/bin/Xorg
 /usr/bin/Xvfb
 /usr/bin/gtf
-%dir /usr/include
-%dir /usr/include/xorg
 /usr/include/xorg/XIstubs.h
 /usr/include/xorg/Xprintf.h
 /usr/include/xorg/callback.h
@@ -118,6 +134,7 @@
 /usr/include/xorg/vbe.h
 /usr/include/xorg/vbeModes.h
 /usr/include/xorg/vgaHW.h
+/usr/include/xorg/vndserver.h
 /usr/include/xorg/wfbrename.h
 /usr/include/xorg/window.h
 /usr/include/xorg/windowstr.h
@@ -166,46 +183,33 @@
 /usr/include/xorg/xserver_poll.h
 /usr/include/xorg/xvdix.h
 /usr/include/xorg/xvmcext.h
-%dir /usr/lib64
-%dir /usr/lib64/pkgconfig
 /usr/lib64/pkgconfig/xorg-server.pc
-%dir /usr/lib64/xorg
-%dir /usr/lib64/xorg/modules
-%dir /usr/lib64/xorg/modules/drivers
 /usr/lib64/xorg/modules/drivers/modesetting_drv.so
-%dir /usr/lib64/xorg/modules/input
+/usr/lib64/xorg/modules/extensions/libglx.so
 /usr/lib64/xorg/modules/input/inputtest_drv.so
 /usr/lib64/xorg/modules/libexa.so
 /usr/lib64/xorg/modules/libfbdevhw.so
+/usr/lib64/xorg/modules/libglamoregl.so
 /usr/lib64/xorg/modules/libint10.so
 /usr/lib64/xorg/modules/libshadow.so
 /usr/lib64/xorg/modules/libshadowfb.so
 /usr/lib64/xorg/modules/libvgahw.so
 /usr/lib64/xorg/modules/libwfb.so
 /usr/lib64/xorg/protocol.txt
-%dir /usr/libexec
 /usr/libexec/Xorg
 /usr/libexec/Xorg.wrap
-%dir /usr/share
-%dir /usr/share/X11
-%dir /usr/share/X11/xorg.conf.d
 /usr/share/X11/xorg.conf.d/10-quirks.conf
-%dir /usr/share/aclocal
 /usr/share/aclocal/xorg-server.m4
-%dir /usr/share/man
-%dir /usr/share/man/man1
-%doc /usr/share/man/man1/Xnest.1.gz
-%doc /usr/share/man/man1/Xorg.1.gz
-%doc /usr/share/man/man1/Xorg.wrap.1.gz
-%doc /usr/share/man/man1/Xserver.1.gz
-%doc /usr/share/man/man1/Xvfb.1.gz
-%doc /usr/share/man/man1/gtf.1.gz
-%dir /usr/share/man/man4
-%doc /usr/share/man/man4/exa.4.gz
-%doc /usr/share/man/man4/fbdevhw.4.gz
-%doc /usr/share/man/man4/inputtestdrv.4.gz
-%doc /usr/share/man/man4/modesetting.4.gz
-%dir /usr/share/man/man5
-%doc /usr/share/man/man5/Xwrapper.config.5.gz
-%doc /usr/share/man/man5/xorg.conf.5.gz
-%doc /usr/share/man/man5/xorg.conf.d.5.gz
+/usr/share/man/man1/Xnest.1.gz
+/usr/share/man/man1/Xorg.1.gz
+/usr/share/man/man1/Xorg.wrap.1.gz
+/usr/share/man/man1/Xserver.1.gz
+/usr/share/man/man1/Xvfb.1.gz
+/usr/share/man/man1/gtf.1.gz
+/usr/share/man/man4/exa.4.gz
+/usr/share/man/man4/fbdevhw.4.gz
+/usr/share/man/man4/inputtestdrv.4.gz
+/usr/share/man/man4/modesetting.4.gz
+/usr/share/man/man5/Xwrapper.config.5.gz
+/usr/share/man/man5/xorg.conf.5.gz
+/usr/share/man/man5/xorg.conf.d.5.gz

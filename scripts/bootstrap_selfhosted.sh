@@ -34,8 +34,8 @@ echo "collecting rebuilt RPMs from $RUN"
 find "$RUN/build" -type f -path '*/RPMS/*/*.rpm' -exec cp -t "$REPO" {} +
 # Keep the phase-2 kernel available for the boot test, but it is not a
 # browneye-base dependency.
-for rpm in "$HOME"/rpmbuild/RPMS/x86_64/linux-kernel-7.1.8-*.rpm \
-           "$HOME"/rpmbuild/RPMS/x86_64/linux-modules-7.1.8-*.rpm; do
+for rpm in "$HOME"/rpmbuild/RPMS/x86_64/linux-kernel-7.2.6-*.rpm \
+           "$HOME"/rpmbuild/RPMS/x86_64/linux-modules-7.2.6-*.rpm; do
     if [ -f "$rpm" ]; then
         cp "$rpm" "$REPO/"
     fi

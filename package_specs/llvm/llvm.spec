@@ -1,5 +1,5 @@
 Name:       llvm
-Version:    22.1.8
+Version:    23.1.0
 Release:    1
 Summary:    The LLVM Project is a collection of modular and reusable compiler and toolchain technologies. 
 License:    UIUC
@@ -11,7 +11,6 @@ The LLVM Project is a collection of modular and reusable compiler and toolchain 
 
 %prep
 %setup -q -n llvm-project-%{version}.src
-patch -Np1 -i %{_sourcedir}/llvm-%{version}-upstream_fix-1.patch
 grep -rl '#!.*python$' . | xargs -r sed -i '1s/python$/python3/'
 sed -i 's/utility/tool/' llvm/utils/FileCheck/CMakeLists.txt
 

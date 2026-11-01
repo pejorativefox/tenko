@@ -18,7 +18,7 @@ cd "$(dirname "$0")/.."
 
 IMG=${IMG:-$PWD/build/xfce-test.img}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-xfce-test}
-KVER=${KVER:-7.1.8}
+KVER=${KVER:-7.2.6}
 MEM=${MEM:-3072}
 SMP=${SMP:-4}
 SNAPSHOT=${SNAPSHOT:-1}

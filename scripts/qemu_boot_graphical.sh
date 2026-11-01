@@ -11,7 +11,7 @@
 #   SKIP_INSTALL=1 scripts/qemu_boot_graphical.sh   # reuse the rootfs/image
 set -euo pipefail
 cd "$(dirname "$0")/.."
-KVER=${KVER:-7.1.8}
+KVER=${KVER:-7.2.6}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-desktop}
 REPO=${REPO:-$PWD/build/repo-all}
 IMG=${IMG:-$PWD/build/rootfs-desktop.img}
@@ -44,6 +44,9 @@ if [ "$SKIP_INSTALL" != "1" ]; then
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ set-default graphical.target || true
     fi
 
+    # Some packages (LLVM) install into /usr/lib instead of /usr/lib64.
+    grep -qx '/usr/lib' "$ROOTFS/etc/ld.so.conf" 2>/dev/null || echo /usr/lib >> "$ROOTFS/etc/ld.so.conf"
+    unshare -r chroot "$ROOTFS" /sbin/ldconfig || true
     depmod -b "$ROOTFS" "$KVER" || true
 fi
 
@@ -81,6 +84,8 @@ mount -t 9p -o trans=virtio,version=9p2000.L host0 /mnt 2>/dev/null || true
     echo "===PROCS==="; ps -ef
     echo "===PANELCFG==="; cat /root/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml 2>&1
     echo "===XWININFO==="; xwininfo -root -tree 2>&1
+    echo "===COMPOSITING==="; xfconf-query -c xfwm4 -p /general/use_compositing 2>&1
+    echo "===GLMODULES==="; ls -l /usr/lib64/xorg/modules/extensions/ /usr/lib64/dri/ 2>&1
     echo "===JOURNAL==="; journalctl -b -o short
     echo "===XORG==="; cat /var/log/Xorg.0.log 2>&1
 } > /mnt/debug.txt 2>&1
@@ -108,14 +113,14 @@ mkdir -p "$ROOTFS/etc/systemd/system/graphical.target.wants" "$PWD/build/qemu-sh
 ln -sf ../xfce-test.service "$ROOTFS/etc/systemd/system/graphical.target.wants/xfce-test.service"
 ln -sf ../xfce-debug.service "$ROOTFS/etc/systemd/system/graphical.target.wants/xfce-debug.service"
 
-# Test-session defaults: no GLX yet (Mesa is not built), so keep the
-# xfwm4 compositor off; use the built-in GTK "Default" theme.
+# Test-session defaults: GLX is available (Mesa/llvmpipe), so enable the
+# xfwm4 compositor; use the built-in GTK "Default" theme.
 mkdir -p "$ROOTFS/root/.config/xfce4/xfconf/xfce-perchannel-xml"
 cat > "$ROOTFS/root/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <channel name="xfwm4" version="1.0">
   <property name="general" type="empty">
-    <property name="use_compositing" type="bool" value="false"/>
+    <property name="use_compositing" type="bool" value="true"/>
   </property>
 </channel>
 EOF

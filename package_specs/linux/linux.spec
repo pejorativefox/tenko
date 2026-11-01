@@ -1,5 +1,5 @@
 Name:       linux
-Version:    7.1.8
+Version:    7.2.6
 Release:    1
 Summary:    Linux kernel
 License:    GPL2
@@ -18,7 +18,7 @@ make mrproper
 cp -v %{SOURCE1} .config
 for opt in \
     VIRTIO VIRTIO_PCI VIRTIO_BLK VIRTIO_NET VIRTIO_CONSOLE \
-    DRM DRM_VIRTIO_GPU DRM_BOCHS DRM_GEM_SHMEM_HELPER \
+    DRM DRM_VIRTIO_GPU DRM_VGEM DRM_BOCHS DRM_GEM_SHMEM_HELPER \
     HW_RANDOM_VIRTIO PCI PCI_MSI \
     SERIAL_8250 SERIAL_8250_CONSOLE \
     DEVTMPFS DEVTMPFS_MOUNT TMPFS \
