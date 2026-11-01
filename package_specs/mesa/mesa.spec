@@ -1,13 +1,13 @@
 Name:       mesa
 Version:    26.2.3
-Release:    1
+Release:    2
 Summary:    Mesa 3D Graphics Library
 License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 BuildRequires: libx11, libxext, libxfixes, libxrandr, libxxf86vm
-BuildRequires: libxcb, libxshmfence, libdrm, llvm
+BuildRequires: libxcb, libxshmfence, libdrm, llvm-devel
 Requires:   libxshmfence
 
 %description
@@ -50,5 +50,9 @@ popd
 %files -f %{_sourcedir}/mesa.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 26.2.3-2
+- Build against llvm-devel after the Fedora-style LLVM split; the old
+  monolithic llvm package no longer carries headers/CMake/llvm-config
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 26.2.3-1
 - Sync with BLFS r13.1: X11-only, llvmpipe, no Wayland/Vulkan.
