@@ -70,12 +70,42 @@ fi
 snap=()
 [ "$SNAPSHOT" = "1" ] && snap=(-snapshot)
 
+# Graphics device.  virtio-vga-gl is the virtio-gpu device with the 3D
+# (virgl) capability and needs a display backend with OpenGL (gtk/sdl with
+# gl=on); vnc/none cannot supply one, so those modes fall back to the 2D
+# virtio-vga.  Note the guest side also needs Mesa's virgl gallium driver for
+# accelerated GL - this distro builds llvmpipe only, so the guest still
+# software-renders; the device choice only changes the display path.
+# Override with VGA=std|virtio-vga|qxl|... .
+VGA=${VGA:-virtio-vga-gl}
+
+gl=0
 display=()
 case "$DISPLAY_MODE" in
-    gtk|sdl) display=(-display "$DISPLAY_MODE") ;;
+    gtk|sdl) display=(-display "$DISPLAY_MODE"); gl=1 ;;
     vnc)     display=(-display none -vnc "$VNC_ADDR") ;;
     none)    display=(-display none) ;;
     *)       echo "unknown DISPLAY_MODE: $DISPLAY_MODE" >&2; exit 1 ;;
+esac
+
+vga=()
+case "$VGA" in
+    virtio-vga-gl)
+        if [ "$gl" = 1 ]; then
+            display=(-display "$DISPLAY_MODE,gl=on")
+            vga=(-device virtio-vga-gl)
+        else
+            echo "note: virtio-vga-gl needs an OpenGL display backend" \
+                 "($DISPLAY_MODE has none); using virtio-vga" >&2
+            vga=(-device virtio-vga)
+        fi
+        ;;
+    virtio-vga|virtio-gpu-pci|qxl)
+        vga=(-device "$VGA") ;;
+    std|cirrus|vmware|xenfb|none)
+        vga=(-vga "$VGA") ;;
+    *)
+        echo "unknown VGA: $VGA" >&2; exit 1 ;;
 esac
 
 rm -f "$SERIAL" "$MON"
@@ -95,6 +125,7 @@ Browneye XFCE test boot
   image:   $IMG (snapshot=$SNAPSHOT)
   login:   root / root (tty1 is occupied by the X session)
   display: $DISPLAY_MODE${DISPLAY_MODE:+ }
+  video:   $VGA$([ "$gl" = 1 ] && echo " (gl=on)")
 EOF
 if [ "$DISPLAY_MODE" = "vnc" ]; then
     port=$((5900 + ${VNC_ADDR##*:}))
@@ -118,7 +149,7 @@ exec qemu-system-x86_64 \
     "${nic[@]}" \
     -append "root=/dev/vda rw console=ttyS0 loglevel=6 systemd.show_status=1" \
     -drive "file=$IMG,format=raw,if=virtio" \
-    -vga std \
+    "${vga[@]}" \
     "${display[@]}" \
     -monitor "unix:$MON,server,nowait" \
     -serial "unix:$SERIAL,server,nowait" \
