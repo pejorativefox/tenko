@@ -1,0 +1,12 @@
+%dir /usr/lib64
+%dir /usr/lib64/xorg
+%dir /usr/lib64/xorg/modules
+%dir /usr/lib64/xorg/modules/drivers
+%dir /usr/share
+%dir /usr/share/X11
+%dir /usr/share/X11/xorg.conf.d
+%dir /usr/share/man
+%dir /usr/share/man/man4
+/usr/lib64/xorg/modules/drivers/amdgpu_drv.so
+/usr/share/X11/xorg.conf.d/10-amdgpu.conf
+%doc /usr/share/man/man4/amdgpu.4.gz
