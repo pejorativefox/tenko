@@ -285,7 +285,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D21 | CA store | `make-ca` with a pinned Mozilla certdata snapshot; no network at build |
 | D22 | Build tools | `dnf` 4.24.0 + `libdnf`/`librepo`/`libsolv`/`createrepo_c` stack, separate `browneye-build` meta (not in LFS/BLFS — user-approved); rpm 4.18.1-2 + `python3-rpm` |
 | D23 | P0 fixes | `vim` without canberra, `gcc-libs` split, `libarchive` without libxml2, `libtirpc` in base |
-| D24 | LLVM packaging | split `llvm-libs` / `llvm-clang-libs` / `llvm-tools` / `llvm-devel`; `llvm` becomes a meta |
+| D24 | LLVM packaging | Fedora-like split: `llvm` (tools), `llvm-libs`, `llvm-devel`, `llvm-static`, `clang`, `clang-libs`, `clang-devel`, `clang-tools-extra`, `clang-analyzer`, `clang-resource-filesystem`, `compiler-rt`; optional `llvm-all` meta. `lld`/`lldb`/`mlir`/`polly`/`libcxx`/`libomp` only if the build enables them |
 | D25 | Firmware packaging | `linux-firmware-base` + vendor packs; `xfce-desktop` requires base and recommends packs |
 | D26 | Python packaging | split `python-tests`; stop shipping `.opt-1`/`.opt-2` bytecode |
 
@@ -1036,9 +1036,23 @@ their own branches (versions unchanged):
 
 | branch / worktree | split | expected saving |
 |---|---|---|
-| `llvm-split` / `browneye-llvm` | `llvm-libs`, `llvm-clang-libs`, `llvm-tools`, `llvm-devel`; `llvm` becomes a meta | up to 875 MB desktop |
+| `llvm-split` / `browneye-llvm` | Fedora-like: `llvm` (tools), `llvm-libs`, `llvm-devel`, `llvm-static`, `clang`, `clang-libs`, `clang-devel`, `clang-tools-extra`, `clang-analyzer`, `clang-resource-filesystem`, `compiler-rt` (+ `llvm-all` meta) | ~860 MB desktop (Mesa needs only `llvm-libs`) |
 | `firmware-split` / `browneye-firmware` | `linux-firmware-base` + vendor packs; `xfce-desktop` requires base, recommends packs | 0–396 MB desktop/ISO |
 | `python-split` / `browneye-python` | `python-tests`; drop `.opt-1`/`.opt-2` bytecode | ~180 MB base/desktop |
+
+Fedora F44 is the model: one `llvm` source RPM (22.1.8-4) produces
+`llvm` (tools, ~90 MB), `llvm-libs` (~147 MB), `llvm-devel` (~37 MB),
+`llvm-static` (~306–368 MB), `llvm-doc`, `llvm-cmake-utils`,
+`llvm-googletest`, `llvm-test`, `llvm-bolt` (~180 MB),
+`llvm-libunwind`, `clang` (~64 MB), `clang-libs` (~115 MB),
+`clang-devel` (~34 MB), `clang-tools-extra` (~64–71 MB),
+`clang-analyzer`, `clang-resource-filesystem`, `compiler-rt` (~14–43 MB),
+`lld`/`lld-libs`/`lld-devel`, `lldb`/`lldb-devel`,
+`libcxx`/`libcxx-devel`/`libcxx-static`, `libomp`/`libomp-devel`,
+`mlir`/`mlir-devel` (~182/225 MB), `polly`/`polly-devel`, plus versioned
+compat source packages (`llvm19`, `clang19`, ...).  Our spec builds only
+clang + compiler-rt, so the split covers those; enabling lld/lldb/mlir/
+polly/libcxx/libomp is a separate build decision.
 
 Next in this area: curated `glibc-locales` + `-all`, per-package `-lang`/
 `-doc`/`-tests`/`-static`/`-devel`/`-gir` splits, `gcc-lto`/`gcc-devel`,
