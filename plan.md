@@ -106,6 +106,23 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - **Terminal (2026-11-01):** VTE 0.84.1 and `xfce4-terminal` 1.2.0 are in
   the desktop meta; the terminal was launched in the QEMU XFCE session and
   reported `xfce4-terminal 1.2.0 (Xfce 4.20)`.
+- **E4 initramfs automation (2026-11-01):** `linux-modules` 7.2.6-3 runs
+  `depmod` + `dracut` in `%post` (requires `dracut`) and removes
+  `/boot/initramfs-<ver>.img` on erase.  `browneye-sysconfig` 13.1-2 ships
+  `/etc/dracut.conf.d/10-browneye.conf` (`hostonly="no"`, `compress="xz"`).
+  `scripts/make_initramfs.sh` covers rootfs assembly, where scriptlets are
+  skipped; the QEMU/EFI scripts use the initramfs by default
+  (`USE_INITRD=0` keeps the old path).  Verified: the real RPM scriptlet
+  produced a 31 MB image, and both `-kernel -initrd` and the OVMF GRUB disk
+  reached multi-user with zero `FAILED` units.
+- **Module signing stays off (E4):** there is no Secure Boot shim or enrolled
+  MOK, so signing would not enable Secure Boot.  Out-of-tree modules are
+  accepted; the kernel spec disables `MODULE_SIG` explicitly.
+- **Boot test found a real kmod bug:** the kernel's
+  `CONFIG_MODPROBE_PATH` is `/usr/bin/modprobe`, but kmod only shipped
+  `/usr/sbin/modprobe`.  Explicit `modprobe` worked while kernel
+  `request_module()` autoloading failed (`binfmt_misc` mount retried five
+  times).  kmod 34.2-2 adds the `/usr/bin` symlink; the boot log is clean.
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
@@ -227,6 +244,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D11 | Initramfs | **dracut-ng 112** (package `dracut`) + **cpio 2.15**; generated and NVMe-boot-tested for 7.2.6 |
 | D12 | SELinux | **None**: kernel SELinux off (forced in the spec), no libselinux/policy; only XCB's xselinux protocol headers and kernel UAPI headers remain |
 | D13 | Terminal | **VTE 0.84.1** + **xfce4-terminal 1.2.0**; installed by the `xfce-desktop` meta |
+| D14 | Initramfs | automatic on kernel install; generic `hostonly=no`, xz; `/boot/initramfs-<ver>.img` |
+| D15 | Module signing | **off**; no shim/MOK, Secure Boot explicitly unsupported |
+| D16 | AMD GPU driver | `xf86-video-amdgpu` 23.0.0 packaged, **optional** (not in `xfce-desktop`) |
 
 Consequences already implemented:
 
@@ -856,12 +876,85 @@ These are the current caveats that do not yet have a checkbox elsewhere.
       built; the image also needs no initramfs because virtio/ext4 are
       built in.  C10 supplies dracut for hardware whose storage drivers
       are modules.
-- [ ] E4. The general config, firmware, and initramfs generator are done
-      (D9/D10/C10); **module signing** and **automatic initramfs creation
-      on kernel install** remain.  The config keeps virtio-blk/ext4/9p/
-      virtio-gpu built in for the initramfs-less QEMU boot.
+- [x] E4. **Automatic initramfs and signing decision — done 2026-11-01.**
+      `linux-modules` 7.2.6-3 requires `dracut` and runs
+      `depmod` + `dracut --force --kver <ver> /boot/initramfs-<ver>.img` in
+      `%post`; `%preun` removes it.  `browneye-sysconfig` 13.1-2 adds
+      `/etc/dracut.conf.d/10-browneye.conf` (`hostonly="no"`,
+      `compress="xz"`).  `scripts/make_initramfs.sh` performs the same step
+      for staged rootfs images (scriptlets are skipped there);
+      `qemu_boot.sh`, `qemu_boot_graphical.sh`, `qemu_run_desktop.sh`, and
+      `make_efi_disk.sh` use it, with `USE_INITRD=0` retaining the old
+      initramfs-less path.  Module signing is **off** (D15): no shim/MOK, so
+      Secure Boot is not supported.  Verified with the real RPM scriptlet
+      (31 MB xz image), a `-kernel -initrd` QEMU boot, and the OVMF GRUB
+      disk with `initrd`; zero `FAILED` units in all three.
+      The same boot test exposed and fixed the kmod `/usr/bin/modprobe`
+      autoload bug (kmod 34.2-2).
+      LUKS/LVM/RAID userspace tools are **not** packaged yet; the user
+      deferred `cryptsetup`/`lvm2`/`mdadm`.
 - [ ] E5. Add a first-boot root password/account policy. The login test used
       a temporary password and restored the locked shadow entry.
+
+### F. Developer workstation wave (nodejs/opencode/sshd/herdr) — awaiting approval
+
+Investigation only (2026-11-01); no files changed.
+
+- opencode 2.0.12 on the host is a Bun-compiled self-contained ELF
+  (glibc 2.17); herdr 0.9.1 is a static musl PIE.  **Neither needs Node at
+  runtime.**  Node is still a legitimate distro goal (npm ecosystem, LSPs)
+  but is not what makes the three tools run.
+- Node.js is **not in the Browneye repo**.  BLFS r13.1 ships **26.9.0**;
+  latest upstream LTS is **26.13.0** (same major).  Using 26.13.0 needs an
+  explicit AGENTS.md exception (book pin is 26.9.0).
+- opencode and herdr are **not in LFS/BLFS**; AGENTS.md requires a user
+  decision before packaging.  Recommendation: prebuilt binary RPMs
+  (`opencode-bin` 2.2.5, `herdr` 0.9.5), not a Bun/Rust source build.
+- Real blockers found: **no CA trust store** (`/etc/ssl/certs` empty), no
+  git, no `which`; the openssh spec is a 9.4p1 finit-era spec that must be
+  rewritten (10.5p1, systemd unit, sysusers, first-boot keygen).  Root is
+  locked (E5), so sshd should be key-only root
+  (`PermitRootLogin prohibit-password`) without Linux-PAM.
+- Missing/outdated Node dependency chain: brotli 1.2.0, c-ares 1.34.8,
+  nghttp2 1.70.0, simdutf 9.2.1, icu 78.3, libuv 1.53.0 (spec already
+  correct), git 2.55.0, which 2.25, libtasn1/p11-kit/make-ca refresh.
+- Proposed new meta `browneye-workstation` (nodejs, openssh, git,
+  ca-certificates, which, opencode-bin, herdr); `browneye-base` and
+  `xfce-desktop` stay untouched.
+- Pending approval: Node 26.13.0 vs book 26.9.0; key-only root sshd;
+  opencode/herdr binary RPMs (not in the books); the new meta.  Estimate:
+  ~12 specs, ~1.5–2 h machine time, ~650 MB installed.
+
+### G. Size audit — for review
+
+Subagent report: branch `size-audit`, commit `ef4c21a`, file
+`size-audit.md` in worktree `~/browneye-size-audit`.
+
+Baseline: base **1267 MB** apparent / 1.4 GB disk; desktop **3091 MB** /
+3.2 GB; `repo-all` 222 RPMs / 1311 MB of RPMs.  **83 % of the desktop
+delta is llvm (1008 MB) + firmware (396 MB) + kernel/modules (111 MB)**;
+the XFCE/X11 userland is ~300 MB.
+
+Top levers: `llvm-libs`/tools/devel (875 MB), firmware vendor packs
+(0–396 MB), `gcc-libs` (313 MB from every runtime target), Python
+tests/`.opt` pyc (180 MB), curated `glibc-locales` (180–219 MB),
+per-package `-lang` (92/168 MB), plus `-doc`, `-tests`, `-static`,
+`-devel`, `-gir` splits.
+
+**P0 regressions to fix before the next publish:**
+- `vim` 9.2.1099 auto-links `libcanberra` → GTK3 (**+177 MB** in base);
+  add `--disable-canberra`.
+- `gcc` owns `libgcc_s`/`libstdc++`; split a 4.2 MB `gcc-libs` out.
+- `libarchive` 3.8.9 auto-links `libxml2`; build `--without-xml2`.
+- `iproute2` 7.2.0 needs `libtirpc`; add it to base (or patch).
+
+Projected targets: base build image **610–710 MB**, base runtime **178 MB**
+(225 MB with Python), desktop **725–800 MB** laptop / **520 MB** VM,
+installer live runtime **225 MB** (~140–170 MB media).  ISO tooling
+blockers: `squashfs-tools`, `mtools`, `syslinux`, `busybox` are not
+LFS/BLFS (user decision); `efivar`/`xorriso` are below book versions.
+
+The 222-RPM publish in flight predates these fixes; republish after P0.
 
 ---
 
@@ -921,9 +1014,9 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - The kernel config is a sanitized forward-port of the Fedora 44 host
   config (3,030 built-in / 4,691 modules after the QEMU overrides), not
   the old 6.4.12 minimal config.  Debug info, SELinux/IMA, lockdown and
-  module signing, Rust/BTF, UBSAN and MAXSMP are off.  There is now an
-  initramfs generator (dracut-ng 112); module signing and automatic
-  generation remain (E4).
+  module signing, Rust/BTF, UBSAN and MAXSMP are off.  The initramfs is now
+  generated automatically by `linux-modules` `%post` (E4, D14); module
+  signing remains off by decision (D15).
 - `linux-firmware` is a curated 20261019 snapshot (GPUs, wireless,
   Bluetooth, Realtek NICs, AMD microcode) plus wireless-regdb 2026.09.03,
   401 MB installed and xz-compressed.  It is not a book package; the user
@@ -941,8 +1034,13 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   `linux/selinux_netlink.h` from linux-api-headers.
 - dracut-ng 112 requires `cpio`; both are built and in the repo.  The
   package installs `/usr/lib/dracut`, systemd units, and
-  `/etc/dracut.conf`.  The initramfs is currently generated explicitly;
-  automatic generation is the next E4 step.
+  `/etc/dracut.conf`.  `linux-modules` 7.2.6-3 generates
+  `/boot/initramfs-<ver>.img` in `%post`; image scripts use
+  `scripts/make_initramfs.sh` because assembly skips scriptlets.
+- The kernel is built with `CONFIG_MODPROBE_PATH="/usr/bin/modprobe"`; kmod
+  34.2-2 now installs that symlink.  Without it, kernel `request_module()`
+  autoloading failed even though explicit `modprobe` worked (`binfmt_misc`
+  mount retried five times).  kmod 34.2-1 remains in older rootfs images.
 - VTE 0.84.1 bundles simdutf 8.2.0, fmt 12.1.0 and fast_float 8.1.0 from
   its own subproject wraps for offline builds.  BLFS lists newer standalone
   versions, but these are static/header-only internals compiled into VTE,
@@ -976,8 +1074,9 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   GPU.  `modesetting` logs "Refusing to try glamor on llvmpipe" and falls
   back to shadowfb; `xfwm4` blacklists llvmpipe for its GLX compositor and
   uses XRender instead.  This is expected for software rendering and does
-  not affect real GPUs.  `xf86-video-amdgpu` can now build (gbm exists) but
-  is not packaged yet.
+  not affect real GPUs.  `xf86-video-amdgpu` 23.0.0 is packaged on branch
+  `amdgpu-driver` (commit `a26999b`, BLFS archive version, 197 KiB
+  installed) but is not in any meta yet.
 - **Library directory split:** `llvm` installs into `/usr/lib` while the rest
   of the distro uses `/usr/lib64`.  `xorg-server` needs
   `-Wl,-rpath-link,/usr/lib` to link against `libgallium`, and the image
@@ -1033,19 +1132,28 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 
 ## 8. Suggested next actions
 
-1. **E4 — wire the initramfs into the kernel and decide signing.**  The
-   generator and NVMe boot path work; add a kernel/install hook (or
-   first-boot service) that runs dracut automatically, and settle the
-   module-signing/Secure Boot story.  Add `cryptsetup`/`lvm2`/`mdadm` if
-   LUKS/LVM/RAID roots are to be supported.
-2. **E1 — self-hosted repo/rootfs assembly.** Build `dnf`/`libdnf` and
-   `createrepo_c` (plus dependencies) inside the container so assembly no
-   longer needs host tools.
-3. **Desktop polish and account policy.** SVG icons need Rust
-   (`librsvg`/`glycin`); a display manager (`lightdm`) needs Linux-PAM and a
-   PAM-enabled systemd rebuild; E5 needs a first-boot root
-   password/account policy.  D2 (chapters 5–7 bootstrap RPMs) remains the
-   largest self-hosting gap.
+1. **Approve and execute the developer workstation wave (F).**  Node 26.13.0
+   (book 26.9.0 — needs an AGENTS.md exception), key-only root sshd
+   (OpenSSH 10.5p1, no PAM), prebuilt opencode/herdr RPMs (not in the
+   books — needs approval), CA store + git + which, and the new
+   `browneye-workstation` meta.  This is the wave that makes working inside
+   the booted system practical.
+2. **Fix the size-audit P0 regressions (G) and re-bootstrap.**  `vim`
+   must not link libcanberra; split `gcc-libs`; `libarchive` without
+   libxml2; add `libtirpc`.  Then rebuild the affected base packages,
+   regenerate `rootfs-selfhost`, and republish.  The 222-RPM publish in
+   flight predates these fixes.
+3. **E1 — self-hosted repo/rootfs assembly (subagent running).**  Build
+   `dnf`/`libdnf` and `createrepo_c` plus dependencies in the container and
+   move assembly off the host.  Merge only after its report is reviewed.
+4. **Merge `xf86-video-amdgpu` (optional)** and decide whether to add it to
+   `xfce-desktop` for AMD hardware.
+5. **E5 / LUKS/LVM/RAID / desktop polish.**  First-boot account policy
+   (E5), then `cryptsetup`+`lvm2`+`mdadm` if LUKS/LVM/RAID roots are wanted
+   (deferred by the user).  SVG icons need Rust (`librsvg`/`glycin`) and a
+   display manager (`lightdm`) needs Linux-PAM plus a PAM-enabled systemd
+   rebuild.  D2 (chapters 5–7 bootstrap RPMs) remains the largest
+   self-hosting gap.
 
 ---
 
