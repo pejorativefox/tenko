@@ -1,6 +1,6 @@
 Name:       vim
 Version:    9.2.1099
-Release:    2
+Release:    3
 Summary:    vi Improved Text editor
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
@@ -56,6 +56,11 @@ localised man pages.
 %files runtime-extra -f %{_sourcedir}/vim-runtime-extra.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 9.2.1099-3
+- Bump the release for the vim-minimal/vim-runtime-extra split: the
+  9.2.1099-2 build is already published with the old monolithic payload,
+  so the split needs a new NEVR for upgrades to install it
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 9.2.1099-2
 - Split vim-minimal (binary plus the editing runtime) and
   vim-runtime-extra (full docs, spell, tutor, translations, packages and

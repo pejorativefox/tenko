@@ -1,6 +1,6 @@
 Name:       linux
 Version:    7.2.6
-Release:    3
+Release:    4
 Summary:    Linux kernel
 License:    GPL2
 Prefix:     /usr
@@ -105,6 +105,11 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 7.2.6-4
+- Bump the release for the linux-kernel-debug split: the 7.2.6-3 build is
+  already published with the old monolithic payload, so the split needs a
+  new NEVR for upgrades to install it
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 7.2.6-3
 - Split /boot/System.map-%{version} and /boot/config-%{version} into
   linux-kernel-debug; linux-kernel keeps the vmlinuz image
