@@ -111,12 +111,14 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - **Terminal (2026-11-01):** VTE 0.84.1 and `xfce4-terminal` 1.2.0 are in
   the desktop meta; the terminal was launched in the QEMU XFCE session and
   reported `xfce4-terminal 1.2.0 (Xfce 4.20)`.
-- **Interactive test image (2026-11-01).**  `build/xfce-test.img` (5 GB) now
-  carries `openssh` 10.5p1, `opencode-bin` 2.2.5, `herdr` 0.9.5, `git`
-  2.55.0, `make-ca` 1.16.1, and `linux-pam` 1.7.3.  Verified over SSH
-  (`SSH_FWD=2222 ./scripts/qemu_run_desktop.sh`, `root`/`root`): sshd is
-  active, opencode/herdr/git run, and HTTPS plus `git ls-remote` work with
-  the 121-root CA bundle.  Node.js is **not** in this image yet.
+- **Interactive test image (2026-11-01).**  `build/xfce-test.img` (6 GB) now
+  carries the full `browneye-workstation` set: `nodejs` 26.13.0 + npm
+  11.20.0, `openssh` 10.5p1, `opencode-bin` 2.2.5, `herdr` 0.9.5, `git`
+  2.55.0, `make-ca` 1.16.1, `linux-pam` 1.7.3, and P0's `gcc-libs`/vim/
+  libarchive/libtirpc.  Verified over SSH (`SSH_FWD=2222
+  ./scripts/qemu_run_desktop.sh`, `root`/`root`): sshd active, Node/npm/
+  opencode/herdr/git run, HTTPS (curl and Node) works with the 121-root CA
+  bundle, and `browneye-workstation` + `gcc-libs` are installed.
 - **Workstation wave (2026-11-01, in progress).**  Merged: Linux-PAM 1.7.3 +
   PAM-enabled systemd 261.3-2 + OpenSSH 10.5p1 (password auth, root login),
   `browneye-firstboot` root-password service, and the CA/git/which wave
@@ -1191,10 +1193,9 @@ the r13.1 tag's 9.2.1025).
   `xkbcomp` 1.5.0; they are non-fatal.
 - The graphical test uses a one-shot `xfce-test.service` and a temporary
   `root`/`root` password; it is not a login/account policy (E5).  The image
-  is 5 GB (`IMGSIZE`) and `qemu_run_desktop.sh` defaults to installing
-  `openssh`, `opencode-bin`, and `herdr`; `SSH_FWD=2222` adds a hostfwd to
-  guest port 22.  `SNAPSHOT=1` (default) discards guest changes; use
-  `SNAPSHOT=0` for a persistent session.
+  is 6 GB (`IMGSIZE`) and contains `browneye-workstation`; `SSH_FWD=2222`
+  adds a hostfwd to guest port 22.  `SNAPSHOT=1` (default) discards guest
+  changes; use `SNAPSHOT=0` for a persistent session.
 - `polkit` 127 is built with `authfw=shadow` (no Linux-PAM in the base) and
   `libnotify` is built with `-Dtests=false` (its tests pull GTK4).
 - `xfce4-session` needs `iceauth` and `xfce4-dev-tools` needs `libxslt`;
@@ -1215,11 +1216,11 @@ the r13.1 tag's 9.2.1025).
 
 ## 8. Suggested next actions
 
-1. **Developer workstation wave (F) — merged.**  Node 26.13.0 (D17),
-   Linux-PAM + password-auth sshd (D18), opencode/herdr binaries (D19),
-   CA/git/which, and the `browneye-workstation` meta (D20) are all in.
-   Next: build the final workstation + desktop image and verify SSH,
-   opencode/herdr, Node/npm, and HTTPS from inside it.
+1. **Developer workstation wave (F) — merged and verified.**  Node 26.13.0
+   (D17), Linux-PAM + password-auth sshd (D18), opencode/herdr binaries
+   (D19), CA/git/which, and the `browneye-workstation` meta (D20) all work
+   in the 6 GB test image over SSH.  Next: assemble the final repo from
+   `build/repo-e4` and publish it incrementally.
 2. **P0 fixes (G) — done (`4bce4aa`).**  Next: assemble the final repo from
    `repo-e4` (E4 + PAM/sshd + CA/git + Node + agents + P0), re-install a
    fresh base and workstation/desktop image, run the boot/SSH smoke test,
