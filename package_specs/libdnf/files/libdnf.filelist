@@ -1,0 +1,248 @@
+%dir /usr/include
+%dir /usr/include/libdnf
+%dir /usr/include/libdnf/conf
+%dir /usr/include/libdnf/plugin
+%dir /usr/include/libdnf/utils
+%dir /usr/lib64
+%dir /usr/lib64/libdnf
+%dir /usr/lib64/libdnf/plugins
+%dir /usr/lib64/pkgconfig
+%dir /usr/lib64/python3.14
+%dir /usr/lib64/python3.14/site-packages
+%dir /usr/lib64/python3.14/site-packages/hawkey
+%dir /usr/lib64/python3.14/site-packages/libdnf
+%dir /usr/lib64/python3.14/site-packages/libdnf-0.76.0.dist-info
+%dir /usr/share
+%dir /usr/share/locale
+%dir /usr/share/locale/as
+%dir /usr/share/locale/as/LC_MESSAGES
+%dir /usr/share/locale/bg
+%dir /usr/share/locale/bg/LC_MESSAGES
+%dir /usr/share/locale/bn
+%dir /usr/share/locale/bn/LC_MESSAGES
+%dir /usr/share/locale/bn_IN
+%dir /usr/share/locale/bn_IN/LC_MESSAGES
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+%dir /usr/share/locale/el
+%dir /usr/share/locale/el/LC_MESSAGES
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+%dir /usr/share/locale/eu
+%dir /usr/share/locale/eu/LC_MESSAGES
+%dir /usr/share/locale/fa
+%dir /usr/share/locale/fa/LC_MESSAGES
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+%dir /usr/share/locale/fil
+%dir /usr/share/locale/fil/LC_MESSAGES
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+%dir /usr/share/locale/fur
+%dir /usr/share/locale/fur/LC_MESSAGES
+%dir /usr/share/locale/gu
+%dir /usr/share/locale/gu/LC_MESSAGES
+%dir /usr/share/locale/hi
+%dir /usr/share/locale/hi/LC_MESSAGES
+%dir /usr/share/locale/hu
+%dir /usr/share/locale/hu/LC_MESSAGES
+%dir /usr/share/locale/ia
+%dir /usr/share/locale/ia/LC_MESSAGES
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+%dir /usr/share/locale/is
+%dir /usr/share/locale/is/LC_MESSAGES
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+%dir /usr/share/locale/kn
+%dir /usr/share/locale/kn/LC_MESSAGES
+%dir /usr/share/locale/ko
+%dir /usr/share/locale/ko/LC_MESSAGES
+%dir /usr/share/locale/mai
+%dir /usr/share/locale/mai/LC_MESSAGES
+%dir /usr/share/locale/ml
+%dir /usr/share/locale/ml/LC_MESSAGES
+%dir /usr/share/locale/mr
+%dir /usr/share/locale/mr/LC_MESSAGES
+%dir /usr/share/locale/nb
+%dir /usr/share/locale/nb/LC_MESSAGES
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+%dir /usr/share/locale/or
+%dir /usr/share/locale/or/LC_MESSAGES
+%dir /usr/share/locale/pa
+%dir /usr/share/locale/pa/LC_MESSAGES
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+%dir /usr/share/locale/pt
+%dir /usr/share/locale/pt/LC_MESSAGES
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+%dir /usr/share/locale/si
+%dir /usr/share/locale/si/LC_MESSAGES
+%dir /usr/share/locale/sk
+%dir /usr/share/locale/sk/LC_MESSAGES
+%dir /usr/share/locale/sq
+%dir /usr/share/locale/sq/LC_MESSAGES
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+%dir /usr/share/locale/sr@latin
+%dir /usr/share/locale/sr@latin/LC_MESSAGES
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+%dir /usr/share/locale/ta
+%dir /usr/share/locale/ta/LC_MESSAGES
+%dir /usr/share/locale/te
+%dir /usr/share/locale/te/LC_MESSAGES
+%dir /usr/share/locale/th
+%dir /usr/share/locale/th/LC_MESSAGES
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+/usr/include/libdnf/conf/Config.hpp
+/usr/include/libdnf/conf/ConfigMain.hpp
+/usr/include/libdnf/conf/ConfigParser.hpp
+/usr/include/libdnf/conf/ConfigRepo.hpp
+/usr/include/libdnf/conf/Option.hpp
+/usr/include/libdnf/conf/OptionBinds.hpp
+/usr/include/libdnf/conf/OptionBool.hpp
+/usr/include/libdnf/conf/OptionChild.hpp
+/usr/include/libdnf/conf/OptionEnum.hpp
+/usr/include/libdnf/conf/OptionNumber.hpp
+/usr/include/libdnf/conf/OptionPath.hpp
+/usr/include/libdnf/conf/OptionSeconds.hpp
+/usr/include/libdnf/conf/OptionString.hpp
+/usr/include/libdnf/conf/OptionStringList.hpp
+/usr/include/libdnf/config.h
+/usr/include/libdnf/dnf-advisory.h
+/usr/include/libdnf/dnf-advisorypkg.h
+/usr/include/libdnf/dnf-advisoryref.h
+/usr/include/libdnf/dnf-conf.h
+/usr/include/libdnf/dnf-context.h
+/usr/include/libdnf/dnf-db.h
+/usr/include/libdnf/dnf-enums.h
+/usr/include/libdnf/dnf-goal.h
+/usr/include/libdnf/dnf-keyring.h
+/usr/include/libdnf/dnf-lock.h
+/usr/include/libdnf/dnf-package.h
+/usr/include/libdnf/dnf-packagedelta.h
+/usr/include/libdnf/dnf-reldep-list.h
+/usr/include/libdnf/dnf-reldep.h
+/usr/include/libdnf/dnf-repo-loader.h
+/usr/include/libdnf/dnf-repo.h
+/usr/include/libdnf/dnf-rpmts.h
+/usr/include/libdnf/dnf-sack.h
+/usr/include/libdnf/dnf-state.h
+/usr/include/libdnf/dnf-transaction.h
+/usr/include/libdnf/dnf-types.h
+/usr/include/libdnf/dnf-utils.h
+/usr/include/libdnf/dnf-version.h
+/usr/include/libdnf/hy-goal.h
+/usr/include/libdnf/hy-nevra.h
+/usr/include/libdnf/hy-package.h
+/usr/include/libdnf/hy-packageset.h
+/usr/include/libdnf/hy-query.h
+/usr/include/libdnf/hy-repo.h
+/usr/include/libdnf/hy-selector.h
+/usr/include/libdnf/hy-subject.h
+/usr/include/libdnf/hy-types.h
+/usr/include/libdnf/hy-util.h
+/usr/include/libdnf/libdnf.h
+/usr/include/libdnf/log.hpp
+/usr/include/libdnf/nevra.hpp
+/usr/include/libdnf/nsvcap.hpp
+/usr/include/libdnf/plugin/plugin.h
+/usr/include/libdnf/utils/PreserveOrderMap.hpp
+/usr/include/libdnf/utils/logger.hpp
+/usr/lib64/libdnf.so
+/usr/lib64/libdnf.so.2
+/usr/lib64/libdnf/plugins/README
+/usr/lib64/pkgconfig/libdnf.pc
+/usr/lib64/python3.14/site-packages/hawkey/__init__.py
+/usr/lib64/python3.14/site-packages/hawkey/_hawkey.so
+/usr/lib64/python3.14/site-packages/libdnf-0.76.0.dist-info/METADATA
+/usr/lib64/python3.14/site-packages/libdnf/__init__.py
+/usr/lib64/python3.14/site-packages/libdnf/_common_types.so
+/usr/lib64/python3.14/site-packages/libdnf/_conf.so
+/usr/lib64/python3.14/site-packages/libdnf/_error.so
+/usr/lib64/python3.14/site-packages/libdnf/_module.so
+/usr/lib64/python3.14/site-packages/libdnf/_repo.so
+/usr/lib64/python3.14/site-packages/libdnf/_smartcols.so
+/usr/lib64/python3.14/site-packages/libdnf/_transaction.so
+/usr/lib64/python3.14/site-packages/libdnf/_utils.so
+/usr/lib64/python3.14/site-packages/libdnf/common_types.py
+/usr/lib64/python3.14/site-packages/libdnf/conf.py
+/usr/lib64/python3.14/site-packages/libdnf/error.py
+/usr/lib64/python3.14/site-packages/libdnf/module.py
+/usr/lib64/python3.14/site-packages/libdnf/repo.py
+/usr/lib64/python3.14/site-packages/libdnf/smartcols.py
+/usr/lib64/python3.14/site-packages/libdnf/transaction.py
+/usr/lib64/python3.14/site-packages/libdnf/utils.py
+/usr/share/locale/as/LC_MESSAGES/libdnf.mo
+/usr/share/locale/bg/LC_MESSAGES/libdnf.mo
+/usr/share/locale/bn/LC_MESSAGES/libdnf.mo
+/usr/share/locale/bn_IN/LC_MESSAGES/libdnf.mo
+/usr/share/locale/ca/LC_MESSAGES/libdnf.mo
+/usr/share/locale/cs/LC_MESSAGES/libdnf.mo
+/usr/share/locale/da/LC_MESSAGES/libdnf.mo
+/usr/share/locale/de/LC_MESSAGES/libdnf.mo
+/usr/share/locale/el/LC_MESSAGES/libdnf.mo
+/usr/share/locale/es/LC_MESSAGES/libdnf.mo
+/usr/share/locale/eu/LC_MESSAGES/libdnf.mo
+/usr/share/locale/fa/LC_MESSAGES/libdnf.mo
+/usr/share/locale/fi/LC_MESSAGES/libdnf.mo
+/usr/share/locale/fil/LC_MESSAGES/libdnf.mo
+/usr/share/locale/fr/LC_MESSAGES/libdnf.mo
+/usr/share/locale/fur/LC_MESSAGES/libdnf.mo
+/usr/share/locale/gu/LC_MESSAGES/libdnf.mo
+/usr/share/locale/hi/LC_MESSAGES/libdnf.mo
+/usr/share/locale/hu/LC_MESSAGES/libdnf.mo
+/usr/share/locale/ia/LC_MESSAGES/libdnf.mo
+/usr/share/locale/id/LC_MESSAGES/libdnf.mo
+/usr/share/locale/is/LC_MESSAGES/libdnf.mo
+/usr/share/locale/it/LC_MESSAGES/libdnf.mo
+/usr/share/locale/ja/LC_MESSAGES/libdnf.mo
+/usr/share/locale/ka/LC_MESSAGES/libdnf.mo
+/usr/share/locale/kn/LC_MESSAGES/libdnf.mo
+/usr/share/locale/ko/LC_MESSAGES/libdnf.mo
+/usr/share/locale/mai/LC_MESSAGES/libdnf.mo
+/usr/share/locale/ml/LC_MESSAGES/libdnf.mo
+/usr/share/locale/mr/LC_MESSAGES/libdnf.mo
+/usr/share/locale/nb/LC_MESSAGES/libdnf.mo
+/usr/share/locale/nl/LC_MESSAGES/libdnf.mo
+/usr/share/locale/or/LC_MESSAGES/libdnf.mo
+/usr/share/locale/pa/LC_MESSAGES/libdnf.mo
+/usr/share/locale/pl/LC_MESSAGES/libdnf.mo
+/usr/share/locale/pt/LC_MESSAGES/libdnf.mo
+/usr/share/locale/pt_BR/LC_MESSAGES/libdnf.mo
+/usr/share/locale/ru/LC_MESSAGES/libdnf.mo
+/usr/share/locale/si/LC_MESSAGES/libdnf.mo
+/usr/share/locale/sk/LC_MESSAGES/libdnf.mo
+/usr/share/locale/sq/LC_MESSAGES/libdnf.mo
+/usr/share/locale/sr/LC_MESSAGES/libdnf.mo
+/usr/share/locale/sr@latin/LC_MESSAGES/libdnf.mo
+/usr/share/locale/sv/LC_MESSAGES/libdnf.mo
+/usr/share/locale/ta/LC_MESSAGES/libdnf.mo
+/usr/share/locale/te/LC_MESSAGES/libdnf.mo
+/usr/share/locale/th/LC_MESSAGES/libdnf.mo
+/usr/share/locale/tr/LC_MESSAGES/libdnf.mo
+/usr/share/locale/uk/LC_MESSAGES/libdnf.mo
+/usr/share/locale/zh_CN/LC_MESSAGES/libdnf.mo
+/usr/share/locale/zh_TW/LC_MESSAGES/libdnf.mo

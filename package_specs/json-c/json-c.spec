@@ -1,48 +1,42 @@
 Name:       json-c
-Version:    0.13.1
+Version:    0.19
 Release:    1
-Summary:    A JSON implementation in C
+Summary:    JSON implementation in C
 License:    MIT
-Source0:    json-c-0.13.1-20180305.tar.gz
 Prefix:     /usr
+Source0:    %{name}-%{version}.tar.gz
 
 %description
-A JSON implementation in C
+JSON-C implements a reference counting object model that allows you to
+easily construct JSON objects in C, output them as JSON formatted strings
+and parse JSON formatted strings back into the C representation of JSON
+objects.
 
 %prep
-%setup -n json-c-json-c-0.13.1-20180305
+%setup -q
 
 %build
-%configure
+mkdir build
+pushd build
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_INSTALL_LIBDIR=lib64   \
+      -DCMAKE_BUILD_TYPE=Release    \
+      -DBUILD_SHARED_LIBS=ON        \
+      -DBUILD_STATIC_LIBS=OFF       \
+      -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/%{name}-%{version} \
+      ..
 %make_build
+popd
 
 %install
 rm -rf %{buildroot}
-%make_install
+pushd build
+DESTDIR=%{buildroot} cmake --install .
+popd
 
-%files
-/usr/include/json-c/arraylist.h
-/usr/include/json-c/bits.h
-/usr/include/json-c/debug.h
-/usr/include/json-c/json.h
-/usr/include/json-c/json_c_version.h
-/usr/include/json-c/json_config.h
-/usr/include/json-c/json_inttypes.h
-/usr/include/json-c/json_object.h
-/usr/include/json-c/json_object_iterator.h
-/usr/include/json-c/json_pointer.h
-/usr/include/json-c/json_tokener.h
-/usr/include/json-c/json_util.h
-/usr/include/json-c/json_visit.h
-/usr/include/json-c/linkhash.h
-/usr/include/json-c/printbuf.h
-/usr/lib64/libjson-c.a
-/usr/lib64/libjson-c.so
-/usr/lib64/libjson-c.so.4
-/usr/lib64/libjson-c.so.4.0.0
-/usr/lib64/pkgconfig/json-c.pc
+%files -f %{_sourcedir}/json-c.filelist
 
 %changelog
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 0.13.1
-- Initial RPM
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 0.19-1
+- New package for the self-hosted dnf/libdnf toolchain (E1).
+- BLFS r13.1 version (json-c 0.19). Built with shared libraries only.

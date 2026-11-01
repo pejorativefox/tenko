@@ -1,16 +1,17 @@
 Name:       swig
-Version:    4.0.1
+Version:    4.5.1
 Release:    1
 Summary:    Simplified Wrapper and Interface Generator
-License:    GPL
-Source0:    %{name}-%{version}.tar.gz
+License:    BSD
 Prefix:     /usr
+Source0:    %{name}-%{version}.tar.gz
 
 %description
-Simplified Wrapper and Interface Generator
+SWIG is a software development tool that connects programs written in C
+and C++ with a variety of high-level programming languages.
 
 %prep
-%setup
+%setup -q
 
 %build
 %configure
@@ -19,13 +20,12 @@ Simplified Wrapper and Interface Generator
 %install
 rm -rf %{buildroot}
 %make_install
+rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/ccache-swig
-/usr/bin/swig
-/usr/share/swig/4.0.1/*
+%files -f %{_sourcedir}/swig.filelist
 
 %changelog
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 4.0.1
-- Initial RPM
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.5.1-1
+- Update to the BLFS r13.1 version (4.5.1, was 4.0.1) for the E1
+  dnf/libdnf dependency chain (libdnf Python bindings).
+- Use a generated static filelist.
