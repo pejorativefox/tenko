@@ -635,6 +635,20 @@ localhost login:
       `shadow` 4.20.2, `libcap` 2.78, `libseccomp` 2.6.0.  The base repo now
       ships `linux-api-headers-7.1.8` (the host-derived 7.2.4 RPM is gone).
       The glibc spec regained its `%files locales` section (`locale-archive`).
+- [x] C12. **Version parity audit.** `scripts/audit_versions.py` compares every
+      RPM in `build/repo-all` and every spec against the LFS/BLFS entities and
+      reports outdated packages.  Current result: 36 built packages are below
+      the book (including systemd 261.3, openssl 4.0.2, linux 7.2.6, LLVM
+      23.1.0, harfbuzz 14.5.0, libinput 1.32.0, thunar 4.20.10); 132 further
+      spec-only entries are packages the distro does not build.  The rule is
+      now recorded in `AGENTS.md`: update the package and its dependency
+      chain to at least the book versions before building, and ask before
+      substituting anything not in LFS/BLFS.  `scripts/gen_filelist_tree.py`
+      rebuilds a static `%files` list from an install tree when a rebuild
+      changes the file set.  The Mesa chain is being brought current first
+      (libxshmfence 1.3.3, expat 2.8.4, LLVM 23.1.0, Mesa 26.2.3, kernel
+      7.2.6 with DRM_VGEM, xorg-server rebuilt with GLX); the remaining
+      outdated packages are the next parity wave.
 - [ ] C10. Add an initramfs (dracut in the target or a custom cpio) and a
       bootloader path; the current QEMU boot relies on built-in virtio/ext4
       and `-kernel`. E3 covers a grub disk boot, E4 the generator/config.
