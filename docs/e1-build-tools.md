@@ -129,6 +129,12 @@ carries the resulting toolchain:
   `libxml2.so.16`, `libcomps.so.0`, ...), and dnf carries the explicit
   `Requires: libdnf = 0.76.0`, `libcomps >= 0.1.24`,
   `libmodulemd >= 2.15.3`, `python3-rpm`, `/usr/bin/python3`.
+- `bootstrap_selfhosted.sh` was run end to end against a synthetic run
+  directory (the repo-selfhost RPM set plus libtirpc) with
+  `TOOL_IMAGE=localhost/browneye/base:r13.1-build-test`: createrepo_c and
+  dnf both ran inside the image, the rootfs installed 95 packages, and the
+  resulting `localhost/browneye/base:e1-bootstrap-test` reports 95 packages,
+  rpm 4.18.1 and pip 26.2.1.
 - `scripts/make_build_tools_image.sh` installs `browneye-base` +
   `browneye-build` from a local repo into a fresh rootfs, builds
   `…:r13.1-build-<date>`, and the image reports dnf/createrepo_c; a second
