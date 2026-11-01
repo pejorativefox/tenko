@@ -1116,6 +1116,34 @@ Next in this area: curated `glibc-locales` + `-all`, per-package `-lang`/
 a `browneye-base-runtime` profile, `xfce-desktop` core/full/hardware
 metas, and the installer ISO live/target sets.
 
+### K. Spec audit (2026-11-01, `spec-audit` branch, commit `b72f7b4`)
+
+Read-only report: `spec-audit.md`.  **No shipped source package is below
+the book**: 227 at book, 2 approved newer (`nodejs`, `rust`).  Of 276
+specs not represented in the repo, 154 are below book, 103 are
+NO-BOOK/retired, 16 are at book.  No LFS chapter-8 or desktop-build spec
+is missing.
+
+Shipped defects are source metadata/repo drift, not version skew:
+- `system-minimal` 0.1-3 requires `NetworkManager`, `dhcp`, `finit`,
+  `sysklogd`, `wpa-supplicant`; none is in the repo.
+- `cpio` 2.15 sources 2.13; `dracut` 112 sources 050;
+  `linux-firmware` 20261019 sources 20230515 and `Source2` untracked.
+- `lua` 5.4.8 references a patch missing from the tree.
+- `libbsd`/`libmd` are shipped but not in the current books (needs a
+  user decision).
+- Spec/repo drift: `linux-firmware` -3 vs -2, `mesa` -2 vs -1, `python`
+  -2 vs -1, `system-minimal` -3 vs -2, `xfce-desktop` -4 vs -3.
+- 81 shipped specs use inline `%files`; 175 use a static filelist.
+- `lfs.lock` was generated from the r13.1 **tag**; 12 base entries are
+  below trunk and `sync_lfs_spec.py --all-base` would downgrade them.
+- Other source-URL mismatches: `autoconf213`, `dnf-plugins-core`,
+  `sqlite3`, and the `fuse`/`fuse2` URL swap.
+
+`audit_versions.py` undercounts spec-only outdated packages (109 vs 154)
+because its aliases are applied only to RPMs.  The parser gaps and full
+tables are in `spec-audit.md` §8.
+
 ---
 
 ## 7. Known technical debt
@@ -1332,13 +1360,19 @@ metas, and the installer ISO live/target sets.
    `glibc-locales`, desktop
    `-lang`/`-doc`/`-tests`/`-static`/`-devel` splits, and the
    `browneye-base-runtime` / minimal-desktop profiles.
-4. **E1 — self-hosted repo/rootfs assembly (done, `a4f7df9`).**  `dnf`
+4. **Fix shipped metadata defects from the spec audit (K).**  Correct the
+   `cpio`/`dracut`/`linux-firmware` sources, restore/record the `lua`
+   patch, rebuild the five drifted specs, fix or retire `system-minimal`,
+   and regenerate `lfs.lock` from trunk so `sync_lfs_spec.py` cannot
+   downgrade base packages.  Then update the 154 spec-only packages if
+   they are to be built.
+5. **E1 — self-hosted repo/rootfs assembly (done, `a4f7df9`).**  `dnf`
    4.24.0 + `createrepo_c` 1.2.6 and the `browneye-build` meta work inside
    the image; `bootstrap_selfhosted.sh` can use `TOOL_IMAGE` instead of host
    tools.  D22 records the user-approved non-BLFS versions.
-5. **Merge `xf86-video-amdgpu` (optional)** and decide whether to add it to
+6. **Merge `xf86-video-amdgpu` (optional)** and decide whether to add it to
    `xfce-desktop` for AMD hardware.
-6. **E5 / LUKS/LVM/RAID / desktop polish.**  First-boot account policy is
+7. **E5 / LUKS/LVM/RAID / desktop polish.**  First-boot account policy is
    now covered by the PAM wave; `cryptsetup`+`lvm2`+`mdadm` remain deferred.
    SVG icons need Rust (`librsvg`/`glycin`) and a display manager
    (`lightdm`) needs display-manager/greeter work (Linux-PAM is now
