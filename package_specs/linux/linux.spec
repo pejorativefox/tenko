@@ -32,6 +32,9 @@ for opt in \
     NET_9P NET_9P_VIRTIO 9P_FS ; do
     scripts/config --enable "$opt"
 done
+# Browneye has no SELinux: keep it disabled even if a future config update
+# or Kconfig default tries to turn it back on.
+scripts/config --disable SECURITY_SELINUX
 make olddefconfig
 %make_build
 

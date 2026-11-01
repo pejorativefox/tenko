@@ -1,0 +1,579 @@
+%dir /etc/dracut.conf.d
+%dir /usr/bin
+%dir /usr/lib
+%dir /usr/lib/dracut
+%dir /usr/lib/dracut/dracut.conf.d
+%dir /usr/lib/dracut/dracut.conf.d/fips
+%dir /usr/lib/dracut/dracut.conf.d/generic
+%dir /usr/lib/dracut/dracut.conf.d/hostonly
+%dir /usr/lib/dracut/dracut.conf.d/ima
+%dir /usr/lib/dracut/dracut.conf.d/no-network
+%dir /usr/lib/dracut/dracut.conf.d/rescue
+%dir /usr/lib/dracut/modules.d
+%dir /usr/lib/dracut/modules.d/10bash
+%dir /usr/lib/dracut/modules.d/10dash
+%dir /usr/lib/dracut/modules.d/10systemd
+%dir /usr/lib/dracut/modules.d/10systemd-network-management
+%dir /usr/lib/dracut/modules.d/10warpclock
+%dir /usr/lib/dracut/modules.d/11fips
+%dir /usr/lib/dracut/modules.d/11fips-crypto-policies
+%dir /usr/lib/dracut/modules.d/11systemd-ac-power
+%dir /usr/lib/dracut/modules.d/11systemd-ask-password
+%dir /usr/lib/dracut/modules.d/11systemd-battery-check
+%dir /usr/lib/dracut/modules.d/11systemd-bsod
+%dir /usr/lib/dracut/modules.d/11systemd-coredump
+%dir /usr/lib/dracut/modules.d/11systemd-creds
+%dir /usr/lib/dracut/modules.d/11systemd-hostnamed
+%dir /usr/lib/dracut/modules.d/11systemd-initrd
+%dir /usr/lib/dracut/modules.d/11systemd-integritysetup
+%dir /usr/lib/dracut/modules.d/11systemd-journald
+%dir /usr/lib/dracut/modules.d/11systemd-ldconfig
+%dir /usr/lib/dracut/modules.d/11systemd-modules-load
+%dir /usr/lib/dracut/modules.d/11systemd-networkd
+%dir /usr/lib/dracut/modules.d/11systemd-pcrextend
+%dir /usr/lib/dracut/modules.d/11systemd-portabled
+%dir /usr/lib/dracut/modules.d/11systemd-pstore
+%dir /usr/lib/dracut/modules.d/11systemd-repart
+%dir /usr/lib/dracut/modules.d/11systemd-resolved
+%dir /usr/lib/dracut/modules.d/11systemd-sysctl
+%dir /usr/lib/dracut/modules.d/11systemd-sysext
+%dir /usr/lib/dracut/modules.d/11systemd-sysusers-service
+%dir /usr/lib/dracut/modules.d/11systemd-timedated
+%dir /usr/lib/dracut/modules.d/11systemd-timesyncd
+%dir /usr/lib/dracut/modules.d/11systemd-tmpfiles
+%dir /usr/lib/dracut/modules.d/11systemd-udevd
+%dir /usr/lib/dracut/modules.d/11systemd-veritysetup
+%dir /usr/lib/dracut/modules.d/12caps
+%dir /usr/lib/dracut/modules.d/13modsign
+%dir /usr/lib/dracut/modules.d/13rescue
+%dir /usr/lib/dracut/modules.d/14watchdog
+%dir /usr/lib/dracut/modules.d/14watchdog-modules
+%dir /usr/lib/dracut/modules.d/16dbus-broker
+%dir /usr/lib/dracut/modules.d/16dbus-daemon
+%dir /usr/lib/dracut/modules.d/16rngd
+%dir /usr/lib/dracut/modules.d/19dbus
+%dir /usr/lib/dracut/modules.d/20i18n
+%dir /usr/lib/dracut/modules.d/30convertfs
+%dir /usr/lib/dracut/modules.d/35connman
+%dir /usr/lib/dracut/modules.d/35network-manager
+%dir /usr/lib/dracut/modules.d/40network
+%dir /usr/lib/dracut/modules.d/45drm
+%dir /usr/lib/dracut/modules.d/45net-lib
+%dir /usr/lib/dracut/modules.d/45plymouth
+%dir /usr/lib/dracut/modules.d/45simpledrm
+%dir /usr/lib/dracut/modules.d/45systemd-import
+%dir /usr/lib/dracut/modules.d/45url-lib
+%dir /usr/lib/dracut/modules.d/68lvmmerge
+%dir /usr/lib/dracut/modules.d/68lvmthinpool-monitor
+%dir /usr/lib/dracut/modules.d/70bluetooth
+%dir /usr/lib/dracut/modules.d/70btrfs
+%dir /usr/lib/dracut/modules.d/70crypt
+%dir /usr/lib/dracut/modules.d/70crypt-lib
+%dir /usr/lib/dracut/modules.d/70devicetree-firmware
+%dir /usr/lib/dracut/modules.d/70dm
+%dir /usr/lib/dracut/modules.d/70dmraid
+%dir /usr/lib/dracut/modules.d/70dmsquash-live
+%dir /usr/lib/dracut/modules.d/70dmsquash-live-autooverlay
+%dir /usr/lib/dracut/modules.d/70dmsquash-live-ntfs
+%dir /usr/lib/dracut/modules.d/70fs-lib
+%dir /usr/lib/dracut/modules.d/70img-lib
+%dir /usr/lib/dracut/modules.d/70kernel-modules
+%dir /usr/lib/dracut/modules.d/70kernel-modules-export
+%dir /usr/lib/dracut/modules.d/70kernel-modules-extra
+%dir /usr/lib/dracut/modules.d/70kernel-network-modules
+%dir /usr/lib/dracut/modules.d/70livenet
+%dir /usr/lib/dracut/modules.d/70lvm
+%dir /usr/lib/dracut/modules.d/70mdraid
+%dir /usr/lib/dracut/modules.d/70memdisk
+%dir /usr/lib/dracut/modules.d/70multipath
+%dir /usr/lib/dracut/modules.d/70numlock
+%dir /usr/lib/dracut/modules.d/70nvdimm
+%dir /usr/lib/dracut/modules.d/70overlayfs
+%dir /usr/lib/dracut/modules.d/70pcmcia
+%dir /usr/lib/dracut/modules.d/70ppcmac
+%dir /usr/lib/dracut/modules.d/70qcom-adsp
+%dir /usr/lib/dracut/modules.d/70qemu
+%dir /usr/lib/dracut/modules.d/70qemu-net
+%dir /usr/lib/dracut/modules.d/70uefi-lib
+%dir /usr/lib/dracut/modules.d/71overlayfs-crypt
+%dir /usr/lib/dracut/modules.d/71systemd-cryptsetup
+%dir /usr/lib/dracut/modules.d/73crypt-gpg
+%dir /usr/lib/dracut/modules.d/73crypt-loop
+%dir /usr/lib/dracut/modules.d/73fido2
+%dir /usr/lib/dracut/modules.d/73pcsc
+%dir /usr/lib/dracut/modules.d/73pkcs11
+%dir /usr/lib/dracut/modules.d/73tpm2-tss
+%dir /usr/lib/dracut/modules.d/74chrony
+%dir /usr/lib/dracut/modules.d/74cifs
+%dir /usr/lib/dracut/modules.d/74debug
+%dir /usr/lib/dracut/modules.d/74fcoe
+%dir /usr/lib/dracut/modules.d/74fcoe-uefi
+%dir /usr/lib/dracut/modules.d/74fstab-sys
+%dir /usr/lib/dracut/modules.d/74hwdb
+%dir /usr/lib/dracut/modules.d/74iscsi
+%dir /usr/lib/dracut/modules.d/74lunmask
+%dir /usr/lib/dracut/modules.d/74nbd
+%dir /usr/lib/dracut/modules.d/74nfs
+%dir /usr/lib/dracut/modules.d/74nvmf
+%dir /usr/lib/dracut/modules.d/74resume
+%dir /usr/lib/dracut/modules.d/74rootfs-block
+%dir /usr/lib/dracut/modules.d/74rootfs-block-fallback
+%dir /usr/lib/dracut/modules.d/74squash-erofs
+%dir /usr/lib/dracut/modules.d/74squash-squashfs
+%dir /usr/lib/dracut/modules.d/74ssh-client
+%dir /usr/lib/dracut/modules.d/74terminfo
+%dir /usr/lib/dracut/modules.d/74udev-rules
+%dir /usr/lib/dracut/modules.d/74virtfs
+%dir /usr/lib/dracut/modules.d/74virtiofs
+%dir /usr/lib/dracut/modules.d/75securityfs
+%dir /usr/lib/dracut/modules.d/76biosdevname
+%dir /usr/lib/dracut/modules.d/76masterkey
+%dir /usr/lib/dracut/modules.d/76systemd-emergency
+%dir /usr/lib/dracut/modules.d/77dracut-systemd
+%dir /usr/lib/dracut/modules.d/77ecryptfs
+%dir /usr/lib/dracut/modules.d/77initqueue
+%dir /usr/lib/dracut/modules.d/77integrity
+%dir /usr/lib/dracut/modules.d/77pollcdrom
+%dir /usr/lib/dracut/modules.d/77selinux
+%dir /usr/lib/dracut/modules.d/77syslog
+%dir /usr/lib/dracut/modules.d/77usrmount
+%dir /usr/lib/dracut/modules.d/78systemd-sysusers
+%dir /usr/lib/dracut/modules.d/80base
+%dir /usr/lib/dracut/modules.d/81busybox
+%dir /usr/lib/dracut/modules.d/84memstrack
+%dir /usr/lib/dracut/modules.d/85shell-interpreter
+%dir /usr/lib/dracut/modules.d/86shutdown
+%dir /usr/lib/dracut/modules.d/87squash
+%dir /usr/lib/dracut/modules.d/88squash-lib
+%dir /usr/lib/kernel
+%dir /usr/lib/kernel/install.d
+%dir /usr/lib/systemd
+%dir /usr/lib/systemd/system
+%dir /usr/lib/systemd/system/initrd.target.wants
+%dir /usr/lib/systemd/system/sysinit.target.wants
+%dir /usr/share
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/man/man5
+%dir /usr/share/man/man7
+%dir /usr/share/man/man8
+%dir /usr/share/pkgconfig
+%config(noreplace) /etc/dracut.conf
+/usr/bin/dracut
+/usr/bin/dracut-catimages
+/usr/bin/lsinitrd
+/usr/lib/dracut/dracut-functions
+/usr/lib/dracut/dracut-functions.sh
+/usr/lib/dracut/dracut-initramfs-restore
+/usr/lib/dracut/dracut-install
+/usr/lib/dracut/dracut-logger.sh
+/usr/lib/dracut/dracut-util
+/usr/lib/dracut/dracut.conf.d/fips/10-fips.conf
+/usr/lib/dracut/dracut.conf.d/generic/11-generic.conf
+/usr/lib/dracut/dracut.conf.d/hostonly/10-hostonly.conf
+/usr/lib/dracut/dracut.conf.d/ima/10-ima.conf
+/usr/lib/dracut/dracut.conf.d/no-network/10-no-network.conf
+/usr/lib/dracut/dracut.conf.d/rescue/10-rescue.conf
+/usr/lib/dracut/modules.d/10bash/module-setup.sh
+/usr/lib/dracut/modules.d/10dash/module-setup.sh
+/usr/lib/dracut/modules.d/10systemd-network-management/module-setup.sh
+/usr/lib/dracut/modules.d/10systemd/module-setup.sh
+/usr/lib/dracut/modules.d/10warpclock/module-setup.sh
+/usr/lib/dracut/modules.d/10warpclock/warpclock.sh
+/usr/lib/dracut/modules.d/11fips-crypto-policies/fips-crypto-policies.sh
+/usr/lib/dracut/modules.d/11fips-crypto-policies/module-setup.sh
+/usr/lib/dracut/modules.d/11fips/fips-boot.sh
+/usr/lib/dracut/modules.d/11fips/fips-load-crypto.sh
+/usr/lib/dracut/modules.d/11fips/fips-noboot.sh
+/usr/lib/dracut/modules.d/11fips/fips.sh
+/usr/lib/dracut/modules.d/11fips/module-setup.sh
+/usr/lib/dracut/modules.d/11fips/openssl.cnf
+/usr/lib/dracut/modules.d/11systemd-ac-power/99-initrd-power-targets.rules
+/usr/lib/dracut/modules.d/11systemd-ac-power/initrd-on-ac-power.target
+/usr/lib/dracut/modules.d/11systemd-ac-power/initrd-on-battery-power.target
+/usr/lib/dracut/modules.d/11systemd-ac-power/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-ask-password/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-battery-check/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-bsod/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-coredump/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-creds/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-hostnamed/99-systemd-networkd-dracut.conf
+/usr/lib/dracut/modules.d/11systemd-hostnamed/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-hostnamed/org.freedesktop.hostname1_dracut.conf
+/usr/lib/dracut/modules.d/11systemd-hostnamed/systemd-hostname-dracut.conf
+/usr/lib/dracut/modules.d/11systemd-initrd/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-integritysetup/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-journald/initrd.conf
+/usr/lib/dracut/modules.d/11systemd-journald/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-ldconfig/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-modules-load/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-networkd/99-wait-online-dracut.conf
+/usr/lib/dracut/modules.d/11systemd-networkd/dracut-default.network
+/usr/lib/dracut/modules.d/11systemd-networkd/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-networkd/networkd-config.sh
+/usr/lib/dracut/modules.d/11systemd-networkd/networkd-run.sh
+/usr/lib/dracut/modules.d/11systemd-pcrextend/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-portabled/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-pstore/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-repart/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-resolved/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-resolved/resolved-tmpfile-dracut.conf
+/usr/lib/dracut/modules.d/11systemd-sysctl/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-sysext/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-sysusers-service/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-sysusers-service/sysusers-dracut.conf
+/usr/lib/dracut/modules.d/11systemd-timedated/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-timesyncd/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-timesyncd/timesyncd-tmpfile-dracut.conf
+/usr/lib/dracut/modules.d/11systemd-tmpfiles/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-udevd/module-setup.sh
+/usr/lib/dracut/modules.d/11systemd-veritysetup/module-setup.sh
+/usr/lib/dracut/modules.d/12caps/README
+/usr/lib/dracut/modules.d/12caps/caps.sh
+/usr/lib/dracut/modules.d/12caps/module-setup.sh
+/usr/lib/dracut/modules.d/13modsign/load-modsign-keys.sh
+/usr/lib/dracut/modules.d/13modsign/module-setup.sh
+/usr/lib/dracut/modules.d/13rescue/module-setup.sh
+/usr/lib/dracut/modules.d/14watchdog-modules/module-setup.sh
+/usr/lib/dracut/modules.d/14watchdog/module-setup.sh
+/usr/lib/dracut/modules.d/14watchdog/watchdog-stop.sh
+/usr/lib/dracut/modules.d/14watchdog/watchdog.sh
+/usr/lib/dracut/modules.d/16dbus-broker/module-setup.sh
+/usr/lib/dracut/modules.d/16dbus-daemon/module-setup.sh
+/usr/lib/dracut/modules.d/16rngd/module-setup.sh
+/usr/lib/dracut/modules.d/16rngd/sysconfig
+/usr/lib/dracut/modules.d/19dbus/module-setup.sh
+/usr/lib/dracut/modules.d/20i18n/10-console.rules
+/usr/lib/dracut/modules.d/20i18n/README
+/usr/lib/dracut/modules.d/20i18n/console_init.sh
+/usr/lib/dracut/modules.d/20i18n/module-setup.sh
+/usr/lib/dracut/modules.d/20i18n/parse-i18n.sh
+/usr/lib/dracut/modules.d/30convertfs/convertfs.sh
+/usr/lib/dracut/modules.d/30convertfs/do-convertfs.sh
+/usr/lib/dracut/modules.d/30convertfs/module-setup.sh
+/usr/lib/dracut/modules.d/35connman/cm-config.sh
+/usr/lib/dracut/modules.d/35connman/cm-initrd.service
+/usr/lib/dracut/modules.d/35connman/cm-lib.sh
+/usr/lib/dracut/modules.d/35connman/cm-run.sh
+/usr/lib/dracut/modules.d/35connman/cm-wait-online-initrd.service
+/usr/lib/dracut/modules.d/35connman/module-setup.sh
+/usr/lib/dracut/modules.d/35network-manager/NetworkManager-config-initrd-dracut.conf
+/usr/lib/dracut/modules.d/35network-manager/NetworkManager-wait-online-initrd-dracut.conf
+/usr/lib/dracut/modules.d/35network-manager/initrd-no-auto-default.conf
+/usr/lib/dracut/modules.d/35network-manager/module-setup.sh
+/usr/lib/dracut/modules.d/35network-manager/nm-config.sh
+/usr/lib/dracut/modules.d/35network-manager/nm-initrd.service
+/usr/lib/dracut/modules.d/35network-manager/nm-lib.sh
+/usr/lib/dracut/modules.d/35network-manager/nm-run.sh
+/usr/lib/dracut/modules.d/35network-manager/nm-wait-online-initrd.service
+/usr/lib/dracut/modules.d/40network/module-setup.sh
+/usr/lib/dracut/modules.d/45drm/module-setup.sh
+/usr/lib/dracut/modules.d/45net-lib/dhcp-root.sh
+/usr/lib/dracut/modules.d/45net-lib/ifname-genrules.sh
+/usr/lib/dracut/modules.d/45net-lib/module-setup.sh
+/usr/lib/dracut/modules.d/45net-lib/net-lib.sh
+/usr/lib/dracut/modules.d/45net-lib/netroot.sh
+/usr/lib/dracut/modules.d/45plymouth/module-setup.sh
+/usr/lib/dracut/modules.d/45plymouth/plymouth-emergency.sh
+/usr/lib/dracut/modules.d/45plymouth/plymouth-newroot.sh
+/usr/lib/dracut/modules.d/45plymouth/plymouth-pretrigger.sh
+/usr/lib/dracut/modules.d/45simpledrm/module-setup.sh
+/usr/lib/dracut/modules.d/45systemd-import/dracut-remount-sysroot.service
+/usr/lib/dracut/modules.d/45systemd-import/module-setup.sh
+/usr/lib/dracut/modules.d/45systemd-import/parse-systemd-import.sh
+/usr/lib/dracut/modules.d/45url-lib/module-setup.sh
+/usr/lib/dracut/modules.d/45url-lib/url-lib.sh
+/usr/lib/dracut/modules.d/68lvmmerge/README.md
+/usr/lib/dracut/modules.d/68lvmmerge/lvmmerge.sh
+/usr/lib/dracut/modules.d/68lvmmerge/module-setup.sh
+/usr/lib/dracut/modules.d/68lvmthinpool-monitor/module-setup.sh
+/usr/lib/dracut/modules.d/68lvmthinpool-monitor/start-thinpool-monitor.service
+/usr/lib/dracut/modules.d/68lvmthinpool-monitor/start-thinpool-monitor.sh
+/usr/lib/dracut/modules.d/70bluetooth/module-setup.sh
+/usr/lib/dracut/modules.d/70btrfs/80-btrfs.rules
+/usr/lib/dracut/modules.d/70btrfs/btrfs_device_ready.sh
+/usr/lib/dracut/modules.d/70btrfs/btrfs_finished.sh
+/usr/lib/dracut/modules.d/70btrfs/btrfs_timeout.sh
+/usr/lib/dracut/modules.d/70btrfs/module-setup.sh
+/usr/lib/dracut/modules.d/70crypt-lib/crypt-lib.sh
+/usr/lib/dracut/modules.d/70crypt-lib/module-setup.sh
+/usr/lib/dracut/modules.d/70crypt/crypt-cleanup.sh
+/usr/lib/dracut/modules.d/70crypt/crypt-generator.sh
+/usr/lib/dracut/modules.d/70crypt/crypt-run-generator.sh
+/usr/lib/dracut/modules.d/70crypt/cryptroot-ask.sh
+/usr/lib/dracut/modules.d/70crypt/module-setup.sh
+/usr/lib/dracut/modules.d/70crypt/parse-crypt.sh
+/usr/lib/dracut/modules.d/70crypt/parse-keydev.sh
+/usr/lib/dracut/modules.d/70crypt/probe-keydev.sh
+/usr/lib/dracut/modules.d/70devicetree-firmware/module-setup.sh
+/usr/lib/dracut/modules.d/70dm/11-dm.rules
+/usr/lib/dracut/modules.d/70dm/dm-pre-udev.sh
+/usr/lib/dracut/modules.d/70dm/dm-shutdown.sh
+/usr/lib/dracut/modules.d/70dm/module-setup.sh
+/usr/lib/dracut/modules.d/70dmraid/61-dmraid-imsm.rules
+/usr/lib/dracut/modules.d/70dmraid/dmraid.sh
+/usr/lib/dracut/modules.d/70dmraid/module-setup.sh
+/usr/lib/dracut/modules.d/70dmraid/parse-dm.sh
+/usr/lib/dracut/modules.d/70dmsquash-live-autooverlay/create-overlay-genrules.sh
+/usr/lib/dracut/modules.d/70dmsquash-live-autooverlay/create-overlay.sh
+/usr/lib/dracut/modules.d/70dmsquash-live-autooverlay/module-setup.sh
+/usr/lib/dracut/modules.d/70dmsquash-live-ntfs/module-setup.sh
+/usr/lib/dracut/modules.d/70dmsquash-live-ntfs/mount-ntfs-3g.sh
+/usr/lib/dracut/modules.d/70dmsquash-live/apply-live-updates.sh
+/usr/lib/dracut/modules.d/70dmsquash-live/checkisomd5@.service
+/usr/lib/dracut/modules.d/70dmsquash-live/dmsquash-generator.sh
+/usr/lib/dracut/modules.d/70dmsquash-live/dmsquash-live-genrules.sh
+/usr/lib/dracut/modules.d/70dmsquash-live/dmsquash-live-root.sh
+/usr/lib/dracut/modules.d/70dmsquash-live/dmsquash-liveiso-genrules.sh
+/usr/lib/dracut/modules.d/70dmsquash-live/iso-scan.sh
+/usr/lib/dracut/modules.d/70dmsquash-live/module-setup.sh
+/usr/lib/dracut/modules.d/70dmsquash-live/parse-dmsquash-live.sh
+/usr/lib/dracut/modules.d/70dmsquash-live/parse-iso-scan.sh
+/usr/lib/dracut/modules.d/70fs-lib/fs-lib.sh
+/usr/lib/dracut/modules.d/70fs-lib/module-setup.sh
+/usr/lib/dracut/modules.d/70img-lib/img-lib.sh
+/usr/lib/dracut/modules.d/70img-lib/module-setup.sh
+/usr/lib/dracut/modules.d/70kernel-modules-export/module-setup.sh
+/usr/lib/dracut/modules.d/70kernel-modules-export/modules-export.sh
+/usr/lib/dracut/modules.d/70kernel-modules-extra/module-setup.sh
+/usr/lib/dracut/modules.d/70kernel-modules/module-setup.sh
+/usr/lib/dracut/modules.d/70kernel-network-modules/module-setup.sh
+/usr/lib/dracut/modules.d/70livenet/fetch-liveupdate.sh
+/usr/lib/dracut/modules.d/70livenet/livenet-generator.sh
+/usr/lib/dracut/modules.d/70livenet/livenetroot.sh
+/usr/lib/dracut/modules.d/70livenet/module-setup.sh
+/usr/lib/dracut/modules.d/70livenet/parse-livenet.sh
+/usr/lib/dracut/modules.d/70lvm/64-lvm.rules
+/usr/lib/dracut/modules.d/70lvm/lvm_scan.sh
+/usr/lib/dracut/modules.d/70lvm/module-setup.sh
+/usr/lib/dracut/modules.d/70lvm/parse-lvm.sh
+/usr/lib/dracut/modules.d/70mdraid/59-persistent-storage-md.rules
+/usr/lib/dracut/modules.d/70mdraid/65-md-incremental-imsm.rules
+/usr/lib/dracut/modules.d/70mdraid/md-shutdown.sh
+/usr/lib/dracut/modules.d/70mdraid/mdmon-pre-shutdown.sh
+/usr/lib/dracut/modules.d/70mdraid/mdmon-pre-udev.sh
+/usr/lib/dracut/modules.d/70mdraid/mdraid-cleanup.sh
+/usr/lib/dracut/modules.d/70mdraid/mdraid-needshutdown.sh
+/usr/lib/dracut/modules.d/70mdraid/mdraid-waitclean.sh
+/usr/lib/dracut/modules.d/70mdraid/mdraid_start.sh
+/usr/lib/dracut/modules.d/70mdraid/module-setup.sh
+/usr/lib/dracut/modules.d/70mdraid/parse-md.sh
+/usr/lib/dracut/modules.d/70memdisk/memdisk.sh
+/usr/lib/dracut/modules.d/70memdisk/module-setup.sh
+/usr/lib/dracut/modules.d/70multipath/module-setup.sh
+/usr/lib/dracut/modules.d/70multipath/multipath-shutdown.sh
+/usr/lib/dracut/modules.d/70multipath/multipathd-configure.service
+/usr/lib/dracut/modules.d/70multipath/multipathd-dracut.conf
+/usr/lib/dracut/modules.d/70multipath/multipathd-needshutdown.sh
+/usr/lib/dracut/modules.d/70multipath/multipathd-stop.sh
+/usr/lib/dracut/modules.d/70multipath/multipathd.sh
+/usr/lib/dracut/modules.d/70numlock/module-setup.sh
+/usr/lib/dracut/modules.d/70numlock/numlock.sh
+/usr/lib/dracut/modules.d/70nvdimm/module-setup.sh
+/usr/lib/dracut/modules.d/70overlayfs/module-setup.sh
+/usr/lib/dracut/modules.d/70overlayfs/mount-overlayfs.sh
+/usr/lib/dracut/modules.d/70overlayfs/overlayfs-lib.sh
+/usr/lib/dracut/modules.d/70overlayfs/prepare-overlayfs.sh
+/usr/lib/dracut/modules.d/70pcmcia/module-setup.sh
+/usr/lib/dracut/modules.d/70ppcmac/load-thermal.sh
+/usr/lib/dracut/modules.d/70ppcmac/module-setup.sh
+/usr/lib/dracut/modules.d/70qcom-adsp/module-setup.sh
+/usr/lib/dracut/modules.d/70qcom-adsp/qcom-adsp-pre-udev.sh
+/usr/lib/dracut/modules.d/70qemu-net/module-setup.sh
+/usr/lib/dracut/modules.d/70qemu/module-setup.sh
+/usr/lib/dracut/modules.d/70uefi-lib/module-setup.sh
+/usr/lib/dracut/modules.d/70uefi-lib/uefi-lib.sh
+/usr/lib/dracut/modules.d/71overlayfs-crypt/module-setup.sh
+/usr/lib/dracut/modules.d/71overlayfs-crypt/overlayfs-crypt-lib.sh
+/usr/lib/dracut/modules.d/71overlayfs-crypt/prepare-overlayfs-crypt.sh
+/usr/lib/dracut/modules.d/71systemd-cryptsetup/module-setup.sh
+/usr/lib/dracut/modules.d/73crypt-gpg/README
+/usr/lib/dracut/modules.d/73crypt-gpg/crypt-gpg-lib.sh
+/usr/lib/dracut/modules.d/73crypt-gpg/module-setup.sh
+/usr/lib/dracut/modules.d/73crypt-loop/crypt-loop-lib.sh
+/usr/lib/dracut/modules.d/73crypt-loop/module-setup.sh
+/usr/lib/dracut/modules.d/73fido2/module-setup.sh
+/usr/lib/dracut/modules.d/73pcsc/module-setup.sh
+/usr/lib/dracut/modules.d/73pcsc/pcscd.service
+/usr/lib/dracut/modules.d/73pcsc/pcscd.socket
+/usr/lib/dracut/modules.d/73pkcs11/module-setup.sh
+/usr/lib/dracut/modules.d/73tpm2-tss/module-setup.sh
+/usr/lib/dracut/modules.d/74chrony/chrony-ntp-source.sh
+/usr/lib/dracut/modules.d/74chrony/chrony-wait.service
+/usr/lib/dracut/modules.d/74chrony/chrony.conf
+/usr/lib/dracut/modules.d/74chrony/chronyd.service
+/usr/lib/dracut/modules.d/74chrony/module-setup.sh
+/usr/lib/dracut/modules.d/74chrony/parse-ntp.sh
+/usr/lib/dracut/modules.d/74cifs/cifs-lib.sh
+/usr/lib/dracut/modules.d/74cifs/cifsroot.sh
+/usr/lib/dracut/modules.d/74cifs/module-setup.sh
+/usr/lib/dracut/modules.d/74cifs/parse-cifsroot.sh
+/usr/lib/dracut/modules.d/74debug/module-setup.sh
+/usr/lib/dracut/modules.d/74fcoe-uefi/module-setup.sh
+/usr/lib/dracut/modules.d/74fcoe-uefi/parse-uefifcoe.sh
+/usr/lib/dracut/modules.d/74fcoe/cleanup-fcoe.sh
+/usr/lib/dracut/modules.d/74fcoe/fcoe-edd.sh
+/usr/lib/dracut/modules.d/74fcoe/fcoe-up.sh
+/usr/lib/dracut/modules.d/74fcoe/lldpad.sh
+/usr/lib/dracut/modules.d/74fcoe/module-setup.sh
+/usr/lib/dracut/modules.d/74fcoe/parse-fcoe.sh
+/usr/lib/dracut/modules.d/74fcoe/stop-fcoe.sh
+/usr/lib/dracut/modules.d/74fstab-sys/module-setup.sh
+/usr/lib/dracut/modules.d/74fstab-sys/mount-sys.sh
+/usr/lib/dracut/modules.d/74hwdb/module-setup.sh
+/usr/lib/dracut/modules.d/74iscsi/cleanup-iscsi.sh
+/usr/lib/dracut/modules.d/74iscsi/iscsiroot.sh
+/usr/lib/dracut/modules.d/74iscsi/module-setup.sh
+/usr/lib/dracut/modules.d/74iscsi/mount-lun.sh
+/usr/lib/dracut/modules.d/74iscsi/parse-iscsiroot.sh
+/usr/lib/dracut/modules.d/74lunmask/fc_transport_scan_lun.sh
+/usr/lib/dracut/modules.d/74lunmask/module-setup.sh
+/usr/lib/dracut/modules.d/74lunmask/parse-lunmask.sh
+/usr/lib/dracut/modules.d/74lunmask/sas_transport_scan_lun.sh
+/usr/lib/dracut/modules.d/74nbd/module-setup.sh
+/usr/lib/dracut/modules.d/74nbd/nbd-generator.sh
+/usr/lib/dracut/modules.d/74nbd/nbdroot.sh
+/usr/lib/dracut/modules.d/74nbd/parse-nbdroot.sh
+/usr/lib/dracut/modules.d/74nfs/module-setup.sh
+/usr/lib/dracut/modules.d/74nfs/nfs-lib.sh
+/usr/lib/dracut/modules.d/74nfs/nfs-start-rpc.sh
+/usr/lib/dracut/modules.d/74nfs/nfsroot-cleanup.sh
+/usr/lib/dracut/modules.d/74nfs/nfsroot.sh
+/usr/lib/dracut/modules.d/74nfs/parse-nfsroot.sh
+/usr/lib/dracut/modules.d/74nvmf/95-nvmf-initqueue.rules
+/usr/lib/dracut/modules.d/74nvmf/module-setup.sh
+/usr/lib/dracut/modules.d/74nvmf/nbftroot.sh
+/usr/lib/dracut/modules.d/74nvmf/nvmf-autoconnect.sh
+/usr/lib/dracut/modules.d/74nvmf/parse-nvmf-boot-connections.sh
+/usr/lib/dracut/modules.d/74resume/module-setup.sh
+/usr/lib/dracut/modules.d/74resume/parse-resume.sh
+/usr/lib/dracut/modules.d/74resume/resume.sh
+/usr/lib/dracut/modules.d/74rootfs-block-fallback/module-setup.sh
+/usr/lib/dracut/modules.d/74rootfs-block-fallback/rootfallback.sh
+/usr/lib/dracut/modules.d/74rootfs-block/59-persistent-storage.rules
+/usr/lib/dracut/modules.d/74rootfs-block/61-persistent-storage.rules
+/usr/lib/dracut/modules.d/74rootfs-block/block-genrules.sh
+/usr/lib/dracut/modules.d/74rootfs-block/module-setup.sh
+/usr/lib/dracut/modules.d/74rootfs-block/mount-root.sh
+/usr/lib/dracut/modules.d/74rootfs-block/parse-block.sh
+/usr/lib/dracut/modules.d/74squash-erofs/module-setup.sh
+/usr/lib/dracut/modules.d/74squash-squashfs/module-setup.sh
+/usr/lib/dracut/modules.d/74ssh-client/module-setup.sh
+/usr/lib/dracut/modules.d/74terminfo/module-setup.sh
+/usr/lib/dracut/modules.d/74udev-rules/module-setup.sh
+/usr/lib/dracut/modules.d/74virtfs/module-setup.sh
+/usr/lib/dracut/modules.d/74virtfs/mount-virtfs.sh
+/usr/lib/dracut/modules.d/74virtfs/parse-virtfs.sh
+/usr/lib/dracut/modules.d/74virtiofs/module-setup.sh
+/usr/lib/dracut/modules.d/74virtiofs/mount-virtiofs.sh
+/usr/lib/dracut/modules.d/74virtiofs/parse-virtiofs.sh
+/usr/lib/dracut/modules.d/75securityfs/module-setup.sh
+/usr/lib/dracut/modules.d/75securityfs/securityfs.sh
+/usr/lib/dracut/modules.d/76biosdevname/module-setup.sh
+/usr/lib/dracut/modules.d/76biosdevname/parse-biosdevname.sh
+/usr/lib/dracut/modules.d/76masterkey/README
+/usr/lib/dracut/modules.d/76masterkey/masterkey.sh
+/usr/lib/dracut/modules.d/76masterkey/module-setup.sh
+/usr/lib/dracut/modules.d/76systemd-emergency/module-setup.sh
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-cmdline-ask.service
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-cmdline-ask.sh
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-cmdline.service
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-cmdline.service.8.adoc
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-cmdline.sh
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-emergency.service
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-emergency.sh
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-mount.service
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-mount.service.8.adoc
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-mount.sh
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-mount.service
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-mount.service.8.adoc
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-mount.sh
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-pivot.service
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-pivot.service.8.adoc
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-pivot.sh
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-trigger.service
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-trigger.service.8.adoc
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-trigger.sh
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-udev.service
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-udev.service.8.adoc
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-pre-udev.sh
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-shutdown-onfailure.service
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-shutdown.service
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-shutdown.service.8.adoc
+/usr/lib/dracut/modules.d/77dracut-systemd/dracut-tmpfiles.conf
+/usr/lib/dracut/modules.d/77dracut-systemd/emergency.service
+/usr/lib/dracut/modules.d/77dracut-systemd/module-setup.sh
+/usr/lib/dracut/modules.d/77dracut-systemd/parse-root.sh
+/usr/lib/dracut/modules.d/77dracut-systemd/rootfs-generator.sh
+/usr/lib/dracut/modules.d/77ecryptfs/README
+/usr/lib/dracut/modules.d/77ecryptfs/ecryptfs-mount.sh
+/usr/lib/dracut/modules.d/77ecryptfs/module-setup.sh
+/usr/lib/dracut/modules.d/77initqueue/dracut-initqueue.service
+/usr/lib/dracut/modules.d/77initqueue/dracut-initqueue.service.8.adoc
+/usr/lib/dracut/modules.d/77initqueue/dracut-initqueue.sh
+/usr/lib/dracut/modules.d/77initqueue/initqueue.sh
+/usr/lib/dracut/modules.d/77initqueue/module-setup.sh
+/usr/lib/dracut/modules.d/77integrity/README
+/usr/lib/dracut/modules.d/77integrity/evm-enable.sh
+/usr/lib/dracut/modules.d/77integrity/ima-keys-load.sh
+/usr/lib/dracut/modules.d/77integrity/ima-policy-load.sh
+/usr/lib/dracut/modules.d/77integrity/module-setup.sh
+/usr/lib/dracut/modules.d/77pollcdrom/module-setup.sh
+/usr/lib/dracut/modules.d/77pollcdrom/pollcdrom.sh
+/usr/lib/dracut/modules.d/77selinux/module-setup.sh
+/usr/lib/dracut/modules.d/77selinux/selinux-loadpolicy.sh
+/usr/lib/dracut/modules.d/77syslog/README
+/usr/lib/dracut/modules.d/77syslog/module-setup.sh
+/usr/lib/dracut/modules.d/77syslog/parse-syslog-opts.sh
+/usr/lib/dracut/modules.d/77syslog/rsyslog.conf
+/usr/lib/dracut/modules.d/77syslog/rsyslogd-start.sh
+/usr/lib/dracut/modules.d/77syslog/rsyslogd-stop.sh
+/usr/lib/dracut/modules.d/77syslog/syslog-cleanup.sh
+/usr/lib/dracut/modules.d/77usrmount/module-setup.sh
+/usr/lib/dracut/modules.d/77usrmount/mount-usr.sh
+/usr/lib/dracut/modules.d/78systemd-sysusers/module-setup.sh
+/usr/lib/dracut/modules.d/80base/dracut-dev-lib.sh
+/usr/lib/dracut/modules.d/80base/dracut-lib.sh
+/usr/lib/dracut/modules.d/80base/init.sh
+/usr/lib/dracut/modules.d/80base/insmodpost.sh
+/usr/lib/dracut/modules.d/80base/loginit.sh
+/usr/lib/dracut/modules.d/80base/module-setup.sh
+/usr/lib/dracut/modules.d/80base/parse-kernel.sh
+/usr/lib/dracut/modules.d/80base/parse-root-opts.sh
+/usr/lib/dracut/modules.d/80base/rdsosreport.sh
+/usr/lib/dracut/modules.d/81busybox/module-setup.sh
+/usr/lib/dracut/modules.d/84memstrack/memstrack-report.sh
+/usr/lib/dracut/modules.d/84memstrack/memstrack-start.sh
+/usr/lib/dracut/modules.d/84memstrack/memstrack.service
+/usr/lib/dracut/modules.d/84memstrack/module-setup.sh
+/usr/lib/dracut/modules.d/85shell-interpreter/module-setup.sh
+/usr/lib/dracut/modules.d/86shutdown/module-setup.sh
+/usr/lib/dracut/modules.d/86shutdown/shutdown.sh
+/usr/lib/dracut/modules.d/87squash/module-setup.sh
+/usr/lib/dracut/modules.d/88squash-lib/init-squash.sh
+/usr/lib/dracut/modules.d/88squash-lib/module-setup.sh
+/usr/lib/dracut/skipcpio
+/usr/lib/kernel/install.d/50-dracut.install
+/usr/lib/kernel/install.d/51-dracut-rescue.install
+/usr/lib/systemd/system/dracut-cmdline.service
+/usr/lib/systemd/system/dracut-initqueue.service
+/usr/lib/systemd/system/dracut-mount.service
+/usr/lib/systemd/system/dracut-pre-mount.service
+/usr/lib/systemd/system/dracut-pre-pivot.service
+/usr/lib/systemd/system/dracut-pre-trigger.service
+/usr/lib/systemd/system/dracut-pre-udev.service
+/usr/lib/systemd/system/dracut-shutdown-onfailure.service
+/usr/lib/systemd/system/dracut-shutdown.service
+/usr/lib/systemd/system/initrd.target.wants/dracut-cmdline.service
+/usr/lib/systemd/system/initrd.target.wants/dracut-initqueue.service
+/usr/lib/systemd/system/initrd.target.wants/dracut-mount.service
+/usr/lib/systemd/system/initrd.target.wants/dracut-pre-mount.service
+/usr/lib/systemd/system/initrd.target.wants/dracut-pre-pivot.service
+/usr/lib/systemd/system/initrd.target.wants/dracut-pre-trigger.service
+/usr/lib/systemd/system/initrd.target.wants/dracut-pre-udev.service
+/usr/lib/systemd/system/sysinit.target.wants/dracut-shutdown.service
+/usr/share/bash-completion/completions/dracut
+/usr/share/bash-completion/completions/lsinitrd
+/usr/share/pkgconfig/dracut.pc

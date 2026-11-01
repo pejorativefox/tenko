@@ -111,6 +111,11 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   so the QEMU image boots without an initramfs.  Packages are
   `linux-kernel` and `linux-modules`; `linux-firmware` 20261019 (D10) is
   installed by the `xfce-desktop` meta-package.
+- **Initramfs (2026-11-01):** dracut-ng **112** and GNU cpio **2.15** are
+  packaged.  A dracut initramfs for 7.2.6 was generated and booted with the
+  root filesystem on QEMU NVMe (`root=/dev/nvme0n1p2`) to a serial login;
+  this proves the modular NVMe path works.  Kernel-install integration and
+  module signing remain.
 - `scripts/qemu_boot.sh` installs the kernel into the rootfs, materializes
   sysusers, builds a raw ext4 image, and boots it under QEMU/KVM.
 - Boot log: no `FAILED` units, `Reached target Multi-User System`, serial
@@ -119,9 +124,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `ttyS0`, `id` = `uid=0(root)`, `uname -a` = 7.2.6, then `poweroff -f`.
   The temporary password was restored; root is locked by default.
 - Bootloader: **E3** adds a UEFI GRUB disk image that boots without
-  `-kernel`.  The initramfs is still deferred to E4: the QEMU image uses
-  built-in virtio/ext4, while real NVMe/LUKS/LVM roots need one.  Still
-  missing: a real root password policy (E5).
+  `-kernel`.  The image still boots without an initramfs because the QEMU
+  root is virtio/ext4, but an initramfs is now built by dracut for real
+  NVMe/LUKS/LVM roots.  Still missing: a real root password policy (E5).
 - Re-booted `build/rootfs-selfhost` after C1/C3 (2026-10-31): **zero
   `FAILED` units**, `Reached target Multi-User System`, serial getty and
   networkd running, and systemd generated a machine-id on first boot
@@ -216,6 +221,8 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D8 | Legacy GTK | **GTK2 dropped** (archive-only); `libcanberra` rebuilt GTK3-only |
 | D9 | Kernel config | Sanitized Fedora 44 host config: debug info, SELinux/IMA, lockdown/signing, Rust/BTF, UBSAN and MAXSMP off; QEMU boot pieces built in |
 | D10 | Firmware | **linux-firmware 20261019** curated subset (401 MB installed) + wireless-regdb 2026.09.03; `xfce-desktop` requires it |
+| D11 | Initramfs | **dracut-ng 112** (package `dracut`) + **cpio 2.15**; generated and NVMe-boot-tested for 7.2.6 |
+| D12 | SELinux | **None**: kernel SELinux off (forced in the spec), no libselinux/policy; only XCB's xselinux protocol headers and kernel UAPI headers remain |
 
 Consequences already implemented:
 
@@ -499,9 +506,11 @@ qemu-system-x86_64 -enable-kvm -cpu host -m 3072 -smp 4 \
 standalone `grub-mkstandalone` `BOOTX64.EFI`, and sets
 `root=(hd0,gpt2)` / `root=/dev/vda2`.  The grub package is EFI-only (BLFS
 builds `--with-platform=efi`); BIOS boot would need the `i386-pc` modules.
-No initramfs is used because virtio-blk and ext4 are built into the
-kernel; NVMe, SCSI and USB-storage are modules, so a real hardware root
-needs the E4 initramfs.
+The QEMU image does not need an initramfs because virtio-blk and ext4 are
+built into the kernel.  For real hardware roots (NVMe, SCSI, USB-storage,
+LUKS/LVM) dracut now builds one; the NVMe test boot used
+`-initrd build/rootfs-desktop/boot/initramfs-7.2.6.img` with
+`root=/dev/nvme0n1p2`.
 
 ---
 
@@ -640,7 +649,8 @@ needs the E4 initramfs.
 - [x] C2. QEMU boot test: kernel 7.2.6 + ext4 rootfs boots to multi-user and
       a serial login prompt. `scripts/qemu_boot.sh` is the direct-kernel
       path; `scripts/make_efi_disk.sh` is the GRUB/UEFI path (E3).  The
-      initramfs is deferred to E4 because all storage drivers are built in.
+      QEMU root needs no initramfs because virtio/ext4 are built in; C10
+      supplies dracut for modular hardware roots.
 - [x] C3. systemd chapter-9 config: `browneye-sysconfig` now ships
       `/etc/locale.conf` (`LANG=C.UTF-8`), `/etc/vconsole.conf`
       (`KEYMAP=us`), an empty `/etc/machine-id` (systemd generates one on
@@ -745,13 +755,14 @@ needs the E4 initramfs.
       container: rebuild texinfo/tcl before their users, bootstrap pip, and
       install the new RPMs into a fresh rootfs/image.  The fresh image rebuilt
       all 93 packages offline in the second-generation run.
-- [ ] C10. Add an initramfs (dracut in the target or a custom cpio).
-      **Deferred to E4:** the 7.2.6 QEMU config builds `VIRTIO_BLK`,
-      `BLK_DEV_NVME`, `SATA_AHCI`, `SCSI`, `USB_STORAGE`, and `EXT4_FS`
-      in (`=y`), so the GRUB disk image boots without an initramfs (E3).
-      An initramfs is only needed once E4 switches to a general-purpose
-      modular config.  No dracut package is in the current BLFS book, so a
-      custom cpio is the intended route.
+- [x] C10. **Initramfs via dracut-ng 112 + cpio 2.15.**  dracut-ng is the
+      maintained successor to dracut; the old spec was 050 from 2019.
+      VTE-style subprojects are not involved here: dracut builds against
+      the container's libkmod 34.2 and libsystemd 261.  A `--no-hostonly`
+      initramfs for 7.2.6 was generated under `--sysroot` and booted with
+      the root on QEMU NVMe (`root=/dev/nvme0n1p2`), reaching multi-user
+      and a serial login.  The kernel-install hook is not wired into the
+      kernel RPM yet; see E4.
 
 
 ### D. Phase 2 (D3 done; D2 remains out of current scope)
@@ -838,12 +849,12 @@ These are the current caveats that do not yet have a checkbox elsewhere.
       multi-user and a serial login.  The grub spec is EFI-only (BLFS builds
       `--with-platform=efi`), so BIOS boot needs i386-pc modules that are not
       built; the image also needs no initramfs because virtio/ext4 are
-      built in.  C10 still covers an initramfs for hardware whose storage
-      drivers are modules.
-- [ ] E4. The general-purpose config and firmware are done (D9/D10); the
-      initramfs generator and module signing remain.  The config keeps
-      virtio-blk/ext4/9p/virtio-gpu built in for the initramfs-less QEMU
-      boot.
+      built in.  C10 supplies dracut for hardware whose storage drivers
+      are modules.
+- [ ] E4. The general config, firmware, and initramfs generator are done
+      (D9/D10/C10); **module signing** and **automatic initramfs creation
+      on kernel install** remain.  The config keeps virtio-blk/ext4/9p/
+      virtio-gpu built in for the initramfs-less QEMU boot.
 - [ ] E5. Add a first-boot root password/account policy. The login test used
       a temporary password and restored the locked shadow entry.
 
@@ -905,7 +916,7 @@ These are the current caveats that do not yet have a checkbox elsewhere.
   config (3,030 built-in / 4,691 modules after the QEMU overrides), not
   the old 6.4.12 minimal config.  Debug info, SELinux/IMA, lockdown and
   module signing, Rust/BTF, UBSAN and MAXSMP are off.  There is still no
-  initramfs and no module signing (E4).
+  an initramfs generator (dracut-ng 112) and no module signing (E4).
 - `linux-firmware` is a curated 20261019 snapshot (GPUs, wireless,
   Bluetooth, Realtek NICs, AMD microcode) plus wireless-regdb 2026.09.03,
   401 MB installed and xz-compressed.  It is not a book package; the user
@@ -915,6 +926,16 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 - The kernel modules are xz-compressed at install, so kmod must be built
   with xz support (ours reports `+XZ`).  `CONFIG_MODULE_COMPRESS_XZ` alone
   is not enough on 7.2: `CONFIG_MODULE_COMPRESS_ALL` must also be enabled.
+- **No SELinux:** `CONFIG_SECURITY_SELINUX` is off and the kernel spec now
+  disables it defensively; there is no libselinux package/RPM, no
+  `/etc/selinux`, and systemd/dbus/glib/coreutils/findutils/gettext/glibc/
+  iproute2 are built without it.  The only remaining names are XCB's
+  xselinux protocol headers/man pages (not SELinux runtime) and
+  `linux/selinux_netlink.h` from linux-api-headers.
+- dracut-ng 112 requires `cpio`; both are built and in the repo.  The
+  package installs `/usr/lib/dracut`, systemd units, and
+  `/etc/dracut.conf`.  The initramfs is currently generated explicitly;
+  automatic generation is the next E4 step.
 - The Fedora config leaves `CONFIG_DRM_PANIC_SCREEN="qr_code"` without the
   QR-code option, so boot logs one cosmetic fallback warning; set it to
   `user` or disable `CONFIG_DRM_PANIC` on the next rebuild.
@@ -991,10 +1012,11 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 
 ## 8. Suggested next actions
 
-1. **C10 + E4 — initramfs and module signing.**  The general config and
-   firmware are in place; generate a custom-cpio initramfs for NVMe/LUKS/LVM
-   roots and decide the module-signing/Secure Boot story.  Then boot the
-   UEFI disk image with the initramfs.
+1. **E4 — wire the initramfs into the kernel and decide signing.**  The
+   generator and NVMe boot path work; add a kernel/install hook (or
+   first-boot service) that runs dracut automatically, and settle the
+   module-signing/Secure Boot story.  Add `cryptsetup`/`lvm2`/`mdadm` if
+   LUKS/LVM/RAID roots are to be supported.
 2. **E1 — self-hosted repo/rootfs assembly.** Build `dnf`/`libdnf` and
    `createrepo_c` (plus dependencies) inside the container so assembly no
    longer needs host tools.
