@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    2
+Release:    3
 Summary:    Browneye XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -19,6 +19,7 @@ Requires:   thunar
 Requires:   thunar-volman
 Requires:   tumbler
 Requires:   xfce4-appfinder
+Requires:   xfce4-terminal
 Requires:   xfdesktop
 Requires:   xfce4-power-manager
 Requires:   dbus-daemon
@@ -58,6 +59,9 @@ touch %{buildroot}/usr/share/browneye/xfce-desktop
 /usr/share/browneye/xfce-desktop
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20-3
+- Require xfce4-terminal so the desktop install includes a terminal
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20-2
 - Require linux-firmware for the desktop/hardware install
 

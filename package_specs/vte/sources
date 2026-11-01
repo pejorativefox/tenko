@@ -1,1 +1,4 @@
-1954cae9b70ce35bdf1f383b4ddc7d32 https://gitlab.gnome.org/GNOME/vte/-/archive/0.72.2/vte-0.72.2.tar.gz
+9733f0218f72051999e42725fe5fbaa8 https://gitlab.gnome.org/GNOME/vte/-/archive/0.84.1/vte-0.84.1.tar.gz vte-0.84.1.tar.gz
+387569faf045f254304acd5d6f60e1d3 https://codeload.github.com/simdutf/simdutf/tar.gz/refs/tags/v8.2.0 simdutf-8.2.0.tar.gz
+92eb6f492e4838e5f024ce5207beafc7 https://codeload.github.com/fmtlib/fmt/tar.gz/refs/tags/12.1.0 fmt-12.1.0.tar.gz
+0df58800f5ca3abf43ef5d7af4889d3d https://codeload.github.com/fastfloat/fast_float/tar.gz/refs/tags/v8.1.0 fast_float-8.1.0.tar.gz
