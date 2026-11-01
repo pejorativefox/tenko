@@ -21,6 +21,11 @@ SHOT=${SHOT:-$PWD/build/xfce-screenshot.png}
 WAIT=${WAIT:-90}
 SKIP_INSTALL=${SKIP_INSTALL:-0}
 USE_INITRD=${USE_INITRD:-1}
+IMGSIZE=${IMGSIZE:-4G}
+# Test-only packages installed from the repo (dependency-checked) and/or RPM
+# files installed after the transaction with dependency checks bypassed.
+EXTRA_PACKAGES=${EXTRA_PACKAGES:-}
+EXTRA_RPMS=${EXTRA_RPMS:-}
 
 [ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
 ls "$REPO"/xfce-desktop-*.rpm >/dev/null 2>&1 || { echo "repo has no xfce-desktop" >&2; exit 1; }
@@ -32,7 +37,8 @@ if [ "$SKIP_INSTALL" != "1" ]; then
         --installroot "$ROOTFS" --releasever=13.1 \
         --disablerepo='*' --repofrompath=desktop,file://$REPO \
         --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
-        install browneye-base xfce-desktop linux-kernel linux-modules
+        install browneye-base xfce-desktop linux-kernel linux-modules \
+        ${EXTRA_PACKAGES}
 
     if [ -x "$ROOTFS/usr/bin/systemd-sysusers" ]; then
         unshare -r chroot "$ROOTFS" /usr/bin/systemd-sysusers || true
@@ -49,6 +55,13 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     grep -qx '/usr/lib' "$ROOTFS/etc/ld.so.conf" 2>/dev/null || echo /usr/lib >> "$ROOTFS/etc/ld.so.conf"
     unshare -r chroot "$ROOTFS" /sbin/ldconfig || true
     depmod -b "$ROOTFS" "$KVER" || true
+fi
+
+if [ -n "$EXTRA_RPMS" ]; then
+    echo "installing extra test RPMs (dependency checks bypassed)"
+    # The binaries are test payloads; git/make-ca may not be packaged yet.
+    # shellcheck disable=SC2086
+    unshare -r rpm --root "$ROOTFS" -Uvh --replacepkgs --nodeps $EXTRA_RPMS
 fi
 
 # The kernel %post is skipped during rootfs assembly; make sure the image
@@ -148,7 +161,7 @@ unshare -r sed -i "s|^root:[^:]*:|root:${hash}:|" "$ROOTFS/etc/shadow"
 if [ ! -f "$IMG" ] || [ "${REBUILD_IMG:-1}" = "1" ]; then
     echo "building ext4 image"
     rm -f "$IMG"
-    truncate -s 4G "$IMG"
+    truncate -s "$IMGSIZE" "$IMG"
     unshare -r mke2fs -q -t ext4 -d "$ROOTFS" "$IMG"
 fi
 

@@ -27,9 +27,27 @@ VNC_ADDR=${VNC_ADDR:-127.0.0.1:1}
 SERIAL=${SERIAL:-$PWD/build/xfce-serial.sock}
 MON=${MON:-$PWD/build/xfce-monitor.sock}
 
+# Test-only extras: repo packages (default opencode-bin + herdr) and any
+# RPM files found in build/extra-rpms.
+EXTRA_PACKAGES=${EXTRA_PACKAGES-opencode-bin herdr}
+EXTRA_RPMS=${EXTRA_RPMS:-}
+if [ -z "$EXTRA_RPMS" ] && [ -d "$PWD/build/extra-rpms" ]; then
+    EXTRA_RPMS=$(find "$PWD/build/extra-rpms" -maxdepth 1 -name '*.rpm' -print | sort | tr '\n' ' ')
+fi
+
+# Rebuild if the image predates the requested extras.
+if [ -n "$EXTRA_RPMS" ] && [ -f "$IMG" ]; then
+    if [ ! -x "$ROOTFS/usr/bin/opencode" ] || [ ! -x "$ROOTFS/usr/bin/herdr" ]; then
+        echo "image is missing requested test binaries; rebuilding with extras" >&2
+        rm -f "$IMG"
+    fi
+fi
+
 if [ ! -f "$IMG" ]; then
     echo "no image at $IMG; building it from build/repo-all (this takes a minute)"
     ROOTFS="$ROOTFS" IMG="$IMG" SKIP_INSTALL=0 BUILD_ONLY=1 \
+        IMGSIZE="${IMGSIZE:-5G}" EXTRA_PACKAGES="$EXTRA_PACKAGES" \
+        EXTRA_RPMS="$EXTRA_RPMS" \
         "$PWD/scripts/qemu_boot_graphical.sh"
 fi
 
