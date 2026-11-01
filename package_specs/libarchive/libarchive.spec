@@ -1,6 +1,6 @@
 Name:       libarchive
 Version:    3.8.9
-Release:    1
+Release:    2
 Summary:    Library for various archive formats
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -13,7 +13,7 @@ The libarchive library provides a single interface for reading/writing various c
 %setup -q
 
 %build
-%configure
+%configure --without-xml2
 %make_build
 
 %install    
@@ -36,5 +36,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.9-2
+- Build without libxml2/xar support (size audit P0); rpm/tar do not need it
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 3.7.1-1
 - Version bump
