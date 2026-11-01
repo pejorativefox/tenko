@@ -11,7 +11,7 @@
 # source so the package builds and regenerates its trust store offline.
 Name:       make-ca
 Version:    1.16.1
-Release:    1
+Release:    2
 Summary:    PKI setup script and Mozilla CA trust store
 License:    GPL-3.0-or-later
 URL:        https://github.com/lfs-book/make-ca
@@ -96,6 +96,12 @@ fi
 %files -f %{_sourcedir}/make-ca.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.16.1-2
+- Stop owning %dir /etc/ssl/certs: make-ca created it 0555 while
+  openssl-libs ships it 0755, so installing both aborted the dnf
+  transaction with a directory-mode file conflict.  openssl-libs owns
+  the directory; make-ca only ships the hashed certs and bundle links
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.16.1-1
 - Update to 1.16.1 (BLFS r13.1)
 - Ship a pinned Mozilla certdata.txt snapshot and generate the trust store

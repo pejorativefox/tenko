@@ -186,7 +186,7 @@
 /etc/pki/tls/java/cacerts
 %dir /etc/ssl
 /etc/ssl/certdata.txt
-%dir /etc/ssl/certs
+# /etc/ssl/certs is owned by openssl-libs; make-ca only ships its contents
 /etc/ssl/certs/002c0b4f.0
 /etc/ssl/certs/01419da9.0
 /etc/ssl/certs/0179095f.0
