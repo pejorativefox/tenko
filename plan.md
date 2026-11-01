@@ -1383,7 +1383,8 @@ All 502 `SUPPORTED` entries are covered by the archive (13) or a directory
 - The 222-RPM staging tree is backed up at `~/backup/browneye-current`
   with a verified `SHA256SUMS`.
 - All build inputs are backed up at `~/backup/browneye/sources/`
-  (2026-11-01, 447 files / 2.8 GB from `~/rpmbuild/SOURCES`, including the
+  (2026-11-02, 679 files / 2.8 GB from `~/rpmbuild/SOURCES`, including
+the Firefox 159.0 and alsa-lib 1.2.16.1 tarballs and the split-wave sources, including the
   kernel, linux-firmware/wireless-regdb, patches, configs and the pinned
   `certdata.txt`) with a verified `~/backup/browneye/sources.sha256` and a
   restore note in `~/backup/browneye/README.md`.
