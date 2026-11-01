@@ -1,0 +1,16 @@
+[Unit]
+Description=Generate OpenSSH host keys
+Documentation=man:sshd(8) man:ssh-keygen(1)
+Before=sshd.service
+After=local-fs.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/ssh-gen-host-keys
+# Neither rsa, ecdsa, nor ed25519 should ever be missing for long; make a
+# failed keygen visible instead of silently leaving sshd unable to start.
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target

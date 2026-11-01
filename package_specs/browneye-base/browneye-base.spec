@@ -1,6 +1,6 @@
 Name:       browneye-base
 Version:    13.1
-Release:    1
+Release:    2
 Summary:    Browneye Linux base system (LFS r13.1)
 License:    MIT
 Prefix:     /usr
@@ -98,6 +98,8 @@ Requires: browneye-rpm-config
 Requires: browneye-basefs
 Requires: browneye-sysconfig
 Requires: browneye-release
+Requires: browneye-firstboot
+Requires: linux-pam
 
 %description
 Meta-package pulling in the LFS r13.1 base system.
@@ -111,5 +113,9 @@ Meta-package pulling in the LFS r13.1 base system.
 %files
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-2
+- Require linux-pam (systemd is PAM-enabled) and browneye-firstboot
+  (root password policy, E5)
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 13.1
 - LFS r13.1 base meta-package

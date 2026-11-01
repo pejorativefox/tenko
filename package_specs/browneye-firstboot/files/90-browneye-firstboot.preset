@@ -1,0 +1,2 @@
+# Enable the first-boot root password policy.
+enable browneye-firstboot-root-password.service

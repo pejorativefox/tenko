@@ -7,6 +7,7 @@
 %dir /etc/kernel
 %dir /etc/kernel/install.d
 %dir /etc/modules-load.d
+%dir /etc/pam.d
 %dir /etc/profile.d
 %dir /etc/ssh
 %dir /etc/ssh/ssh_config.d
@@ -94,6 +95,7 @@
 %dir /usr/lib/udev/rules.d
 %dir /usr/lib64
 %dir /usr/lib64/pkgconfig
+%dir /usr/lib64/security
 %dir /usr/lib64/systemd
 %dir /usr/sbin
 %dir /usr/share
@@ -229,6 +231,8 @@
 %dir /usr/share/zsh/site-functions
 %dir /var/log/journal
 /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+/etc/pam.d/systemd-run0
+/etc/pam.d/systemd-user
 /etc/profile.d/70-systemd-shell-extra.sh
 /etc/profile.d/80-systemd-osc-context.sh
 /etc/ssh/ssh_config.d/20-systemd-ssh-proxy.conf
@@ -467,6 +471,7 @@
 /usr/lib/systemd/system/multi-user.target.wants/getty.target
 /usr/lib/systemd/system/multi-user.target.wants/systemd-ask-password-wall.path
 /usr/lib/systemd/system/multi-user.target.wants/systemd-logind.service
+/usr/lib/systemd/system/multi-user.target.wants/systemd-user-sessions.service
 /usr/lib/systemd/system/network-online.target
 /usr/lib/systemd/system/network-pre.target
 /usr/lib/systemd/system/network.target
@@ -693,6 +698,7 @@
 /usr/lib/systemd/system/systemd-udevd.service
 /usr/lib/systemd/system/systemd-update-done.service
 /usr/lib/systemd/system/systemd-update-utmp.service
+/usr/lib/systemd/system/systemd-user-sessions.service
 /usr/lib/systemd/system/systemd-userdb-load-credentials.service
 /usr/lib/systemd/system/systemd-userdbd.service
 /usr/lib/systemd/system/systemd-userdbd.socket
@@ -771,6 +777,7 @@
 /usr/lib/systemd/systemd-update-done
 /usr/lib/systemd/systemd-update-utmp
 /usr/lib/systemd/systemd-user-runtime-dir
+/usr/lib/systemd/systemd-user-sessions
 /usr/lib/systemd/systemd-userdbd
 /usr/lib/systemd/systemd-userwork
 /usr/lib/systemd/systemd-validatefs
@@ -849,6 +856,7 @@
 /usr/lib/tmpfiles.d/root.conf
 /usr/lib/tmpfiles.d/static-nodes-permissions.conf
 /usr/lib/tmpfiles.d/systemd-network.conf
+/usr/lib/tmpfiles.d/systemd-nologin.conf
 /usr/lib/tmpfiles.d/systemd-nspawn.conf
 /usr/lib/tmpfiles.d/systemd-pstore.conf
 /usr/lib/tmpfiles.d/systemd-resolve.conf
@@ -961,6 +969,8 @@
 /usr/lib64/libudev.so.1.7.14
 /usr/lib64/pkgconfig/libsystemd.pc
 /usr/lib64/pkgconfig/libudev.pc
+/usr/lib64/security/pam_systemd.so
+/usr/lib64/security/pam_systemd_loadkey.so
 /usr/lib64/systemd/libsystemd-core-261.so
 /usr/lib64/systemd/libsystemd-shared-261.so
 /usr/sbin/halt
