@@ -86,6 +86,12 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   (`https://tomfool.8bit.ca/browneye/packages/13.1/`).  Remaining
   visual gaps: no Mesa (no libGL/GLX/compositing) and no SVG icon loader;
   see D4/D5 and §7.
+- **Ready-to-boot test image:** `build/xfce-test.img` (base + `xfce-desktop`,
+  kernel 7.1.8) starts the XFCE session on tty1; `scripts/qemu_run_desktop.sh`
+  opens it in a GTK window or over VNC, with a serial console
+  (`root`/`root`) and a QEMU monitor socket.  The old "crash a few seconds
+  after the desktop loads" was `getty@tty1` failing and disallocating the VT;
+  fixed in util-linux (§7) and the test image masks `getty@tty1`.
 
 **Phase 2 boot smoke test is green (2026-10-30).**
 
@@ -157,6 +163,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
     ├── blfs-parity-*/         # non-base X/GNOME + XFCE + desktop builds
     ├── repo-all/              # base + desktop RPMs (216), the published repo
     ├── rootfs-desktop/        # installed base + xfce-desktop (graphical test)
+    ├── rootfs-xfce-test/      # rootfs behind build/xfce-test.img
     ├── xfce-test.img          # ready-to-boot interactive XFCE test image
     └── deps/                  # extracted devel prefixes (see §5)
 ```
@@ -396,6 +403,10 @@ RSYNC_OPTS=-c ./scripts/publish_repo.sh   # -> packages/13.1/ (base + desktop)
 ./scripts/qemu_boot_graphical.sh          # desktop rootfs + X session + xwd capture
 ./scripts/qemu_run_desktop.sh             # interactive test boot (GTK/VNC + serial)
 ```
+
+`qemu_run_desktop.sh` builds `build/xfce-test.img` on first use.  That image
+masks `getty@tty1` (the one-shot X service owns tty1) and uses a temporary
+`root`/`root` password; it is a test image, not the distro default.
 
 ### Boot the rootfs under QEMU
 
