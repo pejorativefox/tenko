@@ -761,9 +761,17 @@ These are the current caveats that do not yet have a checkbox elsewhere.
       self-hosted container (with `DRM_VGEM`) and collected into the single
       repo; the host-built 7.1.8 RPMs are gone.  E4 still covers firmware,
       signing, and the general-purpose config.
-- [ ] E3. Install grub to a disk image and boot without QEMU `-kernel`.
-      grub builds and packages now, but only the direct-kernel QEMU path has
-      been tested; C10 still covers the initramfs/bootloader-policy work.
+- [x] E3. **GRUB disk boot works (UEFI).**  `scripts/make_efi_disk.sh` builds a
+      GPT image: a 64 MiB FAT ESP with a standalone `BOOTX64.EFI`
+      (`grub-mkstandalone`, ext2/linux/part_gpt modules), and an ext4 root
+      partition populated from the installed rootfs.  GRUB sets
+      `root=(hd0,gpt2)` and loads `vmlinuz-7.2.6` with
+      `root=/dev/vda2`; QEMU boots it with OVMF and no `-kernel`, reaching
+      multi-user and a serial login.  The grub spec is EFI-only (BLFS builds
+      `--with-platform=efi`), so BIOS boot needs i386-pc modules that are not
+      built; the image also needs no initramfs because virtio/ext4 are
+      built in.  C10 still covers an initramfs for hardware whose storage
+      drivers are modules.
 - [ ] E4. Replace the QEMU-test kernel config with a general-purpose config,
       and add firmware, module signing, and initramfs generation. The current
       config has virtio/ext4/serial built in and no firmware/signing.
