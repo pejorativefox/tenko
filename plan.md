@@ -258,7 +258,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 │   ├── make_efi_disk.sh       # GPT/UEFI GRUB disk image (no -kernel)
 │   ├── publish_repo.sh        # stage + rsync repo to tomfool.8bit.ca
 │   ├── build_blfs_stack.sh    # BLFS r13.1 X/GNOME/XFCE/desktop stack (phases)
-│   ├── assemble_repo.sh       # base + non-base RPMs -> build/repo-all
+│   ├── assemble_repo.sh       # base + desktop + staged -> build/repo-all
 │   ├── qemu_boot_graphical.sh # build/test the desktop image and capture it
 │   ├── qemu_run_desktop.sh    # interactive XFCE test boot (GTK/VNC + serial)
 ├── lfs.lock                   # pinned versions/sources/patches/base list
@@ -540,7 +540,8 @@ passed; status/logs follow the new one.
 Assemble, publish, and boot the desktop:
 
 ```bash
-./scripts/assemble_repo.sh                # base + non-base RPMs -> build/repo-all
+cp ~/rpmbuild/RPMS/x86_64/*.rpm build/rpm-staging/   # + wave worktree RPMs
+./scripts/assemble_repo.sh                # base + desktop + staged -> build/repo-all
 RSYNC_OPTS=-c ./scripts/publish_repo.sh   # -> packages/13.1/ (base + desktop)
 ./scripts/qemu_boot_graphical.sh          # desktop rootfs + X session + xwd capture
 ./scripts/qemu_run_desktop.sh             # interactive test boot (GTK/VNC + serial)
@@ -1356,12 +1357,16 @@ full package remains available as `-extra`.
   that pulled both (workstation + desktop) aborted the transaction.
   `make-ca` 1.16.1-2 no longer owns the directory (openssl-libs keeps it, as
   on Fedora) and only ships the hashed certs and bundle symlinks.
-- **Repo assembly gap:** `scripts/assemble_repo.sh` only copies
-  `build/repo-selfhost` and `build/blfs-parity-*/build/*`, so RPMs built in
-  the per-wave worktrees (firmware, Python, runtime/toolchain/base splits,
-  make-ca) are not picked up automatically.  They have been copied into
-  `build/repo-all` by hand; a future `assemble_repo.sh` should also collect
-  those build directories or a release staging dir.
+- **Repo assembly:** `scripts/assemble_repo.sh` is now the union of the
+  base repo (`build/repo-selfhost`), `build/blfs-parity-*/build/*/RPMS/*/`,
+  `build/rpm-staging` (default; `STAGING=` overrides) and optional
+  `EXTRA_RPM_DIRS` (colon-separated).  RPMs built in the per-wave worktrees
+  (firmware, Python, runtime/toolchain/base splits, make-ca, LLVM) must be
+  copied into `build/rpm-staging` or they are silently dropped — that is how
+  the monolithic `linux-firmware` reappeared in the repo and broke the first
+  desktop image rebuild.  Reassembly from the seeded staging dir reproduces
+  the 312-RPM tree exactly (prune drops the superseded `browneye-base-5`
+  and `xfce-desktop-3`).
 - **Library directory split:** `llvm` installs into `/usr/lib` while the rest
   of the distro uses `/usr/lib64`.  `xorg-server` needs
   `-Wl,-rpath-link,/usr/lib` to link against `libgallium`, and the image
