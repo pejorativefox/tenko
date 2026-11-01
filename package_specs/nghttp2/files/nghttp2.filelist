@@ -1,0 +1,21 @@
+%dir /usr/bin
+%dir /usr/include
+%dir /usr/include/nghttp2
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/nghttp2-1.70.0
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/include/nghttp2/nghttp2.h
+/usr/include/nghttp2/nghttp2ver.h
+/usr/lib64/libnghttp2.so
+/usr/lib64/libnghttp2.so.14
+/usr/lib64/libnghttp2.so.14.29.5
+/usr/lib64/pkgconfig/libnghttp2.pc
+/usr/share/doc/nghttp2-1.70.0/README.rst
+/usr/share/man/man1/h2load.1.gz
+/usr/share/man/man1/nghttp.1.gz
+/usr/share/man/man1/nghttpd.1.gz
+/usr/share/man/man1/nghttpx.1.gz
