@@ -1,6 +1,6 @@
 Name:       browneye-base
 Version:    13.1
-Release:    5
+Release:    6
 Summary:    Browneye Linux base system (LFS r13.1)
 License:    MIT
 Prefix:     /usr
@@ -81,7 +81,7 @@ Requires: make
 Requires: patch
 Requires: tar
 Requires: texinfo
-Requires: vim
+Requires: vim-minimal
 Requires: python-markupsafe
 Requires: python-jinja
 Requires: systemd
@@ -118,6 +118,11 @@ Meta-package pulling in the LFS r13.1 base system.
 %files
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-6
+- Require vim-minimal instead of the vim meta package: the runtime base
+  does not need vim-runtime-extra (documentation, spell, tutor,
+  translations, ~27 MB).  Installing vim still pulls the full set
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-5
 - Require gcc-devel and gcc-lto: the build image disables weak deps, and
   gcc alone no longer carries headers/static libs/LTO after the

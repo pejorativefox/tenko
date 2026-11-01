@@ -42,6 +42,11 @@ Requires:   xwd
 Requires:   hicolor-icon-theme
 Requires:   browneye-desktop-config
 Requires:   linux-firmware-base
+# udev's hardware database is what maps PCI/USB/input IDs to device
+# properties.  It is a Recommends of systemd so containers can omit it, but
+# a desktop install runs on real hardware and must have it even when the
+# install is done with install_weak_deps=False.
+Requires:   systemd-hwdb
 # Weak dependencies: a normal install still gets every vendor pack, while
 # --setopt=install_weak_deps=False (image builds, VMs) installs only base.
 Recommends: linux-firmware-intel-wifi
@@ -71,6 +76,9 @@ touch %{buildroot}/usr/share/browneye/xfce-desktop
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20-4
+- Require systemd-hwdb: it is only a Recommends of systemd, and image
+  builds use install_weak_deps=False, so without a hard requirement a
+  desktop install on real hardware would lose the udev hardware database
 - Require only linux-firmware-base and Recommend the vendor firmware packs
   (size audit firmware split).  With install_weak_deps=False an image now
   gets the regulatory database without the 395 MB vendor set, while a
