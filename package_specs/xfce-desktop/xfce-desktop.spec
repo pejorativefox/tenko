@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    4
+Release:    5
 Summary:    Browneye XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -40,6 +40,10 @@ Requires:   xhost
 Requires:   xwininfo
 Requires:   xwd
 Requires:   hicolor-icon-theme
+# shared-mime-info used to be pulled in by gdk-pixbuf's .pc Requires.
+# The pkgconfig dependency moved to gdk-pixbuf-devel, but Thunar/GIO need
+# the MIME database at runtime, so require the data package explicitly.
+Requires:   shared-mime-info
 Requires:   browneye-desktop-config
 Requires:   linux-firmware-base
 # udev's hardware database is what maps PCI/USB/input IDs to device
@@ -75,6 +79,10 @@ touch %{buildroot}/usr/share/browneye/xfce-desktop
 /usr/share/browneye/xfce-desktop
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-5
+- Require shared-mime-info explicitly: gdk-pixbuf used to pull it in
+  through its .pc Requires, which now lives in gdk-pixbuf-devel, but the
+  MIME database is runtime data needed by Thunar/GIO
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20-4
 - Require systemd-hwdb: it is only a Recommends of systemd, and image
   builds use install_weak_deps=False, so without a hard requirement a

@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    1
+Release:    2
 Summary:    Browneye XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -28,6 +28,7 @@ Requires:   xhost
 Requires:   xwininfo
 Requires:   xwd
 Requires:   hicolor-icon-theme
+Requires:   shared-mime-info
 Requires:   libxfce4util
 Requires:   xfconf
 Requires:   libxfce4ui
@@ -68,6 +69,9 @@ touch %{buildroot}/usr/share/browneye/xfce-desktop-core
 /usr/share/browneye/xfce-desktop-core
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-2
+- Require shared-mime-info: the MIME database used to arrive through
+  gdk-pixbuf's .pc Requires and is runtime data, not a build dependency
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-1
 - New XFCE core profile: runtime base, kernel, X11 server, fonts, D-Bus
   and the XFCE session without vendor firmware, hwdb or Mesa (plan D25)
