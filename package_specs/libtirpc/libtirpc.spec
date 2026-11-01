@@ -1,10 +1,10 @@
 Name:       libtirpc
-Version:    1.3.7
+Version:    1.3.8
 Release:    1
 Summary:    Transport-independent RPC library
 License:    BSD
 Prefix:     /usr
-Source0:    libtirpc-1.3.7.tar.bz2
+Source0:    %{name}-%{version}.tar.bz2
 
 %description
 libtirpc is the transport-independent Sun RPC implementation used by Xorg.

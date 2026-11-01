@@ -1,5 +1,5 @@
 Name:       pkgconf
-Version:    3.0.5
+Version:    3.0.7
 Release:    1
 Summary:    Successor to pkg-config
 License:    GPL3

@@ -1,5 +1,5 @@
 Name:       iana-etc
-Version:    20260805
+Version:    20260911
 Release:    1
 Summary:    Authoritative list of internet protocals
 License:    GPL3

@@ -1,5 +1,5 @@
 Name:       curl
-Version:    8.21.0
+Version:    8.22.0
 Release:    1
 Summary:    TODO
 License:    GPL3

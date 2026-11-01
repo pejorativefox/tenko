@@ -1,5 +1,5 @@
 Name:       man-pages
-Version:    6.18
+Version:    6.19
 Release:    1
 Summary:    The Linux man-pages
 License:    Various
@@ -17,7 +17,7 @@ rm -v man3/crypt*
 
 %install
 rm -rf %{buildroot}
-make -R install DESTDIR=%{buildroot} prefix=/usr
+make -R install DESTDIR=%{buildroot} prefix=/usr GIT=false
 
 %files
 /usr/bin/diffman-git

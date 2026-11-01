@@ -1,5 +1,5 @@
 Name:       harfbuzz
-Version:    14.3.1
+Version:    14.5.0
 Release:    1
 Summary:    Text shaping engine
 License:    GPL3

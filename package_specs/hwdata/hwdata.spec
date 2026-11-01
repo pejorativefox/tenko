@@ -1,5 +1,5 @@
 Name:       hwdata
-Version:    0.410
+Version:    0.411
 Release:    1
 Summary:    Hardware identification and configuration data
 License:    GPL2

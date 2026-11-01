@@ -1,5 +1,5 @@
 Name:       linux-api-headers
-Version:    7.1.8
+Version:    7.2.6
 Release:    1
 Summary:    Linux userspace API headers
 License:    GPL-2.0-only WITH Linux-syscall-note

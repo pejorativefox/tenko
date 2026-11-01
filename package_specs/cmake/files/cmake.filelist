@@ -1,19 +1,118 @@
+"/usr/share/cmake-4.4/Help/generator/Borland Makefiles.rst"
+"/usr/share/cmake-4.4/Help/generator/Eclipse CDT4.rst"
+"/usr/share/cmake-4.4/Help/generator/Green Hills MULTI.rst"
+"/usr/share/cmake-4.4/Help/generator/MSYS Makefiles.rst"
+"/usr/share/cmake-4.4/Help/generator/MinGW Makefiles.rst"
+"/usr/share/cmake-4.4/Help/generator/NMake Makefiles JOM.rst"
+"/usr/share/cmake-4.4/Help/generator/NMake Makefiles.rst"
+"/usr/share/cmake-4.4/Help/generator/Ninja Multi-Config.rst"
+"/usr/share/cmake-4.4/Help/generator/Sublime Text 2.rst"
+"/usr/share/cmake-4.4/Help/generator/Unix Makefiles.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 10 2010.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 11 2012.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 12 2013.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 14 2015.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 15 2017.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 16 2019.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 17 2022.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 18 2026.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 6.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 7 .NET 2003.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 7.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 8 2005.rst"
+"/usr/share/cmake-4.4/Help/generator/Visual Studio 9 2008.rst"
+"/usr/share/cmake-4.4/Help/generator/Watcom WMake.rst"
 %dir /usr/bin
+%dir /usr/share
+%dir /usr/share/aclocal
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+%dir /usr/share/cmake-4.4
+%dir /usr/share/cmake-4.4/Help
+%dir /usr/share/cmake-4.4/Help/command
+%dir /usr/share/cmake-4.4/Help/command/include
+%dir /usr/share/cmake-4.4/Help/cpack_gen
+%dir /usr/share/cmake-4.4/Help/diagnostic
+%dir /usr/share/cmake-4.4/Help/envvar
+%dir /usr/share/cmake-4.4/Help/envvar/include
+%dir /usr/share/cmake-4.4/Help/generator
+%dir /usr/share/cmake-4.4/Help/generator/include
+%dir /usr/share/cmake-4.4/Help/include
+%dir /usr/share/cmake-4.4/Help/manual
+%dir /usr/share/cmake-4.4/Help/manual/cmake
+%dir /usr/share/cmake-4.4/Help/manual/ctest
+%dir /usr/share/cmake-4.4/Help/manual/file_api
+%dir /usr/share/cmake-4.4/Help/manual/include
+%dir /usr/share/cmake-4.4/Help/manual/instrumentation
+%dir /usr/share/cmake-4.4/Help/manual/presets
+%dir /usr/share/cmake-4.4/Help/module
+%dir /usr/share/cmake-4.4/Help/module/include
+%dir /usr/share/cmake-4.4/Help/policy
+%dir /usr/share/cmake-4.4/Help/policy/include
+%dir /usr/share/cmake-4.4/Help/prop_cache
+%dir /usr/share/cmake-4.4/Help/prop_dir
+%dir /usr/share/cmake-4.4/Help/prop_fs
+%dir /usr/share/cmake-4.4/Help/prop_fs/include
+%dir /usr/share/cmake-4.4/Help/prop_gbl
+%dir /usr/share/cmake-4.4/Help/prop_gbl/include
+%dir /usr/share/cmake-4.4/Help/prop_inst
+%dir /usr/share/cmake-4.4/Help/prop_sf
+%dir /usr/share/cmake-4.4/Help/prop_test
+%dir /usr/share/cmake-4.4/Help/prop_tgt
+%dir /usr/share/cmake-4.4/Help/prop_tgt/include
+%dir /usr/share/cmake-4.4/Help/release
+%dir /usr/share/cmake-4.4/Help/variable
+%dir /usr/share/cmake-4.4/Help/variable/include
+%dir /usr/share/cmake-4.4/Modules
+%dir /usr/share/cmake-4.4/Modules/AndroidTestUtilities
+%dir /usr/share/cmake-4.4/Modules/CMakeAddFortranSubdirectory
+%dir /usr/share/cmake-4.4/Modules/CheckIPOSupported
+%dir /usr/share/cmake-4.4/Modules/Compiler
+%dir /usr/share/cmake-4.4/Modules/Compiler/XL-Fortran
+%dir /usr/share/cmake-4.4/Modules/CompilerId
+%dir /usr/share/cmake-4.4/Modules/ExternalProject
+%dir /usr/share/cmake-4.4/Modules/FetchContent
+%dir /usr/share/cmake-4.4/Modules/FindCUDA
+%dir /usr/share/cmake-4.4/Modules/FindMPI
+%dir /usr/share/cmake-4.4/Modules/FindPython
+%dir /usr/share/cmake-4.4/Modules/FortranCInterface
+%dir /usr/share/cmake-4.4/Modules/FortranCInterface/Verify
+%dir /usr/share/cmake-4.4/Modules/GoogleTest
+%dir /usr/share/cmake-4.4/Modules/IntelVSImplicitPath
+%dir /usr/share/cmake-4.4/Modules/Internal
+%dir /usr/share/cmake-4.4/Modules/Internal/CPack
+%dir /usr/share/cmake-4.4/Modules/Internal/CPack/WIX-v3
+%dir /usr/share/cmake-4.4/Modules/Internal/OSRelease
+%dir /usr/share/cmake-4.4/Modules/Linker
+%dir /usr/share/cmake-4.4/Modules/Platform
+%dir /usr/share/cmake-4.4/Modules/Platform/AIX
+%dir /usr/share/cmake-4.4/Modules/Platform/Android
+%dir /usr/share/cmake-4.4/Modules/Platform/Linker
+%dir /usr/share/cmake-4.4/Modules/UseJava
+%dir /usr/share/cmake-4.4/Modules/UseSWIG
+%dir /usr/share/cmake-4.4/Templates
+%dir /usr/share/cmake-4.4/Templates/MSBuild
+%dir /usr/share/cmake-4.4/Templates/MSBuild/FlagTables
+%dir /usr/share/cmake-4.4/Templates/Windows
+%dir /usr/share/doc
+%dir /usr/share/doc/cmake-4.4.3
+%dir /usr/share/doc/cmake-4.4.3/cmcppdap
+%dir /usr/share/doc/cmake-4.4.3/cmlibrhash
+%dir /usr/share/doc/cmake-4.4.3/cmsys
+%dir /usr/share/emacs
+%dir /usr/share/emacs/site-lisp
+%dir /usr/share/vim
+%dir /usr/share/vim/vimfiles
+%dir /usr/share/vim/vimfiles/indent
+%dir /usr/share/vim/vimfiles/syntax
 /usr/bin/ccmake
 /usr/bin/cmake
 /usr/bin/cpack
 /usr/bin/ctest
-%dir /usr/share
-%dir /usr/share/aclocal
 /usr/share/aclocal/cmake.m4
-%dir /usr/share/bash-completion
-%dir /usr/share/bash-completion/completions
 /usr/share/bash-completion/completions/cmake
 /usr/share/bash-completion/completions/cpack
 /usr/share/bash-completion/completions/ctest
-%dir /usr/share/cmake-4.4
-%dir /usr/share/cmake-4.4/Help
-%dir /usr/share/cmake-4.4/Help/command
 /usr/share/cmake-4.4/Help/command/add_compile_definitions.rst
 /usr/share/cmake-4.4/Help/command/add_compile_options.rst
 /usr/share/cmake-4.4/Help/command/add_custom_command.rst
@@ -89,7 +188,6 @@
 /usr/share/cmake-4.4/Help/command/get_target_property.rst
 /usr/share/cmake-4.4/Help/command/get_test_property.rst
 /usr/share/cmake-4.4/Help/command/if.rst
-%dir /usr/share/cmake-4.4/Help/command/include
 /usr/share/cmake-4.4/Help/command/include.rst
 /usr/share/cmake-4.4/Help/command/include/DEPRECATED_POLICY_VERSIONS.rst
 /usr/share/cmake-4.4/Help/command/include/DEVICE_LINK_OPTIONS.rst
@@ -160,7 +258,6 @@
 /usr/share/cmake-4.4/Help/command/variable_watch.rst
 /usr/share/cmake-4.4/Help/command/while.rst
 /usr/share/cmake-4.4/Help/command/write_file.rst
-%dir /usr/share/cmake-4.4/Help/cpack_gen
 /usr/share/cmake-4.4/Help/cpack_gen/appimage.rst
 /usr/share/cmake-4.4/Help/cpack_gen/archive.rst
 /usr/share/cmake-4.4/Help/cpack_gen/bundle.rst
@@ -177,7 +274,6 @@
 /usr/share/cmake-4.4/Help/cpack_gen/productbuild.rst
 /usr/share/cmake-4.4/Help/cpack_gen/rpm.rst
 /usr/share/cmake-4.4/Help/cpack_gen/wix.rst
-%dir /usr/share/cmake-4.4/Help/diagnostic
 /usr/share/cmake-4.4/Help/diagnostic/CMD_AUTHOR.rst
 /usr/share/cmake-4.4/Help/diagnostic/CMD_DEPRECATED.rst
 /usr/share/cmake-4.4/Help/diagnostic/CMD_EXPERIMENTAL.rst
@@ -185,7 +281,6 @@
 /usr/share/cmake-4.4/Help/diagnostic/CMD_POLICY.rst
 /usr/share/cmake-4.4/Help/diagnostic/CMD_UNINITIALIZED.rst
 /usr/share/cmake-4.4/Help/diagnostic/CMD_UNUSED_CLI.rst
-%dir /usr/share/cmake-4.4/Help/envvar
 /usr/share/cmake-4.4/Help/envvar/ADSP_ROOT.rst
 /usr/share/cmake-4.4/Help/envvar/ASM_DIALECT.rst
 /usr/share/cmake-4.4/Help/envvar/ASM_DIALECTFLAGS.rst
@@ -272,53 +367,23 @@
 /usr/share/cmake-4.4/Help/envvar/SSL_CERT_FILE.rst
 /usr/share/cmake-4.4/Help/envvar/SWIFTC.rst
 /usr/share/cmake-4.4/Help/envvar/VERBOSE.rst
-%dir /usr/share/cmake-4.4/Help/envvar/include
 /usr/share/cmake-4.4/Help/envvar/include/ENV_VAR.rst
 /usr/share/cmake-4.4/Help/envvar/include/LANG_FLAGS.rst
-%dir /usr/share/cmake-4.4/Help/generator
-/usr/share/cmake-4.4/Help/generator/Borland Makefiles.rst
 /usr/share/cmake-4.4/Help/generator/CodeBlocks.rst
 /usr/share/cmake-4.4/Help/generator/CodeLite.rst
-/usr/share/cmake-4.4/Help/generator/Eclipse CDT4.rst
 /usr/share/cmake-4.4/Help/generator/FASTBuild.rst
-/usr/share/cmake-4.4/Help/generator/Green Hills MULTI.rst
 /usr/share/cmake-4.4/Help/generator/Kate.rst
-/usr/share/cmake-4.4/Help/generator/MSYS Makefiles.rst
-/usr/share/cmake-4.4/Help/generator/MinGW Makefiles.rst
-/usr/share/cmake-4.4/Help/generator/NMake Makefiles JOM.rst
-/usr/share/cmake-4.4/Help/generator/NMake Makefiles.rst
-/usr/share/cmake-4.4/Help/generator/Ninja Multi-Config.rst
 /usr/share/cmake-4.4/Help/generator/Ninja.rst
-/usr/share/cmake-4.4/Help/generator/Sublime Text 2.rst
-/usr/share/cmake-4.4/Help/generator/Unix Makefiles.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 10 2010.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 11 2012.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 12 2013.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 14 2015.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 15 2017.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 16 2019.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 17 2022.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 18 2026.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 6.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 7 .NET 2003.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 7.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 8 2005.rst
-/usr/share/cmake-4.4/Help/generator/Visual Studio 9 2008.rst
-/usr/share/cmake-4.4/Help/generator/Watcom WMake.rst
 /usr/share/cmake-4.4/Help/generator/Xcode.rst
-%dir /usr/share/cmake-4.4/Help/generator/include
 /usr/share/cmake-4.4/Help/generator/include/VS_TOOLSET_HOST_ARCH.rst
 /usr/share/cmake-4.4/Help/generator/include/VS_TOOLSET_HOST_ARCH_LEGACY.rst
-%dir /usr/share/cmake-4.4/Help/include
 /usr/share/cmake-4.4/Help/include/COMPILE_DEFINITIONS_DISCLAIMER.rst
 /usr/share/cmake-4.4/Help/include/ENVIRONMENT_MODIFICATION_OPS.rst
 /usr/share/cmake-4.4/Help/include/INTERFACE_INCLUDE_DIRECTORIES_WARNING.rst
 /usr/share/cmake-4.4/Help/include/INTERFACE_LINK_LIBRARIES_WARNING.rst
 /usr/share/cmake-4.4/Help/index.rst
-%dir /usr/share/cmake-4.4/Help/manual
 /usr/share/cmake-4.4/Help/manual/CTEST_EXAMPLE_MAKEFILE_JOB_SERVER.make
 /usr/share/cmake-4.4/Help/manual/ccmake.1.rst
-%dir /usr/share/cmake-4.4/Help/manual/cmake
 /usr/share/cmake-4.4/Help/manual/cmake-buildsystem.7.rst
 /usr/share/cmake-4.4/Help/manual/cmake-commands.7.rst
 /usr/share/cmake-4.4/Help/manual/cmake-compile-features.7.rst
@@ -346,10 +411,8 @@
 /usr/share/cmake-4.4/Help/manual/cmake/version-schema.json
 /usr/share/cmake-4.4/Help/manual/cpack-generators.7.rst
 /usr/share/cmake-4.4/Help/manual/cpack.1.rst
-%dir /usr/share/cmake-4.4/Help/manual/ctest
 /usr/share/cmake-4.4/Help/manual/ctest.1.rst
 /usr/share/cmake-4.4/Help/manual/ctest/show-only-schema.json
-%dir /usr/share/cmake-4.4/Help/manual/file_api
 /usr/share/cmake-4.4/Help/manual/file_api/schema_cache.json
 /usr/share/cmake-4.4/Help/manual/file_api/schema_cmakeFiles.json
 /usr/share/cmake-4.4/Help/manual/file_api/schema_codemodel.json
@@ -359,16 +422,13 @@
 /usr/share/cmake-4.4/Help/manual/file_api/schema_stateful_query.json
 /usr/share/cmake-4.4/Help/manual/file_api/schema_target.json
 /usr/share/cmake-4.4/Help/manual/file_api/schema_toolchains.json
-%dir /usr/share/cmake-4.4/Help/manual/include
 /usr/share/cmake-4.4/Help/manual/include/ID_RESERVE.rst
 /usr/share/cmake-4.4/Help/manual/include/LINKS.rst
 /usr/share/cmake-4.4/Help/manual/include/OPTIONS_BUILD.rst
 /usr/share/cmake-4.4/Help/manual/include/OPTIONS_HELP.rst
-%dir /usr/share/cmake-4.4/Help/manual/instrumentation
 /usr/share/cmake-4.4/Help/manual/instrumentation/index-v1-schema.json
 /usr/share/cmake-4.4/Help/manual/instrumentation/query-v1-schema.json
 /usr/share/cmake-4.4/Help/manual/instrumentation/snippet-v1-schema.json
-%dir /usr/share/cmake-4.4/Help/manual/presets
 /usr/share/cmake-4.4/Help/manual/presets/architecture-properties.rst
 /usr/share/cmake-4.4/Help/manual/presets/buildPresets-properties.rst
 /usr/share/cmake-4.4/Help/manual/presets/cacheVariables-properties.rst
@@ -396,7 +456,6 @@
 /usr/share/cmake-4.4/Help/manual/presets/trace-properties.rst
 /usr/share/cmake-4.4/Help/manual/presets/warnings-properties.rst
 /usr/share/cmake-4.4/Help/manual/presets/workflowPresets-properties.rst
-%dir /usr/share/cmake-4.4/Help/module
 /usr/share/cmake-4.4/Help/module/AddFileDependencies.rst
 /usr/share/cmake-4.4/Help/module/AndroidTestUtilities.rst
 /usr/share/cmake-4.4/Help/module/BundleUtilities.rst
@@ -666,7 +725,6 @@
 /usr/share/cmake-4.4/Help/module/UsewxWidgets.rst
 /usr/share/cmake-4.4/Help/module/WriteBasicConfigVersionFile.rst
 /usr/share/cmake-4.4/Help/module/WriteCompilerDetectionHeader.rst
-%dir /usr/share/cmake-4.4/Help/module/include
 /usr/share/cmake-4.4/Help/module/include/CMAKE_REQUIRED_DEFINITIONS.rst
 /usr/share/cmake-4.4/Help/module/include/CMAKE_REQUIRED_FLAGS.rst
 /usr/share/cmake-4.4/Help/module/include/CMAKE_REQUIRED_INCLUDES.rst
@@ -675,7 +733,6 @@
 /usr/share/cmake-4.4/Help/module/include/CMAKE_REQUIRED_LINK_OPTIONS.rst
 /usr/share/cmake-4.4/Help/module/include/CMAKE_REQUIRED_QUIET.rst
 /usr/share/cmake-4.4/Help/module/include/CMAKE_TRY_COMPILE_TARGET_TYPE.rst
-%dir /usr/share/cmake-4.4/Help/policy
 /usr/share/cmake-4.4/Help/policy/CMP0000.rst
 /usr/share/cmake-4.4/Help/policy/CMP0001.rst
 /usr/share/cmake-4.4/Help/policy/CMP0002.rst
@@ -896,21 +953,18 @@
 /usr/share/cmake-4.4/Help/policy/CMP0217.rst
 /usr/share/cmake-4.4/Help/policy/CMP0218.rst
 /usr/share/cmake-4.4/Help/policy/CMP0219.rst
-%dir /usr/share/cmake-4.4/Help/policy/include
 /usr/share/cmake-4.4/Help/policy/include/DEPRECATED.rst
 /usr/share/cmake-4.4/Help/policy/include/DISALLOWED_COMMAND.rst
 /usr/share/cmake-4.4/Help/policy/include/REMOVED_COMMAND.rst
 /usr/share/cmake-4.4/Help/policy/include/REMOVED_EPILOGUE.rst
 /usr/share/cmake-4.4/Help/policy/include/REMOVED_PROLOGUE.rst
 /usr/share/cmake-4.4/Help/policy/include/STANDARD_ADVICE.rst
-%dir /usr/share/cmake-4.4/Help/prop_cache
 /usr/share/cmake-4.4/Help/prop_cache/ADVANCED.rst
 /usr/share/cmake-4.4/Help/prop_cache/HELPSTRING.rst
 /usr/share/cmake-4.4/Help/prop_cache/MODIFIED.rst
 /usr/share/cmake-4.4/Help/prop_cache/STRINGS.rst
 /usr/share/cmake-4.4/Help/prop_cache/TYPE.rst
 /usr/share/cmake-4.4/Help/prop_cache/VALUE.rst
-%dir /usr/share/cmake-4.4/Help/prop_dir
 /usr/share/cmake-4.4/Help/prop_dir/ADDITIONAL_CLEAN_FILES.rst
 /usr/share/cmake-4.4/Help/prop_dir/ADDITIONAL_MAKE_CLEAN_FILES.rst
 /usr/share/cmake-4.4/Help/prop_dir/BINARY_DIR.rst
@@ -949,7 +1003,6 @@
 /usr/share/cmake-4.4/Help/prop_dir/VS_GLOBAL_SECTION_PRE_section.rst
 /usr/share/cmake-4.4/Help/prop_dir/VS_SOLUTION_ITEMS.rst
 /usr/share/cmake-4.4/Help/prop_dir/VS_STARTUP_PROJECT.rst
-%dir /usr/share/cmake-4.4/Help/prop_fs
 /usr/share/cmake-4.4/Help/prop_fs/BASE_DIRS.rst
 /usr/share/cmake-4.4/Help/prop_fs/COMPILE_DEFINITIONS.rst
 /usr/share/cmake-4.4/Help/prop_fs/COMPILE_OPTIONS.rst
@@ -967,9 +1020,7 @@
 /usr/share/cmake-4.4/Help/prop_fs/SKIP_UNITY_BUILD_INCLUSION.rst
 /usr/share/cmake-4.4/Help/prop_fs/SOURCES.rst
 /usr/share/cmake-4.4/Help/prop_fs/TYPE.rst
-%dir /usr/share/cmake-4.4/Help/prop_fs/include
 /usr/share/cmake-4.4/Help/prop_fs/include/INTERFACE_BUILD_PROPERTY.rst
-%dir /usr/share/cmake-4.4/Help/prop_gbl
 /usr/share/cmake-4.4/Help/prop_gbl/ALLOW_DUPLICATE_CUSTOM_TARGETS.rst
 /usr/share/cmake-4.4/Help/prop_gbl/AUTOGEN_SOURCE_GROUP.rst
 /usr/share/cmake-4.4/Help/prop_gbl/AUTOGEN_TARGETS_FOLDER.rst
@@ -1012,16 +1063,13 @@
 /usr/share/cmake-4.4/Help/prop_gbl/TARGET_SUPPORTS_SHARED_LIBS.rst
 /usr/share/cmake-4.4/Help/prop_gbl/USE_FOLDERS.rst
 /usr/share/cmake-4.4/Help/prop_gbl/XCODE_EMIT_EFFECTIVE_PLATFORM_NAME.rst
-%dir /usr/share/cmake-4.4/Help/prop_gbl/include
 /usr/share/cmake-4.4/Help/prop_gbl/include/CMAKE_LANG_STD_FLAGS.rst
-%dir /usr/share/cmake-4.4/Help/prop_inst
 /usr/share/cmake-4.4/Help/prop_inst/CPACK_DESKTOP_SHORTCUTS.rst
 /usr/share/cmake-4.4/Help/prop_inst/CPACK_NEVER_OVERWRITE.rst
 /usr/share/cmake-4.4/Help/prop_inst/CPACK_PERMANENT.rst
 /usr/share/cmake-4.4/Help/prop_inst/CPACK_STARTUP_SHORTCUTS.rst
 /usr/share/cmake-4.4/Help/prop_inst/CPACK_START_MENU_SHORTCUTS.rst
 /usr/share/cmake-4.4/Help/prop_inst/CPACK_WIX_ACL.rst
-%dir /usr/share/cmake-4.4/Help/prop_sf
 /usr/share/cmake-4.4/Help/prop_sf/ABSTRACT.rst
 /usr/share/cmake-4.4/Help/prop_sf/AUTORCC_OPTIONS.rst
 /usr/share/cmake-4.4/Help/prop_sf/AUTOUIC_OPTIONS.rst
@@ -1081,7 +1129,6 @@
 /usr/share/cmake-4.4/Help/prop_sf/XCODE_EXPLICIT_FILE_TYPE.rst
 /usr/share/cmake-4.4/Help/prop_sf/XCODE_FILE_ATTRIBUTES.rst
 /usr/share/cmake-4.4/Help/prop_sf/XCODE_LAST_KNOWN_FILE_TYPE.rst
-%dir /usr/share/cmake-4.4/Help/prop_test
 /usr/share/cmake-4.4/Help/prop_test/ATTACHED_FILES.rst
 /usr/share/cmake-4.4/Help/prop_test/ATTACHED_FILES_ON_FAIL.rst
 /usr/share/cmake-4.4/Help/prop_test/COST.rst
@@ -1111,7 +1158,6 @@
 /usr/share/cmake-4.4/Help/prop_test/TIMEOUT_SIGNAL_NAME.rst
 /usr/share/cmake-4.4/Help/prop_test/WILL_FAIL.rst
 /usr/share/cmake-4.4/Help/prop_test/WORKING_DIRECTORY.rst
-%dir /usr/share/cmake-4.4/Help/prop_tgt
 /usr/share/cmake-4.4/Help/prop_tgt/ADDITIONAL_CLEAN_FILES.rst
 /usr/share/cmake-4.4/Help/prop_tgt/AIX_EXPORT_ALL_SYMBOLS.rst
 /usr/share/cmake-4.4/Help/prop_tgt/AIX_SHARED_LIBRARY_ARCHIVE.rst
@@ -1544,7 +1590,6 @@
 /usr/share/cmake-4.4/Help/prop_tgt/XCODE_SCHEME_ZOMBIE_OBJECTS.rst
 /usr/share/cmake-4.4/Help/prop_tgt/XCODE_XCCONFIG.rst
 /usr/share/cmake-4.4/Help/prop_tgt/XCTEST.rst
-%dir /usr/share/cmake-4.4/Help/prop_tgt/include
 /usr/share/cmake-4.4/Help/prop_tgt/include/COMPILE_PDB_NOTE.rst
 /usr/share/cmake-4.4/Help/prop_tgt/include/CUDA_RUNTIME_LIBRARY-VALUES.rst
 /usr/share/cmake-4.4/Help/prop_tgt/include/INTERFACE_BUILD_PROPERTY.rst
@@ -1563,7 +1608,6 @@
 /usr/share/cmake-4.4/Help/prop_tgt/include/WATCOM_RUNTIME_LIBRARY-VALUES.rst
 /usr/share/cmake-4.4/Help/prop_tgt/include/XXX_OUTPUT_DIRECTORY.rst
 /usr/share/cmake-4.4/Help/prop_tgt/include/XXX_OUTPUT_NAME.rst
-%dir /usr/share/cmake-4.4/Help/release
 /usr/share/cmake-4.4/Help/release/3.0.rst
 /usr/share/cmake-4.4/Help/release/3.1.rst
 /usr/share/cmake-4.4/Help/release/3.10.rst
@@ -1603,7 +1647,6 @@
 /usr/share/cmake-4.4/Help/release/4.4.rst
 /usr/share/cmake-4.4/Help/release/dev.txt
 /usr/share/cmake-4.4/Help/release/index.rst
-%dir /usr/share/cmake-4.4/Help/variable
 /usr/share/cmake-4.4/Help/variable/AIX.rst
 /usr/share/cmake-4.4/Help/variable/ANDROID.rst
 /usr/share/cmake-4.4/Help/variable/APPLE.rst
@@ -2414,7 +2457,6 @@
 /usr/share/cmake-4.4/Help/variable/WINDOWS_STORE.rst
 /usr/share/cmake-4.4/Help/variable/XCODE.rst
 /usr/share/cmake-4.4/Help/variable/XCODE_VERSION.rst
-%dir /usr/share/cmake-4.4/Help/variable/include
 /usr/share/cmake-4.4/Help/variable/include/CMAKE_FIND_LIBRARY_VAR.rst
 /usr/share/cmake-4.4/Help/variable/include/CMAKE_FIND_ROOT_PATH_MODE_XXX.rst
 /usr/share/cmake-4.4/Help/variable/include/CMAKE_LINK_GROUP_USING_FEATURE.rst
@@ -2433,9 +2475,7 @@
 /usr/share/cmake-4.4/Help/variable/include/LINKER_PREDEFINED_TYPES.rst
 /usr/share/cmake-4.4/Help/variable/include/LINK_GROUP_PREDEFINED_FEATURES.rst
 /usr/share/cmake-4.4/Help/variable/include/LINK_LIBRARY_PREDEFINED_FEATURES.rst
-%dir /usr/share/cmake-4.4/Modules
 /usr/share/cmake-4.4/Modules/AddFileDependencies.cmake
-%dir /usr/share/cmake-4.4/Modules/AndroidTestUtilities
 /usr/share/cmake-4.4/Modules/AndroidTestUtilities.cmake
 /usr/share/cmake-4.4/Modules/AndroidTestUtilities/PushToAndroidDevice.cmake
 /usr/share/cmake-4.4/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in
@@ -2453,7 +2493,6 @@
 /usr/share/cmake-4.4/Modules/CMakeASM_MASMInformation.cmake
 /usr/share/cmake-4.4/Modules/CMakeASM_NASMInformation.cmake
 /usr/share/cmake-4.4/Modules/CMakeASM_POASMInformation.cmake
-%dir /usr/share/cmake-4.4/Modules/CMakeAddFortranSubdirectory
 /usr/share/cmake-4.4/Modules/CMakeAddFortranSubdirectory.cmake
 /usr/share/cmake-4.4/Modules/CMakeAddFortranSubdirectory/build_mingw.cmake.in
 /usr/share/cmake-4.4/Modules/CMakeAddFortranSubdirectory/config_mingw.cmake.in
@@ -2626,7 +2665,6 @@
 /usr/share/cmake-4.4/Modules/CheckFortranSourceRuns.cmake
 /usr/share/cmake-4.4/Modules/CheckFunctionExists.c
 /usr/share/cmake-4.4/Modules/CheckFunctionExists.cmake
-%dir /usr/share/cmake-4.4/Modules/CheckIPOSupported
 /usr/share/cmake-4.4/Modules/CheckIPOSupported.cmake
 /usr/share/cmake-4.4/Modules/CheckIPOSupported/CMakeLists-C.txt.in
 /usr/share/cmake-4.4/Modules/CheckIPOSupported/CMakeLists-CXX.txt.in
@@ -2664,7 +2702,6 @@
 /usr/share/cmake-4.4/Modules/CheckTypeSizeMap.cmake.in
 /usr/share/cmake-4.4/Modules/CheckVariableExists.c
 /usr/share/cmake-4.4/Modules/CheckVariableExists.cmake
-%dir /usr/share/cmake-4.4/Modules/Compiler
 /usr/share/cmake-4.4/Modules/Compiler/ADSP-ASM.cmake
 /usr/share/cmake-4.4/Modules/Compiler/ADSP-C.cmake
 /usr/share/cmake-4.4/Modules/Compiler/ADSP-CXX.cmake
@@ -2910,7 +2947,6 @@
 /usr/share/cmake-4.4/Modules/Compiler/XL-C.cmake
 /usr/share/cmake-4.4/Modules/Compiler/XL-CXX-DetermineCompiler.cmake
 /usr/share/cmake-4.4/Modules/Compiler/XL-CXX.cmake
-%dir /usr/share/cmake-4.4/Modules/Compiler/XL-Fortran
 /usr/share/cmake-4.4/Modules/Compiler/XL-Fortran.cmake
 /usr/share/cmake-4.4/Modules/Compiler/XL-Fortran/cpp
 /usr/share/cmake-4.4/Modules/Compiler/XL.cmake
@@ -2921,7 +2957,6 @@
 /usr/share/cmake-4.4/Modules/Compiler/XLClang.cmake
 /usr/share/cmake-4.4/Modules/Compiler/zOS-C-DetermineCompiler.cmake
 /usr/share/cmake-4.4/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake
-%dir /usr/share/cmake-4.4/Modules/CompilerId
 /usr/share/cmake-4.4/Modules/CompilerId/GHS_default.gpj.in
 /usr/share/cmake-4.4/Modules/CompilerId/GHS_lib.gpj.in
 /usr/share/cmake-4.4/Modules/CompilerId/VS-10.csproj.in
@@ -2938,7 +2973,6 @@
 /usr/share/cmake-4.4/Modules/DummyCXXFile.cxx
 /usr/share/cmake-4.4/Modules/ExternalData.cmake
 /usr/share/cmake-4.4/Modules/ExternalData_config.cmake.in
-%dir /usr/share/cmake-4.4/Modules/ExternalProject
 /usr/share/cmake-4.4/Modules/ExternalProject.cmake
 /usr/share/cmake-4.4/Modules/ExternalProject/PatchInfo.txt.in
 /usr/share/cmake-4.4/Modules/ExternalProject/RepositoryInfo.txt.in
@@ -2955,7 +2989,6 @@
 /usr/share/cmake-4.4/Modules/ExternalProject/verify.cmake.in
 /usr/share/cmake-4.4/Modules/FLTKCompatibility.cmake
 /usr/share/cmake-4.4/Modules/FeatureSummary.cmake
-%dir /usr/share/cmake-4.4/Modules/FetchContent
 /usr/share/cmake-4.4/Modules/FetchContent.cmake
 /usr/share/cmake-4.4/Modules/FetchContent/CMakeLists.cmake.in
 /usr/share/cmake-4.4/Modules/FetchContent/package-config-version.cmake.in
@@ -2971,7 +3004,6 @@
 /usr/share/cmake-4.4/Modules/FindBoost.cmake
 /usr/share/cmake-4.4/Modules/FindBullet.cmake
 /usr/share/cmake-4.4/Modules/FindCABLE.cmake
-%dir /usr/share/cmake-4.4/Modules/FindCUDA
 /usr/share/cmake-4.4/Modules/FindCUDA.cmake
 /usr/share/cmake-4.4/Modules/FindCUDA/make2cmake.cmake
 /usr/share/cmake-4.4/Modules/FindCUDA/parse_cubin.cmake
@@ -3040,7 +3072,6 @@
 /usr/share/cmake-4.4/Modules/FindMFC.cmake
 /usr/share/cmake-4.4/Modules/FindMPEG.cmake
 /usr/share/cmake-4.4/Modules/FindMPEG2.cmake
-%dir /usr/share/cmake-4.4/Modules/FindMPI
 /usr/share/cmake-4.4/Modules/FindMPI.cmake
 /usr/share/cmake-4.4/Modules/FindMPI/fortranparam_mpi.f90.in
 /usr/share/cmake-4.4/Modules/FindMPI/libver_mpi.c
@@ -3074,7 +3105,6 @@
 /usr/share/cmake-4.4/Modules/FindPostgreSQL.cmake
 /usr/share/cmake-4.4/Modules/FindProducer.cmake
 /usr/share/cmake-4.4/Modules/FindProtobuf.cmake
-%dir /usr/share/cmake-4.4/Modules/FindPython
 /usr/share/cmake-4.4/Modules/FindPython.cmake
 /usr/share/cmake-4.4/Modules/FindPython/Support.cmake
 /usr/share/cmake-4.4/Modules/FindPython2.cmake
@@ -3136,7 +3166,6 @@
 /usr/share/cmake-4.4/Modules/Findosg_functions.cmake
 /usr/share/cmake-4.4/Modules/FindwxWidgets.cmake
 /usr/share/cmake-4.4/Modules/FindwxWindows.cmake
-%dir /usr/share/cmake-4.4/Modules/FortranCInterface
 /usr/share/cmake-4.4/Modules/FortranCInterface.cmake
 /usr/share/cmake-4.4/Modules/FortranCInterface/CMakeLists.txt
 /usr/share/cmake-4.4/Modules/FortranCInterface/Detect.cmake
@@ -3145,7 +3174,6 @@
 /usr/share/cmake-4.4/Modules/FortranCInterface/MY_MODULE.c
 /usr/share/cmake-4.4/Modules/FortranCInterface/Macro.h.in
 /usr/share/cmake-4.4/Modules/FortranCInterface/Output.cmake.in
-%dir /usr/share/cmake-4.4/Modules/FortranCInterface/Verify
 /usr/share/cmake-4.4/Modules/FortranCInterface/Verify/CMakeLists.txt
 /usr/share/cmake-4.4/Modules/FortranCInterface/Verify/VerifyC.c
 /usr/share/cmake-4.4/Modules/FortranCInterface/Verify/VerifyCXX.cxx
@@ -3164,7 +3192,6 @@
 /usr/share/cmake-4.4/Modules/GNUInstallDirs.cmake
 /usr/share/cmake-4.4/Modules/GenerateExportHeader.cmake
 /usr/share/cmake-4.4/Modules/GetPrerequisites.cmake
-%dir /usr/share/cmake-4.4/Modules/GoogleTest
 /usr/share/cmake-4.4/Modules/GoogleTest.cmake
 /usr/share/cmake-4.4/Modules/GoogleTest/DiscoverTests.cmake
 /usr/share/cmake-4.4/Modules/GoogleTest/LaunchTest.cmake
@@ -3172,11 +3199,9 @@
 /usr/share/cmake-4.4/Modules/GoogleTestAddTests.cmake
 /usr/share/cmake-4.4/Modules/ITKCompatibility.cmake
 /usr/share/cmake-4.4/Modules/InstallRequiredSystemLibraries.cmake
-%dir /usr/share/cmake-4.4/Modules/IntelVSImplicitPath
 /usr/share/cmake-4.4/Modules/IntelVSImplicitPath/CMakeLists.txt
 /usr/share/cmake-4.4/Modules/IntelVSImplicitPath/detect.cmake
 /usr/share/cmake-4.4/Modules/IntelVSImplicitPath/hello.f
-%dir /usr/share/cmake-4.4/Modules/Internal
 /usr/share/cmake-4.4/Modules/Internal/AppleArchitectureSelection.cmake.in
 /usr/share/cmake-4.4/Modules/Internal/ApplePlatformSelection.cmake.in
 /usr/share/cmake-4.4/Modules/Internal/CMakeASM-ATTLinkerInformation.cmake
@@ -3219,7 +3244,6 @@
 /usr/share/cmake-4.4/Modules/Internal/CMakeParseCompilerArchitectureId.cmake
 /usr/share/cmake-4.4/Modules/Internal/CMakeSwiftLinkerInformation.cmake
 /usr/share/cmake-4.4/Modules/Internal/CMakeTryCompilerOrLinkerFlag.cmake
-%dir /usr/share/cmake-4.4/Modules/Internal/CPack
 /usr/share/cmake-4.4/Modules/Internal/CPack/CPack.DS_Store.in
 /usr/share/cmake-4.4/Modules/Internal/CPack/CPack.Description.plist.in
 /usr/share/cmake-4.4/Modules/Internal/CPack/CPack.Info.plist.in
@@ -3242,7 +3266,6 @@
 /usr/share/cmake-4.4/Modules/Internal/CPack/ISScript.template.in
 /usr/share/cmake-4.4/Modules/Internal/CPack/NSIS.InstallOptions.ini.in
 /usr/share/cmake-4.4/Modules/Internal/CPack/NSIS.template.in
-%dir /usr/share/cmake-4.4/Modules/Internal/CPack/WIX-v3
 /usr/share/cmake-4.4/Modules/Internal/CPack/WIX-v3/WIX.template.in
 /usr/share/cmake-4.4/Modules/Internal/CPack/WIX.template.in
 /usr/share/cmake-4.4/Modules/Internal/CheckCommon.cmake
@@ -3253,11 +3276,9 @@
 /usr/share/cmake-4.4/Modules/Internal/CheckSourceRuns.cmake
 /usr/share/cmake-4.4/Modules/Internal/FeatureTesting.cmake
 /usr/share/cmake-4.4/Modules/Internal/HeaderpadWorkaround.cmake
-%dir /usr/share/cmake-4.4/Modules/Internal/OSRelease
 /usr/share/cmake-4.4/Modules/Internal/OSRelease/010-TryOldCentOS.cmake
 /usr/share/cmake-4.4/Modules/Internal/OSRelease/020-TryDebianVersion.cmake
 /usr/share/cmake-4.4/Modules/KDE3Macros.cmake
-%dir /usr/share/cmake-4.4/Modules/Linker
 /usr/share/cmake-4.4/Modules/Linker/AIX-ASM.cmake
 /usr/share/cmake-4.4/Modules/Linker/AIX-C.cmake
 /usr/share/cmake-4.4/Modules/Linker/AIX-CXX.cmake
@@ -3322,13 +3343,11 @@
 /usr/share/cmake-4.4/Modules/MacOSXFrameworkInfo.plist.in
 /usr/share/cmake-4.4/Modules/MacroAddFileDependencies.cmake
 /usr/share/cmake-4.4/Modules/MatlabTestsRedirect.cmake
-%dir /usr/share/cmake-4.4/Modules/Platform
 /usr/share/cmake-4.4/Modules/Platform/ADSP-C.cmake
 /usr/share/cmake-4.4/Modules/Platform/ADSP-CXX.cmake
 /usr/share/cmake-4.4/Modules/Platform/ADSP-Common.cmake
 /usr/share/cmake-4.4/Modules/Platform/ADSP-Determine.cmake
 /usr/share/cmake-4.4/Modules/Platform/ADSP.cmake
-%dir /usr/share/cmake-4.4/Modules/Platform/AIX
 /usr/share/cmake-4.4/Modules/Platform/AIX-Clang-C.cmake
 /usr/share/cmake-4.4/Modules/Platform/AIX-Clang-CXX.cmake
 /usr/share/cmake-4.4/Modules/Platform/AIX-GNU-ASM.cmake
@@ -3357,7 +3376,6 @@
 /usr/share/cmake-4.4/Modules/Platform/AIX/ExportImportList
 /usr/share/cmake-4.4/Modules/Platform/ARTOS-GNU-C.cmake
 /usr/share/cmake-4.4/Modules/Platform/ARTOS.cmake
-%dir /usr/share/cmake-4.4/Modules/Platform/Android
 /usr/share/cmake-4.4/Modules/Platform/Android-Clang-ASM.cmake
 /usr/share/cmake-4.4/Modules/Platform/Android-Clang-C.cmake
 /usr/share/cmake-4.4/Modules/Platform/Android-Clang-CXX.cmake
@@ -3562,7 +3580,6 @@
 /usr/share/cmake-4.4/Modules/Platform/HP-UX.cmake
 /usr/share/cmake-4.4/Modules/Platform/Haiku-Initialize.cmake
 /usr/share/cmake-4.4/Modules/Platform/Haiku.cmake
-%dir /usr/share/cmake-4.4/Modules/Platform/Linker
 /usr/share/cmake-4.4/Modules/Platform/Linker/AIX-AIX-ASM.cmake
 /usr/share/cmake-4.4/Modules/Platform/Linker/AIX-AIX-C.cmake
 /usr/share/cmake-4.4/Modules/Platform/Linker/AIX-AIX-CXX.cmake
@@ -4127,7 +4144,6 @@
 /usr/share/cmake-4.4/Modules/TestForSTDNamespace.cmake
 /usr/share/cmake-4.4/Modules/TestForSTDNamespace.cxx
 /usr/share/cmake-4.4/Modules/UseEcos.cmake
-%dir /usr/share/cmake-4.4/Modules/UseJava
 /usr/share/cmake-4.4/Modules/UseJava.cmake
 /usr/share/cmake-4.4/Modules/UseJava/ClassFilelist.cmake
 /usr/share/cmake-4.4/Modules/UseJava/ClearClassFiles.cmake
@@ -4135,7 +4151,6 @@
 /usr/share/cmake-4.4/Modules/UseJava/javaTargets.cmake.in
 /usr/share/cmake-4.4/Modules/UsePkgConfig.cmake
 /usr/share/cmake-4.4/Modules/UseQt4.cmake
-%dir /usr/share/cmake-4.4/Modules/UseSWIG
 /usr/share/cmake-4.4/Modules/UseSWIG.cmake
 /usr/share/cmake-4.4/Modules/UseSWIG/ManageSupportFiles.cmake
 /usr/share/cmake-4.4/Modules/Use_wxWindows.cmake
@@ -4148,7 +4163,6 @@
 /usr/share/cmake-4.4/Modules/kde3init_dummy.cpp.in
 /usr/share/cmake-4.4/Modules/kde3uic.cmake
 /usr/share/cmake-4.4/Modules/readme.txt
-%dir /usr/share/cmake-4.4/Templates
 /usr/share/cmake-4.4/Templates/AppleInfo.plist
 /usr/share/cmake-4.4/Templates/CMakeVSMacros1.vsmacros
 /usr/share/cmake-4.4/Templates/CMakeVSMacros2.vsmacros
@@ -4157,9 +4171,7 @@
 /usr/share/cmake-4.4/Templates/CPack.GenericWelcome.txt
 /usr/share/cmake-4.4/Templates/CPackConfig.cmake.in
 /usr/share/cmake-4.4/Templates/CTestScript.cmake.in
-%dir /usr/share/cmake-4.4/Templates/MSBuild
 /usr/share/cmake-4.4/Templates/MSBuild/CustomBuildDepFile.targets
-%dir /usr/share/cmake-4.4/Templates/MSBuild/FlagTables
 /usr/share/cmake-4.4/Templates/MSBuild/FlagTables/v10_CL.json
 /usr/share/cmake-4.4/Templates/MSBuild/FlagTables/v10_CSharp.json
 /usr/share/cmake-4.4/Templates/MSBuild/FlagTables/v10_Cuda.json
@@ -4204,7 +4216,6 @@
 /usr/share/cmake-4.4/Templates/MSBuild/nasm.targets
 /usr/share/cmake-4.4/Templates/MSBuild/nasm.xml
 /usr/share/cmake-4.4/Templates/TestDriver.cxx.in
-%dir /usr/share/cmake-4.4/Templates/Windows
 /usr/share/cmake-4.4/Templates/Windows/ApplicationIcon.png
 /usr/share/cmake-4.4/Templates/Windows/Logo.png
 /usr/share/cmake-4.4/Templates/Windows/SmallLogo.png
@@ -4212,22 +4223,11 @@
 /usr/share/cmake-4.4/Templates/Windows/SplashScreen.png
 /usr/share/cmake-4.4/Templates/Windows/StoreLogo.png
 /usr/share/cmake-4.4/Templates/Windows/Windows_TemporaryKey.pfx
-%dir /usr/share/doc
-%dir /usr/share/doc/cmake-4.4.2
-%doc /usr/share/doc/cmake-4.4.2/CONTRIBUTORS.rst
-%doc /usr/share/doc/cmake-4.4.2/LICENSE.rst
-%dir /usr/share/doc/cmake-4.4.2/cmcppdap
-%doc /usr/share/doc/cmake-4.4.2/cmcppdap/NOTICE
-%dir /usr/share/doc/cmake-4.4.2/cmlibrhash
-%doc /usr/share/doc/cmake-4.4.2/cmlibrhash/COPYING
-%dir /usr/share/doc/cmake-4.4.2/cmsys
-%doc /usr/share/doc/cmake-4.4.2/cmsys/Copyright.txt
-%dir /usr/share/emacs
-%dir /usr/share/emacs/site-lisp
+/usr/share/doc/cmake-4.4.3/CONTRIBUTORS.rst
+/usr/share/doc/cmake-4.4.3/LICENSE.rst
+/usr/share/doc/cmake-4.4.3/cmcppdap/NOTICE
+/usr/share/doc/cmake-4.4.3/cmlibrhash/COPYING
+/usr/share/doc/cmake-4.4.3/cmsys/Copyright.txt
 /usr/share/emacs/site-lisp/cmake-mode.el
-%dir /usr/share/vim
-%dir /usr/share/vim/vimfiles
-%dir /usr/share/vim/vimfiles/indent
 /usr/share/vim/vimfiles/indent/cmake.vim
-%dir /usr/share/vim/vimfiles/syntax
 /usr/share/vim/vimfiles/syntax/cmake.vim

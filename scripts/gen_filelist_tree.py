@@ -18,6 +18,12 @@ import sys
 SKIP_DIRS = {"/", "/usr", "/etc", "/var", "/var/lib", "/var/log", "/var/cache", "/var/run"}
 
 
+def quote_path(path):
+    if " " in path or "\t" in path:
+        return '"' + path.replace('"', '\\"') + '"'
+    return path
+
+
 def walk(root):
     entries = []
     for dirpath, dirnames, filenames in os.walk(root):
@@ -27,13 +33,16 @@ def walk(root):
             path = base.rstrip("/") + "/" + d
             if os.path.basename(path) == ".build-id":
                 continue
+            if os.path.islink(os.path.join(dirpath, d)):
+                entries.append(quote_path(path))
+                continue
             if path not in SKIP_DIRS:
-                entries.append("%dir " + path)
+                entries.append("%dir " + quote_path(path))
         for f in filenames:
             path = base.rstrip("/") + "/" + f
             if os.path.basename(path) in (".build-id",):
                 continue
-            entries.append(path)
+            entries.append(quote_path(path))
     return entries
 
 

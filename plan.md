@@ -650,7 +650,7 @@ localhost login:
       (libxshmfence 1.3.3, expat 2.8.4, LLVM 23.1.0, Mesa 26.2.3, kernel
       7.2.6 with DRM_VGEM, xorg-server rebuilt with GLX); the remaining
       outdated packages are the next parity wave.
-- [ ] C13. **Bring the built set to book versions (parity wave).**  The audit
+- [x] C13. **Bring the built set to book versions (parity wave) — done 2026-11-01.**  The audit
       found these shipped packages below LFS/BLFS trunk:
       *base:* `linux-api-headers` 7.1.8→7.2.6, `openssl` 4.0.1→4.0.2,
       `xz` 5.8.3→5.8.4, `pcre2` 10.47→10.48, `elfutils` 0.195→0.196,

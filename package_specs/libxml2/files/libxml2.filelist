@@ -1,10 +1,14 @@
 %dir /usr/bin
-/usr/bin/xml2-config
-/usr/bin/xmlcatalog
-/usr/bin/xmllint
 %dir /usr/include
 %dir /usr/include/libxml2
 %dir /usr/include/libxml2/libxml
+%dir /usr/lib64
+%dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/libxml2
+%dir /usr/lib64/pkgconfig
+/usr/bin/xml2-config
+/usr/bin/xmlcatalog
+/usr/bin/xmllint
 /usr/include/libxml2/libxml/HTMLparser.h
 /usr/include/libxml2/libxml/HTMLtree.h
 /usr/include/libxml2/libxml/SAX.h
@@ -51,12 +55,8 @@
 /usr/include/libxml2/libxml/xpath.h
 /usr/include/libxml2/libxml/xpathInternals.h
 /usr/include/libxml2/libxml/xpointer.h
-%dir /usr/lib64
-%dir /usr/lib64/cmake
-%dir /usr/lib64/cmake/libxml2
 /usr/lib64/cmake/libxml2/libxml2-config.cmake
 /usr/lib64/libxml2.so
 /usr/lib64/libxml2.so.16
-/usr/lib64/libxml2.so.16.1.3
-%dir /usr/lib64/pkgconfig
+/usr/lib64/libxml2.so.16.1.4
 /usr/lib64/pkgconfig/libxml-2.0.pc

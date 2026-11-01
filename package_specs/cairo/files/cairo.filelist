@@ -1,7 +1,10 @@
 %dir /usr/bin
-/usr/bin/cairo-trace
 %dir /usr/include
 %dir /usr/include/cairo
+%dir /usr/lib64
+%dir /usr/lib64/cairo
+%dir /usr/lib64/pkgconfig
+/usr/bin/cairo-trace
 /usr/include/cairo/cairo-deprecated.h
 /usr/include/cairo/cairo-features.h
 /usr/include/cairo/cairo-ft.h
@@ -17,20 +20,17 @@
 /usr/include/cairo/cairo-xlib-xrender.h
 /usr/include/cairo/cairo-xlib.h
 /usr/include/cairo/cairo.h
-%dir /usr/lib64
-%dir /usr/lib64/cairo
 /usr/lib64/cairo/libcairo-fdr.so
 /usr/lib64/cairo/libcairo-trace.so
 /usr/lib64/libcairo-gobject.so
 /usr/lib64/libcairo-gobject.so.2
-/usr/lib64/libcairo-gobject.so.2.11804.4
+/usr/lib64/libcairo-gobject.so.2.11806.6
 /usr/lib64/libcairo-script-interpreter.so
 /usr/lib64/libcairo-script-interpreter.so.2
-/usr/lib64/libcairo-script-interpreter.so.2.11804.4
+/usr/lib64/libcairo-script-interpreter.so.2.11806.6
 /usr/lib64/libcairo.so
 /usr/lib64/libcairo.so.2
-/usr/lib64/libcairo.so.2.11804.4
-%dir /usr/lib64/pkgconfig
+/usr/lib64/libcairo.so.2.11806.6
 /usr/lib64/pkgconfig/cairo-fc.pc
 /usr/lib64/pkgconfig/cairo-ft.pc
 /usr/lib64/pkgconfig/cairo-gobject.pc

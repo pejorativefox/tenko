@@ -1,5 +1,5 @@
 Name:       glib
-Version:    2.88.3
+Version:    2.90.0
 Release:    1
 Summary:    Glib low level system libraries
 License:    GPL3
@@ -29,7 +29,7 @@ meson setup ..                       \
       --buildtype=release            \
       -D introspection=%{glib_introspection} \
       -D glib_debug=disabled         \
-      -D man-pages=disabled           \
+      -D man-pages=enabled            \
       -D sysprof=disabled            \
       -D selinux=disabled            \
       -D tests=false

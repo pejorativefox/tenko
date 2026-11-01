@@ -1,5 +1,5 @@
 Name:       libuv
-Version:    1.52.1
+Version:    1.53.0
 Release:    1
 Summary:    TODO
 License:    GPL3

@@ -1,9 +1,9 @@
 Name:       upower
-Version:    1.91.3
+Version:    1.91.4
 Release:    1
 Summary:    Abstraction for enumerating power devices, listening to device events and querying history and statistics
 License:    GPL
-Source0:    upower-v1.91.3.tar.bz2
+Source0:    upower-v%{version}.tar.bz2
 Prefix:     /usr
 
 BuildRequires: libgudev

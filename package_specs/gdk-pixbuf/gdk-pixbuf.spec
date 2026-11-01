@@ -1,5 +1,5 @@
 Name:       gdk-pixbuf
-Version:    2.44.7
+Version:    2.44.8
 Release:    1
 Summary:    Image loading library
 License:    GPL3

@@ -1,10 +1,10 @@
 Name:       cmake
-Version:    4.4.2
+Version:    4.4.3
 Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
-Source0:    cmake-4.4.2.tar.gz
+Source0:    cmake-%{version}.tar.gz
 
 
 

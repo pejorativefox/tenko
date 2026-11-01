@@ -1,12 +1,19 @@
 %dir /usr/bin
+%dir /usr/include
+%dir /usr/include/harfbuzz
+%dir /usr/lib64
+%dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/harfbuzz
+%dir /usr/lib64/girepository-1.0
+%dir /usr/lib64/pkgconfig
+%dir /usr/share
+%dir /usr/share/gir-1.0
 /usr/bin/hb-info
 /usr/bin/hb-raster
 /usr/bin/hb-shape
 /usr/bin/hb-subset
 /usr/bin/hb-vector
 /usr/bin/hb-view
-%dir /usr/include
-%dir /usr/include/harfbuzz
 /usr/include/harfbuzz/hb-aat-layout.h
 /usr/include/harfbuzz/hb-aat.h
 /usr/include/harfbuzz/hb-blob.h
@@ -52,34 +59,29 @@
 /usr/include/harfbuzz/hb-vector.h
 /usr/include/harfbuzz/hb-version.h
 /usr/include/harfbuzz/hb.h
-%dir /usr/lib64
-%dir /usr/lib64/cmake
-%dir /usr/lib64/cmake/harfbuzz
 /usr/lib64/cmake/harfbuzz/harfbuzz-config.cmake
-%dir /usr/lib64/girepository-1.0
 /usr/lib64/girepository-1.0/HarfBuzz-0.0.typelib
 /usr/lib64/libharfbuzz-cairo.so
 /usr/lib64/libharfbuzz-cairo.so.0
-/usr/lib64/libharfbuzz-cairo.so.0.61431.0
+/usr/lib64/libharfbuzz-cairo.so.0.61450.0
 /usr/lib64/libharfbuzz-gobject.so
 /usr/lib64/libharfbuzz-gobject.so.0
-/usr/lib64/libharfbuzz-gobject.so.0.61431.0
+/usr/lib64/libharfbuzz-gobject.so.0.61450.0
 /usr/lib64/libharfbuzz-gpu.so
 /usr/lib64/libharfbuzz-gpu.so.0
-/usr/lib64/libharfbuzz-gpu.so.0.61431.0
+/usr/lib64/libharfbuzz-gpu.so.0.61450.0
 /usr/lib64/libharfbuzz-raster.so
 /usr/lib64/libharfbuzz-raster.so.0
-/usr/lib64/libharfbuzz-raster.so.0.61431.0
+/usr/lib64/libharfbuzz-raster.so.0.61450.0
 /usr/lib64/libharfbuzz-subset.so
 /usr/lib64/libharfbuzz-subset.so.0
-/usr/lib64/libharfbuzz-subset.so.0.61431.0
+/usr/lib64/libharfbuzz-subset.so.0.61450.0
 /usr/lib64/libharfbuzz-vector.so
 /usr/lib64/libharfbuzz-vector.so.0
-/usr/lib64/libharfbuzz-vector.so.0.61431.0
+/usr/lib64/libharfbuzz-vector.so.0.61450.0
 /usr/lib64/libharfbuzz.so
 /usr/lib64/libharfbuzz.so.0
-/usr/lib64/libharfbuzz.so.0.61431.0
-%dir /usr/lib64/pkgconfig
+/usr/lib64/libharfbuzz.so.0.61450.0
 /usr/lib64/pkgconfig/harfbuzz-cairo.pc
 /usr/lib64/pkgconfig/harfbuzz-gobject.pc
 /usr/lib64/pkgconfig/harfbuzz-gpu.pc
@@ -87,6 +89,4 @@
 /usr/lib64/pkgconfig/harfbuzz-subset.pc
 /usr/lib64/pkgconfig/harfbuzz-vector.pc
 /usr/lib64/pkgconfig/harfbuzz.pc
-%dir /usr/share
-%dir /usr/share/gir-1.0
 /usr/share/gir-1.0/HarfBuzz-0.0.gir

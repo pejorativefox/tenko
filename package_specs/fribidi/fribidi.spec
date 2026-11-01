@@ -1,5 +1,5 @@
 Name:       fribidi
-Version:    1.0.16
+Version:    1.0.17
 Release:    1
 Summary:    GNU FriBidi 
 License:    GPL3

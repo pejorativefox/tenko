@@ -24,6 +24,8 @@ done
 # The kernel is built in the container (E2) and is collected above with
 # every other blfs-parity RPM; no host copy is needed.
 
+./scripts/prune_repo.sh "$REPO"
+
 count=$(find "$REPO" -maxdepth 1 -name '*.rpm' | wc -l)
 echo "repo RPMs: $count"
 createrepo_c --quiet "$REPO"

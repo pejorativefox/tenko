@@ -1,5 +1,5 @@
 Name:       libarchive
-Version:    3.7.1
+Version:    3.8.9
 Release:    1
 Summary:    Library for various archive formats
 License:    GPL3
@@ -13,7 +13,7 @@ The libarchive library provides a single interface for reading/writing various c
 %setup -q
 
 %build
-%configure --without-xml2 --without-openssl
+%configure
 %make_build
 
 %install    
@@ -31,7 +31,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/libarchive.a
 /usr/lib64/libarchive.so
 /usr/lib64/libarchive.so.13
-/usr/lib64/libarchive.so.13.7.1
+/usr/lib64/libarchive.so.13.8.9
 /usr/lib64/pkgconfig/libarchive.pc
 /usr/share/man/
 

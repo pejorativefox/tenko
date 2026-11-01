@@ -1,5 +1,5 @@
 Name:       rsync
-Version:    3.5.0
+Version:    3.5.1
 Release:    1
 Summary:    Fast incremental file transfer tool
 License:    GPL-3.0-or-later
@@ -14,13 +14,11 @@ dependency of the kernel's headers_install target.
 %setup -q
 
 %build
-%configure --without-included-zlib --disable-xxhash \
-           --disable-lz4 --disable-zstd --disable-openssl
+%configure --without-included-zlib --disable-xxhash --disable-idn
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/
+%files -f %{_sourcedir}/rsync.filelist

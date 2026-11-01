@@ -1,10 +1,10 @@
 Name:       libevdev
-Version:    1.13.6
+Version:    1.13.7
 Release:    1
 Summary:    Wrapper library for evdev devices
 License:    MIT
 Prefix:     /usr
-Source0:    libevdev-1.13.6.tar.xz
+Source0:    %{name}-%{version}.tar.xz
 
 %description
 libevdev wraps the Linux evdev interface for input device handling.

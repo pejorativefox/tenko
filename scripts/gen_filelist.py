@@ -34,6 +34,12 @@ def rpm_files(rpm):
         yield path, flags, perms
 
 
+def quote_path(path):
+    if " " in path or "\t" in path:
+        return '"' + path.replace('"', '\\"') + '"'
+    return path
+
+
 def render(entries):
     lines = []
     for path, flags, perms in sorted(entries):
@@ -43,7 +49,7 @@ def render(entries):
         if is_dir:
             if path in SKIP_DIRS:
                 continue
-            lines.append("%dir " + path)
+            lines.append("%dir " + quote_path(path))
             continue
         prefix = ""
         # 'c' = config, 'n' = config(noreplace), 'd' = doc
@@ -53,7 +59,7 @@ def render(entries):
             prefix = "%config "
         elif "d" in flags:
             prefix = "%doc "
-        lines.append(prefix + path)
+        lines.append(prefix + quote_path(path))
     return lines
 
 

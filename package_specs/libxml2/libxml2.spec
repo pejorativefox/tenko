@@ -1,5 +1,5 @@
 Name:       libxml2
-Version:    2.15.3
+Version:    2.15.4
 Release:    1
 Summary:    XML parsing library
 License:    GPL3

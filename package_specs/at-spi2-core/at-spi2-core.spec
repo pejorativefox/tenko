@@ -1,5 +1,5 @@
 Name:       at-spi2-core
-Version:    2.60.6
+Version:    2.62.0.1
 Release:    1
 Summary:    TODO
 License:    GPL3
@@ -19,8 +19,7 @@ pushd build
 meson setup ..                  \
       --prefix=/usr             \
       --buildtype=release       \
-      -D gtk2_atk_adaptor=false \
-      -D systemd_user_dir=/tmp
+      -D gtk2_atk_adaptor=false
 ninja
 popd
 
@@ -29,7 +28,6 @@ rm -rf %{buildroot}
 pushd build
 DESTDIR=%{buildroot} ninja install
 popd
-rm -f %{buildroot}/tmp/at-spi-dbus-bus.service
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/at-spi2-core.filelist

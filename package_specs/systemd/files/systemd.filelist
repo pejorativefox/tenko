@@ -1,7 +1,6 @@
 %dir /etc/X11
 %dir /etc/X11/xinit
 %dir /etc/X11/xinit/xinitrc.d
-/etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 %dir /etc/binfmt.d
 %dir /etc/credstore
 %dir /etc/credstore.encrypted
@@ -9,40 +8,245 @@
 %dir /etc/kernel/install.d
 %dir /etc/modules-load.d
 %dir /etc/profile.d
-/etc/profile.d/70-systemd-shell-extra.sh
-/etc/profile.d/80-systemd-osc-context.sh
 %dir /etc/ssh
 %dir /etc/ssh/ssh_config.d
-/etc/ssh/ssh_config.d/20-systemd-ssh-proxy.conf
 %dir /etc/ssh/sshd_config.d
-/etc/ssh/sshd_config.d/20-systemd-userdb.conf
 %dir /etc/sysctl.d
 %dir /etc/systemd
+%dir /etc/systemd/network
+%dir /etc/systemd/system
+%dir /etc/systemd/user
+%dir /etc/tmpfiles.d
+%dir /etc/udev
+%dir /etc/udev/hwdb.d
+%dir /etc/udev/rules.d
+%dir /etc/user-tmpfiles.d
+%dir /etc/xdg
+%dir /etc/xdg/systemd
+%dir /usr/bin
+%dir /usr/include
+%dir /usr/include/systemd
+%dir /usr/lib
+%dir /usr/lib/binfmt.d
+%dir /usr/lib/credstore
+%dir /usr/lib/environment.d
+%dir /usr/lib/kernel
+%dir /usr/lib/kernel/install.d
+%dir /usr/lib/modprobe.d
+%dir /usr/lib/modules-load.d
+%dir /usr/lib/sysctl.d
+%dir /usr/lib/systemd
+%dir /usr/lib/systemd/catalog
+%dir /usr/lib/systemd/initrd-preset
+%dir /usr/lib/systemd/network
+%dir /usr/lib/systemd/ntp-units.d
+%dir /usr/lib/systemd/portable
+%dir /usr/lib/systemd/portable/profile
+%dir /usr/lib/systemd/portable/profile/default
+%dir /usr/lib/systemd/portable/profile/nonetwork
+%dir /usr/lib/systemd/portable/profile/strict
+%dir /usr/lib/systemd/portable/profile/trusted
+%dir /usr/lib/systemd/profile.d
+%dir /usr/lib/systemd/repart
+%dir /usr/lib/systemd/repart/definitions
+%dir /usr/lib/systemd/repart/definitions/confext.repart.d
+%dir /usr/lib/systemd/repart/definitions/portable.repart.d
+%dir /usr/lib/systemd/repart/definitions/sysext.repart.d
+%dir /usr/lib/systemd/ssh_config.d
+%dir /usr/lib/systemd/sshd_config.d
+%dir /usr/lib/systemd/system
+%dir /usr/lib/systemd/system-environment-generators
+%dir /usr/lib/systemd/system-generators
+%dir /usr/lib/systemd/system-preset
+%dir /usr/lib/systemd/system-shutdown
+%dir /usr/lib/systemd/system-sleep
+%dir /usr/lib/systemd/system/factory-reset.target.wants
+%dir /usr/lib/systemd/system/initrd-root-fs.target.wants
+%dir /usr/lib/systemd/system/initrd.target.wants
+%dir /usr/lib/systemd/system/local-fs.target.wants
+%dir /usr/lib/systemd/system/machines.target.wants
+%dir /usr/lib/systemd/system/multi-user.target.wants
+%dir /usr/lib/systemd/system/remote-fs.target.wants
+%dir /usr/lib/systemd/system/sockets.target.wants
+%dir /usr/lib/systemd/system/sysinit.target.wants
+%dir /usr/lib/systemd/system/system-install.target.wants
+%dir /usr/lib/systemd/system/system-update-pre.target.wants
+%dir /usr/lib/systemd/system/timers.target.wants
+%dir /usr/lib/systemd/system/user-.slice.d
+%dir /usr/lib/systemd/system/user@.service.d
+%dir /usr/lib/systemd/system/user@0.service.d
+%dir /usr/lib/systemd/user
+%dir /usr/lib/systemd/user-environment-generators
+%dir /usr/lib/systemd/user-generators
+%dir /usr/lib/systemd/user-preset
+%dir /usr/lib/systemd/user/portable
+%dir /usr/lib/systemd/user/portable/profile
+%dir /usr/lib/systemd/user/portable/profile/default
+%dir /usr/lib/systemd/user/portable/profile/nonetwork
+%dir /usr/lib/systemd/user/portable/profile/strict
+%dir /usr/lib/systemd/user/portable/profile/trusted
+%dir /usr/lib/systemd/user/sockets.target.wants
+%dir /usr/lib/systemd/varlink-bridges
+%dir /usr/lib/sysusers.d
+%dir /usr/lib/tmpfiles.d
+%dir /usr/lib/udev
+%dir /usr/lib/udev/hwdb.d
+%dir /usr/lib/udev/rules.d
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+%dir /usr/lib64/systemd
+%dir /usr/sbin
+%dir /usr/share
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+%dir /usr/share/dbus-1
+%dir /usr/share/dbus-1/interfaces
+%dir /usr/share/dbus-1/services
+%dir /usr/share/dbus-1/system-services
+%dir /usr/share/dbus-1/system.d
+%dir /usr/share/doc
+%dir /usr/share/doc/systemd-261.3
+%dir /usr/share/doc/systemd-261.3/LICENSES
+%dir /usr/share/factory
+%dir /usr/share/factory/etc
+%dir /usr/share/factory/etc/pam.d
+%dir /usr/share/locale
+%dir /usr/share/locale/ar
+%dir /usr/share/locale/ar/LC_MESSAGES
+%dir /usr/share/locale/be
+%dir /usr/share/locale/be/LC_MESSAGES
+%dir /usr/share/locale/be@latin
+%dir /usr/share/locale/be@latin/LC_MESSAGES
+%dir /usr/share/locale/bg
+%dir /usr/share/locale/bg/LC_MESSAGES
+%dir /usr/share/locale/bo
+%dir /usr/share/locale/bo/LC_MESSAGES
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+%dir /usr/share/locale/el
+%dir /usr/share/locale/el/LC_MESSAGES
+%dir /usr/share/locale/eo
+%dir /usr/share/locale/eo/LC_MESSAGES
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+%dir /usr/share/locale/et
+%dir /usr/share/locale/et/LC_MESSAGES
+%dir /usr/share/locale/eu
+%dir /usr/share/locale/eu/LC_MESSAGES
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+%dir /usr/share/locale/gl
+%dir /usr/share/locale/gl/LC_MESSAGES
+%dir /usr/share/locale/he
+%dir /usr/share/locale/he/LC_MESSAGES
+%dir /usr/share/locale/hi
+%dir /usr/share/locale/hi/LC_MESSAGES
+%dir /usr/share/locale/hr
+%dir /usr/share/locale/hr/LC_MESSAGES
+%dir /usr/share/locale/hu
+%dir /usr/share/locale/hu/LC_MESSAGES
+%dir /usr/share/locale/ia
+%dir /usr/share/locale/ia/LC_MESSAGES
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+%dir /usr/share/locale/kab
+%dir /usr/share/locale/kab/LC_MESSAGES
+%dir /usr/share/locale/kk
+%dir /usr/share/locale/kk/LC_MESSAGES
+%dir /usr/share/locale/km
+%dir /usr/share/locale/km/LC_MESSAGES
+%dir /usr/share/locale/kn
+%dir /usr/share/locale/kn/LC_MESSAGES
+%dir /usr/share/locale/ko
+%dir /usr/share/locale/ko/LC_MESSAGES
+%dir /usr/share/locale/kw
+%dir /usr/share/locale/kw/LC_MESSAGES
+%dir /usr/share/locale/lo
+%dir /usr/share/locale/lo/LC_MESSAGES
+%dir /usr/share/locale/lt
+%dir /usr/share/locale/lt/LC_MESSAGES
+%dir /usr/share/locale/nb_NO
+%dir /usr/share/locale/nb_NO/LC_MESSAGES
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+%dir /usr/share/locale/pa
+%dir /usr/share/locale/pa/LC_MESSAGES
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+%dir /usr/share/locale/pt
+%dir /usr/share/locale/pt/LC_MESSAGES
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+%dir /usr/share/locale/ro
+%dir /usr/share/locale/ro/LC_MESSAGES
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+%dir /usr/share/locale/si
+%dir /usr/share/locale/si/LC_MESSAGES
+%dir /usr/share/locale/sk
+%dir /usr/share/locale/sk/LC_MESSAGES
+%dir /usr/share/locale/sl
+%dir /usr/share/locale/sl/LC_MESSAGES
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+%dir /usr/share/locale/sr@latin
+%dir /usr/share/locale/sr@latin/LC_MESSAGES
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+%dir /usr/share/locale/ug
+%dir /usr/share/locale/ug/LC_MESSAGES
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+%dir /usr/share/mime
+%dir /usr/share/mime/packages
+%dir /usr/share/pkgconfig
+%dir /usr/share/polkit-1
+%dir /usr/share/polkit-1/actions
+%dir /usr/share/polkit-1/rules.d
+%dir /usr/share/systemd
+%dir /usr/share/user-tmpfiles.d
+%dir /usr/share/zsh
+%dir /usr/share/zsh/site-functions
+%dir /var/log/journal
+/etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+/etc/profile.d/70-systemd-shell-extra.sh
+/etc/profile.d/80-systemd-osc-context.sh
+/etc/ssh/ssh_config.d/20-systemd-ssh-proxy.conf
+/etc/ssh/sshd_config.d/20-systemd-userdb.conf
 /etc/systemd/coredump.conf
 /etc/systemd/journald.conf
 /etc/systemd/logind.conf
-%dir /etc/systemd/network
 /etc/systemd/networkd.conf
 /etc/systemd/oomd.conf
 /etc/systemd/pstore.conf
 /etc/systemd/resolved.conf
 /etc/systemd/sleep.conf
-%dir /etc/systemd/system
 /etc/systemd/system.conf
 /etc/systemd/timesyncd.conf
-%dir /etc/systemd/user
 /etc/systemd/user.conf
-%dir /etc/tmpfiles.d
-%dir /etc/udev
-%dir /etc/udev/hwdb.d
 /etc/udev/iocost.conf
-%dir /etc/udev/rules.d
 /etc/udev/udev.conf
-%dir /etc/user-tmpfiles.d
-%dir /etc/xdg
-%dir /etc/xdg/systemd
 /etc/xdg/systemd/user
-%dir /usr/bin
 /usr/bin/bootctl
 /usr/bin/busctl
 /usr/bin/coredumpctl
@@ -98,9 +302,7 @@
 /usr/bin/udevadm
 /usr/bin/userdbctl
 /usr/bin/varlinkctl
-%dir /usr/include
 /usr/include/libudev.h
-%dir /usr/include/systemd
 /usr/include/systemd/_sd-common.h
 /usr/include/systemd/sd-bus-protocol.h
 /usr/include/systemd/sd-bus-vtable.h
@@ -119,28 +321,17 @@
 /usr/include/systemd/sd-path.h
 /usr/include/systemd/sd-varlink-idl.h
 /usr/include/systemd/sd-varlink.h
-%dir /usr/lib
-%dir /usr/lib/binfmt.d
-%dir /usr/lib/credstore
-%dir /usr/lib/environment.d
 /usr/lib/environment.d/99-environment.conf
-%dir /usr/lib/kernel
 /usr/lib/kernel/install.conf
-%dir /usr/lib/kernel/install.d
 /usr/lib/kernel/install.d/50-depmod.install
 /usr/lib/kernel/install.d/90-loaderentry.install
 /usr/lib/kernel/install.d/90-uki-copy.install
-%dir /usr/lib/modprobe.d
 /usr/lib/modprobe.d/README
 /usr/lib/modprobe.d/systemd.conf
-%dir /usr/lib/modules-load.d
-%dir /usr/lib/sysctl.d
 /usr/lib/sysctl.d/50-coredump.conf
 /usr/lib/sysctl.d/50-default.conf
 /usr/lib/sysctl.d/50-pid-max.conf
 /usr/lib/sysctl.d/README
-%dir /usr/lib/systemd
-%dir /usr/lib/systemd/catalog
 /usr/lib/systemd/catalog/systemd.be.catalog
 /usr/lib/systemd/catalog/systemd.be@latin.catalog
 /usr/lib/systemd/catalog/systemd.bg.catalog
@@ -158,10 +349,8 @@
 /usr/lib/systemd/catalog/systemd.sr.catalog
 /usr/lib/systemd/catalog/systemd.zh_CN.catalog
 /usr/lib/systemd/catalog/systemd.zh_TW.catalog
-%dir /usr/lib/systemd/initrd-preset
 /usr/lib/systemd/initrd-preset/90-systemd.preset
 /usr/lib/systemd/initrd-preset/99-default.preset
-%dir /usr/lib/systemd/network
 /usr/lib/systemd/network/80-6rd-tunnel.link
 /usr/lib/systemd/network/80-6rd-tunnel.network
 /usr/lib/systemd/network/80-auto-link-local.network.example
@@ -184,43 +373,25 @@
 /usr/lib/systemd/network/80-wifi-station.network.example
 /usr/lib/systemd/network/89-ethernet.network.example
 /usr/lib/systemd/network/99-default.link
-%dir /usr/lib/systemd/ntp-units.d
 /usr/lib/systemd/ntp-units.d/80-systemd-timesync.list
-%dir /usr/lib/systemd/portable
-%dir /usr/lib/systemd/portable/profile
-%dir /usr/lib/systemd/portable/profile/default
 /usr/lib/systemd/portable/profile/default/service.conf
-%dir /usr/lib/systemd/portable/profile/nonetwork
 /usr/lib/systemd/portable/profile/nonetwork/service.conf
-%dir /usr/lib/systemd/portable/profile/strict
 /usr/lib/systemd/portable/profile/strict/service.conf
-%dir /usr/lib/systemd/portable/profile/trusted
 /usr/lib/systemd/portable/profile/trusted/service.conf
-%dir /usr/lib/systemd/profile.d
 /usr/lib/systemd/profile.d/70-systemd-shell-extra.sh
 /usr/lib/systemd/profile.d/80-systemd-osc-context.sh
-%dir /usr/lib/systemd/repart
-%dir /usr/lib/systemd/repart/definitions
-%dir /usr/lib/systemd/repart/definitions/confext.repart.d
 /usr/lib/systemd/repart/definitions/confext.repart.d/10-root.conf
 /usr/lib/systemd/repart/definitions/confext.repart.d/20-root-verity.conf
 /usr/lib/systemd/repart/definitions/confext.repart.d/30-root-verity-sig.conf
-%dir /usr/lib/systemd/repart/definitions/portable.repart.d
 /usr/lib/systemd/repart/definitions/portable.repart.d/10-root.conf
 /usr/lib/systemd/repart/definitions/portable.repart.d/20-root-verity.conf
 /usr/lib/systemd/repart/definitions/portable.repart.d/30-root-verity-sig.conf
-%dir /usr/lib/systemd/repart/definitions/sysext.repart.d
 /usr/lib/systemd/repart/definitions/sysext.repart.d/10-root.conf
 /usr/lib/systemd/repart/definitions/sysext.repart.d/20-root-verity.conf
 /usr/lib/systemd/repart/definitions/sysext.repart.d/30-root-verity-sig.conf
 /usr/lib/systemd/resolv.conf
-%dir /usr/lib/systemd/ssh_config.d
 /usr/lib/systemd/ssh_config.d/20-systemd-ssh-proxy.conf
-%dir /usr/lib/systemd/sshd_config.d
 /usr/lib/systemd/sshd_config.d/20-systemd-userdb.conf
-%dir /usr/lib/systemd/system
-%dir /usr/lib/systemd/system-environment-generators
-%dir /usr/lib/systemd/system-generators
 /usr/lib/systemd/system-generators/systemd-debug-generator
 /usr/lib/systemd/system-generators/systemd-factory-reset-generator
 /usr/lib/systemd/system-generators/systemd-fstab-generator
@@ -230,10 +401,7 @@
 /usr/lib/systemd/system-generators/systemd-run-generator
 /usr/lib/systemd/system-generators/systemd-ssh-generator
 /usr/lib/systemd/system-generators/systemd-system-update-generator
-%dir /usr/lib/systemd/system-preset
 /usr/lib/systemd/system-preset/90-systemd.preset
-%dir /usr/lib/systemd/system-shutdown
-%dir /usr/lib/systemd/system-sleep
 /usr/lib/systemd/system/basic.target
 /usr/lib/systemd/system/blockdev@.target
 /usr/lib/systemd/system/bluetooth.target
@@ -262,7 +430,6 @@
 /usr/lib/systemd/system/exit.target
 /usr/lib/systemd/system/factory-reset-now.target
 /usr/lib/systemd/system/factory-reset.target
-%dir /usr/lib/systemd/system/factory-reset.target.wants
 /usr/lib/systemd/system/factory-reset.target.wants/systemd-factory-reset-request.service
 /usr/lib/systemd/system/final.target
 /usr/lib/systemd/system/first-boot-complete.target
@@ -278,14 +445,12 @@
 /usr/lib/systemd/system/initrd-parse-etc.service
 /usr/lib/systemd/system/initrd-root-device.target
 /usr/lib/systemd/system/initrd-root-fs.target
-%dir /usr/lib/systemd/system/initrd-root-fs.target.wants
 /usr/lib/systemd/system/initrd-root-fs.target.wants/systemd-repart.service
 /usr/lib/systemd/system/initrd-switch-root.service
 /usr/lib/systemd/system/initrd-switch-root.target
 /usr/lib/systemd/system/initrd-udevadm-cleanup-db.service
 /usr/lib/systemd/system/initrd-usr-fs.target
 /usr/lib/systemd/system/initrd.target
-%dir /usr/lib/systemd/system/initrd.target.wants
 /usr/lib/systemd/system/initrd.target.wants/systemd-battery-check.service
 /usr/lib/systemd/system/initrd.target.wants/systemd-confext-initrd.service
 /usr/lib/systemd/system/initrd.target.wants/systemd-sysext-initrd.service
@@ -293,15 +458,12 @@
 /usr/lib/systemd/system/kmod-static-nodes.service
 /usr/lib/systemd/system/local-fs-pre.target
 /usr/lib/systemd/system/local-fs.target
-%dir /usr/lib/systemd/system/local-fs.target.wants
 /usr/lib/systemd/system/local-fs.target.wants/tmp.mount
 /usr/lib/systemd/system/machine.slice
 /usr/lib/systemd/system/machines.target
-%dir /usr/lib/systemd/system/machines.target.wants
 /usr/lib/systemd/system/machines.target.wants/var-lib-machines.mount
 /usr/lib/systemd/system/modprobe@.service
 /usr/lib/systemd/system/multi-user.target
-%dir /usr/lib/systemd/system/multi-user.target.wants
 /usr/lib/systemd/system/multi-user.target.wants/getty.target
 /usr/lib/systemd/system/multi-user.target.wants/systemd-ask-password-wall.path
 /usr/lib/systemd/system/multi-user.target.wants/systemd-logind.service
@@ -320,7 +482,6 @@
 /usr/lib/systemd/system/reboot.target
 /usr/lib/systemd/system/remote-fs-pre.target
 /usr/lib/systemd/system/remote-fs.target
-%dir /usr/lib/systemd/system/remote-fs.target.wants
 /usr/lib/systemd/system/remote-fs.target.wants/var-lib-machines.mount
 /usr/lib/systemd/system/rescue.service
 /usr/lib/systemd/system/rescue.target
@@ -339,7 +500,6 @@
 /usr/lib/systemd/system/slices.target
 /usr/lib/systemd/system/smartcard.target
 /usr/lib/systemd/system/sockets.target
-%dir /usr/lib/systemd/system/sockets.target.wants
 /usr/lib/systemd/system/sockets.target.wants/systemd-ask-password.socket
 /usr/lib/systemd/system/sockets.target.wants/systemd-coredump.socket
 /usr/lib/systemd/system/sockets.target.wants/systemd-creds.socket
@@ -370,7 +530,6 @@
 /usr/lib/systemd/system/sys-kernel-debug.mount
 /usr/lib/systemd/system/sys-kernel-tracing.mount
 /usr/lib/systemd/system/sysinit.target
-%dir /usr/lib/systemd/system/sysinit.target.wants
 /usr/lib/systemd/system/sysinit.target.wants/dev-hugepages.mount
 /usr/lib/systemd/system/sysinit.target.wants/dev-mqueue.mount
 /usr/lib/systemd/system/sysinit.target.wants/kmod-static-nodes.service
@@ -401,12 +560,10 @@
 /usr/lib/systemd/system/sysinit.target.wants/systemd-update-utmp.service
 /usr/lib/systemd/system/syslog.socket
 /usr/lib/systemd/system/system-install.target
-%dir /usr/lib/systemd/system/system-install.target.wants
 /usr/lib/systemd/system/system-install.target.wants/systemd-sysinstall.service
 /usr/lib/systemd/system/system-systemd\x2dmute\x2dconsole.slice
 /usr/lib/systemd/system/system-update-cleanup.service
 /usr/lib/systemd/system/system-update-pre.target
-%dir /usr/lib/systemd/system/system-update-pre.target.wants
 /usr/lib/systemd/system/system-update-pre.target.wants/systemd-coredump.socket
 /usr/lib/systemd/system/system-update.target
 /usr/lib/systemd/system/systemd-ask-password-console.path
@@ -545,20 +702,16 @@
 /usr/lib/systemd/system/time-set.target
 /usr/lib/systemd/system/time-sync.target
 /usr/lib/systemd/system/timers.target
-%dir /usr/lib/systemd/system/timers.target.wants
 /usr/lib/systemd/system/timers.target.wants/systemd-tmpfiles-clean.timer
 /usr/lib/systemd/system/tmp.mount
 /usr/lib/systemd/system/tpm2.target
 /usr/lib/systemd/system/umount.target
 /usr/lib/systemd/system/usb-gadget.target
-%dir /usr/lib/systemd/system/user-.slice.d
 /usr/lib/systemd/system/user-.slice.d/10-defaults.conf
 /usr/lib/systemd/system/user-runtime-dir@.service
 /usr/lib/systemd/system/user.slice
 /usr/lib/systemd/system/user@.service
-%dir /usr/lib/systemd/system/user@.service.d
 /usr/lib/systemd/system/user@.service.d/10-login-barrier.conf
-%dir /usr/lib/systemd/system/user@0.service.d
 /usr/lib/systemd/system/user@0.service.d/10-login-barrier.conf
 /usr/lib/systemd/system/var-lib-machines.mount
 /usr/lib/systemd/systemd
@@ -624,12 +777,8 @@
 /usr/lib/systemd/systemd-vconsole-setup
 /usr/lib/systemd/systemd-volatile-root
 /usr/lib/systemd/systemd-xdg-autostart-condition
-%dir /usr/lib/systemd/user
-%dir /usr/lib/systemd/user-environment-generators
 /usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator
-%dir /usr/lib/systemd/user-generators
 /usr/lib/systemd/user-generators/systemd-xdg-autostart-generator
-%dir /usr/lib/systemd/user-preset
 /usr/lib/systemd/user-preset/90-systemd.preset
 /usr/lib/systemd/user/app.slice
 /usr/lib/systemd/user/background.slice
@@ -645,22 +794,15 @@
 /usr/lib/systemd/user/machine.slice
 /usr/lib/systemd/user/machines.target
 /usr/lib/systemd/user/paths.target
-%dir /usr/lib/systemd/user/portable
-%dir /usr/lib/systemd/user/portable/profile
-%dir /usr/lib/systemd/user/portable/profile/default
 /usr/lib/systemd/user/portable/profile/default/service.conf
-%dir /usr/lib/systemd/user/portable/profile/nonetwork
 /usr/lib/systemd/user/portable/profile/nonetwork/service.conf
-%dir /usr/lib/systemd/user/portable/profile/strict
 /usr/lib/systemd/user/portable/profile/strict/service.conf
-%dir /usr/lib/systemd/user/portable/profile/trusted
 /usr/lib/systemd/user/portable/profile/trusted/service.conf
 /usr/lib/systemd/user/printer.target
 /usr/lib/systemd/user/session.slice
 /usr/lib/systemd/user/shutdown.target
 /usr/lib/systemd/user/smartcard.target
 /usr/lib/systemd/user/sockets.target
-%dir /usr/lib/systemd/user/sockets.target.wants
 /usr/lib/systemd/user/sockets.target.wants/systemd-ask-password.socket
 /usr/lib/systemd/user/sockets.target.wants/systemd-journalctl.socket
 /usr/lib/systemd/user/sockets.target.wants/systemd-machined.socket
@@ -682,8 +824,6 @@
 /usr/lib/systemd/user/systemd-tmpfiles-setup.service
 /usr/lib/systemd/user/timers.target
 /usr/lib/systemd/user/xdg-desktop-autostart.target
-%dir /usr/lib/systemd/varlink-bridges
-%dir /usr/lib/sysusers.d
 /usr/lib/sysusers.d/README
 /usr/lib/sysusers.d/basic.conf
 /usr/lib/sysusers.d/systemd-coredump.conf
@@ -692,7 +832,6 @@
 /usr/lib/sysusers.d/systemd-oom.conf
 /usr/lib/sysusers.d/systemd-resolve.conf
 /usr/lib/sysusers.d/systemd-timesync.conf
-%dir /usr/lib/tmpfiles.d
 /usr/lib/tmpfiles.d/20-systemd-osc-context.conf
 /usr/lib/tmpfiles.d/20-systemd-shell-extra.conf
 /usr/lib/tmpfiles.d/20-systemd-ssh-generator.conf
@@ -718,12 +857,10 @@
 /usr/lib/tmpfiles.d/tmp.conf
 /usr/lib/tmpfiles.d/var.conf
 /usr/lib/tmpfiles.d/x11.conf
-%dir /usr/lib/udev
 /usr/lib/udev/ata_id
 /usr/lib/udev/cdrom_id
 /usr/lib/udev/dmi_memory_id
 /usr/lib/udev/fido_id
-%dir /usr/lib/udev/hwdb.d
 /usr/lib/udev/hwdb.d/20-OUI.hwdb
 /usr/lib/udev/hwdb.d/20-acpi-vendor.hwdb
 /usr/lib/udev/hwdb.d/20-bluetooth-vendor-product.hwdb
@@ -766,7 +903,6 @@
 /usr/lib/udev/hwdb.d/README
 /usr/lib/udev/iocost
 /usr/lib/udev/mtd_probe
-%dir /usr/lib/udev/rules.d
 /usr/lib/udev/rules.d/50-udev-default.rules
 /usr/lib/udev/rules.d/60-autosuspend.rules
 /usr/lib/udev/rules.d/60-block.rules
@@ -787,7 +923,6 @@
 /usr/lib/udev/rules.d/60-persistent-v4l.rules
 /usr/lib/udev/rules.d/60-sensor.rules
 /usr/lib/udev/rules.d/60-serial.rules
-/usr/lib/udev/rules.d/60-tpm2-id.rules
 /usr/lib/udev/rules.d/64-btrfs.rules
 /usr/lib/udev/rules.d/65-integration.rules
 /usr/lib/udev/rules.d/70-camera.rules
@@ -814,7 +949,6 @@
 /usr/lib/udev/rules.d/README
 /usr/lib/udev/scsi_id
 /usr/lib/udev/v4l_id
-%dir /usr/lib64
 /usr/lib64/libnss_myhostname.so.2
 /usr/lib64/libnss_mymachines.so.2
 /usr/lib64/libnss_resolve.so.2
@@ -825,13 +959,10 @@
 /usr/lib64/libudev.so
 /usr/lib64/libudev.so.1
 /usr/lib64/libudev.so.1.7.14
-%dir /usr/lib64/pkgconfig
 /usr/lib64/pkgconfig/libsystemd.pc
 /usr/lib64/pkgconfig/libudev.pc
-%dir /usr/lib64/systemd
 /usr/lib64/systemd/libsystemd-core-261.so
 /usr/lib64/systemd/libsystemd-shared-261.so
-%dir /usr/sbin
 /usr/sbin/halt
 /usr/sbin/init
 /usr/sbin/mount.ddi
@@ -841,9 +972,6 @@
 /usr/sbin/reboot
 /usr/sbin/resolvconf
 /usr/sbin/shutdown
-%dir /usr/share
-%dir /usr/share/bash-completion
-%dir /usr/share/bash-completion/completions
 /usr/share/bash-completion/completions/bootctl
 /usr/share/bash-completion/completions/busctl
 /usr/share/bash-completion/completions/coredumpctl
@@ -882,8 +1010,6 @@
 /usr/share/bash-completion/completions/udevadm
 /usr/share/bash-completion/completions/userdbctl
 /usr/share/bash-completion/completions/varlinkctl
-%dir /usr/share/dbus-1
-%dir /usr/share/dbus-1/interfaces
 /usr/share/dbus-1/interfaces/org.freedesktop.LogControl1.xml
 /usr/share/dbus-1/interfaces/org.freedesktop.hostname1.xml
 /usr/share/dbus-1/interfaces/org.freedesktop.locale1.xml
@@ -922,11 +1048,9 @@
 /usr/share/dbus-1/interfaces/org.freedesktop.systemd1.Timer.xml
 /usr/share/dbus-1/interfaces/org.freedesktop.systemd1.Unit.xml
 /usr/share/dbus-1/interfaces/org.freedesktop.timedate1.xml
-%dir /usr/share/dbus-1/services
 /usr/share/dbus-1/services/org.freedesktop.machine1.service
 /usr/share/dbus-1/services/org.freedesktop.portable1.service
 /usr/share/dbus-1/services/org.freedesktop.systemd1.service
-%dir /usr/share/dbus-1/system-services
 /usr/share/dbus-1/system-services/org.freedesktop.hostname1.service
 /usr/share/dbus-1/system-services/org.freedesktop.locale1.service
 /usr/share/dbus-1/system-services/org.freedesktop.login1.service
@@ -938,7 +1062,6 @@
 /usr/share/dbus-1/system-services/org.freedesktop.systemd1.service
 /usr/share/dbus-1/system-services/org.freedesktop.timedate1.service
 /usr/share/dbus-1/system-services/org.freedesktop.timesync1.service
-%dir /usr/share/dbus-1/system.d
 /usr/share/dbus-1/system.d/org.freedesktop.hostname1.conf
 /usr/share/dbus-1/system.d/org.freedesktop.locale1.conf
 /usr/share/dbus-1/system.d/org.freedesktop.login1.conf
@@ -950,206 +1073,88 @@
 /usr/share/dbus-1/system.d/org.freedesktop.systemd1.conf
 /usr/share/dbus-1/system.d/org.freedesktop.timedate1.conf
 /usr/share/dbus-1/system.d/org.freedesktop.timesync1.conf
-%dir /usr/share/doc
-%dir /usr/share/doc/systemd-261.2
-%doc /usr/share/doc/systemd-261.2/ENVIRONMENT.md
-%doc /usr/share/doc/systemd-261.2/LICENSE.GPL2
-%doc /usr/share/doc/systemd-261.2/LICENSE.LGPL2.1
-%dir /usr/share/doc/systemd-261.2/LICENSES
-%doc /usr/share/doc/systemd-261.2/LICENSES/BSD-2-Clause.txt
-%doc /usr/share/doc/systemd-261.2/LICENSES/BSD-3-Clause.txt
-%doc /usr/share/doc/systemd-261.2/LICENSES/CC0-1.0.txt
-%doc /usr/share/doc/systemd-261.2/LICENSES/LGPL-2.0-or-later.txt
-%doc /usr/share/doc/systemd-261.2/LICENSES/Linux-syscall-note.txt
-%doc /usr/share/doc/systemd-261.2/LICENSES/MIT-0.txt
-%doc /usr/share/doc/systemd-261.2/LICENSES/MIT.txt
-%doc /usr/share/doc/systemd-261.2/LICENSES/OFL-1.1.txt
-%doc /usr/share/doc/systemd-261.2/LICENSES/README.md
-%doc /usr/share/doc/systemd-261.2/LICENSES/alg-sha1-public-domain.txt
-%doc /usr/share/doc/systemd-261.2/LICENSES/lookup3-public-domain.txt
-%doc /usr/share/doc/systemd-261.2/LICENSES/murmurhash2-public-domain.txt
-%doc /usr/share/doc/systemd-261.2/NEWS
-%doc /usr/share/doc/systemd-261.2/README
-%doc /usr/share/doc/systemd-261.2/README.logs
-%doc /usr/share/doc/systemd-261.2/TRANSIENT-SETTINGS.md
-%doc /usr/share/doc/systemd-261.2/UIDS-GIDS.md
-%dir /usr/share/factory
-%dir /usr/share/factory/etc
+/usr/share/doc/systemd-261.3/ENVIRONMENT.md
+/usr/share/doc/systemd-261.3/LICENSE.GPL2
+/usr/share/doc/systemd-261.3/LICENSE.LGPL2.1
+/usr/share/doc/systemd-261.3/LICENSES/BSD-2-Clause.txt
+/usr/share/doc/systemd-261.3/LICENSES/BSD-3-Clause.txt
+/usr/share/doc/systemd-261.3/LICENSES/CC0-1.0.txt
+/usr/share/doc/systemd-261.3/LICENSES/LGPL-2.0-or-later.txt
+/usr/share/doc/systemd-261.3/LICENSES/Linux-syscall-note.txt
+/usr/share/doc/systemd-261.3/LICENSES/MIT-0.txt
+/usr/share/doc/systemd-261.3/LICENSES/MIT.txt
+/usr/share/doc/systemd-261.3/LICENSES/OFL-1.1.txt
+/usr/share/doc/systemd-261.3/LICENSES/README.md
+/usr/share/doc/systemd-261.3/LICENSES/alg-sha1-public-domain.txt
+/usr/share/doc/systemd-261.3/LICENSES/lookup3-public-domain.txt
+/usr/share/doc/systemd-261.3/LICENSES/murmurhash2-public-domain.txt
+/usr/share/doc/systemd-261.3/NEWS
+/usr/share/doc/systemd-261.3/README
+/usr/share/doc/systemd-261.3/README.logs
+/usr/share/doc/systemd-261.3/TRANSIENT-SETTINGS.md
+/usr/share/doc/systemd-261.3/UIDS-GIDS.md
 /usr/share/factory/etc/issue
 /usr/share/factory/etc/locale.conf
 /usr/share/factory/etc/nsswitch.conf
-%dir /usr/share/factory/etc/pam.d
 /usr/share/factory/etc/pam.d/other
 /usr/share/factory/etc/pam.d/system-auth
 /usr/share/factory/etc/vconsole.conf
-%dir /usr/share/locale
-%dir /usr/share/locale/ar
-%dir /usr/share/locale/ar/LC_MESSAGES
 /usr/share/locale/ar/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/be
-%dir /usr/share/locale/be/LC_MESSAGES
 /usr/share/locale/be/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/be@latin
-%dir /usr/share/locale/be@latin/LC_MESSAGES
 /usr/share/locale/be@latin/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/bg
-%dir /usr/share/locale/bg/LC_MESSAGES
 /usr/share/locale/bg/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/bo
-%dir /usr/share/locale/bo/LC_MESSAGES
 /usr/share/locale/bo/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/ca
-%dir /usr/share/locale/ca/LC_MESSAGES
 /usr/share/locale/ca/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/cs
-%dir /usr/share/locale/cs/LC_MESSAGES
 /usr/share/locale/cs/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/da
-%dir /usr/share/locale/da/LC_MESSAGES
 /usr/share/locale/da/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/de
-%dir /usr/share/locale/de/LC_MESSAGES
 /usr/share/locale/de/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/el
-%dir /usr/share/locale/el/LC_MESSAGES
 /usr/share/locale/el/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/eo
-%dir /usr/share/locale/eo/LC_MESSAGES
 /usr/share/locale/eo/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/es
-%dir /usr/share/locale/es/LC_MESSAGES
 /usr/share/locale/es/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/et
-%dir /usr/share/locale/et/LC_MESSAGES
 /usr/share/locale/et/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/eu
-%dir /usr/share/locale/eu/LC_MESSAGES
 /usr/share/locale/eu/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/fi
-%dir /usr/share/locale/fi/LC_MESSAGES
 /usr/share/locale/fi/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/fr
-%dir /usr/share/locale/fr/LC_MESSAGES
 /usr/share/locale/fr/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/gl
-%dir /usr/share/locale/gl/LC_MESSAGES
 /usr/share/locale/gl/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/he
-%dir /usr/share/locale/he/LC_MESSAGES
 /usr/share/locale/he/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/hi
-%dir /usr/share/locale/hi/LC_MESSAGES
 /usr/share/locale/hi/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/hr
-%dir /usr/share/locale/hr/LC_MESSAGES
 /usr/share/locale/hr/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/hu
-%dir /usr/share/locale/hu/LC_MESSAGES
 /usr/share/locale/hu/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/ia
-%dir /usr/share/locale/ia/LC_MESSAGES
 /usr/share/locale/ia/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/id
-%dir /usr/share/locale/id/LC_MESSAGES
 /usr/share/locale/id/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/it
-%dir /usr/share/locale/it/LC_MESSAGES
 /usr/share/locale/it/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/ja
-%dir /usr/share/locale/ja/LC_MESSAGES
 /usr/share/locale/ja/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/ka
-%dir /usr/share/locale/ka/LC_MESSAGES
 /usr/share/locale/ka/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/kab
-%dir /usr/share/locale/kab/LC_MESSAGES
 /usr/share/locale/kab/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/kk
-%dir /usr/share/locale/kk/LC_MESSAGES
 /usr/share/locale/kk/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/km
-%dir /usr/share/locale/km/LC_MESSAGES
 /usr/share/locale/km/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/kn
-%dir /usr/share/locale/kn/LC_MESSAGES
 /usr/share/locale/kn/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/ko
-%dir /usr/share/locale/ko/LC_MESSAGES
 /usr/share/locale/ko/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/kw
-%dir /usr/share/locale/kw/LC_MESSAGES
 /usr/share/locale/kw/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/lo
-%dir /usr/share/locale/lo/LC_MESSAGES
 /usr/share/locale/lo/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/lt
-%dir /usr/share/locale/lt/LC_MESSAGES
 /usr/share/locale/lt/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/nb_NO
-%dir /usr/share/locale/nb_NO/LC_MESSAGES
 /usr/share/locale/nb_NO/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/nl
-%dir /usr/share/locale/nl/LC_MESSAGES
 /usr/share/locale/nl/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/pa
-%dir /usr/share/locale/pa/LC_MESSAGES
 /usr/share/locale/pa/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/pl
-%dir /usr/share/locale/pl/LC_MESSAGES
 /usr/share/locale/pl/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/pt
-%dir /usr/share/locale/pt/LC_MESSAGES
 /usr/share/locale/pt/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/pt_BR
-%dir /usr/share/locale/pt_BR/LC_MESSAGES
 /usr/share/locale/pt_BR/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/ro
-%dir /usr/share/locale/ro/LC_MESSAGES
 /usr/share/locale/ro/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/ru
-%dir /usr/share/locale/ru/LC_MESSAGES
 /usr/share/locale/ru/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/si
-%dir /usr/share/locale/si/LC_MESSAGES
 /usr/share/locale/si/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/sk
-%dir /usr/share/locale/sk/LC_MESSAGES
 /usr/share/locale/sk/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/sl
-%dir /usr/share/locale/sl/LC_MESSAGES
 /usr/share/locale/sl/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/sr
-%dir /usr/share/locale/sr/LC_MESSAGES
 /usr/share/locale/sr/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/sr@latin
-%dir /usr/share/locale/sr@latin/LC_MESSAGES
 /usr/share/locale/sr@latin/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/sv
-%dir /usr/share/locale/sv/LC_MESSAGES
 /usr/share/locale/sv/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/tr
-%dir /usr/share/locale/tr/LC_MESSAGES
 /usr/share/locale/tr/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/ug
-%dir /usr/share/locale/ug/LC_MESSAGES
 /usr/share/locale/ug/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/uk
-%dir /usr/share/locale/uk/LC_MESSAGES
 /usr/share/locale/uk/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/zh_CN
-%dir /usr/share/locale/zh_CN/LC_MESSAGES
 /usr/share/locale/zh_CN/LC_MESSAGES/systemd.mo
-%dir /usr/share/locale/zh_TW
-%dir /usr/share/locale/zh_TW/LC_MESSAGES
 /usr/share/locale/zh_TW/LC_MESSAGES/systemd.mo
-%dir /usr/share/mime
-%dir /usr/share/mime/packages
 /usr/share/mime/packages/io.systemd.xml
-%dir /usr/share/pkgconfig
 /usr/share/pkgconfig/systemd.pc
 /usr/share/pkgconfig/udev.pc
-%dir /usr/share/polkit-1
-%dir /usr/share/polkit-1/actions
 /usr/share/polkit-1/actions/io.systemd.ask-password.policy
 /usr/share/polkit-1/actions/io.systemd.credentials.policy
 /usr/share/polkit-1/actions/io.systemd.mount-file-system.policy
@@ -1166,17 +1171,12 @@
 /usr/share/polkit-1/actions/org.freedesktop.systemd1.policy
 /usr/share/polkit-1/actions/org.freedesktop.timedate1.policy
 /usr/share/polkit-1/actions/org.freedesktop.timesync1.policy
-%dir /usr/share/polkit-1/rules.d
 /usr/share/polkit-1/rules.d/10-systemd-logind-root-ignore-inhibitors.rules.example
 /usr/share/polkit-1/rules.d/empower.rules
 /usr/share/polkit-1/rules.d/systemd-networkd.rules
-%dir /usr/share/systemd
 /usr/share/systemd/kbd-model-map
 /usr/share/systemd/language-fallback-map
-%dir /usr/share/user-tmpfiles.d
 /usr/share/user-tmpfiles.d/20-systemd-varlink.conf
-%dir /usr/share/zsh
-%dir /usr/share/zsh/site-functions
 /usr/share/zsh/site-functions/_bootctl
 /usr/share/zsh/site-functions/_busctl
 /usr/share/zsh/site-functions/_coredumpctl
@@ -1212,4 +1212,3 @@
 /usr/share/zsh/site-functions/_udevadm
 /usr/share/zsh/site-functions/_userdbctl
 /usr/share/zsh/site-functions/_varlinkctl
-%dir /var/log/journal

@@ -1,5 +1,5 @@
 Name:       pcre2
-Version:    10.47
+Version:    10.48
 Release:    1
 Summary:    TODO
 License:    GPL3
@@ -39,16 +39,16 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/pcre2posix.h
 /usr/lib64/libpcre2-16.so
 /usr/lib64/libpcre2-16.so.0
-/usr/lib64/libpcre2-16.so.0.15.0
+/usr/lib64/libpcre2-16.so.0.16.0
 /usr/lib64/libpcre2-32.so
 /usr/lib64/libpcre2-32.so.0
-/usr/lib64/libpcre2-32.so.0.15.0
+/usr/lib64/libpcre2-32.so.0.16.0
 /usr/lib64/libpcre2-8.so
 /usr/lib64/libpcre2-8.so.0
-/usr/lib64/libpcre2-8.so.0.15.0
+/usr/lib64/libpcre2-8.so.0.16.0
 /usr/lib64/libpcre2-posix.so
 /usr/lib64/libpcre2-posix.so.3
-/usr/lib64/libpcre2-posix.so.3.0.7
+/usr/lib64/libpcre2-posix.so.3.0.8
 /usr/lib64/pkgconfig/libpcre2-16.pc
 /usr/lib64/pkgconfig/libpcre2-32.pc
 /usr/lib64/pkgconfig/libpcre2-8.pc

@@ -1,5 +1,5 @@
 Name:       openssl
-Version:    4.0.1
+Version:    4.0.2
 Release:    1
 Summary:    OpenSSL software library
 License:    GPL3

@@ -1,5 +1,5 @@
 Name:       libxfont2
-Version:    2.0.6
+Version:    2.0.9
 Release:    1
 Summary:    X font handling library for server & utilities.
 License:    GPL3

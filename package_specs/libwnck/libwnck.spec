@@ -1,9 +1,9 @@
 Name:       libwnck
-Version:    43.1
+Version:    43.3
 Release:    1
 Summary:    Library to manage X windows and workspaces (via pagers, tasklists, etc.)
 License:    LGPL
-Source0:    libwnck-43.1.tar.xz
+Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 Requires: startup-notification

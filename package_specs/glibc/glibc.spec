@@ -29,7 +29,7 @@ export CFLAGS="-O2 -g"
 export CXXFLAGS="-O2 -g"
 export LDFLAGS=""
 patch -Np1 -i %{_sourcedir}/glibc-fhs-1.patch
-patch -Np1 -i %{_sourcedir}/glibc-2.44-upstream_fixes-1.patch
+patch -Np1 -i %{_sourcedir}/glibc-2.44-upstream_fixes-3.patch
 
 mkdir build
 pushd build

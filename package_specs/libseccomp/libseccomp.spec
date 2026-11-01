@@ -1,5 +1,5 @@
 Name:       libseccomp
-Version:    2.6.0
+Version:    2.6.1
 Release:    1
 Summary:    Seccomp userspace library
 License:    LGPL

@@ -1,5 +1,5 @@
 Name:       elfutils
-Version:    0.195
+Version:    0.196
 Release:    1
 Summary:    ELF file handling library
 License:    GPL3

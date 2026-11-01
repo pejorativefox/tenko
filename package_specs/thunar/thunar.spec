@@ -1,5 +1,5 @@
 Name:       thunar
-Version:    4.20.9
+Version:    4.20.10
 Release:    1
 Summary:    Modern file manager for Xfce
 License:    GPL2

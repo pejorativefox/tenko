@@ -1,5 +1,5 @@
 Name:       iproute2
-Version:    7.1.0
+Version:    7.2.0
 Release:    1
 Summary:    kernel networking tool
 License:    GPL3

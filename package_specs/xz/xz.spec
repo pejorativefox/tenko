@@ -1,5 +1,5 @@
 Name:       xz
-Version:    5.8.3
+Version:    5.8.4
 Release:    1
 Summary:    Free general-purpose data compression software
 License:    GPL3

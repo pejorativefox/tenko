@@ -1,13 +1,192 @@
 %dir /etc/xdg
 %dir /etc/xdg/Thunar
-/etc/xdg/Thunar/uca.xml
 %dir /usr/bin
-/usr/bin/Thunar
-/usr/bin/thunar
-/usr/bin/thunar-settings
 %dir /usr/include
 %dir /usr/include/thunarx-3
 %dir /usr/include/thunarx-3/thunarx
+%dir /usr/lib64
+%dir /usr/lib64/Thunar
+%dir /usr/lib64/girepository-1.0
+%dir /usr/lib64/pkgconfig
+%dir /usr/lib64/thunarx-3
+%dir /usr/lib64/xfce4
+%dir /usr/lib64/xfce4/panel
+%dir /usr/lib64/xfce4/panel/plugins
+%dir /usr/share
+%dir /usr/share/Thunar
+%dir /usr/share/Thunar/sendto
+%dir /usr/share/applications
+%dir /usr/share/dbus-1
+%dir /usr/share/dbus-1/services
+%dir /usr/share/doc
+%dir /usr/share/doc/thunar-4.20.10
+%dir /usr/share/gir-1.0
+%dir /usr/share/gtk-doc
+%dir /usr/share/gtk-doc/html
+%dir /usr/share/gtk-doc/html/thunar
+%dir /usr/share/gtk-doc/html/thunarx
+%dir /usr/share/icons
+%dir /usr/share/icons/hicolor
+%dir /usr/share/icons/hicolor/128x128
+%dir /usr/share/icons/hicolor/128x128/apps
+%dir /usr/share/icons/hicolor/16x16
+%dir /usr/share/icons/hicolor/16x16/apps
+%dir /usr/share/icons/hicolor/16x16/stock
+%dir /usr/share/icons/hicolor/16x16/stock/navigation
+%dir /usr/share/icons/hicolor/24x24
+%dir /usr/share/icons/hicolor/24x24/stock
+%dir /usr/share/icons/hicolor/24x24/stock/navigation
+%dir /usr/share/icons/hicolor/48x48
+%dir /usr/share/icons/hicolor/48x48/apps
+%dir /usr/share/icons/hicolor/scalable
+%dir /usr/share/icons/hicolor/scalable/apps
+%dir /usr/share/locale
+%dir /usr/share/locale/am
+%dir /usr/share/locale/am/LC_MESSAGES
+%dir /usr/share/locale/ar
+%dir /usr/share/locale/ar/LC_MESSAGES
+%dir /usr/share/locale/ast
+%dir /usr/share/locale/ast/LC_MESSAGES
+%dir /usr/share/locale/be
+%dir /usr/share/locale/be/LC_MESSAGES
+%dir /usr/share/locale/bg
+%dir /usr/share/locale/bg/LC_MESSAGES
+%dir /usr/share/locale/bn
+%dir /usr/share/locale/bn/LC_MESSAGES
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+%dir /usr/share/locale/el
+%dir /usr/share/locale/el/LC_MESSAGES
+%dir /usr/share/locale/en_AU
+%dir /usr/share/locale/en_AU/LC_MESSAGES
+%dir /usr/share/locale/en_GB
+%dir /usr/share/locale/en_GB/LC_MESSAGES
+%dir /usr/share/locale/eo
+%dir /usr/share/locale/eo/LC_MESSAGES
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+%dir /usr/share/locale/et
+%dir /usr/share/locale/et/LC_MESSAGES
+%dir /usr/share/locale/eu
+%dir /usr/share/locale/eu/LC_MESSAGES
+%dir /usr/share/locale/fa_IR
+%dir /usr/share/locale/fa_IR/LC_MESSAGES
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+%dir /usr/share/locale/gl
+%dir /usr/share/locale/gl/LC_MESSAGES
+%dir /usr/share/locale/he
+%dir /usr/share/locale/he/LC_MESSAGES
+%dir /usr/share/locale/hr
+%dir /usr/share/locale/hr/LC_MESSAGES
+%dir /usr/share/locale/hu
+%dir /usr/share/locale/hu/LC_MESSAGES
+%dir /usr/share/locale/hy
+%dir /usr/share/locale/hy/LC_MESSAGES
+%dir /usr/share/locale/hy_AM
+%dir /usr/share/locale/hy_AM/LC_MESSAGES
+%dir /usr/share/locale/hye
+%dir /usr/share/locale/hye/LC_MESSAGES
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+%dir /usr/share/locale/ie
+%dir /usr/share/locale/ie/LC_MESSAGES
+%dir /usr/share/locale/is
+%dir /usr/share/locale/is/LC_MESSAGES
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+%dir /usr/share/locale/kk
+%dir /usr/share/locale/kk/LC_MESSAGES
+%dir /usr/share/locale/ko
+%dir /usr/share/locale/ko/LC_MESSAGES
+%dir /usr/share/locale/lo
+%dir /usr/share/locale/lo/LC_MESSAGES
+%dir /usr/share/locale/lt
+%dir /usr/share/locale/lt/LC_MESSAGES
+%dir /usr/share/locale/lv
+%dir /usr/share/locale/lv/LC_MESSAGES
+%dir /usr/share/locale/ms
+%dir /usr/share/locale/ms/LC_MESSAGES
+%dir /usr/share/locale/nb
+%dir /usr/share/locale/nb/LC_MESSAGES
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+%dir /usr/share/locale/nn
+%dir /usr/share/locale/nn/LC_MESSAGES
+%dir /usr/share/locale/oc
+%dir /usr/share/locale/oc/LC_MESSAGES
+%dir /usr/share/locale/pa
+%dir /usr/share/locale/pa/LC_MESSAGES
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+%dir /usr/share/locale/pt
+%dir /usr/share/locale/pt/LC_MESSAGES
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+%dir /usr/share/locale/ro
+%dir /usr/share/locale/ro/LC_MESSAGES
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+%dir /usr/share/locale/si
+%dir /usr/share/locale/si/LC_MESSAGES
+%dir /usr/share/locale/sk
+%dir /usr/share/locale/sk/LC_MESSAGES
+%dir /usr/share/locale/sl
+%dir /usr/share/locale/sl/LC_MESSAGES
+%dir /usr/share/locale/sq
+%dir /usr/share/locale/sq/LC_MESSAGES
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+%dir /usr/share/locale/te
+%dir /usr/share/locale/te/LC_MESSAGES
+%dir /usr/share/locale/th
+%dir /usr/share/locale/th/LC_MESSAGES
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+%dir /usr/share/locale/ug
+%dir /usr/share/locale/ug/LC_MESSAGES
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+%dir /usr/share/locale/ur
+%dir /usr/share/locale/ur/LC_MESSAGES
+%dir /usr/share/locale/ur_PK
+%dir /usr/share/locale/ur_PK/LC_MESSAGES
+%dir /usr/share/locale/vec
+%dir /usr/share/locale/vec/LC_MESSAGES
+%dir /usr/share/locale/vi
+%dir /usr/share/locale/vi/LC_MESSAGES
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+%dir /usr/share/locale/zh_HK
+%dir /usr/share/locale/zh_HK/LC_MESSAGES
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/metainfo
+%dir /usr/share/polkit-1
+%dir /usr/share/polkit-1/actions
+%dir /usr/share/xfce4
+%dir /usr/share/xfce4/panel
+%dir /usr/share/xfce4/panel/plugins
+/etc/xdg/Thunar/uca.xml
+/usr/bin/Thunar
+/usr/bin/thunar
+/usr/bin/thunar-settings
 /usr/include/thunarx-3/thunarx/thunarx-config.h
 /usr/include/thunarx-3/thunarx/thunarx-file-info.h
 /usr/include/thunarx-3/thunarx/thunarx-menu-item.h
@@ -22,430 +201,251 @@
 /usr/include/thunarx-3/thunarx/thunarx-renamer-provider.h
 /usr/include/thunarx-3/thunarx/thunarx-renamer.h
 /usr/include/thunarx-3/thunarx/thunarx.h
-%dir /usr/lib64
-%dir /usr/lib64/Thunar
 /usr/lib64/Thunar/thunar-sendto-email
-%dir /usr/lib64/girepository-1.0
 /usr/lib64/girepository-1.0/Thunarx-3.0.typelib
 /usr/lib64/libthunarx-3.so
 /usr/lib64/libthunarx-3.so.0
 /usr/lib64/libthunarx-3.so.0.0.0
-%dir /usr/lib64/pkgconfig
 /usr/lib64/pkgconfig/thunarx-3.pc
-%dir /usr/lib64/thunarx-3
 /usr/lib64/thunarx-3/thunar-apr.so
 /usr/lib64/thunarx-3/thunar-sbr.so
 /usr/lib64/thunarx-3/thunar-uca.so
 /usr/lib64/thunarx-3/thunar-wallpaper-plugin.so
-%dir /usr/lib64/xfce4
-%dir /usr/lib64/xfce4/panel
-%dir /usr/lib64/xfce4/panel/plugins
 /usr/lib64/xfce4/panel/plugins/libthunar-tpa.so
-%dir /usr/share
-%dir /usr/share/Thunar
-%dir /usr/share/Thunar/sendto
 /usr/share/Thunar/sendto/thunar-sendto-email.desktop
-%dir /usr/share/applications
 /usr/share/applications/thunar-bulk-rename.desktop
 /usr/share/applications/thunar-settings.desktop
 /usr/share/applications/thunar.desktop
-%dir /usr/share/dbus-1
-%dir /usr/share/dbus-1/services
 /usr/share/dbus-1/services/org.xfce.FileManager.service
 /usr/share/dbus-1/services/org.xfce.Thunar.FileManager1.service
 /usr/share/dbus-1/services/org.xfce.Thunar.service
-%dir /usr/share/doc
-%dir /usr/share/doc/thunar-4.20.9
-%doc /usr/share/doc/thunar-4.20.9/README.gtkrc
-%dir /usr/share/gir-1.0
+/usr/share/doc/thunar-4.20.10/README.gtkrc
 /usr/share/gir-1.0/Thunarx-3.0.gir
-%dir /usr/share/gtk-doc
-%dir /usr/share/gtk-doc/html
-%dir /usr/share/gtk-doc/html/thunar
-%doc /usr/share/gtk-doc/html/thunar/ThunarAbstractDialog.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarAbstractIconView.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarActionManager.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarApplication.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarBrowser.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarChooserButton.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarChooserDialog.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarChooserModel.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarClipboardManager.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarColumnEditor.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarColumnModel.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarCompactView.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarComponent.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarDBusService.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarDeepCountJob.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarDetailsView.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarDevice.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarDeviceMonitor.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarEmblemChooser.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarFile.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarFolder.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarHistory.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarIconFactory.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarIconRenderer.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarIconView.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarImage.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarJob.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarJobOperation.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarJobOperationHistory.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarListModel.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarLocationBar.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarLocationButton.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarLocationButtons.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarLocationEntry.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarMenu.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarNavigator.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarPathEntry.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarPermissionsChooser.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarPreferences.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarPreferencesDialog.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarProgressDialog.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarProgressView.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarPropertiesDialog.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarRenamerDialog.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarRenamerModel.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarRenamerProgress.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarSendtoModel.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarSessionClient.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarShortcutsIconRenderer.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarShortcutsModel.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarShortcutsPane.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarShortcutsView.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarSidePane.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarSimpleJob.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarSizeLabel.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarStandardView.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarStatusbar.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarTransferJob.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarTreeModel.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarTreePane.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarTreeView.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarUserManager.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarView.html
-%doc /usr/share/gtk-doc/html/thunar/ThunarWindow.html
-%doc /usr/share/gtk-doc/html/thunar/annotation-glossary.html
-%doc /usr/share/gtk-doc/html/thunar/ch01.html
-%doc /usr/share/gtk-doc/html/thunar/ch02.html
-%doc /usr/share/gtk-doc/html/thunar/ch03.html
-%doc /usr/share/gtk-doc/html/thunar/ch04.html
-%doc /usr/share/gtk-doc/html/thunar/ch05.html
-%doc /usr/share/gtk-doc/html/thunar/ch06.html
-%doc /usr/share/gtk-doc/html/thunar/ch07.html
-%doc /usr/share/gtk-doc/html/thunar/ch08.html
-%doc /usr/share/gtk-doc/html/thunar/ch09.html
-%doc /usr/share/gtk-doc/html/thunar/ch10.html
-%doc /usr/share/gtk-doc/html/thunar/ch11.html
-%doc /usr/share/gtk-doc/html/thunar/ch12.html
-%doc /usr/share/gtk-doc/html/thunar/ch13.html
-%doc /usr/share/gtk-doc/html/thunar/ch14.html
-%doc /usr/share/gtk-doc/html/thunar/ch15.html
-%doc /usr/share/gtk-doc/html/thunar/ch16.html
-%doc /usr/share/gtk-doc/html/thunar/ch17.html
-%doc /usr/share/gtk-doc/html/thunar/ch18.html
-%doc /usr/share/gtk-doc/html/thunar/ch19.html
-%doc /usr/share/gtk-doc/html/thunar/glib-gtk-extensions.html
-%doc /usr/share/gtk-doc/html/thunar/home.png
-%doc /usr/share/gtk-doc/html/thunar/index.html
-%doc /usr/share/gtk-doc/html/thunar/left-insensitive.png
-%doc /usr/share/gtk-doc/html/thunar/left.png
-%doc /usr/share/gtk-doc/html/thunar/right-insensitive.png
-%doc /usr/share/gtk-doc/html/thunar/right.png
-%doc /usr/share/gtk-doc/html/thunar/style.css
-%doc /usr/share/gtk-doc/html/thunar/thunar-objects.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-dialogs.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-dnd.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-enum-types.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-gdk-extensions.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-gio-extensions.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-gobject-extensions.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-gtk-extensions.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-ice.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-io-jobs-util.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-io-jobs.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-io-scan-directory.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-notify.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-pango-extensions.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-renamer-pair.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-thunar-util.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-view.html
-%doc /usr/share/gtk-doc/html/thunar/thunar-widgets.html
-%doc /usr/share/gtk-doc/html/thunar/thunar.devhelp2
-%doc /usr/share/gtk-doc/html/thunar/up-insensitive.png
-%doc /usr/share/gtk-doc/html/thunar/up.png
-%dir /usr/share/gtk-doc/html/thunarx
-%doc /usr/share/gtk-doc/html/thunarx/ThunarxFileInfo.html
-%doc /usr/share/gtk-doc/html/thunarx/ThunarxMenu.html
-%doc /usr/share/gtk-doc/html/thunarx/ThunarxMenuItem.html
-%doc /usr/share/gtk-doc/html/thunarx/ThunarxMenuProvider.html
-%doc /usr/share/gtk-doc/html/thunarx/ThunarxPreferencesProvider.html
-%doc /usr/share/gtk-doc/html/thunarx/ThunarxPropertyPage.html
-%doc /usr/share/gtk-doc/html/thunarx/ThunarxPropertyPageProvider.html
-%doc /usr/share/gtk-doc/html/thunarx/ThunarxProviderFactory.html
-%doc /usr/share/gtk-doc/html/thunarx/ThunarxProviderPlugin.html
-%doc /usr/share/gtk-doc/html/thunarx/ThunarxRenamer.html
-%doc /usr/share/gtk-doc/html/thunarx/ThunarxRenamerProvider.html
-%doc /usr/share/gtk-doc/html/thunarx/abstraction.png
-%doc /usr/share/gtk-doc/html/thunarx/annotation-glossary.html
-%doc /usr/share/gtk-doc/html/thunarx/bulk-rename.png
-%doc /usr/share/gtk-doc/html/thunarx/home.png
-%doc /usr/share/gtk-doc/html/thunarx/index.html
-%doc /usr/share/gtk-doc/html/thunarx/ix01.html
-%doc /usr/share/gtk-doc/html/thunarx/left-insensitive.png
-%doc /usr/share/gtk-doc/html/thunarx/left.png
-%doc /usr/share/gtk-doc/html/thunarx/menu-provider.png
-%doc /usr/share/gtk-doc/html/thunarx/right-insensitive.png
-%doc /usr/share/gtk-doc/html/thunarx/right.png
-%doc /usr/share/gtk-doc/html/thunarx/say-hello.png
-%doc /usr/share/gtk-doc/html/thunarx/style.css
-%doc /usr/share/gtk-doc/html/thunarx/thunarx-Variables-and-functions-to-check-the-library-version.html
-%doc /usr/share/gtk-doc/html/thunarx/thunarx-abstraction-layer.html
-%doc /usr/share/gtk-doc/html/thunarx/thunarx-fundamentals.html
-%doc /usr/share/gtk-doc/html/thunarx/thunarx-overview.html
-%doc /usr/share/gtk-doc/html/thunarx/thunarx-providers.html
-%doc /usr/share/gtk-doc/html/thunarx/thunarx-using-extensions.html
-%doc /usr/share/gtk-doc/html/thunarx/thunarx-writing-extensions-advanced-topics.html
-%doc /usr/share/gtk-doc/html/thunarx/thunarx-writing-extensions-getting-started.html
-%doc /usr/share/gtk-doc/html/thunarx/thunarx-writing-extensions.html
-%doc /usr/share/gtk-doc/html/thunarx/thunarx.devhelp2
-%doc /usr/share/gtk-doc/html/thunarx/up-insensitive.png
-%doc /usr/share/gtk-doc/html/thunarx/up.png
-%dir /usr/share/icons
-%dir /usr/share/icons/hicolor
-%dir /usr/share/icons/hicolor/128x128
-%dir /usr/share/icons/hicolor/128x128/apps
+/usr/share/gtk-doc/html/thunar/ThunarAbstractDialog.html
+/usr/share/gtk-doc/html/thunar/ThunarAbstractIconView.html
+/usr/share/gtk-doc/html/thunar/ThunarActionManager.html
+/usr/share/gtk-doc/html/thunar/ThunarApplication.html
+/usr/share/gtk-doc/html/thunar/ThunarBrowser.html
+/usr/share/gtk-doc/html/thunar/ThunarChooserButton.html
+/usr/share/gtk-doc/html/thunar/ThunarChooserDialog.html
+/usr/share/gtk-doc/html/thunar/ThunarChooserModel.html
+/usr/share/gtk-doc/html/thunar/ThunarClipboardManager.html
+/usr/share/gtk-doc/html/thunar/ThunarColumnEditor.html
+/usr/share/gtk-doc/html/thunar/ThunarColumnModel.html
+/usr/share/gtk-doc/html/thunar/ThunarCompactView.html
+/usr/share/gtk-doc/html/thunar/ThunarComponent.html
+/usr/share/gtk-doc/html/thunar/ThunarDBusService.html
+/usr/share/gtk-doc/html/thunar/ThunarDeepCountJob.html
+/usr/share/gtk-doc/html/thunar/ThunarDetailsView.html
+/usr/share/gtk-doc/html/thunar/ThunarDevice.html
+/usr/share/gtk-doc/html/thunar/ThunarDeviceMonitor.html
+/usr/share/gtk-doc/html/thunar/ThunarEmblemChooser.html
+/usr/share/gtk-doc/html/thunar/ThunarFile.html
+/usr/share/gtk-doc/html/thunar/ThunarFolder.html
+/usr/share/gtk-doc/html/thunar/ThunarHistory.html
+/usr/share/gtk-doc/html/thunar/ThunarIconFactory.html
+/usr/share/gtk-doc/html/thunar/ThunarIconRenderer.html
+/usr/share/gtk-doc/html/thunar/ThunarIconView.html
+/usr/share/gtk-doc/html/thunar/ThunarImage.html
+/usr/share/gtk-doc/html/thunar/ThunarJob.html
+/usr/share/gtk-doc/html/thunar/ThunarJobOperation.html
+/usr/share/gtk-doc/html/thunar/ThunarJobOperationHistory.html
+/usr/share/gtk-doc/html/thunar/ThunarListModel.html
+/usr/share/gtk-doc/html/thunar/ThunarLocationBar.html
+/usr/share/gtk-doc/html/thunar/ThunarLocationButton.html
+/usr/share/gtk-doc/html/thunar/ThunarLocationButtons.html
+/usr/share/gtk-doc/html/thunar/ThunarLocationEntry.html
+/usr/share/gtk-doc/html/thunar/ThunarMenu.html
+/usr/share/gtk-doc/html/thunar/ThunarNavigator.html
+/usr/share/gtk-doc/html/thunar/ThunarPathEntry.html
+/usr/share/gtk-doc/html/thunar/ThunarPermissionsChooser.html
+/usr/share/gtk-doc/html/thunar/ThunarPreferences.html
+/usr/share/gtk-doc/html/thunar/ThunarPreferencesDialog.html
+/usr/share/gtk-doc/html/thunar/ThunarProgressDialog.html
+/usr/share/gtk-doc/html/thunar/ThunarProgressView.html
+/usr/share/gtk-doc/html/thunar/ThunarPropertiesDialog.html
+/usr/share/gtk-doc/html/thunar/ThunarRenamerDialog.html
+/usr/share/gtk-doc/html/thunar/ThunarRenamerModel.html
+/usr/share/gtk-doc/html/thunar/ThunarRenamerProgress.html
+/usr/share/gtk-doc/html/thunar/ThunarSendtoModel.html
+/usr/share/gtk-doc/html/thunar/ThunarSessionClient.html
+/usr/share/gtk-doc/html/thunar/ThunarShortcutsIconRenderer.html
+/usr/share/gtk-doc/html/thunar/ThunarShortcutsModel.html
+/usr/share/gtk-doc/html/thunar/ThunarShortcutsPane.html
+/usr/share/gtk-doc/html/thunar/ThunarShortcutsView.html
+/usr/share/gtk-doc/html/thunar/ThunarSidePane.html
+/usr/share/gtk-doc/html/thunar/ThunarSimpleJob.html
+/usr/share/gtk-doc/html/thunar/ThunarSizeLabel.html
+/usr/share/gtk-doc/html/thunar/ThunarStandardView.html
+/usr/share/gtk-doc/html/thunar/ThunarStatusbar.html
+/usr/share/gtk-doc/html/thunar/ThunarTransferJob.html
+/usr/share/gtk-doc/html/thunar/ThunarTreeModel.html
+/usr/share/gtk-doc/html/thunar/ThunarTreePane.html
+/usr/share/gtk-doc/html/thunar/ThunarTreeView.html
+/usr/share/gtk-doc/html/thunar/ThunarUserManager.html
+/usr/share/gtk-doc/html/thunar/ThunarView.html
+/usr/share/gtk-doc/html/thunar/ThunarWindow.html
+/usr/share/gtk-doc/html/thunar/annotation-glossary.html
+/usr/share/gtk-doc/html/thunar/ch01.html
+/usr/share/gtk-doc/html/thunar/ch02.html
+/usr/share/gtk-doc/html/thunar/ch03.html
+/usr/share/gtk-doc/html/thunar/ch04.html
+/usr/share/gtk-doc/html/thunar/ch05.html
+/usr/share/gtk-doc/html/thunar/ch06.html
+/usr/share/gtk-doc/html/thunar/ch07.html
+/usr/share/gtk-doc/html/thunar/ch08.html
+/usr/share/gtk-doc/html/thunar/ch09.html
+/usr/share/gtk-doc/html/thunar/ch10.html
+/usr/share/gtk-doc/html/thunar/ch11.html
+/usr/share/gtk-doc/html/thunar/ch12.html
+/usr/share/gtk-doc/html/thunar/ch13.html
+/usr/share/gtk-doc/html/thunar/ch14.html
+/usr/share/gtk-doc/html/thunar/ch15.html
+/usr/share/gtk-doc/html/thunar/ch16.html
+/usr/share/gtk-doc/html/thunar/ch17.html
+/usr/share/gtk-doc/html/thunar/ch18.html
+/usr/share/gtk-doc/html/thunar/ch19.html
+/usr/share/gtk-doc/html/thunar/glib-gtk-extensions.html
+/usr/share/gtk-doc/html/thunar/home.png
+/usr/share/gtk-doc/html/thunar/index.html
+/usr/share/gtk-doc/html/thunar/left-insensitive.png
+/usr/share/gtk-doc/html/thunar/left.png
+/usr/share/gtk-doc/html/thunar/right-insensitive.png
+/usr/share/gtk-doc/html/thunar/right.png
+/usr/share/gtk-doc/html/thunar/style.css
+/usr/share/gtk-doc/html/thunar/thunar-objects.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-dialogs.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-dnd.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-enum-types.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-gdk-extensions.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-gio-extensions.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-gobject-extensions.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-gtk-extensions.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-ice.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-io-jobs-util.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-io-jobs.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-io-scan-directory.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-notify.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-pango-extensions.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-renamer-pair.html
+/usr/share/gtk-doc/html/thunar/thunar-thunar-util.html
+/usr/share/gtk-doc/html/thunar/thunar-view.html
+/usr/share/gtk-doc/html/thunar/thunar-widgets.html
+/usr/share/gtk-doc/html/thunar/thunar.devhelp2
+/usr/share/gtk-doc/html/thunar/up-insensitive.png
+/usr/share/gtk-doc/html/thunar/up.png
+/usr/share/gtk-doc/html/thunarx/ThunarxFileInfo.html
+/usr/share/gtk-doc/html/thunarx/ThunarxMenu.html
+/usr/share/gtk-doc/html/thunarx/ThunarxMenuItem.html
+/usr/share/gtk-doc/html/thunarx/ThunarxMenuProvider.html
+/usr/share/gtk-doc/html/thunarx/ThunarxPreferencesProvider.html
+/usr/share/gtk-doc/html/thunarx/ThunarxPropertyPage.html
+/usr/share/gtk-doc/html/thunarx/ThunarxPropertyPageProvider.html
+/usr/share/gtk-doc/html/thunarx/ThunarxProviderFactory.html
+/usr/share/gtk-doc/html/thunarx/ThunarxProviderPlugin.html
+/usr/share/gtk-doc/html/thunarx/ThunarxRenamer.html
+/usr/share/gtk-doc/html/thunarx/ThunarxRenamerProvider.html
+/usr/share/gtk-doc/html/thunarx/abstraction.png
+/usr/share/gtk-doc/html/thunarx/annotation-glossary.html
+/usr/share/gtk-doc/html/thunarx/bulk-rename.png
+/usr/share/gtk-doc/html/thunarx/home.png
+/usr/share/gtk-doc/html/thunarx/index.html
+/usr/share/gtk-doc/html/thunarx/ix01.html
+/usr/share/gtk-doc/html/thunarx/left-insensitive.png
+/usr/share/gtk-doc/html/thunarx/left.png
+/usr/share/gtk-doc/html/thunarx/menu-provider.png
+/usr/share/gtk-doc/html/thunarx/right-insensitive.png
+/usr/share/gtk-doc/html/thunarx/right.png
+/usr/share/gtk-doc/html/thunarx/say-hello.png
+/usr/share/gtk-doc/html/thunarx/style.css
+/usr/share/gtk-doc/html/thunarx/thunarx-Variables-and-functions-to-check-the-library-version.html
+/usr/share/gtk-doc/html/thunarx/thunarx-abstraction-layer.html
+/usr/share/gtk-doc/html/thunarx/thunarx-fundamentals.html
+/usr/share/gtk-doc/html/thunarx/thunarx-overview.html
+/usr/share/gtk-doc/html/thunarx/thunarx-providers.html
+/usr/share/gtk-doc/html/thunarx/thunarx-using-extensions.html
+/usr/share/gtk-doc/html/thunarx/thunarx-writing-extensions-advanced-topics.html
+/usr/share/gtk-doc/html/thunarx/thunarx-writing-extensions-getting-started.html
+/usr/share/gtk-doc/html/thunarx/thunarx-writing-extensions.html
+/usr/share/gtk-doc/html/thunarx/thunarx.devhelp2
+/usr/share/gtk-doc/html/thunarx/up-insensitive.png
+/usr/share/gtk-doc/html/thunarx/up.png
 /usr/share/icons/hicolor/128x128/apps/org.xfce.thunar.png
-%dir /usr/share/icons/hicolor/16x16
-%dir /usr/share/icons/hicolor/16x16/apps
 /usr/share/icons/hicolor/16x16/apps/org.xfce.thunar.png
-%dir /usr/share/icons/hicolor/16x16/stock
-%dir /usr/share/icons/hicolor/16x16/stock/navigation
 /usr/share/icons/hicolor/16x16/stock/navigation/stock_folder-copy.png
 /usr/share/icons/hicolor/16x16/stock/navigation/stock_folder-move.png
-%dir /usr/share/icons/hicolor/24x24
-%dir /usr/share/icons/hicolor/24x24/stock
-%dir /usr/share/icons/hicolor/24x24/stock/navigation
 /usr/share/icons/hicolor/24x24/stock/navigation/stock_folder-copy.png
 /usr/share/icons/hicolor/24x24/stock/navigation/stock_folder-move.png
-%dir /usr/share/icons/hicolor/48x48
-%dir /usr/share/icons/hicolor/48x48/apps
 /usr/share/icons/hicolor/48x48/apps/org.xfce.thunar.png
-%dir /usr/share/icons/hicolor/scalable
-%dir /usr/share/icons/hicolor/scalable/apps
 /usr/share/icons/hicolor/scalable/apps/org.xfce.thunar.svg
-%dir /usr/share/locale
-%dir /usr/share/locale/am
-%dir /usr/share/locale/am/LC_MESSAGES
 /usr/share/locale/am/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ar
-%dir /usr/share/locale/ar/LC_MESSAGES
 /usr/share/locale/ar/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ast
-%dir /usr/share/locale/ast/LC_MESSAGES
 /usr/share/locale/ast/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/be
-%dir /usr/share/locale/be/LC_MESSAGES
 /usr/share/locale/be/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/bg
-%dir /usr/share/locale/bg/LC_MESSAGES
 /usr/share/locale/bg/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/bn
-%dir /usr/share/locale/bn/LC_MESSAGES
 /usr/share/locale/bn/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ca
-%dir /usr/share/locale/ca/LC_MESSAGES
 /usr/share/locale/ca/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/cs
-%dir /usr/share/locale/cs/LC_MESSAGES
 /usr/share/locale/cs/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/da
-%dir /usr/share/locale/da/LC_MESSAGES
 /usr/share/locale/da/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/de
-%dir /usr/share/locale/de/LC_MESSAGES
 /usr/share/locale/de/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/el
-%dir /usr/share/locale/el/LC_MESSAGES
 /usr/share/locale/el/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/en_AU
-%dir /usr/share/locale/en_AU/LC_MESSAGES
 /usr/share/locale/en_AU/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/en_GB
-%dir /usr/share/locale/en_GB/LC_MESSAGES
 /usr/share/locale/en_GB/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/eo
-%dir /usr/share/locale/eo/LC_MESSAGES
 /usr/share/locale/eo/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/es
-%dir /usr/share/locale/es/LC_MESSAGES
 /usr/share/locale/es/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/et
-%dir /usr/share/locale/et/LC_MESSAGES
 /usr/share/locale/et/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/eu
-%dir /usr/share/locale/eu/LC_MESSAGES
 /usr/share/locale/eu/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/fa_IR
-%dir /usr/share/locale/fa_IR/LC_MESSAGES
 /usr/share/locale/fa_IR/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/fi
-%dir /usr/share/locale/fi/LC_MESSAGES
 /usr/share/locale/fi/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/fr
-%dir /usr/share/locale/fr/LC_MESSAGES
 /usr/share/locale/fr/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/gl
-%dir /usr/share/locale/gl/LC_MESSAGES
 /usr/share/locale/gl/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/he
-%dir /usr/share/locale/he/LC_MESSAGES
 /usr/share/locale/he/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/hr
-%dir /usr/share/locale/hr/LC_MESSAGES
 /usr/share/locale/hr/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/hu
-%dir /usr/share/locale/hu/LC_MESSAGES
 /usr/share/locale/hu/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/hy
-%dir /usr/share/locale/hy/LC_MESSAGES
 /usr/share/locale/hy/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/hy_AM
-%dir /usr/share/locale/hy_AM/LC_MESSAGES
 /usr/share/locale/hy_AM/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/hye
-%dir /usr/share/locale/hye/LC_MESSAGES
 /usr/share/locale/hye/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/id
-%dir /usr/share/locale/id/LC_MESSAGES
 /usr/share/locale/id/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ie
-%dir /usr/share/locale/ie/LC_MESSAGES
 /usr/share/locale/ie/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/is
-%dir /usr/share/locale/is/LC_MESSAGES
 /usr/share/locale/is/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/it
-%dir /usr/share/locale/it/LC_MESSAGES
 /usr/share/locale/it/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ja
-%dir /usr/share/locale/ja/LC_MESSAGES
 /usr/share/locale/ja/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ka
-%dir /usr/share/locale/ka/LC_MESSAGES
 /usr/share/locale/ka/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/kk
-%dir /usr/share/locale/kk/LC_MESSAGES
 /usr/share/locale/kk/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ko
-%dir /usr/share/locale/ko/LC_MESSAGES
 /usr/share/locale/ko/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/lo
-%dir /usr/share/locale/lo/LC_MESSAGES
 /usr/share/locale/lo/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/lt
-%dir /usr/share/locale/lt/LC_MESSAGES
 /usr/share/locale/lt/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/lv
-%dir /usr/share/locale/lv/LC_MESSAGES
 /usr/share/locale/lv/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ms
-%dir /usr/share/locale/ms/LC_MESSAGES
 /usr/share/locale/ms/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/nb
-%dir /usr/share/locale/nb/LC_MESSAGES
 /usr/share/locale/nb/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/nl
-%dir /usr/share/locale/nl/LC_MESSAGES
 /usr/share/locale/nl/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/nn
-%dir /usr/share/locale/nn/LC_MESSAGES
 /usr/share/locale/nn/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/oc
-%dir /usr/share/locale/oc/LC_MESSAGES
 /usr/share/locale/oc/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/pa
-%dir /usr/share/locale/pa/LC_MESSAGES
 /usr/share/locale/pa/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/pl
-%dir /usr/share/locale/pl/LC_MESSAGES
 /usr/share/locale/pl/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/pt
-%dir /usr/share/locale/pt/LC_MESSAGES
 /usr/share/locale/pt/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/pt_BR
-%dir /usr/share/locale/pt_BR/LC_MESSAGES
 /usr/share/locale/pt_BR/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ro
-%dir /usr/share/locale/ro/LC_MESSAGES
 /usr/share/locale/ro/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ru
-%dir /usr/share/locale/ru/LC_MESSAGES
 /usr/share/locale/ru/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/si
-%dir /usr/share/locale/si/LC_MESSAGES
 /usr/share/locale/si/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/sk
-%dir /usr/share/locale/sk/LC_MESSAGES
 /usr/share/locale/sk/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/sl
-%dir /usr/share/locale/sl/LC_MESSAGES
 /usr/share/locale/sl/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/sq
-%dir /usr/share/locale/sq/LC_MESSAGES
 /usr/share/locale/sq/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/sr
-%dir /usr/share/locale/sr/LC_MESSAGES
 /usr/share/locale/sr/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/sv
-%dir /usr/share/locale/sv/LC_MESSAGES
 /usr/share/locale/sv/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/te
-%dir /usr/share/locale/te/LC_MESSAGES
 /usr/share/locale/te/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/th
-%dir /usr/share/locale/th/LC_MESSAGES
 /usr/share/locale/th/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/tr
-%dir /usr/share/locale/tr/LC_MESSAGES
 /usr/share/locale/tr/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ug
-%dir /usr/share/locale/ug/LC_MESSAGES
 /usr/share/locale/ug/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/uk
-%dir /usr/share/locale/uk/LC_MESSAGES
 /usr/share/locale/uk/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ur
-%dir /usr/share/locale/ur/LC_MESSAGES
 /usr/share/locale/ur/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/ur_PK
-%dir /usr/share/locale/ur_PK/LC_MESSAGES
 /usr/share/locale/ur_PK/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/vec
-%dir /usr/share/locale/vec/LC_MESSAGES
 /usr/share/locale/vec/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/vi
-%dir /usr/share/locale/vi/LC_MESSAGES
 /usr/share/locale/vi/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/zh_CN
-%dir /usr/share/locale/zh_CN/LC_MESSAGES
 /usr/share/locale/zh_CN/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/zh_HK
-%dir /usr/share/locale/zh_HK/LC_MESSAGES
 /usr/share/locale/zh_HK/LC_MESSAGES/thunar.mo
-%dir /usr/share/locale/zh_TW
-%dir /usr/share/locale/zh_TW/LC_MESSAGES
 /usr/share/locale/zh_TW/LC_MESSAGES/thunar.mo
-%dir /usr/share/man
-%dir /usr/share/man/man1
-%doc /usr/share/man/man1/Thunar.1.gz
-%dir /usr/share/metainfo
+/usr/share/man/man1/Thunar.1.gz
 /usr/share/metainfo/org.xfce.thunar.appdata.xml
-%dir /usr/share/polkit-1
-%dir /usr/share/polkit-1/actions
 /usr/share/polkit-1/actions/org.xfce.thunar.policy
-%dir /usr/share/xfce4
-%dir /usr/share/xfce4/panel
-%dir /usr/share/xfce4/panel/plugins
 /usr/share/xfce4/panel/plugins/thunar-tpa.desktop
