@@ -143,10 +143,11 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `linux-firmware-base` + nine vendor packs (base 1.3 MB; full still
   396 MB, image builds with weak deps off save ~395 MB), and Python
   3.14.7-2 (**236 MB → 52 MB**; `python-tests` 74 MB; 106 MB of duplicate
-  `.opt` bytecode removed).  The Fedora-like LLVM split and the
-  base/runtime wave (openssl, glibc, gcc, perl, binutils, gettext,
-  systemd, vim, nodejs, kernel-debug) are still running.  Details in
-  §6 H/I.  Versions are unchanged.
+  `.opt` bytecode removed).  The Fedora-like LLVM split is merged
+  (`llvm-static` 513 MB split out; Mesa needs only 132.9 MB `llvm-libs`
+  instead of 1008 MB).  The base/runtime wave (openssl, glibc, gcc, perl,
+  binutils, gettext, systemd, vim, kernel-debug) is still running.
+  Details in §6 H/I.  Versions are unchanged.
 - **E4 initramfs automation (2026-11-01):** `linux-modules` 7.2.6-3 runs
   `depmod` + `dracut` in `%post` (requires `dracut`) and removes
   `/boot/initramfs-<ver>.img` on erase.  `browneye-sysconfig` 13.1-2 ships
@@ -1049,8 +1050,8 @@ the r13.1 tag's 9.2.1025).
 
 ### H. Package-split wave (2026-11-01, in progress)
 
-Following the size audit, three packaging-only splits are running on
-their own branches (versions unchanged):
+Following the size audit, three packaging-only splits were run on their
+own branches (versions unchanged) and are now merged:
 
 | branch / worktree | split | expected saving |
 |---|---|---|
@@ -1064,7 +1065,14 @@ amd-gpu 36.4, intel-gpu 12.4, mediatek 36.1, ath 49.6, bluetooth 1.2,
 nic 0.07, other 66.3), exact 3722-path partition; `xfce-desktop` requires
 base and recommends packs.  Python: main 236 MB → 52 MB, `python-tests`
 74 MB, `python-idle` 3.5 MB, `python-tkinter` 0.7 MB; 3,726 `.opt` pyc
-files (106 MB) removed.  `llvm-split` is still running.
+files (106 MB) removed.  LLVM (`8b7ffbc`): `llvm` tools 67.7 MB,
+`llvm-libs` 132.9 MB, `llvm-devel` 36.7 MB, `llvm-static` 513.1 MB,
+`clang-libs` 151.0 MB, `clang` 0.4 MB, `clang-devel` 34.9 MB,
+`clang-tools-extra` 55.1 MB, `clang-analyzer` 0.3 MB,
+`clang-resource-filesystem` 8.3 MB, `compiler-rt` 7.6 MB, plus
+`llvm-all`.  Exact 4,401-path partition.  Mesa now resolves with
+`llvm-libs` only (132.9 MB instead of 1008 MB, ~875 MB saved);
+`mesa.spec` builds against `llvm-devel` (`f19219c`).
 
 Fedora F44 is the model: one `llvm` source RPM (22.1.8-4) produces
 `llvm` (tools, ~90 MB), `llvm-libs` (~147 MB), `llvm-devel` (~37 MB),
@@ -1310,10 +1318,10 @@ metas, and the installer ISO live/target sets.
    are newer; after they merge, assemble a fresh tree and republish
    incrementally.
 3. **Package splits (H/I, running).**  `firmware-split` and `python-split`
-   are merged; `llvm-split` and the base/runtime wave are running.  Next:
-   curated `glibc-locales`, desktop `-lang`/`-doc`/`-tests`/`-static`/
-   `-devel` splits, and the `browneye-base-runtime` / minimal-desktop
-   profiles.
+   are merged, including the Fedora-like LLVM split; the base/runtime wave
+   is still running.  Next: curated `glibc-locales`, desktop
+   `-lang`/`-doc`/`-tests`/`-static`/`-devel` splits, and the
+   `browneye-base-runtime` / minimal-desktop profiles.
 4. **E1 — self-hosted repo/rootfs assembly (done, `a4f7df9`).**  `dnf`
    4.24.0 + `createrepo_c` 1.2.6 and the `browneye-build` meta work inside
    the image; `bootstrap_selfhosted.sh` can use `TOOL_IMAGE` instead of host
