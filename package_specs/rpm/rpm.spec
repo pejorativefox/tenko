@@ -1,6 +1,6 @@
 Name:       rpm
 Version:    4.18.1
-Release:    2
+Release:    3
 Summary:    RPM package manager
 License:    GPL3
 Source0:    %{name}-%{version}.tar.bz2
@@ -16,6 +16,13 @@ Requires:   %{name} = %{version}-%{release}
 %description -n python3-rpm
 The rpm Python module allows Python programs (notably dnf) to query the
 RPM database and run transactions through librpm.
+
+%package devel
+Summary:    rpm development files
+Requires:   rpm = %{version}-%{release}
+
+%description devel
+Development files for rpm.
 
 %prep
 %setup -q
@@ -43,10 +50,13 @@ rmdir %{buildroot}/var/tmp 2>/dev/null || true
 rmdir %{buildroot}/var 2>/dev/null || true
 
 %files -f %{_sourcedir}/rpm.filelist
+%files devel -f %{_sourcedir}/rpm-devel.filelist
 
-%files -n python3-rpm -f %{_sourcedir}/rpm-python.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.18.1-3
+- Split devel payload into rpm-devel (size audit)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.18.1-2
 - Enable the Python 3 bindings and split them into python3-rpm for the E1
   dnf/libdnf chain (dnf 4 imports the rpm module).  The main rpm package

@@ -1,6 +1,6 @@
 Name:       kmod
 Version:    34.2
-Release:    2
+Release:    3
 Summary:    Kernel module utilities
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 The Kmod package contains libraries and utilities for loading kernel modules 
+
+%package devel
+Summary:    kmod development files
+Requires:   kmod = %{version}-%{release}
+
+%description devel
+Development files for kmod.
 
 %prep
 %setup -q
@@ -39,28 +46,14 @@ ln -sfv kmod %{buildroot}/usr/bin/lsmod
 # /usr/sbin.
 ln -sfv kmod %{buildroot}/usr/bin/modprobe
 
-%files
-/usr/bin/kmod
-/usr/bin/lsmod
-/usr/bin/modprobe
-/usr/sbin/depmod
-/usr/sbin/insmod
-/usr/sbin/modinfo
-/usr/sbin/modprobe
-/usr/sbin/rmmod
-/usr/sbin/lsmod
-/usr/include/libkmod.h
-/usr/lib64/libkmod.so
-/usr/lib64/libkmod.so.2
-/usr/lib64/libkmod.so.2.5.1
-/usr/lib64/pkgconfig/libkmod.pc
-/usr/share/bash-completion/completions/
-/usr/share/fish/vendor_functions.d/
-/usr/share/zsh/site-functions/
-/usr/share/pkgconfig/kmod.pc
+%files -f %{_sourcedir}/kmod.filelist
+%files devel -f %{_sourcedir}/kmod-devel.filelist
 
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 34.2-3
+- Split devel payload into kmod-devel (size audit)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 34.2-2
 - Install /usr/bin/modprobe.  The kernel's CONFIG_MODPROBE_PATH points there;
   without it, request_module() autoloading fails (e.g. mounting

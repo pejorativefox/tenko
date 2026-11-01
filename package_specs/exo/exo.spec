@@ -23,6 +23,13 @@ Requires:   exo = %{version}-%{release}
 %description doc
 Documentation for exo.
 
+%package devel
+Summary:    exo development files
+Requires:   exo = %{version}-%{release}
+
+%description devel
+Development files for exo.
+
 %prep
 %setup
 
@@ -38,11 +45,12 @@ mkdir -p %{buildroot}/etc
 %files -f %{_sourcedir}/exo.filelist
 %files lang -f %{_sourcedir}/exo-lang.filelist
 %files doc -f %{_sourcedir}/exo-doc.filelist
+%files devel -f %{_sourcedir}/exo-devel.filelist
 
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.0-2
-- Split lang, doc payload into exo-lang, exo-doc (size audit)
+- Split lang, doc, devel payload into exo-lang, exo-doc, exo-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0
 - Sync with BLFS r13.1 (4.18.0)

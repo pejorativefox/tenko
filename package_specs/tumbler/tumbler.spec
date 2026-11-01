@@ -1,6 +1,6 @@
 Name:       tumbler
 Version:    4.20.2
-Release:    1
+Release:    2
 Summary:    D-Bus service for applications to request thumbnails
 License:    GPL2
 Source0:    %{name}-%{version}.tar.bz2
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 D-Bus service for applications to request thumbnails
+
+%package devel
+Summary:    tumbler development files
+Requires:   tumbler = %{version}-%{release}
+
+%description devel
+Development files for tumbler.
 
 %prep
 %setup
@@ -23,8 +30,13 @@ mkdir -p %{buildroot}/etc
 rm -f %{buildroot}/usr/lib/systemd/user/tumblerd.service
 
 %files -f %{_sourcedir}/tumbler.filelist
+%files devel -f %{_sourcedir}/tumbler-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.2-2
+- Split devel payload into tumbler-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.2
 - Sync with BLFS r13.1 (4.19.0)
 

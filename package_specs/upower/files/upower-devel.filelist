@@ -1,0 +1,13 @@
+%dir /usr/include/libupower-glib
+/usr/include/libupower-glib/up-autocleanups.h
+/usr/include/libupower-glib/up-client.h
+/usr/include/libupower-glib/up-device.h
+/usr/include/libupower-glib/up-history-item.h
+/usr/include/libupower-glib/up-stats-item.h
+/usr/include/libupower-glib/up-types.h
+/usr/include/libupower-glib/up-version.h
+/usr/include/libupower-glib/upower.h
+/usr/lib64/libupower-glib.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/upower-glib.pc
+/usr/share/gir-1.0/UPowerGlib-1.0.gir
