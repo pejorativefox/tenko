@@ -1113,6 +1113,13 @@ is 105 packages and excludes lang/doc/openssl-perl/glibc-i18n.
 Runtime savings: gcc-libs-only 306 MB; binutils 22.7 MB; perl 26.2 MB;
 groff 16 MB plus the 65 MB Perl closure.  Remaining: systemd ~12 MB;
 vim ~26 MB; kernel debug ~12 MB.
+
+Rebuilt container base rootfs from `build/repo-all` (296 RPMs):
+`build/rootfs-selfhost` went from **98 packages / 1.4 GB (1,335,288,708 B)
+to 105 packages / 1.1 GB (1,042,888,079 B)** — **279 MiB smaller on disk**
+(apparent 1,435,400,082 → 1,033,758,480 B, −383 MiB; ~272 MiB excluding
+kernel/modules that were only in the old test rootfs).  The old tree is
+kept at `build/rootfs-selfhost-before-splits`.
 `system-minimal` now requires `linux-firmware-base` and recommends the
 vendor packs (`0.1-3`).
 
