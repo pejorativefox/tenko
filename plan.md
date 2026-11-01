@@ -18,12 +18,12 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `build/repo-selfhost` is the clean repo produced by the container rebuild.
 - `browneye-base` meta resolves and installs **94** packages into
   `build/rootfs` and `build/rootfs-selfhost`.
-- The 222-RPM repo was **published 2026-11-01**.  The final combined tree
-  is now **258 RPMs** in `build/repo-all` / `build/repo-publish/13.1`:
-  base + desktop + E4/PAM/Node/CA/agents/P0 + the E1 build tools.  Staged
-  and verified (base closure 98 packages, desktop+workstation 219, build
-  116; no duplicate versions, no debuginfo).  **Not uploaded yet** —
-  awaiting the go-ahead for the incremental publish.
+- The combined **258-RPM** repo was **published 2026-11-01** to
+  `https://tomfool.8bit.ca/browneye/packages/13.1/` (base + desktop +
+  E4/PAM/Node/CA/agents/P0 + E1 build tools).  Verified: `.repo`, repomd,
+  index (258 rows), and key RPMs return 200 with matching Content-Length;
+  closures were base 98, desktop+workstation 219, build 116.  The
+  firmware/Python/base runtime split waves will need the next republish.
 - The rootfs is QEMU-booted to multi-user and a serial root login; bash 5.3,
   python 3.14.7, openssl 4.0.2, merged `/usr`, loader at
   `/usr/lib64/ld-linux-x86-64.so.2`.
@@ -1117,11 +1117,12 @@ metas, and the installer ISO live/target sets.
   change.
 - The repo is unsigned.  `scripts/prune_repo.sh` keeps the newest RPM per
   package, so the published repo has one version per name.
-- The 222-RPM tree was published on 2026-11-01.  `build/repo-all` is now
-  the final **258-RPM** tree (E4 kernel 7.2.6-3, sysconfig 13.1-2, kmod
-  34.2-2, PAM/sshd, Node, CA/git, agent tools, P0 fixes, E1 build tools);
-  `build/repo-publish/13.1` is staged and metadata-verified but **not
-  uploaded**.  The E4 test artifacts remain in `build/repo-e4`.
+- The **258-RPM** tree was published on 2026-11-01 (E4 kernel 7.2.6-3,
+  sysconfig 13.1-2, kmod 34.2-2, PAM/sshd, Node, CA/git, agent tools, P0
+  fixes, E1 build tools); HTTPS verification passed.  `build/repo-all` and
+  `build/repo-publish/13.1` are the published tree.  The firmware/Python/
+  base runtime splits are newer and are not in it yet.  The E4 test
+  artifacts remain in `build/repo-e4`.
 - Rootfs installs use `--setopt=tsflags=noscripts`; scriptlet correctness has
   not been tested outside the fake-root install.
 - The container image is rootless/local (`localhost/browneye/base:...`) and
@@ -1287,13 +1288,11 @@ metas, and the installer ISO live/target sets.
    (D19), CA/git/which, and the `browneye-workstation` meta (D20) all work
    in the 6 GB test image over SSH.  Next: assemble the final repo from
    `build/repo-e4` and publish it incrementally.
-2. **Final repo — staged and verified, awaiting upload.**  `build/repo-all`
-   and `build/repo-publish/13.1` contain the **258-RPM** combined tree
-   (E4 + PAM/sshd + CA/git + Node + agents + P0 + E1 build tools).  Closure
-   checks: base 98 packages, desktop+workstation 219, build 116; no
-   duplicate versions, no debuginfo.  The remote still has the 222-RPM
-   revision.  Publish with `REPO=build/repo-all ./scripts/publish_repo.sh`
-   (or checksum mode) and verify HTTPS.
+2. **Repo — 258-RPM tree published 2026-11-01.**  HTTPS verification
+   passed (repo file, repomd, 258-row index, kernel/workstation/node/dnf/
+   opencode RPMs).  The split waves (firmware, Python, LLVM, base/runtime)
+   are newer; after they merge, assemble a fresh tree and republish
+   incrementally.
 3. **Package splits (H/I, running).**  `firmware-split` and `python-split`
    are merged; `llvm-split` and the base/runtime wave are running.  Next:
    curated `glibc-locales`, desktop `-lang`/`-doc`/`-tests`/`-static`/
