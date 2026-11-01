@@ -150,6 +150,10 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   runtime saves 306 MB; `gcc-devel`/`gcc-lto` are required by the build
   image).  Only the base wave (systemd, vim, kernel-debug) is still
   running.  Details in §6 H/I.  Versions are unchanged.
+- **Locale split (planned, D32):** `glibc-locales` becomes a small curated
+  archive (C/C.UTF-8/en_US plus common languages); the full 222.5 MB
+  `localedata/SUPPORTED` archive moves to opt-in `glibc-locales-extra`.
+  This is the next ~210 MB saving for the build container and base install.
 - **E4 initramfs automation (2026-11-01):** `linux-modules` 7.2.6-3 runs
   `depmod` + `dracut` in `%post` (requires `dracut`) and removes
   `/boot/initramfs-<ver>.img` on erase.  `browneye-sysconfig` 13.1-2 ships
@@ -306,6 +310,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D29 | Base splits | `systemd-hwdb`/`-lang`/`-doc`, `vim-minimal` + `vim-runtime-extra` (vim meta), `linux-kernel-debug` |
 | D30 | Terminal crypto | VTE 0.84.1-2 built with GnuTLS; `nettle` 4.0 + `gnutls` 3.8.13 |
 | D31 | Rust | **1.99.0 official x86_64-unknown-linux-gnu binary distribution under `/opt`** (user-requested), with `/usr/bin` symlinks |
+| D32 | Locales | `glibc-locales` = small curated archive (C/C.UTF-8/en_US plus common languages); `glibc-locales-extra` = full `localedata/SUPPORTED` archive |
 
 Consequences already implemented:
 
@@ -1156,6 +1161,30 @@ Shipped defects are source metadata/repo drift, not version skew:
 because its aliases are applied only to RPMs.  The parser gaps and full
 tables are in `spec-audit.md` §8.
 
+### L. glibc locale split (planned)
+
+Today `glibc-locales` is a single 222.5 MB `/usr/lib/locale/locale-archive`
+covering all 886 `localedata/SUPPORTED` locales.  Split it into:
+
+- **`glibc-locales` (default, small):** a curated archive with `C`,
+  `C.UTF-8`/`POSIX`, `en_US.UTF-8`, and a short set of common languages
+  (`en_GB`, `de_DE`, `fr_FR`, `es_ES`, `it_IT`, `pt_BR`, `ru_RU`, `ja_JP`,
+  `ko_KR`, `zh_CN`, `zh_TW`); target roughly 10–30 MB, measured at
+  implementation.  `browneye-base` keeps requiring this package, so the
+  build container and installed OS both shrink by ~200 MB without losing
+  C/UTF-8 or English.
+- **`glibc-locales-extra` (opt-in):** the full `localedata/SUPPORTED`
+  archive (222.5 MB) for users who need every locale.
+
+Build both archives from the same glibc source in one `%install` pass
+(curated archive plus full archive), not two glibc builds.  Decide the
+coexistence mechanism during implementation: `-extra` may `Conflicts`/
+`Obsoletes` the small package and replace the archive, or ship per-locale
+directories alongside it.  Verify `locale -a`, `LC_ALL=... date`,
+`localedef`, and that `glibc-locales-extra` upgrades cleanly.  Expected
+saving: about **210 MB** in the build container and base install; the old
+full package remains available as `-extra`.
+
 ---
 
 ## 7. Known technical debt
@@ -1369,8 +1398,8 @@ tables are in `spec-audit.md` §8.
 3. **Package splits (H/I, running).**  `firmware-split` and `python-split`
    are merged, including LLVM, the openssl/glibc/gettext runtime split,
    and the gcc/binutils/perl/groff toolchain split; only the
-   systemd/vim/kernel base wave is still running.  Next: curated
-   `glibc-locales`, desktop
+   systemd/vim/kernel base wave is still running.  Next: the small
+   `glibc-locales` + `glibc-locales-extra` split (L), desktop
    `-lang`/`-doc`/`-tests`/`-static`/`-devel` splits, and the
    `browneye-base-runtime` / minimal-desktop profiles.
 4. **Fix shipped metadata defects from the spec audit (K).**  Correct the
