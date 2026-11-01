@@ -109,6 +109,12 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - **Terminal (2026-11-01):** VTE 0.84.1 and `xfce4-terminal` 1.2.0 are in
   the desktop meta; the terminal was launched in the QEMU XFCE session and
   reported `xfce4-terminal 1.2.0 (Xfce 4.20)`.
+- **Workstation wave (2026-11-01, in progress).**  Merged: Linux-PAM 1.7.3 +
+  PAM-enabled systemd 261.3-2 + OpenSSH 10.5p1 (password auth, root login),
+  `browneye-firstboot` root-password service, and the CA/git/which wave
+  (`make-ca` 1.16.1 with a pinned certdata snapshot, git 2.55.0, which
+  2.25).  `opencode-bin` 2.2.5 and `herdr` 0.9.5 are packaged.  Node.js
+  26.13.0 and E1 are still building.
 - **E4 initramfs automation (2026-11-01):** `linux-modules` 7.2.6-3 runs
   `depmod` + `dracut` in `%post` (requires `dracut`) and removes
   `/boot/initramfs-<ver>.img` on erase.  `browneye-sysconfig` 13.1-2 ships
@@ -917,6 +923,9 @@ independent subagent worktrees were created off `c25180a`:
 | `ca-tools` / `browneye-ca` | libtasn1, p11-kit, make-ca + certdata, git 2.55.0, which 2.25 |
 | `agent-tools` / `browneye-agents` | opencode-bin, herdr binary RPMs |
 
+Merged so far: `pam-sshd` (`ddd602e`), `ca-tools` (`e487b5d`),
+`agent-tools` (`c870fd5`).  Still running: `nodejs`, `e1`.
+
 The main session owns `browneye-workstation`, QEMU SSH forwarding, merges,
 image/rootfs rebuilds, and publishing.  Original investigation notes follow.
 
@@ -1124,9 +1133,20 @@ The 222-RPM publish in flight predates these fixes; republish after P0.
   off tty1 and kicks X off its VT (looks exactly like a session crash).
   The graphical test image masks `getty@tty1.service` because its one-shot X
   service owns tty1; serial getty works normally.
+- PAM is now part of the base: `browneye-base` requires `linux-pam` and
+  `browneye-firstboot`; systemd 261.3-2 is built with `-Dpam=true` and
+  installs `pam_systemd.so`/`systemd-user-sessions`.  OpenSSH 10.5p1 uses
+  `UsePAM yes`, password auth, `PermitRootLogin yes`; host keys are made on
+  first boot by `sshd-keygen.service`.  `browneye-firstboot` prompts for the
+  root password on tty1 only when root is locked; the test image's
+  `root`/`root` makes it a no-op.
+- The CA trust store is `/etc/pki/tls/certs/ca-bundle.crt` with
+  `/etc/ssl/certs/ca-bundle.crt` and `ca-certificates.crt` symlinks (121
+  roots).  `make-ca` owns it and provides `ca-certificates`; curl is
+  configured with `--with-ca-path=/etc/ssl/certs`.
 - **No display manager:** `startx` (xinit) starts `startxfce4`; `lightdm`
-  needs Linux-PAM, which the base does not have, plus a PAM-enabled systemd
-  rebuild.
+  now has Linux-PAM available, but still needs a display-manager spec and
+  greeter integration.
 - The QEMU std-VGA `screendump` is blank with the modesetting driver, so
   `qemu_boot_graphical.sh` captures the root window with `xwd` over a 9p
   share (the debug unit also dumps `ps`, `xwininfo -root -tree`, the journal,
