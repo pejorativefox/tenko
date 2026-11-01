@@ -126,6 +126,13 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   2.25).  `opencode-bin` 2.2.5 and `herdr` 0.9.5 are packaged.  Node.js
   26.13.0, E1, and the size-audit P0 fixes are merged; the
   `browneye-workstation` meta requires the whole set.
+- **/opt binary toolchains (2026-11-01).**  Node.js 26.13.0 (official
+  linux-x64 dist, npm 11.20.0) and Rust 1.99.0 (official
+  x86_64-unknown-linux-gnu dist) are packaged under `/opt` with
+  `/opt/node`/`/opt/rust` and `/usr/bin` symlinks, not built from source.
+  GnuTLS 3.8.13 + nettle 4.0 are added and VTE 0.84.1-2 is rebuilt with
+  GnuTLS, fixing the terminal's "data will be written to disk unencrypted"
+  warning.
 - **Size-audit P0 fixes (2026-11-01, merge `4bce4aa`):** `vim` no longer
   links libcanberra (base no longer pulls GTK3), `gcc-libs` is split out of
   `gcc`, `libarchive` is built `--without-xml2`, and `libtirpc` is in
@@ -281,7 +288,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D14 | Initramfs | automatic on kernel install; generic `hostonly=no`, xz; `/boot/initramfs-<ver>.img` |
 | D15 | Module signing | **off**; no shim/MOK, Secure Boot explicitly unsupported |
 | D16 | AMD GPU driver | `xf86-video-amdgpu` 23.0.0 packaged, **optional** (not in `xfce-desktop`) |
-| D17 | Node.js | **26.13.0 LTS** (upstream LTS; book is 26.9.0 — user-approved exception) |
+| D17 | Node.js | **26.13.0 LTS official linux-x64 binary distribution under `/opt`** (user-requested; book is 26.9.0 — approved exception), bundled npm 11.20.0 |
 | D18 | sshd | **OpenSSH 10.5p1 with Linux-PAM + password auth**; root login with password; first-boot root password (E5) |
 | D19 | Agent tools | **opencode-bin 2.2.5 / herdr 0.9.5** prebuilt binary RPMs (not in LFS/BLFS — user-approved) |
 | D20 | Workstation meta | new `browneye-workstation`; `browneye-base`/`xfce-desktop` unchanged |
@@ -293,7 +300,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D26 | Python packaging | split `python-tests`; stop shipping `.opt-1`/`.opt-2` bytecode |
 | D27 | Toolchain splits | `gcc-lto`/`gcc-devel`/`gcc-lang`/`gcc-doc`, `binutils-devel`/`-lang`/`-doc`, `perl-doc`/`-devel`, `groff-perl`/`-doc` |
 | D28 | Runtime splits | `openssl-libs`/`openssl`/`-devel`/`-perl`, `glibc-devel`/`-i18n`/`-doc`, `gettext-libs`/`-tools`/`-lang`/`-doc` |
-| D29 | Base splits | `systemd-hwdb`/`-lang`/`-doc`, `vim-minimal` + `vim-runtime-extra` (vim meta), `npm`/`nodejs-devel`/`nodejs-doc`, `linux-kernel-debug` |
+| D29 | Base splits | `systemd-hwdb`/`-lang`/`-doc`, `vim-minimal` + `vim-runtime-extra` (vim meta), `linux-kernel-debug` |
+| D30 | Terminal crypto | VTE 0.84.1-2 built with GnuTLS; `nettle` 4.0 + `gnutls` 3.8.13 |
+| D31 | Rust | **1.99.0 official x86_64-unknown-linux-gnu binary distribution under `/opt`** (user-requested), with `/usr/bin` symlinks |
 
 Consequences already implemented:
 
@@ -959,14 +968,17 @@ independent subagent worktrees were created off `c25180a`:
 
 | branch / worktree | owns |
 |---|---|
-| `nodejs` / `browneye-nodejs` | brotli, icu, libuv, c-ares, nghttp2, simdutf, nodejs 26.13.0 |
+| `nodejs` / `browneye-nodejs` | source build (merged, then replaced); now the official 26.13.0 linux-x64 binary under `/opt` |
 | `pam-sshd` / `browneye-pamsshd` | linux-pam 1.7.3, PAM-enabled systemd, openssh 10.5p1, first-boot root password |
 | `ca-tools` / `browneye-ca` | libtasn1, p11-kit, make-ca + certdata, git 2.55.0, which 2.25 |
 | `agent-tools` / `browneye-agents` | opencode-bin, herdr binary RPMs |
 
 Merged: `pam-sshd` (`ddd602e`), `ca-tools` (`e487b5d`), `agent-tools`
 (`c870fd5`), `nodejs` (`53c3e2d`), `e1-dnf-createrepo` (`a4f7df9`).  The
-`browneye-workstation` meta is in `83239a3`.
+`browneye-workstation` meta is in `83239a3`.  Node was then replaced by the
+official binary distribution under `/opt` (`6ff2a92`), and GnuTLS/VTE was
+merged (`dfc1327`).  Rust 1.99.0 is also packaged as an official binary
+distribution under `/opt` (D31).
 
 The main session owns `browneye-workstation`, QEMU SSH forwarding, merges,
 image/rootfs rebuilds, and publishing.  Original investigation notes follow.
@@ -1182,7 +1194,9 @@ metas, and the installer ISO live/target sets.
   its own subproject wraps for offline builds.  BLFS lists newer standalone
   versions, but these are static/header-only internals compiled into VTE,
   not separately shipped packages.  VTE is built GTK3/X11 only with
-  gnutls/icu/gtk4/vapi/gir disabled.
+  icu/gtk4/vapi/gir disabled.  Since 2026-11-01 it is built with
+  `-Dgnutls=true` (nettle 4.0 + GnuTLS 3.8.13), removing the "GnuTLS not
+  enabled; data will be written to disk unencrypted" warning.
 - `xfce4-terminal` is built with `-Ddoc=false` because the container lacks
   `docbook-xsl-nons`; the binary and desktop files are complete, only the
   man page is omitted.
@@ -1284,10 +1298,12 @@ metas, and the installer ISO live/target sets.
 ## 8. Suggested next actions
 
 1. **Developer workstation wave (F) — merged and verified.**  Node 26.13.0
-   (D17), Linux-PAM + password-auth sshd (D18), opencode/herdr binaries
-   (D19), CA/git/which, and the `browneye-workstation` meta (D20) all work
-   in the 6 GB test image over SSH.  Next: assemble the final repo from
-   `build/repo-e4` and publish it incrementally.
+   is now the official binary under `/opt` (D17); PAM + password-auth sshd
+   (D18), opencode/herdr binaries (D19), CA/git/which, and the
+   `browneye-workstation` meta (D20) work in the test image over SSH.
+   GnuTLS/VTE is fixed (`dfc1327`) and Rust 1.99.0 is packaged as an
+   official binary under `/opt` (D31).  Next: rebuild/repackage after the
+   split waves and republish.
 2. **Repo — 258-RPM tree published 2026-11-01.**  HTTPS verification
    passed (repo file, repomd, 258-row index, kernel/workstation/node/dnf/
    opencode RPMs).  The split waves (firmware, Python, LLVM, base/runtime)
