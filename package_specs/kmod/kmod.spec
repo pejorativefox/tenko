@@ -1,6 +1,6 @@
 Name:       kmod
 Version:    34.2
-Release:    1
+Release:    2
 Summary:    Kernel module utilities
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -33,9 +33,16 @@ done
 
 ln -sfv kmod %{buildroot}/usr/bin/lsmod
 
+# The kernel is built with CONFIG_MODPROBE_PATH="/usr/bin/modprobe" (from the
+# Fedora config).  Module autoloading for filesystems and socket families goes
+# through that path, so it must exist even though the utilities live in
+# /usr/sbin.
+ln -sfv kmod %{buildroot}/usr/bin/modprobe
+
 %files
 /usr/bin/kmod
 /usr/bin/lsmod
+/usr/bin/modprobe
 /usr/sbin/depmod
 /usr/sbin/insmod
 /usr/sbin/modinfo
@@ -54,6 +61,11 @@ ln -sfv kmod %{buildroot}/usr/bin/lsmod
 
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 34.2-2
+- Install /usr/bin/modprobe.  The kernel's CONFIG_MODPROBE_PATH points there;
+  without it, request_module() autoloading fails (e.g. mounting
+  binfmt_misc), while an explicit "modprobe" still works.
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 34.2
 - Sync with LFS r13.1
 
