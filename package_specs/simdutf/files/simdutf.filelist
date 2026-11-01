@@ -1,0 +1,81 @@
+%dir /usr/bin
+%dir /usr/include
+%dir /usr/include/simdutf
+%dir /usr/include/simdutf/internal
+%dir /usr/include/simdutf/scalar
+%dir /usr/include/simdutf/scalar/latin1_to_utf16
+%dir /usr/include/simdutf/scalar/latin1_to_utf32
+%dir /usr/include/simdutf/scalar/latin1_to_utf8
+%dir /usr/include/simdutf/scalar/utf16_to_latin1
+%dir /usr/include/simdutf/scalar/utf16_to_utf32
+%dir /usr/include/simdutf/scalar/utf16_to_utf8
+%dir /usr/include/simdutf/scalar/utf32_to_latin1
+%dir /usr/include/simdutf/scalar/utf32_to_utf16
+%dir /usr/include/simdutf/scalar/utf32_to_utf8
+%dir /usr/include/simdutf/scalar/utf8_to_latin1
+%dir /usr/include/simdutf/scalar/utf8_to_utf16
+%dir /usr/include/simdutf/scalar/utf8_to_utf32
+%dir /usr/lib64
+%dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/simdutf
+%dir /usr/lib64/pkgconfig
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/bin/fastbase64
+/usr/bin/fastbase64.coreutils
+/usr/bin/sutf
+/usr/include/simdutf.h
+/usr/include/simdutf/avx512.h
+/usr/include/simdutf/base64_implementation.h
+/usr/include/simdutf/base64_tables.h
+/usr/include/simdutf/common_defs.h
+/usr/include/simdutf/compiler_check.h
+/usr/include/simdutf/constexpr_ptr.h
+/usr/include/simdutf/encoding_types.h
+/usr/include/simdutf/error.h
+/usr/include/simdutf/implementation.h
+/usr/include/simdutf/internal/isadetection.h
+/usr/include/simdutf/portability.h
+/usr/include/simdutf/scalar/ascii.h
+/usr/include/simdutf/scalar/atomic_util.h
+/usr/include/simdutf/scalar/base64.h
+/usr/include/simdutf/scalar/latin1.h
+/usr/include/simdutf/scalar/latin1_to_utf16/latin1_to_utf16.h
+/usr/include/simdutf/scalar/latin1_to_utf32/latin1_to_utf32.h
+/usr/include/simdutf/scalar/latin1_to_utf8/latin1_to_utf8.h
+/usr/include/simdutf/scalar/swap_bytes.h
+/usr/include/simdutf/scalar/utf16.h
+/usr/include/simdutf/scalar/utf16_to_latin1/utf16_to_latin1.h
+/usr/include/simdutf/scalar/utf16_to_latin1/valid_utf16_to_latin1.h
+/usr/include/simdutf/scalar/utf16_to_utf32/utf16_to_utf32.h
+/usr/include/simdutf/scalar/utf16_to_utf32/valid_utf16_to_utf32.h
+/usr/include/simdutf/scalar/utf16_to_utf8/utf16_to_utf8.h
+/usr/include/simdutf/scalar/utf16_to_utf8/valid_utf16_to_utf8.h
+/usr/include/simdutf/scalar/utf32.h
+/usr/include/simdutf/scalar/utf32_to_latin1/utf32_to_latin1.h
+/usr/include/simdutf/scalar/utf32_to_latin1/valid_utf32_to_latin1.h
+/usr/include/simdutf/scalar/utf32_to_utf16/utf32_to_utf16.h
+/usr/include/simdutf/scalar/utf32_to_utf16/valid_utf32_to_utf16.h
+/usr/include/simdutf/scalar/utf32_to_utf8/utf32_to_utf8.h
+/usr/include/simdutf/scalar/utf32_to_utf8/valid_utf32_to_utf8.h
+/usr/include/simdutf/scalar/utf8.h
+/usr/include/simdutf/scalar/utf8_to_latin1/utf8_to_latin1.h
+/usr/include/simdutf/scalar/utf8_to_latin1/valid_utf8_to_latin1.h
+/usr/include/simdutf/scalar/utf8_to_utf16/utf8_to_utf16.h
+/usr/include/simdutf/scalar/utf8_to_utf16/valid_utf8_to_utf16.h
+/usr/include/simdutf/scalar/utf8_to_utf32/utf8_to_utf32.h
+/usr/include/simdutf/scalar/utf8_to_utf32/valid_utf8_to_utf32.h
+/usr/include/simdutf/simdutf_version.h
+/usr/include/simdutf_c.h
+/usr/lib64/cmake/simdutf/simdutf-config-version.cmake
+/usr/lib64/cmake/simdutf/simdutf-config.cmake
+/usr/lib64/cmake/simdutf/simdutfTargets-release.cmake
+/usr/lib64/cmake/simdutf/simdutfTargets.cmake
+/usr/lib64/libsimdutf.so
+/usr/lib64/libsimdutf.so.36
+/usr/lib64/libsimdutf.so.36.0.0
+/usr/lib64/pkgconfig/simdutf.pc
+/usr/share/man/man1/fastbase64.1.gz
+/usr/share/man/man1/fastbase64.coreutils.1.gz
+/usr/share/man/man1/sutf.1.gz
