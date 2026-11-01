@@ -1,6 +1,6 @@
 Name:       xfce4-terminal
 Version:    1.2.0
-Release:    1
+Release:    2
 Summary:    Xfce terminal emulator
 License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
@@ -13,6 +13,13 @@ Requires:   vte
 
 %description
 Xfce4 Terminal is a GTK+3 terminal emulator for the Xfce desktop.
+
+%package lang
+Summary:    xfce4-terminal translations
+Requires:   xfce4-terminal = %{version}-%{release}
+
+%description lang
+Translations for xfce4-terminal.
 
 %prep
 %setup -q
@@ -39,8 +46,13 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/xfce4-terminal.filelist
+%files lang -f %{_sourcedir}/xfce4-terminal-lang.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.0-2
+- Split lang payload into xfce4-terminal-lang (size audit)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.0
 - Initial RPM, synced with BLFS r13.1 (xfce4-terminal 1.2.0)
 - Build with -Ddoc=false: the man page needs docbook-xsl-nons, which is

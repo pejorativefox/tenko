@@ -1,0 +1,31 @@
+%dir /usr/share/gtk-doc/html
+%dir /usr/share/gtk-doc/html/libxfce4util
+/usr/share/gtk-doc/html/libxfce4util/XfceConsolekit.html
+/usr/share/gtk-doc/html/libxfce4util/XfceSystemd.html
+/usr/share/gtk-doc/html/libxfce4util/annotation-glossary.html
+/usr/share/gtk-doc/html/libxfce4util/api-index-full.html
+/usr/share/gtk-doc/html/libxfce4util/ch01.html
+/usr/share/gtk-doc/html/libxfce4util/home.png
+/usr/share/gtk-doc/html/libxfce4util/index.html
+/usr/share/gtk-doc/html/libxfce4util/left-insensitive.png
+/usr/share/gtk-doc/html/libxfce4util/left.png
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-File-Utilities.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-GIO-Extensions.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-Internationalisation.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-Miscellaneous-Utilities.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-POSIX-Signal-Handling.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-Resource-Config-File-Support.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-Resource-lookup-functions.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-Software-Licenses.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-Unicode-Support-Functions.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-Version-Information.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-Xfce-Generics.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-Xfce-Kiosk-functions.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util-Xfce-String-Functions.html
+/usr/share/gtk-doc/html/libxfce4util/libxfce4util.devhelp2
+/usr/share/gtk-doc/html/libxfce4util/object-tree.html
+/usr/share/gtk-doc/html/libxfce4util/right-insensitive.png
+/usr/share/gtk-doc/html/libxfce4util/right.png
+/usr/share/gtk-doc/html/libxfce4util/style.css
+/usr/share/gtk-doc/html/libxfce4util/up-insensitive.png
+/usr/share/gtk-doc/html/libxfce4util/up.png

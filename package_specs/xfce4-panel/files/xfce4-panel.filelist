@@ -8,27 +8,11 @@
 /usr/bin/xfce4-popup-directorymenu
 /usr/bin/xfce4-popup-windowmenu
 %dir /usr/include
-%dir /usr/include/xfce4
-%dir /usr/include/xfce4/libxfce4panel-2.0
-%dir /usr/include/xfce4/libxfce4panel-2.0/libxfce4panel
-/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/libxfce4panel-config.h
-/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/libxfce4panel-enum-types.h
-/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/libxfce4panel-enums.h
-/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/libxfce4panel.h
-/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-arrow-button.h
-/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-panel-convenience.h
-/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-panel-image.h
-/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-panel-macros.h
-/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-panel-plugin-provider.h
-/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-panel-plugin.h
 %dir /usr/lib64
 %dir /usr/lib64/girepository-1.0
 /usr/lib64/girepository-1.0/Libxfce4panel-2.0.typelib
-/usr/lib64/libxfce4panel-2.0.so
 /usr/lib64/libxfce4panel-2.0.so.4
 /usr/lib64/libxfce4panel-2.0.so.4.0.0
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/libxfce4panel-2.0.pc
 %dir /usr/lib64/xfce4
 %dir /usr/lib64/xfce4/panel
 /usr/lib64/xfce4/panel/migrate
@@ -50,33 +34,7 @@
 /usr/share/applications/panel-desktop-handler.desktop
 /usr/share/applications/panel-preferences.desktop
 %dir /usr/share/gir-1.0
-/usr/share/gir-1.0/Libxfce4panel-2.0.gir
 %dir /usr/share/gtk-doc
-%dir /usr/share/gtk-doc/html
-%dir /usr/share/gtk-doc/html/libxfce4panel-2.0
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/XfceArrowButton.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/XfcePanelImage.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/XfcePanelPlugin.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/annotation-glossary.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/api-index-full.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/ch01.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/home.png
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/index.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/left-insensitive.png
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/left.png
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/libxfce4panel-2.0.devhelp2
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/libxfce4panel-Commonly-used-plugin-macros.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/libxfce4panel-Convenience-Functions.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/libxfce4panel-GObject-Oriented-Panel-Plugin-Registers-Macros.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/libxfce4panel-Panel-Plugin-Register-Macros.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/libxfce4panel-Standard-Enumerations.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/libxfce4panel-Version-Information.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/object-tree.html
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/right-insensitive.png
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/right.png
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/style.css
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/up-insensitive.png
-%doc /usr/share/gtk-doc/html/libxfce4panel-2.0/up.png
 %dir /usr/share/icons
 %dir /usr/share/icons/hicolor
 %dir /usr/share/icons/hicolor/128x128
@@ -192,207 +150,6 @@
 /usr/share/icons/hicolor/scalable/apps/org.xfce.panel.tasklist.svg
 /usr/share/icons/hicolor/scalable/apps/org.xfce.panel.windowmenu.svg
 %dir /usr/share/locale
-%dir /usr/share/locale/am
-%dir /usr/share/locale/am/LC_MESSAGES
-/usr/share/locale/am/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ar
-%dir /usr/share/locale/ar/LC_MESSAGES
-/usr/share/locale/ar/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ast
-%dir /usr/share/locale/ast/LC_MESSAGES
-/usr/share/locale/ast/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/az
-%dir /usr/share/locale/az/LC_MESSAGES
-/usr/share/locale/az/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/be
-%dir /usr/share/locale/be/LC_MESSAGES
-/usr/share/locale/be/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/bg
-%dir /usr/share/locale/bg/LC_MESSAGES
-/usr/share/locale/bg/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/bn
-%dir /usr/share/locale/bn/LC_MESSAGES
-/usr/share/locale/bn/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ca
-%dir /usr/share/locale/ca/LC_MESSAGES
-/usr/share/locale/ca/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/cs
-%dir /usr/share/locale/cs/LC_MESSAGES
-/usr/share/locale/cs/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/da
-%dir /usr/share/locale/da/LC_MESSAGES
-/usr/share/locale/da/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/de
-%dir /usr/share/locale/de/LC_MESSAGES
-/usr/share/locale/de/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/el
-%dir /usr/share/locale/el/LC_MESSAGES
-/usr/share/locale/el/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/en_AU
-%dir /usr/share/locale/en_AU/LC_MESSAGES
-/usr/share/locale/en_AU/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/en_GB
-%dir /usr/share/locale/en_GB/LC_MESSAGES
-/usr/share/locale/en_GB/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/eo
-%dir /usr/share/locale/eo/LC_MESSAGES
-/usr/share/locale/eo/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/es
-%dir /usr/share/locale/es/LC_MESSAGES
-/usr/share/locale/es/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/et
-%dir /usr/share/locale/et/LC_MESSAGES
-/usr/share/locale/et/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/eu
-%dir /usr/share/locale/eu/LC_MESSAGES
-/usr/share/locale/eu/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/fi
-%dir /usr/share/locale/fi/LC_MESSAGES
-/usr/share/locale/fi/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/fr
-%dir /usr/share/locale/fr/LC_MESSAGES
-/usr/share/locale/fr/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/gl
-%dir /usr/share/locale/gl/LC_MESSAGES
-/usr/share/locale/gl/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/he
-%dir /usr/share/locale/he/LC_MESSAGES
-/usr/share/locale/he/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/hr
-%dir /usr/share/locale/hr/LC_MESSAGES
-/usr/share/locale/hr/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/hu
-%dir /usr/share/locale/hu/LC_MESSAGES
-/usr/share/locale/hu/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/hy_AM
-%dir /usr/share/locale/hy_AM/LC_MESSAGES
-/usr/share/locale/hy_AM/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/hye
-%dir /usr/share/locale/hye/LC_MESSAGES
-/usr/share/locale/hye/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/id
-%dir /usr/share/locale/id/LC_MESSAGES
-/usr/share/locale/id/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ie
-%dir /usr/share/locale/ie/LC_MESSAGES
-/usr/share/locale/ie/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/is
-%dir /usr/share/locale/is/LC_MESSAGES
-/usr/share/locale/is/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/it
-%dir /usr/share/locale/it/LC_MESSAGES
-/usr/share/locale/it/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ja
-%dir /usr/share/locale/ja/LC_MESSAGES
-/usr/share/locale/ja/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ka
-%dir /usr/share/locale/ka/LC_MESSAGES
-/usr/share/locale/ka/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/kk
-%dir /usr/share/locale/kk/LC_MESSAGES
-/usr/share/locale/kk/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ko
-%dir /usr/share/locale/ko/LC_MESSAGES
-/usr/share/locale/ko/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/lo
-%dir /usr/share/locale/lo/LC_MESSAGES
-/usr/share/locale/lo/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/lt
-%dir /usr/share/locale/lt/LC_MESSAGES
-/usr/share/locale/lt/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/lv
-%dir /usr/share/locale/lv/LC_MESSAGES
-/usr/share/locale/lv/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ms
-%dir /usr/share/locale/ms/LC_MESSAGES
-/usr/share/locale/ms/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/nb
-%dir /usr/share/locale/nb/LC_MESSAGES
-/usr/share/locale/nb/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/nl
-%dir /usr/share/locale/nl/LC_MESSAGES
-/usr/share/locale/nl/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/nn
-%dir /usr/share/locale/nn/LC_MESSAGES
-/usr/share/locale/nn/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/oc
-%dir /usr/share/locale/oc/LC_MESSAGES
-/usr/share/locale/oc/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/pa
-%dir /usr/share/locale/pa/LC_MESSAGES
-/usr/share/locale/pa/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/pl
-%dir /usr/share/locale/pl/LC_MESSAGES
-/usr/share/locale/pl/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/pt
-%dir /usr/share/locale/pt/LC_MESSAGES
-/usr/share/locale/pt/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/pt_BR
-%dir /usr/share/locale/pt_BR/LC_MESSAGES
-/usr/share/locale/pt_BR/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ro
-%dir /usr/share/locale/ro/LC_MESSAGES
-/usr/share/locale/ro/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ru
-%dir /usr/share/locale/ru/LC_MESSAGES
-/usr/share/locale/ru/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/si
-%dir /usr/share/locale/si/LC_MESSAGES
-/usr/share/locale/si/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/sk
-%dir /usr/share/locale/sk/LC_MESSAGES
-/usr/share/locale/sk/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/sl
-%dir /usr/share/locale/sl/LC_MESSAGES
-/usr/share/locale/sl/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/sq
-%dir /usr/share/locale/sq/LC_MESSAGES
-/usr/share/locale/sq/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/sr
-%dir /usr/share/locale/sr/LC_MESSAGES
-/usr/share/locale/sr/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/sv
-%dir /usr/share/locale/sv/LC_MESSAGES
-/usr/share/locale/sv/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/te
-%dir /usr/share/locale/te/LC_MESSAGES
-/usr/share/locale/te/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/th
-%dir /usr/share/locale/th/LC_MESSAGES
-/usr/share/locale/th/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/tr
-%dir /usr/share/locale/tr/LC_MESSAGES
-/usr/share/locale/tr/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/tt
-%dir /usr/share/locale/tt/LC_MESSAGES
-/usr/share/locale/tt/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ug
-%dir /usr/share/locale/ug/LC_MESSAGES
-/usr/share/locale/ug/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/uk
-%dir /usr/share/locale/uk/LC_MESSAGES
-/usr/share/locale/uk/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ur
-%dir /usr/share/locale/ur/LC_MESSAGES
-/usr/share/locale/ur/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/ur_PK
-%dir /usr/share/locale/ur_PK/LC_MESSAGES
-/usr/share/locale/ur_PK/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/vec
-%dir /usr/share/locale/vec/LC_MESSAGES
-/usr/share/locale/vec/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/vi
-%dir /usr/share/locale/vi/LC_MESSAGES
-/usr/share/locale/vi/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/zh_CN
-%dir /usr/share/locale/zh_CN/LC_MESSAGES
-/usr/share/locale/zh_CN/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/zh_HK
-%dir /usr/share/locale/zh_HK/LC_MESSAGES
-/usr/share/locale/zh_HK/LC_MESSAGES/xfce4-panel.mo
-%dir /usr/share/locale/zh_TW
-%dir /usr/share/locale/zh_TW/LC_MESSAGES
-/usr/share/locale/zh_TW/LC_MESSAGES/xfce4-panel.mo
 %dir /usr/share/xfce4
 %dir /usr/share/xfce4/panel
 %dir /usr/share/xfce4/panel/plugins

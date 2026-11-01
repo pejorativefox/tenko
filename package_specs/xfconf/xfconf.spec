@@ -1,6 +1,6 @@
 Name:       xfconf
 Version:    4.20.0
-Release:    1
+Release:    2
 Summary:    Flexible, easy-to-use configuration management system
 License:    GPL
 Source0:    %{name}-%{version}.tar.bz2
@@ -8,6 +8,27 @@ Prefix:     /usr
 
 %description
 Flexible, easy-to-use configuration management system
+
+%package lang
+Summary:    xfconf translations
+Requires:   xfconf = %{version}-%{release}
+
+%description lang
+Translations for xfconf.
+
+%package doc
+Summary:    xfconf documentation
+Requires:   xfconf = %{version}-%{release}
+
+%description doc
+Documentation for xfconf.
+
+%package devel
+Summary:    xfconf development files
+Requires:   xfconf = %{version}-%{release}
+
+%description devel
+Development files for xfconf.
 
 %prep
 %setup
@@ -22,8 +43,15 @@ mkdir -p %{buildroot}/etc
 %make_install
 
 %files -f %{_sourcedir}/xfconf.filelist
+%files lang -f %{_sourcedir}/xfconf-lang.filelist
+%files doc -f %{_sourcedir}/xfconf-doc.filelist
+%files devel -f %{_sourcedir}/xfconf-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.0-2
+- Split lang, doc, devel payload into xfconf-lang, xfconf-doc, xfconf-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0
 - Sync with BLFS r13.1 (4.19.0)
 

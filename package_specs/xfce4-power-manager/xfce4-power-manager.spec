@@ -1,6 +1,6 @@
 Name:       xfce4-power-manager
 Version:    4.20.1
-Release:    1
+Release:    2
 Summary:    Power manager for Xfce desktop
 License:    GPL2
 Source0:    %{name}-%{version}.tar.bz2
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 Power manager for Xfce desktop
+
+%package lang
+Summary:    xfce4-power-manager translations
+Requires:   xfce4-power-manager = %{version}-%{release}
+
+%description lang
+Translations for xfce4-power-manager.
 
 %prep
 %setup
@@ -22,8 +29,13 @@ mkdir -p %{buildroot}/etc
 %make_install
 
 %files -f %{_sourcedir}/xfce4-power-manager.filelist
+%files lang -f %{_sourcedir}/xfce4-power-manager-lang.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.1-2
+- Split lang payload into xfce4-power-manager-lang (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.1
 - Sync with BLFS r13.1 (4.19.1)
 

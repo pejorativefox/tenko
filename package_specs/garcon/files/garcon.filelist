@@ -2,41 +2,14 @@
 %dir /etc/xdg/menus
 /etc/xdg/menus/xfce-applications.menu
 %dir /usr/include
-%dir /usr/include/garcon-1
-%dir /usr/include/garcon-1/garcon
-/usr/include/garcon-1/garcon/garcon-config.h
-/usr/include/garcon-1/garcon/garcon-environment.h
-/usr/include/garcon-1/garcon/garcon-marshal.h
-/usr/include/garcon-1/garcon/garcon-menu-directory.h
-/usr/include/garcon-1/garcon/garcon-menu-element.h
-/usr/include/garcon-1/garcon/garcon-menu-item-action.h
-/usr/include/garcon-1/garcon/garcon-menu-item-cache.h
-/usr/include/garcon-1/garcon/garcon-menu-item-pool.h
-/usr/include/garcon-1/garcon/garcon-menu-item.h
-/usr/include/garcon-1/garcon/garcon-menu-merger.h
-/usr/include/garcon-1/garcon/garcon-menu-node.h
-/usr/include/garcon-1/garcon/garcon-menu-parser.h
-/usr/include/garcon-1/garcon/garcon-menu-separator.h
-/usr/include/garcon-1/garcon/garcon-menu-tree-provider.h
-/usr/include/garcon-1/garcon/garcon-menu.h
-/usr/include/garcon-1/garcon/garcon.h
-%dir /usr/include/garcon-gtk3-1
-%dir /usr/include/garcon-gtk3-1/garcon-gtk
-/usr/include/garcon-gtk3-1/garcon-gtk/garcon-gtk-menu.h
-/usr/include/garcon-gtk3-1/garcon-gtk/garcon-gtk.h
 %dir /usr/lib64
 %dir /usr/lib64/girepository-1.0
 /usr/lib64/girepository-1.0/Garcon-1.0.typelib
 /usr/lib64/girepository-1.0/GarconGtk-1.0.typelib
-/usr/lib64/libgarcon-1.so
 /usr/lib64/libgarcon-1.so.0
 /usr/lib64/libgarcon-1.so.0.0.0
-/usr/lib64/libgarcon-gtk3-1.so
 /usr/lib64/libgarcon-gtk3-1.so.0
 /usr/lib64/libgarcon-gtk3-1.so.0.0.0
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/garcon-1.pc
-/usr/lib64/pkgconfig/garcon-gtk3-1.pc
 %dir /usr/share
 %dir /usr/share/desktop-directories
 /usr/share/desktop-directories/xfce-accessories.directory
@@ -55,47 +28,7 @@
 /usr/share/desktop-directories/xfce-settings.directory
 /usr/share/desktop-directories/xfce-system.directory
 %dir /usr/share/gir-1.0
-/usr/share/gir-1.0/Garcon-1.0.gir
-/usr/share/gir-1.0/GarconGtk-1.0.gir
 %dir /usr/share/gtk-doc
-%dir /usr/share/gtk-doc/html
-%dir /usr/share/gtk-doc/html/garcon
-%doc /usr/share/gtk-doc/html/garcon/GarconGtkMenu.html
-%doc /usr/share/gtk-doc/html/garcon/GarconMenu.html
-%doc /usr/share/gtk-doc/html/garcon/GarconMenuDirectory.html
-%doc /usr/share/gtk-doc/html/garcon/GarconMenuElement.html
-%doc /usr/share/gtk-doc/html/garcon/GarconMenuItem.html
-%doc /usr/share/gtk-doc/html/garcon/GarconMenuItemAction.html
-%doc /usr/share/gtk-doc/html/garcon/GarconMenuItemCache.html
-%doc /usr/share/gtk-doc/html/garcon/GarconMenuMerger.html
-%doc /usr/share/gtk-doc/html/garcon/GarconMenuParser.html
-%doc /usr/share/gtk-doc/html/garcon/GarconMenuSeparator.html
-%doc /usr/share/gtk-doc/html/garcon/GarconMenuTreeProvider.html
-%doc /usr/share/gtk-doc/html/garcon/annotation-glossary.html
-%doc /usr/share/gtk-doc/html/garcon/api-index-0-3.html
-%doc /usr/share/gtk-doc/html/garcon/api-index-deprecated.html
-%doc /usr/share/gtk-doc/html/garcon/api-index-full.html
-%doc /usr/share/gtk-doc/html/garcon/garcon-Desktop-Environment-Configuration.html
-%doc /usr/share/gtk-doc/html/garcon/garcon-Version-Information.html
-%doc /usr/share/gtk-doc/html/garcon/garcon-garcon-marshal.html
-%doc /usr/share/gtk-doc/html/garcon/garcon-garcon-menu-item-pool.html
-%doc /usr/share/gtk-doc/html/garcon/garcon-garcon-menu-node.html
-%doc /usr/share/gtk-doc/html/garcon/garcon-gtk-menu.html
-%doc /usr/share/gtk-doc/html/garcon/garcon-menus.html
-%doc /usr/share/gtk-doc/html/garcon/garcon-miscellaneous.html
-%doc /usr/share/gtk-doc/html/garcon/garcon-parsing.html
-%doc /usr/share/gtk-doc/html/garcon/garcon.devhelp2
-%doc /usr/share/gtk-doc/html/garcon/home.png
-%doc /usr/share/gtk-doc/html/garcon/index.html
-%doc /usr/share/gtk-doc/html/garcon/left-insensitive.png
-%doc /usr/share/gtk-doc/html/garcon/left.png
-%doc /usr/share/gtk-doc/html/garcon/object-tree.html
-%doc /usr/share/gtk-doc/html/garcon/pt01.html
-%doc /usr/share/gtk-doc/html/garcon/right-insensitive.png
-%doc /usr/share/gtk-doc/html/garcon/right.png
-%doc /usr/share/gtk-doc/html/garcon/style.css
-%doc /usr/share/gtk-doc/html/garcon/up-insensitive.png
-%doc /usr/share/gtk-doc/html/garcon/up.png
 %dir /usr/share/icons
 %dir /usr/share/icons/hicolor
 %dir /usr/share/icons/hicolor/32x32

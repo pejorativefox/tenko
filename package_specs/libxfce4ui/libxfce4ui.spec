@@ -1,6 +1,6 @@
 Name:       libxfce4ui
 Version:    4.20.2
-Release:    1
+Release:    2
 Summary:    Commonly used Xfce widgets among Xfce applications
 License:    GPL
 Source0:    %{name}-%{version}.tar.bz2
@@ -10,6 +10,27 @@ BuildRequires: xfconf
 
 %description
 Commonly used Xfce widgets among Xfce applications
+
+%package lang
+Summary:    libxfce4ui translations
+Requires:   libxfce4ui = %{version}-%{release}
+
+%description lang
+Translations for libxfce4ui.
+
+%package doc
+Summary:    libxfce4ui documentation
+Requires:   libxfce4ui = %{version}-%{release}
+
+%description doc
+Documentation for libxfce4ui.
+
+%package devel
+Summary:    libxfce4ui development files
+Requires:   libxfce4ui = %{version}-%{release}
+
+%description devel
+Development files for libxfce4ui.
 
 %prep
 %setup
@@ -24,8 +45,15 @@ mkdir -p %{buildroot}/etc
 %make_install
 
 %files -f %{_sourcedir}/libxfce4ui.filelist
+%files lang -f %{_sourcedir}/libxfce4ui-lang.filelist
+%files doc -f %{_sourcedir}/libxfce4ui-doc.filelist
+%files devel -f %{_sourcedir}/libxfce4ui-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.2-2
+- Split lang, doc, devel payload into libxfce4ui-lang, libxfce4ui-doc, libxfce4ui-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.2
 - Sync with BLFS r13.1 (4.19.2)
 

@@ -1,0 +1,17 @@
+%dir /usr/include/xfce4
+%dir /usr/include/xfce4/libxfce4panel-2.0
+%dir /usr/include/xfce4/libxfce4panel-2.0/libxfce4panel
+/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/libxfce4panel-config.h
+/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/libxfce4panel-enum-types.h
+/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/libxfce4panel-enums.h
+/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/libxfce4panel.h
+/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-arrow-button.h
+/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-panel-convenience.h
+/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-panel-image.h
+/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-panel-macros.h
+/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-panel-plugin-provider.h
+/usr/include/xfce4/libxfce4panel-2.0/libxfce4panel/xfce-panel-plugin.h
+/usr/lib64/libxfce4panel-2.0.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libxfce4panel-2.0.pc
+/usr/share/gir-1.0/Libxfce4panel-2.0.gir
