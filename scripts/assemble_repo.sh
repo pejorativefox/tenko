@@ -6,6 +6,7 @@
 # Usage: scripts/assemble_repo.sh [REPO]
 set -euo pipefail
 cd "$(dirname "$0")/.."
+. scripts/repo_tools.sh
 
 REPO=${REPO:-build/repo-all}
 BASE=${BASE:-build/repo-selfhost}
@@ -28,5 +29,5 @@ done
 
 count=$(find "$REPO" -maxdepth 1 -name '*.rpm' | wc -l)
 echo "repo RPMs: $count"
-createrepo_c --quiet "$REPO"
+createrepo "$REPO"
 echo "wrote $REPO"

@@ -1,52 +1,50 @@
 Name:       libdnf
-Version:    0.71.0
+Version:    0.76.0
 Release:    1
-Summary:    Software management library. 
-License:    GPL
-Source0:    %{name}-%{version}.tar.gz
+Summary:    Library providing a simplified C and Python API to libsolv
+License:    LGPL
 Prefix:     /usr
+Source0:    %{name}-%{version}.tar.gz
 
 %description
-Software management library. 
+libdnf is the library that provides the package-management engine used by
+dnf: repository handling, dependency solving through libsolv, RPM
+transactions and the hawkey Python bindings.
 
 %prep
-%setup
+%setup -q
 
 %build
 mkdir build
 pushd build
-cmake 	-DWITH_GTKDOC=OFF \
-	-DWITH_HTML=OFF \
-	-DWITH_MAN=OFF \
-	-DPYTHON_DESIRED:FILEPATH=/usr/bin/python3 \
-	-DCMAKE_INSTALL_PREFIX:PATH=/usr \
-        -DWITH_GTKDOC=OFF \
-	..
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_INSTALL_LIBDIR=lib64 \
+      -DCMAKE_BUILD_TYPE=Release  \
+      -DWITH_BINDINGS=ON          \
+      -DWITH_GTKDOC=OFF           \
+      -DWITH_HTML=OFF             \
+      -DWITH_MAN=OFF              \
+      -DWITH_TESTS=OFF            \
+      -DWITH_ZCHUNK=ON            \
+      -DENABLE_RHSM_SUPPORT=OFF   \
+      ..
 %make_build
 popd
 
 %install
 rm -rf %{buildroot}
 pushd build
-%make_install
+DESTDIR=%{buildroot} cmake --install .
 popd
 
-%files
-/usr/lib64/libdnf.so
-/usr/lib64/libdnf.so.2
-/usr/lib64/libdnf/plugins/README
-/usr/lib64/pkgconfig/libdnf.pc
-/usr/share/locale/
-/usr/include/libdnf/
-/usr/lib64/python3.11/site-packages/
+%files -f %{_sourcedir}/libdnf.filelist
 
 %changelog
-* Thu Aug 31 2023 Chris Statzer <chris.statzer@gmail.com> 0.70.2
-- Version bump
-
-* Wed May 13 2020 Chris Statzer <chris.statzer@qq.com> 0.47.0
-- Upgrade to fix dnf incompat
-
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 0.39.1
-- Initial RPM
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 0.76.0-1
+- Update to 0.76.0 (was 0.71.0) for the E1 dnf/libdnf chain.  libdnf is
+  not in LFS/BLFS; this is the current release of the dnf-4 branch, which
+  is the branch that supports the rpm 4.18.1 in the base image (dnf5 needs
+  rpm >= 4.19).
+- Python/SWIG bindings are enabled (dnf 4 is Python based); gtk-doc, HTML
+  and man pages, unit tests and RHSM support are disabled.
+- Use a generated static filelist.

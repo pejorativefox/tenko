@@ -1,0 +1,31 @@
+%dir /usr/bin
+%dir /usr/include
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+%dir /usr/share
+%dir /usr/share/aclocal
+%dir /usr/share/common-lisp
+%dir /usr/share/common-lisp/source
+%dir /usr/share/common-lisp/source/gpgme
+%dir /usr/share/info
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/bin/gnupg-key-manage
+/usr/bin/gpgme-config
+/usr/bin/gpgme-json
+/usr/bin/gpgme-tool
+/usr/include/gpgme.h
+/usr/lib64/libgpgme.so
+/usr/lib64/libgpgme.so.45
+/usr/lib64/libgpgme.so.45.2.0
+/usr/lib64/pkgconfig/gpgme-glib.pc
+/usr/lib64/pkgconfig/gpgme.pc
+/usr/share/aclocal/gpgme.m4
+/usr/share/common-lisp/source/gpgme/gpgme-grovel.lisp
+/usr/share/common-lisp/source/gpgme/gpgme-package.lisp
+/usr/share/common-lisp/source/gpgme/gpgme.asd
+/usr/share/common-lisp/source/gpgme/gpgme.lisp
+/usr/share/info/gpgme.info-1.gz
+/usr/share/info/gpgme.info-2.gz
+/usr/share/info/gpgme.info.gz
+/usr/share/man/man1/gpgme-json.1.gz

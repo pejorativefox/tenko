@@ -1,21 +1,30 @@
 Name:       zchunk
-Version:    1.1.4
+Version:    1.5.5
 Release:    1
-Summary:    A file format designed for highly efficient deltas while maintaining good compression 
-License:    GPL
-Source0:    %{name}-%{version}.tar.gz
+Summary:    A file format designed for highly efficient deltas while maintaining good compression
+License:    BSD
 Prefix:     /usr
+Source0:    %{name}-%{version}.tar.gz
 
 %description
-A file format designed for highly efficient deltas while maintaining good compression 
+zchunk is a compressed file format that splits the file into independent
+chunks, allowing a client to fetch only changed chunks when a file is
+updated.
 
 %prep
-%setup
+%setup -q
 
 %build
 mkdir build
 pushd build
-meson    --prefix=/usr
+meson setup ..                 \
+      --prefix=/usr            \
+      --buildtype=release      \
+      -Dwith-zstd=enabled      \
+      -Dwith-openssl=enabled   \
+      -Dwith-curl=disabled     \
+      -Ddocs=false             \
+      -Dtests=false
 ninja
 popd
 
@@ -25,20 +34,13 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/bin/unzck
-/usr/bin/zck
-/usr/bin/zck_delta_size
-/usr/bin/zck_gen_zdict
-/usr/bin/zck_read_header
-/usr/bin/zckdl
-/usr/include/zck.h
-/usr/lib64/libzck.so
-/usr/lib64/libzck.so.1
-/usr/lib64/libzck.so.1.1.4
-/usr/lib64/pkgconfig/zck.pc
+%files -f %{_sourcedir}/zchunk.filelist
 
 %changelog
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.1.4
-- Initial RPM
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.5.5-1
+- Update to upstream 1.5.5 (was 1.1.4) for the E1 dnf/libdnf chain.
+  zchunk is not documented in LFS/BLFS; this follows the version required
+  by current librepo/createrepo_c (>= 0.9.11).
+- Built with zstd and OpenSSL; the optional libcurl download backend is
+  disabled (librepo does its own downloads).
+- Use a generated static filelist.

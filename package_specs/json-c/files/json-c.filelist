@@ -1,0 +1,29 @@
+%dir /usr/include
+%dir /usr/include/json-c
+%dir /usr/lib64
+%dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/json-c
+%dir /usr/lib64/pkgconfig
+/usr/include/json-c/arraylist.h
+/usr/include/json-c/debug.h
+/usr/include/json-c/json.h
+/usr/include/json-c/json_c_version.h
+/usr/include/json-c/json_config.h
+/usr/include/json-c/json_inttypes.h
+/usr/include/json-c/json_object.h
+/usr/include/json-c/json_object_iterator.h
+/usr/include/json-c/json_patch.h
+/usr/include/json-c/json_pointer.h
+/usr/include/json-c/json_tokener.h
+/usr/include/json-c/json_types.h
+/usr/include/json-c/json_util.h
+/usr/include/json-c/json_visit.h
+/usr/include/json-c/linkhash.h
+/usr/include/json-c/printbuf.h
+/usr/lib64/cmake/json-c/json-c-config.cmake
+/usr/lib64/cmake/json-c/json-c-targets-release.cmake
+/usr/lib64/cmake/json-c/json-c-targets.cmake
+/usr/lib64/libjson-c.so
+/usr/lib64/libjson-c.so.5
+/usr/lib64/libjson-c.so.5.5.0
+/usr/lib64/pkgconfig/json-c.pc

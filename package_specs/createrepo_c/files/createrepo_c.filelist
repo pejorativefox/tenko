@@ -1,0 +1,45 @@
+%dir /usr/bin
+%dir /usr/include
+%dir /usr/include/createrepo_c
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man8
+/usr/bin/createrepo_c
+/usr/bin/mergerepo_c
+/usr/bin/modifyrepo_c
+/usr/bin/sqliterepo_c
+/usr/include/createrepo_c/checksum.h
+/usr/include/createrepo_c/compression_wrapper.h
+/usr/include/createrepo_c/constants.h
+/usr/include/createrepo_c/createrepo_c.h
+/usr/include/createrepo_c/createrepo_shared.h
+/usr/include/createrepo_c/deltarpms.h
+/usr/include/createrepo_c/error.h
+/usr/include/createrepo_c/helpers.h
+/usr/include/createrepo_c/koji.h
+/usr/include/createrepo_c/load_metadata.h
+/usr/include/createrepo_c/locate_metadata.h
+/usr/include/createrepo_c/mergerepo_c.h
+/usr/include/createrepo_c/misc.h
+/usr/include/createrepo_c/modifyrepo_shared.h
+/usr/include/createrepo_c/package.h
+/usr/include/createrepo_c/parsehdr.h
+/usr/include/createrepo_c/parsepkg.h
+/usr/include/createrepo_c/repomd.h
+/usr/include/createrepo_c/sqlite.h
+/usr/include/createrepo_c/threads.h
+/usr/include/createrepo_c/updateinfo.h
+/usr/include/createrepo_c/version.h
+/usr/include/createrepo_c/xml_dump.h
+/usr/include/createrepo_c/xml_file.h
+/usr/include/createrepo_c/xml_parser.h
+/usr/lib64/libcreaterepo_c.so
+/usr/lib64/libcreaterepo_c.so.1
+/usr/lib64/libcreaterepo_c.so.1.2.6
+/usr/lib64/pkgconfig/createrepo_c.pc
+/usr/share/man/man8/createrepo_c.8.gz
+/usr/share/man/man8/mergerepo_c.8.gz
+/usr/share/man/man8/modifyrepo_c.8.gz
+/usr/share/man/man8/sqliterepo_c.8.gz

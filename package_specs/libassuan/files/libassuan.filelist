@@ -1,0 +1,15 @@
+%dir /usr/bin
+%dir /usr/include
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+%dir /usr/share
+%dir /usr/share/aclocal
+%dir /usr/share/info
+/usr/bin/libassuan-config
+/usr/include/assuan.h
+/usr/lib64/libassuan.so
+/usr/lib64/libassuan.so.9
+/usr/lib64/libassuan.so.9.0.2
+/usr/lib64/pkgconfig/libassuan.pc
+/usr/share/aclocal/libassuan.m4
+/usr/share/info/assuan.info.gz

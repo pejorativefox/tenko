@@ -1,44 +1,48 @@
 Name:       librepo
-Version:    1.15.2
+Version:    1.21.3
 Release:    1
-Summary:    A library providing C and Python (libcURL like) API for downloading packages.
-License:    GPL
-Source0:    %{name}-%{version}.tar.gz
+Summary:    Library for downloading and reading RPM repository metadata
+License:    LGPL
 Prefix:     /usr
+Source0:    %{name}-%{version}.tar.gz
 
 %description
-A library providing C and Python (libcURL like) API for downloading packages.
+librepo is a library providing a C and Python API for downloading and
+reading RPM repository metadata.  It is a core dependency of libdnf.
 
 %prep
-%setup
+%setup -q
 
 %build
 mkdir build
 pushd build
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DENABLE_DOCS=0 ..
-%make_build 
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_INSTALL_LIBDIR=lib64 \
+      -DCMAKE_BUILD_TYPE=Release  \
+      -DENABLE_TESTS=OFF          \
+      -DENABLE_DOCS=OFF           \
+      -DENABLE_EXAMPLES=OFF       \
+      -DENABLE_PYTHON=OFF         \
+      -DENABLE_SELINUX=OFF        \
+      -DUSE_GPGME=ON              \
+      -DWITH_ZCHUNK=ON            \
+      ..
+%make_build
 popd
 
 %install
 rm -rf %{buildroot}
 pushd build
-%make_install
+DESTDIR=%{buildroot} cmake --install .
 popd
 
-%files
-/usr/lib64/librepo.so
-/usr/lib64/librepo.so.0
-/usr/lib64/pkgconfig/librepo.pc
-/usr/include/librepo/
-/usr/lib64/python3.11/site-packages/librepo/
+%files -f %{_sourcedir}/librepo.filelist
 
 %changelog
-* Thu Aug 31 2023 Chris Statzer <chris.statzer@gmail.com> 1.15.2
-- Version bump
-
-* Wed May 20 2020 Chris Statzer <chris.statzer@qq.com> 1.11.0-2
-- Updated build to use python3
-
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.11.0-1
-- Initial RPM
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.21.3-1
+- Update to 1.21.3 (was 1.15.2) for the E1 dnf/libdnf chain.  librepo is
+  not in LFS/BLFS; current libdnf requires >= 1.18.0.
+- Built with gpgme and zchunk support; SELinux support is disabled (the
+  distro has no libselinux) and the optional Python bindings are not
+  needed by dnf.
+- Use a generated static filelist.

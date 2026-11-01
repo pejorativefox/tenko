@@ -1,38 +1,30 @@
 Name:       libassuan
-Version:    2.5.1
+Version:    3.0.2
 Release:    1
-Summary:    GnuPG ipc library.
-License:    GPL
-Source0:    %{name}-%{version}.tar.bz2
+Summary:    IPC library used by GnuPG and related programs
+License:    LGPL
 Prefix:     /usr
-
-Provides: pkgconfig(libassuan)
+Source0:    %{name}-%{version}.tar.bz2
 
 %description
-GnuPG ipc library.
+libassuan is the IPC library used by some GnuPG related software.
 
 %prep
-%setup
+%setup -q
 
 %build
-%configure
+%configure --disable-static
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
-rm -rf %{buildroot}/usr/share/info/dir
+rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/libassuan-config
-/usr/include/assuan.h
-/usr/lib64/libassuan.so
-/usr/lib64/libassuan.so.0
-/usr/lib64/libassuan.so.0.8.1
-/usr/share/aclocal/libassuan.m4
-/usr/share/info/assuan.info.gz
+%files -f %{_sourcedir}/libassuan.filelist
 
 %changelog
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 2.5.1
-- Initial RPM
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 3.0.2-1
+- Update to the BLFS r13.1 version (3.0.2, was 2.5.1) for the E1
+  dnf/libdnf dependency chain (required by gpgme 2.2.0).
+- Use a generated static filelist.

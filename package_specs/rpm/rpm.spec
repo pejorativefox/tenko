@@ -1,6 +1,6 @@
 Name:       rpm
 Version:    4.18.1
-Release:    1
+Release:    2
 Summary:    RPM package manager
 License:    GPL3
 Source0:    %{name}-%{version}.tar.bz2
@@ -9,13 +9,21 @@ Prefix:     /usr
 %description
 Programs to manage, build and install using the RPM package format.
 
+%package -n python3-rpm
+Summary:    Python bindings for the RPM package manager
+Requires:   %{name} = %{version}-%{release}
+
+%description -n python3-rpm
+The rpm Python module allows Python programs (notably dnf) to query the
+RPM database and run transactions through librpm.
+
 %prep
 %setup -q
 
 %build
 export ac_cv_header_elfutils_libdwelf_h=no
 %configure --without-lua \
-           --without-python \
+           --enable-python \
            --without-selinux \
            --without-cap \
            --without-acl \
@@ -36,12 +44,12 @@ rmdir %{buildroot}/var 2>/dev/null || true
 
 %files -f %{_sourcedir}/rpm.filelist
 
+%files -n python3-rpm -f %{_sourcedir}/rpm-python.filelist
+
 %changelog
-* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.18.1
-- Replace directory globs with a generated static filelist
-
-* Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 4.18.1-1
-- Version bump
-
-* Wed May 20 2020 Chris Statzer <chris.statzer@qq.com> 4.14.2.1-2
-- Updated build to use python3
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.18.1-2
+- Enable the Python 3 bindings and split them into python3-rpm for the E1
+  dnf/libdnf chain (dnf 4 imports the rpm module).  The main rpm package
+  contents are unchanged.
+- Keep --without-lua/--without-selinux/--without-cap/--without-acl and the
+  existing libelf/sqlite/OpenSSL configuration.
