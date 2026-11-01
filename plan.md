@@ -1540,12 +1540,15 @@ All 502 `SUPPORTED` entries are covered by the archive (13) or a directory
    `linux-firmware-20261019-2`), which is why the first desktop image
    rebuild failed to resolve; they were added by hand.  Next: `createrepo_c`
    + `publish_repo.sh` once the remaining splits land.
-3. **Package splits (H/I, done).**  Firmware, Python, LLVM, the
-   openssl/glibc/gettext runtime split, the gcc/binutils/perl/groff
-   toolchain split and the systemd/vim/kernel base split are merged and
-   boot-tested.  Next: the small `glibc-locales` + `glibc-locales-extra`
-   split (L), desktop `-lang`/`-doc`/`-tests`/`-static`/`-devel` splits,
-   and the `browneye-base-runtime` / minimal-desktop profiles.
+3. **Package splits (H/I/J/L, done).**  Firmware, Python, LLVM, the
+   runtime/toolchain split, the systemd/vim/kernel base split, the
+   `glibc-locales`/`-extra` split and the 111-package desktop/runtime
+   `-lang`/`-doc`/`-tests`/`-static`/`-devel` wave are merged.  Profiles:
+   `browneye-base-runtime`/`browneye-base-build`,
+   `xfce-desktop-core`/`-hardware`/`-full`.  Remaining here: optional
+   `-gir` splits, and the installer ISO live/target sets, which are blocked
+   on a user decision for `squashfs-tools`/`mtools`/`syslinux`/`busybox`
+   (not in LFS/BLFS).
 4. **Fix shipped metadata defects from the spec audit (K).**  Correct the
    `cpio`/`dracut`/`linux-firmware` sources, restore/record the `lua`
    patch, rebuild the five drifted specs, fix or retire `system-minimal`,
