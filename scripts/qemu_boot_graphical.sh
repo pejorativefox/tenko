@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Boot a graphical XFCE session in QEMU and capture a screenshot.
 #
-# Installs browneye-base + xfce-desktop into build/rootfs-desktop, starts X on
+# Installs browneye-base + xfce-desktop from the single repo into
+# build/rootfs-desktop, starts X on
 # tty1 through a one-shot systemd unit, and uses the QEMU monitor to take a
 # screendump of the VGA output.
 #
@@ -12,7 +13,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 KVER=${KVER:-7.1.8}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-desktop}
-REPO=${REPO:-$PWD/build/repo-desktop}
+REPO=${REPO:-$PWD/build/repo-all}
 IMG=${IMG:-$PWD/build/rootfs-desktop.img}
 SERIAL=${SERIAL:-$PWD/build/qemu-graphical-serial.log}
 MON=${MON:-$PWD/build/qemu-graphical-monitor.sock}

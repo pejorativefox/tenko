@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
-# Assemble the Browneye desktop repository from the base repo plus every RPM
-# produced by the BLFS/XFCE build runs.
+# Assemble the single Browneye repository: the base repo plus every RPM
+# produced by the BLFS/XFCE/desktop build runs.  There is no separate
+# desktop repository.
 #
-# Usage: scripts/assemble_desktop_repo.sh [REPO]
+# Usage: scripts/assemble_repo.sh [REPO]
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-REPO=${REPO:-build/repo-desktop}
+REPO=${REPO:-build/repo-all}
 BASE=${BASE:-build/repo-selfhost}
 
 [ -d "$BASE" ] || { echo "missing base repo: $BASE" >&2; exit 1; }

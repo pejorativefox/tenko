@@ -82,8 +82,8 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 - **The XFCE desktop now boots graphically.**  D4 adds the X11 runtime
   (Xorg 21.1.24, dbus, libinput, xinit, fonts) and the `xfce-desktop` meta;
   `scripts/qemu_boot_graphical.sh` boots it in QEMU and captures the session.
-  The desktop repo is published at
-  `https://tomfool.8bit.ca/browneye/packages/13.1/desktop/`.  Remaining
+  The desktop ships in the **same** repository as the base
+  (`https://tomfool.8bit.ca/browneye/packages/13.1/`).  Remaining
   visual gaps: no Mesa (no libGL/GLX/compositing) and no SVG icon loader;
   see D4/D5 and §7.
 
@@ -141,7 +141,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 │   ├── gen_filelist.py        # snapshot a built RPM into a %files list
 │   ├── publish_repo.sh        # stage + rsync repo to tomfool.8bit.ca
 │   ├── build_blfs_stack.sh    # BLFS r13.1 X/GNOME/XFCE/desktop stack (phases)
-│   ├── assemble_desktop_repo.sh # base + non-base RPMs -> build/repo-desktop
+│   ├── assemble_repo.sh       # base + non-base RPMs -> build/repo-all
 │   ├── qemu_boot_graphical.sh # boot the XFCE desktop and capture it
 ├── lfs.lock                   # pinned versions/sources/patches/base list
 ├── Containerfile              # FROM scratch + rootfs tarball
@@ -154,7 +154,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
     ├── browneye-rootfs.tar.gz # old image payload
     ├── container-rebuild-*/   # per-package logs/RPMs from verify runs
     ├── blfs-parity-*/         # non-base X/GNOME + XFCE + desktop builds
-    ├── repo-desktop/          # base + desktop RPMs (215), published as .../desktop
+    ├── repo-all/              # base + desktop RPMs (216), the published repo
     ├── rootfs-desktop/        # installed base + xfce-desktop (graphical test)
     └── deps/                  # extracted devel prefixes (see §5)
 ```
@@ -389,9 +389,8 @@ passed; status/logs follow the new one.
 Assemble, publish, and boot the desktop:
 
 ```bash
-./scripts/assemble_desktop_repo.sh        # base + non-base RPMs -> build/repo-desktop
-SUBDIR=desktop REPO=build/repo-desktop META=xfce-desktop RSYNC_OPTS=-c \
-    ./scripts/publish_repo.sh             # -> packages/13.1/desktop/
+./scripts/assemble_repo.sh                # base + non-base RPMs -> build/repo-all
+RSYNC_OPTS=-c ./scripts/publish_repo.sh   # -> packages/13.1/ (base + desktop)
 ./scripts/qemu_boot_graphical.sh          # desktop rootfs + X session + xwd capture
 ```
 
@@ -673,13 +672,13 @@ localhost login:
       `xfsettingsd`, `xfce4-power-manager`, `dbus`, `xfconf`, panel and dock
       all running; panel 1280x27 at the top and the launcher dock at the
       bottom.
-- [x] D5. **Desktop repository published.**  `scripts/assemble_desktop_repo.sh`
-      collects the base repo plus every BLFS/XFCE/desktop RPM into
-      `build/repo-desktop` (215 RPMs).  `scripts/publish_repo.sh` gained
-      `SUBDIR`/`META` support; the desktop repo is
-      `https://tomfool.8bit.ca/browneye/packages/13.1/desktop/` with
-      `browneye-13.1-desktop.repo` and the `xfce-desktop` meta.  The landing
-      page links it.
+- [x] D5. **One published repository (base + desktop).**  There is no
+      separate desktop repo.  `scripts/assemble_repo.sh` collects the base
+      repo plus every BLFS/XFCE/desktop RPM into `build/repo-all` (216
+      RPMs); `scripts/publish_repo.sh` publishes it to
+      `https://tomfool.8bit.ca/browneye/packages/13.1/` with the usual
+      `browneye-13.1.repo`.  `xfce-desktop` installs from the same baseurl,
+      and the landing page documents it.
 
 ### E. Self-hosting and boot follow-ups (open)
 

@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
 # Stage and publish the Browneye RPM repository to tomfool.8bit.ca.
 #
+# Publishes the single Browneye repository (base + desktop).
+#
 # Usage:
-#   scripts/publish_repo.sh                 # version 13.1 from build/repo-selfhost
-#   VERSION=13.1 REPO=build/repo-selfhost scripts/publish_repo.sh
+#   scripts/publish_repo.sh                     # version 13.1 from build/repo-all
+#   RSYNC_OPTS=-c scripts/publish_repo.sh       # checksum mode (changed files only)
+#   VERSION=13.1 REPO=build/repo-all scripts/publish_repo.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 VERSION=${VERSION:-13.1}
-SUBDIR=${SUBDIR:-}
-REPO=${REPO:-build/repo-selfhost}
-REPO_ID=browneye-$VERSION${SUBDIR:+-$SUBDIR}
-META=${META:-browneye-base}
-STAGE=${STAGE:-build/repo-publish/$VERSION${SUBDIR:+-$SUBDIR}}
+REPO=${REPO:-build/repo-all}
+REPO_ID=browneye-$VERSION
+STAGE=${STAGE:-build/repo-publish/$VERSION}
 REMOTE=${REMOTE:-tomfool8@192.200.112.194}
 PORT=${PORT:-53211}
 PUBLIC=${PUBLIC:-public_html/browneye}
-DEST=${DEST:-$PUBLIC/packages/$VERSION/${SUBDIR:+$SUBDIR/}}
-URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/${SUBDIR:+$SUBDIR/}}
+DEST=${DEST:-$PUBLIC/packages/$VERSION/}
+URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/}
 INDEX=${INDEX:-web/index.html}
 RSYNC_OPTS=${RSYNC_OPTS:-}
 
@@ -33,7 +34,7 @@ createrepo_c --quiet "$STAGE"
 
 cat > "$STAGE/$REPO_ID.repo" <<EOF
 [$REPO_ID]
-name=Browneye Linux $VERSION${SUBDIR:+ ($SUBDIR)}
+name=Browneye Linux $VERSION
 baseurl=$URL
 enabled=1
 gpgcheck=0
@@ -41,7 +42,7 @@ repo_gpgcheck=0
 EOF
 
 cat > "$STAGE/README.txt" <<EOF
-Browneye Linux $VERSION${SUBDIR:+ $SUBDIR} package repository
+Browneye Linux $VERSION package repository
 
   baseurl: $URL
 
@@ -53,7 +54,12 @@ Install the repo definition:
 Or use it directly:
 
   dnf --repofrompath=browneye,$URL \\
-      --disablerepo='*' install $META
+      --disablerepo='*' install browneye-base
+
+The desktop is in the same repository:
+
+  dnf --repofrompath=browneye,$URL \\
+      --disablerepo='*' install xfce-desktop
 
 The repository is unsigned; gpgcheck is disabled.
 EOF
