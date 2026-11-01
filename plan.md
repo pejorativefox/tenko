@@ -285,7 +285,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D21 | CA store | `make-ca` with a pinned Mozilla certdata snapshot; no network at build |
 | D22 | Build tools | `dnf` 4.24.0 + `libdnf`/`librepo`/`libsolv`/`createrepo_c` stack, separate `browneye-build` meta (not in LFS/BLFS — user-approved); rpm 4.18.1-2 + `python3-rpm` |
 | D23 | P0 fixes | `vim` without canberra, `gcc-libs` split, `libarchive` without libxml2, `libtirpc` in base |
-| D24 | LLVM packaging | Fedora-like split: `llvm` (tools), `llvm-libs`, `llvm-devel`, `llvm-static`, `clang`, `clang-libs`, `clang-devel`, `clang-tools-extra`, `clang-analyzer`, `clang-resource-filesystem`, `compiler-rt`; optional `llvm-all` meta. `lld`/`lldb`/`mlir`/`polly`/`libcxx`/`libomp` only if the build enables them |
+| D24 | LLVM packaging | Fedora-like split: `llvm` (tools), `llvm-libs`, `llvm-devel`, `llvm-static` (513 MB of `.a`), `clang`, `clang-libs`, `clang-devel`, `clang-tools-extra`, `clang-analyzer`, `clang-resource-filesystem`, `compiler-rt`; optional `llvm-all` meta. No docs packages (none built); `lldb` deferred; `lld`/`mlir`/`polly`/`libcxx`/`libomp` only if enabled |
 | D25 | Firmware packaging | `linux-firmware-base` + vendor packs; `xfce-desktop` requires base and recommends packs |
 | D26 | Python packaging | split `python-tests`; stop shipping `.opt-1`/`.opt-2` bytecode |
 
