@@ -1,48 +1,41 @@
 Name:       nettle
-Version:    3.4
+Version:    4.0
 Release:    1
-Summary:    A low-level cryptographic library.
-License:    GPL
+Summary:    A low-level cryptographic library
+License:    GPL-2.0-or-later AND LGPL-3.0-or-later
+URL:        https://www.lysator.liu.se/~nisse/nettle/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
-Provides: libhogweed.so.4()(64bit), libhogweed.so.4(HOGWEED_4)(64bit)
-Provides: libnettle.so.6()(64bit), libnettle.so.6(NETTLE_6)(64bit)
-
 %description
-The Nettle package contains a low-level cryptographic library that is designed 
-to fit easily in many contexts. 
+Nettle is a low-level cryptographic library that is designed to fit easily
+in many contexts.  It provides the hash functions, ciphers, and public-key
+primitives used by GnuTLS.
 
 %prep
-%setup
+%setup -q
 
 %build
-%configure --disable-static
+%configure --prefix=/usr --disable-static
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
-rm -rf %{buildroot}/usr/share/info/dir
+rm -rf %{buildroot}%{_infodir}/dir
 
-%files
-/usr/include/nettle/*
-/usr/bin/nettle-hash
-/usr/bin/nettle-lfib-stream
-/usr/bin/nettle-pbkdf2
-/usr/bin/pkcs1-conv
-/usr/bin/sexp-conv
-/usr/lib64/libhogweed.so
-/usr/lib64/libhogweed.so.4
-/usr/lib64/libhogweed.so.4.4
-/usr/lib64/libnettle.so
-/usr/lib64/libnettle.so.6
-/usr/lib64/libnettle.so.6.4
-/usr/lib64/pkgconfig/hogweed.pc
-/usr/lib64/pkgconfig/nettle.pc
-/usr/share/info/nettle.info.gz
+# BLFS installs the pre-built manual alongside the info file.
+install -d %{buildroot}%{_docdir}/%{name}-%{version}
+install -m644 nettle.html nettle.pdf \
+        %{buildroot}%{_docdir}/%{name}-%{version}
+
+%files -f %{_sourcedir}/nettle.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.0
+- Update to 4.0 (BLFS r13.1)
+- Install the BLFS manual copy under /usr/share/doc/nettle-4.0
+- Replace the hand-written file list with a generated static filelist
+
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 3.4
 - Initial RPM
-
