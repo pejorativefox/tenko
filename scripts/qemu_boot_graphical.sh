@@ -139,6 +139,12 @@ fi
 
 [ -f "$ROOTFS/boot/vmlinuz-$KVER" ] || { echo "missing kernel in $ROOTFS/boot" >&2; exit 1; }
 
+if [ "${BUILD_ONLY:-0}" = "1" ]; then
+    echo "image ready: $IMG"
+    echo "boot it with: scripts/qemu_run_desktop.sh"
+    exit 0
+fi
+
 rm -f "$MON" "$SERIAL" "$SHOT"
 qemu-system-x86_64 \
     -enable-kvm -cpu host -m 3072 -smp 4 \

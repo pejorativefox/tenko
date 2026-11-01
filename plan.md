@@ -142,7 +142,8 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 │   ├── publish_repo.sh        # stage + rsync repo to tomfool.8bit.ca
 │   ├── build_blfs_stack.sh    # BLFS r13.1 X/GNOME/XFCE/desktop stack (phases)
 │   ├── assemble_repo.sh       # base + non-base RPMs -> build/repo-all
-│   ├── qemu_boot_graphical.sh # boot the XFCE desktop and capture it
+│   ├── qemu_boot_graphical.sh # build/test the desktop image and capture it
+│   ├── qemu_run_desktop.sh    # interactive XFCE test boot (GTK/VNC + serial)
 ├── lfs.lock                   # pinned versions/sources/patches/base list
 ├── Containerfile              # FROM scratch + rootfs tarball
 ├── web/index.html             # landing page for the published repo
@@ -156,6 +157,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
     ├── blfs-parity-*/         # non-base X/GNOME + XFCE + desktop builds
     ├── repo-all/              # base + desktop RPMs (216), the published repo
     ├── rootfs-desktop/        # installed base + xfce-desktop (graphical test)
+    ├── xfce-test.img          # ready-to-boot interactive XFCE test image
     └── deps/                  # extracted devel prefixes (see §5)
 ```
 
@@ -392,6 +394,7 @@ Assemble, publish, and boot the desktop:
 ./scripts/assemble_repo.sh                # base + non-base RPMs -> build/repo-all
 RSYNC_OPTS=-c ./scripts/publish_repo.sh   # -> packages/13.1/ (base + desktop)
 ./scripts/qemu_boot_graphical.sh          # desktop rootfs + X session + xwd capture
+./scripts/qemu_run_desktop.sh             # interactive test boot (GTK/VNC + serial)
 ```
 
 ### Boot the rootfs under QEMU
