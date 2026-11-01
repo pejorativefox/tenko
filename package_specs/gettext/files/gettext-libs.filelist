@@ -1,0 +1,15 @@
+%dir /usr/lib64
+/usr/lib64/libasprintf.so
+/usr/lib64/libasprintf.so.0
+/usr/lib64/libasprintf.so.0.0.0
+/usr/lib64/libgettextlib-1.0.so
+/usr/lib64/libgettextlib.so
+/usr/lib64/libgettextpo.so
+/usr/lib64/libgettextpo.so.0
+/usr/lib64/libgettextpo.so.0.6.0
+/usr/lib64/libgettextsrc-1.0.so
+/usr/lib64/libgettextsrc.so
+/usr/lib64/libtextstyle.so
+/usr/lib64/libtextstyle.so.0
+/usr/lib64/libtextstyle.so.0.2.7
+/usr/lib64/preloadable_libintl.so

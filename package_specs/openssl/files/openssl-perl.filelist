@@ -1,0 +1,4 @@
+%dir /etc/ssl/misc
+/etc/ssl/misc/CA.pl
+/etc/ssl/misc/tsget
+/etc/ssl/misc/tsget.pl

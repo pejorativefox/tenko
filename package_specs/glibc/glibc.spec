@@ -1,6 +1,6 @@
 Name:       glibc
 Version:    2.44
-Release:    1
+Release:    2
 Summary:    Provides the GNU glibc library
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -11,6 +11,31 @@ Provides: rtld(GNU_HASH)
 %description
 TODO
 kluged to work around: https://www.linuxquestions.org/questions/slackware-14/bug-while-building-glibc-2-27-with-new-gcc-8-1-1-and-perl-5-28-0-a-4175632782/
+
+%package devel
+Summary:    Development files for glibc
+Requires:   glibc = %{version}-%{release}
+
+%description devel
+Headers, startup objects (crt*.o), static libraries and the unversioned
+linker scripts needed to compile and link programs against glibc.  Runtime
+installs do not need this package.
+
+%package i18n
+Summary:    Locale source definitions for glibc
+Requires:   glibc = %{version}-%{release}
+
+%description i18n
+The locale, charmaps and repertoiremap source definitions under
+/usr/share/i18n.  Install this package to run localedef and generate
+locales at runtime.
+
+%package doc
+Summary:    Documentation for glibc
+License:    GPL3
+
+%description doc
+Info documentation for the GNU C library.
 
 %package locales
 Summary:    Locale data for glibc
@@ -94,11 +119,20 @@ touch %{buildroot}/etc/ld.so.conf.d/.keep
 
 %files -f %{_sourcedir}/glibc.filelist
 %exclude /usr/lib/locale/
+%files devel -f %{_sourcedir}/glibc-devel.filelist
+%files i18n -f %{_sourcedir}/glibc-i18n.filelist
+%files doc -f %{_sourcedir}/glibc-doc.filelist
 
 %files locales
 /usr/lib/locale/locale-archive
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.44-2
+- Split development files, locale sources and documentation into
+  glibc-devel, glibc-i18n and glibc-doc; the runtime package keeps the
+  loader, versioned libraries, gconv and system configuration
+  (size audit §7)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.44
 - Replace directory globs with a generated static filelist
 

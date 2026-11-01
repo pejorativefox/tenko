@@ -1,6 +1,6 @@
 Name:       browneye-base
 Version:    13.1
-Release:    3
+Release:    4
 Summary:    Browneye Linux base system (LFS r13.1)
 License:    MIT
 Prefix:     /usr
@@ -8,6 +8,7 @@ Prefix:     /usr
 Requires: man-pages
 Requires: iana-etc
 Requires: glibc
+Requires: glibc-devel
 Requires: glibc-locales
 Requires: zlib
 Requires: bzip2
@@ -53,6 +54,7 @@ Requires: perl
 Requires: autoconf
 Requires: automake
 Requires: openssl
+Requires: openssl-devel
 Requires: elfutils
 Requires: libffi
 Requires: sqlite
@@ -114,6 +116,11 @@ Meta-package pulling in the LFS r13.1 base system.
 %files
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-4
+- Require glibc-devel and openssl-devel so the base build image keeps the
+  headers/crt/linker scripts after the glibc and openssl splits
+  (size audit §7)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-3
 - Require libtirpc for iproute2 (size audit P0)
 
