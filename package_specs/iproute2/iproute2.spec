@@ -1,6 +1,6 @@
 Name:       iproute2
 Version:    7.2.0
-Release:    1
+Release:    2
 Summary:    kernel networking tool
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -57,6 +57,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 7.2.0-2
+- Rebuild against the base libtirpc (size audit P0); no host library
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 7.1.0
 - Sync with LFS r13.1
 
