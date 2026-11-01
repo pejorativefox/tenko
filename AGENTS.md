@@ -19,3 +19,19 @@ substitute a different project on your own.
 
 After updating a spec, rebuild and republish it before building packages
 that depend on it, then record the version and the reason in `plan.md`.
+
+## Parallel work and subagents
+
+This tree involves long downloads, uploads, compiles, and checks. Use
+subagents to run that work in parallel whenever the tasks are independent:
+
+- Give each subagent its own git worktree and branch off the current commit.
+- Keep file ownership disjoint: a subagent must not edit files the main
+  session is changing.
+- Let the main session own integration: review, merge, rebuild the repo,
+  run boot/image tests, and publish. Subagents should not merge, publish,
+  or rebuild shared images.
+- Report the branch, commit, exact versions, RPM paths, and any deviations
+  so the main session can merge without redoing the work.
+- If a task is not independent, run it in the main session rather than
+  creating a conflicting worktree.
