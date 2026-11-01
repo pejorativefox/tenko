@@ -1,6 +1,6 @@
 Name:       browneye-sysconfig
 Version:    13.1
-Release:    1
+Release:    2
 Summary:    Base configuration for Browneye Linux
 License:    MIT
 Prefix:     /usr
@@ -16,6 +16,7 @@ Base configuration files for Browneye Linux.
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc %{buildroot}/etc/systemd/system/getty.target.wants
 mkdir -p %{buildroot}/etc/systemd/journald.conf.d %{buildroot}/etc/systemd/network
+mkdir -p %{buildroot}/etc/dracut.conf.d
 ln -sf /usr/lib/systemd/system/multi-user.target %{buildroot}/etc/systemd/system/default.target
 ln -sf /usr/lib/systemd/system/serial-getty@ttyS0.service %{buildroot}/etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
 
@@ -33,6 +34,15 @@ cat > %{buildroot}/etc/systemd/journald.conf.d/10-browneye.conf <<'EOF2'
 Storage=persistent
 SystemMaxUse=512M
 RuntimeMaxUse=64M
+EOF2
+
+# Generic initramfs: the installed image must boot hardware other than the
+# machine that ran dracut, so include all storage/filesystem drivers instead
+# of only the build host's.  xz matches the kernel module compression and is
+# already in the base system.
+cat > %{buildroot}/etc/dracut.conf.d/10-browneye.conf <<'EOF2'
+hostonly="no"
+compress="xz"
 EOF2
 
 # DHCP on the usual wired interfaces; systemd-networkd/resolved are enabled
@@ -86,6 +96,8 @@ EOF2
 /etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
 /etc/systemd/journald.conf.d/10-browneye.conf
 %dir /etc/systemd/journald.conf.d
+%dir /etc/dracut.conf.d
+%config(noreplace) /etc/dracut.conf.d/10-browneye.conf
 /etc/systemd/network/10-dhcp.network
 /etc/hosts
 /etc/shells
@@ -98,6 +110,10 @@ EOF2
 /etc/machine-id
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-2
+- Add /etc/dracut.conf.d/10-browneye.conf: generic (hostonly=no) initramfs,
+  xz-compressed, matching the kernel's module compression
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 13.1
 - Add locale/vconsole, journald, networkd, resolv.conf, and machine-id defaults
 

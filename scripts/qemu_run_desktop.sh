@@ -60,6 +60,11 @@ esac
 
 rm -f "$SERIAL" "$MON"
 
+initrd=()
+if [ "${USE_INITRD:-1}" = 1 ] && [ -f "$ROOTFS/boot/initramfs-$KVER.img" ]; then
+    initrd=(-initrd "$ROOTFS/boot/initramfs-$KVER.img")
+fi
+
 cat <<EOF
 Browneye XFCE test boot
   image:   $IMG (snapshot=$SNAPSHOT)
@@ -81,6 +86,7 @@ exec qemu-system-x86_64 \
     "${kvm[@]}" "${snap[@]}" \
     -m "$MEM" -smp "$SMP" \
     -kernel "$ROOTFS/boot/vmlinuz-$KVER" \
+    "${initrd[@]}" \
     -append "root=/dev/vda rw console=ttyS0 loglevel=6 systemd.show_status=1" \
     -drive "file=$IMG,format=raw,if=virtio" \
     -vga std \

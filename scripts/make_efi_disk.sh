@@ -15,12 +15,17 @@ WORK=${WORK:-build/efi-work}
 mkdir -p "$WORK"
 
 # GRUB configuration (embedded in the standalone EFI binary).
+INITRD_LINE=""
+if [ -f "$ROOTFS/boot/initramfs-$KVER.img" ]; then
+    INITRD_LINE="    initrd /boot/initramfs-$KVER.img"
+fi
 cat > "$WORK/grub.cfg" <<EOF
 set timeout=3
 set default=0
 menuentry 'Browneye Linux 13.1 (kernel $KVER)' {
     set root=(hd0,gpt2)
     linux /boot/vmlinuz-$KVER root=/dev/vda2 rw rootwait console=ttyS0 loglevel=7
+$INITRD_LINE
 }
 EOF
 

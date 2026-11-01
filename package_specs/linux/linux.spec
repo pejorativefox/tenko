@@ -1,6 +1,6 @@
 Name:       linux
 Version:    7.2.6
-Release:    2
+Release:    3
 Summary:    Linux kernel
 License:    GPL2
 Prefix:     /usr
@@ -35,6 +35,11 @@ done
 # Browneye has no SELinux: keep it disabled even if a future config update
 # or Kconfig default tries to turn it back on.
 scripts/config --disable SECURITY_SELINUX
+# No module signing.  The distro does not ship a Secure Boot shim or an
+# enrolled MOK, so signing the kernel/modules would only add a key-management
+# burden without enabling Secure Boot.  Out-of-tree modules are accepted.
+scripts/config --disable MODULE_SIG
+scripts/config --disable MODULE_SIG_FORCE
 make olddefconfig
 %make_build
 
@@ -50,6 +55,7 @@ rm -f %{buildroot}/usr/lib/modules/%{version}/build \
 
 %package kernel
 Summary:    Linux kernel image
+Requires:   linux-modules = %{version}-%{release}
 %description kernel
 Linux kernel image, System.map, and configuration.
 
@@ -61,6 +67,9 @@ Linux kernel image, System.map, and configuration.
 %package modules
 Summary:    Linux kernel modules
 Requires(post): kmod
+# dracut supplies /etc/dracut.conf.d/10-browneye.conf (hostonly=no) and the
+# initramfs generator used by the post-install scriptlet below.
+Requires(post): dracut
 %description modules
 Linux kernel modules.
 
@@ -68,9 +77,33 @@ Linux kernel modules.
 /usr/lib/modules/%{version}/
 
 %post modules
-depmod %{version}
+depmod %{version} >/dev/null 2>&1 || :
+
+# Generate the initial ramdisk for this kernel.  This is a distro with a
+# modular general-purpose kernel, so a new kernel without an initramfs is not
+# bootable on most real hardware (the QEMU image is the exception because
+# virtio-blk/ext4 are built in).
+if [ -x /usr/bin/dracut ]; then
+    /usr/bin/dracut --force --kver %{version} \
+        /boot/initramfs-%{version}.img || \
+        echo "browneye: dracut failed for %{version}; keep an existing initramfs" >&2
+fi
+
+%preun modules
+if [ "$1" = 0 ]; then
+    rm -f /boot/initramfs-%{version}.img
+fi
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 7.2.6-3
+- Generate /boot/initramfs-%{version}.img automatically in the modules
+  post-install scriptlet (dracut, generic hostonly=no image), and remove it
+  on erase
+- Make the kernel image package require linux-modules; modules require
+  dracut at install time
+- Disable module signing explicitly.  Browneye ships no Secure Boot shim or
+  enrolled MOK, so module signing is not enforced (documented decision)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 7.2.6-2
 - Adopt the sanitized Fedora 44 host config as the general-purpose baseline
   (debug info, SELinux/IMA, lockdown/signing, Rust/BTF, UBSAN and MAXSMP off)

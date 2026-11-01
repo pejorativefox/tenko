@@ -20,6 +20,7 @@ MON=${MON:-$PWD/build/qemu-graphical-monitor.sock}
 SHOT=${SHOT:-$PWD/build/xfce-screenshot.png}
 WAIT=${WAIT:-90}
 SKIP_INSTALL=${SKIP_INSTALL:-0}
+USE_INITRD=${USE_INITRD:-1}
 
 [ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
 ls "$REPO"/xfce-desktop-*.rpm >/dev/null 2>&1 || { echo "repo has no xfce-desktop" >&2; exit 1; }
@@ -48,6 +49,12 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     grep -qx '/usr/lib' "$ROOTFS/etc/ld.so.conf" 2>/dev/null || echo /usr/lib >> "$ROOTFS/etc/ld.so.conf"
     unshare -r chroot "$ROOTFS" /sbin/ldconfig || true
     depmod -b "$ROOTFS" "$KVER" || true
+fi
+
+# The kernel %post is skipped during rootfs assembly; make sure the image
+# carries the initramfs it would have built.
+if [ ! -f "$ROOTFS/boot/initramfs-$KVER.img" ] && [ -x "$ROOTFS/usr/bin/dracut" ]; then
+    "$PWD/scripts/make_initramfs.sh" "$ROOTFS" "$KVER"
 fi
 
 # One-shot X session for the test: root, tty1, no login required.
@@ -154,9 +161,14 @@ if [ "${BUILD_ONLY:-0}" = "1" ]; then
 fi
 
 rm -f "$MON" "$SERIAL" "$SHOT"
+initrd=()
+if [ "$USE_INITRD" = 1 ] && [ -f "$ROOTFS/boot/initramfs-$KVER.img" ]; then
+    initrd=(-initrd "$ROOTFS/boot/initramfs-$KVER.img")
+fi
 qemu-system-x86_64 \
     -enable-kvm -cpu host -m 3072 -smp 4 \
     -kernel "$ROOTFS/boot/vmlinuz-$KVER" \
+    "${initrd[@]}" \
     -append "root=/dev/vda rw console=ttyS0 loglevel=6 systemd.show_status=1" \
     -drive file="$IMG",format=raw,if=virtio \
     -vga std \
