@@ -21,6 +21,7 @@ DEST=${DEST:-$PUBLIC/packages/$VERSION/}
 URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/}
 INDEX=${INDEX:-web/index.html}
 RSYNC_OPTS=${RSYNC_OPTS:-}
+DRY_RUN=${DRY_RUN:-0}
 
 [ -d "$REPO" ] || { echo "missing repo directory: $REPO" >&2; exit 1; }
 rpm_count=$(find "$REPO" -maxdepth 1 -name '*.rpm' | wc -l)
@@ -123,6 +124,11 @@ page = """<!DOCTYPE html>
 with open(os.path.join(stage, "index.html"), "w", encoding="utf-8") as handle:
     handle.write(page)
 PY
+
+if [ "$DRY_RUN" = 1 ]; then
+    echo "dry run: staged $rpm_count RPMs in $STAGE; not uploading"
+    exit 0
+fi
 
 ssh -p "$PORT" "$REMOTE" "mkdir -p ~/$PUBLIC/packages"
 rsync -av $RSYNC_OPTS --delete -e "ssh -p $PORT" "$STAGE/" "$REMOTE:$DEST"
