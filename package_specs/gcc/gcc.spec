@@ -1,11 +1,13 @@
 Name:       gcc
 Version:    16.2.0
-Release:    3
+Release:    4
 Summary:    The GNU Compiler Collection
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 Requires:   gcc-libs = %{version}-%{release}
+Recommends: gcc-devel = %{version}-%{release}
+Recommends: gcc-lto = %{version}-%{release}
 
 
 %description
@@ -67,10 +69,57 @@ libquadmath, libitm, libasan, libhwasan, liblsan, libtsan, libubsan, libssp
 and libcc1.  The compiler in gcc requires this package; runtime-only installs
 can use it without pulling the compiler.
 
+%package lto
+Summary:    GCC link-time optimization support
+License:    GPL3
+Requires:   gcc = %{version}-%{release}
+
+%description lto
+The GCC LTO backend (lto1), the linker wrapper and lto-dump.  Install this
+package to link with -flto.  The small liblto_plugin.so stays in the gcc
+package because gcc-ar, gcc-nm and gcc-ranlib pass it for ordinary
+(non-LTO) archives too.
+
+%package devel
+Summary:    GCC development headers, static libraries and linker files
+License:    GPL3
+Requires:   gcc = %{version}-%{release}
+Requires:   gcc-libs = %{version}-%{release}
+
+%description devel
+The C++ and GCC-internal headers, plugin headers, static archives,
+unversioned linker stubs (.so), linker specs, and the libstdc++ pretty
+printers.  A compiler install needs this package to build and link normal
+programs; the gcc package alone has the drivers and front ends only.
+
+%package lang
+Summary:    GCC translations
+License:    GPL3
+Supplements: gcc = %{version}-%{release}
+
+%description lang
+Translations for the GCC driver, cpplib and libstdc++ messages.
+
+%package doc
+Summary:    GCC documentation
+License:    GPL3
+Supplements: gcc = %{version}-%{release}
+
+%description doc
+Info and man pages for GCC, cpp, gcov, libgomp, libitm and libquadmath.
+
 %files -f %{_sourcedir}/gcc.filelist
 %files libs -f %{_sourcedir}/gcc-libs.filelist
+%files lto -f %{_sourcedir}/gcc-lto.filelist
+%files devel -f %{_sourcedir}/gcc-devel.filelist
+%files lang -f %{_sourcedir}/gcc-lang.filelist
+%files doc -f %{_sourcedir}/gcc-doc.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 16.2.0-4
+- Split LTO, development files, translations and documentation out of gcc
+  (packaging only; versions unchanged)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 16.2.0-3
 - Split the runtime libraries into gcc-libs; gcc requires it (size audit P0)
 

@@ -1,10 +1,11 @@
 Name:       groff
 Version:    1.24.1
-Release:    1
+Release:    2
 Summary:    GNU typesetting system
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+Recommends: groff-perl = %{version}-%{release}
 
 %description
 groff (GNU roff) is a typesetting system that reads plain text input files that include formatting commands to produce output in PostScript, PDF, HTML, or DVI formats or for display to a terminal. 
@@ -27,9 +28,35 @@ rm -rf %{buildroot}
     nodist_sboxespdfdoc_DATA= PDFDOCFILE=
 rm -vf %{buildroot}%{_infodir}/dir*
 
+%package perl
+Summary:    groff Perl helper scripts
+License:    GPL3
+Requires:   groff = %{version}-%{release}
+Requires:   perl
+
+%description perl
+The groff helpers that are written in Perl: chem, gperl, glilypond,
+gpinyin, afmtodit, grog, gropdf, mmroff and pdfmom.  The groff package
+recommends this one; installing groff without it leaves the core roff
+formatters (troff, nroff, groff, eqn, tbl, pic, refer) and man-page
+rendering fully functional, but these optional front ends are absent.
+
+%package doc
+Summary:    groff documentation and examples
+License:    GPL3
+
+%description doc
+The groff HTML manual, info files and example documents.
+
 %files -f %{_sourcedir}/groff.filelist
+%files perl -f %{_sourcedir}/groff-perl.filelist
+%files doc -f %{_sourcedir}/groff-doc.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.24.1-2
+- Split the Perl helper scripts and documentation out of groff; perl is no
+  longer a hard runtime requirement (packaging only; versions unchanged)
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.24.1
 - Sync with LFS r13.1
 
