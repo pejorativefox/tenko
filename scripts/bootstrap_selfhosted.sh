@@ -6,10 +6,16 @@
 # Usage:
 #   scripts/bootstrap_selfhosted.sh build/container-rebuild-20261031-2
 #
+# Repo and rootfs assembly use the self-hosted image when it provides dnf
+# and createrepo_c (TOOL_IMAGE, see scripts/repo_tools.sh).  Otherwise the
+# host binaries are used as a fallback, which is what the original
+# bootstrap image needs.
+#
 # The kernel RPMs are optional; they are copied in so qemu_boot.sh can be run
 # against the resulting image/rootfs, but browneye-base does not require them.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+. scripts/repo_tools.sh
 
 RUN=${1:?usage: $0 build/container-rebuild-YYYYMMDD-N}
 REPO=${REPO:-build/repo-selfhost}
@@ -41,33 +47,20 @@ for rpm in "$HOME"/rpmbuild/RPMS/x86_64/linux-kernel-7.2.6-*.rpm \
     fi
 done
 echo "repo RPMs: $(find "$REPO" -maxdepth 1 -name '*.rpm' | wc -l)"
-createrepo_c --quiet "$REPO"
+createrepo "$REPO"
 
 echo "installing fresh rootfs from rebuilt RPMs"
-unshare -r dnf -y --nogpgcheck \
-    --installroot "$PWD/$ROOTFS" --releasever=13.1 \
-    --disablerepo='*' --repofrompath=selfhost,file://$PWD/$REPO \
-    --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
-    install browneye-base
+dnf_installrepo "$REPO" "$ROOTFS"
 
-if [ -x "$ROOTFS/usr/bin/systemd-sysusers" ]; then
-    unshare -r chroot "$ROOTFS" /usr/bin/systemd-sysusers || true
-fi
-
-# Apply the systemd unit presets (networkd, resolved, timesyncd, getty, ...)
-# the same way LFS chapter 8 does.  systemctl --root works offline without a
-# running PID 1.
-if [ -x "$ROOTFS/usr/bin/systemctl" ]; then
-    unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ preset-all || true
-fi
+rootfs_finalize "$ROOTFS"
 
 echo "packing $ROOTFS"
-unshare -r tar -C "$ROOTFS" -czf "$TARBALL" .
+rootfs_tarball "$ROOTFS" "$TARBALL"
 
 echo "building $IMAGE"
-podman build -t "$IMAGE" -f - . <<'EOF'
+podman build -t "$IMAGE" -f - . <<EOF
 FROM scratch
-ADD build/rootfs-selfhost.tar.gz /
+ADD ${TARBALL} /
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LANG=C.UTF-8
 ENV container=podman
@@ -79,3 +72,4 @@ podman run --rm "$IMAGE" /usr/bin/bash -lc \
     'gcc --version | head -1; rpmbuild --version; python3 -m pip --version; rpm -qa | wc -l'
 echo "created $IMAGE"
 echo "next: IMAGE=$IMAGE OUT=build/container-rebuild-selfhost scripts/verify_base_in_container.sh"
+echo "next: TOOL_IMAGE=$IMAGE ./scripts/make_build_tools_image.sh   # dnf/createrepo_c image"
