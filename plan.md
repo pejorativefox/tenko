@@ -136,6 +136,18 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   GnuTLS 3.8.13 + nettle 4.0 are added and VTE 0.84.1-2 is rebuilt with
   GnuTLS, fixing the terminal's "data will be written to disk unencrypted"
   warning.
+- **Firefox 159.0 (2026-11-02).**  `firefox-bin` 159.0 repackages the
+  official Mozilla `linux-x86_64` `.tar.xz` under `/opt/firefox`
+  (`/usr/bin/firefox`, desktop entry, hicolor icons).  Firefox is not in
+  current LFS/BLFS (only `archive/firefox-legacy.xml`), so this is a
+  user-requested binary package (D34), not a source build.  `libxul.so`
+  needs `libasound.so.2`, so `alsa-lib` was brought from 1.1.6 (2018) to
+  **1.2.16.1** (current BLFS) with a generated filelist.  Both build and the
+  package was tested in the QEMU desktop: `firefox --version` reports
+  159.0 and the browser renders pages (screenshot of the welcome/
+  example.com in the XFCE session).  The old spec was broken (desktop file
+  installed to `/share/applications`), had a TODO summary and no declared
+  runtime dependencies.
 - **Size-audit P0 fixes (2026-11-01, merge `4bce4aa`):** `vim` no longer
   links libcanberra (base no longer pulls GTK3), `gcc-libs` is split out of
   `gcc`, `libarchive` is built `--without-xml2`, and `libtirpc` is in
@@ -320,6 +332,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D31 | Rust | **1.99.0 official x86_64-unknown-linux-gnu binary distribution under `/opt`** (user-requested), with `/usr/bin` symlinks |
 | D32 | Locales | `glibc-locales` = small curated archive (C/C.UTF-8/en_US plus common languages); `glibc-locales-extra` = full `localedata/SUPPORTED` archive |
 | D33 | QEMU test GPU | `qemu_run_desktop.sh` uses `virtio-vga-gl` with `gtk,gl=on`; mesa builds `llvmpipe,virgl`; VNC/headless falls back to 2D `virtio-vga` |
+| D34 | Firefox | `firefox-bin` **159.0**, official Mozilla linux-x86_64 build under `/opt/firefox` (not in LFS/BLFS: only the archived legacy Firefox is; user-requested binary package), needs `alsa-lib` |
 
 Consequences already implemented:
 
@@ -1405,6 +1418,21 @@ full package remains available as `-extra`.
 - **No display manager:** `startx` (xinit) starts `startxfce4`; `lightdm`
   now has Linux-PAM available, but still needs a display-manager spec and
   greeter integration.
+- **`firefox-bin` is a repackage, not a build:** Mozilla's official
+  `linux-x86_64` 159.0 tarball under `/opt/firefox` (RPM 95 MB, 325 MB
+  installed).  `AutoReq`/`AutoProv` are off; the `Requires` are the sonames
+  `libxul.so` links against, so it pulls `alsa-lib`, GTK3, the X libraries
+  and `dbus-libs` but nothing bundled (libxul/libnss/libmozgtk stay inside
+  the package).  It is not part of `xfce-desktop`/`browneye-workstation`;
+  install it explicitly.  `alsa-lib` 1.2.16.1 is monolithic (headers in the
+  main package) like the old spec, not split.
+- In the Firefox test image (`build/firefox-test.img`) the one-shot
+  `xfce-test.service` failed once at boot with `status=1/HUP` (startx got a
+  HUP right after start); `systemctl restart xfce-test` brought X up
+  normally.  `qemu_run_desktop.sh` does not pass `-virtfs`, so the image's
+  9p debug/mount unit logs `9pnet_virtio: no channels available for device
+  host0` on that path — cosmetic, only `qemu_boot_graphical.sh` provides
+  the share.
 - The QEMU std-VGA `screendump` is blank with the modesetting driver, so
   `qemu_boot_graphical.sh` captures the root window with `xwd` over a 9p
   share (the debug unit also dumps `ps`, `xwininfo -root -tree`, the journal,

@@ -1,11 +1,13 @@
 [Desktop Entry]
-Name=Firefox (bin)
-Comment=Browse the internet with Firefox
+Name=Firefox
 GenericName=Web Browser
-Exec=/opt/firefox/firefox %F
-Icon=/opt/firefox/browser/chrome/icons/default/default128.png
+Comment=Browse the World Wide Web
+Exec=/usr/bin/firefox %u
+Icon=firefox
 Terminal=false
-StartupNotify=true
 Type=Application
-Keywords=web;browser;internet;www;
+StartupNotify=true
+StartupWMClass=firefox
 Categories=Network;WebBrowser;
+Keywords=web;browser;internet;www;
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
