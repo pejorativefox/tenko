@@ -1,0 +1,31 @@
+%dir /usr/lib/clang/23/lib
+%dir /usr/lib/clang/23/lib/x86_64-unknown-linux-gnu
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/clang_rt.crtbegin.o
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/clang_rt.crtend.o
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.asan.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.asan.so
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.asan_cxx.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.dfsan.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.dyndd.so
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.hwasan.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.hwasan.so
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.hwasan_aliases.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.hwasan_aliases.so
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.hwasan_aliases_cxx.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.hwasan_cxx.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.memprof.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.memprof.so
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.memprof_cxx.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.msan.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.msan_cxx.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.nsan.so
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.scudo_standalone.so
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.tsan.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.tsan.so
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.tsan_cxx.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.ubsan_loop_detect.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.ubsan_minimal.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.ubsan_minimal.so
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.ubsan_standalone.a.syms
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.ubsan_standalone.so
+/usr/lib/clang/23/lib/x86_64-unknown-linux-gnu/libclang_rt.ubsan_standalone_cxx.a.syms
