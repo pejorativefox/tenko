@@ -897,7 +897,11 @@ These are the current caveats that do not yet have a checkbox elsewhere.
 
 ## 8. Suggested first three actions for the new agent
 
-1. **Build Mesa, then re-enable compositing.** Mesa provides `libGL`/GLX
+1. **Mesa/compositing — done (D4b).**  Remaining visual work: an SVG loader
+   (needs Rust for librsvg/glycin; not in the current build) and a display
+   manager (needs Linux-PAM).  Next boot work: C10+E4 (general kernel config,
+   initramfs, firmware, signing) and E3 is done.
+2. **Build Mesa, then re-enable compositing.** Mesa provides `libGL`/GLX
    and `gbm`; without it Xorg records "No glamor support", xfwm4 cannot
    composite, and `xf86-video-amdgpu` cannot build.  Then rebuild
    `xorg-server` with `-Dglx=true`, test the xfwm4 compositor, and add
