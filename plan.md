@@ -89,10 +89,13 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   (Xorg 21.1.24, dbus, libinput, xinit, fonts) and the `xfce-desktop` meta;
   `scripts/qemu_boot_graphical.sh` boots it in QEMU and captures the session.
   The desktop ships in the **same** repository as the base
-  (`https://tomfool.8bit.ca/browneye/packages/13.1/`).  Mesa 26.2.3
-  (llvmpipe) is built and `xorg-server` now ships GLX/glamor, so the XFCE
-  compositor is enabled (XRender on the VM; GLX on real GPUs).  Remaining
-  visual gap: no SVG icon loader; see D4/D5 and §7.
+  (`https://tomfool.8bit.ca/browneye/packages/13.1/`).  Mesa 26.2.3-3
+  (llvmpipe + virgl) is built and `xorg-server` ships GLX/glamor, so the
+  XFCE compositor is enabled.  `qemu_run_desktop.sh` defaults to
+  `virtio-vga-gl` with `gtk,gl=on`: in the test image glamor runs on
+  **virgl** (host GPU) and a GLX client reports `virgl (...) / GL 4.3`; on
+  a plain 2D `virtio-vga`/`std` boot it falls back to llvmpipe and XRender.
+  Remaining visual gap: no SVG icon loader; see D4/D5 and §7.
 - **Version parity reached (2026-11-01):** `scripts/audit_versions.py` reports
   no shipped package below the current LFS/BLFS trunk; `gtk2` was dropped and
   the remaining 127 "outdated" entries are specs the distro does not build.
@@ -148,8 +151,13 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   instead of 1008 MB).  The runtime split (openssl/glibc/gettext) is
   merged, as is the gcc/binutils/perl/groff toolchain split (gcc-libs-only
   runtime saves 306 MB; `gcc-devel`/`gcc-lto` are required by the build
-  image).  Only the base wave (systemd, vim, kernel-debug) is still
-  running.  Details in §6 H/I.  Versions are unchanged.
+  image).  The base wave is merged too: `systemd` 261.3-3
+  (`systemd-hwdb`/`-lang`/`-doc`), `vim` 9.2.1099-3 (`vim-minimal` +
+  `vim-runtime-extra`, `vim` is an empty meta) and `linux` 7.2.6-4
+  (`linux-kernel-debug` owns System.map and the config).  Releases were
+  bumped because the un-split NEVRs were already published.  A lean base
+  install is 105 packages / 1001.7 MB apparent (was 1033.8 MB).
+  Details in §6 H/I.
 - **Locale split (planned, D32):** `glibc-locales` becomes a small curated
   archive (C/C.UTF-8/en_US plus common languages); the full 222.5 MB
   `localedata/SUPPORTED` archive moves to opt-in `glibc-locales-extra`.
@@ -311,6 +319,7 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D30 | Terminal crypto | VTE 0.84.1-2 built with GnuTLS; `nettle` 4.0 + `gnutls` 3.8.13 |
 | D31 | Rust | **1.99.0 official x86_64-unknown-linux-gnu binary distribution under `/opt`** (user-requested), with `/usr/bin` symlinks |
 | D32 | Locales | `glibc-locales` = small curated archive (C/C.UTF-8/en_US plus common languages); `glibc-locales-extra` = full `localedata/SUPPORTED` archive |
+| D33 | QEMU test GPU | `qemu_run_desktop.sh` uses `virtio-vga-gl` with `gtk,gl=on`; mesa builds `llvmpipe,virgl`; VNC/headless falls back to 2D `virtio-vga` |
 
 Consequences already implemented:
 
@@ -889,9 +898,11 @@ LUKS/LVM) dracut now builds one; the NVMe test boot used
       (meta) and `browneye-desktop-config` (`/etc/X11/xinit/xinitrc` →
       `startxfce4`; xinit now ships that file, `%config(noreplace)`-style).
       `scripts/qemu_boot_graphical.sh` boots a fresh desktop rootfs under
-      QEMU/KVM with `-vga std`, starts X on tty1 through a one-shot
-      `xfce-test.service`, and captures the session with `xwd` over a 9p
-      share (the QEMU std-VGA screendump is blank with modesetting).
+      QEMU/KVM headless (QEMU `-vga std`; the interactive
+      `qemu_run_desktop.sh` uses `virtio-vga-gl`), starts X on tty1 through
+      a one-shot `xfce-test.service`, and captures the session with `xwd`
+      over a 9p share (the QEMU std-VGA screendump is blank with
+      modesetting).
       Verified: `xfce4-session`, `xfwm4`, `xfce4-panel`, `xfdesktop`,
       `xfsettingsd`, `xfce4-power-manager`, `dbus`, `xfconf`, panel and dock
       all running; panel 1280x27 at the top and the launcher dock at the
@@ -899,16 +910,19 @@ LUKS/LVM) dracut now builds one; the NVMe test boot used
 - [x] D4b. **Mesa and GLX, X11 only.**  `libxshmfence` 1.3.3, `expat`
       2.8.4, `LLVM` 23.1.0 (self-hosted, filelist regenerated from the
       buildroot), and `mesa` 26.2.3 (`-Dplatforms=x11
-      -Dgallium-drivers=llvmpipe -Dvulkan-drivers= -Dglx=dri
+      -Dgallium-drivers=llvmpipe,virgl -Dvulkan-drivers= -Dglx=dri
       -Dglvnd=disabled`; no Wayland/Vulkan) are built.  `xorg-server` was
       rebuilt with GLX/DRI3 and its filelist regenerated; `libglx.so`,
       `libglamoregl.so`, and the DRISWRAST provider load.  The test image
       enables `use_compositing` and boots with kernel 7.2.6
-      (`DRM_VGEM`, `DRM_BOCHS`, `DRM_VIRTIO_GPU`).  On the VM, modesetting
-      refuses glamor on llvmpipe and xfwm4 blacklists llvmpipe for its GLX
-      compositor, so compositing uses XRender; a GLX client still gets a
-      working llvmpipe renderer.  `xf86-video-amdgpu` can now build (gbm is
-      present) but is not packaged yet.
+      (`DRM_VGEM`, `DRM_BOCHS`, `DRM_VIRTIO_GPU`).  With
+      `qemu_run_desktop.sh`'s `virtio-vga-gl` + `gtk,gl=on`, glamor runs on
+      virgl and a GLX client gets the host renderer
+      (`virgl (AMD Radeon RX 5700 XT), GL 4.3`, direct context).  On a 2D
+      `std`/`virtio-vga` boot modesetting refuses glamor on llvmpipe and
+      xfwm4 blacklists llvmpipe for its GLX compositor, so compositing uses
+      XRender.  `xf86-video-amdgpu` can now build (gbm is present) but is
+      not packaged yet.
 - [x] D5. **One published repository (base + desktop).**  There is no
       separate desktop repo.  `scripts/assemble_repo.sh` collects the base
       repo plus every BLFS/XFCE/desktop RPM into `build/repo-all` (222
@@ -1113,11 +1127,20 @@ gcc-lto 100.6, gcc-devel 52.6, gcc-lang 15.8, gcc-doc 2.7); binutils
 16.7); groff 1.24.1-2 (perl 0.4, doc 14.9).  `browneye-base` 13.1-5
 requires `gcc-devel`/`gcc-lto` and keeps glibc/openssl devel; its closure
 is 105 packages and excludes lang/doc/openssl-perl/glibc-i18n.
-`split-base` (systemd/vim/kernel-debug) is still running.
+`split-base` was merged as `814d0fd` with releases bumped to systemd
+261.3-3, vim 9.2.1099-3 and linux 7.2.6-4 (the un-split NEVRs were already
+published, so dnf would never have replaced them).  systemd 261.3-3 ships
+`systemd` 43.0 MB + `systemd-hwdb` 9.6 MB + `-lang` 1.8 MB + `-doc`
+1.4 MB (hwdb is a weak `Recommends`, and `xfce-desktop` 4.20-4 now
+hard-requires it because image builds use `install_weak_deps=False`); vim
+9.2.1099-3 is an empty meta over `vim-minimal` (16.5 MB) and
+`vim-runtime-extra` (26.7 MB), and `browneye-base` 13.1-6 requires
+`vim-minimal`; linux 7.2.6-4 splits `System.map`/`config` into
+`linux-kernel-debug` (11.6 MB) while `linux-kernel` keeps vmlinuz.
 
 Runtime savings: gcc-libs-only 306 MB; binutils 22.7 MB; perl 26.2 MB;
-groff 16 MB plus the 65 MB Perl closure.  Remaining: systemd ~12 MB;
-vim ~26 MB; kernel debug ~12 MB.
+groff 16 MB plus the 65 MB Perl closure; systemd 12.5 MB; vim 26.7 MB;
+kernel debug 11.6 MB (only when the debug package is not installed).
 
 Rebuilt container base rootfs from `build/repo-all` (296 RPMs):
 `build/rootfs-selfhost` went from **98 packages / 1.4 GB (1,335,288,708 B)
@@ -1307,13 +1330,33 @@ full package remains available as `-extra`.
   `imds=disabled` so the base build does not depend on `curl`; as a result
   `systemd-journal-remote` is not shipped.  The static filelist was
   regenerated for that configuration.
-- **Mesa on llvmpipe:** `mesa` 26.2.3 and GLX are present, but the VM has no
-  GPU.  `modesetting` logs "Refusing to try glamor on llvmpipe" and falls
-  back to shadowfb; `xfwm4` blacklists llvmpipe for its GLX compositor and
-  uses XRender instead.  This is expected for software rendering and does
-  not affect real GPUs.  `xf86-video-amdgpu` 23.0.0 is packaged on branch
-  `amdgpu-driver` (commit `a26999b`, BLFS archive version, 197 KiB
+- **Mesa: llvmpipe plus virgl.**  `mesa` 26.2.3-3 builds
+  `-Dgallium-drivers=llvmpipe,virgl` and ships
+  `/usr/lib64/dri/virtio_gpu_dri.so` plus
+  `/usr/share/drirc.d/00-virtio_gpu-defaults.conf`.  `qemu_run_desktop.sh`
+  now defaults to `-device virtio-vga-gl` with `-display gtk,gl=on` (VNC and
+  headless modes fall back to the 2D `virtio-vga` because QEMU refuses a GL
+  device without a GL display backend).  Verified in the split test image:
+  Xorg logs `glamor X acceleration enabled on virgl (AMD Radeon RX 5700 XT
+  (radeonsi, navi10, ACO, DRM 3...))` and a small GLX client reports
+  `GL_RENDERER: virgl (...), GL_VERSION: 4.3` with a direct context.  The
+  llvmpipe path is unchanged for a plain `-vga std`/`virtio-vga` boot, where
+  `modesetting` still logs "Refusing to try glamor on llvmpipe" and `xfwm4`
+  uses XRender for compositing.  `xf86-video-amdgpu` 23.0.0 is packaged on
+  branch `amdgpu-driver` (commit `a26999b`, BLFS archive version, 197 KiB
   installed) but is not in any meta yet.
+- **CA directory ownership:** `openssl-libs` (runtime split) owns
+  `/etc/ssl/certs` at 0755, while `make-ca` 1.16.1-1 shipped the same
+  directory at 0555.  rpm treats that as a file conflict, so any install
+  that pulled both (workstation + desktop) aborted the transaction.
+  `make-ca` 1.16.1-2 no longer owns the directory (openssl-libs keeps it, as
+  on Fedora) and only ships the hashed certs and bundle symlinks.
+- **Repo assembly gap:** `scripts/assemble_repo.sh` only copies
+  `build/repo-selfhost` and `build/blfs-parity-*/build/*`, so RPMs built in
+  the per-wave worktrees (firmware, Python, runtime/toolchain/base splits,
+  make-ca) are not picked up automatically.  They have been copied into
+  `build/repo-all` by hand; a future `assemble_repo.sh` should also collect
+  those build directories or a release staging dir.
 - **Library directory split:** `llvm` installs into `/usr/lib` while the rest
   of the distro uses `/usr/lib64`.  `xorg-server` needs
   `-Wl,-rpath-link,/usr/lib` to link against `libgallium`, and the image
@@ -1390,18 +1433,19 @@ full package remains available as `-extra`.
    GnuTLS/VTE is fixed (`dfc1327`) and Rust 1.99.0 is packaged as an
    official binary under `/opt` (D31).  Next: rebuild/repackage after the
    split waves and republish.
-2. **Repo — 258-RPM tree published 2026-11-01.**  HTTPS verification
-   passed (repo file, repomd, 258-row index, kernel/workstation/node/dnf/
-   opencode RPMs).  The split waves (firmware, Python, LLVM, base/runtime)
-   are newer; after they merge, assemble a fresh tree and republish
-   incrementally.
-3. **Package splits (H/I, running).**  `firmware-split` and `python-split`
-   are merged, including LLVM, the openssl/glibc/gettext runtime split,
-   and the gcc/binutils/perl/groff toolchain split; only the
-   systemd/vim/kernel base wave is still running.  Next: the small
-   `glibc-locales` + `glibc-locales-extra` split (L), desktop
-   `-lang`/`-doc`/`-tests`/`-static`/`-devel` splits, and the
-   `browneye-base-runtime` / minimal-desktop profiles.
+2. **Repo — 258-RPM tree published 2026-11-01; the tree is now stale.**
+   `build/repo-all` carries 307 RPMs: the split waves, kernel 7.2.6-4,
+   mesa 26.2.3-3 (virgl) and the make-ca fix.  The firmware-split RPMs had
+   never been copied in (the repo still had monolithic
+   `linux-firmware-20261019-2`), which is why the first desktop image
+   rebuild failed to resolve; they were added by hand.  Next: `createrepo_c`
+   + `publish_repo.sh` once the remaining splits land.
+3. **Package splits (H/I, done).**  Firmware, Python, LLVM, the
+   openssl/glibc/gettext runtime split, the gcc/binutils/perl/groff
+   toolchain split and the systemd/vim/kernel base split are merged and
+   boot-tested.  Next: the small `glibc-locales` + `glibc-locales-extra`
+   split (L), desktop `-lang`/`-doc`/`-tests`/`-static`/`-devel` splits,
+   and the `browneye-base-runtime` / minimal-desktop profiles.
 4. **Fix shipped metadata defects from the spec audit (K).**  Correct the
    `cpio`/`dracut`/`linux-firmware` sources, restore/record the `lua`
    patch, rebuild the five drifted specs, fix or retire `system-minimal`,
