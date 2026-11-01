@@ -122,7 +122,14 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `browneye-firstboot` root-password service, and the CA/git/which wave
   (`make-ca` 1.16.1 with a pinned certdata snapshot, git 2.55.0, which
   2.25).  `opencode-bin` 2.2.5 and `herdr` 0.9.5 are packaged.  Node.js
-  26.13.0 and E1 are still building.
+  26.13.0, E1, and the size-audit P0 fixes are merged; the
+  `browneye-workstation` meta requires the whole set.
+- **Size-audit P0 fixes (2026-11-01, merge `4bce4aa`):** `vim` no longer
+  links libcanberra (base no longer pulls GTK3), `gcc-libs` is split out of
+  `gcc`, `libarchive` is built `--without-xml2`, and `libtirpc` is in
+  `browneye-base` (`iproute2` rebuilt against it).  Re-installed base:
+  **98 packages / 1260.7 MiB** (was 131 packages / 1459 MiB with the
+  regressions), zero GTK/XFCE/libcanberra packages.
 - **E4 initramfs automation (2026-11-01):** `linux-modules` 7.2.6-3 runs
   `depmod` + `dracut` in `%post` (requires `dracut`) and removes
   `/boot/initramfs-<ver>.img` on erase.  `browneye-sysconfig` 13.1-2 ships
@@ -941,8 +948,9 @@ independent subagent worktrees were created off `c25180a`:
 | `ca-tools` / `browneye-ca` | libtasn1, p11-kit, make-ca + certdata, git 2.55.0, which 2.25 |
 | `agent-tools` / `browneye-agents` | opencode-bin, herdr binary RPMs |
 
-Merged so far: `pam-sshd` (`ddd602e`), `ca-tools` (`e487b5d`),
-`agent-tools` (`c870fd5`).  Still running: `nodejs`, `e1`.
+Merged: `pam-sshd` (`ddd602e`), `ca-tools` (`e487b5d`), `agent-tools`
+(`c870fd5`), `nodejs` (`53c3e2d`), `e1-dnf-createrepo` (`a4f7df9`).  The
+`browneye-workstation` meta is in `83239a3`.
 
 The main session owns `browneye-workstation`, QEMU SSH forwarding, merges,
 image/rootfs rebuilds, and publishing.  Original investigation notes follow.
@@ -1004,8 +1012,12 @@ blockers: `squashfs-tools`, `mtools`, `syslinux`, `busybox` are not
 LFS/BLFS (user decision); `efivar`/`xorriso` are below book versions.
 
 The 222-RPM publish predates these fixes; republish after P0.  **Status
-(2026-11-01):** P0 fix wave running in worktree `browneye-p0`, branch
-`p0-fixes` (vim, gcc-libs, libarchive, libtirpc).
+(2026-11-01):** done — branch `p0-fixes` merged as `4bce4aa`.  Base
+re-install is **98 packages / 1260.7 MiB** with no GTK3/libcanberra;
+`vim` 9.2.1099-2, `libarchive` 3.8.9-2, `libtirpc` 1.3.8-2, `iproute2`
+7.2.0-2, `gcc` 16.2.0-3 + `gcc-libs` 16.2.0-3 (26 runtime SONAMEs,
+11.1 MB).  P0 used the current trunk versions (vim 9.2.1099 is newer than
+the r13.1 tag's 9.2.1025).
 
 ---
 
@@ -1203,17 +1215,16 @@ The 222-RPM publish predates these fixes; republish after P0.  **Status
 
 ## 8. Suggested next actions
 
-1. **Developer workstation wave (F) — approved and running.**  Node 26.13.0
-   (D17 exception), Linux-PAM + password-auth sshd (D18: OpenSSH 10.5p1,
-   root login, first-boot password), prebuilt opencode/herdr RPMs (D19),
-   CA store + git + which, and the new `browneye-workstation` meta (D20).
-   Four subagents own the independent trees; the main session integrates,
-   adds QEMU SSH forwarding, rebuilds the image, and validates.
-2. **Fix the size-audit P0 regressions (G) and re-bootstrap.**  `vim`
-   must not link libcanberra; split `gcc-libs`; `libarchive` without
-   libxml2; add `libtirpc`.  Branch `p0-fixes` is running.  Then rebuild the
-   affected base packages, regenerate `rootfs-selfhost`, and republish.
-   The 222-RPM publish predates these fixes.
+1. **Developer workstation wave (F) — merged.**  Node 26.13.0 (D17),
+   Linux-PAM + password-auth sshd (D18), opencode/herdr binaries (D19),
+   CA/git/which, and the `browneye-workstation` meta (D20) are all in.
+   Next: build the final workstation + desktop image and verify SSH,
+   opencode/herdr, Node/npm, and HTTPS from inside it.
+2. **P0 fixes (G) — done (`4bce4aa`).**  Next: assemble the final repo from
+   `repo-e4` (E4 + PAM/sshd + CA/git + Node + agents + P0), re-install a
+   fresh base and workstation/desktop image, run the boot/SSH smoke test,
+   and publish incrementally.  The published 222-RPM repo still predates
+   E4, PAM, Node, and P0.
 3. **E1 — self-hosted repo/rootfs assembly (done, `a4f7df9`).**  `dnf`
    4.24.0 + `createrepo_c` 1.2.6 and the `browneye-build` meta work inside
    the image; `bootstrap_selfhosted.sh` can use `TOOL_IMAGE` instead of host
