@@ -1,6 +1,6 @@
 Name:       vte
 Version:    0.84.1
-Release:    1
+Release:    2
 Summary:    Virtual Terminal Emulator library
 License:    LGPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
@@ -20,6 +20,7 @@ Source3:    fast_float-8.1.0.tar.gz
 Prefix:     /usr
 
 BuildRequires: gtk3
+BuildRequires: gnutls
 BuildRequires: libxml2
 BuildRequires: fribidi
 BuildRequires: pcre2
@@ -54,7 +55,7 @@ meson setup ..                  \
       --buildtype=release       \
       -Dgtk4=false              \
       -Dgtk3=true               \
-      -Dgnutls=false            \
+      -Dgnutls=true             \
       -Dicu=false               \
       -Dvapi=false              \
       -Dgir=false               \
@@ -77,6 +78,10 @@ rmdir %{buildroot}/etc 2>/dev/null || true
 %files -f %{_sourcedir}/vte.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 0.84.1-2
+- Rebuild with GnuTLS 3.8.13 enabled (-Dgnutls=true) so VTE no longer
+  warns that data will be written to disk unencrypted
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.84.1
 - Update to BLFS r13.1 VTE 0.84.1
 - Build GTK3/X11 only; bundle simdutf 8.2.0, fmt 12.1.0 and
