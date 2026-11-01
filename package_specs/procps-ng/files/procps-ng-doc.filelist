@@ -1,0 +1,174 @@
+%dir /usr/share/doc/procps-ng-4.0.7
+/usr/share/doc/procps-ng-4.0.7/FAQ
+/usr/share/doc/procps-ng-4.0.7/bugs.md
+/usr/share/doc/procps-ng-4.0.7/libproc.supp
+%dir /usr/share/man/de
+%dir /usr/share/man/de/man1
+/usr/share/man/de/man1/free.1.gz
+/usr/share/man/de/man1/pgrep.1.gz
+/usr/share/man/de/man1/pidof.1.gz
+/usr/share/man/de/man1/pmap.1.gz
+/usr/share/man/de/man1/ps.1.gz
+/usr/share/man/de/man1/pwdx.1.gz
+/usr/share/man/de/man1/slabtop.1.gz
+/usr/share/man/de/man1/tload.1.gz
+/usr/share/man/de/man1/uptime.1.gz
+/usr/share/man/de/man1/w.1.gz
+/usr/share/man/de/man1/watch.1.gz
+%dir /usr/share/man/de/man3
+/usr/share/man/de/man3/procps.3.gz
+/usr/share/man/de/man3/procps_misc.3.gz
+/usr/share/man/de/man3/procps_pids.3.gz
+%dir /usr/share/man/de/man5
+/usr/share/man/de/man5/sysctl.conf.5.gz
+%dir /usr/share/man/de/man8
+/usr/share/man/de/man8/sysctl.8.gz
+/usr/share/man/de/man8/vmstat.8.gz
+%dir /usr/share/man/fr
+%dir /usr/share/man/fr/man1
+/usr/share/man/fr/man1/free.1.gz
+/usr/share/man/fr/man1/pmap.1.gz
+/usr/share/man/fr/man1/ps.1.gz
+/usr/share/man/fr/man1/pwdx.1.gz
+/usr/share/man/fr/man1/slabtop.1.gz
+/usr/share/man/fr/man1/tload.1.gz
+%dir /usr/share/man/fr/man3
+%dir /usr/share/man/fr/man5
+%dir /usr/share/man/fr/man8
+/usr/share/man/fr/man8/vmstat.8.gz
+%dir /usr/share/man/man1
+/usr/share/man/man1/free.1.gz
+/usr/share/man/man1/hugetop.1.gz
+/usr/share/man/man1/pgrep.1.gz
+/usr/share/man/man1/pidof.1.gz
+/usr/share/man/man1/pidwait.1.gz
+/usr/share/man/man1/pkill.1.gz
+/usr/share/man/man1/pmap.1.gz
+/usr/share/man/man1/ps.1.gz
+/usr/share/man/man1/pwdx.1.gz
+/usr/share/man/man1/slabtop.1.gz
+/usr/share/man/man1/tload.1.gz
+/usr/share/man/man1/top.1.gz
+/usr/share/man/man1/uptime.1.gz
+/usr/share/man/man1/w.1.gz
+/usr/share/man/man1/watch.1.gz
+%dir /usr/share/man/man3
+/usr/share/man/man3/procps.3.gz
+/usr/share/man/man3/procps_misc.3.gz
+/usr/share/man/man3/procps_pids.3.gz
+%dir /usr/share/man/man5
+/usr/share/man/man5/sysctl.conf.5.gz
+%dir /usr/share/man/man8
+/usr/share/man/man8/sysctl.8.gz
+/usr/share/man/man8/vmstat.8.gz
+%dir /usr/share/man/pl
+%dir /usr/share/man/pl/man1
+/usr/share/man/pl/man1/free.1.gz
+/usr/share/man/pl/man1/pidof.1.gz
+/usr/share/man/pl/man1/pmap.1.gz
+/usr/share/man/pl/man1/pwdx.1.gz
+/usr/share/man/pl/man1/slabtop.1.gz
+%dir /usr/share/man/pl/man3
+%dir /usr/share/man/pl/man5
+%dir /usr/share/man/pl/man8
+/usr/share/man/pl/man8/vmstat.8.gz
+%dir /usr/share/man/pt_BR
+%dir /usr/share/man/pt_BR/man1
+/usr/share/man/pt_BR/man1/free.1.gz
+/usr/share/man/pt_BR/man1/pmap.1.gz
+/usr/share/man/pt_BR/man1/pwdx.1.gz
+/usr/share/man/pt_BR/man1/slabtop.1.gz
+/usr/share/man/pt_BR/man1/tload.1.gz
+%dir /usr/share/man/pt_BR/man3
+%dir /usr/share/man/pt_BR/man5
+%dir /usr/share/man/pt_BR/man8
+/usr/share/man/pt_BR/man8/vmstat.8.gz
+%dir /usr/share/man/ro
+%dir /usr/share/man/ro/man1
+/usr/share/man/ro/man1/free.1.gz
+/usr/share/man/ro/man1/pgrep.1.gz
+/usr/share/man/ro/man1/pidof.1.gz
+/usr/share/man/ro/man1/pmap.1.gz
+/usr/share/man/ro/man1/ps.1.gz
+/usr/share/man/ro/man1/pwdx.1.gz
+/usr/share/man/ro/man1/slabtop.1.gz
+/usr/share/man/ro/man1/tload.1.gz
+/usr/share/man/ro/man1/top.1.gz
+/usr/share/man/ro/man1/uptime.1.gz
+/usr/share/man/ro/man1/w.1.gz
+/usr/share/man/ro/man1/watch.1.gz
+%dir /usr/share/man/ro/man3
+/usr/share/man/ro/man3/procps.3.gz
+/usr/share/man/ro/man3/procps_misc.3.gz
+/usr/share/man/ro/man3/procps_pids.3.gz
+%dir /usr/share/man/ro/man5
+/usr/share/man/ro/man5/sysctl.conf.5.gz
+%dir /usr/share/man/ro/man8
+/usr/share/man/ro/man8/sysctl.8.gz
+/usr/share/man/ro/man8/vmstat.8.gz
+%dir /usr/share/man/sv
+%dir /usr/share/man/sv/man1
+/usr/share/man/sv/man1/free.1.gz
+/usr/share/man/sv/man1/pgrep.1.gz
+/usr/share/man/sv/man1/pidof.1.gz
+/usr/share/man/sv/man1/pmap.1.gz
+/usr/share/man/sv/man1/ps.1.gz
+/usr/share/man/sv/man1/pwdx.1.gz
+/usr/share/man/sv/man1/slabtop.1.gz
+/usr/share/man/sv/man1/tload.1.gz
+/usr/share/man/sv/man1/top.1.gz
+/usr/share/man/sv/man1/uptime.1.gz
+/usr/share/man/sv/man1/w.1.gz
+/usr/share/man/sv/man1/watch.1.gz
+%dir /usr/share/man/sv/man3
+/usr/share/man/sv/man3/procps.3.gz
+/usr/share/man/sv/man3/procps_misc.3.gz
+/usr/share/man/sv/man3/procps_pids.3.gz
+%dir /usr/share/man/sv/man5
+/usr/share/man/sv/man5/sysctl.conf.5.gz
+%dir /usr/share/man/sv/man8
+/usr/share/man/sv/man8/sysctl.8.gz
+/usr/share/man/sv/man8/vmstat.8.gz
+%dir /usr/share/man/uk
+%dir /usr/share/man/uk/man1
+/usr/share/man/uk/man1/free.1.gz
+/usr/share/man/uk/man1/pgrep.1.gz
+/usr/share/man/uk/man1/pidof.1.gz
+/usr/share/man/uk/man1/pmap.1.gz
+/usr/share/man/uk/man1/ps.1.gz
+/usr/share/man/uk/man1/pwdx.1.gz
+/usr/share/man/uk/man1/slabtop.1.gz
+/usr/share/man/uk/man1/tload.1.gz
+/usr/share/man/uk/man1/top.1.gz
+/usr/share/man/uk/man1/uptime.1.gz
+/usr/share/man/uk/man1/w.1.gz
+/usr/share/man/uk/man1/watch.1.gz
+%dir /usr/share/man/uk/man3
+/usr/share/man/uk/man3/procps.3.gz
+/usr/share/man/uk/man3/procps_misc.3.gz
+/usr/share/man/uk/man3/procps_pids.3.gz
+%dir /usr/share/man/uk/man5
+/usr/share/man/uk/man5/sysctl.conf.5.gz
+%dir /usr/share/man/uk/man8
+/usr/share/man/uk/man8/sysctl.8.gz
+/usr/share/man/uk/man8/vmstat.8.gz
+%dir /usr/share/man/zh_CN
+%dir /usr/share/man/zh_CN/man1
+/usr/share/man/zh_CN/man1/free.1.gz
+/usr/share/man/zh_CN/man1/pgrep.1.gz
+/usr/share/man/zh_CN/man1/pidof.1.gz
+/usr/share/man/zh_CN/man1/pmap.1.gz
+/usr/share/man/zh_CN/man1/ps.1.gz
+/usr/share/man/zh_CN/man1/pwdx.1.gz
+/usr/share/man/zh_CN/man1/slabtop.1.gz
+/usr/share/man/zh_CN/man1/tload.1.gz
+/usr/share/man/zh_CN/man1/top.1.gz
+/usr/share/man/zh_CN/man1/uptime.1.gz
+/usr/share/man/zh_CN/man1/w.1.gz
+/usr/share/man/zh_CN/man1/watch.1.gz
+%dir /usr/share/man/zh_CN/man3
+%dir /usr/share/man/zh_CN/man5
+/usr/share/man/zh_CN/man5/sysctl.conf.5.gz
+%dir /usr/share/man/zh_CN/man8
+/usr/share/man/zh_CN/man8/sysctl.8.gz
+/usr/share/man/zh_CN/man8/vmstat.8.gz

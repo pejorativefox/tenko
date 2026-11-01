@@ -1,0 +1,100 @@
+/usr/bin/fuser
+/usr/bin/killall
+/usr/bin/peekfd
+/usr/bin/prtstat
+/usr/bin/pslog
+/usr/bin/pstree
+/usr/bin/pstree.x11
+%dir /usr/share/locale
+%dir /usr/share/man
+%dir /usr/share/man/da
+%dir /usr/share/man/da/man1
+/usr/share/man/da/man1/prtstat.1.gz
+/usr/share/man/da/man1/pslog.1.gz
+%dir /usr/share/man/de
+%dir /usr/share/man/de/man1
+/usr/share/man/de/man1/fuser.1.gz
+/usr/share/man/de/man1/killall.1.gz
+/usr/share/man/de/man1/peekfd.1.gz
+/usr/share/man/de/man1/prtstat.1.gz
+/usr/share/man/de/man1/pslog.1.gz
+/usr/share/man/de/man1/pstree.1.gz
+%dir /usr/share/man/fr
+%dir /usr/share/man/fr/man1
+/usr/share/man/fr/man1/fuser.1.gz
+/usr/share/man/fr/man1/killall.1.gz
+/usr/share/man/fr/man1/peekfd.1.gz
+/usr/share/man/fr/man1/prtstat.1.gz
+/usr/share/man/fr/man1/pslog.1.gz
+/usr/share/man/fr/man1/pstree.1.gz
+%dir /usr/share/man/hr
+%dir /usr/share/man/hr/man1
+/usr/share/man/hr/man1/fuser.1.gz
+/usr/share/man/hr/man1/killall.1.gz
+/usr/share/man/hr/man1/peekfd.1.gz
+/usr/share/man/hr/man1/prtstat.1.gz
+/usr/share/man/hr/man1/pslog.1.gz
+/usr/share/man/hr/man1/pstree.1.gz
+%dir /usr/share/man/ko
+%dir /usr/share/man/ko/man1
+/usr/share/man/ko/man1/fuser.1.gz
+/usr/share/man/ko/man1/killall.1.gz
+/usr/share/man/ko/man1/peekfd.1.gz
+/usr/share/man/ko/man1/prtstat.1.gz
+/usr/share/man/ko/man1/pslog.1.gz
+/usr/share/man/ko/man1/pstree.1.gz
+%dir /usr/share/man/man1
+/usr/share/man/man1/fuser.1.gz
+/usr/share/man/man1/killall.1.gz
+/usr/share/man/man1/peekfd.1.gz
+/usr/share/man/man1/prtstat.1.gz
+/usr/share/man/man1/pslog.1.gz
+/usr/share/man/man1/pstree.1.gz
+%dir /usr/share/man/pt_BR
+%dir /usr/share/man/pt_BR/man1
+/usr/share/man/pt_BR/man1/fuser.1.gz
+/usr/share/man/pt_BR/man1/killall.1.gz
+/usr/share/man/pt_BR/man1/peekfd.1.gz
+/usr/share/man/pt_BR/man1/prtstat.1.gz
+/usr/share/man/pt_BR/man1/pslog.1.gz
+/usr/share/man/pt_BR/man1/pstree.1.gz
+%dir /usr/share/man/ro
+%dir /usr/share/man/ro/man1
+/usr/share/man/ro/man1/fuser.1.gz
+/usr/share/man/ro/man1/killall.1.gz
+/usr/share/man/ro/man1/peekfd.1.gz
+/usr/share/man/ro/man1/prtstat.1.gz
+/usr/share/man/ro/man1/pslog.1.gz
+/usr/share/man/ro/man1/pstree.1.gz
+%dir /usr/share/man/ru
+%dir /usr/share/man/ru/man1
+/usr/share/man/ru/man1/fuser.1.gz
+/usr/share/man/ru/man1/killall.1.gz
+/usr/share/man/ru/man1/peekfd.1.gz
+/usr/share/man/ru/man1/prtstat.1.gz
+/usr/share/man/ru/man1/pslog.1.gz
+/usr/share/man/ru/man1/pstree.1.gz
+%dir /usr/share/man/sr
+%dir /usr/share/man/sr/man1
+/usr/share/man/sr/man1/fuser.1.gz
+/usr/share/man/sr/man1/killall.1.gz
+/usr/share/man/sr/man1/peekfd.1.gz
+/usr/share/man/sr/man1/prtstat.1.gz
+/usr/share/man/sr/man1/pslog.1.gz
+/usr/share/man/sr/man1/pstree.1.gz
+%dir /usr/share/man/sv
+%dir /usr/share/man/sv/man1
+/usr/share/man/sv/man1/fuser.1.gz
+/usr/share/man/sv/man1/killall.1.gz
+/usr/share/man/sv/man1/peekfd.1.gz
+/usr/share/man/sv/man1/prtstat.1.gz
+/usr/share/man/sv/man1/pslog.1.gz
+/usr/share/man/sv/man1/pstree.1.gz
+%dir /usr/share/man/uk
+%dir /usr/share/man/uk/man1
+/usr/share/man/uk/man1/fuser.1.gz
+/usr/share/man/uk/man1/killall.1.gz
+/usr/share/man/uk/man1/peekfd.1.gz
+/usr/share/man/uk/man1/prtstat.1.gz
+/usr/share/man/uk/man1/pslog.1.gz
+/usr/share/man/uk/man1/pstree.1.gz

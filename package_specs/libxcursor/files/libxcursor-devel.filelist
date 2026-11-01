@@ -1,0 +1,6 @@
+%dir /usr/include/X11
+%dir /usr/include/X11/Xcursor
+/usr/include/X11/Xcursor/Xcursor.h
+/usr/lib64/libXcursor.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/xcursor.pc

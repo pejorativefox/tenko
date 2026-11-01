@@ -1,6 +1,6 @@
 Name:       sqlite
 Version:    3.53.4
-Release:    1
+Release:    2
 Summary:    SQLite database engine
 License:    Public Domain
 Source0:    sqlite-autoconf-3530400.tar.gz
@@ -9,6 +9,13 @@ Provides:   libsqlite3.so()(64bit)
 
 %description
 SQLite is a C library that implements an SQL database engine.
+
+%package devel
+Summary:    sqlite development files
+Requires:   sqlite = %{version}-%{release}
+
+%description devel
+Development files for sqlite.
 
 %prep
 %setup -q -n sqlite-autoconf-3530400
@@ -26,13 +33,13 @@ CPPFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1 \
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/bin/sqlite3
-/usr/include/sqlite3*.h
-/usr/lib64/libsqlite3.so*
-/usr/lib64/pkgconfig/sqlite3.pc
-/usr/share/man/
+%files -f %{_sourcedir}/sqlite.filelist
+%files devel -f %{_sourcedir}/sqlite-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 3.53.4-2
+- Split devel payload into sqlite-devel (size audit)
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 3.53.4
 - Renamed from sqlite3 and synced with LFS r13.1

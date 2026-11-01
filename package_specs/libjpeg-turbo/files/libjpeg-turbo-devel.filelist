@@ -1,0 +1,15 @@
+/usr/include/jconfig.h
+/usr/include/jerror.h
+/usr/include/jmorecfg.h
+/usr/include/jpeglib.h
+/usr/include/turbojpeg.h
+%dir /usr/lib64/cmake/libjpeg-turbo
+/usr/lib64/cmake/libjpeg-turbo/libjpeg-turboConfig.cmake
+/usr/lib64/cmake/libjpeg-turbo/libjpeg-turboConfigVersion.cmake
+/usr/lib64/cmake/libjpeg-turbo/libjpeg-turboTargets-release.cmake
+/usr/lib64/cmake/libjpeg-turbo/libjpeg-turboTargets.cmake
+/usr/lib64/libjpeg.so
+/usr/lib64/libturbojpeg.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libjpeg.pc
+/usr/lib64/pkgconfig/libturbojpeg.pc

@@ -1,6 +1,6 @@
 Name:       nettle
 Version:    4.0
-Release:    1
+Release:    2
 Summary:    A low-level cryptographic library
 License:    GPL-2.0-or-later AND LGPL-3.0-or-later
 URL:        https://www.lysator.liu.se/~nisse/nettle/
@@ -11,6 +11,20 @@ Prefix:     /usr
 Nettle is a low-level cryptographic library that is designed to fit easily
 in many contexts.  It provides the hash functions, ciphers, and public-key
 primitives used by GnuTLS.
+
+%package doc
+Summary:    nettle documentation
+Requires:   nettle = %{version}-%{release}
+
+%description doc
+Documentation for nettle.
+
+%package devel
+Summary:    nettle development files
+Requires:   nettle = %{version}-%{release}
+
+%description devel
+Development files for nettle.
 
 %prep
 %setup -q
@@ -30,8 +44,14 @@ install -m644 nettle.html nettle.pdf \
         %{buildroot}%{_docdir}/%{name}-%{version}
 
 %files -f %{_sourcedir}/nettle.filelist
+%files doc -f %{_sourcedir}/nettle-doc.filelist
+%files devel -f %{_sourcedir}/nettle-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.0-2
+- Split doc, devel payload into nettle-doc, nettle-devel (size audit)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.0
 - Update to 4.0 (BLFS r13.1)
 - Install the BLFS manual copy under /usr/share/doc/nettle-4.0

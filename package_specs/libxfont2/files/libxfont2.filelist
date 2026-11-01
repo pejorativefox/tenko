@@ -1,11 +1,4 @@
 %dir /usr/include
-%dir /usr/include/X11
-%dir /usr/include/X11/fonts
-/usr/include/X11/fonts/libxfont2.h
 %dir /usr/lib64
-/usr/lib64/libXfont2.a
-/usr/lib64/libXfont2.so
 /usr/lib64/libXfont2.so.2
 /usr/lib64/libXfont2.so.2.0.0
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/xfont2.pc

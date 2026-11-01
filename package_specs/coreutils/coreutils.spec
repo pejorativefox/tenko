@@ -1,6 +1,6 @@
 Name:       coreutils
 Version:    9.11
-Release:    1
+Release:    2
 Summary:    GNU operating system tools
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -9,6 +9,13 @@ Prefix:     /usr
 
 %description
 The GNU Core Utilities are the basic file, shell and text manipulation utilities of the GNU operating system.
+
+%package lang
+Summary:    coreutils translations
+Requires:   coreutils = %{version}-%{release}
+
+%description lang
+Translations for coreutils.
 
 %prep
 %setup -q
@@ -27,8 +34,13 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/coreutils.filelist
+%files lang -f %{_sourcedir}/coreutils-lang.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 9.11-2
+- Split lang payload into coreutils-lang (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 9.11
 - Replace directory globs with a generated static filelist
 

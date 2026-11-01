@@ -1,0 +1,6 @@
+%dir /usr/include/X11
+%dir /usr/include/X11/extensions
+/usr/include/X11/extensions/Xdamage.h
+/usr/lib64/libXdamage.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/xdamage.pc

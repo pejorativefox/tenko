@@ -1,6 +1,6 @@
 Name:       pcre2
 Version:    10.48
-Release:    1
+Release:    2
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -9,6 +9,20 @@ Source0:    %{name}-%{version}.tar.bz2
 
 %description
 TODO
+
+%package doc
+Summary:    pcre2 documentation
+Requires:   pcre2 = %{version}-%{release}
+
+%description doc
+Documentation for pcre2.
+
+%package devel
+Summary:    pcre2 development files
+Requires:   pcre2 = %{version}-%{release}
+
+%description devel
+Development files for pcre2.
 
 %prep
 %setup -a 0
@@ -31,32 +45,15 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/pcre2-config
-/usr/bin/pcre2grep
-/usr/bin/pcre2test
-/usr/include/pcre2.h
-/usr/include/pcre2posix.h
-/usr/lib64/libpcre2-16.so
-/usr/lib64/libpcre2-16.so.0
-/usr/lib64/libpcre2-16.so.0.16.0
-/usr/lib64/libpcre2-32.so
-/usr/lib64/libpcre2-32.so.0
-/usr/lib64/libpcre2-32.so.0.16.0
-/usr/lib64/libpcre2-8.so
-/usr/lib64/libpcre2-8.so.0
-/usr/lib64/libpcre2-8.so.0.16.0
-/usr/lib64/libpcre2-posix.so
-/usr/lib64/libpcre2-posix.so.3
-/usr/lib64/libpcre2-posix.so.3.0.8
-/usr/lib64/pkgconfig/libpcre2-16.pc
-/usr/lib64/pkgconfig/libpcre2-32.pc
-/usr/lib64/pkgconfig/libpcre2-8.pc
-/usr/lib64/pkgconfig/libpcre2-posix.pc
-/usr/share/doc/pcre2-%{version}/*
-/usr/share/man/*
+%files -f %{_sourcedir}/pcre2.filelist
+%files doc -f %{_sourcedir}/pcre2-doc.filelist
+%files devel -f %{_sourcedir}/pcre2-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 10.48-2
+- Split doc, devel payload into pcre2-doc, pcre2-devel (size audit)
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 10.47
 - Sync with LFS r13.1
 

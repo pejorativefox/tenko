@@ -104,14 +104,5 @@
 /usr/share/dejagnu/tip.exp
 /usr/share/dejagnu/utils.exp
 %dir /usr/share/doc
-%dir /usr/share/doc/dejagnu-1.6.3
-%doc /usr/share/doc/dejagnu-1.6.3/dejagnu.html
-%doc /usr/share/doc/dejagnu-1.6.3/dejagnu.txt
 %dir /usr/share/info
-%doc /usr/share/info/dejagnu.info.gz
 %dir /usr/share/man
-%dir /usr/share/man/man1
-%doc /usr/share/man/man1/dejagnu-help.1.gz
-%doc /usr/share/man/man1/dejagnu-report-card.1.gz
-%doc /usr/share/man/man1/dejagnu.1.gz
-%doc /usr/share/man/man1/runtest.1.gz

@@ -1,6 +1,6 @@
 Name:       libxfce4util
 Version:    4.20.1
-Release:    1
+Release:    2
 Summary:    Basic utility library for Xfce4.
 License:    GPL
 Source0:    %{name}-%{version}.tar.bz2
@@ -8,6 +8,27 @@ Prefix:     /usr
 
 %description
 Basic utility library for Xfce4.
+
+%package lang
+Summary:    libxfce4util translations
+Requires:   libxfce4util = %{version}-%{release}
+
+%description lang
+Translations for libxfce4util.
+
+%package doc
+Summary:    libxfce4util documentation
+Requires:   libxfce4util = %{version}-%{release}
+
+%description doc
+Documentation for libxfce4util.
+
+%package devel
+Summary:    libxfce4util development files
+Requires:   libxfce4util = %{version}-%{release}
+
+%description devel
+Development files for libxfce4util.
 
 %prep
 %setup
@@ -22,8 +43,15 @@ mkdir -p %{buildroot}/etc
 %make_install
 
 %files -f %{_sourcedir}/libxfce4util.filelist
+%files lang -f %{_sourcedir}/libxfce4util-lang.filelist
+%files doc -f %{_sourcedir}/libxfce4util-doc.filelist
+%files devel -f %{_sourcedir}/libxfce4util-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.1-2
+- Split lang, doc, devel payload into libxfce4util-lang, libxfce4util-doc, libxfce4util-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.1
 - Sync with BLFS r13.1 (4.19.2)
 

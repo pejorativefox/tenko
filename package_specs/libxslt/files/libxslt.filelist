@@ -2,33 +2,6 @@
 /usr/bin/xslt-config
 /usr/bin/xsltproc
 %dir /usr/include
-%dir /usr/include/libexslt
-/usr/include/libexslt/exslt.h
-/usr/include/libexslt/exsltconfig.h
-/usr/include/libexslt/exsltexports.h
-%dir /usr/include/libxslt
-/usr/include/libxslt/attributes.h
-/usr/include/libxslt/documents.h
-/usr/include/libxslt/extensions.h
-/usr/include/libxslt/extra.h
-/usr/include/libxslt/functions.h
-/usr/include/libxslt/imports.h
-/usr/include/libxslt/keys.h
-/usr/include/libxslt/namespaces.h
-/usr/include/libxslt/numbersInternals.h
-/usr/include/libxslt/pattern.h
-/usr/include/libxslt/preproc.h
-/usr/include/libxslt/security.h
-/usr/include/libxslt/templates.h
-/usr/include/libxslt/transform.h
-/usr/include/libxslt/transformInternals.h
-/usr/include/libxslt/variables.h
-/usr/include/libxslt/xslt.h
-/usr/include/libxslt/xsltInternals.h
-/usr/include/libxslt/xsltconfig.h
-/usr/include/libxslt/xsltexports.h
-/usr/include/libxslt/xsltlocale.h
-/usr/include/libxslt/xsltutils.h
 %dir /usr/lib
 %dir /usr/lib/python3.14
 %dir /usr/lib/python3.14/site-packages
@@ -38,99 +11,15 @@
 /usr/lib/python3.14/site-packages/libxslt.py
 %dir /usr/lib64
 %dir /usr/lib64/cmake
-%dir /usr/lib64/cmake/libxslt
-/usr/lib64/cmake/libxslt/FindGcrypt.cmake
-/usr/lib64/cmake/libxslt/libxslt-config.cmake
-/usr/lib64/libexslt.so
 /usr/lib64/libexslt.so.0
 /usr/lib64/libexslt.so.0.8.25
-/usr/lib64/libxslt.so
 /usr/lib64/libxslt.so.1
 /usr/lib64/libxslt.so.1.1.45
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/libexslt.pc
-/usr/lib64/pkgconfig/libxslt.pc
 %dir /usr/lib64/python3.14
 %dir /usr/lib64/python3.14/site-packages
 /usr/lib64/python3.14/site-packages/libxsltmod.so
 /usr/lib64/xsltConf.sh
 %dir /usr/share
 %dir /usr/share/doc
-%dir /usr/share/doc/libxslt
-%dir /usr/share/doc/libxslt/python
-%dir /usr/share/doc/libxslt/python/examples
-%doc /usr/share/doc/libxslt/python/examples/basic.py
-%doc /usr/share/doc/libxslt/python/examples/exslt.py
-%doc /usr/share/doc/libxslt/python/examples/extelem.py
-%doc /usr/share/doc/libxslt/python/examples/extfunc.py
-%doc /usr/share/doc/libxslt/python/examples/pyxsltproc.py
-%doc /usr/share/doc/libxslt/python/examples/setup_test.py
-%doc /usr/share/doc/libxslt/python/examples/test.xml
-%doc /usr/share/doc/libxslt/python/examples/test.xsl
-%dir /usr/share/doc/libxslt/tutorial
-%dir /usr/share/doc/libxslt/tutorial/images
-%dir /usr/share/doc/libxslt/tutorial/images/callouts
-%doc /usr/share/doc/libxslt/tutorial/images/callouts/1.png
-%doc /usr/share/doc/libxslt/tutorial/images/callouts/10.png
-%doc /usr/share/doc/libxslt/tutorial/images/callouts/2.png
-%doc /usr/share/doc/libxslt/tutorial/images/callouts/3.png
-%doc /usr/share/doc/libxslt/tutorial/images/callouts/4.png
-%doc /usr/share/doc/libxslt/tutorial/images/callouts/5.png
-%doc /usr/share/doc/libxslt/tutorial/images/callouts/6.png
-%doc /usr/share/doc/libxslt/tutorial/images/callouts/7.png
-%doc /usr/share/doc/libxslt/tutorial/images/callouts/8.png
-%doc /usr/share/doc/libxslt/tutorial/images/callouts/9.png
-%doc /usr/share/doc/libxslt/tutorial/libxslt_tutorial.c
-%doc /usr/share/doc/libxslt/tutorial/libxslttutorial.html
-%dir /usr/share/doc/libxslt/tutorial2
-%doc /usr/share/doc/libxslt/tutorial2/libxslt_pipes.c
-%doc /usr/share/doc/libxslt/tutorial2/libxslt_pipes.html
-%doc /usr/share/doc/libxslt/xsltproc.html
 %dir /usr/share/gtk-doc
-%dir /usr/share/gtk-doc/html
-%dir /usr/share/gtk-doc/html/libexslt
-%doc /usr/share/gtk-doc/html/libexslt/general.html
-%doc /usr/share/gtk-doc/html/libexslt/home.png
-%doc /usr/share/gtk-doc/html/libexslt/index.html
-%doc /usr/share/gtk-doc/html/libexslt/left.png
-%doc /usr/share/gtk-doc/html/libexslt/libexslt-exslt.html
-%doc /usr/share/gtk-doc/html/libexslt/libexslt-exsltexports.html
-%doc /usr/share/gtk-doc/html/libexslt/libexslt.devhelp2
-%doc /usr/share/gtk-doc/html/libexslt/right.png
-%doc /usr/share/gtk-doc/html/libexslt/style.css
-%doc /usr/share/gtk-doc/html/libexslt/up.png
-%dir /usr/share/gtk-doc/html/libxslt
-%doc /usr/share/gtk-doc/html/libxslt/general.html
-%doc /usr/share/gtk-doc/html/libxslt/home.png
-%doc /usr/share/gtk-doc/html/libxslt/index.html
-%doc /usr/share/gtk-doc/html/libxslt/left.png
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-attributes.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-documents.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-extensions.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-extra.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-functions.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-imports.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-keys.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-namespaces.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-numbersInternals.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-pattern.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-preproc.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-security.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-templates.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-transform.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-variables.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-xslt.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-xsltInternals.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-xsltexports.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-xsltlocale.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt-xsltutils.html
-%doc /usr/share/gtk-doc/html/libxslt/libxslt.devhelp2
-%doc /usr/share/gtk-doc/html/libxslt/right.png
-%doc /usr/share/gtk-doc/html/libxslt/style.css
-%doc /usr/share/gtk-doc/html/libxslt/up.png
 %dir /usr/share/man
-%dir /usr/share/man/man1
-%doc /usr/share/man/man1/xsltproc.1.gz
-%dir /usr/share/man/man3
-%doc /usr/share/man/man3/libexslt.3.gz
-%doc /usr/share/man/man3/libxslt.3.gz

@@ -1,0 +1,26 @@
+%dir /usr/share/gtk-doc/html
+%dir /usr/share/gtk-doc/html/libxfce4ui
+/usr/share/gtk-doc/html/libxfce4ui/XfceClipboardManager.html
+/usr/share/gtk-doc/html/libxfce4ui/XfceFilenameInput.html
+/usr/share/gtk-doc/html/libxfce4ui/XfceSMClient.html
+/usr/share/gtk-doc/html/libxfce4ui/XfceScreensaver.html
+/usr/share/gtk-doc/html/libxfce4ui/XfceTitledDialog.html
+/usr/share/gtk-doc/html/libxfce4ui/annotation-glossary.html
+/usr/share/gtk-doc/html/libxfce4ui/api-index-full.html
+/usr/share/gtk-doc/html/libxfce4ui/ch01.html
+/usr/share/gtk-doc/html/libxfce4ui/home.png
+/usr/share/gtk-doc/html/libxfce4ui/index.html
+/usr/share/gtk-doc/html/libxfce4ui/left-insensitive.png
+/usr/share/gtk-doc/html/libxfce4ui/left.png
+/usr/share/gtk-doc/html/libxfce4ui/libxfce4ui-Gdk-Extensions.html
+/usr/share/gtk-doc/html/libxfce4ui/libxfce4ui-Gtk-Extensions.html
+/usr/share/gtk-doc/html/libxfce4ui/libxfce4ui-Spawn.html
+/usr/share/gtk-doc/html/libxfce4ui/libxfce4ui-XfceDialogs.html
+/usr/share/gtk-doc/html/libxfce4ui/libxfce4ui-libxfce4ui-config.html
+/usr/share/gtk-doc/html/libxfce4ui/libxfce4ui.devhelp2
+/usr/share/gtk-doc/html/libxfce4ui/object-tree.html
+/usr/share/gtk-doc/html/libxfce4ui/right-insensitive.png
+/usr/share/gtk-doc/html/libxfce4ui/right.png
+/usr/share/gtk-doc/html/libxfce4ui/style.css
+/usr/share/gtk-doc/html/libxfce4ui/up-insensitive.png
+/usr/share/gtk-doc/html/libxfce4ui/up.png

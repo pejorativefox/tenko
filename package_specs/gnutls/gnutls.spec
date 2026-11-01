@@ -1,6 +1,6 @@
 Name:       gnutls
 Version:    3.8.13
-Release:    1
+Release:    2
 Summary:    A TLS protocol implementation
 License:    LGPL-2.1-or-later AND GPL-3.0-or-later
 URL:        https://www.gnutls.org/
@@ -25,6 +25,27 @@ The package bundles libunistring (--with-included-unistring) because
 libunistring is not part of the Browneye package set; this mirrors the
 historical GnuTLS spec and avoids an unpackaged runtime dependency.
 
+%package doc
+Summary:    gnutls documentation
+Requires:   gnutls = %{version}-%{release}
+
+%description doc
+Documentation for gnutls.
+
+%package lang
+Summary:    gnutls translations
+Requires:   gnutls = %{version}-%{release}
+
+%description lang
+Translations for gnutls.
+
+%package devel
+Summary:    gnutls development files
+Requires:   gnutls = %{version}-%{release}
+
+%description devel
+Development files for gnutls.
+
 %prep
 %setup -q
 
@@ -42,8 +63,15 @@ rm -rf %{buildroot}
 rm -rf %{buildroot}%{_infodir}/dir
 
 %files -f %{_sourcedir}/gnutls.filelist
+%files doc -f %{_sourcedir}/gnutls-doc.filelist
+%files lang -f %{_sourcedir}/gnutls-lang.filelist
+%files devel -f %{_sourcedir}/gnutls-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.13-2
+- Split doc, lang, devel payload into gnutls-doc, gnutls-lang, gnutls-devel (size audit)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.13
 - Update to 3.8.13 (BLFS r13.1)
 - Build against nettle 4.0, libtasn1 4.21.0 and p11-kit 0.26.5

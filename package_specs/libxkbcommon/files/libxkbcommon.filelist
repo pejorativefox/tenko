@@ -1,28 +1,13 @@
 %dir /usr/bin
 /usr/bin/xkbcli
 %dir /usr/include
-%dir /usr/include/xkbcommon
-/usr/include/xkbcommon/xkbcommon-compat.h
-/usr/include/xkbcommon/xkbcommon-compose.h
-/usr/include/xkbcommon/xkbcommon-keysyms.h
-/usr/include/xkbcommon/xkbcommon-names.h
-/usr/include/xkbcommon/xkbcommon-x11.h
-/usr/include/xkbcommon/xkbcommon.h
-/usr/include/xkbcommon/xkbregistry.h
 %dir /usr/lib64
-/usr/lib64/libxkbcommon-x11.so
 /usr/lib64/libxkbcommon-x11.so.0
 /usr/lib64/libxkbcommon-x11.so.0.13.2
-/usr/lib64/libxkbcommon.so
 /usr/lib64/libxkbcommon.so.0
 /usr/lib64/libxkbcommon.so.0.13.2
-/usr/lib64/libxkbregistry.so
 /usr/lib64/libxkbregistry.so.0
 /usr/lib64/libxkbregistry.so.0.13.2
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/xkbcommon-x11.pc
-/usr/lib64/pkgconfig/xkbcommon.pc
-/usr/lib64/pkgconfig/xkbregistry.pc
 %dir /usr/libexec
 %dir /usr/libexec/xkbcommon
 /usr/libexec/xkbcommon/xkbcli-compile-compose
@@ -41,12 +26,12 @@
 /usr/share/bash-completion/completions/xkbcli
 %dir /usr/share/man
 %dir /usr/share/man/man1
-%doc /usr/share/man/man1/xkbcli-compile-compose.1.gz
-%doc /usr/share/man/man1/xkbcli-compile-keymap.1.gz
-%doc /usr/share/man/man1/xkbcli-dump-keymap-x11.1.gz
-%doc /usr/share/man/man1/xkbcli-how-to-type.1.gz
-%doc /usr/share/man/man1/xkbcli-info.1.gz
-%doc /usr/share/man/man1/xkbcli-interactive-evdev.1.gz
-%doc /usr/share/man/man1/xkbcli-interactive-x11.1.gz
-%doc /usr/share/man/man1/xkbcli-list.1.gz
-%doc /usr/share/man/man1/xkbcli.1.gz
+/usr/share/man/man1/xkbcli-compile-compose.1.gz
+/usr/share/man/man1/xkbcli-compile-keymap.1.gz
+/usr/share/man/man1/xkbcli-dump-keymap-x11.1.gz
+/usr/share/man/man1/xkbcli-how-to-type.1.gz
+/usr/share/man/man1/xkbcli-info.1.gz
+/usr/share/man/man1/xkbcli-interactive-evdev.1.gz
+/usr/share/man/man1/xkbcli-interactive-x11.1.gz
+/usr/share/man/man1/xkbcli-list.1.gz
+/usr/share/man/man1/xkbcli.1.gz

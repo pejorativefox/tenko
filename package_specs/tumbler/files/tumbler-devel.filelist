@@ -1,0 +1,21 @@
+%dir /usr/include/tumbler-1
+%dir /usr/include/tumbler-1/tumbler
+/usr/include/tumbler-1/tumbler/tumbler-abstract-thumbnailer.h
+/usr/include/tumbler-1/tumbler/tumbler-cache-plugin.h
+/usr/include/tumbler-1/tumbler/tumbler-cache.h
+/usr/include/tumbler-1/tumbler/tumbler-config.h
+/usr/include/tumbler-1/tumbler/tumbler-enum-types.h
+/usr/include/tumbler-1/tumbler/tumbler-error.h
+/usr/include/tumbler-1/tumbler/tumbler-file-info.h
+/usr/include/tumbler-1/tumbler/tumbler-marshal.h
+/usr/include/tumbler-1/tumbler/tumbler-provider-factory.h
+/usr/include/tumbler-1/tumbler/tumbler-provider-plugin.h
+/usr/include/tumbler-1/tumbler/tumbler-thumbnail-flavor.h
+/usr/include/tumbler-1/tumbler/tumbler-thumbnail.h
+/usr/include/tumbler-1/tumbler/tumbler-thumbnailer-provider.h
+/usr/include/tumbler-1/tumbler/tumbler-thumbnailer.h
+/usr/include/tumbler-1/tumbler/tumbler-util.h
+/usr/include/tumbler-1/tumbler/tumbler.h
+/usr/lib64/libtumbler-1.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/tumbler-1.pc

@@ -1,6 +1,6 @@
 Name:       tcl
 Version:    8.6.18
-Release:    1
+Release:    2
 Summary:    The tcl programming language
 License:    Tcl/Tk
 Source0:    %{name}%{version}-src.tar.gz
@@ -8,6 +8,20 @@ Prefix:     /usr
 
 %description
 The tcl programming language
+
+%package doc
+Summary:    tcl documentation
+Requires:   tcl = %{version}-%{release}
+
+%description doc
+Documentation for tcl.
+
+%package devel
+Summary:    tcl development files
+Requires:   tcl = %{version}-%{release}
+
+%description devel
+Development files for tcl.
 
 %prep
 %setup -q -n tcl8.6.18
@@ -48,8 +62,14 @@ ln -sfn /usr/lib64/lib/tcl8.6 %{buildroot}/usr/lib/tcl8.6
 popd
 
 %files -f %{_sourcedir}/tcl.filelist
+%files doc -f %{_sourcedir}/tcl-doc.filelist
+%files devel -f %{_sourcedir}/tcl-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 8.6.18-2
+- Split doc, devel payload into tcl-doc, tcl-devel (size audit)
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 8.6.18
 - Sync with LFS r13.1
 

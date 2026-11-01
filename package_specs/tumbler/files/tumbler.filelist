@@ -2,33 +2,12 @@
 %dir /etc/xdg/tumbler
 /etc/xdg/tumbler/tumbler.rc
 %dir /usr/include
-%dir /usr/include/tumbler-1
-%dir /usr/include/tumbler-1/tumbler
-/usr/include/tumbler-1/tumbler/tumbler-abstract-thumbnailer.h
-/usr/include/tumbler-1/tumbler/tumbler-cache-plugin.h
-/usr/include/tumbler-1/tumbler/tumbler-cache.h
-/usr/include/tumbler-1/tumbler/tumbler-config.h
-/usr/include/tumbler-1/tumbler/tumbler-enum-types.h
-/usr/include/tumbler-1/tumbler/tumbler-error.h
-/usr/include/tumbler-1/tumbler/tumbler-file-info.h
-/usr/include/tumbler-1/tumbler/tumbler-marshal.h
-/usr/include/tumbler-1/tumbler/tumbler-provider-factory.h
-/usr/include/tumbler-1/tumbler/tumbler-provider-plugin.h
-/usr/include/tumbler-1/tumbler/tumbler-thumbnail-flavor.h
-/usr/include/tumbler-1/tumbler/tumbler-thumbnail.h
-/usr/include/tumbler-1/tumbler/tumbler-thumbnailer-provider.h
-/usr/include/tumbler-1/tumbler/tumbler-thumbnailer.h
-/usr/include/tumbler-1/tumbler/tumbler-util.h
-/usr/include/tumbler-1/tumbler/tumbler.h
 %dir /usr/lib
 %dir /usr/lib/systemd
 %dir /usr/lib/systemd/user
 %dir /usr/lib64
-/usr/lib64/libtumbler-1.so
 /usr/lib64/libtumbler-1.so.0
 /usr/lib64/libtumbler-1.so.0.0.0
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/tumbler-1.pc
 %dir /usr/lib64/tumbler-1
 %dir /usr/lib64/tumbler-1/plugins
 %dir /usr/lib64/tumbler-1/plugins/cache
@@ -49,38 +28,38 @@
 %dir /usr/share/gtk-doc
 %dir /usr/share/gtk-doc/html
 %dir /usr/share/gtk-doc/html/tumbler
-%doc /usr/share/gtk-doc/html/tumbler/TumblerAbstractThumbnailer.html
-%doc /usr/share/gtk-doc/html/tumbler/TumblerCache.html
-%doc /usr/share/gtk-doc/html/tumbler/TumblerCachePlugin.html
-%doc /usr/share/gtk-doc/html/tumbler/TumblerFileInfo.html
-%doc /usr/share/gtk-doc/html/tumbler/TumblerProviderFactory.html
-%doc /usr/share/gtk-doc/html/tumbler/TumblerProviderPlugin.html
-%doc /usr/share/gtk-doc/html/tumbler/TumblerThumbnail.html
-%doc /usr/share/gtk-doc/html/tumbler/TumblerThumbnailFlavor.html
-%doc /usr/share/gtk-doc/html/tumbler/TumblerThumbnailer.html
-%doc /usr/share/gtk-doc/html/tumbler/TumblerThumbnailerProvider.html
-%doc /usr/share/gtk-doc/html/tumbler/api-index-full.html
-%doc /usr/share/gtk-doc/html/tumbler/extension-api.html
-%doc /usr/share/gtk-doc/html/tumbler/extension-tutorial.html
-%doc /usr/share/gtk-doc/html/tumbler/home.png
-%doc /usr/share/gtk-doc/html/tumbler/index.html
-%doc /usr/share/gtk-doc/html/tumbler/left-insensitive.png
-%doc /usr/share/gtk-doc/html/tumbler/left.png
-%doc /usr/share/gtk-doc/html/tumbler/miscellaneous.html
-%doc /usr/share/gtk-doc/html/tumbler/object-tree.html
-%doc /usr/share/gtk-doc/html/tumbler/pt01.html
-%doc /usr/share/gtk-doc/html/tumbler/right-insensitive.png
-%doc /usr/share/gtk-doc/html/tumbler/right.png
-%doc /usr/share/gtk-doc/html/tumbler/style.css
-%doc /usr/share/gtk-doc/html/tumbler/thumbnails.html
-%doc /usr/share/gtk-doc/html/tumbler/tumbler-Error-Domain-and-Types.html
-%doc /usr/share/gtk-doc/html/tumbler/tumbler-Various-Enumeration-Types.html
-%doc /usr/share/gtk-doc/html/tumbler/tumbler-Version-Information-and-Compatibility-Checks.html
-%doc /usr/share/gtk-doc/html/tumbler/tumbler-tumbler-marshal.html
-%doc /usr/share/gtk-doc/html/tumbler/tumbler-tumbler-util.html
-%doc /usr/share/gtk-doc/html/tumbler/tumbler.devhelp2
-%doc /usr/share/gtk-doc/html/tumbler/up-insensitive.png
-%doc /usr/share/gtk-doc/html/tumbler/up.png
+/usr/share/gtk-doc/html/tumbler/TumblerAbstractThumbnailer.html
+/usr/share/gtk-doc/html/tumbler/TumblerCache.html
+/usr/share/gtk-doc/html/tumbler/TumblerCachePlugin.html
+/usr/share/gtk-doc/html/tumbler/TumblerFileInfo.html
+/usr/share/gtk-doc/html/tumbler/TumblerProviderFactory.html
+/usr/share/gtk-doc/html/tumbler/TumblerProviderPlugin.html
+/usr/share/gtk-doc/html/tumbler/TumblerThumbnail.html
+/usr/share/gtk-doc/html/tumbler/TumblerThumbnailFlavor.html
+/usr/share/gtk-doc/html/tumbler/TumblerThumbnailer.html
+/usr/share/gtk-doc/html/tumbler/TumblerThumbnailerProvider.html
+/usr/share/gtk-doc/html/tumbler/api-index-full.html
+/usr/share/gtk-doc/html/tumbler/extension-api.html
+/usr/share/gtk-doc/html/tumbler/extension-tutorial.html
+/usr/share/gtk-doc/html/tumbler/home.png
+/usr/share/gtk-doc/html/tumbler/index.html
+/usr/share/gtk-doc/html/tumbler/left-insensitive.png
+/usr/share/gtk-doc/html/tumbler/left.png
+/usr/share/gtk-doc/html/tumbler/miscellaneous.html
+/usr/share/gtk-doc/html/tumbler/object-tree.html
+/usr/share/gtk-doc/html/tumbler/pt01.html
+/usr/share/gtk-doc/html/tumbler/right-insensitive.png
+/usr/share/gtk-doc/html/tumbler/right.png
+/usr/share/gtk-doc/html/tumbler/style.css
+/usr/share/gtk-doc/html/tumbler/thumbnails.html
+/usr/share/gtk-doc/html/tumbler/tumbler-Error-Domain-and-Types.html
+/usr/share/gtk-doc/html/tumbler/tumbler-Various-Enumeration-Types.html
+/usr/share/gtk-doc/html/tumbler/tumbler-Version-Information-and-Compatibility-Checks.html
+/usr/share/gtk-doc/html/tumbler/tumbler-tumbler-marshal.html
+/usr/share/gtk-doc/html/tumbler/tumbler-tumbler-util.html
+/usr/share/gtk-doc/html/tumbler/tumbler.devhelp2
+/usr/share/gtk-doc/html/tumbler/up-insensitive.png
+/usr/share/gtk-doc/html/tumbler/up.png
 %dir /usr/share/icons
 %dir /usr/share/icons/hicolor
 %dir /usr/share/icons/hicolor/32x32

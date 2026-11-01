@@ -5,15 +5,6 @@
 %dir /usr/bin
 /usr/bin/upower
 %dir /usr/include
-%dir /usr/include/libupower-glib
-/usr/include/libupower-glib/up-autocleanups.h
-/usr/include/libupower-glib/up-client.h
-/usr/include/libupower-glib/up-device.h
-/usr/include/libupower-glib/up-history-item.h
-/usr/include/libupower-glib/up-stats-item.h
-/usr/include/libupower-glib/up-types.h
-/usr/include/libupower-glib/up-version.h
-/usr/include/libupower-glib/upower.h
 %dir /usr/lib
 %dir /usr/lib/systemd
 %dir /usr/lib/systemd/system
@@ -29,11 +20,8 @@
 %dir /usr/lib64
 %dir /usr/lib64/girepository-1.0
 /usr/lib64/girepository-1.0/UPowerGlib-1.0.typelib
-/usr/lib64/libupower-glib.so
 /usr/lib64/libupower-glib.so.3
 /usr/lib64/libupower-glib.so.3.1.2
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/upower-glib.pc
 %dir /usr/libexec
 %dir /usr/libexec/upower
 /usr/libexec/upower/integration-test.py
@@ -58,7 +46,6 @@
 %dir /usr/share/dbus-1/system.d
 /usr/share/dbus-1/system.d/org.freedesktop.UPower.conf
 %dir /usr/share/gir-1.0
-/usr/share/gir-1.0/UPowerGlib-1.0.gir
 %dir /usr/share/installed-tests
 %dir /usr/share/installed-tests/upower
 /usr/share/installed-tests/upower/upower-integration.test

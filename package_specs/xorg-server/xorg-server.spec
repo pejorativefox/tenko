@@ -1,6 +1,6 @@
 Name:       xorg-server
 Version:    21.1.24
-Release:    1
+Release:    2
 Summary:    Xorg X11 server
 License:    MIT
 Prefix:     /usr
@@ -15,6 +15,13 @@ Requires:   xf86-input-libinput
 %description
 The Xorg X11 server, built X11-only with glamor and the setuid wrapper
 (no systemd-logind session tracking).
+
+%package devel
+Summary:    xorg-server development files
+Requires:   xorg-server = %{version}-%{release}
+
+%description devel
+Development files for xorg-server.
 
 %prep
 %setup -q
@@ -48,7 +55,12 @@ EOF
 rm -f %{buildroot}/var/lib/xkb/README.compiled
 
 %files -f %{_sourcedir}/xorg-server.filelist
+%files devel -f %{_sourcedir}/xorg-server-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 21.1.24-2
+- Split devel payload into xorg-server-devel (size audit)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 21.1.24-1
 - Sync with BLFS r13.1 (meson build)

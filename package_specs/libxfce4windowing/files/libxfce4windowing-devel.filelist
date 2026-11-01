@@ -1,0 +1,27 @@
+%dir /usr/include/xfce4
+%dir /usr/include/xfce4/libxfce4windowing
+/usr/include/xfce4/libxfce4windowing/libxfce4windowing-config.h
+/usr/include/xfce4/libxfce4windowing/libxfce4windowing.h
+/usr/include/xfce4/libxfce4windowing/xfw-application.h
+/usr/include/xfce4/libxfce4windowing/xfw-monitor.h
+/usr/include/xfce4/libxfce4windowing/xfw-screen.h
+/usr/include/xfce4/libxfce4windowing/xfw-seat.h
+/usr/include/xfce4/libxfce4windowing/xfw-util.h
+/usr/include/xfce4/libxfce4windowing/xfw-window.h
+/usr/include/xfce4/libxfce4windowing/xfw-workspace-group.h
+/usr/include/xfce4/libxfce4windowing/xfw-workspace-manager.h
+/usr/include/xfce4/libxfce4windowing/xfw-workspace.h
+/usr/include/xfce4/libxfce4windowing/xfw-x11.h
+%dir /usr/include/xfce4/libxfce4windowingui
+/usr/include/xfce4/libxfce4windowingui/libxfce4windowingui-config.h
+/usr/include/xfce4/libxfce4windowingui/libxfce4windowingui.h
+/usr/include/xfce4/libxfce4windowingui/xfw-window-action-menu.h
+/usr/include/xfce4/libxfce4windowingui/xfw-window-list-menu.h
+/usr/lib64/libxfce4windowing-0.so
+/usr/lib64/libxfce4windowingui-0.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libxfce4windowing-0.pc
+/usr/lib64/pkgconfig/libxfce4windowing-x11-0.pc
+/usr/lib64/pkgconfig/libxfce4windowingui-0.pc
+/usr/share/gir-1.0/Libxfce4windowing-0.0.gir
+/usr/share/gir-1.0/Libxfce4windowingui-0.0.gir

@@ -1,15 +1,8 @@
 %dir /usr/include
-%dir /usr/include/X11
-%dir /usr/include/X11/extensions
-/usr/include/X11/extensions/Xfixes.h
 %dir /usr/lib64
-/usr/lib64/libXfixes.a
-/usr/lib64/libXfixes.so
 /usr/lib64/libXfixes.so.3
 /usr/lib64/libXfixes.so.3.1.0
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/xfixes.pc
 %dir /usr/share
 %dir /usr/share/man
 %dir /usr/share/man/man3
-%doc /usr/share/man/man3/Xfixes.3.gz
+/usr/share/man/man3/Xfixes.3.gz

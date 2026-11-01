@@ -1,6 +1,6 @@
 Name:       libnotify
 Version:    0.8.8
-Release:    1
+Release:    2
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -8,6 +8,13 @@ Source0:    libnotify-0.8.8.tar.xz
 
 %description
 TODO
+
+%package devel
+Summary:    libnotify development files
+Requires:   libnotify = %{version}-%{release}
+
+%description devel
+Development files for libnotify.
 
 %prep
 %setup -a 0
@@ -26,8 +33,13 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/libnotify.filelist
+%files devel -f %{_sourcedir}/libnotify-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 0.8.8-2
+- Split devel payload into libnotify-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 0.8.8
 - Sync with BLFS r13.1 (0.7.8)
 

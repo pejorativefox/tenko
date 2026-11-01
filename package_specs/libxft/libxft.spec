@@ -1,12 +1,26 @@
 Name:       libxft
 Version:    2.3.9
-Release:    1
+Release:    2
 Summary:    Xorg font rendering library
 License:    GPL3
 Prefix:     /usr
 Source0:    libXft-%{version}.tar.xz
 %description
 Client side font rendering library, using libfreetype, libX11, and the X Render extension to display anti-aliased text.
+
+%package devel
+Summary:    libxft development files
+Requires:   libxft = %{version}-%{release}
+
+%description devel
+Development files for libxft.
+
+%package static
+Summary:    libxft static libraries
+Requires:   libxft = %{version}-%{release}
+
+%description static
+Static libraries for libxft.
 
 %prep
 %setup -q -n libXft-%{version}
@@ -21,9 +35,14 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxft.filelist
+%files devel -f %{_sourcedir}/libxft-devel.filelist
+%files static -f %{_sourcedir}/libxft-static.filelist
 
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.3.9-2
+- Split devel, static payload into libxft-devel, libxft-static (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.3.9
 - Sync with BLFS r13.1 (2.3.8)
 

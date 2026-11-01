@@ -1,6 +1,6 @@
 Name:       polkit
 Version:    127
-Release:    2
+Release:    3
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -15,6 +15,13 @@ Requires: shadow >= 4.6
 groupadd -fg 27 polkitd &&
 useradd -c "PolicyKit Daemon Owner" -d /etc/polkit-1 -u 27 \
         -g polkitd -s /bin/false polkitd
+
+%package devel
+Summary:    polkit development files
+Requires:   polkit = %{version}-%{release}
+
+%description devel
+Development files for polkit.
 
 %prep
 %setup -q
@@ -33,8 +40,13 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/polkit.filelist
+%files devel -f %{_sourcedir}/polkit-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 127-3
+- Split devel payload into polkit-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 127
 - Sync with BLFS r13.1 (0.115)
 

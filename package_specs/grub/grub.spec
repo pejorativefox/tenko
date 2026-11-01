@@ -3,7 +3,7 @@
 
 Name:       grub
 Version:    2.14
-Release:    1
+Release:    2
 Summary:    GNU GRUB is a Multiboot boot loader.
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -12,6 +12,13 @@ Prefix:     /usr
 
 %description
 GNU GRUB is a Multiboot boot loader. It was derived from GRUB, the GRand Unified Bootloader, which was originally designed and implemented by Erich Stefan Boleyn.
+
+%package lang
+Summary:    grub translations
+Requires:   grub = %{version}-%{release}
+
+%description lang
+Translations for grub.
 
 %prep
 %setup -q -a0
@@ -35,16 +42,14 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/etc/grub.d/
-/usr/bin/grub-*
-/usr/lib64/grub/x86_64-efi/
-/usr/share/bash-completion/completions/grub*
-/usr/share/grub/grub-mkconfig_lib
-/usr/share/info/
-/usr/share/locale/ 
+%files -f %{_sourcedir}/grub.filelist
+%files lang -f %{_sourcedir}/grub-lang.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.14-2
+- Split lang payload into grub-lang (size audit)
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.14
 - Sync with LFS r13.1
 

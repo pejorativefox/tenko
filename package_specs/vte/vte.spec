@@ -1,6 +1,6 @@
 Name:       vte
 Version:    0.84.1
-Release:    2
+Release:    3
 Summary:    Virtual Terminal Emulator library
 License:    LGPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
@@ -28,6 +28,13 @@ BuildRequires: lz4
 
 %description
 Virtual Terminal Emulator library.
+
+%package devel
+Summary:    vte development files
+Requires:   vte = %{version}-%{release}
+
+%description devel
+Development files for vte.
 
 %prep
 %setup -q
@@ -76,8 +83,13 @@ rmdir %{buildroot}/etc/profile.d 2>/dev/null || true
 rmdir %{buildroot}/etc 2>/dev/null || true
 
 %files -f %{_sourcedir}/vte.filelist
+%files devel -f %{_sourcedir}/vte-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 0.84.1-3
+- Split devel payload into vte-devel (size audit)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.84.1-2
 - Rebuild with GnuTLS 3.8.13 enabled (-Dgnutls=true) so VTE no longer
   warns that data will be written to disk unencrypted

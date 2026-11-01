@@ -1,6 +1,6 @@
 Name:       dnf
 Version:    4.24.0
-Release:    1
+Release:    2
 Summary:    Package manager for RPM based distributions
 License:    GPL
 Prefix:     /usr
@@ -17,6 +17,13 @@ Requires:   coreutils
 dnf is the package manager used to install the Browneye repository.  This
 is the current release of the dnf 4 branch (Python based), which supports
 the rpm 4.18.1 shipped in the base system.
+
+%package lang
+Summary:    dnf translations
+Requires:   dnf = %{version}-%{release}
+
+%description lang
+Translations for dnf.
 
 %prep
 %setup -q
@@ -45,8 +52,13 @@ ln -sfv dnf-3 %{buildroot}%{_bindir}/dnf
 ln -sfv dnf-automatic-3 %{buildroot}%{_bindir}/dnf-automatic
 
 %files -f %{_sourcedir}/dnf.filelist
+%files lang -f %{_sourcedir}/dnf-lang.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.24.0-2
+- Split lang payload into dnf-lang (size audit)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.24.0-1
 - Update to 4.24.0 (was 4.16.2) for the E1 self-hosted repo/rootfs
   assembly work.  dnf is not in LFS/BLFS.  dnf 5 requires rpm >= 4.19, so

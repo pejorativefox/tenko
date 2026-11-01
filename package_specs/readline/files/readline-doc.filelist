@@ -1,0 +1,13 @@
+%dir /usr/share/doc/readline-8.3
+/usr/share/doc/readline-8.3/CHANGES
+/usr/share/doc/readline-8.3/INSTALL
+/usr/share/doc/readline-8.3/README
+/usr/share/doc/readline-8.3/history.html
+/usr/share/doc/readline-8.3/readline.html
+/usr/share/doc/readline-8.3/rluserman.html
+/usr/share/info/history.info.gz
+/usr/share/info/readline.info.gz
+/usr/share/info/rluserman.info.gz
+%dir /usr/share/man/man3
+/usr/share/man/man3/history.3.gz
+/usr/share/man/man3/readline.3.gz

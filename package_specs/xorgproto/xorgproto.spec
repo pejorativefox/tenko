@@ -1,6 +1,6 @@
 Name:       xorgproto
 Version:    2025.1
-Release:    1
+Release:    2
 Summary:    Xorg Protocols
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 Xorg Protocols
+
+%package doc
+Summary:    xorgproto documentation
+Requires:   xorgproto = %{version}-%{release}
+
+%description doc
+Documentation for xorgproto.
 
 %prep
 %setup -q
@@ -22,9 +29,13 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/xorgproto.filelist
+%files doc -f %{_sourcedir}/xorgproto-doc.filelist
 
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2025.1-2
+- Split doc payload into xorgproto-doc (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2025.1
 - Sync with BLFS r13.1 (2023.2)
 

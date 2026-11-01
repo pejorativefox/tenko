@@ -1,6 +1,6 @@
 Name:       ncurses
 Version:    6.6
-Release:    1
+Release:    2
 Summary:    Text based user interface library
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
@@ -14,6 +14,20 @@ Provides:   libtinfo.so.6(NCURSES_6.0)(64bit)
 
 %description
 The ncurses (new curses) library is a free software emulation of curses in System V Release 4.0 (SVr4), and more. 
+
+%package doc
+Summary:    ncurses documentation
+Requires:   ncurses = %{version}-%{release}
+
+%description doc
+Documentation for ncurses.
+
+%package devel
+Summary:    ncurses development files
+Requires:   ncurses = %{version}-%{release}
+
+%description devel
+Development files for ncurses.
 
 %prep
 %setup
@@ -64,8 +78,14 @@ Cflags: -I${includedir}
 EOF
 
 %files -f %{_sourcedir}/ncurses.filelist
+%files doc -f %{_sourcedir}/ncurses-doc.filelist
+%files devel -f %{_sourcedir}/ncurses-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 6.6-2
+- Split doc, devel payload into ncurses-doc, ncurses-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 6.6
 - Replace directory globs with a generated static filelist
 

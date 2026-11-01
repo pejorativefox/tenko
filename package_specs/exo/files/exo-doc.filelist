@@ -1,0 +1,36 @@
+%dir /usr/share/gtk-doc/html
+%dir /usr/share/gtk-doc/html/exo-2
+/usr/share/gtk-doc/html/exo-2/ExoCellRendererIcon.html
+/usr/share/gtk-doc/html/exo-2/ExoIconChooserDialog.html
+/usr/share/gtk-doc/html/exo-2/ExoIconView.html
+/usr/share/gtk-doc/html/exo-2/ExoJob.html
+/usr/share/gtk-doc/html/exo-2/ExoSimpleJob.html
+/usr/share/gtk-doc/html/exo-2/ExoTreeView.html
+/usr/share/gtk-doc/html/exo-2/ch01.html
+/usr/share/gtk-doc/html/exo-2/exo-2.devhelp2
+/usr/share/gtk-doc/html/exo-2/exo-Binding-Properties-Functions.html
+/usr/share/gtk-doc/html/exo-2/exo-Executing-Applications.html
+/usr/share/gtk-doc/html/exo-2/exo-Extensions-to-GObject.html
+/usr/share/gtk-doc/html/exo-2/exo-Extensions-to-Gtk.html
+/usr/share/gtk-doc/html/exo-2/exo-Extensions-to-gdk-pixbuf.html
+/usr/share/gtk-doc/html/exo-2/exo-Miscellaneous-Utility-Functions.html
+/usr/share/gtk-doc/html/exo-2/exo-String-Utility-Functions.html
+/usr/share/gtk-doc/html/exo-2/exo-Version-Information.html
+/usr/share/gtk-doc/html/exo-2/exo-cell-renderers.html
+/usr/share/gtk-doc/html/exo-2/exo-extensions.html
+/usr/share/gtk-doc/html/exo-2/exo-jobs.html
+/usr/share/gtk-doc/html/exo-2/exo-miscelleanous.html
+/usr/share/gtk-doc/html/exo-2/exo-overview.html
+/usr/share/gtk-doc/html/exo-2/exo-widgets.html
+/usr/share/gtk-doc/html/exo-2/home.png
+/usr/share/gtk-doc/html/exo-2/index.html
+/usr/share/gtk-doc/html/exo-2/ix15.html
+/usr/share/gtk-doc/html/exo-2/left-insensitive.png
+/usr/share/gtk-doc/html/exo-2/left.png
+/usr/share/gtk-doc/html/exo-2/right-insensitive.png
+/usr/share/gtk-doc/html/exo-2/right.png
+/usr/share/gtk-doc/html/exo-2/style.css
+/usr/share/gtk-doc/html/exo-2/up-insensitive.png
+/usr/share/gtk-doc/html/exo-2/up.png
+%dir /usr/share/man/man1
+/usr/share/man/man1/exo-open.1.gz

@@ -1,6 +1,6 @@
 Name:       kbd
 Version:    2.10.0
-Release:    1
+Release:    2
 Summary:    Utilities for managing Linux console
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -9,6 +9,13 @@ Prefix:     /usr
 
 %description
 The kbd project contains utilities for managing Linux console (Linux console, virtual terminals, keyboard, etc.) – mainly, what they do is loading console fonts and keyboard maps.
+
+%package lang
+Summary:    kbd translations
+Requires:   kbd = %{version}-%{release}
+
+%description lang
+Translations for kbd.
 
 %prep
 %setup -q 
@@ -27,8 +34,13 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/kbd.filelist
+%files lang -f %{_sourcedir}/kbd-lang.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.10.0-2
+- Split lang payload into kbd-lang (size audit)
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.10.0
 - Sync with LFS r13.1
 

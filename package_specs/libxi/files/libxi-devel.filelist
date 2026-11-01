@@ -1,0 +1,7 @@
+%dir /usr/include/X11
+%dir /usr/include/X11/extensions
+/usr/include/X11/extensions/XInput.h
+/usr/include/X11/extensions/XInput2.h
+/usr/lib64/libXi.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/xi.pc

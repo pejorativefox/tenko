@@ -1,6 +1,6 @@
 Name:       bash
 Version:    5.3
-Release:    1
+Release:    2
 Summary:    Bourne Again SHell
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
@@ -11,6 +11,27 @@ Provides: /bin/sh
 
 %description
 GNU sh-compatible shell 
+
+%package lang
+Summary:    bash translations
+Requires:   bash = %{version}-%{release}
+
+%description lang
+Translations for bash.
+
+%package doc
+Summary:    bash documentation
+Requires:   bash = %{version}-%{release}
+
+%description doc
+Documentation for bash.
+
+%package devel
+Summary:    bash development files
+Requires:   bash = %{version}-%{release}
+
+%description devel
+Development files for bash.
 
 %prep
 %setup -q
@@ -31,117 +52,16 @@ ln -s bash sh
 popd
 
 
-%files
-/usr/bin/sh
-/usr/bin/bash
-/usr/bin/bashbug
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/include/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/pkgconfig/bash.pc
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/lib64/bash/
-/usr/share/doc/bash-%{version}/
-/usr/share/info/bash.info.gz
-/usr/share/locale/
-/usr/share/man/man1/bash.1.gz
-/usr/share/man/man1/bashbug.1.gz
+%files -f %{_sourcedir}/bash.filelist
+%files lang -f %{_sourcedir}/bash-lang.filelist
+%files doc -f %{_sourcedir}/bash-doc.filelist
+%files devel -f %{_sourcedir}/bash-devel.filelist
 
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 5.3-2
+- Split lang, doc, devel payload into bash-lang, bash-doc, bash-devel (size audit)
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 5.3
 - Sync with LFS r13.1
 

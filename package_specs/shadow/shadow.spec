@@ -1,6 +1,6 @@
 Name:       shadow
 Version:    4.20.2
-Release:    1
+Release:    2
 Summary:    Shadow password format tools
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 The shadow-utils package includes the necessary programs for converting UNIX password files to the shadow password format.
+
+%package lang
+Summary:    shadow translations
+Requires:   shadow = %{version}-%{release}
+
+%description lang
+Translations for shadow.
 
 %prep
 %setup -q -a0
@@ -37,8 +44,13 @@ pwconv
 grpconv
 
 %files -f %{_sourcedir}/shadow.filelist
+%files lang -f %{_sourcedir}/shadow-lang.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.2-2
+- Split lang payload into shadow-lang (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.2
 - Replace directory globs with a generated static filelist
 

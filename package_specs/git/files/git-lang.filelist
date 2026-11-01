@@ -1,0 +1,60 @@
+%dir /usr/share/locale/bg
+%dir /usr/share/locale/bg/LC_MESSAGES
+/usr/share/locale/bg/LC_MESSAGES/git.mo
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+/usr/share/locale/ca/LC_MESSAGES/git.mo
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+/usr/share/locale/de/LC_MESSAGES/git.mo
+%dir /usr/share/locale/el
+%dir /usr/share/locale/el/LC_MESSAGES
+/usr/share/locale/el/LC_MESSAGES/git.mo
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+/usr/share/locale/es/LC_MESSAGES/git.mo
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+/usr/share/locale/fr/LC_MESSAGES/git.mo
+%dir /usr/share/locale/ga
+%dir /usr/share/locale/ga/LC_MESSAGES
+/usr/share/locale/ga/LC_MESSAGES/git.mo
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+/usr/share/locale/id/LC_MESSAGES/git.mo
+%dir /usr/share/locale/is
+%dir /usr/share/locale/is/LC_MESSAGES
+/usr/share/locale/is/LC_MESSAGES/git.mo
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+/usr/share/locale/it/LC_MESSAGES/git.mo
+%dir /usr/share/locale/ko
+%dir /usr/share/locale/ko/LC_MESSAGES
+/usr/share/locale/ko/LC_MESSAGES/git.mo
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+/usr/share/locale/pl/LC_MESSAGES/git.mo
+%dir /usr/share/locale/pt_PT
+%dir /usr/share/locale/pt_PT/LC_MESSAGES
+/usr/share/locale/pt_PT/LC_MESSAGES/git.mo
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+/usr/share/locale/ru/LC_MESSAGES/git.mo
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+/usr/share/locale/sv/LC_MESSAGES/git.mo
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+/usr/share/locale/tr/LC_MESSAGES/git.mo
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+/usr/share/locale/uk/LC_MESSAGES/git.mo
+%dir /usr/share/locale/vi
+%dir /usr/share/locale/vi/LC_MESSAGES
+/usr/share/locale/vi/LC_MESSAGES/git.mo
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+/usr/share/locale/zh_CN/LC_MESSAGES/git.mo
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+/usr/share/locale/zh_TW/LC_MESSAGES/git.mo

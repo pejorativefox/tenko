@@ -1,0 +1,17 @@
+%dir /usr/include/vte-2.91
+%dir /usr/include/vte-2.91/vte
+/usr/include/vte-2.91/vte/vte.h
+/usr/include/vte-2.91/vte/vtedeprecated.h
+/usr/include/vte-2.91/vte/vteenums.h
+/usr/include/vte-2.91/vte/vteglobals.h
+/usr/include/vte-2.91/vte/vtemacros.h
+/usr/include/vte-2.91/vte/vtepty.h
+/usr/include/vte-2.91/vte/vteregex.h
+/usr/include/vte-2.91/vte/vteterminal.h
+/usr/include/vte-2.91/vte/vtetypebuiltins-gtk3.h
+/usr/include/vte-2.91/vte/vtetypebuiltins.h
+/usr/include/vte-2.91/vte/vteuuid.h
+/usr/include/vte-2.91/vte/vteversion.h
+/usr/lib64/libvte-2.91.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/vte-2.91.pc

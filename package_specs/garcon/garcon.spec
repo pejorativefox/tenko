@@ -1,6 +1,6 @@
 Name:       garcon
 Version:    4.20.0
-Release:    1
+Release:    2
 Summary:    Implementation of the freedesktop.org menu specification
 License:    LGPL
 Source0:    %{name}-%{version}.tar.bz2
@@ -10,6 +10,20 @@ BuildRequires: libxfce4ui
 
 %description
 Implementation of the freedesktop.org menu specification
+
+%package doc
+Summary:    garcon documentation
+Requires:   garcon = %{version}-%{release}
+
+%description doc
+Documentation for garcon.
+
+%package devel
+Summary:    garcon development files
+Requires:   garcon = %{version}-%{release}
+
+%description devel
+Development files for garcon.
 
 %prep
 %setup
@@ -24,8 +38,14 @@ mkdir -p %{buildroot}/etc
 %make_install
 
 %files -f %{_sourcedir}/garcon.filelist
+%files doc -f %{_sourcedir}/garcon-doc.filelist
+%files devel -f %{_sourcedir}/garcon-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.0-2
+- Split doc, devel payload into garcon-doc, garcon-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0
 - Sync with BLFS r13.1 (4.19.0)
 

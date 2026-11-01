@@ -1,14 +1,28 @@
 Name:       gtk+
 Version:    3.24.52
-Release:    2
+Release:    3
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
 Source0:    gtk-%{version}.tar.xz
-Provides: pkgconfig(gdk-3.0), pkgconfig(gtk+-3.0)
 
 %description
 TODO
+
+%package lang
+Summary:    gtk+ translations
+Requires:   gtk+ = %{version}-%{release}
+
+%description lang
+Translations for gtk+.
+
+%package devel
+Summary:    gtk+ development files
+Requires:   gtk+ = %{version}-%{release}
+Provides: pkgconfig(gdk-3.0), pkgconfig(gtk+-3.0)
+
+%description devel
+Development files for gtk+.
 
 %prep
 %setup -q -n gtk-%{version}
@@ -35,9 +49,14 @@ glib-compile-schemas %{buildroot}/usr/share/glib-2.0/schemas || true
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/gtk3.filelist
+%files lang -f %{_sourcedir}/gtk3-lang.filelist
+%files devel -f %{_sourcedir}/gtk3-devel.filelist
 
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 3.24.52-3
+- Split lang, devel payload into gtk+-lang, gtk+-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 3.24.52
 - Sync with BLFS r13.1 (3.24.38)
 

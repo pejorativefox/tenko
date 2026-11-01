@@ -1,0 +1,45 @@
+%dir /usr/share/gtk-doc/html
+%dir /usr/share/gtk-doc/html/libxfce4windowing
+/usr/share/gtk-doc/html/libxfce4windowing/XfwApplication.html
+/usr/share/gtk-doc/html/libxfce4windowing/XfwMonitor.html
+/usr/share/gtk-doc/html/libxfce4windowing/XfwScreen.html
+/usr/share/gtk-doc/html/libxfce4windowing/XfwSeat.html
+/usr/share/gtk-doc/html/libxfce4windowing/XfwWindow.html
+/usr/share/gtk-doc/html/libxfce4windowing/XfwWorkspace.html
+/usr/share/gtk-doc/html/libxfce4windowing/XfwWorkspaceGroup.html
+/usr/share/gtk-doc/html/libxfce4windowing/XfwWorkspaceManager.html
+/usr/share/gtk-doc/html/libxfce4windowing/annotation-glossary.html
+/usr/share/gtk-doc/html/libxfce4windowing/api-index-full.html
+/usr/share/gtk-doc/html/libxfce4windowing/ch01.html
+/usr/share/gtk-doc/html/libxfce4windowing/home.png
+/usr/share/gtk-doc/html/libxfce4windowing/index.html
+/usr/share/gtk-doc/html/libxfce4windowing/left-insensitive.png
+/usr/share/gtk-doc/html/libxfce4windowing/left.png
+/usr/share/gtk-doc/html/libxfce4windowing/libxfce4windowing-Library-Configuration.html
+/usr/share/gtk-doc/html/libxfce4windowing/libxfce4windowing-Utilities.html
+/usr/share/gtk-doc/html/libxfce4windowing/libxfce4windowing-X11-Backend.html
+/usr/share/gtk-doc/html/libxfce4windowing/libxfce4windowing.devhelp2
+/usr/share/gtk-doc/html/libxfce4windowing/object-tree.html
+/usr/share/gtk-doc/html/libxfce4windowing/right-insensitive.png
+/usr/share/gtk-doc/html/libxfce4windowing/right.png
+/usr/share/gtk-doc/html/libxfce4windowing/style.css
+/usr/share/gtk-doc/html/libxfce4windowing/up-insensitive.png
+/usr/share/gtk-doc/html/libxfce4windowing/up.png
+%dir /usr/share/gtk-doc/html/libxfce4windowingui
+/usr/share/gtk-doc/html/libxfce4windowingui/XfwWindowActionMenu.html
+/usr/share/gtk-doc/html/libxfce4windowingui/XfwWindowListMenu.html
+/usr/share/gtk-doc/html/libxfce4windowingui/annotation-glossary.html
+/usr/share/gtk-doc/html/libxfce4windowingui/api-index-full.html
+/usr/share/gtk-doc/html/libxfce4windowingui/ch01.html
+/usr/share/gtk-doc/html/libxfce4windowingui/home.png
+/usr/share/gtk-doc/html/libxfce4windowingui/index.html
+/usr/share/gtk-doc/html/libxfce4windowingui/left-insensitive.png
+/usr/share/gtk-doc/html/libxfce4windowingui/left.png
+/usr/share/gtk-doc/html/libxfce4windowingui/libxfce4windowingui-Library-Configuration.html
+/usr/share/gtk-doc/html/libxfce4windowingui/libxfce4windowingui.devhelp2
+/usr/share/gtk-doc/html/libxfce4windowingui/object-tree.html
+/usr/share/gtk-doc/html/libxfce4windowingui/right-insensitive.png
+/usr/share/gtk-doc/html/libxfce4windowingui/right.png
+/usr/share/gtk-doc/html/libxfce4windowingui/style.css
+/usr/share/gtk-doc/html/libxfce4windowingui/up-insensitive.png
+/usr/share/gtk-doc/html/libxfce4windowingui/up.png

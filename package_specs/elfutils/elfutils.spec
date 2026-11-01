@@ -1,6 +1,6 @@
 Name:       elfutils
 Version:    0.196
-Release:    1
+Release:    2
 Summary:    ELF file handling library
 License:    GPL3
 Source0:    %{name}-%{version}.tar.bz2
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 Libelf is a library for handling ELF (Executable and Linkable Format) files. 
+
+%package devel
+Summary:    elfutils development files
+Requires:   elfutils = %{version}-%{release}
+
+%description devel
+Development files for elfutils.
 
 %prep
 %setup -q
@@ -25,17 +32,14 @@ mkdir %{buildroot}/usr/lib64/pkgconfig/
 install -vm644 config/libelf.pc %{buildroot}/usr/lib64/pkgconfig/
 rm %{buildroot}/usr/lib64/libelf.a
 
-%files
-/usr/include/elfutils/elf-knowledge.h
-/usr/include/gelf.h
-/usr/include/libelf.h
-/usr/include/nlist.h
-/usr/lib64/libelf-%{version}.so
-/usr/lib64/libelf.so
-/usr/lib64/libelf.so.1
-/usr/lib64/pkgconfig/libelf.pc
+%files -f %{_sourcedir}/elfutils.filelist
+%files devel -f %{_sourcedir}/elfutils-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 0.196-2
+- Split devel payload into elfutils-devel (size audit)
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 0.195
 - Sync with LFS r13.1
 

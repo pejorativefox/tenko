@@ -1,6 +1,6 @@
 Name:       libxfce4windowing
 Version:    4.20.7
-Release:    1
+Release:    2
 Summary:    Abstraction library for windowing concepts
 License:    LGPL
 Source0:    %{name}-%{version}.tar.bz2
@@ -10,6 +10,20 @@ BuildRequires: libwnck
 
 %description
 Libxfce4windowing is an abstraction library that attempts to present windowing concepts (screens, toplevel windows, workspaces, etc.) in a windowing-system-independent manner.
+
+%package doc
+Summary:    libxfce4windowing documentation
+Requires:   libxfce4windowing = %{version}-%{release}
+
+%description doc
+Documentation for libxfce4windowing.
+
+%package devel
+Summary:    libxfce4windowing development files
+Requires:   libxfce4windowing = %{version}-%{release}
+
+%description devel
+Development files for libxfce4windowing.
 
 %prep
 %setup
@@ -24,8 +38,14 @@ mkdir -p %{buildroot}/etc
 %make_install
 
 %files -f %{_sourcedir}/libxfce4windowing.filelist
+%files doc -f %{_sourcedir}/libxfce4windowing-doc.filelist
+%files devel -f %{_sourcedir}/libxfce4windowing-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.7-2
+- Split doc, devel payload into libxfce4windowing-doc, libxfce4windowing-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.7
 - Sync with BLFS r13.1 (4.19.2)
 

@@ -1,6 +1,6 @@
 Name:       dejagnu
 Version:    1.6.3
-Release:    1
+Release:    2
 Summary:    GNU Test framework
 License:    GPL
 Source0:    %{name}-%{version}.tar.gz
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 DejaGnu is a framework for testing other programs.
+
+%package doc
+Summary:    dejagnu documentation
+Requires:   dejagnu = %{version}-%{release}
+
+%description doc
+Documentation for dejagnu.
 
 %prep
 %setup
@@ -30,8 +37,13 @@ rm %{buildroot}/usr/share/info/dir
 popd
 
 %files -f %{_sourcedir}/dejagnu.filelist
+%files doc -f %{_sourcedir}/dejagnu-doc.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.6.3-2
+- Split doc payload into dejagnu-doc (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.6.3
 - Replace directory globs with a generated static filelist
 

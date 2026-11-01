@@ -23,98 +23,11 @@
 %dir /usr/share
 %dir /usr/share/doc
 %dir /usr/share/doc/libexif-0.6.26
-%doc /usr/share/doc/libexif-0.6.26/ABOUT-NLS
-%doc /usr/share/doc/libexif-0.6.26/AUTHORS
-%doc /usr/share/doc/libexif-0.6.26/COPYING
-%doc /usr/share/doc/libexif-0.6.26/ChangeLog
-%doc /usr/share/doc/libexif-0.6.26/NEWS
-%doc /usr/share/doc/libexif-0.6.26/README
-%doc /usr/share/doc/libexif-0.6.26/SECURITY.md
+/usr/share/doc/libexif-0.6.26/ABOUT-NLS
+/usr/share/doc/libexif-0.6.26/AUTHORS
+/usr/share/doc/libexif-0.6.26/COPYING
+/usr/share/doc/libexif-0.6.26/ChangeLog
+/usr/share/doc/libexif-0.6.26/NEWS
+/usr/share/doc/libexif-0.6.26/README
+/usr/share/doc/libexif-0.6.26/SECURITY.md
 %dir /usr/share/locale
-%dir /usr/share/locale/ar
-%dir /usr/share/locale/ar/LC_MESSAGES
-/usr/share/locale/ar/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/be
-%dir /usr/share/locale/be/LC_MESSAGES
-/usr/share/locale/be/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/bs
-%dir /usr/share/locale/bs/LC_MESSAGES
-/usr/share/locale/bs/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/cs
-%dir /usr/share/locale/cs/LC_MESSAGES
-/usr/share/locale/cs/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/da
-%dir /usr/share/locale/da/LC_MESSAGES
-/usr/share/locale/da/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/de
-%dir /usr/share/locale/de/LC_MESSAGES
-/usr/share/locale/de/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/en_AU
-%dir /usr/share/locale/en_AU/LC_MESSAGES
-/usr/share/locale/en_AU/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/en_CA
-%dir /usr/share/locale/en_CA/LC_MESSAGES
-/usr/share/locale/en_CA/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/en_GB
-%dir /usr/share/locale/en_GB/LC_MESSAGES
-/usr/share/locale/en_GB/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/es
-%dir /usr/share/locale/es/LC_MESSAGES
-/usr/share/locale/es/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/fr
-%dir /usr/share/locale/fr/LC_MESSAGES
-/usr/share/locale/fr/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/it
-%dir /usr/share/locale/it/LC_MESSAGES
-/usr/share/locale/it/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/ja
-%dir /usr/share/locale/ja/LC_MESSAGES
-/usr/share/locale/ja/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/ka
-%dir /usr/share/locale/ka/LC_MESSAGES
-/usr/share/locale/ka/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/ms
-%dir /usr/share/locale/ms/LC_MESSAGES
-/usr/share/locale/ms/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/nl
-%dir /usr/share/locale/nl/LC_MESSAGES
-/usr/share/locale/nl/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/pl
-%dir /usr/share/locale/pl/LC_MESSAGES
-/usr/share/locale/pl/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/pt
-%dir /usr/share/locale/pt/LC_MESSAGES
-/usr/share/locale/pt/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/pt_BR
-%dir /usr/share/locale/pt_BR/LC_MESSAGES
-/usr/share/locale/pt_BR/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/ro
-%dir /usr/share/locale/ro/LC_MESSAGES
-/usr/share/locale/ro/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/ru
-%dir /usr/share/locale/ru/LC_MESSAGES
-/usr/share/locale/ru/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/sk
-%dir /usr/share/locale/sk/LC_MESSAGES
-/usr/share/locale/sk/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/sq
-%dir /usr/share/locale/sq/LC_MESSAGES
-/usr/share/locale/sq/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/sr
-%dir /usr/share/locale/sr/LC_MESSAGES
-/usr/share/locale/sr/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/sv
-%dir /usr/share/locale/sv/LC_MESSAGES
-/usr/share/locale/sv/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/tr
-%dir /usr/share/locale/tr/LC_MESSAGES
-/usr/share/locale/tr/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/uk
-%dir /usr/share/locale/uk/LC_MESSAGES
-/usr/share/locale/uk/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/vi
-%dir /usr/share/locale/vi/LC_MESSAGES
-/usr/share/locale/vi/LC_MESSAGES/libexif-12.mo
-%dir /usr/share/locale/zh_CN
-%dir /usr/share/locale/zh_CN/LC_MESSAGES
-/usr/share/locale/zh_CN/LC_MESSAGES/libexif-12.mo
