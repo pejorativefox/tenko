@@ -132,11 +132,14 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `browneye-base` (`iproute2` rebuilt against it).  Re-installed base:
   **98 packages / 1260.7 MiB** (was 131 packages / 1459 MiB with the
   regressions), zero GTK/XFCE/libcanberra packages.
-- **Package splits (2026-11-01, running).**  Three packaging-only waves:
-  `llvm-libs`/`clang-libs`/`tools`/`devel` (up to 875 MB desktop),
-  `linux-firmware-base` + vendor packs (0–396 MB), and `python-tests`
-  plus removal of duplicate `.opt` bytecode (~180 MB).  Versions are
-  unchanged; details in §6 H.
+- **Package splits (2026-11-01).**  Firmware and Python are merged:
+  `linux-firmware-base` + nine vendor packs (base 1.3 MB; full still
+  396 MB, image builds with weak deps off save ~395 MB), and Python
+  3.14.7-2 (**236 MB → 52 MB**; `python-tests` 74 MB; 106 MB of duplicate
+  `.opt` bytecode removed).  The Fedora-like LLVM split and the
+  base/runtime wave (openssl, glibc, gcc, perl, binutils, gettext,
+  systemd, vim, nodejs, kernel-debug) are still running.  Details in
+  §6 H/I.  Versions are unchanged.
 - **E4 initramfs automation (2026-11-01):** `linux-modules` 7.2.6-3 runs
   `depmod` + `dracut` in `%post` (requires `dracut`) and removes
   `/boot/initramfs-<ver>.img` on erase.  `browneye-sysconfig` 13.1-2 ships
@@ -288,6 +291,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D24 | LLVM packaging | Fedora-like split: `llvm` (tools), `llvm-libs`, `llvm-devel`, `llvm-static` (513 MB of `.a`), `clang`, `clang-libs`, `clang-devel`, `clang-tools-extra`, `clang-analyzer`, `clang-resource-filesystem`, `compiler-rt`; optional `llvm-all` meta. No docs packages (none built); `lldb` deferred; `lld`/`mlir`/`polly`/`libcxx`/`libomp` only if enabled |
 | D25 | Firmware packaging | `linux-firmware-base` + vendor packs; `xfce-desktop` requires base and recommends packs |
 | D26 | Python packaging | split `python-tests`; stop shipping `.opt-1`/`.opt-2` bytecode |
+| D27 | Toolchain splits | `gcc-lto`/`gcc-devel`/`gcc-lang`/`gcc-doc`, `binutils-devel`/`-lang`/`-doc`, `perl-doc`/`-devel`, `groff-perl`/`-doc` |
+| D28 | Runtime splits | `openssl-libs`/`openssl`/`-devel`/`-perl`, `glibc-devel`/`-i18n`/`-doc`, `gettext-libs`/`-tools`/`-lang`/`-doc` |
+| D29 | Base splits | `systemd-hwdb`/`-lang`/`-doc`, `vim-minimal` + `vim-runtime-extra` (vim meta), `npm`/`nodejs-devel`/`nodejs-doc`, `linux-kernel-debug` |
 
 Consequences already implemented:
 
@@ -1040,6 +1046,14 @@ their own branches (versions unchanged):
 | `firmware-split` / `browneye-firmware` | `linux-firmware-base` + vendor packs; `xfce-desktop` requires base, recommends packs | 0–396 MB desktop/ISO |
 | `python-split` / `browneye-python` | `python-tests`; drop `.opt-1`/`.opt-2` bytecode | ~180 MB base/desktop |
 
+Merged: `firmware-split` (`2e37992`) and `python-split` (`126c076`).
+Firmware: base 1.25 MiB + vendor packs (intel-wifi 90.6, nvidia 101.8,
+amd-gpu 36.4, intel-gpu 12.4, mediatek 36.1, ath 49.6, bluetooth 1.2,
+nic 0.07, other 66.3), exact 3722-path partition; `xfce-desktop` requires
+base and recommends packs.  Python: main 236 MB → 52 MB, `python-tests`
+74 MB, `python-idle` 3.5 MB, `python-tkinter` 0.7 MB; 3,726 `.opt` pyc
+files (106 MB) removed.  `llvm-split` is still running.
+
 Fedora F44 is the model: one `llvm` source RPM (22.1.8-4) produces
 `llvm` (tools, ~90 MB), `llvm-libs` (~147 MB), `llvm-devel` (~37 MB),
 `llvm-static` (~306–368 MB), `llvm-doc`, `llvm-cmake-utils`,
@@ -1053,6 +1067,20 @@ Fedora F44 is the model: one `llvm` source RPM (22.1.8-4) produces
 compat source packages (`llvm19`, `clang19`, ...).  Our spec builds only
 clang + compiler-rt, so the split covers those; enabling lld/lldb/mlir/
 polly/libcxx/libomp is a separate build decision.
+
+### I. Base/runtime split wave (2026-11-01, in progress)
+
+| branch / worktree | splits |
+|---|---|
+| `split-toolchain` / `browneye-split-toolchain` | `gcc-lto`/`gcc-devel`/`gcc-lang`/`gcc-doc`, `binutils-devel`/`-lang`/`-doc`, `perl-doc`/`-devel`, `groff-perl`/`-doc` |
+| `split-runtime` / `browneye-split-runtime` | `openssl-libs`/`openssl`/`-devel`/`-perl`, `glibc-devel`/`-i18n`/`-doc`, `gettext-libs`/`-tools`/`-lang`/`-doc` |
+| `split-base` / `browneye-split-base` | `systemd-hwdb`/`-lang`/`-doc`, `vim-minimal` + `vim-runtime-extra` (`vim` meta), `npm`/`nodejs-devel`/`nodejs-doc`, `linux-kernel-debug` |
+
+Expected savings: openssl removes Perl from the runtime (~65 MB); glibc
+runtime ~29 MB; `gcc-lto` 98 MB; perl/groff ~86 MB; binutils ~23 MB;
+gettext ~27 MB; systemd ~12 MB; vim ~26 MB; npm ~12 MB; kernel debug
+~12 MB.  `system-minimal` now requires `linux-firmware-base` and
+recommends the vendor packs (`0.1-3`).
 
 Next in this area: curated `glibc-locales` + `-all`, per-package `-lang`/
 `-doc`/`-tests`/`-static`/`-devel`/`-gir` splits, `gcc-lto`/`gcc-devel`,
@@ -1266,10 +1294,11 @@ metas, and the installer ISO live/target sets.
    duplicate versions, no debuginfo.  The remote still has the 222-RPM
    revision.  Publish with `REPO=build/repo-all ./scripts/publish_repo.sh`
    (or checksum mode) and verify HTTPS.
-3. **Package splits (H, running).**  Merge `llvm-split`, `firmware-split`,
-   and `python-split`, then continue with curated `glibc-locales`,
-   per-package `-lang`/`-doc`/`-tests`/`-static`/`-devel`, and the
-   `browneye-base-runtime` / minimal-desktop profiles.
+3. **Package splits (H/I, running).**  `firmware-split` and `python-split`
+   are merged; `llvm-split` and the base/runtime wave are running.  Next:
+   curated `glibc-locales`, desktop `-lang`/`-doc`/`-tests`/`-static`/
+   `-devel` splits, and the `browneye-base-runtime` / minimal-desktop
+   profiles.
 4. **E1 — self-hosted repo/rootfs assembly (done, `a4f7df9`).**  `dnf`
    4.24.0 + `createrepo_c` 1.2.6 and the `browneye-build` meta work inside
    the image; `bootstrap_selfhosted.sh` can use `TOOL_IMAGE` instead of host
