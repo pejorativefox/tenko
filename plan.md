@@ -170,10 +170,19 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   bumped because the un-split NEVRs were already published.  A lean base
   install is 105 packages / 1001.7 MB apparent (was 1033.8 MB).
   Details in §6 H/I.
-- **Locale split (planned, D32):** `glibc-locales` becomes a small curated
-  archive (C/C.UTF-8/en_US plus common languages); the full 222.5 MB
-  `localedata/SUPPORTED` archive moves to opt-in `glibc-locales-extra`.
-  This is the next ~210 MB saving for the build container and base install.
+- **Locale split (done 2026-11-02, D32, merge `d942dce`):** `glibc-locales`
+  2.44-3 is now an **11.1 MB curated archive** (C/C.UTF-8/en_US plus 12
+  common languages); the other 489 `localedata/SUPPORTED` locales are opt-in
+  `glibc-locales-extra` (227 MB, per-locale directories, purely additive).
+  A base install drops from 1002 MB to **707 MB apparent** (105 packages).
+- **Desktop/runtime split wave (2026-11-02, merge `68b18d6`):** 111 source
+  packages became **183 subpackages** (`-lang`/`-doc`/`-tests`/`-static`/
+  `-devel`), ~309 MB of payload is now opt-in; `mesa` 26.2.3-4 gained a
+  `mesa-devel` split so its pkgconfig requires stop pulling the X -devel
+  packages.  New metas: `browneye-base-runtime` (70 pkgs / 305 MB),
+  `browneye-base-build`, `xfce-desktop-core` (174 pkgs / 700 MB),
+  `-hardware`, `-full`.  `browneye-base + xfce-desktop` installs 212
+  packages / **1012 MB** apparent (was 1487 MB before the wave).
 - **E4 initramfs automation (2026-11-01):** `linux-modules` 7.2.6-3 runs
   `depmod` + `dracut` in `%post` (requires `dracut`) and removes
   `/boot/initramfs-<ver>.img` on erase.  `browneye-sysconfig` 13.1-2 ships
@@ -1165,10 +1174,51 @@ kept at `build/rootfs-selfhost-before-splits`.
 `system-minimal` now requires `linux-firmware-base` and recommends the
 vendor packs (`0.1-3`).
 
-Next in this area: curated `glibc-locales` + `-all`, per-package `-lang`/
-`-doc`/`-tests`/`-static`/`-devel`/`-gir` splits, `gcc-lto`/`gcc-devel`,
-a `browneye-base-runtime` profile, `xfce-desktop` core/full/hardware
-metas, and the installer ISO live/target sets.
+### J. Desktop/runtime split wave (2026-11-02, merged `68b18d6`)
+
+Branch `split-backlog` (worktree `~/browneye-split-backlog`) split **111
+source packages into 183 subpackages** (`-lang`, `-doc`, `-tests`,
+`-static`, `-devel` where they apply).  Every spec got a release bump,
+a `%changelog` entry and a static filelist per subpackage; every partition
+was verified (union equals the old payload, no duplicate file and no
+duplicate directory).  ~309 MB of payload is now opt-in.
+
+Largest wins: gtk+ 61.6→20.0 MB (gtk+-lang 27.5, gtk+-devel 14.1), glib
+32.6→7.4, gdk-pixbuf 22.7→0.3 (gdk-pixbuf-tests 19.6), iso-codes 23.4→3.0,
+git 148.1→135.0, util-linux 24.9→12.3, imagemagick 24.6→12.2, coreutils
+19.2→8.6, libx11 12.7→2.7, thunar 10.6→1.9, bash 10.2→1.9.
+
+New profile metas (closures with weak deps off):
+
+| meta | closure |
+|---|---|
+| `browneye-base-runtime` 13.1-1 | 70 pkgs / 305 MB |
+| `browneye-base-build` 13.1-1 | 111 pkgs / 1054 MB (before the locale split) |
+| `xfce-desktop-core` 4.20-2 | 174 pkgs / 700 MB |
+| `xfce-desktop-hardware` 4.20-1 | 48 pkgs / 696 MB |
+| `xfce-desktop-full` 4.20-1 | 197 pkgs / 1356 MB |
+
+`browneye-base` and `xfce-desktop` stayed structurally the same (`xfce-desktop`
+went to 4.20-5 only to require `shared-mime-info` explicitly, which used to
+arrive through gdk-pixbuf's `.pc`).
+
+The agent reported **mesa shipping its `.pc` files in the runtime RPM**, which
+pulled `libdrm/x11/xcb/xext/xfixes/xxf86vm-devel` into every X install.  Main
+session fixed it with a `mesa-devel` split (`26.2.3-4`): headers, pkgconfig
+files and unversioned `.so` symlinks moved out; the runtime package keeps the
+versioned libraries, DRI/GBM drivers and drirc data.
+
+Measured on the merged repo (after the locale split):
+
+| install | packages | apparent size |
+|---|---:|---:|
+| `browneye-base` | 105 | 707 MB |
+| `browneye-base xfce-desktop` | 212 | 1012 MB |
+| `browneye-base-runtime` | 70 | 305 MB |
+| `xfce-desktop-core` | 174 | 700 MB |
+
+`mesa-devel`/`libdrm-devel`/`libx11-devel` are no longer in the desktop
+closure, `systemd-hwdb` and `vim-minimal` are.
 
 ### K. Spec audit (2026-11-01, `spec-audit` branch, commit `b72f7b4`)
 
@@ -1198,29 +1248,32 @@ Shipped defects are source metadata/repo drift, not version skew:
 because its aliases are applied only to RPMs.  The parser gaps and full
 tables are in `spec-audit.md` §8.
 
-### L. glibc locale split (planned)
+### L. glibc locale split (DONE 2026-11-02, merged `d942dce`)
 
-Today `glibc-locales` is a single 222.5 MB `/usr/lib/locale/locale-archive`
-covering all 886 `localedata/SUPPORTED` locales.  Split it into:
+`glibc-locales` was a single 222.5 MB `/usr/lib/locale/locale-archive`
+with all 886 `localedata/SUPPORTED` locales.  glibc 2.44-3 splits it in
+one `%install` pass:
 
-- **`glibc-locales` (default, small):** a curated archive with `C`,
-  `C.UTF-8`/`POSIX`, `en_US.UTF-8`, and a short set of common languages
-  (`en_GB`, `de_DE`, `fr_FR`, `es_ES`, `it_IT`, `pt_BR`, `ru_RU`, `ja_JP`,
-  `ko_KR`, `zh_CN`, `zh_TW`); target roughly 10–30 MB, measured at
-  implementation.  `browneye-base` keeps requiring this package, so the
-  build container and installed OS both shrink by ~200 MB without losing
-  C/UTF-8 or English.
-- **`glibc-locales-extra` (opt-in):** the full `localedata/SUPPORTED`
-  archive (222.5 MB) for users who need every locale.
+- **`glibc-locales` (default):** an 11.1 MiB curated archive with `C`,
+  `POSIX`/`C.UTF-8`, `en_US.UTF-8` and `en_GB`, `de_DE`, `fr_FR`, `es_ES`,
+  `it_IT`, `pt_BR`, `ru_RU`, `ja_JP`, `ko_KR`, `zh_CN`, `zh_TW` (13 archive
+  entries; `locale -a` shows 15 names).  `browneye-base` still requires it.
+- **`glibc-locales-extra` (opt-in):** the other 489 `SUPPORTED` locales as
+  per-locale directories (227.4 MB, 6,846 payload entries), compiled in the
+  same pass with the just-built `localedef`.  Directories were chosen over
+  a second 222 MB archive so the two packages never own the same path:
+  glibc reads the archive first and falls back to `/usr/lib/locale/<name>`,
+  so `-extra` is purely additive and erasing it leaves a working system
+  (no Obsoletes/Conflicts, no scriptlets).
 
-Build both archives from the same glibc source in one `%install` pass
-(curated archive plus full archive), not two glibc builds.  Decide the
-coexistence mechanism during implementation: `-extra` may `Conflicts`/
-`Obsoletes` the small package and replace the archive, or ship per-locale
-directories alongside it.  Verify `locale -a`, `LC_ALL=... date`,
-`localedef`, and that `glibc-locales-extra` upgrades cleanly.  Expected
-saving: about **210 MB** in the build container and base install; the old
-full package remains available as `-extra`.
+Verified: fresh base install `locale -a` = 15, `de_DE.UTF-8` works,
+`ar_SA.UTF-8` falls back to C until `-extra` is installed (then 504 names,
+`ar_SA`/`ja_JP`/`fi_FI` render correctly); `rpm -V` clean; upgrade from the
+published 2.44-2 replaces the archive (233.3 MB → 11.7 MB) and drops the
+rootfs by ~211 MB; runtime `localedef` still works with `glibc-i18n`.
+All 502 `SUPPORTED` entries are covered by the archive (13) or a directory
+(489).  Static `-extra` filelist is diffed against the install tree during
+`%install`, so a missing locale fails the build.
 
 ---
 
@@ -1380,6 +1433,15 @@ full package remains available as `-extra`.
   desktop image rebuild.  Reassembly from the seeded staging dir reproduces
   the 312-RPM tree exactly (prune drops the superseded `browneye-base-5`
   and `xfce-desktop-3`).
+- **sqlite has no SONAME:** the library is built as
+  `/usr/lib64/libsqlite3.so.3.53.4` without a SONAME, so every consumer
+  (rpm, Python's `_sqlite3`, ...) records `NEEDED libsqlite3.so`.  That makes
+  the unversioned name a runtime ABI, not a linker-only symlink: `sqlite`
+  3.53.4-3 keeps `libsqlite3.so` in the runtime package and `sqlite-devel`
+  ships only headers + `sqlite3.pc` (3.53.4-2's split left rpm unable to
+  start with `libsqlite3.so: cannot open shared object file`).  The clean fix
+  is to build sqlite with `-Wl,-soname,libsqlite3.so.0` and rebuild its
+  consumers.
 - **Library directory split:** `llvm` installs into `/usr/lib` while the rest
   of the distro uses `/usr/lib64`.  `xorg-server` needs
   `-Wl,-rpath-link,/usr/lib` to link against `libgallium`, and the image
