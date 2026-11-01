@@ -57,10 +57,20 @@ rm -f %{buildroot}/usr/lib/modules/%{version}/build \
 Summary:    Linux kernel image
 Requires:   linux-modules = %{version}-%{release}
 %description kernel
-Linux kernel image, System.map, and configuration.
+Linux kernel image (vmlinuz).
 
 %files kernel
 /boot/vmlinuz-%{version}
+
+%package kernel-debug
+Summary:    Linux kernel symbol map and configuration
+Requires:   linux-kernel = %{version}-%{release}
+%description kernel-debug
+The System.map and .config that belong to the installed kernel image.  They
+are split out because they are only needed for debugging and driver builds,
+not for booting.
+
+%files kernel-debug
 /boot/System.map-%{version}
 /boot/config-%{version}
 
@@ -96,6 +106,8 @@ fi
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 7.2.6-3
+- Split /boot/System.map-%{version} and /boot/config-%{version} into
+  linux-kernel-debug; linux-kernel keeps the vmlinuz image
 - Generate /boot/initramfs-%{version}.img automatically in the modules
   post-install scriptlet (dracut, generic hostonly=no image), and remove it
   on erase

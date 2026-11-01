@@ -7,9 +7,35 @@ Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: linux-pam
 Requires: linux-pam
+# The hardware database is only useful on real hardware.  Containers and
+# other minimal installs can omit it (dnf --setopt=install_weak_deps=False)
+# while desktop installs still get it by default.
+Recommends: systemd-hwdb = %{version}-%{release}
 
 %description
 The systemd package contains programs for controlling the startup, running, and shutdown of the system.
+
+%package hwdb
+Summary:    udev hardware database and systemd-hwdb
+Requires:   systemd = %{version}-%{release}
+
+%description hwdb
+The udev hardware database (hwdb.d) and the systemd-hwdb tool that compiles
+it.  systemd and udev work without this package; hardware-specific properties
+are then simply unavailable.
+
+%package lang
+Summary:    systemd translations
+
+%description lang
+Translations of the systemd programs and messages.
+
+%package doc
+Summary:    systemd documentation
+
+%description doc
+README, NEWS, licence texts and, when built with man pages enabled, the
+systemd manual pages.
 
 %prep
 %setup
@@ -49,9 +75,15 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/systemd.filelist
+%files hwdb -f %{_sourcedir}/systemd-hwdb.filelist
+%files lang -f %{_sourcedir}/systemd-lang.filelist
+%files doc -f %{_sourcedir}/systemd-doc.filelist
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 261.3-2
+- Split systemd-hwdb (hwdb.d, hwdb binary, update service and shell
+  completions), systemd-lang and systemd-doc out of the main package.
+  systemd Recommends systemd-hwdb so containers can omit it
 - Rebuild with Linux-PAM: -D pam=true and -D pamconfdir=/etc/pam.d
   (installs pam_systemd.so, systemd-user PAM config, and
   systemd-user-sessions.service); fix Source0 to the 261.3 tarball
