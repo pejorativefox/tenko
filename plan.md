@@ -132,6 +132,11 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `browneye-base` (`iproute2` rebuilt against it).  Re-installed base:
   **98 packages / 1260.7 MiB** (was 131 packages / 1459 MiB with the
   regressions), zero GTK/XFCE/libcanberra packages.
+- **Package splits (2026-11-01, running).**  Three packaging-only waves:
+  `llvm-libs`/`clang-libs`/`tools`/`devel` (up to 875 MB desktop),
+  `linux-firmware-base` + vendor packs (0–396 MB), and `python-tests`
+  plus removal of duplicate `.opt` bytecode (~180 MB).  Versions are
+  unchanged; details in §6 H.
 - **E4 initramfs automation (2026-11-01):** `linux-modules` 7.2.6-3 runs
   `depmod` + `dracut` in `%post` (requires `dracut`) and removes
   `/boot/initramfs-<ver>.img` on erase.  `browneye-sysconfig` 13.1-2 ships
@@ -280,6 +285,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
 | D21 | CA store | `make-ca` with a pinned Mozilla certdata snapshot; no network at build |
 | D22 | Build tools | `dnf` 4.24.0 + `libdnf`/`librepo`/`libsolv`/`createrepo_c` stack, separate `browneye-build` meta (not in LFS/BLFS — user-approved); rpm 4.18.1-2 + `python3-rpm` |
 | D23 | P0 fixes | `vim` without canberra, `gcc-libs` split, `libarchive` without libxml2, `libtirpc` in base |
+| D24 | LLVM packaging | split `llvm-libs` / `llvm-clang-libs` / `llvm-tools` / `llvm-devel`; `llvm` becomes a meta |
+| D25 | Firmware packaging | `linux-firmware-base` + vendor packs; `xfce-desktop` requires base and recommends packs |
+| D26 | Python packaging | split `python-tests`; stop shipping `.opt-1`/`.opt-2` bytecode |
 
 Consequences already implemented:
 
@@ -1021,6 +1029,22 @@ re-install is **98 packages / 1260.7 MiB** with no GTK3/libcanberra;
 11.1 MB).  P0 used the current trunk versions (vim 9.2.1099 is newer than
 the r13.1 tag's 9.2.1025).
 
+### H. Package-split wave (2026-11-01, in progress)
+
+Following the size audit, three packaging-only splits are running on
+their own branches (versions unchanged):
+
+| branch / worktree | split | expected saving |
+|---|---|---|
+| `llvm-split` / `browneye-llvm` | `llvm-libs`, `llvm-clang-libs`, `llvm-tools`, `llvm-devel`; `llvm` becomes a meta | up to 875 MB desktop |
+| `firmware-split` / `browneye-firmware` | `linux-firmware-base` + vendor packs; `xfce-desktop` requires base, recommends packs | 0–396 MB desktop/ISO |
+| `python-split` / `browneye-python` | `python-tests`; drop `.opt-1`/`.opt-2` bytecode | ~180 MB base/desktop |
+
+Next in this area: curated `glibc-locales` + `-all`, per-package `-lang`/
+`-doc`/`-tests`/`-static`/`-devel`/`-gir` splits, `gcc-lto`/`gcc-devel`,
+a `browneye-base-runtime` profile, `xfce-desktop` core/full/hardware
+metas, and the installer ISO live/target sets.
+
 ---
 
 ## 7. Known technical debt
@@ -1228,17 +1252,21 @@ the r13.1 tag's 9.2.1025).
    duplicate versions, no debuginfo.  The remote still has the 222-RPM
    revision.  Publish with `REPO=build/repo-all ./scripts/publish_repo.sh`
    (or checksum mode) and verify HTTPS.
-3. **E1 — self-hosted repo/rootfs assembly (done, `a4f7df9`).**  `dnf`
+3. **Package splits (H, running).**  Merge `llvm-split`, `firmware-split`,
+   and `python-split`, then continue with curated `glibc-locales`,
+   per-package `-lang`/`-doc`/`-tests`/`-static`/`-devel`, and the
+   `browneye-base-runtime` / minimal-desktop profiles.
+4. **E1 — self-hosted repo/rootfs assembly (done, `a4f7df9`).**  `dnf`
    4.24.0 + `createrepo_c` 1.2.6 and the `browneye-build` meta work inside
    the image; `bootstrap_selfhosted.sh` can use `TOOL_IMAGE` instead of host
    tools.  D22 records the user-approved non-BLFS versions.
-4. **Merge `xf86-video-amdgpu` (optional)** and decide whether to add it to
+5. **Merge `xf86-video-amdgpu` (optional)** and decide whether to add it to
    `xfce-desktop` for AMD hardware.
-5. **E5 / LUKS/LVM/RAID / desktop polish.**  First-boot account policy
-   (E5), then `cryptsetup`+`lvm2`+`mdadm` if LUKS/LVM/RAID roots are wanted
-   (deferred by the user).  SVG icons need Rust (`librsvg`/`glycin`) and a
-   display manager (`lightdm`) needs Linux-PAM plus a PAM-enabled systemd
-   rebuild.  D2 (chapters 5–7 bootstrap RPMs) remains the largest
+6. **E5 / LUKS/LVM/RAID / desktop polish.**  First-boot account policy is
+   now covered by the PAM wave; `cryptsetup`+`lvm2`+`mdadm` remain deferred.
+   SVG icons need Rust (`librsvg`/`glycin`) and a display manager
+   (`lightdm`) needs display-manager/greeter work (Linux-PAM is now
+   available).  D2 (chapters 5–7 bootstrap RPMs) remains the largest
    self-hosting gap.
 
 ---
