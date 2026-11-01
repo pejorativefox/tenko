@@ -1,6 +1,6 @@
 Name:       linux-pam
 Version:    1.7.3
-Release:    1
+Release:    2
 Summary:    PAM (Pluggable Authentication Modules) library
 License:    BSD-3-Clause OR GPL-2.0-or-later
 URL:        https://github.com/linux-pam/linux-pam
@@ -15,6 +15,27 @@ Linux-PAM (Pluggable Authentication Modules) is a suite of shared
 libraries and modules that provide a flexible, modular authentication
 mechanism for applications.  It is used by sshd, systemd-logind, and
 other system services.
+
+%package lang
+Summary:    linux-pam translations
+Requires:   linux-pam = %{version}-%{release}
+
+%description lang
+Translations for linux-pam.
+
+%package doc
+Summary:    linux-pam documentation
+Requires:   linux-pam = %{version}-%{release}
+
+%description doc
+Documentation for linux-pam.
+
+%package devel
+Summary:    linux-pam development files
+Requires:   linux-pam = %{version}-%{release}
+
+%description devel
+Development files for linux-pam.
 
 %prep
 %setup -n Linux-PAM-%{version}
@@ -102,8 +123,15 @@ session     required        pam_deny.so
 EOF
 
 %files -f %{_sourcedir}/linux-pam.filelist
+%files lang -f %{_sourcedir}/linux-pam-lang.filelist
+%files doc -f %{_sourcedir}/linux-pam-doc.filelist
+%files devel -f %{_sourcedir}/linux-pam-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.7.3-2
+- Split lang, doc, devel payload into linux-pam-lang, linux-pam-doc, linux-pam-devel (size audit)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.7.3-1
 - Update to BLFS r13.1 Linux-PAM 1.7.3 (meson build)
 - Install PAM modules in /usr/lib64/security and the BLFS default

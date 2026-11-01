@@ -1,6 +1,6 @@
 Name:       libarchive
 Version:    3.8.9
-Release:    2
+Release:    3
 Summary:    Library for various archive formats
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 The libarchive library provides a single interface for reading/writing various compression formats. 
+
+%package static
+Summary:    libarchive static libraries
+Requires:   libarchive = %{version}-%{release}
+
+%description static
+Static libraries for libarchive.
 
 %prep
 %setup -q
@@ -21,21 +28,14 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/bsdcat
-/usr/bin/bsdcpio
-/usr/bin/bsdtar
-/usr/include/archive.h
-/usr/include/archive_entry.h
-/usr/bin/bsdunzip
-/usr/lib64/libarchive.a
-/usr/lib64/libarchive.so
-/usr/lib64/libarchive.so.13
-/usr/lib64/libarchive.so.13.8.9
-/usr/lib64/pkgconfig/libarchive.pc
-/usr/share/man/
+%files -f %{_sourcedir}/libarchive.filelist
+%files static -f %{_sourcedir}/libarchive-static.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.9-3
+- Split static payload into libarchive-static (size audit)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.9-2
 - Build without libxml2/xar support (size audit P0); rpm/tar do not need it
 
