@@ -146,8 +146,10 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   `.opt` bytecode removed).  The Fedora-like LLVM split is merged
   (`llvm-static` 513 MB split out; Mesa needs only 132.9 MB `llvm-libs`
   instead of 1008 MB).  The runtime split (openssl/glibc/gettext) is
-  merged; toolchain/base (gcc, perl, binutils, systemd, vim, kernel-debug)
-  are still running.  Details in §6 H/I.  Versions are unchanged.
+  merged, as is the gcc/binutils/perl/groff toolchain split (gcc-libs-only
+  runtime saves 306 MB; `gcc-devel`/`gcc-lto` are required by the build
+  image).  Only the base wave (systemd, vim, kernel-debug) is still
+  running.  Details in §6 H/I.  Versions are unchanged.
 - **E4 initramfs automation (2026-11-01):** `linux-modules` 7.2.6-3 runs
   `depmod` + `dracut` in `%post` (requires `dracut`) and removes
   `/boot/initramfs-<ver>.img` on erase.  `browneye-sysconfig` 13.1-2 ships
@@ -1096,18 +1098,21 @@ polly/libcxx/libomp is a separate build decision.
 | `split-runtime` / `browneye-split-runtime` | `openssl-libs`/`openssl`/`-devel`/`-perl`, `glibc-devel`/`-i18n`/`-doc`, `gettext-libs`/`-tools`/`-lang`/`-doc` |
 | `split-base` / `browneye-split-base` | `systemd-hwdb`/`-lang`/`-doc`, `vim-minimal` + `vim-runtime-extra` (`vim` meta), `linux-kernel-debug` |
 
-Merged: `split-runtime` (`86ed1b1`).  openssl 4.0.2-2 (CLI 1.2 MB,
-libs 8.6, devel 2.0, perl 0.02; the CLI no longer requires Perl);
-glibc 2.44-2 (runtime 20.7 MB; devel 13.0, i18n 15.0, doc 1.3 split);
-gettext 1.0-2 (libs 5.0, tools 15.7, lang 3.8, doc 2.5).  A libs-only
-runtime saves ~53 MB, plus 62 MB of Perl when `openssl-perl` is omitted.
-`browneye-base` 13.1-4 keeps `glibc-devel`/`openssl-devel` for the build
-image; its closure is 103 packages and excludes glibc-i18n/doc,
-openssl-perl, gettext-lang/doc.  `split-toolchain` and `split-base` are
-still running.
+Merged: `split-runtime` (`86ed1b1`) and `split-toolchain` (`0df71c8`).
+openssl 4.0.2-2 (CLI 1.2 MB, libs 8.6, devel 2.0, perl 0.02; the CLI no
+longer requires Perl); glibc 2.44-2 (runtime 20.7 MB; devel 13.0, i18n
+15.0, doc 1.3 split); gettext 1.0-2 (libs 5.0, tools 15.7, lang 3.8,
+doc 2.5).  Toolchain: gcc 16.2.0-4 (gcc 120.6 MB, gcc-libs 10.6,
+gcc-lto 100.6, gcc-devel 52.6, gcc-lang 15.8, gcc-doc 2.7); binutils
+2.47-2 (devel 4.0, lang 16.7, doc 0.9); perl 5.44.0-2 (devel 8.3, doc
+16.7); groff 1.24.1-2 (perl 0.4, doc 14.9).  `browneye-base` 13.1-5
+requires `gcc-devel`/`gcc-lto` and keeps glibc/openssl devel; its closure
+is 105 packages and excludes lang/doc/openssl-perl/glibc-i18n.
+`split-base` (systemd/vim/kernel-debug) is still running.
 
-Expected remaining savings: `gcc-lto` 98 MB; perl/groff ~86 MB; binutils
-~23 MB; systemd ~12 MB; vim ~26 MB; kernel debug ~12 MB.
+Runtime savings: gcc-libs-only 306 MB; binutils 22.7 MB; perl 26.2 MB;
+groff 16 MB plus the 65 MB Perl closure.  Remaining: systemd ~12 MB;
+vim ~26 MB; kernel debug ~12 MB.
 `system-minimal` now requires `linux-firmware-base` and recommends the
 vendor packs (`0.1-3`).
 
@@ -1355,8 +1360,9 @@ tables are in `spec-audit.md` §8.
    are newer; after they merge, assemble a fresh tree and republish
    incrementally.
 3. **Package splits (H/I, running).**  `firmware-split` and `python-split`
-   are merged, including LLVM and the openssl/glibc/gettext runtime split;
-   the toolchain and base waves are still running.  Next: curated
+   are merged, including LLVM, the openssl/glibc/gettext runtime split,
+   and the gcc/binutils/perl/groff toolchain split; only the
+   systemd/vim/kernel base wave is still running.  Next: curated
    `glibc-locales`, desktop
    `-lang`/`-doc`/`-tests`/`-static`/`-devel` splits, and the
    `browneye-base-runtime` / minimal-desktop profiles.

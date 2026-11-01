@@ -1,6 +1,6 @@
 Name:       browneye-base
 Version:    13.1
-Release:    4
+Release:    5
 Summary:    Browneye Linux base system (LFS r13.1)
 License:    MIT
 Prefix:     /usr
@@ -37,6 +37,8 @@ Requires: libxcrypt
 Requires: shadow
 Requires: gawk
 Requires: gcc
+Requires: gcc-devel
+Requires: gcc-lto
 Requires: ncurses
 Requires: sed
 Requires: psmisc
@@ -116,6 +118,11 @@ Meta-package pulling in the LFS r13.1 base system.
 %files
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-5
+- Require gcc-devel and gcc-lto: the build image disables weak deps, and
+  gcc alone no longer carries headers/static libs/LTO after the
+  toolchain split
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-4
 - Require glibc-devel and openssl-devel so the base build image keeps the
   headers/crt/linker scripts after the glibc and openssl splits
