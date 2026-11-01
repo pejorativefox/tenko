@@ -1,0 +1,37 @@
+%dir /usr/lib/libear
+%dir /usr/lib/libscanbuild
+%dir /usr/lib/libscanbuild/resources
+%dir /usr/libexec
+%dir /usr/share/scan-build
+%dir /usr/share/scan-view
+/usr/bin/analyze-build
+/usr/bin/intercept-build
+/usr/bin/scan-build
+/usr/bin/scan-build-py
+/usr/bin/scan-view
+/usr/lib/libear/__init__.py
+/usr/lib/libear/config.h.in
+/usr/lib/libear/ear.c
+/usr/lib/libscanbuild/__init__.py
+/usr/lib/libscanbuild/analyze.py
+/usr/lib/libscanbuild/arguments.py
+/usr/lib/libscanbuild/clang.py
+/usr/lib/libscanbuild/compilation.py
+/usr/lib/libscanbuild/intercept.py
+/usr/lib/libscanbuild/report.py
+/usr/lib/libscanbuild/resources/scanview.css
+/usr/lib/libscanbuild/resources/selectable.js
+/usr/lib/libscanbuild/resources/sorttable.js
+/usr/lib/libscanbuild/shell.py
+/usr/libexec/analyze-c++
+/usr/libexec/analyze-cc
+/usr/libexec/c++-analyzer
+/usr/libexec/ccc-analyzer
+/usr/libexec/intercept-c++
+/usr/libexec/intercept-cc
+/usr/share/scan-build/scanview.css
+/usr/share/scan-build/sorttable.js
+/usr/share/scan-view/Reporter.py
+/usr/share/scan-view/ScanView.py
+/usr/share/scan-view/bugcatcher.ico
+/usr/share/scan-view/startfile.py

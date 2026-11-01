@@ -1,0 +1,9 @@
+%dir /etc/clang
+/etc/clang/clang++.cfg
+/etc/clang/clang.cfg
+/usr/bin/clang
+/usr/bin/clang++
+/usr/bin/clang-23
+/usr/bin/clang-cl
+/usr/bin/clang-cpp
+/usr/bin/clang-scan-deps
