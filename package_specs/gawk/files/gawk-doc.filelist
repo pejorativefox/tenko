@@ -1,0 +1,29 @@
+/usr/share/info/gawk.info.gz
+/usr/share/info/gawk_api-figure1.png.gz
+/usr/share/info/gawk_api-figure2.png.gz
+/usr/share/info/gawk_api-figure3.png.gz
+/usr/share/info/gawk_array-elements.png.gz
+/usr/share/info/gawk_general-program.png.gz
+/usr/share/info/gawk_process-flow.png.gz
+/usr/share/info/gawk_statist.jpg.gz
+/usr/share/info/gawkinet.info.gz
+/usr/share/info/gawknotes.info.gz
+/usr/share/info/gawkworkflow.info.gz
+/usr/share/info/pm-gawk.info.gz
+%dir /usr/share/man/man1
+/usr/share/man/man1/gawk.1.gz
+/usr/share/man/man1/gawkbug.1.gz
+/usr/share/man/man1/pm-gawk.1.gz
+%dir /usr/share/man/man3
+/usr/share/man/man3/filefuncs.3am.gz
+/usr/share/man/man3/fnmatch.3am.gz
+/usr/share/man/man3/fork.3am.gz
+/usr/share/man/man3/inplace.3am.gz
+/usr/share/man/man3/intdiv.3am.gz
+/usr/share/man/man3/ordchr.3am.gz
+/usr/share/man/man3/readdir.3am.gz
+/usr/share/man/man3/readfile.3am.gz
+/usr/share/man/man3/revoutput.3am.gz
+/usr/share/man/man3/revtwoway.3am.gz
+/usr/share/man/man3/rwarray.3am.gz
+/usr/share/man/man3/time.3am.gz

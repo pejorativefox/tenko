@@ -1,0 +1,77 @@
+%dir /usr/share/doc/bison-3.8.2
+/usr/share/doc/bison-3.8.2/AUTHORS
+/usr/share/doc/bison-3.8.2/COPYING
+/usr/share/doc/bison-3.8.2/NEWS
+/usr/share/doc/bison-3.8.2/README
+/usr/share/doc/bison-3.8.2/THANKS
+/usr/share/doc/bison-3.8.2/TODO
+%dir /usr/share/doc/bison-3.8.2/examples
+/usr/share/doc/bison-3.8.2/examples/README.md
+%dir /usr/share/doc/bison-3.8.2/examples/c
+%dir /usr/share/doc/bison-3.8.2/examples/c++
+/usr/share/doc/bison-3.8.2/examples/c++/Makefile
+/usr/share/doc/bison-3.8.2/examples/c++/README.md
+%dir /usr/share/doc/bison-3.8.2/examples/c++/calc++
+/usr/share/doc/bison-3.8.2/examples/c++/calc++/Makefile
+/usr/share/doc/bison-3.8.2/examples/c++/calc++/README.md
+/usr/share/doc/bison-3.8.2/examples/c++/calc++/calc++.cc
+/usr/share/doc/bison-3.8.2/examples/c++/calc++/driver.cc
+/usr/share/doc/bison-3.8.2/examples/c++/calc++/driver.hh
+/usr/share/doc/bison-3.8.2/examples/c++/calc++/parser.yy
+/usr/share/doc/bison-3.8.2/examples/c++/calc++/scanner.ll
+/usr/share/doc/bison-3.8.2/examples/c++/simple.yy
+/usr/share/doc/bison-3.8.2/examples/c++/variant-11.yy
+/usr/share/doc/bison-3.8.2/examples/c++/variant.yy
+/usr/share/doc/bison-3.8.2/examples/c/README.md
+%dir /usr/share/doc/bison-3.8.2/examples/c/bistromathic
+/usr/share/doc/bison-3.8.2/examples/c/bistromathic/Makefile
+/usr/share/doc/bison-3.8.2/examples/c/bistromathic/README.md
+/usr/share/doc/bison-3.8.2/examples/c/bistromathic/parse.y
+%dir /usr/share/doc/bison-3.8.2/examples/c/calc
+/usr/share/doc/bison-3.8.2/examples/c/calc/Makefile
+/usr/share/doc/bison-3.8.2/examples/c/calc/README.md
+/usr/share/doc/bison-3.8.2/examples/c/calc/calc.y
+%dir /usr/share/doc/bison-3.8.2/examples/c/glr
+/usr/share/doc/bison-3.8.2/examples/c/glr/Makefile
+/usr/share/doc/bison-3.8.2/examples/c/glr/README.md
+/usr/share/doc/bison-3.8.2/examples/c/glr/c++-types.y
+%dir /usr/share/doc/bison-3.8.2/examples/c/lexcalc
+/usr/share/doc/bison-3.8.2/examples/c/lexcalc/Makefile
+/usr/share/doc/bison-3.8.2/examples/c/lexcalc/README.md
+/usr/share/doc/bison-3.8.2/examples/c/lexcalc/parse.y
+/usr/share/doc/bison-3.8.2/examples/c/lexcalc/scan.l
+%dir /usr/share/doc/bison-3.8.2/examples/c/mfcalc
+/usr/share/doc/bison-3.8.2/examples/c/mfcalc/Makefile
+/usr/share/doc/bison-3.8.2/examples/c/mfcalc/calc.h
+/usr/share/doc/bison-3.8.2/examples/c/mfcalc/mfcalc.y
+%dir /usr/share/doc/bison-3.8.2/examples/c/pushcalc
+/usr/share/doc/bison-3.8.2/examples/c/pushcalc/Makefile
+/usr/share/doc/bison-3.8.2/examples/c/pushcalc/README.md
+/usr/share/doc/bison-3.8.2/examples/c/pushcalc/calc.y
+%dir /usr/share/doc/bison-3.8.2/examples/c/reccalc
+/usr/share/doc/bison-3.8.2/examples/c/reccalc/Makefile
+/usr/share/doc/bison-3.8.2/examples/c/reccalc/README.md
+/usr/share/doc/bison-3.8.2/examples/c/reccalc/parse.y
+/usr/share/doc/bison-3.8.2/examples/c/reccalc/scan.l
+%dir /usr/share/doc/bison-3.8.2/examples/c/rpcalc
+/usr/share/doc/bison-3.8.2/examples/c/rpcalc/Makefile
+/usr/share/doc/bison-3.8.2/examples/c/rpcalc/rpcalc.y
+%dir /usr/share/doc/bison-3.8.2/examples/d
+/usr/share/doc/bison-3.8.2/examples/d/README.md
+%dir /usr/share/doc/bison-3.8.2/examples/d/calc
+/usr/share/doc/bison-3.8.2/examples/d/calc/Makefile
+/usr/share/doc/bison-3.8.2/examples/d/calc/calc.y
+%dir /usr/share/doc/bison-3.8.2/examples/d/simple
+/usr/share/doc/bison-3.8.2/examples/d/simple/Makefile
+/usr/share/doc/bison-3.8.2/examples/d/simple/calc.y
+%dir /usr/share/doc/bison-3.8.2/examples/java
+/usr/share/doc/bison-3.8.2/examples/java/README.md
+%dir /usr/share/doc/bison-3.8.2/examples/java/calc
+/usr/share/doc/bison-3.8.2/examples/java/calc/Calc.y
+/usr/share/doc/bison-3.8.2/examples/java/calc/Makefile
+%dir /usr/share/doc/bison-3.8.2/examples/java/simple
+/usr/share/doc/bison-3.8.2/examples/java/simple/Calc.y
+/usr/share/doc/bison-3.8.2/examples/java/simple/Makefile
+/usr/share/info/bison.info.gz
+/usr/share/man/man1/bison.1.gz
+/usr/share/man/man1/yacc.1.gz

@@ -1,0 +1,11 @@
+/usr/bin/pcre2-config
+/usr/bin/pcre2grep
+/usr/bin/pcre2test
+/usr/lib64/libpcre2-16.so.0
+/usr/lib64/libpcre2-16.so.0.16.0
+/usr/lib64/libpcre2-32.so.0
+/usr/lib64/libpcre2-32.so.0.16.0
+/usr/lib64/libpcre2-8.so.0
+/usr/lib64/libpcre2-8.so.0.16.0
+/usr/lib64/libpcre2-posix.so.3
+/usr/lib64/libpcre2-posix.so.3.0.8

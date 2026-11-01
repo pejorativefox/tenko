@@ -1,0 +1,23 @@
+/usr/share/info/info-stnd.info.gz
+/usr/share/info/texi2any_api.info.gz
+/usr/share/info/texi2any_internals.info-1.gz
+/usr/share/info/texi2any_internals.info-2.gz
+/usr/share/info/texi2any_internals.info.gz
+/usr/share/info/texinfo.info-1.gz
+/usr/share/info/texinfo.info-2.gz
+/usr/share/info/texinfo.info-3.gz
+/usr/share/info/texinfo.info-4.gz
+/usr/share/info/texinfo.info.gz
+%dir /usr/share/man/man1
+/usr/share/man/man1/info.1.gz
+/usr/share/man/man1/install-info.1.gz
+/usr/share/man/man1/makeinfo.1.gz
+/usr/share/man/man1/pdftexi2dvi.1.gz
+/usr/share/man/man1/pod2texi.1.gz
+/usr/share/man/man1/texi2any.1.gz
+/usr/share/man/man1/texi2dvi.1.gz
+/usr/share/man/man1/texi2pdf.1.gz
+/usr/share/man/man1/texindex.1.gz
+%dir /usr/share/man/man5
+/usr/share/man/man5/info.5.gz
+/usr/share/man/man5/texinfo.5.gz

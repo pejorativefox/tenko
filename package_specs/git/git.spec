@@ -7,7 +7,7 @@
 
 Name:       git
 Version:    2.55.0
-Release:    1
+Release:    2
 Summary:    Distributed version control system
 License:    GPL-2.0-only
 URL:        https://git-scm.com/
@@ -27,6 +27,13 @@ Git is a free and open source distributed version control system designed
 to handle everything from small to very large projects with speed and
 efficiency.
 
+%package lang
+Summary:    git translations
+Requires:   git = %{version}-%{release}
+
+%description lang
+Translations for git.
+
 %prep
 %setup -q
 
@@ -44,8 +51,13 @@ mkdir -p %{buildroot}/etc/bash_completion.d
 cp contrib/completion/git-completion.bash %{buildroot}/etc/bash_completion.d/
 
 %files -f %{_sourcedir}/git.filelist
+%files lang -f %{_sourcedir}/git-lang.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.55.0-2
+- Split lang payload into git-lang (size audit)
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.55.0
 - Update to 2.55.0 (BLFS r13.1)
 - Use the book configure options and skip the Rust components

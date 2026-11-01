@@ -1,0 +1,10 @@
+/usr/share/info/autoconf.info.gz
+/usr/share/info/standards.info.gz
+%dir /usr/share/man/man1
+/usr/share/man/man1/autoconf.1.gz
+/usr/share/man/man1/autoheader.1.gz
+/usr/share/man/man1/autom4te.1.gz
+/usr/share/man/man1/autoreconf.1.gz
+/usr/share/man/man1/autoscan.1.gz
+/usr/share/man/man1/autoupdate.1.gz
+/usr/share/man/man1/ifnames.1.gz

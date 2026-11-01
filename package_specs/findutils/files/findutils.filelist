@@ -1,0 +1,17 @@
+/usr/bin/find
+/usr/bin/locate
+/usr/bin/updatedb
+/usr/bin/xargs
+/usr/libexec/frcode
+%dir /usr/share/info
+/usr/share/info/find-maint.info.gz
+/usr/share/info/find.info.gz
+%dir /usr/share/locale
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/share/man/man1/find.1.gz
+/usr/share/man/man1/locate.1.gz
+/usr/share/man/man1/updatedb.1.gz
+/usr/share/man/man1/xargs.1.gz
+%dir /usr/share/man/man5
+/usr/share/man/man5/locatedb.5.gz

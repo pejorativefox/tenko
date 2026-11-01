@@ -1,6 +1,6 @@
 Name:       util-linux
 Version:    2.42.2
-Release:    1
+Release:    2
 Summary:    util-linux is a random collection of Linux utilities
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -8,6 +8,20 @@ Prefix:     /usr
 
 %description
 util-linux is a random collection of Linux utilities
+
+%package lang
+Summary:    util-linux translations
+Requires:   util-linux = %{version}-%{release}
+
+%description lang
+Translations for util-linux.
+
+%package devel
+Summary:    util-linux development files
+Requires:   util-linux = %{version}-%{release}
+
+%description devel
+Development files for util-linux.
 
 %prep
 %setup -q
@@ -43,8 +57,14 @@ chmod 2755 %{buildroot}%{_bindir}/wall
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/util-linux.filelist
+%files lang -f %{_sourcedir}/util-linux-lang.filelist
+%files devel -f %{_sourcedir}/util-linux-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.42.2-2
+- Split lang, devel payload into util-linux-lang, util-linux-devel (size audit)
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.42.2
 - Replace directory globs with a generated static filelist
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.42.2
