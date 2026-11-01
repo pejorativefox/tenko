@@ -87,6 +87,9 @@ Read this first. It supersedes the earlier wave-by-wave plan; the history is in
   (llvmpipe) is built and `xorg-server` now ships GLX/glamor, so the XFCE
   compositor is enabled (XRender on the VM; GLX on real GPUs).  Remaining
   visual gap: no SVG icon loader; see D4/D5 and §7.
+- **Version parity reached (2026-11-01):** `scripts/audit_versions.py` reports
+  no shipped package below the current LFS/BLFS trunk; `gtk2` was dropped and
+  the remaining 127 "outdated" entries are specs the distro does not build.
 - **Ready-to-boot test image:** `build/xfce-test.img` (base + `xfce-desktop`,
   kernel 7.2.6) starts the XFCE session on tty1; `scripts/qemu_run_desktop.sh`
   opens it in a GTK window or over VNC, with a serial console
@@ -740,8 +743,8 @@ localhost login:
       present) but is not packaged yet.
 - [x] D5. **One published repository (base + desktop).**  There is no
       separate desktop repo.  `scripts/assemble_repo.sh` collects the base
-      repo plus every BLFS/XFCE/desktop RPM into `build/repo-all` (218
-      RPMs); `scripts/publish_repo.sh` publishes it to
+      repo plus every BLFS/XFCE/desktop RPM into `build/repo-all` (217
+      RPMs, newest version per package); `scripts/publish_repo.sh` publishes it to
       `https://tomfool.8bit.ca/browneye/packages/13.1/` with the usual
       `browneye-13.1.repo`.  `xfce-desktop` installs from the same baseurl,
       and the landing page documents it.
