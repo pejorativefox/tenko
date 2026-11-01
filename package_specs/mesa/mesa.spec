@@ -1,6 +1,6 @@
 Name:       mesa
 Version:    26.2.3
-Release:    3
+Release:    4
 Summary:    Mesa 3D Graphics Library
 License:    MIT
 Prefix:     /usr
@@ -50,7 +50,26 @@ popd
 
 %files -f %{_sourcedir}/mesa.filelist
 
+%package devel
+Summary:    Development files for Mesa
+Requires:   mesa = %{version}-%{release}
+
+%description devel
+Headers, pkg-config files and unversioned linker symlinks for building
+against Mesa's EGL/OpenGL/GLES/GBM libraries.  Keeping them out of the
+runtime package stops mesa's pkgconfig() requires from dragging the X11
+-devel packages into every desktop install.
+
+%files devel -f %{_sourcedir}/mesa-devel.filelist
+
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 26.2.3-4
+- Split mesa-devel (headers, pkgconfig files and unversioned .so
+  symlinks).  mesa's pkgconfig() requires were pulling libdrm/x11/xcb/
+  xext/xfixes/xxf86vm-devel into every X install unless mesa-devel was
+  installed; the runtime package now carries only the versioned libraries,
+  DRI/GBM drivers and drirc data
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 26.2.3-3
 - Add the virgl gallium driver (-Dgallium-drivers=llvmpipe,virgl) so a
   guest booted with QEMU -device virtio-vga-gl can use host-gl accelerated
