@@ -5,6 +5,8 @@
 # - glibc-devel/glibc-locales, gcc-devel/gcc-lto, openssl-devel: payload
 #   split out of the toolchain, needed to build the base set
 # - linux-api-headers, linux-pam, libtirpc: headers/runtime the base needs
+# - make-ca: CA trust store (/etc/pki/tls/certs/ca-bundle.crt and the
+#   /etc/ssl/certs links) used by curl, git, OpenSSL and derived images
 # - libseccomp/libbsd/libmd, rpm/popt/libarchive/lua: RPM toolchain
 browneye-rpm-config
 browneye-basefs
@@ -18,6 +20,7 @@ gcc-lto
 openssl-devel
 linux-api-headers
 linux-pam
+make-ca
 libtirpc
 libseccomp
 libbsd

@@ -64,7 +64,7 @@ def requires():
 def block(names):
     lines = [
         BEGIN + ": generated from lfs.lock + requires-extra",
-        "Run scripts/gen_base_requires.py after changing either file.",
+        "# Run scripts/gen_base_requires.py after changing either file.",
     ]
     lines += ["Requires:   " + name for name in names]
     lines.append(END)

@@ -1,12 +1,12 @@
 Name:       browneye-base
 Version:    13.1
-Release:    6
+Release:    7
 Summary:    Browneye Linux base system (LFS r13.1)
 License:    MIT
 Prefix:     /usr
 
 # BEGIN GENERATED REQUIRES: generated from lfs.lock + requires-extra
-Run scripts/gen_base_requires.py after changing either file.
+# Run scripts/gen_base_requires.py after changing either file.
 Requires:   man-pages
 Requires:   iana-etc
 Requires:   glibc
@@ -99,6 +99,7 @@ Requires:   gcc-lto
 Requires:   openssl-devel
 Requires:   linux-api-headers
 Requires:   linux-pam
+Requires:   make-ca
 Requires:   libtirpc
 Requires:   libseccomp
 Requires:   libbsd
@@ -121,6 +122,12 @@ Meta-package pulling in the LFS r13.1 base system.
 %files
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-7
+- Require make-ca so installed systems and derived images get a CA trust
+  store automatically.  This pulls p11-kit and libtasn1 and provides
+  /etc/pki/tls/certs/ca-bundle.crt plus the /etc/ssl/certs links used by
+  curl, git and OpenSSL consumers.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-6
 - Require vim-minimal instead of the vim meta package: the runtime base
   does not need vim-runtime-extra (documentation, spell, tutor,

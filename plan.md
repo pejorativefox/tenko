@@ -24,6 +24,9 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   `glibc-locales-extra`; systemd 261.3-3; merged `/usr` with `/usr/lib64`.
 - The base meta's requires are generated from `lfs.lock` by
   `scripts/gen_base_requires.py` (+ `requires-extra`), with `--check`.
+  `browneye-base` now requires `make-ca`, so every installed system and
+  derived image gets the Mozilla CA trust store (pulling `p11-kit` and
+  `libtasn1`) without adding an explicit dependency to each profile.
 
 **Desktop**
 - XFCE 4.20, X11 only, zero Wayland: the 17 core packages plus Xorg 21.1.24,
@@ -249,7 +252,7 @@ reproducible from `container-rebuild-*` / `verify_base_in_container.sh`.
 | D18 | sshd | **OpenSSH 10.5p1** with Linux-PAM, password auth, root login |
 | D19 | Agent tools | **opencode-bin 2.2.5 / herdr 0.9.5** prebuilt binary RPMs (approved) |
 | D20 | Workstation meta | `browneye-workstation`; `browneye-base`/`xfce-desktop` unchanged |
-| D21 | CA store | `make-ca` with a pinned certdata snapshot, no network at build |
+| D21 | CA store | `make-ca` with a pinned certdata snapshot, no network at build; `browneye-base` requires it |
 | D22 | Build tools | dnf 4.24.0 + libdnf/librepo/libsolv/createrepo_c + rpm 4.18.1-4 (approved) |
 | D23 | P0 fixes | `vim` without canberra, `gcc-libs` split, `libarchive` without libxml2, `libtirpc` in base |
 | D24 | LLVM packaging | Fedora-like split; lldb/lld/mlir/polly/libcxx/libomp not built |
