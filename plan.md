@@ -83,6 +83,8 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       libisofs/libburn 1.5.8.pl02); `squashfs-tools` and `mtools` are
       approved exceptions (not in LFS/BLFS).  No syslinux/busybox: GRUB and
       dracut cover boot and initramfs.  `efivar` is bumped to the book's 39.
+      Packaged: libburn/libisofs/libisoburn 1.5.8.pl02, squashfs-tools 4.7.5,
+      mtools 4.0.50; the stale standalone xorriso 1.5.6 spec is removed.
 - [ ] **A2. Storage stack — decided.**  Package all three at the book
       versions: `cryptsetup` 2.8.8, `lvm2` 2.03.42, `mdadm` 4.6.
       dracut already supports LUKS/LVM/RAID roots; these add the userspace
