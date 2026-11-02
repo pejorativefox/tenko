@@ -1,6 +1,6 @@
 Name:       accountsservice
 Version:    26.27.3
-Release:    1
+Release:    2
 Summary:    D-Bus service for querying and manipulating user accounts
 License:    GPL-3.0-or-later
 Source0:    accountsservice-26.27.3.tar.bz2
@@ -29,6 +29,7 @@ Translations for accountsservice.
 
 %package devel
 Summary:    accountsservice development files
+Requires:   %{name}-gir = %{version}-%{release}
 Requires:   accountsservice = %{version}-%{release}
 
 %description devel
@@ -61,13 +62,27 @@ install -Dpm0644 %{SOURCE1} %{buildroot}/etc/polkit-1/rules.d/40-adm.rules
 # the interfaces into /usr/share/dbus-1/interfaces instead.
 install -dm0755 %{buildroot}%{_datadir}/accountsservice/interfaces
 
+
+%package gir
+Summary:    GObject Introspection data for accountsservice
+License:    GPL-3.0-or-later
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for accountsservice.  They were installed by the
+-devel package, which is where upstream's build puts them; the .gir
+XML needed for building stays there.
+
 %files -f %{_sourcedir}/accountsservice.filelist
 
 %files lang -f %{_sourcedir}/accountsservice-lang.filelist
 
 %files devel -f %{_sourcedir}/accountsservice-devel.filelist
+%files gir -f %{_sourcedir}/accountsservice-gir.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 26.27.3-2
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 26.27.3-1
 - Initial package (BLFS r13.1 AccountsService 26.27.3) for the LightDM
   greeter user list
