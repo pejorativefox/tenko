@@ -161,6 +161,9 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   (553 + the 2026-11-02 X11 client utilities wave, 31 more binaries/libs,
   + the fonts wave: 6 new packages incl. font-ttf-unifont and 3 more
   no-book fonts on request: terminus, siji, ubuntu-font-family).
+  The 2026-11-02 debt wave replaced sqlite (3.54.1), all 12 LLVM/clang 23.1.0
+  RPMs, xorg-server 21.1.25, perl 5.44.0-3 (the libperl fix, D10) and
+  which 2.25-2; the count stays 593 because they are updates, not additions.
   A remote `dnf install` resolves `browneye-base xfce-desktop` (212 pkgs) and
   `browneye-build` (62 pkgs); `ncat` and `pasta` resolve from the same repo.
   htop 3.5.3-1 and podman-bin 6.1.4-2 were published with
@@ -243,20 +246,18 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       openssl 4.1, coreutils, expat, libarchive, elfutils, util-linux, kmod)
       because the rest links against it.  `xml-parser` 2.59 is *newer* than
       the book (2.57) and needs no action.
-- [ ] **D10. The perl runtime ships no libperl.**  Discovered 2026-11-02
-      while testing the LLVM split: the published `perl-5.44.0-2` contains
-      `/usr/bin/perl`, which has `NEEDED libperl.so` (unversioned — the
-      library has no SONAME either), but **no package in the 593-RPM tree
-      provides that file**: `perl.filelist` never listed it, and only
-      `perl-devel` ships the `CORE/libperl.so` linker stub.  Every perl
-      invocation on an installed system fails with `libperl.so: cannot open
-      shared object file` (this also breaks `scan-build`, texinfo and any
-      perl scriptlet).  Regenerate the perl filelist from a fresh buildroot,
-      ship `libperl.so` in the runtime package (and give it a proper SONAME,
-      as with D1), then rebuild and republish perl.  The library was not just
-      unlisted: `%_unpackaged_files_terminate_build` is 1, so it never reached
-      the buildroot — find out where this build's `make install` puts it
-      (versioned vs unversioned name) before regenerating the filelist.
+- [x] **D10. The perl runtime ships no libperl.**  Found and fixed
+      2026-11-02 while testing the LLVM split.  `/usr/bin/perl` has
+      `NEEDED libperl.so` (the library has no SONAME) and resolves it through
+      `RUNPATH=/usr/lib64/perl5/5.44.0/core_perl/CORE`, but the 5.44.0-2
+      `-devel` split had moved `CORE/libperl.so` — the 4.5 MB shared library,
+      not a linker stub — out of the runtime package.  Every perl invocation
+      on a perl-only install died with `libperl.so: cannot open shared object
+      file`, which also broke `scan-build`, texinfo and any perl scriptlet;
+      this host was affected.  5.44.0-3 puts it back in `perl` (the CORE
+      headers stay in `perl-devel`), verified by installing only the runtime
+      RPM and running `perl -e` and `perl -MFile::Temp`; it is published.
+      An installed system gets it with `sudo dnf install perl`.
 
 ### E. Verification and hygiene
 
