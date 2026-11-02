@@ -1,6 +1,5 @@
 root/
 target-root/
-.package.sqlite
 iso_build/
 browneye.iso
 build/

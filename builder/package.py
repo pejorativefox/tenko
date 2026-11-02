@@ -2,7 +2,10 @@ import glob
 import json
 import os
 
-LFS_LOCK = "lfs.lock"
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LFS_LOCK = os.path.join(REPO_ROOT, "lfs.lock")
+SPECS_DIR = os.path.join(REPO_ROOT, "package_specs")
+ORDER_FILE = os.path.join(SPECS_DIR, "ORDER")
 
 
 class Package(object):
@@ -15,13 +18,13 @@ class Package(object):
         self.needs_root = False
 
     def get_full_spec_path(self):
-        return self.path + "/" + self.spec_file
+        return os.path.join(self.path, self.spec_file)
 
     def get_full_sources_path(self):
-        return self.path + "/sources"
+        return os.path.join(self.path, "sources")
 
     def get_files_path(self):
-        return self.path + "/files"
+        return os.path.join(self.path, "files")
 
     def needs_download(self):
         return self.has_sources
@@ -30,12 +33,12 @@ class Package(object):
         return self.has_sources or self.has_nosources
 
 
-def discover_packages(path="package_specs/"):
+def discover_packages(path=SPECS_DIR):
     packages = []
-    for package_path in sorted(glob.glob(path + "*")):
+    for package_path in sorted(glob.glob(os.path.join(path, "*"))):
         if not os.path.isdir(package_path):
             continue
-        specs = sorted(glob.glob("{}/*.spec".format(package_path)))
+        specs = sorted(glob.glob(os.path.join(package_path, "*.spec")))
         if not specs:
             # Disabled packages (``.spec.disabled``) and empty directories are
             # intentionally skipped instead of aborting the whole run.
@@ -61,7 +64,7 @@ def load_aliases(path=LFS_LOCK):
     return data.get("aliases", {})
 
 
-def load_order(path="package_specs/ORDER"):
+def load_order(path=ORDER_FILE):
     """Return the preferred build order as a list of package names."""
     if not os.path.isfile(path):
         return []
