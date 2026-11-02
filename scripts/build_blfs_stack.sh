@@ -8,6 +8,7 @@
 # PHASE=xfce-deps  XFCE 4.20 dependencies
 # PHASE=xfce  the XFCE 4.20 core desktop (X11 only)
 # PHASE=desktop  Xorg server, input/video drivers, xinit, fonts (X11 only)
+# PHASE=net     libpcap, nmap/ncat/nping and passt/pasta (podman networking)
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
@@ -96,6 +97,10 @@ elif [ "$PHASE" = "desktop" ]; then
              xf86-video-vesa \
              xrdb xset xmodmap xhost xwininfo xwd hicolor-icon-theme \
              browneye-desktop-config xfce-desktop; do
+        build "$p" "$p" || exit 1
+    done
+elif [ "$PHASE" = "net" ]; then
+    for p in libpcap nmap passt; do
         build "$p" "$p" || exit 1
     done
 fi

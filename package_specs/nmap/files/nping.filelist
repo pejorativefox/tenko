@@ -1,0 +1,6 @@
+%dir /usr/bin
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/bin/nping
+/usr/share/man/man1/nping.1.gz
