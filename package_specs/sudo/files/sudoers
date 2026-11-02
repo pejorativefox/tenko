@@ -1,0 +1,14 @@
+# Browneye sudoers
+#
+# Members of the wheel group may run any command as any user after
+# authenticating with their own password.  Add users to the wheel group
+# (for example with "usermod -aG wheel USER") to grant administrative
+# access.  Edit this file with visudo.
+
+Defaults env_reset
+Defaults secure_path="/usr/sbin:/usr/bin"
+
+%wheel ALL=(ALL) ALL
+
+# Files in /etc/sudoers.d are parsed in sorted lexical order.
+@includedir /etc/sudoers.d
