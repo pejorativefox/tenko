@@ -1,6 +1,6 @@
 Name:       expat
-Version:    2.8.4
-Release:    2
+Version:    2.9.0
+Release:    1
 Summary:    stream-oriented XML parser
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -34,6 +34,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 2.9.0-1
+- Update to 2.9.0 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.8.4-2
 - Split devel payload into expat-devel (size audit)
 

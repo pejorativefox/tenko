@@ -1,6 +1,6 @@
 Name:       util-linux
-Version:    2.42.2
-Release:    2
+Version:    2.42.4
+Release:    1
 Summary:    util-linux is a random collection of Linux utilities
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -62,6 +62,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 2.42.4-1
+- Update to 2.42.4 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.42.2-2
 - Split lang, devel payload into util-linux-lang, util-linux-devel (size audit)
 

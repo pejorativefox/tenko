@@ -1,6 +1,6 @@
 Name:       kmod
-Version:    34.2
-Release:    3
+Version:    34.3
+Release:    1
 Summary:    Kernel module utilities
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -51,6 +51,9 @@ ln -sfv kmod %{buildroot}/usr/bin/modprobe
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 34.3-1
+- Update to 34.3 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 34.2-3
 - Split devel payload into kmod-devel (size audit)
 

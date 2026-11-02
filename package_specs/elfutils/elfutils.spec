@@ -1,6 +1,6 @@
 Name:       elfutils
-Version:    0.196
-Release:    2
+Version:    0.197
+Release:    1
 Summary:    ELF file handling library
 License:    GPL3
 Source0:    %{name}-%{version}.tar.bz2
@@ -37,6 +37,9 @@ rm %{buildroot}/usr/lib64/libelf.a
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 0.197-1
+- Update to 0.197 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.196-2
 - Split devel payload into elfutils-devel (size audit)
 

@@ -22,8 +22,6 @@
 "/usr/share/cmake-4.4/Help/generator/Visual Studio 8 2005.rst"
 "/usr/share/cmake-4.4/Help/generator/Visual Studio 9 2008.rst"
 "/usr/share/cmake-4.4/Help/generator/Watcom WMake.rst"
-%dir /usr/bin
-%dir /usr/share
 %dir /usr/share/aclocal
 %dir /usr/share/bash-completion
 %dir /usr/share/bash-completion/completions
@@ -95,10 +93,10 @@
 %dir /usr/share/cmake-4.4/Templates/MSBuild/FlagTables
 %dir /usr/share/cmake-4.4/Templates/Windows
 %dir /usr/share/doc
-%dir /usr/share/doc/cmake-4.4.3
-%dir /usr/share/doc/cmake-4.4.3/cmcppdap
-%dir /usr/share/doc/cmake-4.4.3/cmlibrhash
-%dir /usr/share/doc/cmake-4.4.3/cmsys
+%dir /usr/share/doc/cmake-4.4.5
+%dir /usr/share/doc/cmake-4.4.5/cmcppdap
+%dir /usr/share/doc/cmake-4.4.5/cmlibrhash
+%dir /usr/share/doc/cmake-4.4.5/cmsys
 %dir /usr/share/emacs
 %dir /usr/share/emacs/site-lisp
 %dir /usr/share/vim
@@ -2821,7 +2819,7 @@
 /usr/share/cmake-4.4/Modules/Compiler/IBMClang-CXX.cmake
 /usr/share/cmake-4.4/Modules/Compiler/IBMClang-FindBinUtils.cmake
 /usr/share/cmake-4.4/Modules/Compiler/IBMClang.cmake
-/usr/share/cmake-4.4/Modules/Compiler/IBMLLVMFlang-Fortran.cmake
+/usr/share/cmake-4.4/Modules/Compiler/IBMFlang-Fortran.cmake
 /usr/share/cmake-4.4/Modules/Compiler/Intel-ASM.cmake
 /usr/share/cmake-4.4/Modules/Compiler/Intel-C-FeatureTests.cmake
 /usr/share/cmake-4.4/Modules/Compiler/Intel-C.cmake
@@ -3193,8 +3191,6 @@
 /usr/share/cmake-4.4/Modules/GenerateExportHeader.cmake
 /usr/share/cmake-4.4/Modules/GetPrerequisites.cmake
 /usr/share/cmake-4.4/Modules/GoogleTest.cmake
-/usr/share/cmake-4.4/Modules/GoogleTest/DiscoverTests.cmake
-/usr/share/cmake-4.4/Modules/GoogleTest/LaunchTest.cmake
 /usr/share/cmake-4.4/Modules/GoogleTest/ParseTestList.cmake
 /usr/share/cmake-4.4/Modules/GoogleTestAddTests.cmake
 /usr/share/cmake-4.4/Modules/ITKCompatibility.cmake
@@ -3358,7 +3354,7 @@
 /usr/share/cmake-4.4/Modules/Platform/AIX-IBMClang-C.cmake
 /usr/share/cmake-4.4/Modules/Platform/AIX-IBMClang-CXX.cmake
 /usr/share/cmake-4.4/Modules/Platform/AIX-IBMClang.cmake
-/usr/share/cmake-4.4/Modules/Platform/AIX-IBMLLVMFlang-Fortran.cmake
+/usr/share/cmake-4.4/Modules/Platform/AIX-IBMFlang-Fortran.cmake
 /usr/share/cmake-4.4/Modules/Platform/AIX-Initialize.cmake
 /usr/share/cmake-4.4/Modules/Platform/AIX-LLVMFlang-Fortran.cmake
 /usr/share/cmake-4.4/Modules/Platform/AIX-VisualAge-C.cmake
@@ -4223,11 +4219,11 @@
 /usr/share/cmake-4.4/Templates/Windows/SplashScreen.png
 /usr/share/cmake-4.4/Templates/Windows/StoreLogo.png
 /usr/share/cmake-4.4/Templates/Windows/Windows_TemporaryKey.pfx
-/usr/share/doc/cmake-4.4.3/CONTRIBUTORS.rst
-/usr/share/doc/cmake-4.4.3/LICENSE.rst
-/usr/share/doc/cmake-4.4.3/cmcppdap/NOTICE
-/usr/share/doc/cmake-4.4.3/cmlibrhash/COPYING
-/usr/share/doc/cmake-4.4.3/cmsys/Copyright.txt
+/usr/share/doc/cmake-4.4.5/CONTRIBUTORS.rst
+/usr/share/doc/cmake-4.4.5/LICENSE.rst
+/usr/share/doc/cmake-4.4.5/cmcppdap/NOTICE
+/usr/share/doc/cmake-4.4.5/cmlibrhash/COPYING
+/usr/share/doc/cmake-4.4.5/cmsys/Copyright.txt
 /usr/share/emacs/site-lisp/cmake-mode.el
 /usr/share/vim/vimfiles/indent/cmake.vim
 /usr/share/vim/vimfiles/syntax/cmake.vim

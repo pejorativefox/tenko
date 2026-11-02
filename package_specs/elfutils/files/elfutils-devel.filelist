@@ -1,3 +1,5 @@
+%dir /usr/include/elfutils
+%dir /usr/lib64/pkgconfig
 /usr/include/elfutils/elf-knowledge.h
 /usr/include/gelf.h
 /usr/include/libelf.h

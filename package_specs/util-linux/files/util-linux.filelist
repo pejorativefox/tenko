@@ -1,4 +1,13 @@
-%dir /usr/bin
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+%dir /usr/share/doc
+%dir /usr/share/doc/util-linux-2.42.4
+%dir /usr/share/locale
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/man/man3
+%dir /usr/share/man/man5
+%dir /usr/share/man/man8
 /usr/bin/agetty
 /usr/bin/bits
 /usr/bin/blkdiscard
@@ -112,8 +121,6 @@
 /usr/bin/wipefs
 /usr/bin/x86_64
 /usr/bin/zramctl
-%dir /usr/include
-%dir /usr/lib64
 /usr/lib64/libblkid.so.1
 /usr/lib64/libblkid.so.1.1.0
 /usr/lib64/libfdisk.so.1
@@ -124,7 +131,6 @@
 /usr/lib64/libsmartcols.so.1.1.0
 /usr/lib64/libuuid.so.1
 /usr/lib64/libuuid.so.1.3.0
-%dir /usr/sbin
 /usr/sbin/addpart
 /usr/sbin/agetty
 /usr/sbin/delpart
@@ -136,9 +142,6 @@
 /usr/sbin/rfkill
 /usr/sbin/rtcwake
 /usr/sbin/uuidd
-%dir /usr/share
-%dir /usr/share/bash-completion
-%dir /usr/share/bash-completion/completions
 /usr/share/bash-completion/completions/addpart
 /usr/share/bash-completion/completions/bits
 /usr/share/bash-completion/completions/blkdiscard
@@ -252,13 +255,8 @@
 /usr/share/bash-completion/completions/whereis
 /usr/share/bash-completion/completions/wipefs
 /usr/share/bash-completion/completions/zramctl
-%dir /usr/share/doc
-%dir /usr/share/doc/util-linux-2.42.2
-/usr/share/doc/util-linux-2.42.2/getopt-example.bash
-/usr/share/doc/util-linux-2.42.2/getopt-example.tcsh
-%dir /usr/share/locale
-%dir /usr/share/man
-%dir /usr/share/man/man1
+/usr/share/doc/util-linux-2.42.4/getopt-example.bash
+/usr/share/doc/util-linux-2.42.4/getopt-example.tcsh
 /usr/share/man/man1/bits.1.gz
 /usr/share/man/man1/cal.1.gz
 /usr/share/man/man1/choom.1.gz
@@ -325,7 +323,6 @@
 /usr/share/man/man1/waitpid.1.gz
 /usr/share/man/man1/wall.1.gz
 /usr/share/man/man1/whereis.1.gz
-%dir /usr/share/man/man3
 /usr/share/man/man3/libblkid.3.gz
 /usr/share/man/man3/uuid.3.gz
 /usr/share/man/man3/uuid_clear.3.gz
@@ -339,12 +336,10 @@
 /usr/share/man/man3/uuid_parse.3.gz
 /usr/share/man/man3/uuid_time.3.gz
 /usr/share/man/man3/uuid_unparse.3.gz
-%dir /usr/share/man/man5
 /usr/share/man/man5/adjtime_config.5.gz
 /usr/share/man/man5/fstab.5.gz
 /usr/share/man/man5/scols-filter.5.gz
 /usr/share/man/man5/terminal-colors.d.5.gz
-%dir /usr/share/man/man8
 /usr/share/man/man8/addpart.8.gz
 /usr/share/man/man8/agetty.8.gz
 /usr/share/man/man8/blkdiscard.8.gz

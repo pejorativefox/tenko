@@ -1,6 +1,6 @@
 Name:       systemd
-Version:    261.3
-Release:    3
+Version:    262.1
+Release:    1
 Summary:    The systemd package contains programs for controlling the startup, running, and shutdown of the system.
 License:    GPL
 Source0:    %{name}-%{version}.tar.gz
@@ -80,6 +80,9 @@ popd
 %files doc -f %{_sourcedir}/systemd-doc.filelist
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 262.1-1
+- Update to 262.1 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 261.3-3
 - Bump the release for the hwdb/lang/doc split: the 261.3-2 build is
   already published with the old monolithic payload, so the split needs

@@ -23,10 +23,7 @@
 %dir /etc/user-tmpfiles.d
 %dir /etc/xdg
 %dir /etc/xdg/systemd
-%dir /usr/bin
-%dir /usr/include
 %dir /usr/include/systemd
-%dir /usr/lib
 %dir /usr/lib/binfmt.d
 %dir /usr/lib/credstore
 %dir /usr/lib/environment.d
@@ -35,7 +32,6 @@
 %dir /usr/lib/modprobe.d
 %dir /usr/lib/modules-load.d
 %dir /usr/lib/sysctl.d
-%dir /usr/lib/systemd
 %dir /usr/lib/systemd/catalog
 %dir /usr/lib/systemd/initrd-preset
 %dir /usr/lib/systemd/network
@@ -91,12 +87,9 @@
 %dir /usr/lib/tmpfiles.d
 %dir /usr/lib/udev
 %dir /usr/lib/udev/rules.d
-%dir /usr/lib64
 %dir /usr/lib64/pkgconfig
 %dir /usr/lib64/security
 %dir /usr/lib64/systemd
-%dir /usr/sbin
-%dir /usr/share
 %dir /usr/share/bash-completion
 %dir /usr/share/bash-completion/completions
 %dir /usr/share/dbus-1
@@ -284,6 +277,7 @@
 /usr/lib/systemd/resolv.conf
 /usr/lib/systemd/ssh_config.d/20-systemd-ssh-proxy.conf
 /usr/lib/systemd/sshd_config.d/20-systemd-userdb.conf
+/usr/lib/systemd/system-generators/systemd-clonesetup-generator
 /usr/lib/systemd/system-generators/systemd-debug-generator
 /usr/lib/systemd/system-generators/systemd-factory-reset-generator
 /usr/lib/systemd/system-generators/systemd-fstab-generator
@@ -304,6 +298,7 @@
 /usr/lib/systemd/system/breakpoint-pre-udev.service
 /usr/lib/systemd/system/capsule.slice
 /usr/lib/systemd/system/capsule@.service
+/usr/lib/systemd/system/clonesetup.target
 /usr/lib/systemd/system/console-getty.service
 /usr/lib/systemd/system/container-getty@.service
 /usr/lib/systemd/system/ctrl-alt-del.target
@@ -408,7 +403,7 @@
 /usr/lib/systemd/system/sockets.target.wants/systemd-storage-block.socket
 /usr/lib/systemd/system/sockets.target.wants/systemd-storage-fs.socket
 /usr/lib/systemd/system/sockets.target.wants/systemd-sysext.socket
-/usr/lib/systemd/system/sockets.target.wants/systemd-udevd-control.socket
+/usr/lib/systemd/system/sockets.target.wants/systemd-sysinstall.socket
 /usr/lib/systemd/system/sockets.target.wants/systemd-udevd-kernel.socket
 /usr/lib/systemd/system/sockets.target.wants/systemd-udevd-varlink.socket
 /usr/lib/systemd/system/soft-reboot.target
@@ -423,6 +418,7 @@
 /usr/lib/systemd/system/sys-kernel-debug.mount
 /usr/lib/systemd/system/sys-kernel-tracing.mount
 /usr/lib/systemd/system/sysinit.target
+/usr/lib/systemd/system/sysinit.target.wants/clonesetup.target
 /usr/lib/systemd/system/sysinit.target.wants/dev-hugepages.mount
 /usr/lib/systemd/system/sysinit.target.wants/dev-mqueue.mount
 /usr/lib/systemd/system/sysinit.target.wants/kmod-static-nodes.service
@@ -471,8 +467,10 @@
 /usr/lib/systemd/system/systemd-confext-initrd.service
 /usr/lib/systemd/system/systemd-confext-sysroot.service
 /usr/lib/systemd/system/systemd-confext.service
+/usr/lib/systemd/system/systemd-coredump-register.service
 /usr/lib/systemd/system/systemd-coredump.socket
 /usr/lib/systemd/system/systemd-coredump@.service
+/usr/lib/systemd/system/systemd-coredumpd.service
 /usr/lib/systemd/system/systemd-creds.socket
 /usr/lib/systemd/system/systemd-creds@.service
 /usr/lib/systemd/system/systemd-exit.service
@@ -494,6 +492,8 @@
 /usr/lib/systemd/system/systemd-hybrid-sleep.service
 /usr/lib/systemd/system/systemd-journal-catalog-update.service
 /usr/lib/systemd/system/systemd-journal-flush.service
+/usr/lib/systemd/system/systemd-journalctl-metrics.socket
+/usr/lib/systemd/system/systemd-journalctl-metrics@.service
 /usr/lib/systemd/system/systemd-journalctl.socket
 /usr/lib/systemd/system/systemd-journalctl@.service
 /usr/lib/systemd/system/systemd-journald-audit.socket
@@ -510,6 +510,7 @@
 /usr/lib/systemd/system/systemd-logind.service
 /usr/lib/systemd/system/systemd-loop@.service
 /usr/lib/systemd/system/systemd-machine-id-commit.service
+/usr/lib/systemd/system/systemd-machine-tag@.service
 /usr/lib/systemd/system/systemd-machined.service
 /usr/lib/systemd/system/systemd-machined.socket
 /usr/lib/systemd/system/systemd-modules-load.service
@@ -546,6 +547,14 @@
 /usr/lib/systemd/system/systemd-report-basic@.service
 /usr/lib/systemd/system/systemd-report-cgroup.socket
 /usr/lib/systemd/system/systemd-report-cgroup@.service
+/usr/lib/systemd/system/systemd-report-files.socket
+/usr/lib/systemd/system/systemd-report-files@.service
+/usr/lib/systemd/system/systemd-report-sign-plain.socket
+/usr/lib/systemd/system/systemd-report-sign-plain@.service
+/usr/lib/systemd/system/systemd-report-sign-tsm.socket
+/usr/lib/systemd/system/systemd-report-sign-tsm@.service
+/usr/lib/systemd/system/systemd-report.socket
+/usr/lib/systemd/system/systemd-report@.service
 /usr/lib/systemd/system/systemd-resolved-monitor.socket
 /usr/lib/systemd/system/systemd-resolved-varlink.socket
 /usr/lib/systemd/system/systemd-resolved.service
@@ -566,6 +575,10 @@
 /usr/lib/systemd/system/systemd-sysext.socket
 /usr/lib/systemd/system/systemd-sysext@.service
 /usr/lib/systemd/system/systemd-sysinstall.service
+/usr/lib/systemd/system/systemd-sysinstall.socket
+/usr/lib/systemd/system/systemd-sysinstall@.service
+/usr/lib/systemd/system/systemd-sysupdate-notify-sysext.socket
+/usr/lib/systemd/system/systemd-sysupdate-notify-sysext@.service
 /usr/lib/systemd/system/systemd-sysusers.service
 /usr/lib/systemd/system/systemd-time-wait-sync.service
 /usr/lib/systemd/system/systemd-timedated.service
@@ -611,6 +624,7 @@
 /usr/lib/systemd/systemd-battery-check
 /usr/lib/systemd/systemd-binfmt
 /usr/lib/systemd/systemd-boot-check-no-failures
+/usr/lib/systemd/systemd-clonesetup
 /usr/lib/systemd/systemd-coredump
 /usr/lib/systemd/systemd-executor
 /usr/lib/systemd/systemd-factory-reset
@@ -642,6 +656,9 @@
 /usr/lib/systemd/systemd-report
 /usr/lib/systemd/systemd-report-basic
 /usr/lib/systemd/systemd-report-cgroup
+/usr/lib/systemd/systemd-report-files
+/usr/lib/systemd/systemd-report-sign-plain
+/usr/lib/systemd/systemd-report-sign-tsm
 /usr/lib/systemd/systemd-resolved
 /usr/lib/systemd/systemd-rfkill
 /usr/lib/systemd/systemd-sbsign
@@ -771,6 +788,7 @@
 /usr/lib/udev/rules.d/60-persistent-alsa.rules
 /usr/lib/udev/rules.d/60-persistent-hidraw.rules
 /usr/lib/udev/rules.d/60-persistent-input.rules
+/usr/lib/udev/rules.d/60-persistent-media-controller.rules
 /usr/lib/udev/rules.d/60-persistent-storage-mtd.rules
 /usr/lib/udev/rules.d/60-persistent-storage-tape.rules
 /usr/lib/udev/rules.d/60-persistent-storage.rules
@@ -809,16 +827,16 @@
 /usr/lib64/libnss_systemd.so.2
 /usr/lib64/libsystemd.so
 /usr/lib64/libsystemd.so.0
-/usr/lib64/libsystemd.so.0.44.0
+/usr/lib64/libsystemd.so.0.45.0
 /usr/lib64/libudev.so
 /usr/lib64/libudev.so.1
-/usr/lib64/libudev.so.1.7.14
+/usr/lib64/libudev.so.1.7.15
 /usr/lib64/pkgconfig/libsystemd.pc
 /usr/lib64/pkgconfig/libudev.pc
 /usr/lib64/security/pam_systemd.so
 /usr/lib64/security/pam_systemd_loadkey.so
-/usr/lib64/systemd/libsystemd-core-261.so
-/usr/lib64/systemd/libsystemd-shared-261.so
+/usr/lib64/systemd/libsystemd-core-262.so
+/usr/lib64/systemd/libsystemd-shared-262.so
 /usr/sbin/halt
 /usr/sbin/init
 /usr/sbin/mount.ddi
@@ -943,6 +961,7 @@
 /usr/share/polkit-1/actions/io.systemd.namespace-resource.policy
 /usr/share/polkit-1/actions/io.systemd.storage.policy
 /usr/share/polkit-1/actions/io.systemd.sysext.policy
+/usr/share/polkit-1/actions/io.systemd.sysinstall.policy
 /usr/share/polkit-1/actions/org.freedesktop.hostname1.policy
 /usr/share/polkit-1/actions/org.freedesktop.locale1.policy
 /usr/share/polkit-1/actions/org.freedesktop.login1.policy

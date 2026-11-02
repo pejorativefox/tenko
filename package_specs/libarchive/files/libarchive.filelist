@@ -1,3 +1,8 @@
+%dir /usr/lib64/pkgconfig
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/man/man3
+%dir /usr/share/man/man5
 /usr/bin/bsdcat
 /usr/bin/bsdcpio
 /usr/bin/bsdtar
@@ -6,15 +11,12 @@
 /usr/include/archive_entry.h
 /usr/lib64/libarchive.so
 /usr/lib64/libarchive.so.13
-/usr/lib64/libarchive.so.13.8.9
+/usr/lib64/libarchive.so.13.8.11
 /usr/lib64/pkgconfig/libarchive.pc
-%dir /usr/share/man
-%dir /usr/share/man/man1
 /usr/share/man/man1/bsdcat.1.gz
 /usr/share/man/man1/bsdcpio.1.gz
 /usr/share/man/man1/bsdtar.1.gz
 /usr/share/man/man1/bsdunzip.1.gz
-%dir /usr/share/man/man3
 /usr/share/man/man3/archive_entry.3.gz
 /usr/share/man/man3/archive_entry_acl.3.gz
 /usr/share/man/man3/archive_entry_linkify.3.gz
@@ -52,7 +54,6 @@
 /usr/share/man/man3/libarchive.3.gz
 /usr/share/man/man3/libarchive_changes.3.gz
 /usr/share/man/man3/libarchive_internals.3.gz
-%dir /usr/share/man/man5
 /usr/share/man/man5/cpio.5.gz
 /usr/share/man/man5/libarchive-formats.5.gz
 /usr/share/man/man5/mtree.5.gz

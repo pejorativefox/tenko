@@ -1,5 +1,5 @@
 Name:       man-pages
-Version:    6.19
+Version:    6.20
 Release:    1
 Summary:    The Linux man-pages
 License:    Various
@@ -21,6 +21,9 @@ make -R install DESTDIR=%{buildroot} prefix=/usr GIT=false
 
 %files
 /usr/bin/diffman-git
+/usr/bin/git-bisect-rebase
+/usr/bin/git-bisect-rebase--callback
+/usr/bin/git-bisect-rebase--continue
 /usr/bin/grepc
 /usr/bin/grepc_c
 /usr/bin/grepc_mk
@@ -31,6 +34,9 @@ make -R install DESTDIR=%{buildroot} prefix=/usr GIT=false
 /usr/share/man
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 6.20-1
+- Update to 6.20 (current LFS/BLFS r13.1 trunk version).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 6.18
 - Sync with LFS r13.1
 

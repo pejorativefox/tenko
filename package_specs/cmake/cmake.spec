@@ -1,5 +1,5 @@
 Name:       cmake
-Version:    4.4.3
+Version:    4.4.5
 Release:    1
 Summary:    TODO
 License:    GPL3
@@ -36,6 +36,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.4.5-1
+- Update to 4.4.5 (current LFS/BLFS r13.1 trunk version).
+
 * Wed May 13 2020 Chris Statzer <chris.statzer@qq.com> 3.17.2
 - Upgrade to fix missing policys in newer version
 

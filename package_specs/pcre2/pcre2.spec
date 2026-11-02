@@ -1,6 +1,6 @@
 Name:       pcre2
-Version:    10.48
-Release:    2
+Version:    10.49
+Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -51,6 +51,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 10.49-1
+- Update to 10.49 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 10.48-2
 - Split doc, devel payload into pcre2-doc, pcre2-devel (size audit)
 

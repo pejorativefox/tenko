@@ -1,5 +1,5 @@
 Name:       pkgconf
-Version:    3.0.7
+Version:    3.0.10
 Release:    1
 Summary:    Successor to pkg-config
 License:    GPL3
@@ -44,6 +44,9 @@ ln -sv pkgconf.1 %{buildroot}/usr/share/man/man1/pkg-config.1
 /usr/share/man/
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 3.0.10-1
+- Update to 3.0.10 (current LFS/BLFS r13.1 trunk version).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 3.0.5
 - Sync with LFS r13.1
 

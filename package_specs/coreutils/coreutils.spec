@@ -1,6 +1,6 @@
 Name:       coreutils
-Version:    9.11
-Release:    2
+Version:    9.12
+Release:    1
 Summary:    GNU operating system tools
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -18,7 +18,11 @@ Translations for coreutils.
 
 %prep
 %setup -q
-patch -Np1 -i %{_sourcedir}/coreutils-9.11-i18n-1.patch
+patch -Np1 -i %{_sourcedir}/coreutils-9.12-i18n-1.patch
+# The i18n patch touches tests/local.mk.  The tarball's Makefile.in was
+# generated with automake 1.18; refreshing its timestamp avoids an
+# unnecessary automake run (the patched file only feeds the test harness).
+touch Makefile.in po/Makefile.in.in
 
 %build
 
@@ -37,6 +41,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 9.12-1
+- Update to 9.12 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 9.11-2
 - Split lang payload into coreutils-lang (size audit)
 

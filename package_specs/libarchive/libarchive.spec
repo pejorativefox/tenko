@@ -1,6 +1,6 @@
 Name:       libarchive
-Version:    3.8.9
-Release:    3
+Version:    3.8.11
+Release:    1
 Summary:    Library for various archive formats
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -33,6 +33,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 3.8.11-1
+- Update to 3.8.11 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.9-3
 - Split static payload into libarchive-static (size audit)
 

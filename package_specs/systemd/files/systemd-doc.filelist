@@ -1,22 +1,22 @@
-%dir /usr/share/doc/systemd-261.3
-%dir /usr/share/doc/systemd-261.3/LICENSES
-/usr/share/doc/systemd-261.3/ENVIRONMENT.md
-/usr/share/doc/systemd-261.3/LICENSE.GPL2
-/usr/share/doc/systemd-261.3/LICENSE.LGPL2.1
-/usr/share/doc/systemd-261.3/LICENSES/BSD-2-Clause.txt
-/usr/share/doc/systemd-261.3/LICENSES/BSD-3-Clause.txt
-/usr/share/doc/systemd-261.3/LICENSES/CC0-1.0.txt
-/usr/share/doc/systemd-261.3/LICENSES/LGPL-2.0-or-later.txt
-/usr/share/doc/systemd-261.3/LICENSES/Linux-syscall-note.txt
-/usr/share/doc/systemd-261.3/LICENSES/MIT-0.txt
-/usr/share/doc/systemd-261.3/LICENSES/MIT.txt
-/usr/share/doc/systemd-261.3/LICENSES/OFL-1.1.txt
-/usr/share/doc/systemd-261.3/LICENSES/README.md
-/usr/share/doc/systemd-261.3/LICENSES/alg-sha1-public-domain.txt
-/usr/share/doc/systemd-261.3/LICENSES/lookup3-public-domain.txt
-/usr/share/doc/systemd-261.3/LICENSES/murmurhash2-public-domain.txt
-/usr/share/doc/systemd-261.3/NEWS
-/usr/share/doc/systemd-261.3/README
-/usr/share/doc/systemd-261.3/README.logs
-/usr/share/doc/systemd-261.3/TRANSIENT-SETTINGS.md
-/usr/share/doc/systemd-261.3/UIDS-GIDS.md
+%dir /usr/share/doc/systemd-262.1
+%dir /usr/share/doc/systemd-262.1/LICENSES
+/usr/share/doc/systemd-262.1/ENVIRONMENT.md
+/usr/share/doc/systemd-262.1/LICENSE.GPL2
+/usr/share/doc/systemd-262.1/LICENSE.LGPL2.1
+/usr/share/doc/systemd-262.1/LICENSES/BSD-2-Clause.txt
+/usr/share/doc/systemd-262.1/LICENSES/BSD-3-Clause.txt
+/usr/share/doc/systemd-262.1/LICENSES/CC0-1.0.txt
+/usr/share/doc/systemd-262.1/LICENSES/LGPL-2.0-or-later.txt
+/usr/share/doc/systemd-262.1/LICENSES/Linux-syscall-note.txt
+/usr/share/doc/systemd-262.1/LICENSES/MIT-0.txt
+/usr/share/doc/systemd-262.1/LICENSES/MIT.txt
+/usr/share/doc/systemd-262.1/LICENSES/OFL-1.1.txt
+/usr/share/doc/systemd-262.1/LICENSES/README.md
+/usr/share/doc/systemd-262.1/LICENSES/alg-sha1-public-domain.txt
+/usr/share/doc/systemd-262.1/LICENSES/lookup3-public-domain.txt
+/usr/share/doc/systemd-262.1/LICENSES/murmurhash2-public-domain.txt
+/usr/share/doc/systemd-262.1/NEWS
+/usr/share/doc/systemd-262.1/README
+/usr/share/doc/systemd-262.1/README.logs
+/usr/share/doc/systemd-262.1/TRANSIENT-SETTINGS.md
+/usr/share/doc/systemd-262.1/UIDS-GIDS.md

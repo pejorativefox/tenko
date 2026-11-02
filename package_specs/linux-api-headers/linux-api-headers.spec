@@ -1,5 +1,5 @@
 Name:       linux-api-headers
-Version:    7.2.6
+Version:    7.3.1
 Release:    1
 Summary:    Linux userspace API headers
 License:    GPL-2.0-only WITH Linux-syscall-note
@@ -29,5 +29,8 @@ find %{buildroot}/usr/include -type f ! -name '*.h' -delete
 %files -f %{_sourcedir}/linux-api-headers.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 7.3.1-1
+- Update to the linux 7.3.1 UAPI headers (current LFS trunk).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 7.1.8-1
 - Generate UAPI headers from the pinned kernel source (C9)
