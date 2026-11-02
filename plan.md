@@ -427,6 +427,11 @@ python3 scripts/audit_versions.py                  # RPM/spec vs the books
   there is no `XDG_RUNTIME_DIR`; SSH and LightDM sessions are fine.
 - The installer-created admin has subuid/subgid 100000-165535; other users
   created later get ranges from `login.defs` now that the files exist.
+- The ISO is **UEFI-only and unsigned**: firmware with Secure Boot rejects
+  `BOOTX64.EFI` (`Access Denied -- rejected probably by Secure Boot`).
+  GNOME Boxes may default to Secure Boot; boot the VM with the non-secboot
+  OVMF firmware (`/usr/share/edk2/ovmf/OVMF_CODE.fd`) or disable Secure Boot
+  in the domain.  BIOS mode cannot work (no syslinux/isolinux).
 - The QEMU std-VGA `screendump` is blank with modesetting, so the graphical
   test captures the root window with `xwd` over a 9p share
   (`build/qemu-share/`).  `qemu_run_desktop.sh` has no `-virtfs`, so its 9p
