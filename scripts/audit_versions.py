@@ -5,6 +5,7 @@ Usage: python3 scripts/audit_versions.py [--rpm-dir DIR]
 """
 import argparse
 import glob
+import io
 import os
 import re
 import sys
@@ -54,8 +55,17 @@ def book_versions():
                 key = norm(pkg)
                 if key == "glib2":
                     key = "glib"
-                if key == "sqlite" and v.isdigit() and len(v) == 7:
-                    v = v[0] + "." + v[1:3] + "." + v[3]
+                if key == "sqlite":
+                    # LFS encodes the autoconf tarball number (3540100) in
+                    # sqlite-version and the display version separately.
+                    short = resolve(ents.get("sqlite-short-version", ""), ents)
+                    if short:
+                        v = short
+                    elif v.isdigit() and len(v) >= 5:
+                        parts = [str(int(v[0])), str(int(v[1:3])), str(int(v[3:5]))]
+                        if len(v) > 5 and int(v[5:]):
+                            parts.append(str(int(v[5:])))
+                        v = ".".join(parts)
                 # LFS wins for base packages; BLFS fills the rest.
                 vers.setdefault(key, (v, src, name))
     return vers
@@ -112,6 +122,31 @@ def local_rpms(rpm_dir):
     return pkgs
 
 
+def primary_rpms(path):
+    """Read name/version pairs from a repo primary.xml (optionally .zst)."""
+    import subprocess
+    import xml.etree.ElementTree as ET
+
+    if path.endswith(".zst"):
+        data = subprocess.run(
+            ["zstd", "-dc", path], check=True, stdout=subprocess.PIPE
+        ).stdout
+    else:
+        with open(path, "rb") as handle:
+            data = handle.read()
+
+    ns = {"c": "http://linux.duke.edu/metadata/common"}
+    pkgs = {}
+    for _event, element in ET.iterparse(io.BytesIO(data)):
+        if not element.tag.endswith("}package"):
+            continue
+        name = element.find("c:name", ns).text
+        version = element.find("c:version", ns)
+        pkgs[name] = (version.get("ver"), path)
+        element.clear()
+    return pkgs
+
+
 def local_specs(spec_dir):
     out = {}
     for path in glob.glob(os.path.join(spec_dir, "*", "*.spec")):
@@ -134,11 +169,22 @@ def local_specs(spec_dir):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--rpm-dir", default=os.path.join(ROOT, "build", "repo-all"))
+    ap.add_argument(
+        "--primary",
+        help="audit a published repo from its primary.xml (or primary.xml.zst) "
+             "instead of a local RPM directory",
+    )
     args = ap.parse_args()
 
     book = book_versions()
-    rpms = local_rpms(args.rpm_dir)
-    specs = local_specs(os.path.join(ROOT, "package_specs"))
+    if args.primary:
+        rpms = primary_rpms(args.primary)
+        specs = {}
+        scope = "packages from {}".format(args.primary)
+    else:
+        rpms = local_rpms(args.rpm_dir)
+        specs = local_specs(os.path.join(ROOT, "package_specs"))
+        scope = "local packages"
 
     rows = []
     for name, (ver, path) in sorted(rpms.items()):
@@ -186,7 +232,7 @@ def main():
     counts = {}
     for r in rows:
         counts[r[0]] = counts.get(r[0], 0) + 1
-    print(f"# version audit vs LFS/BLFS trunk ({len(rows)} local packages)\n")
+    print(f"# version audit vs LFS/BLFS trunk ({len(rows)} {scope})\n")
     for k in sorted(counts):
         print(f"- {k}: {counts[k]}")
     print()

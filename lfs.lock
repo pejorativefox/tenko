@@ -265,9 +265,9 @@
     "sed": "4.10",
     "setuptools": "84.0.0",
     "shadow": "4.20.2",
-    "sqlite": "3530400",
-    "sqlite-doc": "3530400",
-    "sqlite-short": "3.53.4",
+    "sqlite": "3540100",
+    "sqlite-doc": "3540100",
+    "sqlite-short": "3.54.1",
     "sysklogd": "2.7.2",
     "systemd": "261.3",
     "systemd-man": "261.3",
@@ -689,9 +689,9 @@
       "url": "https://github.com/shadow-maint/shadow/releases/download/4.20.2/shadow-4.20.2.tar.xz"
     },
     "sqlite": {
-      "md5": "ee54db5a5b04e77d4883ce0c051a1eba",
-      "size": "3,207 KB",
-      "url": "https://sqlite.org/2026/sqlite-autoconf-3530400.tar.gz"
+      "md5": "5578c8ff43f5eb1ec671f0a2766b53c9",
+      "size": "3,255 KB",
+      "url": "https://sqlite.org/2026/sqlite-autoconf-3540100.tar.gz"
     },
     "systemd": {
       "md5": "21d1d4ea580c2f111f067ee8184e7952",

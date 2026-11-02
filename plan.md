@@ -145,9 +145,15 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   `browneye-base-build`, `xfce-desktop-core` (174 / 700 MB), `-hardware`,
   `-full`; `browneye-workstation` (node, OpenSSH, git, opencode, herdr, sudo,
   podman); `browneye-live` (installer environment).
-- Version parity: no shipped package is below the current LFS/BLFS trunk.
-  `lfs.lock` regenerated from trunk (`581459fa`); `sync_lfs_spec.py
-  --all-base` reports 80/80.
+- Version parity: parity held at build time, but the books have moved since
+  (LFS trunk last updated 2026-10-31, BLFS 2026-11-01).  A 2026-11-02 audit of
+  the *published* metadata (`audit_versions.py --primary`, 593 RPMs) reports
+  **52 packages below the books**, 222 current and 1 newer.  That includes
+  systemd 261.3→262.1, python 3.14.7→3.15.2, openssl 4.0.2→4.1.0, grub
+  2.14→2.16, coreutils 9.11→9.12, curl 8.22.0→8.23.0, expat 2.8.4→2.9.0 and
+  xorg-server 21.1.24→21.1.25; the full list and the plan are in D9.  sqlite
+  3.53.4→3.54.1 is fixed by D1.  `lfs.lock` was regenerated from trunk
+  (`581459fa`); `sync_lfs_spec.py --all-base` reports 80/80.
 - `bbuild` cleanup: exit codes, ORDER-only `all`, NEVRA conflict refusal,
   atomic source staging, repo-aware read-only query, 56 tests; legacy
   duplicate scripts removed.
@@ -166,22 +172,8 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 
 ## 2. What is left
 
-### B. Self-hosting and on-box rebuild
+### S. Self-hosting on an installed system
 
-- [ ] **B1. Chapters 5–7 as bootstrap RPMs.**  Downgraded 2026-11-02: the
-      published tree has no first-generation (Fedora-host-built) RPMs left.
-      An audit of 65 sampled packages (toolchain, texinfo/tcl/expect/dejagnu,
-      man-pages/iana-etc, kernel, desktop/Xorg/BLFS stack) found every one
-      built inside a container (`hex` buildhost, Oct 31 wave), so the
-      ancestry concern is closed and B1 is now purely a disaster-recovery
-      option: regenerate a *first* artifact (seed) from sources alone with
-      no browneye RPM and no seed image present (~26 cross/toolchain specs
-      + filelists + a driver).  Nothing else on this list depends on it.
-- [ ] **S1. Ship the build tree for on-box ISO rebuilds.**  The installed
-      system has every package needed (repo access, ISO tools, podman,
-      `browneye-build`), but not `scripts/`, `package_specs/`, `lfs.lock` or
-      the source tarballs.  Package them (or a git-clone workflow) so an
-      install can rebuild the ISO without the original checkout.
 - [ ] **S2. Container build images on an installed system.**  The
       container-based scripts (`verify_base_in_container.sh`,
       `build_blfs_stack.sh`) expect `localhost/browneye/base:*` images that
@@ -191,14 +183,25 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 
 ### D. Packaging debt
 
-- [ ] **D1. sqlite SONAME.**  The library has no SONAME, so `NEEDED
-      libsqlite3.so` makes the unversioned name a runtime ABI and the runtime
-      package must ship it.  Build with `-Wl,-soname,libsqlite3.so.0` and
-      rebuild consumers.
-- [ ] **D2. LLVM libdir.**  LLVM installs into `/usr/lib` while the distro
-      uses `/usr/lib64`; `xorg-server` needs `-Wl,-rpath-link,/usr/lib` and
-      image builds patch `/etc/ld.so.conf`.  Build with
-      `LLVM_LIBDIR_SUFFIX=64` (or move `libLLVM`) and drop the workarounds.
+- [x] **D1. sqlite SONAME.**  Fixed 2026-11-02 with the 3.54.1 update
+      (autoconf 3540100, the current LFS trunk version): the build passes
+      `-Wl,-soname,libsqlite3.so.0` and clears `LDFLAGS.rpath`, so
+      `libsqlite3.so.3.54.1` now carries SONAME `libsqlite3.so.0` and no
+      RUNPATH (it previously had neither a SONAME nor any stable ABI name).
+      The runtime package keeps the unversioned `libsqlite3.so` symlink and
+      the explicit `Provides: libsqlite3.so()(64bit)`; rpm, python and
+      createrepo_c therefore keep working and switch to the versioned NEEDED
+      when E2 rebuilds them.
+- [ ] **D2. LLVM libdir.**  In progress 2026-11-02: 23.1.0-3 builds with
+      `-D LLVM_LIBDIR_SUFFIX=64`, so libLLVM/libLTO/libRemarks, LLVMgold, the
+      CMake packages, static archives and the Clang resource directory all
+      land in `/usr/lib64`.  The obsolete workarounds are removed:
+      xorg-server's `-Wl,-rpath-link,/usr/lib`, the `/usr/lib` entries in
+      `qemu_boot.sh` / `qemu_boot_graphical.sh`, and the libLLVM symlink hack
+      in `build_x11_utils.sh`.  `partition_llvm_filelist.py` now understands
+      both libdirs.  Remaining: publish, refresh the staged
+      `~/rpmbuild/SOURCES/x11deps` set, and rebuild xorg-server (taking the
+      book version 21.1.25 at the same time).
 - [ ] **D3. Sign the repository.**  Deferred by decision: the tree stays
       unsigned (`gpgcheck=0`, `repo_gpgcheck=0`).
 - [ ] **D6. Optional `-gir` splits.**  The last unapplied size lever from the
@@ -208,9 +211,26 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       ever built; update the chain first if so.  (`unzip` additionally
       references a consolidated patch that is 404 upstream — drop the spec or
       source the patch.)
-- [ ] **D8. Minor gaps.**  `xfce4-terminal` omits its man page (no
-      `docbook-xsl-nons`); `curl` is built `--without-libpsl`; `rsync` is
-      built `--disable-idn`; `libepoxy` uses host GL headers during the build.
+- [ ] **D8. Minor gaps.**  `xfce4-terminal` omits its man page (needs
+      docbook-xsl-nons 1.79.2 — a spec exists but not the xmlcatalog setup —
+      plus docbook-xml and libxslt/xsltproc); `curl` is built
+      `--without-libpsl` (needs libpsl 0.23.3, libidn2 2.3.8 and libunistring);
+      `rsync` is built `--disable-idn` (needs libidn2); `libepoxy` uses the
+      build image's GL headers without declaring `mesa-devel`.
+- [ ] **D9. Re-baseline the published tree to the moved books.**  The
+      2026-11-02 repo audit (`audit_versions.py --primary`, see §5) found 52
+      of 593 published packages below the LFS/BLFS trunk: LVM2, at-spi2-core,
+      brotli, c-ares, cargo-c, cmake, coreutils, curl, elfutils, expat,
+      fribidi, git, glib, groff, grub, gzip, harfbuzz, hwdata, iana-etc,
+      iproute2, kmod, less, libarchive, libevdev, libjpeg-turbo, libnotify,
+      libpng, librsvg, libx11, libxi, libxrender, libxtst, linux-api-headers,
+      man-pages, meson, nmap, openssh, openssl, patch, pcre2, pkgconf, polkit,
+      python, shadow, simdutf, sqlite, systemd, upower, util-linux, vim,
+      xorg-server and xorgproto.  Several are ABI-level jumps (systemd 262,
+      python 3.15, openssl 4.1, grub 2.16), so this is a wave of its own:
+      bump the specs, check the dependency chain, rebuild and republish.
+      sqlite is already done (D1).  `xml-parser` 2.59 is *newer* than the
+      book (2.57) and needs no action.
 
 ### E. Verification and hygiene
 
@@ -425,6 +445,8 @@ Version and audit tooling:
 
 ```bash
 python3 scripts/audit_versions.py                  # RPM/spec vs the books
+python3 scripts/audit_versions.py --primary primary.xml.zst
+                                                   # published repo vs the books
 ./scripts/sync_lfs_spec.py --all-base              # dry run; expect 0 changes
 ./scripts/gen_base_requires.py --check             # browneye-base requires
 ./scripts/gen_lfs_lock.py --lfs-repo ~/repos/lfs --tag trunk --release 13.1
