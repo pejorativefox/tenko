@@ -1,10 +1,10 @@
 Name:       polkit
-Version:    127
-Release:    3
+Version:    128
+Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
-Source0:    polkit-127.tar.gz
+Source0:    polkit-128.tar.gz
 
 %description
 TODO
@@ -18,6 +18,7 @@ useradd -c "PolicyKit Daemon Owner" -d /etc/polkit-1 -u 27 \
 
 %package devel
 Summary:    polkit development files
+Requires:   %{name}-gir = %{version}-%{release}
 Requires:   polkit = %{version}-%{release}
 
 %description devel
@@ -39,11 +40,26 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
+
+%package gir
+Summary:    GObject Introspection data for polkit
+License:    GPL3
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for polkit, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
 %files -f %{_sourcedir}/polkit.filelist
 %files devel -f %{_sourcedir}/polkit-devel.filelist
+%files gir -f %{_sourcedir}/polkit-gir.filelist
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 128-1
+- Update to 128 (BLFS r13.1 trunk, D9 parity)
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 127-3
 - Split devel payload into polkit-devel (size audit)
 

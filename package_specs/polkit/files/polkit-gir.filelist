@@ -1,0 +1,3 @@
+%dir /usr/lib64/girepository-1.0
+/usr/lib64/girepository-1.0/Polkit-1.0.typelib
+/usr/lib64/girepository-1.0/PolkitAgent-1.0.typelib

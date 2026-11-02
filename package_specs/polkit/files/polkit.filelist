@@ -21,9 +21,6 @@
 %dir /usr/lib/tmpfiles.d
 /usr/lib/tmpfiles.d/polkit-tmpfiles.conf
 %dir /usr/lib64
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/Polkit-1.0.typelib
-/usr/lib64/girepository-1.0/PolkitAgent-1.0.typelib
 /usr/lib64/libpolkit-agent-1.so.0
 /usr/lib64/libpolkit-agent-1.so.0.0.0
 /usr/lib64/libpolkit-gobject-1.so.0
@@ -70,6 +67,9 @@
 %dir /usr/share/locale/ka
 %dir /usr/share/locale/ka/LC_MESSAGES
 /usr/share/locale/ka/LC_MESSAGES/polkit-1.mo
+%dir /usr/share/locale/kk
+%dir /usr/share/locale/kk/LC_MESSAGES
+/usr/share/locale/kk/LC_MESSAGES/polkit-1.mo
 %dir /usr/share/locale/nl
 %dir /usr/share/locale/nl/LC_MESSAGES
 /usr/share/locale/nl/LC_MESSAGES/polkit-1.mo
@@ -100,6 +100,12 @@
 %dir /usr/share/locale/sl
 %dir /usr/share/locale/sl/LC_MESSAGES
 /usr/share/locale/sl/LC_MESSAGES/polkit-1.mo
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+/usr/share/locale/sr/LC_MESSAGES/polkit-1.mo
+%dir /usr/share/locale/sr@latin
+%dir /usr/share/locale/sr@latin/LC_MESSAGES
+/usr/share/locale/sr@latin/LC_MESSAGES/polkit-1.mo
 %dir /usr/share/locale/sv
 %dir /usr/share/locale/sv/LC_MESSAGES
 /usr/share/locale/sv/LC_MESSAGES/polkit-1.mo
