@@ -41,7 +41,7 @@ IMAGE=${IMAGE:-localhost/browneye/base:r13.1-$DATE}
 TAG_STABLE=${TAG_STABLE:-1}
 DEVEL_PACKAGES=${DEVEL_PACKAGES:-ncurses-devel readline-devel xz-devel \
     linux-pam-devel elfutils-devel perl-devel tcl-devel e2fsprogs-devel \
-    kmod-devel}
+    kmod-devel expat-devel sqlite-devel util-linux-devel pcre2-devel}
 PACKAGES=${PACKAGES:-browneye-base browneye-build $DEVEL_PACKAGES}
 ROOTFS=${ROOTFS:-build/base-rootfs}
 TARBALL=${TARBALL:-build/base-rootfs.tar.gz}
