@@ -1,50 +1,65 @@
 Name:       lightdm-gtk-greeter
-Version:    2.0.8
+Version:    2.0.9
 Release:    1
 Summary:    GTK+ greeter for LightDM
-License:    GPL
-Source0:    %{name}-%{version}.tar.gz
+License:    GPL-3.0-or-later
+Source0:    lightdm-gtk-greeter-2.0.9.tar.gz
 Prefix:     /usr
 
+BuildRequires: gtk+, libxklavier, gettext
+# liblightdm-gobject-1.pc, the GIR and the headers come from lightdm-devel.
+BuildRequires: lightdm-devel
+
+Requires: lightdm >= 1.19.2
+
 %description
-GTK+ greeter for LightDM
+The reference GTK+ greeter for LightDM.  It provides the login screen, the
+session/desktop chooser, the keyboard layout menu, and a power menu.
+
+%package lang
+Summary:    lightdm-gtk-greeter translations
+Requires:   lightdm-gtk-greeter = %{version}-%{release}
+
+%description lang
+Translations for the LightDM GTK greeter.
+
+%package doc
+Summary:    lightdm-gtk-greeter documentation
+Requires:   lightdm-gtk-greeter = %{version}-%{release}
+
+%description doc
+Sample greeter stylesheet.
 
 %prep
-%setup
+%setup -q
 
 %build
-export HAVE_EXO_CSOURCE=yes
-LDM_CFLAGS="-Wno-declaration-after-statement \
-            -Wno-error=deprecated-declarations \
-	    -Wno-error=cast-function-type"
-
-#export CXXFLAGS="$CXXFLAGS $LDM_CFLAGS"
-#export RPM_OPT_FLAGS="%optflags $LDM_CFLAGS"
-
-CFLAGS="$CFLAGS $LDM_CFLAGS" \
-./configure   --prefix=/usr                 \
-	      --libexecdir=/usr/lib/lightdm \
-              --enable-kill-on-sigterm      \
-	      --disable-libido              \
-	      --disable-libindicator        \
-	      --disable-static && make
+%configure \
+    --libexecdir=/usr/lib/lightdm \
+    --sbindir=%{_bindir} \
+    --sysconfdir=/etc \
+    --with-libxklavier \
+    --enable-kill-on-sigterm \
+    --disable-libido \
+    --disable-libindicator \
+    --disable-static \
+    --disable-maintainer-mode
+%make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
 
-%files
-   /usr/etc/lightdm/lightdm-gtk-greeter.conf
-   /usr/sbin/lightdm-gtk-greeter
-   /usr/share/doc/lightdm-gtk-greeter/sample-lightdm-gtk-greeter.css
-   /usr/share/icons/hicolor/*
-   /usr/share/locale/*
-   /usr/share/xgreeters/lightdm-gtk-greeter.desktop
+# BLFS: version the documentation directory.
+mv -v %{buildroot}%{_docdir}/lightdm-gtk-greeter \
+      %{buildroot}%{_docdir}/lightdm-gtk-greeter-%{version}
+
+%files -f %{_sourcedir}/lightdm-gtk-greeter.filelist
+
+%files lang -f %{_sourcedir}/lightdm-gtk-greeter-lang.filelist
+
+%files doc -f %{_sourcedir}/lightdm-gtk-greeter-doc.filelist
 
 %changelog
-* Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 2.0.8
-- Version bump
-
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 2.0.3
-- Initial RPM
-
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.0.9-1
+- Initial package (BLFS r13.1 lightdm-gtk-greeter 2.0.9)

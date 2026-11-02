@@ -1,6 +1,6 @@
 Name:       linux
 Version:    7.2.6
-Release:    4
+Release:    5
 Summary:    Linux kernel
 License:    GPL2
 Prefix:     /usr
@@ -105,6 +105,11 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 7.2.6-5
+- Set CONFIG_DRM_PANIC_SCREEN="user": the sanitized config selected the
+  qr_code formatter while CONFIG_DRM_PANIC_SCREEN_QR_CODE is off (it needs
+  Rust), so the kernel logged a fallback warning at boot
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 7.2.6-4
 - Bump the release for the linux-kernel-debug split: the 7.2.6-3 build is
   already published with the old monolithic payload, so the split needs a

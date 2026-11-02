@@ -1,0 +1,13 @@
+%dir /usr/lib64
+%dir /usr/lib64/perl5
+%dir /usr/lib64/perl5/5.44.0
+%dir /usr/lib64/perl5/5.44.0/vendor_perl
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/Class
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/Class/Inspector
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man3
+/usr/lib64/perl5/5.44.0/vendor_perl/Class/Inspector.pm
+/usr/lib64/perl5/5.44.0/vendor_perl/Class/Inspector/Functions.pm
+/usr/share/man/man3/Class::Inspector.3.gz
+/usr/share/man/man3/Class::Inspector::Functions.3.gz

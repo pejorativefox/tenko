@@ -1,0 +1,58 @@
+%dir /usr/lib64
+%dir /usr/lib64/perl5
+%dir /usr/lib64/perl5/5.44.0
+%dir /usr/lib64/perl5/5.44.0/vendor_perl
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/XML
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser/Encodings
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser/Style
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/XML
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/XML/Parser
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/XML/Parser/Expat
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/share
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man3
+/usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser.pm
+/usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser/Encodings/Japanese_Encodings.msg
+/usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser/Encodings/README
+/usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser/Expat.pm
+/usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser/LWPExternEnt.pl
+/usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser/Style/Debug.pm
+/usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser/Style/Objects.pm
+/usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser/Style/Stream.pm
+/usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser/Style/Subs.pm
+/usr/lib64/perl5/5.44.0/vendor_perl/XML/Parser/Style/Tree.pm
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/XML/Parser/Expat/Expat.so
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/big5.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/euc-kr.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/ibm866.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/iso-8859-15.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/iso-8859-2.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/iso-8859-3.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/iso-8859-4.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/iso-8859-5.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/iso-8859-7.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/iso-8859-8.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/iso-8859-9.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/koi8-r.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/windows-1250.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/windows-1251.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/windows-1252.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/windows-1255.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/x-euc-jp-jisx0221.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/x-euc-jp-unicode.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/x-sjis-cp932.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/x-sjis-jdk117.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/x-sjis-jisx0221.enc
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/XML-Parser/x-sjis-unicode.enc
+/usr/share/man/man3/XML::Parser.3.gz
+/usr/share/man/man3/XML::Parser::Expat.3.gz
+/usr/share/man/man3/XML::Parser::Style::Debug.3.gz
+/usr/share/man/man3/XML::Parser::Style::Objects.3.gz
+/usr/share/man/man3/XML::Parser::Style::Stream.3.gz
+/usr/share/man/man3/XML::Parser::Style::Subs.3.gz
+/usr/share/man/man3/XML::Parser::Style::Tree.3.gz

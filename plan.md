@@ -29,6 +29,9 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   `virtio-vga-gl`, llvmpipe/XRender on plain 2D.
 - `build/xfce-test.img` boots the session (`scripts/qemu_run_desktop.sh`).
 - Firefox 159.0 (`firefox-bin`, `/opt`) with alsa-lib 1.2.16.1.
+- LightDM 1.33.1 + lightdm-gtk-greeter 2.0.9 (PAM, systemd unit
+  `lightdm.service` aliased to `display-manager.service`, systemd preset,
+  XFCE session); packaged but not yet pulled by a profile meta.
 
 **Developer workstation**
 - node 26.13.0 and rust 1.99.0 as official binaries under `/opt`.
@@ -58,9 +61,10 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 - Spec-audit metadata defects fixed: source manifests (`cpio`, `dracut`,
   `linux-firmware`, `dnf-plugins-core`), the `lua` patch, `system-minimal`
   0.1-4, dead `coreutils` patch header, retired `sqlite3` spec.
-- Published: **504 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>.
+- Published: **517 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>.
   A remote `dnf install` resolves `browneye-base xfce-desktop` (212 pkgs) and
-  `browneye-build` (62 pkgs).
+  `browneye-build` (62 pkgs).  The tree now also carries linux 7.2.6-5,
+  `xf86-video-amdgpu` 23.0.0 and the LightDM/greeter stack.
 
 ---
 
@@ -79,9 +83,11 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       absent, so SVG icons/wallpapers do not render.  `librsvg` needs a Rust
       toolchain (we only ship the `/opt` binary distribution).  Decide whether
       to build Rust from source or accept PNG-only icons.
-- [ ] **A4. `xf86-video-amdgpu` 23.0.0.** Packaged on branch `amdgpu-driver`
-      (`a26999b`) but unmerged and in no meta.  Merge it, and decide whether
-      `xfce-desktop-hardware` should pull it.
+- [x] **A4. `xf86-video-amdgpu` 23.0.0.**  Merged from `amdgpu-driver`
+      (`a26999b`, cherry-picked as `298724b`), rebuilt with the static
+      filelist and published.  Deliberately **not** in any meta: not every
+      system needs it, so AMD users install it explicitly
+      (`dnf install xf86-video-amdgpu`).
 - [ ] **A5. Retire `system-minimal`?** It is legacy (its five broken requires
       are fixed so it installs again), but `browneye-base` /
       `browneye-base-runtime` supersede it.  Delete it or leave it as-is.
@@ -96,8 +102,15 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 
 - [ ] **C1. Installer ISO.**  Live and target package sets (live runtime is
       `browneye-base-runtime`, ~305 MB) plus the media tooling from A1.
-- [ ] **C2. Display manager.**  Only `startx`/`startxfce4` exists.  `lightdm`
-      now has Linux-PAM available but needs a spec and greeter integration.
+- [x] **C2. Display manager.**  LightDM 1.33.1 and lightdm-gtk-greeter
+      2.0.9 are packaged (systemd unit + preset, PAM service, GTK greeter,
+      XFCE session).  Deliberately not pulled by a meta yet: installing it
+      replaces the getty on tty1.  Build chain added: libgcrypt 1.12.4,
+      intltool 0.51.0 and the BLFS perl modules it needs (XML-Parser 2.59,
+      File-ShareDir 1.118, File-ShareDir-Install 0.14, Class-Inspector 1.36).
+      Verified in the container (`lightdm --version`, greeter runs and reads
+      its config, `systemd-analyze verify` clean); needs a graphical boot
+      test.
 - [ ] **C3. Test-image hygiene.**  `build/xfce-test.img` uses a temporary
       `root`/`root` password and masks `getty@tty1`; the one-shot
       `xfce-test.service` failed once with `status=1/HUP` and needed a manual
@@ -141,9 +154,10 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 - [ ] **E2. Clean single-run rebuild.**  The C1/C3 container run substituted a
       separately built `browneye-sysconfig`; re-run the whole base set in one
       `OUT` directory to confirm 93/93 without substitution.
-- [ ] **E3. Kernel cosmetic warning.**  The sanitized Fedora config leaves
-      `CONFIG_DRM_PANIC_SCREEN="qr_code"` without the QR option, so boot logs a
-      fallback warning.  Set it to `user` or disable `CONFIG_DRM_PANIC`.
+- [x] **E3. Kernel cosmetic warning.**  `CONFIG_DRM_PANIC_SCREEN` is now
+      `"user"` (the QR formatter needs `CONFIG_DRM_PANIC_SCREEN_QR_CODE`,
+      which needs Rust and is off).  Linux 7.2.6-5 carries the fix; the
+      config in `linux-kernel-debug` confirms the value.
 
 ---
 
@@ -216,7 +230,7 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 | D13 | Terminal | **VTE 0.84.1** + **xfce4-terminal 1.2.0** |
 | D14 | Initramfs automation | on kernel install; generic `hostonly=no`, xz |
 | D15 | Module signing | **off**; no shim/MOK, Secure Boot unsupported |
-| D16 | AMD GPU driver | `xf86-video-amdgpu` 23.0.0 packaged, **optional** (A4) |
+| D16 | AMD GPU driver | `xf86-video-amdgpu` 23.0.0 packaged, **standalone and optional** — not pulled by any meta (A4) |
 | D17 | Node.js | **26.13.0** official linux-x64 binary under `/opt` (approved; book is 26.9.0) |
 | D18 | sshd | **OpenSSH 10.5p1** with Linux-PAM, password auth, root login |
 | D19 | Agent tools | **opencode-bin 2.2.5 / herdr 0.9.5** prebuilt binary RPMs (not in LFS/BLFS, approved) |
@@ -379,6 +393,8 @@ python3 scripts/audit_versions.py                  # RPM/spec vs the books
 - Deviations: glibc `upstream_fixes-3` (D7); `rsync --disable-idn`;
   `lua` 5.4.8 uses the renamed 5.4.6 shared-library patch (book URL 404,
   tracked in `package_specs/lua/files/`); `gdk-pixbuf` keeps PNG/JPEG, no
-  glycin.
+  glycin; `lightdm` skips the yelp help and gtk-doc API docs (no
+  yelp-tools/gtk-doc) and ships no Upstart job, AppArmor profiles or
+  dangling AccountsService interface symlink.
 - Backups: `~/backup/browneye/sources/` (2.8 GB, SHA256SUMS) and
   `~/backup/browneye-current` for the older staging tree.
