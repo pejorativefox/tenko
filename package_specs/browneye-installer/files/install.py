@@ -40,6 +40,8 @@ TARGET_PACKAGES_DESKTOP = (
     "dosfstools",
     "sudo",
     "dnf",
+    "opencode-bin",
+    "herdr",
 )
 
 TARGET_PACKAGES_BASE = tuple(
@@ -321,6 +323,7 @@ class Installer:
             Step("mount", "Mounting the target"),
             Step("basefs", "Installing the base filesystem"),
             Step("packages", "Installing packages"),
+            Step("repo", "Copying the package repository"),
             Step("configure", "Configuring the system"),
             Step("initramfs", "Generating the initramfs"),
             Step("bootloader", "Installing the bootloader"),
@@ -709,6 +712,40 @@ class Installer:
             return tuple(int(part) for part in re.split(r"[^0-9]+", value) if part)
 
         return max(entries, key=key)
+
+    def step_repo(self) -> None:
+        """Keep the install media's repository on the target.
+
+        The installed system can then dnf install packages offline
+        (opencode, herdr, build tooling) without the original ISO.
+        """
+        live_repo = "/run/initramfs/live/repo"
+        if not os.path.isdir(live_repo):
+            self.logger.warning(
+                "repo-copy-skipped", reason="no repository on the install media")
+            return
+
+        base = os.path.join(self.target, "var", "lib", "browneye")
+        dest = os.path.join(base, "repo")
+        repos_dir = os.path.join(self.target, "etc", "yum.repos.d")
+        self.runner.run(
+            ("install", "-dm0755", base, dest, repos_dir),
+            step="repo", description="create the local repository directory")
+        self.runner.run(
+            ("cp", "-a", live_repo + "/.", dest + "/"),
+            step="repo", description="copy the install repository",
+            timeout=1800)
+        self.runner.write_file(
+            os.path.join(repos_dir, "browneye-local.repo"),
+            "[browneye-local]\n"
+            "name=Browneye Linux 13.1 (install media)\n"
+            "baseurl=file:///var/lib/browneye/repo\n"
+            "enabled=1\n"
+            "gpgcheck=0\n"
+            "repo_gpgcheck=0\n"
+            "skip_if_unavailable=1\n",
+            step="repo",
+        )
 
     def step_configure(self) -> None:
         self._write_fstab()

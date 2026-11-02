@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    5
+Release:    6
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -85,6 +85,12 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-6
+- Install opencode-bin and herdr by default
+- Copy the install media's package repository to /var/lib/browneye/repo
+  and write a local file:// repo, so the installed system can dnf install
+  build tooling and extras offline
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-5
 - Mount a BROWNEYE-ANSWER medium read-only before reading its answer.json
   (/dev/disk/by-label/X is a block-device symlink, not a directory)

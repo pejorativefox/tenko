@@ -153,6 +153,13 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       `BROWNEYE-ANSWER` medium (mounted read-only); `ISO_AUTO=1` adds
       `browneye.auto=1` for testing.  The EFI boot image is FAT16 (FAT32 on a
       24 MiB image is below the cluster minimum) with a GPT ESP entry.
+      Installed-system access is verified: `browneye-release` ships
+      `/etc/yum.repos.d/browneye-13.1.repo`, the installer copies the on-ISO
+      repo to `/var/lib/browneye/repo` with a `file://` repo, `opencode-bin`
+      2.2.5 and `herdr` 0.9.5 are installed, and
+      `dnf --disablerepo=browneye-13.1 install browneye-build` completes from
+      the local repo (63 packages, createrepo_c usable).  ISO: 986 MB, on-ISO
+      repo 253 RPMs / 631 MB.
 - [x] **C2. Display manager.**  LightDM 1.33.1 and lightdm-gtk-greeter
       2.0.9 are packaged (systemd unit + preset, PAM service, GTK greeter,
       XFCE session) and pulled in by `xfce-desktop` 4.20-7, which also sets
@@ -344,6 +351,7 @@ removed is reproducible from `container-rebuild-*` / `verify_base_in_container.s
 | D44 | Root layout | ext4 (min 8 GiB, grows to fill the region) + 2 GiB swap |
 | D45 | Installer logs | JSONL on the ESP plus console/serial mirror |
 | D46 | Podman | Static `podman-bin` 6.1.4 under `/opt` (approved exception), crun/conmon/netavark/passt bundled; `browneye-workstation` requires it |
+| D47 | Installed package access | Public repo file in `browneye-release`; on-ISO repo copied to `/var/lib/browneye/repo`; opencode/herdr installed by default |
 
 Consequences already implemented: `package_specs/ORDER` is the chapter-8
 systemd order; `browneye-basefs` owns `/bin /lib /lib64 /sbin`; `browneye-release`

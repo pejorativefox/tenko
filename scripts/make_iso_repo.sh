@@ -21,6 +21,9 @@ PACKAGES=(
     dosfstools
     dnf
     sudo
+    opencode-bin
+    herdr
+    browneye-build
 )
 
 [ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
