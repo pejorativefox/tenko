@@ -24,6 +24,14 @@ PACKAGES=(
     opencode-bin
     herdr
     browneye-build
+    # ISO authoring and container tooling, so an installed system can
+    # rebuild the media offline.
+    libburn
+    libisofs
+    libisoburn
+    squashfs-tools
+    mtools
+    podman-bin
 )
 
 [ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }

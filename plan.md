@@ -158,8 +158,10 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       repo to `/var/lib/browneye/repo` with a `file://` repo, `opencode-bin`
       2.2.5 and `herdr` 0.9.5 are installed, and
       `dnf --disablerepo=browneye-13.1 install browneye-build` completes from
-      the local repo (63 packages, createrepo_c usable).  ISO: 986 MB, on-ISO
-      repo 253 RPMs / 631 MB.
+      the local repo (63 packages, createrepo_c usable).  The on-ISO repo
+      also carries the ISO-authoring and container tooling (libburn/libisofs/
+      libisoburn, squashfs-tools, mtools, podman-bin) so the media can be
+      rebuilt offline.  ISO: 1.0 GB, on-ISO repo 259 RPMs / 665 MB.
 - [x] **C2. Display manager.**  LightDM 1.33.1 and lightdm-gtk-greeter
       2.0.9 are packaged (systemd unit + preset, PAM service, GTK greeter,
       XFCE session) and pulled in by `xfce-desktop` 4.20-7, which also sets
