@@ -72,6 +72,11 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   hwloc disabled because the base system has no libcap/libnl/lm_sensors/hwloc
   development files.  The payload is unchanged: `htop`, desktop entry, man
   page, pixmap and scalable icon.
+- tea 0.14.2 (not in LFS/BLFS; user-requested upstream exception): the
+  official Gitea CLI release binary — a single static Go program shipped
+  as `/usr/bin/tea`, no strip, `AutoReq/AutoProv` off, requires `make-ca`
+  for the HTTPS trust store.  Rebuilt with `./bbuild build tea` and
+  published with `scripts/publish_rpm.sh` (RPM is 9.0 MB, orig 29 MB).
 
 **Installer (UEFI)**
 - `scripts/build_iso_uefi.sh` builds a 1.0 GB UEFI ISO: zstd squashfs live
@@ -301,6 +306,7 @@ reproducible from `container-rebuild-*` / `verify_base_in_container.sh`.
 | D48 | Podman networking | `libpcap` 1.10.7 + `nmap` 7.991 (`ncat`/`nping`); `passt` 2026_10_02.cba3570 (`pasta`) is not in LFS/BLFS, approved upstream exception and the same tag podman-bin bundles |
 | D49 | Web proxy | `privoxy` 4.2.0 stable (not in LFS/BLFS; approved upstream exception), default pcre2 + zlib build |
 | D50 | proxychains-ng | 4.17 upstream (not in LFS/BLFS; approved upstream exception) |
+| D51 | Gitea CLI | `tea` 0.14.2 official static linux-amd64 binary at `/usr/bin/tea` (user-requested exception) |
 
 Consequences already implemented: `package_specs/ORDER` is the chapter-8
 systemd order; `browneye-basefs` owns `/bin /lib /lib64 /sbin`; `browneye-release`
@@ -518,6 +524,7 @@ python3 scripts/audit_versions.py                  # RPM/spec vs the books
   docs and ships no Upstart/AppArmor/AccountsService-symlink artifacts;
   `librsvg` disables Vala bindings (in-tree vala is below the book);
   `podman-bin` is a static bundle under `/opt` (D46); `dosfstools` ships the
-  book's compat symlinks; `efivar` carries the book's upstream-fixes patch.
+  book's compat symlinks; `efivar` carries the book's upstream-fixes patch;
+  `tea` 0.14.2 ships the official static binary (D51).
 - Backups: `~/backup/browneye/sources/` (2.8 GB, SHA256SUMS) and
   `~/backup/browneye-current` for the older staging tree.
