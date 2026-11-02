@@ -269,23 +269,29 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 
 ## 3. Environment and layout
 
-- Host: Fedora 44, x86_64, 16 cores / 32 GB, podman 5.8, dnf5, rpm 6.0.2,
-  host gcc 16.2.1 / binutils 2.46.1.  `sudo` needs a password; use
-  `unshare -r` for anything needing fake root.
-- Main checkout: `~/repos/browneye` on `master`.
-- Work root: `~/browneye`, a git worktree on branch `lfs-r13.1`.
+- Host (2026-11-02): **Browneye Linux 13.1 itself** (the dogfood host), x86_64,
+  16 cores / **19 GB RAM**, kernel 7.2.6, podman 6.1.4 (podman-bin), dnf 4.24.0,
+  rpm 4.18.1, gcc 16.2.0 / binutils 2.47.  `sudo` needs a password; use
+  `unshare -r` for anything needing fake root.  The earlier notes saying
+  "Fedora 44 / 32 GB / podman 5.8" describe the pre-dogfood host and are
+  obsolete.  19 GB is not enough for an unbounded LLVM build: `llvm.spec` now
+  honours `_smp_mflags`, and `-j8` is comfortable.
+- Main checkout: `~/repos/browneye` on `lfs-r13.1` (the `master`/`~/browneye`
+  worktree split is gone; `git worktree list` shows one tree).
 - Remote: `origin` = `ssh://daspork@pjfox.xyz:2222/daspork/browneye.git`
   (canonical, Gitea).
 - Books: `~/repos/lfs` and `~/repos/blfs`, both branch `trunk` (r13.1 line).
   Take versions from the checkouts, not the r13.1 tag.
 - Build outputs: `~/rpmbuild/{SOURCES,RPMS/x86_64,BUILD,...}`;
   `~/.rpmmacros` comes from `rpmsupport/rpmmacros`.
-- Container images: `localhost/browneye/base:r13.1-selfhost-20261031`
-  (base/toolchain), `localhost/browneye/base:r13.1-rpm5-20261030` (bootstrap).
-  An installed system does not have these (see S2).
+- Container images: `localhost/browneye/build-htop:13.1` (browneye-base +
+  gcc/make/ninja/python + rpm/createrepo, the default build host) and
+  `localhost/browneye/x11-deps:latest` (build-htop + the staged X11 devel
+  RPMs).  The `localhost/browneye/base:*` images named in older notes are not
+  present on an installed system (see S2).
 
 ```
-~/browneye/
+~/repos/browneye/            # the checkout on this host (git worktree list: 1)
 ├── bbuild                     # host build helper (build/query)
 ├── builder/                   # build.py, package.py, sources.py, db.py
 ├── tests/                     # bbuild unit tests
@@ -334,6 +340,9 @@ boot artifacts, and the most recent build logs.  Old rootfs/image/verify/
 container trees, stale repos and firmware source extracts are deleted: a
 2026-11-02 cleanup took it from 83 GB to 21 GB.  Everything removed is
 reproducible from `container-rebuild-*` / `verify_base_in_container.sh`.
+On the dogfood host most of these trees are absent (the checkout is clean):
+single-package builds go to a scratch topdir under `/tmp/opencode/`, and the
+only long-lived copy of a build is the published repo.
 
 ---
 
