@@ -1,6 +1,6 @@
 Name:       perl
 Version:    5.44.0
-Release:    2
+Release:    3
 Summary:    Perl programming language
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -56,9 +56,10 @@ License:    GPL3
 Requires:   perl = %{version}-%{release}
 
 %description devel
-The Perl CORE headers, configuration headers and libperl.so linker stub
-needed to build and embed XS extensions.  ExtUtils::MakeMaker and the rest
-of the module toolchain remain in the perl runtime package.
+The Perl CORE headers and configuration headers needed to build and embed XS
+extensions.  The shared libperl.so is part of the runtime package (perl is
+itself linked against it).  ExtUtils::MakeMaker and the rest of the module
+toolchain also remain in the perl runtime package.
 
 %package doc
 Summary:    Perl documentation
@@ -72,6 +73,13 @@ Perl man pages and the core Perl POD documentation.
 %files doc -f %{_sourcedir}/perl-doc.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 5.44.0-3
+- Ship libperl.so in the runtime package.  /usr/bin/perl is linked against
+  libperl.so (unversioned, the library has no SONAME) and finds it through
+  RUNPATH=/usr/lib64/perl5/5.44.0/core_perl/CORE, but the -2 split put that
+  file in perl-devel, so every perl invocation on a perl-only install died
+  with "libperl.so: cannot open shared object file" (this host included).
+  perl-devel keeps the CORE headers; the runtime now owns CORE/libperl.so.
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 5.44.0-2
 - Split CORE development files and documentation into perl-devel and
   perl-doc (packaging only; versions unchanged)

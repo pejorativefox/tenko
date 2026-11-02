@@ -11,6 +11,7 @@
 %dir /usr/lib64/perl5/5.44.0/core_perl/Archive/Tar
 %dir /usr/lib64/perl5/5.44.0/core_perl/Attribute
 %dir /usr/lib64/perl5/5.44.0/core_perl/B
+%dir /usr/lib64/perl5/5.44.0/core_perl/CORE
 %dir /usr/lib64/perl5/5.44.0/core_perl/CPAN
 %dir /usr/lib64/perl5/5.44.0/core_perl/CPAN/Exception
 %dir /usr/lib64/perl5/5.44.0/core_perl/CPAN/FTP
@@ -377,6 +378,7 @@
 /usr/lib64/perl5/5.44.0/core_perl/B/Terse.pm
 /usr/lib64/perl5/5.44.0/core_perl/B/Xref.pm
 /usr/lib64/perl5/5.44.0/core_perl/Benchmark.pm
+/usr/lib64/perl5/5.44.0/core_perl/CORE/libperl.so
 /usr/lib64/perl5/5.44.0/core_perl/CPAN.pm
 /usr/lib64/perl5/5.44.0/core_perl/CPAN/Author.pm
 /usr/lib64/perl5/5.44.0/core_perl/CPAN/Bundle.pm
