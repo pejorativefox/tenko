@@ -45,6 +45,12 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   herdr 0.9.5, sudo 1.9.17p2 (PAM, `%wheel`), `browneye-workstation` meta.
   Verified over SSH.
 
+**Storage and installer tooling**
+- cryptsetup 2.8.8, LVM2 2.03.42 + libdevmapper, mdadm 4.6, libaio 0.3.113.
+- ISO media: libburn/libisofs/libisoburn 1.5.8.pl02 (xorriso), squashfs-tools
+  4.7.5 and mtools 4.0.50 (approved exceptions).
+- sudo 1.9.17p2 (PAM, `%wheel`); xfce-desktop/workstation require it.
+
 **Size and packaging**
 - Splits: firmware vendor packs, `python-tests`, Fedora-style LLVM
   (`llvm-libs` 132.9 MB instead of 1008), runtime/toolchain, systemd/vim/
@@ -85,10 +91,12 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       dracut cover boot and initramfs.  `efivar` is bumped to the book's 39.
       Packaged: libburn/libisofs/libisoburn 1.5.8.pl02, squashfs-tools 4.7.5,
       mtools 4.0.50; the stale standalone xorriso 1.5.6 spec is removed.
-- [ ] **A2. Storage stack — decided.**  Package all three at the book
-      versions: `cryptsetup` 2.8.8, `lvm2` 2.03.42, `mdadm` 4.6.
-      dracut already supports LUKS/LVM/RAID roots; these add the userspace
-      tools for the installer and post-install management.
+- [x] **A2. Storage stack.**  Packaged at the book versions: `cryptsetup`
+      2.8.8, `LVM2` 2.03.42 (with `libdevmapper`), `mdadm` 4.6.  The stale
+      `libaio` 0.3.112 was bumped to the book's 0.3.113 and is now shipped
+      (LVM2 needs `libaio.so.1`).  Verified with a dnf installroot: the set
+      installs and `cryptsetup --version`, `mdadm --version` and `lvm` link
+      cleanly (device-mapper itself cannot run inside the userns test).
 - [ ] **A3. SVG icons — decided.**  Build `librsvg` 2.63.2 using the
       shipped `/opt` Rust 1.99.0, with the crates vendored into the source
       tarball so the build stays offline.  No Rust-from-source build.
