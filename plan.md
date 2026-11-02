@@ -133,9 +133,13 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       `LLVM_LIBDIR_SUFFIX=64` (or move `libLLVM`) and drop the workarounds.
 - [ ] **D3. Sign the repository.**  It is unsigned (`gpgcheck=0`); a signing
       key and `repo_gpgcheck` path are needed.
-- [ ] **D4. Auto-generate `browneye-base` requires.**  Its ~93 `Requires:` are
-      hand-maintained from `lfs.lock` and are not regenerated when versions
-      change.
+- [x] **D4. Auto-generate `browneye-base` requires.**  The ~100
+      `Requires:` lines are now generated: `scripts/gen_base_requires.py`
+      expands `lfs.lock` `base_packages` through its alias map, splits
+      `dbus`/`vim`, and appends the explicit extras in
+      `package_specs/browneye-base/requires-extra`.  `--check` reports a
+      stale block.  The generated set is identical to the old hand-written
+      one.
 - [ ] **D5. Scriptlet testing.**  Rootfs installs use
       `--setopt=tsflags=noscripts`; `%post`/`%preun` correctness has only been
       exercised for the kernel/dracut path and one E1 run.  First pass done
@@ -327,6 +331,7 @@ Version and audit tooling:
 ```bash
 python3 scripts/audit_versions.py                  # RPM/spec vs the books
 ./scripts/sync_lfs_spec.py --all-base              # dry run; expect 0 changes
+./scripts/gen_base_requires.py --check             # browneye-base requires
 ./scripts/gen_lfs_lock.py --lfs-repo ~/repos/lfs --tag trunk --release 13.1
 ./scripts/gen_filelist.py <pkg>                    # snapshot a built RPM
 ./scripts/gen_filelist_tree.py <pkg> <buildroot>   # snapshot an install tree
