@@ -1,6 +1,7 @@
 %dir /usr/lib
-/usr/lib/LLVMgold.so
-/usr/lib/libLLVM-23.so
-/usr/lib/libLLVM.so.23.1
-/usr/lib/libLTO.so.23.1
-/usr/lib/libRemarks.so.23.1
+%dir /usr/lib64
+/usr/lib64/LLVMgold.so
+/usr/lib64/libLLVM-23.so
+/usr/lib64/libLLVM.so.23.1
+/usr/lib64/libLTO.so.23.1
+/usr/lib64/libRemarks.so.23.1

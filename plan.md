@@ -192,25 +192,30 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       the explicit `Provides: libsqlite3.so()(64bit)`; rpm, python and
       createrepo_c therefore keep working and switch to the versioned NEEDED
       when E2 rebuilds them.
-- [ ] **D2. LLVM libdir.**  In progress 2026-11-02: 23.1.0-3 builds with
+- [x] **D2. LLVM libdir.**  Done 2026-11-02: 23.1.0-3 builds with
       `-D LLVM_LIBDIR_SUFFIX=64`, so libLLVM/libLTO/libRemarks, LLVMgold, the
       CMake packages, static archives and the Clang resource directory all
       land in `/usr/lib64`.  The obsolete workarounds are removed:
       xorg-server's `-Wl,-rpath-link,/usr/lib`, the `/usr/lib` entries in
       `qemu_boot.sh` / `qemu_boot_graphical.sh`, and the libLLVM symlink hack
       in `build_x11_utils.sh`.  `partition_llvm_filelist.py` now understands
-      both libdirs.  Remaining: publish, refresh the staged
+      both libdirs.  All 12 RPMs built and verified: `llvm-config --libdir`
+      and `clang -print-resource-dir` report `/usr/lib64`, C and C++ both
+      compile and link against `-lLLVM-23` with no rpath workaround.
+      Remaining: publish (below), refresh the staged
       `~/rpmbuild/SOURCES/x11deps` set, and rebuild xorg-server (taking the
-      book version 21.1.25 at the same time).
+      book version 21.1.25 at the same time).  The build used the existing
+      cmake 4.4.3 / python 3.14.7 / binutils 2.47 toolchain; D9 re-baselines
+      those separately (LLVM itself is current at 23.1.0).
 - [ ] **D3. Sign the repository.**  Deferred by decision: the tree stays
       unsigned (`gpgcheck=0`, `repo_gpgcheck=0`).
 - [ ] **D6. Optional `-gir` splits.**  The last unapplied size lever from the
       desktop split wave.
-- [ ] **D7. Spec-only specs below the books (~69 after the 2026-11-02 X11
-      client-utilities wave consumed 31).**  They only matter if they are
-      ever built; update the chain first if so.  (`unzip` additionally
-      references a consolidated patch that is 404 upstream — drop the spec or
-      source the patch.)
+- [ ] **D7. Spec-only specs below the books (~109 after the 2026-11-02
+      audit; ~69 when the X11 client-utilities wave was written).**  They only
+      matter if they are ever built; update the chain first if so.  (`unzip`
+      additionally references a consolidated patch that is 404 upstream —
+      drop the spec or source the patch.)
 - [ ] **D8. Minor gaps.**  `xfce4-terminal` omits its man page (needs
       docbook-xsl-nons 1.79.2 — a spec exists but not the xmlcatalog setup —
       plus docbook-xml and libxslt/xsltproc); `curl` is built
@@ -231,6 +236,19 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       bump the specs, check the dependency chain, rebuild and republish.
       sqlite is already done (D1).  `xml-parser` 2.59 is *newer* than the
       book (2.57) and needs no action.
+- [ ] **D10. The perl runtime ships no libperl.**  Discovered 2026-11-02
+      while testing the LLVM split: the published `perl-5.44.0-2` contains
+      `/usr/bin/perl`, which has `NEEDED libperl.so` (unversioned — the
+      library has no SONAME either), but **no package in the 593-RPM tree
+      provides that file**: `perl.filelist` never listed it, and only
+      `perl-devel` ships the `CORE/libperl.so` linker stub.  Every perl
+      invocation on an installed system fails with `libperl.so: cannot open
+      shared object file` (this also breaks `scan-build`, texinfo and any
+      perl scriptlet).  Regenerate the perl filelist from a fresh buildroot,
+      ship `libperl.so` in the runtime package (and give it a proper SONAME,
+      as with D1), then rebuild and republish perl.  The silent drop suggests
+      `_unpackaged_files_terminate_build` is off; turn it on for the base
+      set so this cannot recur.
 
 ### E. Verification and hygiene
 

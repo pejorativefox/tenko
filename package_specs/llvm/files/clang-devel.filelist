@@ -83,7 +83,7 @@
 %dir /usr/include/clang/Tooling/Syntax
 %dir /usr/include/clang/Tooling/Transformer
 %dir /usr/include/clang/UnifiedSymbolResolution
-%dir /usr/lib/cmake/clang
+%dir /usr/lib64/cmake/clang
 /usr/bin/clang-tblgen
 /usr/include/clang-c/BuildSystem.h
 /usr/include/clang-c/CXCompilationDatabase.h
@@ -1098,10 +1098,10 @@
 /usr/include/clang/Tooling/Transformer/Stencil.h
 /usr/include/clang/Tooling/Transformer/Transformer.h
 /usr/include/clang/UnifiedSymbolResolution/USRGeneration.h
-/usr/lib/cmake/clang/AddClang.cmake
-/usr/lib/cmake/clang/ClangConfig.cmake
-/usr/lib/cmake/clang/ClangConfigVersion.cmake
-/usr/lib/cmake/clang/ClangTargets-release.cmake
-/usr/lib/cmake/clang/ClangTargets.cmake
-/usr/lib/libclang-cpp.so
-/usr/lib/libclang.so
+/usr/lib64/cmake/clang/AddClang.cmake
+/usr/lib64/cmake/clang/ClangConfig.cmake
+/usr/lib64/cmake/clang/ClangConfigVersion.cmake
+/usr/lib64/cmake/clang/ClangTargets-release.cmake
+/usr/lib64/cmake/clang/ClangTargets.cmake
+/usr/lib64/libclang-cpp.so
+/usr/lib64/libclang.so

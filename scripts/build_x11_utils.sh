@@ -102,9 +102,6 @@ make_deps_image() {
     podman exec "$tmp" bash -lc \
         "rpm -Uvh --nodeps --replacepkgs --replacefiles /sources/x11deps/*.rpm
          ldconfig
-         llvmver=\$(rpm -q --qf '%{VERSION}' llvm-libs | cut -d. -f1-2)
-         ln -sf ../lib/libLLVM.so.\${llvmver} /usr/lib64/libLLVM.so.\${llvmver}
-         ldconfig
          test -e /usr/lib64/libGL.so && echo deps-ok" \
         >"$OUT/logs/deps-install.log" 2>&1 \
         || { echo "dependency install failed (see $OUT/logs/deps-install.log)" >&2;

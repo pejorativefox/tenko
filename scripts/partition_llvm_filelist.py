@@ -2,8 +2,8 @@
 """Partition a full LLVM filelist into the Fedora-style subpackage lists.
 
 The input is the output of ``gen_filelist_tree.py`` for the LLVM buildroot
-(version 23.1.0, flat /usr layout).  Every entry is assigned to exactly one
-package; llvm-all is a meta-package with no payload.
+(version 23.1.0, libraries in /usr/lib64).  Every entry is assigned to
+exactly one package; llvm-all is a meta-package with no payload.
 
 Layout (as close as this build allows to Fedora F44's llvm src.rpm):
 
@@ -16,8 +16,8 @@ Layout (as close as this build allows to Fedora F44's llvm src.rpm):
   clang-devel                clang headers, CMake, unversioned links, clang-tblgen
   clang-tools-extra          clang-format/check/refactor/diagtool/c-index-test/...
   clang-analyzer             scan-build/scan-view/analyze-build + libear/libscanbuild
-  clang-resource-filesystem  /usr/lib/clang/23 include, share and hwasan_symbolize
-  compiler-rt                /usr/lib/clang/23/lib runtimes (non-.a)
+  clang-resource-filesystem  /usr/lib64/clang/23 include, share and hwasan_symbolize
+  compiler-rt                /usr/lib64/clang/23/lib runtimes (non-.a)
 
 Usage:
     ./scripts/partition_llvm_filelist.py --input full.filelist \
@@ -91,48 +91,53 @@ def classify(entry):
     """Return the package that owns one filelist entry."""
     path = entry[5:] if entry.startswith("%dir ") else entry
 
-    if path == "/usr/lib":
-        return "llvm-libs"
+    for libdir in ("/usr/lib64", "/usr/lib"):
+        if path == libdir:
+            return "llvm-libs"
+        if not path.startswith(libdir + "/"):
+            continue
 
-    if path == "/usr/lib/clang" or path.startswith("/usr/lib/clang/"):
-        if path in ("/usr/lib/clang", "/usr/lib/clang/23"):
-            return "clang-resource-filesystem"
-        prefix = "/usr/lib/clang/23/"
-        if not path.startswith(prefix):
-            raise ValueError("unexpected clang resource path: " + entry)
-        rest = path[len(prefix):]
-        top = rest.split("/", 1)[0]
-        if top in ("include", "share", "bin"):
-            return "clang-resource-filesystem"
-        if top == "lib":
-            if path.endswith(".a"):
-                return "llvm-static"
-            return "compiler-rt"
-        raise ValueError("unassigned clang resource entry: " + entry)
+        rel = path[len(libdir) + 1:]
 
-    if path.startswith("/usr/lib/"):
-        base = path[len("/usr/lib/"):]
-        if path.endswith(".a"):
+        # Clang's resource directory moves with LLVM_LIBDIR_SUFFIX, so it can
+        # be /usr/lib/clang/... or /usr/lib64/clang/....
+        if rel == "clang" or rel.startswith("clang/"):
+            if path in (libdir + "/clang", libdir + "/clang/23"):
+                return "clang-resource-filesystem"
+            prefix = libdir + "/clang/23/"
+            if not path.startswith(prefix):
+                raise ValueError("unexpected clang resource path: " + entry)
+            rest = path[len(prefix):]
+            top = rest.split("/", 1)[0]
+            if top in ("include", "share", "bin"):
+                return "clang-resource-filesystem"
+            if top == "lib":
+                if path.endswith(".a"):
+                    return "llvm-static"
+                return "compiler-rt"
+            raise ValueError("unassigned clang resource entry: " + entry)
+
+        if rel.endswith(".a"):
             return "llvm-static"
-        if base == "cmake" or base.startswith("cmake/"):
-            if base == "cmake" or base.startswith("cmake/llvm"):
+        if rel == "cmake" or rel.startswith("cmake/"):
+            if rel == "cmake" or rel.startswith("cmake/llvm"):
                 return "llvm-devel"
-            if base.startswith("cmake/clang"):
+            if rel.startswith("cmake/clang"):
                 return "clang-devel"
             raise ValueError("unassigned cmake entry: " + entry)
-        if base in ("libear", "libscanbuild") or base.startswith(
+        if rel in ("libear", "libscanbuild") or rel.startswith(
             ("libear/", "libscanbuild/")
         ):
             return "clang-analyzer"
-        if base in VERSIONED_LLVM_LIBS:
+        if rel in VERSIONED_LLVM_LIBS:
             return "llvm-libs"
-        if base in VERSIONED_CLANG_LIBS:
+        if rel in VERSIONED_CLANG_LIBS:
             return "clang-libs"
-        if base in UNVERSIONED_LLVM_LIBS:
+        if rel in UNVERSIONED_LLVM_LIBS:
             return "llvm-devel"
-        if base in UNVERSIONED_CLANG_LIBS:
+        if rel in UNVERSIONED_CLANG_LIBS:
             return "clang-devel"
-        raise ValueError("unassigned /usr/lib entry: " + entry)
+        raise ValueError("unassigned library entry: " + entry)
 
     if path == "/usr/include" or path.startswith("/usr/include/llvm"):
         return "llvm-devel"

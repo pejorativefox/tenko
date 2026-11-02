@@ -53,8 +53,6 @@ if [ "$SKIP_INSTALL" != "1" ]; then
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ set-default graphical.target || true
     fi
 
-    # Some packages (LLVM) install into /usr/lib instead of /usr/lib64.
-    grep -qx '/usr/lib' "$ROOTFS/etc/ld.so.conf" 2>/dev/null || echo /usr/lib >> "$ROOTFS/etc/ld.so.conf"
     unshare -r chroot "$ROOTFS" /sbin/ldconfig || true
     depmod -b "$ROOTFS" "$KVER" || true
 fi

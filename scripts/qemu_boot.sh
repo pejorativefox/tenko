@@ -48,8 +48,6 @@ fi
 # /etc/machine-id is shipped empty by browneye-sysconfig; systemd generates a
 # persistent id on first boot and commits it to the writable root filesystem.
 
-# Some packages (LLVM) install into /usr/lib instead of /usr/lib64.
-grep -qx '/usr/lib' "$ROOTFS/etc/ld.so.conf" 2>/dev/null || echo /usr/lib >> "$ROOTFS/etc/ld.so.conf"
 unshare -r chroot "$ROOTFS" /sbin/ldconfig || true
 
 # depmod runs as a package scriptlet, which we skipped above.

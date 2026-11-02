@@ -27,8 +27,6 @@ Development files for xorg-server.
 %setup -q
 
 %build
-# Mesa's libgallium lives in /usr/lib64 but needs libLLVM from /usr/lib.
-export LDFLAGS="${LDFLAGS:-} -Wl,-rpath-link,/usr/lib"
 mkdir build
 pushd build
 meson setup .. --prefix=/usr --localstatedir=/var --buildtype=release \

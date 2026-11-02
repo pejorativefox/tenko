@@ -1,6 +1,6 @@
 Name:       llvm
 Version:    23.1.0
-Release:    2
+Release:    3
 Summary:    The LLVM Project is a collection of modular and reusable compiler and toolchain technologies. 
 License:    UIUC
 Source0:    llvm-project-%{version}.src.tar.xz
@@ -30,6 +30,7 @@ CC=gcc CXX=g++ cmake -D CMAKE_INSTALL_PREFIX=/usr           \
       -D LLVM_BUILD_LLVM_DYLIB=ON                           \
       -D LLVM_LINK_LLVM_DYLIB=ON                            \
       -D LLVM_ENABLE_RTTI=ON                                \
+      -D LLVM_LIBDIR_SUFFIX=64                              \
       -D LLVM_TARGETS_TO_BUILD="host;AMDGPU"                \
       -D LLVM_ENABLE_PROJECTS=clang                         \
       -D LLVM_ENABLE_RUNTIMES=compiler-rt                   \
@@ -38,7 +39,7 @@ CC=gcc CXX=g++ cmake -D CMAKE_INSTALL_PREFIX=/usr           \
       -D CLANG_DEFAULT_PIE_ON_LINUX=ON                      \
       -D CLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang            \
       -W no-author -G Ninja ..
-ninja
+ninja %{?_smp_mflags}
 popd
 
 %install
@@ -186,6 +187,15 @@ source package, preserving the old "install everything" behaviour.
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 23.1.0-3
+- Install into /usr/lib64 like the rest of the distro: LLVM_LIBDIR_SUFFIX=64
+  moves the runtime libraries, CMake packages, linker symlinks, static
+  archives and the Clang resource directory out of /usr/lib.  This removes
+  the need for xorg-server's -rpath-link workaround and the /usr/lib entry
+  that image and dependency builds had to add to /etc/ld.so.conf.
+- Pass %{?_smp_mflags} to ninja: a bare `ninja` ignored the rpm job limit and
+  spawned cores+2 jobs, which is enough to OOM a 16 GB build host during
+  clang Sema.
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 23.1.0-2
 - Fedora-style split: llvm tools, llvm-libs, llvm-devel, llvm-static,
   clang, clang-libs, clang-devel, clang-tools-extra, clang-analyzer,
