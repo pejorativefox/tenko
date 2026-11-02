@@ -1,6 +1,6 @@
 Name:       gdk-pixbuf
 Version:    2.44.8
-Release:    2
+Release:    3
 Summary:    Image loading library
 License:    GPL3
 Prefix:     /usr
@@ -25,6 +25,7 @@ Test suite and test data for gdk-pixbuf.
 
 %package devel
 Summary:    gdk-pixbuf development files
+Requires:   %{name}-gir = %{version}-%{release}
 Requires:   gdk-pixbuf = %{version}-%{release}
 Provides: pkgconfig(gdk-pixbuf-2.0)
 
@@ -58,13 +59,27 @@ DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
+
+%package gir
+Summary:    GObject Introspection data for gdk-pixbuf
+License:    GPL3
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for gdk-pixbuf, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
 %files -f %{_sourcedir}/gdk-pixbuf.filelist
 %files lang -f %{_sourcedir}/gdk-pixbuf-lang.filelist
 %files tests -f %{_sourcedir}/gdk-pixbuf-tests.filelist
 %files devel -f %{_sourcedir}/gdk-pixbuf-devel.filelist
+%files gir -f %{_sourcedir}/gdk-pixbuf-gir.filelist
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.44.8-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.44.8-2
 - Split lang, tests, devel payload into gdk-pixbuf-lang, gdk-pixbuf-tests, gdk-pixbuf-devel (size audit)
 
