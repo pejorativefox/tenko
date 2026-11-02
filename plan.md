@@ -52,6 +52,9 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 - ISO media: libburn/libisofs/libisoburn 1.5.8.pl02 (xorriso), squashfs-tools
   4.7.5 and mtools 4.0.50 (approved exceptions).
 - UEFI: dosfstools 4.2, efibootmgr 18, efivar 39 (with the glibc 2.43+ patch).
+- Pruned install closure (base + xfce-desktop + kernel/modules + grub/dracut/
+  efibootmgr/dosfstools), measured with `dnf download --resolve --alldeps`:
+  228 RPMs / 439 MB.
 - sudo 1.9.17p2 (PAM, `%wheel`); xfce-desktop/workstation require it.
 
 **Size and packaging**
