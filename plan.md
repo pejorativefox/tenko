@@ -445,6 +445,15 @@ python3 scripts/audit_versions.py                  # RPM/spec vs the books
 22. **The build container images are local to the build host.**  An installed
     system has podman and the packages, but not `localhost/browneye/base:*`
     (see S2).
+23. **`mergerepo_c` must be run with `--omit-baseurl`, and old metadata
+    cannot be trusted.**  Without the flag every package is stamped with
+    `xml:base` pointing at the local staging directory, and dnf then tries
+    `http://repo-old/<rpm>`.  Merging also *preserves* `xml:base` already
+    present in the published metadata, so it has to be stripped and
+    `repomd.xml` regenerated with `modifyrepo_c`; `scripts/publish_rpm.sh`
+    does both and refuses to upload if any `xml:base` survives.  (Also: never
+    use `grep -q` after `zstd -dc` under `pipefail` in that script — SIGPIPE
+    makes the check silently pass.)
 
 ---
 

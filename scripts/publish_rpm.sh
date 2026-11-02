@@ -61,8 +61,53 @@ createrepo_c --quiet "$STAGE/new"
 # nvr keeps the highest version-release per package name/arch across the two
 # repositories, so publishing foo-2 over an existing foo-1 replaces the index
 # entry instead of keeping whichever repo was merged first.
-mergerepo_c --method nvr --repo "$STAGE/old" --repo "$STAGE/new" \
+#
+# --omit-baseurl is mandatory: mergerepo_c otherwise stamps every package with
+# xml:base pointing at the local staging directories ("repo-old", "repo-new"),
+# and dnf then tries to download from http://repo-old/<rpm>.
+mergerepo_c --method nvr --omit-baseurl \
+    --repo "$STAGE/old" --repo "$STAGE/new" \
     -o "$STAGE/merged" >/dev/null
+
+# The published metadata can already be poisoned: an earlier merge without
+# --omit-baseurl stamped every package with xml:base="repo-old", and merging
+# preserves that attribute, so dnf keeps looking for http://repo-old/<rpm>.
+# Strip any xml:base from the merged metadata and let modifyrepo_c rewrite
+# repomd.xml with the new checksums.  (grep -q would SIGPIPE zstd and make the
+# pipeline look empty under pipefail, hence the temp files.)
+mkdir -p "$STAGE/strip"
+for mdtype in primary filelists other updateinfo; do
+    if ! ls "$STAGE/merged"/repodata/*-"$mdtype".xml.zst >/dev/null 2>&1; then
+        continue
+    fi
+    zstd -dc "$STAGE/merged"/repodata/*-"$mdtype".xml.zst \
+        > "$STAGE/strip/$mdtype.xml"
+    sed -i 's/ xml:base="[^"]*"//g' "$STAGE/strip/$mdtype.xml"
+    modifyrepo_c --mdtype="$mdtype" --compress-type=zstd \
+        "$STAGE/strip/$mdtype.xml" "$STAGE/merged/repodata" >/dev/null 2>&1
+done
+
+# modifyrepo_c keeps the old, now unreferenced metadata files next to the new
+# ones; upload only what repomd.xml points at.
+python3 - "$STAGE/merged/repodata" <<'PY'
+import os
+import re
+import sys
+
+repodata = sys.argv[1]
+with open(os.path.join(repodata, "repomd.xml"), encoding="utf-8") as handle:
+    keep = {os.path.basename(href) for href in
+            re.findall(r'href="([^"]+)"', handle.read())}
+for name in os.listdir(repodata):
+    if name != "repomd.xml" and name not in keep:
+        os.unlink(os.path.join(repodata, name))
+PY
+
+if grep -q 'xml:base=' "$STAGE"/strip/*.xml; then
+    echo "refusing to publish: merged metadata still contains xml:base entries" >&2
+    grep -ho 'xml:base="[^"]*"' "$STAGE"/strip/*.xml | sort -u >&2
+    exit 1
+fi
 
 count_of() { zstd -dc "$1"/repodata/*primary.xml.zst | grep -c '<package type='; }
 old_count=$(count_of "$STAGE/old")
