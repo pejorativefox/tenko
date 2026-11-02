@@ -9,6 +9,7 @@ disk is in use, and read a partition table from a real device.
 from __future__ import annotations
 
 import os
+import stat
 import shutil
 import time
 from dataclasses import dataclass, replace
@@ -84,7 +85,14 @@ class ProbedDisk:
 
 
 def _read_text(path: str) -> str:
+    """Read a small text file; never read a device, FIFO or socket.
+
+    /run/initramfs/livedev is a symlink to the live block device on some
+    dracut versions; following it would read the whole ISO into memory.
+    """
     try:
+        if not stat.S_ISREG(os.stat(path).st_mode):
+            return ""
         with open(path, "r", encoding="utf-8", errors="replace") as handle:
             return handle.read()
     except OSError:
@@ -189,9 +197,15 @@ class Probe:
 
     def _live_candidates_from_system(self) -> list[str]:
         candidates: list[str] = []
-        livedev = _read_text("/run/initramfs/livedev").strip()
-        if livedev:
-            candidates.append(livedev)
+        livedev_path = "/run/initramfs/livedev"
+        if os.path.islink(livedev_path):
+            # dracut may point this at the block device instead of storing
+            # its name as text; resolve it without opening it.
+            candidates.append(os.path.realpath(livedev_path))
+        else:
+            livedev = _read_text(livedev_path).strip()
+            if livedev:
+                candidates.append(livedev)
         try:
             result = self.runner.run(
                 ("findmnt", "-n", "-o", "SOURCE", "/run/initramfs/live"),

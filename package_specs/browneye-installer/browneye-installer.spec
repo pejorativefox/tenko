@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    2
+Release:    3
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -85,6 +85,12 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-3
+- Never read device nodes, FIFOs or sockets: /run/initramfs/livedev is a
+  symlink to the live block device on dracut-ng, and following it read the
+  whole ISO into memory (OOM-killed).  Resolve the link instead; add
+  regression tests.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-2
 - Give the admin user a rootless container id range (usermod
   --add-subuids/--add-subgids) so podman works without manual setup
