@@ -27,7 +27,9 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   dbus, libinput, fonts, VTE 0.84.1 and xfce4-terminal 1.2.0.
 - Mesa 26.2.3-4 (llvmpipe + virgl); glamor runs on virgl under
   `virtio-vga-gl`, llvmpipe/XRender on plain 2D.
-- `build/xfce-test.img` boots the session (`scripts/qemu_run_desktop.sh`).
+- `build/login-test.img` boots to the **LightDM greeter** with the real
+  first-boot password prompt (`scripts/qemu_boot_login.sh`); a second boot
+  skips the prompt.  The old one-shot-X `xfce-test.img` flow is retired.
 - Firefox 159.0 (`firefox-bin`, `/opt`) with alsa-lib 1.2.16.1.
 - LightDM 1.33.1 + lightdm-gtk-greeter 2.0.9 (PAM, systemd unit
   `lightdm.service` aliased to `display-manager.service`, systemd preset,
@@ -115,11 +117,14 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       install (user/group created, preset applied).  Needs a graphical boot
       test; `xfce-desktop` now sets `graphical.target`, so a normal install
       boots to the greeter (C3 still needs the test image reworked).
-- [ ] **C3. Test-image hygiene.**  `build/xfce-test.img` uses a temporary
-      `root`/`root` password and masks `getty@tty1`; the one-shot
-      `xfce-test.service` failed once with `status=1/HUP` and needed a manual
-      restart.  Make the test image use the real first-boot flow and stop
-      masking the VT (see E1).
+- [x] **C3. Test-image hygiene.**  `scripts/qemu_boot_login.sh` builds the
+      desktop rootfs with scriptlets **enabled** (installing
+      `browneye-basefs` first so `/bin/sh` exists), leaves root locked and
+      boots the real first-boot flow: `browneye-firstboot` prompts on tty1,
+      the password is typed through the QEMU monitor, and LightDM starts on
+      `graphical.target`.  Verified with screenshots of the prompt and the
+      greeter plus a second boot that skips the prompt.  No `getty@tty1`
+      mask and no test password baked into the image.
 
 ### D. Packaging debt
 
@@ -140,14 +145,13 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       `package_specs/browneye-base/requires-extra`.  `--check` reports a
       stale block.  The generated set is identical to the old hand-written
       one.
-- [ ] **D5. Scriptlet testing.**  Rootfs installs use
-      `--setopt=tsflags=noscripts`; `%post`/`%preun` correctness has only been
-      exercised for the kernel/dracut path and one E1 run.  First pass done
-      for C2: a `dnf --installroot` install of `browneye-base` followed by
-      `lightdm` + greeter now runs the scriptlets; it exposed a lightdm
-      `%pre` abort in chroots without `/dev/null` (fixed in 1.33.1-2).  Still
-      need a full desktop install with scriptlets enabled and a check of the
-      resulting image.
+- [x] **D5. Scriptlet testing.**  First full pass done with C3: a
+      `dnf --installroot` desktop install with scriptlets enabled (after
+      installing `browneye-basefs` first) completed with **zero** scriptlet
+      failures, and the resulting image boots through the first-boot policy
+      to LightDM.  The only noise is lightdm's `%post` `install -o lightdm`
+      failing under fake root (userns cannot chown to uid 65); it works on a
+      real root install.  Remaining: repeat for the installer/ISO path.
 - [ ] **D6. Optional `-gir` splits.**  The last unapplied size lever from the
       desktop split wave.
 - [ ] **D7. 104 spec-only specs below the books.**  They only matter if they
@@ -161,9 +165,13 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 
 ### E. Verification and hygiene
 
-- [ ] **E1. First-boot account policy (old E5).**  `browneye-firstboot` plus
-      PAM implement it; confirm on a fresh rootfs and then remove the test
-      image's temporary password (C3).
+- [x] **E1. First-boot account policy (old E5).**  Verified end to end with
+      `scripts/qemu_boot_login.sh`: the locked root account triggers the tty1
+      prompt, the password is accepted, the marker is written, and the
+      greeter starts afterwards.  A second boot finds the marker and skips
+      the prompt.  `browneye-firstboot` 13.1-2 orders the prompt
+      `Before=display-manager.service` so LightDM cannot take tty1 while
+      `passwd` is waiting.
 - [ ] **E2. Clean single-run rebuild.**  The C1/C3 container run substituted a
       separately built `browneye-sysconfig`; re-run the whole base set in one
       `OUT` directory to confirm 93/93 without substitution.
@@ -215,15 +223,15 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
     ├── rpm-staging/           # RPMs from the per-wave worktrees
     ├── deps/                  # extracted devel prefixes for host builds
     ├── rootfs-selfhost/       # installed base system
-    ├── rootfs-xfce-test/      # rootfs behind the test image
-    ├── xfce-test.img          # bootable desktop test image
+    ├── rootfs-login-test/     # rootfs behind the greeter test image
+    ├── login-test.img         # bootable greeter/first-boot test image
     ├── browneye-efi.img       # GPT/UEFI GRUB disk
     └── qemu-share/            # 9p share for xwd captures
 ```
 
 `build/` is kept to the repo pipeline (repo-selfhost, repo-all, the
 blfs-parity RPM directories, rpm-staging), `deps/`, the current boot
-artifacts (rootfs-selfhost, rootfs-xfce-test, xfce-test.img,
+artifacts (rootfs-selfhost, rootfs-login-test, login-test.img,
 browneye-efi.img) and the most recent build logs.  Old rootfs/image/
 verify/container trees, stale repos and firmware source extracts are
 deleted: a 2026-11-02 cleanup took it from 83 GB to 21 GB.  Everything
@@ -313,8 +321,9 @@ RSYNC_OPTS=-c ./scripts/publish_repo.sh
 # boots
 ROOTFS=build/rootfs-selfhost ./scripts/qemu_boot.sh    # direct kernel
 ./scripts/make_efi_disk.sh + OVMF qemu line            # UEFI GRUB, no -kernel
-./scripts/qemu_boot_graphical.sh                       # desktop + xwd capture
-SSH_FWD=2222 ./scripts/qemu_run_desktop.sh             # interactive, root/root
+./scripts/qemu_boot_graphical.sh                       # legacy one-shot X capture
+./scripts/qemu_boot_login.sh                           # first boot + greeter capture
+SSH_FWD=2222 ./scripts/qemu_run_desktop.sh             # interactive, test pwd browneye1
 ```
 
 Notes: `--jobs` parallelises package builds (auto 8); each `rpmbuild` gets
@@ -368,7 +377,12 @@ python3 scripts/audit_versions.py                  # RPM/spec vs the books
    `make headers` + copies `usr/include`; 1078 entries).
 10. **`rpm` owns `/rpmbuild` in the container.** Mount sources read-only and
     copy RPMs out.
-11. **LLVM is in `/usr/lib`, not `/usr/lib64`** — see §2 D2.
+11. **Scriptlet-enabled installs need `browneye-basefs` first.**  Every
+    scriptlet runs through `/bin/sh`, which only exists once basefs has
+    created the merged `/usr` symlinks; dnf otherwise schedules basefs last
+    and every `%pre`/`%post` fails with 127.  Install basefs in a separate
+    transaction (the installer must do the same) before the real package set.
+12. **LLVM is in `/usr/lib`, not `/usr/lib64`** — see §2 D2.
 12. **Kernel modules are xz-compressed**: kmod needs xz support; on 7.2 both
     `CONFIG_MODULE_COMPRESS_XZ` and `CONFIG_MODULE_COMPRESS_ALL` must be on.
 13. **`CONFIG_MODPROBE_PATH="/usr/bin/modprobe"`**: kmod 34.2-2 installs that
@@ -397,8 +411,10 @@ python3 scripts/audit_versions.py                  # RPM/spec vs the books
   test captures the root window with `xwd` over a 9p share
   (`build/qemu-share/`).  `qemu_run_desktop.sh` has no `-virtfs`, so its 9p
   unit logs a cosmetic `no channels available for device host0`.
-- The graphical test image is 6 GB (`IMGSIZE`), masks `getty@tty1`
-  (the one-shot X service owns tty1) and uses `root`/`root` — see C3.
+- The greeter test image is 6 GB (`IMGSIZE`).  It runs the real first-boot
+  flow; the automated run leaves root at `browneye1` on tty1 (test only).
+  Image builds run as fake root, so lightdm's `%post` cannot chown its
+  state directories and the script relaxes their modes for the test image.
 - `polkit` is built with `authfw=shadow`; `libnotify` with `-Dtests=false`.
 - `libwnck` 43.1's BLFS checksum is stale; the actual tarball md5 is used.
 - `xkeyboard-config` 2.48 emits non-fatal "Could not resolve keysym" warnings

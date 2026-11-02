@@ -1,6 +1,6 @@
 Name:       browneye-firstboot
 Version:    13.1
-Release:    1
+Release:    2
 Summary:    First-boot root account policy for Browneye Linux
 License:    MIT
 Prefix:     /usr
@@ -47,6 +47,10 @@ install -vdm755 %{buildroot}/var/lib/browneye
 %dir /var/lib/browneye
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-2
+- Order the prompt Before=display-manager.service: with LightDM installed
+  the greeter would otherwise take tty1 while passwd(1) was still waiting
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-1
 - First-boot root password policy (E5): tty1-only oneshot, idempotent,
   skipped when root already has a password
