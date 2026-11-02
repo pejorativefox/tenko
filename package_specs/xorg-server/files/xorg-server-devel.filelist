@@ -1,4 +1,7 @@
+%dir /usr/include
 %dir /usr/include/xorg
+%dir /usr/lib64/pkgconfig
+%dir /usr/share/aclocal
 /usr/include/xorg/XIstubs.h
 /usr/include/xorg/Xprintf.h
 /usr/include/xorg/callback.h
@@ -156,6 +159,5 @@
 /usr/include/xorg/xserver_poll.h
 /usr/include/xorg/xvdix.h
 /usr/include/xorg/xvmcext.h
-%dir /usr/lib64/pkgconfig
 /usr/lib64/pkgconfig/xorg-server.pc
 /usr/share/aclocal/xorg-server.m4

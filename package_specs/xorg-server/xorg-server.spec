@@ -1,6 +1,6 @@
 Name:       xorg-server
-Version:    21.1.24
-Release:    2
+Version:    21.1.25
+Release:    1
 Summary:    Xorg X11 server
 License:    MIT
 Prefix:     /usr
@@ -57,6 +57,10 @@ rm -f %{buildroot}/var/lib/xkb/README.compiled
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 21.1.25-1
+- Update to 21.1.25 (BLFS trunk).
+- Drop the -Wl,-rpath-link,/usr/lib workaround: llvm-libs 23.1.0-3 installs
+  into /usr/lib64, so libgallium's libLLVM dependency resolves normally.
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 21.1.24-2
 - Split devel payload into xorg-server-devel (size audit)
 
