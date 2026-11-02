@@ -152,8 +152,8 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   systemd 261.3→262.1, python 3.14.7→3.15.2, openssl 4.0.2→4.1.0, grub
   2.14→2.16, coreutils 9.11→9.12, curl 8.22.0→8.23.0, expat 2.8.4→2.9.0 and
   xorg-server 21.1.24→21.1.25; the full list and the plan are in D9.  sqlite
-  3.53.4→3.54.1 is fixed by D1.  `lfs.lock` was regenerated from trunk
-  (`581459fa`); `sync_lfs_spec.py --all-base` reports 80/80.
+  (D1) and xorg-server (D2) are fixed, leaving 50.  `lfs.lock` was regenerated
+  from trunk (`581459fa`); `sync_lfs_spec.py --all-base` reports 80/80.
 - `bbuild` cleanup: exit codes, ORDER-only `all`, NEVRA conflict refusal,
   atomic source staging, repo-aware read-only query, 56 tests; legacy
   duplicate scripts removed.
@@ -202,9 +202,13 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       both libdirs.  All 12 RPMs built and verified: `llvm-config --libdir`
       and `clang -print-resource-dir` report `/usr/lib64`, C and C++ both
       compile and link against `-lLLVM-23` with no rpath workaround.
-      Remaining: publish (below), refresh the staged
-      `~/rpmbuild/SOURCES/x11deps` set, and rebuild xorg-server (taking the
-      book version 21.1.25 at the same time).  The build used the existing
+      Published 2026-11-02 (with sqlite; PRUNE dropped the old 3.53.4 and
+      23.1.0-2 files).  xorg-server was then rebuilt at the book version
+      21.1.25 *without* the rpath workaround, which proves the removal, and
+      published too; its filelists were regenerated.  The staged
+      `~/rpmbuild/SOURCES/x11deps` set now carries `llvm-libs-23.1.0-3`.
+      A fresh repo audit reports llvm, sqlite and xorg-server current (50
+      packages still below the books, see D9).  The build used the existing
       cmake 4.4.3 / python 3.14.7 / binutils 2.47 toolchain; D9 re-baselines
       those separately (LLVM itself is current at 23.1.0).
 - [ ] **D3. Sign the repository.**  Deferred by decision: the tree stays
@@ -234,8 +238,11 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       xorg-server and xorgproto.  Several are ABI-level jumps (systemd 262,
       python 3.15, openssl 4.1, grub 2.16), so this is a wave of its own:
       bump the specs, check the dependency chain, rebuild and republish.
-      sqlite is already done (D1).  `xml-parser` 2.59 is *newer* than the
-      book (2.57) and needs no action.
+      sqlite (D1) and xorg-server (D2) are already done, leaving 50.  The next
+      obvious block is the toolchain/runtime layer (systemd 262, python 3.15,
+      openssl 4.1, coreutils, expat, libarchive, elfutils, util-linux, kmod)
+      because the rest links against it.  `xml-parser` 2.59 is *newer* than
+      the book (2.57) and needs no action.
 - [ ] **D10. The perl runtime ships no libperl.**  Discovered 2026-11-02
       while testing the LLVM split: the published `perl-5.44.0-2` contains
       `/usr/bin/perl`, which has `NEEDED libperl.so` (unversioned — the
@@ -246,9 +253,10 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       shared object file` (this also breaks `scan-build`, texinfo and any
       perl scriptlet).  Regenerate the perl filelist from a fresh buildroot,
       ship `libperl.so` in the runtime package (and give it a proper SONAME,
-      as with D1), then rebuild and republish perl.  The silent drop suggests
-      `_unpackaged_files_terminate_build` is off; turn it on for the base
-      set so this cannot recur.
+      as with D1), then rebuild and republish perl.  The library was not just
+      unlisted: `%_unpackaged_files_terminate_build` is 1, so it never reached
+      the buildroot — find out where this build's `make install` puts it
+      (versioned vs unversioned name) before regenerating the filelist.
 
 ### E. Verification and hygiene
 
