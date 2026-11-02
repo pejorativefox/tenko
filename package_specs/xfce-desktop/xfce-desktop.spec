@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    7
+Release:    8
 Summary:    Browneye XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -27,6 +27,7 @@ Requires:   dbus-x11
 Requires:   xorg-server
 Requires:   lightdm
 Requires:   accountsservice
+Requires:   sudo
 Requires:   xinit
 Requires:   xauth
 Requires:   xkeyboard-config
@@ -88,6 +89,9 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-8
+- Require sudo so the installer's administrative wheel user can escalate
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-7
 - Require accountsservice so the LightDM greeter lists local users and
   their icons instead of only offering "Other..."

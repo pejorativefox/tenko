@@ -1,6 +1,6 @@
 Name:       browneye-workstation
 Version:    13.1
-Release:    1
+Release:    2
 Summary:    Browneye developer workstation (Node.js, SSH, git, agent tools)
 License:    MIT
 Prefix:     /usr
@@ -13,6 +13,7 @@ Requires:   make-ca
 Requires:   which
 Requires:   opencode-bin
 Requires:   herdr
+Requires:   sudo
 
 %description
 The Browneye developer workstation: the base system plus Node.js/npm,
@@ -35,6 +36,9 @@ touch %{buildroot}/usr/share/browneye/workstation
 /usr/share/browneye/workstation
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-2
+- Require sudo for the administrative wheel user
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-1
 - New meta: browneye-base + nodejs, openssh, git, make-ca, which,
   opencode-bin, herdr

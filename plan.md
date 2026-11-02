@@ -42,7 +42,8 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 - Linux-PAM 1.7.3, PAM-enabled systemd 261.3-3, OpenSSH 10.5p1 (password
   auth), `browneye-firstboot` prompting for the root password on first boot.
 - make-ca 1.16.1 (121 roots), git 2.55.0, which 2.25, opencode-bin 2.2.5,
-  herdr 0.9.5, `browneye-workstation` meta.  Verified over SSH.
+  herdr 0.9.5, sudo 1.9.17p2 (PAM, `%wheel`), `browneye-workstation` meta.
+  Verified over SSH.
 
 **Size and packaging**
 - Splits: firmware vendor packs, `python-tests`, Fedora-style LLVM
