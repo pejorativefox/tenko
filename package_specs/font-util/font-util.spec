@@ -25,5 +25,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/font-util.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.4.2
+- Sync with BLFS r13.1 (font-util 1.4.2)
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.4.2
+- Sync with BLFS r13.1 (font-util 1.4.2)
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.4.2-1
 - Initial package (BLFS r13.1)

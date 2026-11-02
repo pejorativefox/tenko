@@ -1,10 +1,10 @@
 Name:       font-ibm-type1
-Version:    1.0.3
+Version:    1.0.4
 Release:    1
-Summary:    TODO
+Summary:    IBM Type1 fonts for X11
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    font-ibm-type1-1.0.4.tar.xz
 
 
 
@@ -25,16 +25,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 rm -rf %{buildroot}/usr/share/fonts/X11/Type1/fonts.dir
 rm -rf %{buildroot}/usr/share/fonts/X11/Type1/fonts.scale
 
-%files
-/usr/share/fonts/X11/Type1/cour.afm
-/usr/share/fonts/X11/Type1/cour.pfa
-/usr/share/fonts/X11/Type1/courb.afm
-/usr/share/fonts/X11/Type1/courb.pfa
-/usr/share/fonts/X11/Type1/courbi.afm
-/usr/share/fonts/X11/Type1/courbi.pfa
-/usr/share/fonts/X11/Type1/couri.afm
-/usr/share/fonts/X11/Type1/couri.pfa
-
+%files -f %{_sourcedir}/font-ibm-type1.filelist
 %changelog
 # let's skip this for now
 

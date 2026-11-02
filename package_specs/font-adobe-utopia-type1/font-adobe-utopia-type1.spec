@@ -1,10 +1,10 @@
 Name:       font-adobe-utopia-type1
-Version:    1.0.4
+Version:    1.0.5
 Release:    1
-Summary:    TODO
+Summary:    Adobe Utopia Type1 fonts for X11
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    font-adobe-utopia-type1-1.0.5.tar.xz
 
 
 
@@ -23,18 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/share/fonts/X11/Type1/UTBI____.afm
-/usr/share/fonts/X11/Type1/UTBI____.pfa
-/usr/share/fonts/X11/Type1/UTB_____.afm
-/usr/share/fonts/X11/Type1/UTB_____.pfa
-/usr/share/fonts/X11/Type1/UTI_____.afm
-/usr/share/fonts/X11/Type1/UTI_____.pfa
-/usr/share/fonts/X11/Type1/UTRG____.afm
-/usr/share/fonts/X11/Type1/UTRG____.pfa
-/usr/share/fonts/X11/Type1/fonts.dir
-/usr/share/fonts/X11/Type1/fonts.scale
-
+%files -f %{_sourcedir}/font-adobe-utopia-type1.filelist
 %changelog
 # let's skip this for now
 

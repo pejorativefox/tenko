@@ -1,10 +1,10 @@
 Name:       font-misc-ethiopic
-Version:    1.0.3
+Version:    1.0.5
 Release:    1
-Summary:    TODO
+Summary:    Unicode Ethiopic fonts (Abyssinica SIL-based)
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    font-misc-ethiopic-1.0.5.tar.xz
 
 
 
@@ -23,14 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/share/fonts/X11/OTF/GohaTibebZemen.otf
-/usr/share/fonts/X11/OTF/fonts.dir
-/usr/share/fonts/X11/OTF/fonts.scale
-/usr/share/fonts/X11/TTF/GohaTibebZemen.ttf
-/usr/share/fonts/X11/TTF/fonts.dir
-/usr/share/fonts/X11/TTF/fonts.scale
-
+%files -f %{_sourcedir}/font-misc-ethiopic.filelist
 %changelog
 # let's skip this for now
 

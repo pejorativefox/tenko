@@ -66,7 +66,8 @@ mkdir -p "$OUT"/{logs,status,build}
 # Static filelists for the generated wave specs live in
 # package_specs/<dir>/files/<pkg>.filelist; they share %_sourcedir with the
 # tarballs (~/rpmbuild/SOURCES).
-for list in $ORDER; do
+LIST_ALL=${PACKAGES:-$ORDER}
+for list in $LIST_ALL; do
     if [ -f "package_specs/$list/files/$list.filelist" ]; then
         cp -f "package_specs/$list/files/$list.filelist" \
               "$HOME/rpmbuild/SOURCES/$list.filelist"
@@ -80,7 +81,7 @@ status_of() { awk '{print $1}' "$OUT/status/$1" 2>/dev/null; }
 
 # RPMs of every already-built package, into a slot's fresh filesystem.
 pending() {
-    for top in $ORDER; do
+    for top in $LIST; do
         [ "$FORCE" != 1 ] && [ "$(status_of "$top")" = ok ] && continue
         printf '%s\n' "$top"
     done
@@ -243,6 +244,7 @@ else
     for top in $remaining; do
         chunks[$((idx++ % WORKERS))]+=" $top"
     done
+    slot_pids=""
     for slot in $(seq 1 "$WORKERS"); do
         idx=$((slot-1))
         toks=(${chunks[$idx]:-})

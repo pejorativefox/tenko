@@ -1,0 +1,6 @@
+%dir /usr/share
+%dir /usr/share/fonts
+%dir /usr/share/fonts/Type1
+/usr/share/fonts/Type1/cursor.pfa
+/usr/share/fonts/Type1/fonts.dir
+/usr/share/fonts/Type1/fonts.scale

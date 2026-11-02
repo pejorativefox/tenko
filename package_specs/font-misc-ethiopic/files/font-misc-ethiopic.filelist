@@ -1,0 +1,10 @@
+%dir /usr/share
+%dir /usr/share/fonts
+%dir /usr/share/fonts/OTF
+%dir /usr/share/fonts/TTF
+/usr/share/fonts/OTF/GohaTibebZemen.otf
+/usr/share/fonts/OTF/fonts.dir
+/usr/share/fonts/OTF/fonts.scale
+/usr/share/fonts/TTF/GohaTibebZemen.ttf
+/usr/share/fonts/TTF/fonts.dir
+/usr/share/fonts/TTF/fonts.scale
