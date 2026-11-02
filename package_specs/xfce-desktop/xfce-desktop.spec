@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    5
+Release:    6
 Summary:    Browneye XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -25,6 +25,7 @@ Requires:   xfce4-power-manager
 Requires:   dbus-daemon
 Requires:   dbus-x11
 Requires:   xorg-server
+Requires:   lightdm
 Requires:   xinit
 Requires:   xauth
 Requires:   xkeyboard-config
@@ -78,7 +79,19 @@ touch %{buildroot}/usr/share/browneye/xfce-desktop
 %files
 /usr/share/browneye/xfce-desktop
 
+%post
+# The base system boots to multi-user.target.  A desktop profile should come
+# up in the graphical target so lightdm (required above) starts the greeter.
+if [ -x /usr/bin/systemctl ]; then
+    systemctl set-default graphical.target >/dev/null 2>&1 || :
+fi
+
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-6
+- Require lightdm: the desktop profile now provides a graphical login
+- Set the default systemd target to graphical.target in %post so the
+  greeter starts on boot (the base defaults to multi-user.target)
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-5
 - Require shared-mime-info explicitly: gdk-pixbuf used to pull it in
   through its .pc Requires, which now lives in gdk-pixbuf-devel, but the
