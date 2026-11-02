@@ -81,7 +81,9 @@ fi
 [ -f "$LIVE/boot/vmlinuz-$KVER" ] || { echo "missing kernel" >&2; exit 1; }
 [ -f "$LIVE/boot/initramfs-$KVER.img" ] || { echo "missing initramfs" >&2; exit 1; }
 
-if [ ! -d "$ISOREPO" ] || [ -z "$(find "$ISOREPO" -maxdepth 1 -name '*.rpm' | head -1)" ]; then
+# Always refresh the on-ISO repository: package contents (and the closure)
+# change between builds, and a stale copy silently ships old RPMs.
+if [ "${SKIP_REPO:-0}" != "1" ]; then
     OUT="$ISOREPO" "$PWD/scripts/make_iso_repo.sh"
 fi
 
