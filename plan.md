@@ -275,6 +275,10 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
     ├── rootfs-selfhost/       # installed base system
     ├── rootfs-login-test/     # rootfs behind the greeter test image
     ├── login-test.img         # bootable greeter/first-boot test image
+    ├── browneye-installer.iso # UEFI installer ISO (clean build)
+    ├── live-root/             # live installer rootfs (squashfs source)
+    ├── iso-stage/             # ISO staging tree
+    ├── iso-repo/              # pruned on-ISO package repo
     ├── browneye-efi.img       # GPT/UEFI GRUB disk
     └── qemu-share/            # 9p share for xwd captures
 ```
@@ -282,7 +286,8 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 `build/` is kept to the repo pipeline (repo-selfhost, repo-all, the
 blfs-parity RPM directories, rpm-staging), `deps/`, the current boot
 artifacts (rootfs-selfhost, rootfs-login-test, login-test.img,
-browneye-efi.img) and the most recent build logs.  Old rootfs/image/
+browneye-installer.iso, live-root, iso-stage, iso-repo, browneye-efi.img)
+and the most recent build logs.  Old rootfs/image/
 verify/container trees, stale repos and firmware source extracts are
 deleted: a 2026-11-02 cleanup took it from 83 GB to 21 GB.  Everything
 removed is reproducible from `container-rebuild-*` / `verify_base_in_container.sh`.
