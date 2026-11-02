@@ -157,13 +157,16 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 - `bbuild` cleanup: exit codes, ORDER-only `all`, NEVRA conflict refusal,
   atomic source staging, repo-aware read-only query, 56 tests; legacy
   duplicate scripts removed.
-- Published: **593 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>
+- Published: **615 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>
   (553 + the 2026-11-02 X11 client utilities wave, 31 more binaries/libs,
   + the fonts wave: 6 new packages incl. font-ttf-unifont and 3 more
   no-book fonts on request: terminus, siji, ubuntu-font-family).
   The 2026-11-02 debt wave replaced sqlite (3.54.1), all 12 LLVM/clang 23.1.0
   RPMs, xorg-server 21.1.25, perl 5.44.0-3 (the libperl fix, D10) and
-  which 2.25-2; the count stays 593 because they are updates, not additions.
+  which 2.25-2 (updates, so no count change), then split the GObject
+  Introspection typelibs into 22 `<pkg>-gir` subpackages (D6, +22 RPMs:
+  593 → 615) and bumped libnotify 0.8.9, polkit 128 and upower 1.91.5 on
+  the way (D9 parity).
   A remote `dnf install` resolves `browneye-base xfce-desktop` (212 pkgs) and
   `browneye-build` (62 pkgs); `ncat` and `pasta` resolve from the same repo.
   htop 3.5.3-1 and podman-bin 6.1.4-2 were published with
@@ -228,7 +231,11 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       `/usr/lib64/girepository-1.0/*.typelib` (and the `%dir`) into
       `<name>-gir`; the `.gir` XML stays in `-devel`, which requires the new
       subpackage.  Filelist unions are unchanged except polkit's three new
-      translations below.
+      translations below.  Published 2026-11-02 (+22 RPMs, 593 → 615): the
+      split removes ~2.4 MB of typelibs from a desktop install, of which
+      librsvg's is the only one left (~9 KB, deferred until a Rust build is
+      available).  Note: `g-ir-scanner` is unaffected (it reads `.gir`), but
+      `g-ir-inspect` and any language binding need `<pkg>-gir`.
 - [ ] **D7. Spec-only specs below the books (~109 after the 2026-11-02
       audit; ~69 when the X11 client-utilities wave was written).**  They only
       matter if they are ever built; update the chain first if so.  (`unzip`
