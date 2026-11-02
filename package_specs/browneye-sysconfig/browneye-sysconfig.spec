@@ -1,6 +1,6 @@
 Name:       browneye-sysconfig
 Version:    13.1
-Release:    2
+Release:    3
 Summary:    Base configuration for Browneye Linux
 License:    MIT
 Prefix:     /usr
@@ -58,6 +58,15 @@ ln -sf /run/systemd/resolve/stub-resolv.conf %{buildroot}/etc/resolv.conf
 
 # Empty by design: systemd generates a unique id on first boot.
 : > %{buildroot}/etc/machine-id
+
+# Rootless containers: useradd/usermod only allocate subordinate id ranges
+# when these files exist (login.defs already defines SUB_UID/GID_*).
+cat > %{buildroot}/etc/subuid <<'EOF2'
+# Per-user subordinate UID ranges for rootless containers.
+EOF2
+cat > %{buildroot}/etc/subgid <<'EOF2'
+# Per-user subordinate GID ranges for rootless containers.
+EOF2
 chmod 0444 %{buildroot}/etc/machine-id
 cat > %{buildroot}/etc/hosts <<'EOF2'
 127.0.0.1 localhost
@@ -103,6 +112,8 @@ EOF2
 /etc/shells
 /etc/inputrc
 /etc/vimrc
+%config(noreplace) /etc/subuid
+%config(noreplace) /etc/subgid
 /etc/profile
 /etc/locale.conf
 /etc/vconsole.conf
@@ -110,6 +121,11 @@ EOF2
 /etc/machine-id
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-3
+- Ship /etc/subuid and /etc/subgid: useradd/usermod only allocate
+  subordinate id ranges when the files exist, so rootless podman had no
+  mapping for the installer-created admin user
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 13.1-2
 - Add /etc/dracut.conf.d/10-browneye.conf: generic (hostonly=no) initramfs,
   xz-compressed, matching the kernel's module compression
