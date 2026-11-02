@@ -24,7 +24,9 @@
 #              plus DEVEL_PACKAGES)
 #   DEVEL_PACKAGES  header packages needed to rebuild the base set inside the
 #              image (default: ncurses/readline/xz/pam/elfutils/perl/tcl/
-#              e2fsprogs -devel)
+#              e2fsprogs/kmod -devel)
+#   TAG_STABLE set to 0 to keep the dated tag only (e.g. for a lean E2 image
+#              that must not replace the dnf-capable base:r13.1)
 #   ROOTFS     staging rootfs directory (default: build/base-rootfs)
 #   TARBALL    exported tarball (default: build/base-rootfs.tar.gz)
 #   FROM_TARBALL  import this tarball instead of running dnf
@@ -36,6 +38,7 @@ cd "$(dirname "$0")/.."
 DATE=${DATE:-$(date +%Y%m%d)}
 REPO_URL=${REPO_URL:-https://tomfool.8bit.ca/browneye/packages/13.1/}
 IMAGE=${IMAGE:-localhost/browneye/base:r13.1-$DATE}
+TAG_STABLE=${TAG_STABLE:-1}
 DEVEL_PACKAGES=${DEVEL_PACKAGES:-ncurses-devel readline-devel xz-devel \
     linux-pam-devel elfutils-devel perl-devel tcl-devel e2fsprogs-devel \
     kmod-devel}
@@ -132,7 +135,7 @@ podman run --rm "$IMAGE" /usr/bin/bash -lc '
     fi
 '
 
-if [ "$IMAGE" != "localhost/browneye/base:r13.1" ]; then
+if [ "$TAG_STABLE" = 1 ] && [ "$IMAGE" != "localhost/browneye/base:r13.1" ]; then
     podman tag "$IMAGE" localhost/browneye/base:r13.1
     echo "tagged localhost/browneye/base:r13.1 (stable name used by the scripts)"
 fi

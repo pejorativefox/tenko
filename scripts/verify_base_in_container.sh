@@ -31,7 +31,8 @@ with open("package_specs/ORDER", encoding="utf-8") as handle:
     names = [line.split("#", 1)[0].strip() for line in handle]
 names = [name for name in names if name]
 # browneye-base pulls these in, but ORDER does not list them.
-names += ["libbsd", "libmd", "libseccomp", "browneye-base"]
+names += ["libbsd", "libmd", "libseccomp", "libunistring", "libtasn1",
+              "p11-kit", "make-ca", "browneye-base"]
 
 seen = set()
 rows = []
