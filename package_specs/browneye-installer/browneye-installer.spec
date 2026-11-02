@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    1
+Release:    2
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -85,6 +85,10 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-2
+- Give the admin user a rootless container id range (usermod
+  --add-subuids/--add-subgids) so podman works without manual setup
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-1
 - New package: Python 3/ncurses installer with a pure GPT planner,
   snapshot/rollback, JSONL logging, dry-run, answer files and the live

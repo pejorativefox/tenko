@@ -137,8 +137,9 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       + GRUB/dracut/efibootmgr/dosfstools/dnf; `browneye-basefs` is installed
       first; fstab by UUID; GRUB UEFI with `--no-nvram` + efibootmgr and the
       removable `EFI/BOOT/BOOTX64.EFI` fallback; admin user in `wheel`, root
-      stays locked, first-boot marker written; JSONL log copied to the ESP
-      and mirrored to the console.
+      stays locked, first-boot marker written; the admin user gets a
+      100000-165535 subuid/subgid range for rootless containers; JSONL log is
+      copied to the ESP and mirrored to the console.
 - [x] **C2. Display manager.**  LightDM 1.33.1 and lightdm-gtk-greeter
       2.0.9 are packaged (systemd unit + preset, PAM service, GTK greeter,
       XFCE session) and pulled in by `xfce-desktop` 4.20-7, which also sets

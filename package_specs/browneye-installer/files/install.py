@@ -867,6 +867,21 @@ class Installer:
             )
 
         self.runner.run(
+            (
+                "chroot",
+                self.target,
+                "/usr/sbin/usermod",
+                "--add-subuids",
+                "100000-165535",
+                "--add-subgids",
+                "100000-165535",
+                user,
+            ),
+            step="configure",
+            allow_failure=True,
+            description="give the admin user a rootless podman id range",
+        )
+        self.runner.run(
             ("chroot", self.target, "/usr/sbin/chpasswd"),
             step="configure",
             stdin="{}:{}\n".format(user, self.config.admin_password),
