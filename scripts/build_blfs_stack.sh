@@ -13,7 +13,7 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
-IMG=${IMG:-localhost/browneye/base:r13.1-selfhost-20261031}
+IMG=${IMG:-localhost/browneye/base:r13.1}
 OUT=${OUT:-$PWD/build/blfs-parity-$(date +%Y%m%d)}
 JOBS=${JOBS:-8}
 PHASE=${PHASE:-core}

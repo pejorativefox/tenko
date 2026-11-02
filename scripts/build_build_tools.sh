@@ -24,7 +24,7 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
-IMG=${IMG:-localhost/browneye/base:r13.1-selfhost-20261031}
+IMG=${IMG:-localhost/browneye/base:r13.1}
 OUT=${OUT:-$PWD/build/e1/out}
 SRC=${SRC:-$PWD/build/e1/srcroot}
 TARBALLS=${TARBALLS:-$PWD/build/e1/sources}

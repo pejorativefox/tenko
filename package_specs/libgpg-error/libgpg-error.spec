@@ -1,6 +1,6 @@
 Name:       libgpg-error
 Version:    1.61
-Release:    1
+Release:    2
 Summary:    Library of error codes and messages for GnuPG components
 License:    LGPL-2.1-or-later
 Prefix:     /usr
@@ -27,6 +27,10 @@ install -v -m644 -D README \
 %files -f %{_sourcedir}/libgpg-error.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.61-2
+- Bump the release: -1 was already published with different content, and
+  re-publishing the same NEVRA would leave the repo metadata stale.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.61-1
 - New package (BLFS r13.1): build dependency of libassuan and gpgme, which
   are required for the libdnf/librepo dnf stack.

@@ -21,7 +21,7 @@ RUN=${1:?usage: $0 build/container-rebuild-YYYYMMDD-N}
 REPO=${REPO:-build/repo-selfhost}
 ROOTFS=${ROOTFS:-build/rootfs-selfhost}
 TARBALL=${TARBALL:-build/rootfs-selfhost.tar.gz}
-IMAGE=${IMAGE:-localhost/browneye/base:r13.1-selfhost-$(date +%Y%m%d)}
+IMAGE=${IMAGE:-localhost/browneye/base:r13.1}
 
 if [ ! -d "$RUN/status" ]; then
     echo "missing status directory: $RUN/status" >&2

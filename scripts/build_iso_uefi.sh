@@ -15,7 +15,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-IMG=${IMG:-localhost/browneye/base:r13.1-selfhost-20261031}
+IMG=${IMG:-localhost/browneye/base:r13.1}
 REPO=${REPO:-$PWD/build/repo-all}
 KVER=${KVER:-7.2.6}
 LIVE=${LIVE:-$PWD/build/live-root}

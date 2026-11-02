@@ -182,12 +182,27 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 
 ### S. Self-hosting on an installed system
 
-- [ ] **S2. Container build images on an installed system.**  The
-      container-based scripts (`verify_base_in_container.sh`,
-      `build_blfs_stack.sh`) expect `localhost/browneye/base:*` images that
-      only exist on the build host.  Provide a bootstrapping path (import a
-      rootfs tarball, or build the image from the installed system) so the
-      container workflow runs on Browneye itself.
+- [x] **S2. Container build images on an installed system.**  Done
+      2026-11-02 with `scripts/make_base_image.sh`.  It installs
+      `browneye-base browneye-build` from the *published* repo into a fresh
+      rootfs with dnf (rootless `unshare -r dnf --installroot` when no image
+      with dnf exists, otherwise `TOOL_IMAGE`), finalizes sysusers/presets,
+      imports the tarball with podman, and verifies gcc/rpmbuild/make/python/
+      meson/dnf/createrepo_c inside the result.  It needs no pre-existing
+      `localhost/browneye/base` image and tags `base:r13.1` for the other
+      scripts, whose defaults now point at that stable name instead of
+      build-host-only dated tags.
+      Verified on this host: `localhost/browneye/base:r13.1-20261102`
+      (138 packages) reports gcc 16.2.0, Python 3.15.2, rpm 4.18.1,
+      dnf 4.24.0 and createrepo_c 1.2.6, resolves repo file provides over
+      DNS (`repoquery --whatprovides /usr/bin/python3`), and rebuilds a
+      spec (which 2.25) with its own `browneye-rpm-config` macros, no host
+      `/rpmsupport` mount.
+      `publish_rpm.sh` also grew a guard: re-publishing an existing NEVRA
+      with different content is refused (bump Release), because mergerepo_c
+      keeps the old metadata while rsync replaces the file.  The two
+      packages that hit this (libgpg-error, libassuan) were rebuilt as `-2`
+      and republished.
 
 ### D. Packaging debt
 

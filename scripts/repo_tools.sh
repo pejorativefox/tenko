@@ -18,7 +18,7 @@
 #   TOOL_IMAGE=localhost/browneye/base:r13.1-build-YYYYMMDD
 # (see scripts/make_build_tools_image.sh) for a fully self-hosted run.
 
-TOOL_IMAGE=${TOOL_IMAGE:-localhost/browneye/base:r13.1-selfhost-20261031}
+TOOL_IMAGE=${TOOL_IMAGE:-localhost/browneye/base:r13.1}
 
 _tool_probe=${_tool_probe:-}
 

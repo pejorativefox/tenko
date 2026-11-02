@@ -135,6 +135,58 @@ for rpm in "${rpms[@]}"; do
     fi
 done
 
+# A repeated NEVRA with different content is a metadata hazard: mergerepo_c
+# --method nvr keeps the published entry while rsync overwrites the file, so
+# dnf then sees a size/checksum mismatch.  Refuse it; bump Release instead.
+python3 - "$STAGE" "${rpms[@]}" <<'PY'
+import glob
+import hashlib
+import io
+import os
+import subprocess
+import sys
+import xml.etree.ElementTree as ET
+
+stage = sys.argv[1]
+rpms = sys.argv[2:]
+ns = {"c": "http://linux.duke.edu/metadata/common"}
+data = subprocess.check_output(
+    ["zstd", "-dc", glob.glob(os.path.join(stage, "old/repodata/*primary.xml.zst"))[0]])
+published = {}
+for _, el in ET.iterparse(io.BytesIO(data)):
+    if el.tag.endswith("}package"):
+        ver = el.find("c:version", ns)
+        key = (el.find("c:name", ns).text, ver.get("ver"), ver.get("rel"),
+               el.find("c:arch", ns).text)
+        size = el.find("c:size", ns)
+        csum = el.find("c:checksum", ns)
+        published[key] = (int(size.get("package")) if size is not None else None,
+                          csum.text if csum is not None else None)
+        el.clear()
+
+bad = []
+for path in rpms:
+    query = "%{NAME}\t%{VERSION}\t%{RELEASE}\t%{ARCH}"
+    name, ver, rel, arch = subprocess.check_output(
+        ["rpm", "-qp", "--qf", query, path], text=True).strip().split("\t")
+    key = (name, ver, rel, arch)
+    if key not in published:
+        continue
+    size = os.path.getsize(path)
+    with open(path, "rb") as handle:
+        digest = hashlib.sha256(handle.read()).hexdigest()
+    old_size, old_digest = published[key]
+    if (old_size is not None and old_size != size) or (
+            old_digest is not None and old_digest != digest):
+        bad.append(key)
+if bad:
+    for name, ver, rel, arch in bad:
+        print("error: {}-{}-{}.{} already exists with different content; "
+              "bump Release before publishing".format(name, ver, rel, arch),
+              file=sys.stderr)
+    sys.exit(1)
+PY
+
 if [ "$DRY_RUN" = 1 ]; then
     echo "dry run: staged in $STAGE; nothing uploaded"
     exit 0

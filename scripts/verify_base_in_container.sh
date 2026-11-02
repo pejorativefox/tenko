@@ -4,11 +4,11 @@
 # This is the self-hosting check: the host only prepares the package list and
 # bind mounts specs/sources/output.  Every rpmbuild invocation, including the
 # compiler, make, Python, meson, systemd, and the RPM toolchain, runs inside
-# localhost/browneye/base:r13.1-rpm5-20261030.
+# localhost/browneye/base:r13.1.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-IMAGE=${IMAGE:-localhost/browneye/base:r13.1-rpm5-20261030}
+IMAGE=${IMAGE:-localhost/browneye/base:r13.1}
 OUT=${OUT:-build/container-rebuild-$(date +%Y%m%d-%H%M%S)}
 JOBS=${JOBS:-4}
 MAKE_JOBS=${MAKE_JOBS:-4}

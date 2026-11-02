@@ -5,7 +5,7 @@
 #
 # Usage:
 #   scripts/make_build_tools_image.sh
-#   BASE_IMAGE=localhost/browneye/base:r13.1-selfhost-20261101 \
+#   BASE_IMAGE=localhost/browneye/base:r13.1 \
 #   IMAGE=localhost/browneye/base:r13.1-build-20261101 \
 #       scripts/make_build_tools_image.sh
 #
@@ -19,7 +19,7 @@ cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
 DATE=$(date +%Y%m%d)
-BASE_IMAGE=${BASE_IMAGE:-localhost/browneye/base:r13.1-selfhost-$DATE}
+BASE_IMAGE=${BASE_IMAGE:-localhost/browneye/base:r13.1}
 REPO=${REPO:-build/repo-selfhost}
 ROOTFS=${ROOTFS:-build/rootfs-build}
 TARBALL=${TARBALL:-build/rootfs-build.tar.gz}
