@@ -10,7 +10,7 @@ Prefix:     /usr
 This is efibootmgr, a Linux user-space application to modify the Intel Extensible Firmware Interface (EFI) Boot Manager. This application can create and destroy boot entries, change the boot order, change the next running boot option, and more.
 
 %prep
-%setup
+%setup -q
 
 %build
 make EFIDIR=LFS EFI_LOADER=grubx64.efi
@@ -19,13 +19,11 @@ make EFIDIR=LFS EFI_LOADER=grubx64.efi
 rm -rf %{buildroot}
 %make_install EFIDIR=LFS
 
-%files
-/usr/sbin/efibootdump
-/usr/sbin/efibootmgr
-/usr/share/man/man8/efibootdump.8.gz
-/usr/share/man/man8/efibootmgr.8.gz
+%files -f %{_sourcedir}/efibootmgr.filelist
 
 %changelog
-* Tue Jun 13 2023 Chris Statzer <chris.statzer@gmail.com> 18-1
-- Initial RPM
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 18-1
+- Build the current BLFS r13.1 version (18)
+- Install the man pages and binaries as the book does (EFIDIR=LFS)
+- Ship a generated static filelist
 

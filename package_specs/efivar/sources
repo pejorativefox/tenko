@@ -1,1 +1,2 @@
-243fdbc48440212695cb9c6e6fd0f44f https://github.com/rhboot/efivar/releases/download/38/efivar-38.tar.bz2
+a8fc3e79336cd6e738ab44f9bc96a5aa https://github.com/rhboot/efivar/archive/39/efivar-39.tar.gz efivar-39.tar.gz
+231bf2f0502aa256de91cae7d921c2a5 https://www.linuxfromscratch.org/patches/blfs/13.1/efivar-39-upstream_fixes-1.patch efivar-39-upstream_fixes-1.patch
