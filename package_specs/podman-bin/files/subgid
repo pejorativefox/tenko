@@ -1,0 +1,11 @@
+# subordinate GID ranges for rootless containers (podman, buildah, crun)
+#
+# Format: user:start:count
+#
+# This file is shipped with comments only.  Do not remove it: shadow's
+# useradd(8) assigns SUB_GID_COUNT (65536, from /etc/login.defs) to new
+# accounts with UID >= 1000 only when /etc/subgid already exists.
+#
+# The Browneye installer adds the administrative user's range explicitly,
+# for example for an account that already exists:
+#   usermod --add-subgids 100000-165535 <user>
