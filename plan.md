@@ -145,15 +145,13 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   `browneye-base-build`, `xfce-desktop-core` (174 / 700 MB), `-hardware`,
   `-full`; `browneye-workstation` (node, OpenSSH, git, opencode, herdr, sudo,
   podman); `browneye-live` (installer environment).
-- Version parity: parity held at build time, but the books have moved since
-  (LFS trunk last updated 2026-10-31, BLFS 2026-11-01).  A 2026-11-02 audit of
-  the *published* metadata (`audit_versions.py --primary`, 593 RPMs) reports
-  **52 packages below the books**, 222 current and 1 newer.  That includes
-  systemd 261.3→262.1, python 3.14.7→3.15.2, openssl 4.0.2→4.1.0, grub
-  2.14→2.16, coreutils 9.11→9.12, curl 8.22.0→8.23.0, expat 2.8.4→2.9.0 and
-  xorg-server 21.1.24→21.1.25; the full list and the plan are in D9.  sqlite
-  (D1) and xorg-server (D2) are fixed, leaving 50.  `lfs.lock` was regenerated
-  from trunk (`581459fa`); `sync_lfs_spec.py --all-base` reports 80/80.
+- Version parity: D9 (2026-11-02) re-baselined the published tree to the
+  current LFS/BLFS trunk (LFS trunk last updated 2026-10-31, BLFS 2026-11-01).
+  The audit of the published metadata (`audit_versions.py --primary`, 620
+  RPMs) now reports **2 packages below the books**, 275 current and 1 newer;
+  the two are cargo-c and librsvg, both waiting on a Rust toolchain.
+  `lfs.lock` was regenerated from trunk (`581459fa`);
+  `sync_lfs_spec.py --all-base` reports 80/80.
 - `bbuild` cleanup: exit codes, ORDER-only `all`, NEVRA conflict refusal,
   atomic source staging, repo-aware read-only query, 56 tests; legacy
   duplicate scripts removed.
@@ -167,7 +165,10 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   Introspection typelibs into 22 `<pkg>-gir` subpackages (D6, +22), and added
   libunistring, libidn2, libpsl, docbook-xml and docbook-xsl-nons (D8, +5;
   593 → 620), bumping libnotify 0.8.9, polkit 128, upower 1.91.5 and
-  curl 8.23.0 on the way (D9 parity).
+  curl 8.23.0 on the way (D9 parity).  The D9 wave (same day) then rebuilt
+  44 package names in place — runtime layer, libraries/tools, and Python
+  3.15.2 with the dnf stack — so the count stays 620 while the payload is
+  the current LFS/BLFS trunk.
   A remote `dnf install` resolves `browneye-base xfce-desktop` (212 pkgs) and
   `browneye-build` (62 pkgs); `ncat` and `pasta` resolve from the same repo.
   htop 3.5.3-1 and podman-bin 6.1.4-2 were published with
@@ -255,25 +256,39 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       curl bump also clears one D9 item.  Build note: the curl build needed a
       working perl in the image (its doc scripts call perl), so the fixed
       perl 5.44.0-4 was staged into that container.
-- [ ] **D9. Re-baseline the published tree to the moved books.**  The
-      2026-11-02 repo audit (`audit_versions.py --primary`, see §5) found 52
-      of 593 published packages below the LFS/BLFS trunk: LVM2, at-spi2-core,
-      brotli, c-ares, cargo-c, cmake, coreutils, curl, elfutils, expat,
-      fribidi, git, glib, groff, grub, gzip, harfbuzz, hwdata, iana-etc,
-      iproute2, kmod, less, libarchive, libevdev, libjpeg-turbo, libnotify,
-      libpng, librsvg, libx11, libxi, libxrender, libxtst, linux-api-headers,
-      man-pages, meson, nmap, openssh, openssl, patch, pcre2, pkgconf, polkit,
-      python, shadow, simdutf, sqlite, systemd, upower, util-linux, vim,
-      xorg-server and xorgproto.  Several are ABI-level jumps (systemd 262,
-      python 3.15, openssl 4.1, grub 2.16), so this is a wave of its own:
-      bump the specs, check the dependency chain, rebuild and republish.
-      sqlite (D1) and xorg-server (D2) are already done, libnotify 0.8.9,
-      polkit 128 and upower 1.91.5 were rebuilt with the D6 `-gir` split, and
-      curl 8.23.0 came with D8, leaving 46.  The next
-      obvious block is the toolchain/runtime layer (systemd 262, python 3.15,
-      openssl 4.1, coreutils, expat, libarchive, elfutils, util-linux, kmod)
-      because the rest links against it.  `xml-parser` 2.59 is *newer* than
-      the book (2.57) and needs no action.
+- [x] **D9. Re-baseline the published tree to the moved books.**  Done
+      2026-11-02, except the two Rust-only packages.  The 52/593 audit at the
+      start of the day is now 2/620.  D1, D2, D6 and D8 cleared six of them;
+      this wave rebuilt the other 44 in three batches:
+      - Runtime layer: linux-api-headers 7.3.1, coreutils 9.12, expat 2.9.0,
+        pcre2 10.49, openssl 4.1.0 (SHLIB_VERSION stays 4, so the
+        libssl.so.4/libcrypto.so.4 ABI is unchanged), kmod 34.3, elfutils
+        0.197, libarchive 3.8.11, util-linux 2.42.4, systemd 262.1,
+        iana-etc 20261015, man-pages 6.20, pkgconf 3.0.10 and cmake 4.4.5.
+      - Libraries and tools: glib 2.90.1, harfbuzz 15.0.0, at-spi2-core
+        2.62.1, brotli 1.2.1, c-ares 1.34.9, fribidi 1.0.18, libpng 1.6.59,
+        libjpeg-turbo 3.2.1, libevdev 1.14.0, simdutf 9.3.3, xorgproto 2026.1,
+        libX11 1.8.14, libXi 1.8.4, libXrender 0.9.13, libXtst 1.2.6,
+        git 2.56.0, openssh 10.6p1, nmap 7.993, groff 1.24.2, gzip 1.15,
+        less 710, patch 2.8.1, shadow 4.20.3, vim 9.2.1225, iproute2 7.3.0,
+        hwdata 0.412, LVM2 2.03.44 and grub 2.16.
+      - Python 3.15.2 and the dnf stack: python (the OpenSSL-4 patch is no
+        longer needed; pip is unpacked from the bundled wheel), meson 1.12.1,
+        python-setuptools/wheel/flit-core/packaging/jinja/markupsafe,
+        python3-docutils, gobject-introspection (its `_giscanner` extension is
+        Python-minor-specific), rpm + python3-rpm, libcomps, libdnf, dnf,
+        xcb-proto, libxslt and at-spi2-core.  gpgme/librepo/libsolv/
+        libmodulemd were rebuilt as `-2` so the new NEVRs supersede the
+        published `-1` builds, and libgpg-error 1.61 + libassuan 3.0.2 (BLFS
+        r13.1) are new specs needed by gpgme.
+      The 2026-11-02 re-audit reports **275 current, 1 newer and 2 below**:
+      cargo-c 0.10.26 and librsvg 2.63.4, both Rust builds blocked by the
+      missing Rust toolchain (D6 skipped librsvg for the same reason).  All
+      SONAMEs are unchanged, so the wave did not force a tree-wide rebuild.
+      Verified on a clean container: OpenSSL 4.1.0, systemd 262, Python 3.15.2
+      with pip, g-ir-scanner 1.86.0, and dnf 4.24.0 resolving from the
+      published repo through the rebuilt rpm/hawkey/libdnf bindings.
+      `xml-parser` 2.59 stays *newer* than the book (2.57).
 - [x] **D10. The perl runtime ships no libperl.**  Found and fixed
       2026-11-02 while testing the LLVM split.  `/usr/bin/perl` has
       `NEEDED libperl.so` (the library has no SONAME) and resolves it through
