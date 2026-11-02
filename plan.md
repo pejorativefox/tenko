@@ -51,6 +51,7 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 - cryptsetup 2.8.8, LVM2 2.03.42 + libdevmapper, mdadm 4.6, libaio 0.3.113.
 - ISO media: libburn/libisofs/libisoburn 1.5.8.pl02 (xorriso), squashfs-tools
   4.7.5 and mtools 4.0.50 (approved exceptions).
+- UEFI: dosfstools 4.2, efibootmgr 18, efivar 39 (with the glibc 2.43+ patch).
 - sudo 1.9.17p2 (PAM, `%wheel`); xfce-desktop/workstation require it.
 
 **Size and packaging**
