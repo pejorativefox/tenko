@@ -9,7 +9,7 @@
 # PHASE=xfce  the XFCE 4.20 core desktop (X11 only)
 # PHASE=desktop  Xorg server, input/video drivers, xinit, fonts (X11 only)
 # PHASE=net     libpcap, nmap/ncat/nping and passt/pasta (podman networking)
-# PHASE=proxy   privoxy (not in BLFS; approved upstream exception)
+# PHASE=proxy   privoxy and proxychains-ng (not in BLFS; approved exceptions)
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
@@ -105,7 +105,9 @@ elif [ "$PHASE" = "net" ]; then
         build "$p" "$p" || exit 1
     done
 elif [ "$PHASE" = "proxy" ]; then
-    build privoxy privoxy || exit 1
+    for p in privoxy proxychains-ng; do
+        build "$p" "$p" || exit 1
+    done
 fi
 
 echo "phase $PHASE done"
