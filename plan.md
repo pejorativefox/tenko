@@ -123,8 +123,18 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 
 ### C. Installer and desktop
 
-- [ ] **C1. Installer ISO.**  Live and target package sets (live runtime is
-      `browneye-base-runtime`, ~305 MB) plus the media tooling from A1.
+- [ ] **C1. Installer ISO — in progress.**  UEFI-only hybrid ISO.  Live root
+      is a zstd squashfs with dracut `dmsquash-live` + overlayfs; the on-ISO
+      repo is the pruned target closure.  Python 3 + ncurses installer:
+      select a GPT disk, delete partitions, install into one contiguous free
+      region, reuse an existing ESP (otherwise create a 512 MiB one), ext4
+      root (min 8 GiB) + swap (2 GiB, skipped with a warning if the region is
+      too small).  Target = `browneye-base` + `xfce-desktop` + kernel/modules
+      + GRUB/dracut/efibootmgr/dosfstools/dnf; `browneye-basefs` is installed
+      first; fstab by UUID; GRUB UEFI with `--no-nvram` + efibootmgr and the
+      removable `EFI/BOOT/BOOTX64.EFI` fallback; admin user in `wheel`, root
+      stays locked, first-boot marker written; JSONL log copied to the ESP
+      and mirrored to the console.
 - [x] **C2. Display manager.**  LightDM 1.33.1 and lightdm-gtk-greeter
       2.0.9 are packaged (systemd unit + preset, PAM service, GTK greeter,
       XFCE session) and pulled in by `xfce-desktop` 4.20-7, which also sets
@@ -304,6 +314,12 @@ removed is reproducible from `container-rebuild-*` / `verify_base_in_container.s
 | D37 | SVG | `librsvg` 2.63.2 built with `/opt` Rust 1.99.0 and vendored crates, offline |
 | D38 | Users | Ship `sudo` and let the installer create an admin user in `wheel` |
 | D39 | Repo signing | **Deferred**: unsigned repo (`gpgcheck=0`) for now |
+| D40 | ISO repo | Pruned target closure on the ISO (no full repo, no network install) |
+| D41 | Install target | `browneye-base` + `xfce-desktop` + boot/install tools |
+| D42 | ESP policy | Reuse an existing ESP; create 512 MiB only when none exists |
+| D43 | Partition tables | **GPT-only MVP**; MBR disks are refused with an explanation |
+| D44 | Root layout | ext4 (min 8 GiB, grows to fill the region) + 2 GiB swap |
+| D45 | Installer logs | JSONL on the ESP plus console/serial mirror |
 
 Consequences already implemented: `package_specs/ORDER` is the chapter-8
 systemd order; `browneye-basefs` owns `/bin /lib /lib64 /sbin`; `browneye-release`
