@@ -19,8 +19,6 @@
 %config(noreplace) /etc/containers/registries.conf
 %config(noreplace) /etc/containers/seccomp.json
 %config(noreplace) /etc/containers/storage.conf
-%config(noreplace) /etc/subgid
-%config(noreplace) /etc/subuid
 /opt/podman
 /opt/podman-6.1.4/bin/crun
 /opt/podman-6.1.4/bin/fuse-overlayfs

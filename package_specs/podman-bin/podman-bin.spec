@@ -16,7 +16,7 @@
 
 Name:       podman-bin
 Version:    6.1.4
-Release:    1
+Release:    2
 Summary:    Podman container engine and helpers (static upstream bundle)
 License:    Apache-2.0 AND GPL-2.0-or-later
 URL:        https://github.com/mgoltzsche/podman-static
@@ -27,8 +27,6 @@ URL:        https://github.com/mgoltzsche/podman-static
 Source0:    podman-linux-amd64-%{version}.tar.gz
 Source1:    containers.conf
 Source2:    storage.conf
-Source3:    subuid
-Source4:    subgid
 
 ExclusiveArch: x86_64
 
@@ -47,6 +45,8 @@ Requires:   util-linux
 Requires:   kmod
 # /run/user/$UID and cgroup delegation for the rootless session
 Requires:   systemd
+# /etc/subuid and /etc/subgid, which this package no longer ships
+Requires:   browneye-sysconfig
 
 %description
 Podman is a daemonless container engine for developing, managing, and
@@ -104,10 +104,10 @@ install -m644 etc/containers/registries.conf \
 install -m644 etc/containers/seccomp.json \
     %{buildroot}/etc/containers/seccomp.json
 
-# subordinate ID ranges for rootless containers; comments only, the
-# installer adds the admin user's range.
-install -m644 %{SOURCE3} %{buildroot}/etc/subuid
-install -m644 %{SOURCE4} %{buildroot}/etc/subgid
+# /etc/subuid and /etc/subgid are owned by browneye-sysconfig: shipping them
+# here as well made the two packages collide on those paths and blocked the
+# install.  login.defs already points at them, and the installer fills in the
+# admin user's subordinate range.  Required: browneye-sysconfig (see above).
 
 install -d %{buildroot}%{_docdir}/%{name}-%{version}
 install -m644 README.md %{buildroot}%{_docdir}/%{name}-%{version}/README.md
@@ -115,6 +115,12 @@ install -m644 README.md %{buildroot}%{_docdir}/%{name}-%{version}/README.md
 %files -f %{_sourcedir}/podman-bin.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 6.1.4-2
+- Stop shipping /etc/subuid and /etc/subgid: browneye-sysconfig already owns
+  those paths, so installing podman-bin failed with a transaction file
+  conflict.  Require browneye-sysconfig instead and leave the files to it.
+  The subordinate range itself is unchanged (subuid/subgid come from
+  browneye-sysconfig and the installer's usermod).
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 6.1.4-1
 - New package: the static podman 6.1.4 bundle from mgoltzsche/podman-static
   under /opt/podman-6.1.4, /opt/podman and /usr/bin/podman symlinks.
