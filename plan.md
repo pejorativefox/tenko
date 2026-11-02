@@ -126,9 +126,15 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 
 ### B. Self-hosting and on-box rebuild
 
-- [ ] **B1. Chapters 5–7 as bootstrap RPMs.**  The container still relies on
-      the chapter-8 toolchain; there are no cross-toolchain/temp-tools
-      packages.  This is the largest remaining self-hosting gap.
+- [ ] **B1. Chapters 5–7 as bootstrap RPMs.**  Downgraded 2026-11-02: the
+      published tree has no first-generation (Fedora-host-built) RPMs left.
+      An audit of 65 sampled packages (toolchain, texinfo/tcl/expect/dejagnu,
+      man-pages/iana-etc, kernel, desktop/Xorg/BLFS stack) found every one
+      built inside a container (`hex` buildhost, Oct 31 wave), so the
+      ancestry concern is closed and B1 is now purely a disaster-recovery
+      option: regenerate a *first* artifact (seed) from sources alone with
+      no browneye RPM and no seed image present (~26 cross/toolchain specs
+      + filelists + a driver).  Nothing else on this list depends on it.
 - [ ] **S1. Ship the build tree for on-box ISO rebuilds.**  The installed
       system has every package needed (repo access, ISO tools, podman,
       `browneye-build`), but not `scripts/`, `package_specs/`, `lfs.lock` or
@@ -178,8 +184,8 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   `unshare -r` for anything needing fake root.
 - Main checkout: `~/repos/browneye` on `master`.
 - Work root: `~/browneye`, a git worktree on branch `lfs-r13.1`.
-- Remotes: `origin` = `ssh://pjfox-git/daspork/browneye.git` (canonical,
-  Gitea), `github` = `git@github.com:pejorativefox/browneye.git` (mirror).
+- Remote: `origin` = `ssh://daspork@pjfox.xyz:2222/daspork/browneye.git`
+  (canonical, Gitea).
 - Books: `~/repos/lfs` and `~/repos/blfs`, both branch `trunk` (r13.1 line).
   Take versions from the checkouts, not the r13.1 tag.
 - Build outputs: `~/rpmbuild/{SOURCES,RPMS/x86_64,BUILD,...}`;
