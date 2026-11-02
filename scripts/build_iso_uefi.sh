@@ -83,21 +83,23 @@ if [ ! -d "$ISOREPO" ] || [ -z "$(find "$ISOREPO" -maxdepth 1 -name '*.rpm' | he
     OUT="$ISOREPO" "$PWD/scripts/make_iso_repo.sh"
 fi
 
-# One persistent container has the ISO authoring tools (xorriso, mksquashfs);
-# the host mounts build/ at /work.
-if ! podman container exists "$TOOLS"; then
-    echo "starting the ISO tools container"
-    podman run -d --name "$TOOLS" --network=none \
-        -v "$PWD/build:/work:z" \
-        -v "$REPO:/repo:ro,z" \
-        "$IMG" sleep infinity >/dev/null
-    podman exec "$TOOLS" /usr/bin/bash -c '
-        rpm -Uvh --nodeps --replacepkgs \
-            /repo/libburn-*.rpm /repo/libisofs-*.rpm /repo/libisoburn-*.rpm \
-            /repo/squashfs-tools-*.rpm /repo/mtools-*.rpm >/dev/null 2>&1
-        command -v xorrisofs mksquashfs >/dev/null
-    '
-fi
+# One container has the ISO authoring tools (xorriso, mksquashfs); the host
+# mounts build/ at /work.  Recreate it every run: the bind mount's :z relabel
+# only covers files that existed when it was created, and a freshly built
+# live root would otherwise be unreadable to mksquashfs (SELinux silently
+# skips it).
+podman rm -f "$TOOLS" >/dev/null 2>&1 || true
+echo "starting the ISO tools container"
+podman run -d --name "$TOOLS" --network=none \
+    -v "$PWD/build:/work:z" \
+    -v "$REPO:/repo:ro,z" \
+    "$IMG" sleep infinity >/dev/null
+podman exec "$TOOLS" /usr/bin/bash -c '
+    rpm -Uvh --nodeps --replacepkgs \
+        /repo/libburn-*.rpm /repo/libisofs-*.rpm /repo/libisoburn-*.rpm \
+        /repo/squashfs-tools-*.rpm /repo/mtools-*.rpm >/dev/null 2>&1
+    command -v xorrisofs mksquashfs >/dev/null
+'
 
 echo "staging the ISO tree"
 rm -rf "$STAGE"
