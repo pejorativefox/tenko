@@ -1,6 +1,6 @@
 Name:       libxi
-Version:    1.8.3
-Release:    2
+Version:    1.8.4
+Release:    1
 Summary:    Library for the X Input Extension.
 License:    GPL3
 Prefix:     /usr
@@ -48,6 +48,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.8.4-1
+- Update to 1.8.4 (current BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.8.3-2
 - Split devel, doc, static payload into libxi-devel, libxi-doc, libxi-static (size audit)
 

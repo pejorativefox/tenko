@@ -1,6 +1,32 @@
 %dir /etc/bash_completion.d
+%dir /usr/lib/perl5
+%dir /usr/lib/perl5/5.44.0
+%dir /usr/lib/perl5/5.44.0/site_perl
+%dir /usr/lib/perl5/5.44.0/site_perl/FromCPAN
+%dir /usr/lib/perl5/5.44.0/site_perl/FromCPAN/Mail
+%dir /usr/lib/perl5/5.44.0/site_perl/Git
+%dir /usr/lib/perl5/5.44.0/site_perl/Git/LoadCPAN
+%dir /usr/lib/perl5/5.44.0/site_perl/Git/LoadCPAN/Mail
+%dir /usr/lib/perl5/5.44.0/site_perl/Git/SVN
+%dir /usr/lib/perl5/5.44.0/site_perl/Git/SVN/Memoize
+%dir /usr/libexec/git-core
+%dir /usr/libexec/git-core/mergetools
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+%dir /usr/share/git-core
+%dir /usr/share/git-core/templates
+%dir /usr/share/git-core/templates/hooks
+%dir /usr/share/git-core/templates/info
+%dir /usr/share/git-gui
+%dir /usr/share/git-gui/lib
+%dir /usr/share/git-gui/lib/msgs
+%dir /usr/share/gitk
+%dir /usr/share/gitk/lib
+%dir /usr/share/gitk/lib/msgs
+%dir /usr/share/gitweb
+%dir /usr/share/gitweb/static
+%dir /usr/share/locale
 /etc/bash_completion.d/git-completion.bash
-%dir /usr/bin
 /usr/bin/git
 /usr/bin/git-cvsserver
 /usr/bin/git-receive-pack
@@ -9,38 +35,25 @@
 /usr/bin/git-upload-pack
 /usr/bin/gitk
 /usr/bin/scalar
-%dir /usr/lib
-%dir /usr/lib/perl5
-%dir /usr/lib/perl5/5.44.0
-%dir /usr/lib/perl5/5.44.0/site_perl
-%dir /usr/lib/perl5/5.44.0/site_perl/FromCPAN
 /usr/lib/perl5/5.44.0/site_perl/FromCPAN/Error.pm
-%dir /usr/lib/perl5/5.44.0/site_perl/FromCPAN/Mail
 /usr/lib/perl5/5.44.0/site_perl/FromCPAN/Mail/Address.pm
-%dir /usr/lib/perl5/5.44.0/site_perl/Git
 /usr/lib/perl5/5.44.0/site_perl/Git.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/I18N.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/IndexInfo.pm
-%dir /usr/lib/perl5/5.44.0/site_perl/Git/LoadCPAN
 /usr/lib/perl5/5.44.0/site_perl/Git/LoadCPAN.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/LoadCPAN/Error.pm
-%dir /usr/lib/perl5/5.44.0/site_perl/Git/LoadCPAN/Mail
 /usr/lib/perl5/5.44.0/site_perl/Git/LoadCPAN/Mail/Address.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/Packet.pm
-%dir /usr/lib/perl5/5.44.0/site_perl/Git/SVN
 /usr/lib/perl5/5.44.0/site_perl/Git/SVN.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/SVN/Editor.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/SVN/Fetcher.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/SVN/GlobSpec.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/SVN/Log.pm
-%dir /usr/lib/perl5/5.44.0/site_perl/Git/SVN/Memoize
 /usr/lib/perl5/5.44.0/site_perl/Git/SVN/Memoize/YAML.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/SVN/Migration.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/SVN/Prompt.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/SVN/Ra.pm
 /usr/lib/perl5/5.44.0/site_perl/Git/SVN/Utils.pm
-%dir /usr/libexec
-%dir /usr/libexec/git-core
 /usr/libexec/git-core/git
 /usr/libexec/git-core/git-add
 /usr/libexec/git-core/git-am
@@ -223,7 +236,6 @@
 /usr/libexec/git-core/git-whatchanged
 /usr/libexec/git-core/git-worktree
 /usr/libexec/git-core/git-write-tree
-%dir /usr/libexec/git-core/mergetools
 /usr/libexec/git-core/mergetools/araxis
 /usr/libexec/git-core/mergetools/bc
 /usr/libexec/git-core/mergetools/codecompare
@@ -249,14 +261,8 @@
 /usr/libexec/git-core/mergetools/winmerge
 /usr/libexec/git-core/mergetools/xxdiff
 /usr/libexec/git-core/scalar
-%dir /usr/share
-%dir /usr/share/bash-completion
-%dir /usr/share/bash-completion/completions
 /usr/share/bash-completion/completions/git
-%dir /usr/share/git-core
-%dir /usr/share/git-core/templates
 /usr/share/git-core/templates/description
-%dir /usr/share/git-core/templates/hooks
 /usr/share/git-core/templates/hooks/applypatch-msg.sample
 /usr/share/git-core/templates/hooks/commit-msg.sample
 /usr/share/git-core/templates/hooks/fsmonitor-watchman.sample
@@ -271,10 +277,7 @@
 /usr/share/git-core/templates/hooks/push-to-checkout.sample
 /usr/share/git-core/templates/hooks/sendemail-validate.sample
 /usr/share/git-core/templates/hooks/update.sample
-%dir /usr/share/git-core/templates/info
 /usr/share/git-core/templates/info/exclude
-%dir /usr/share/git-gui
-%dir /usr/share/git-gui/lib
 /usr/share/git-gui/lib/about.tcl
 /usr/share/git-gui/lib/blame.tcl
 /usr/share/git-gui/lib/branch.tcl
@@ -302,7 +305,6 @@
 /usr/share/git-gui/lib/logo.tcl
 /usr/share/git-gui/lib/merge.tcl
 /usr/share/git-gui/lib/mergetool.tcl
-%dir /usr/share/git-gui/lib/msgs
 /usr/share/git-gui/lib/msgs/bg.msg
 /usr/share/git-gui/lib/msgs/de.msg
 /usr/share/git-gui/lib/msgs/el.msg
@@ -333,9 +335,6 @@
 /usr/share/git-gui/lib/transport.tcl
 /usr/share/git-gui/lib/win32.tcl
 /usr/share/git-gui/lib/win32_shortcut.js
-%dir /usr/share/gitk
-%dir /usr/share/gitk/lib
-%dir /usr/share/gitk/lib/msgs
 /usr/share/gitk/lib/msgs/bg.msg
 /usr/share/gitk/lib/msgs/ca.msg
 /usr/share/gitk/lib/msgs/de.msg
@@ -351,11 +350,8 @@
 /usr/share/gitk/lib/msgs/ta.msg
 /usr/share/gitk/lib/msgs/vi.msg
 /usr/share/gitk/lib/msgs/zh_cn.msg
-%dir /usr/share/gitweb
 /usr/share/gitweb/gitweb.cgi
-%dir /usr/share/gitweb/static
 /usr/share/gitweb/static/git-favicon.png
 /usr/share/gitweb/static/git-logo.png
 /usr/share/gitweb/static/gitweb.css
 /usr/share/gitweb/static/gitweb.js
-%dir /usr/share/locale

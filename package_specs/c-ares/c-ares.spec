@@ -1,5 +1,5 @@
 Name:       c-ares
-Version:    1.34.8
+Version:    1.34.9
 Release:    1
 Summary:    C library for asynchronous DNS requests
 License:    MIT
@@ -31,6 +31,9 @@ popd
 %files -f %{_sourcedir}/c-ares.filelist
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 1.34.9-1
+- Update to 1.34.9 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 Browneye Node.js wave <daspork@browneye.invalid> 1.34.8-1
 - New package (BLFS r13.1 packages.ent c-ares-version 1.34.8).
 - Source: https://github.com/c-ares/c-ares/releases/download/v1.34.8/c-ares-1.34.8.tar.gz

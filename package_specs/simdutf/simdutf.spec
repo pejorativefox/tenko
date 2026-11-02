@@ -1,5 +1,5 @@
 Name:       simdutf
-Version:    9.2.1
+Version:    9.3.3
 Release:    1
 Summary:    Unicode validation and transcoding at billions of characters per second
 License:    MIT
@@ -36,6 +36,9 @@ popd
 %files -f %{_sourcedir}/simdutf.filelist
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 9.3.3-1
+- Update to 9.3.3 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 Browneye Node.js wave <daspork@browneye.invalid> 9.2.1-1
 - New package (BLFS r13.1 packages.ent simdutf-version 9.2.1).
 - Source: https://github.com/simdutf/simdutf/archive/v9.2.1/simdutf-9.2.1.tar.gz

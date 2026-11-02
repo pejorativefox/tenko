@@ -1,5 +1,5 @@
 Name:       fribidi
-Version:    1.0.17
+Version:    1.0.18
 Release:    1
 Summary:    GNU FriBidi 
 License:    GPL3
@@ -32,6 +32,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 1.0.18-1
+- Update to 1.0.18 (current LFS/BLFS r13.1 trunk version).
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.0.16
 - Sync with BLFS r13.1 (1.0.13)
 

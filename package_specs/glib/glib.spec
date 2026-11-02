@@ -1,6 +1,6 @@
 Name:       glib
-Version:    2.90.0
-Release:    3
+Version:    2.90.1
+Release:    1
 Summary:    Glib low level system libraries
 License:    GPL3
 Prefix:     /usr
@@ -76,6 +76,9 @@ The .gir XML needed for building stays in the -devel package.
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.90.1-1
+- Update to 2.90.1 (current BLFS r13.1 trunk version).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.90.0-3
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.90.0-2

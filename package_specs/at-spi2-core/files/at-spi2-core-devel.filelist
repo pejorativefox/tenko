@@ -1,5 +1,10 @@
 %dir /usr/include/at-spi-2.0
 %dir /usr/include/at-spi-2.0/atspi
+%dir /usr/include/at-spi2-atk
+%dir /usr/include/at-spi2-atk/2.0
+%dir /usr/include/atk-1.0
+%dir /usr/include/atk-1.0/atk
+%dir /usr/lib64/pkgconfig
 /usr/include/at-spi-2.0/atspi/atspi-accessible.h
 /usr/include/at-spi-2.0/atspi/atspi-action.h
 /usr/include/at-spi-2.0/atspi/atspi-application.h
@@ -32,11 +37,7 @@
 /usr/include/at-spi-2.0/atspi/atspi-value.h
 /usr/include/at-spi-2.0/atspi/atspi-version.h
 /usr/include/at-spi-2.0/atspi/atspi.h
-%dir /usr/include/at-spi2-atk
-%dir /usr/include/at-spi2-atk/2.0
 /usr/include/at-spi2-atk/2.0/atk-bridge.h
-%dir /usr/include/atk-1.0
-%dir /usr/include/atk-1.0/atk
 /usr/include/atk-1.0/atk/atk-autocleanups.h
 /usr/include/atk-1.0/atk/atk-enum-types.h
 /usr/include/atk-1.0/atk/atk.h
@@ -75,7 +76,6 @@
 /usr/lib64/libatk-1.0.so
 /usr/lib64/libatk-bridge-2.0.so
 /usr/lib64/libatspi.so
-%dir /usr/lib64/pkgconfig
 /usr/lib64/pkgconfig/atk-bridge-2.0.pc
 /usr/lib64/pkgconfig/atk.pc
 /usr/lib64/pkgconfig/atspi-2.pc

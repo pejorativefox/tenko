@@ -2,8 +2,8 @@
 %global _lto_cflags %{nil}
 
 Name:       grub
-Version:    2.14
-Release:    2
+Version:    2.16
+Release:    1
 Summary:    GNU GRUB is a Multiboot boot loader.
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -47,6 +47,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 2.16-1
+- Update to 2.16 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.14-2
 - Split lang payload into grub-lang (size audit)
 

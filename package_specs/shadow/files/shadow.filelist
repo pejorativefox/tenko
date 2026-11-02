@@ -1,7 +1,6 @@
-/etc/limits
-/etc/login.access
+%dir /usr/include/shadow
+%dir /usr/share/locale
 /etc/login.defs
-%dir /usr/bin
 /usr/bin/chage
 /usr/bin/chfn
 /usr/bin/chsh
@@ -16,13 +15,10 @@
 /usr/bin/passwd
 /usr/bin/sg
 /usr/bin/su
-%dir /usr/include
-%dir /usr/include/shadow
 /usr/include/shadow/subid.h
 /usr/lib64/libsubid.so
 /usr/lib64/libsubid.so.6
 /usr/lib64/libsubid.so.6.0.0
-%dir /usr/sbin
 /usr/sbin/chgpasswd
 /usr/sbin/chpasswd
 /usr/sbin/groupadd
@@ -40,5 +36,3 @@
 /usr/sbin/usermod
 /usr/sbin/vigr
 /usr/sbin/vipw
-%dir /usr/share
-%dir /usr/share/locale

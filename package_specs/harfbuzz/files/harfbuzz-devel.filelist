@@ -1,9 +1,10 @@
 %dir /usr/include/harfbuzz
+%dir /usr/lib64/cmake/harfbuzz
+%dir /usr/lib64/pkgconfig
 /usr/include/harfbuzz/hb-aat-layout.h
 /usr/include/harfbuzz/hb-aat.h
 /usr/include/harfbuzz/hb-blob.h
 /usr/include/harfbuzz/hb-buffer.h
-/usr/include/harfbuzz/hb-cairo.h
 /usr/include/harfbuzz/hb-common.h
 /usr/include/harfbuzz/hb-cplusplus.hh
 /usr/include/harfbuzz/hb-deprecated.h
@@ -44,17 +45,13 @@
 /usr/include/harfbuzz/hb-vector.h
 /usr/include/harfbuzz/hb-version.h
 /usr/include/harfbuzz/hb.h
-%dir /usr/lib64/cmake/harfbuzz
 /usr/lib64/cmake/harfbuzz/harfbuzz-config.cmake
-/usr/lib64/libharfbuzz-cairo.so
 /usr/lib64/libharfbuzz-gobject.so
 /usr/lib64/libharfbuzz-gpu.so
 /usr/lib64/libharfbuzz-raster.so
 /usr/lib64/libharfbuzz-subset.so
 /usr/lib64/libharfbuzz-vector.so
 /usr/lib64/libharfbuzz.so
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/harfbuzz-cairo.pc
 /usr/lib64/pkgconfig/harfbuzz-gobject.pc
 /usr/lib64/pkgconfig/harfbuzz-gpu.pc
 /usr/lib64/pkgconfig/harfbuzz-raster.pc

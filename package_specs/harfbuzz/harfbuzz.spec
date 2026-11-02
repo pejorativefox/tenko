@@ -1,6 +1,6 @@
 Name:       harfbuzz
-Version:    14.5.0
-Release:    3
+Version:    15.0.0
+Release:    1
 Summary:    Text shaping engine
 License:    GPL3
 Prefix:     /usr
@@ -56,6 +56,9 @@ The .gir XML needed for building stays in the -devel package.
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 15.0.0-1
+- Update to 15.0.0 (current LFS/BLFS r13.1 trunk version).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 14.5.0-3
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 14.5.0-2

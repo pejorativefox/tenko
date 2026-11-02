@@ -1,6 +1,6 @@
 Name:       at-spi2-core
-Version:    2.62.0.1
-Release:    3
+Version:    2.62.1
+Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -63,6 +63,9 @@ The .gir XML needed for building stays in the -devel package.
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 2.62.1-1
+- Update to 2.62.1 (current LFS/BLFS r13.1 trunk version).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.62.0.1-3
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.62.0.1-2

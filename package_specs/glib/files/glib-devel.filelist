@@ -1,13 +1,19 @@
 %dir /usr/include/gio-unix-2.0
 %dir /usr/include/gio-unix-2.0/gio
+%dir /usr/include/glib-2.0
+%dir /usr/include/glib-2.0/gio
+%dir /usr/include/glib-2.0/girepository
+%dir /usr/include/glib-2.0/glib
+%dir /usr/include/glib-2.0/glib/deprecated
+%dir /usr/include/glib-2.0/gmodule
+%dir /usr/include/glib-2.0/gobject
+%dir /usr/lib64/pkgconfig
 /usr/include/gio-unix-2.0/gio/gdesktopappinfo.h
 /usr/include/gio-unix-2.0/gio/gfiledescriptorbased.h
 /usr/include/gio-unix-2.0/gio/gunixfdmessage.h
 /usr/include/gio-unix-2.0/gio/gunixinputstream.h
 /usr/include/gio-unix-2.0/gio/gunixmounts.h
 /usr/include/gio-unix-2.0/gio/gunixoutputstream.h
-%dir /usr/include/glib-2.0
-%dir /usr/include/glib-2.0/gio
 /usr/include/glib-2.0/gio/gaction.h
 /usr/include/glib-2.0/gio/gactiongroup.h
 /usr/include/glib-2.0/gio/gactiongroupexporter.h
@@ -168,7 +174,6 @@
 /usr/include/glib-2.0/gio/gvolumemonitor.h
 /usr/include/glib-2.0/gio/gzlibcompressor.h
 /usr/include/glib-2.0/gio/gzlibdecompressor.h
-%dir /usr/include/glib-2.0/girepository
 /usr/include/glib-2.0/girepository/gi-visibility.h
 /usr/include/glib-2.0/girepository/giarginfo.h
 /usr/include/glib-2.0/girepository/gibaseinfo.h
@@ -195,11 +200,9 @@
 /usr/include/glib-2.0/girepository/giunresolvedinfo.h
 /usr/include/glib-2.0/girepository/givalueinfo.h
 /usr/include/glib-2.0/girepository/givfuncinfo.h
-%dir /usr/include/glib-2.0/glib
 /usr/include/glib-2.0/glib-object.h
 /usr/include/glib-2.0/glib-unix.h
 /usr/include/glib-2.0/glib.h
-%dir /usr/include/glib-2.0/glib/deprecated
 /usr/include/glib-2.0/glib/deprecated/gallocator.h
 /usr/include/glib-2.0/glib/deprecated/gcache.h
 /usr/include/glib-2.0/glib/deprecated/gcompletion.h
@@ -286,10 +289,8 @@
 /usr/include/glib-2.0/glib/gvarianttype.h
 /usr/include/glib-2.0/glib/gversion.h
 /usr/include/glib-2.0/glib/gversionmacros.h
-%dir /usr/include/glib-2.0/gmodule
 /usr/include/glib-2.0/gmodule.h
 /usr/include/glib-2.0/gmodule/gmodule-visibility.h
-%dir /usr/include/glib-2.0/gobject
 /usr/include/glib-2.0/gobject/gbinding.h
 /usr/include/glib-2.0/gobject/gbindinggroup.h
 /usr/include/glib-2.0/gobject/gboxed.h
@@ -320,7 +321,6 @@
 /usr/lib64/libgmodule-2.0.so
 /usr/lib64/libgobject-2.0.so
 /usr/lib64/libgthread-2.0.so
-%dir /usr/lib64/pkgconfig
 /usr/lib64/pkgconfig/gio-2.0.pc
 /usr/lib64/pkgconfig/gio-unix-2.0.pc
 /usr/lib64/pkgconfig/girepository-2.0.pc

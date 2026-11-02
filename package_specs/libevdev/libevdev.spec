@@ -1,5 +1,5 @@
 Name:       libevdev
-Version:    1.13.7
+Version:    1.14.0
 Release:    1
 Summary:    Wrapper library for evdev devices
 License:    MIT
@@ -25,5 +25,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libevdev.filelist
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 1.14.0-1
+- Update to 1.14.0 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.13.6-1
 - Initial package (BLFS r13.1)

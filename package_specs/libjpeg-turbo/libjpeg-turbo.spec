@@ -1,6 +1,6 @@
 Name:       libjpeg-turbo
-Version:    3.2.0
-Release:    2
+Version:    3.2.1
+Release:    1
 Summary:    JPEG library
 License:    GPL3
 Prefix:     /usr
@@ -54,6 +54,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 3.2.1-1
+- Update to 3.2.1 (current BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.2.0-2
 - Split doc, devel payload into libjpeg-turbo-doc, libjpeg-turbo-devel (size audit)
 

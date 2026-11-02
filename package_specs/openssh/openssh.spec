@@ -1,5 +1,5 @@
 Name:       openssh
-Version:    10.5p1
+Version:    10.6p1
 Release:    1
 Summary:    OpenSSH connectivity tools and server
 License:    BSD
@@ -95,6 +95,9 @@ install -d -m 0700 -o root -g sshd /var/lib/sshd 2>/dev/null || :
 %attr(0700,root,sshd) %dir /var/lib/sshd
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 10.6p1-1
+- Update to 10.6p1 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 10.5p1-1
 - Rewrite for BLFS r13.1 OpenSSH 10.5p1
 - Linux-PAM password authentication (--with-pam, UsePAM yes,

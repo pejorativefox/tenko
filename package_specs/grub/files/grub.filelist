@@ -1,10 +1,18 @@
 %dir /etc/grub.d
+%dir /usr/lib64/grub
+%dir /usr/lib64/grub/x86_64-efi
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+%dir /usr/share/grub
+%dir /usr/share/info
+%dir /usr/share/locale
 /etc/grub.d/00_header
 /etc/grub.d/10_linux
 /etc/grub.d/20_linux_xen
 /etc/grub.d/25_bli
 /etc/grub.d/30_os-prober
 /etc/grub.d/30_uefi-firmware
+/etc/grub.d/31_efi_bootnext
 /etc/grub.d/40_custom
 /etc/grub.d/41_custom
 /etc/grub.d/README
@@ -21,19 +29,20 @@
 /usr/bin/grub-mkimage
 /usr/bin/grub-mklayout
 /usr/bin/grub-mknetdir
+/usr/bin/grub-mkpasswd-argon2
 /usr/bin/grub-mkpasswd-pbkdf2
 /usr/bin/grub-mkrelpath
 /usr/bin/grub-mkrescue
 /usr/bin/grub-mkstandalone
 /usr/bin/grub-ofpathname
 /usr/bin/grub-probe
+/usr/bin/grub-protect
 /usr/bin/grub-reboot
 /usr/bin/grub-render-label
 /usr/bin/grub-script-check
 /usr/bin/grub-set-default
 /usr/bin/grub-sparc64-setup
 /usr/bin/grub-syslinux2cfg
-%dir /usr/lib64/grub/x86_64-efi
 /usr/lib64/grub/x86_64-efi/acpi.mod
 /usr/lib64/grub/x86_64-efi/acpi.module
 /usr/lib64/grub/x86_64-efi/adler32.mod
@@ -116,6 +125,8 @@
 /usr/lib64/grub/x86_64-efi/config.h
 /usr/lib64/grub/x86_64-efi/configfile.mod
 /usr/lib64/grub/x86_64-efi/configfile.module
+/usr/lib64/grub/x86_64-efi/connectefi.mod
+/usr/lib64/grub/x86_64-efi/connectefi.module
 /usr/lib64/grub/x86_64-efi/cpio.mod
 /usr/lib64/grub/x86_64-efi/cpio.module
 /usr/lib64/grub/x86_64-efi/cpio_be.mod
@@ -157,8 +168,8 @@
 /usr/lib64/grub/x86_64-efi/echo.module
 /usr/lib64/grub/x86_64-efi/efi_gop.mod
 /usr/lib64/grub/x86_64-efi/efi_gop.module
-/usr/lib64/grub/x86_64-efi/efi_uga.mod
-/usr/lib64/grub/x86_64-efi/efi_uga.module
+/usr/lib64/grub/x86_64-efi/efibootnext.mod
+/usr/lib64/grub/x86_64-efi/efibootnext.module
 /usr/lib64/grub/x86_64-efi/efifwsetup.mod
 /usr/lib64/grub/x86_64-efi/efifwsetup.module
 /usr/lib64/grub/x86_64-efi/efinet.mod
@@ -231,6 +242,8 @@
 /usr/lib64/grub/x86_64-efi/gcry_md4.module
 /usr/lib64/grub/x86_64-efi/gcry_md5.mod
 /usr/lib64/grub/x86_64-efi/gcry_md5.module
+/usr/lib64/grub/x86_64-efi/gcry_pubkey_dilithium.mod
+/usr/lib64/grub/x86_64-efi/gcry_pubkey_dilithium.module
 /usr/lib64/grub/x86_64-efi/gcry_rfc2268.mod
 /usr/lib64/grub/x86_64-efi/gcry_rfc2268.module
 /usr/lib64/grub/x86_64-efi/gcry_rijndael.mod
@@ -343,6 +356,8 @@
 /usr/lib64/grub/x86_64-efi/lsefimmap.module
 /usr/lib64/grub/x86_64-efi/lsefisystab.mod
 /usr/lib64/grub/x86_64-efi/lsefisystab.module
+/usr/lib64/grub/x86_64-efi/lsefivar.mod
+/usr/lib64/grub/x86_64-efi/lsefivar.module
 /usr/lib64/grub/x86_64-efi/lsmmap.mod
 /usr/lib64/grub/x86_64-efi/lsmmap.module
 /usr/lib64/grub/x86_64-efi/lspci.mod
@@ -369,8 +384,12 @@
 /usr/lib64/grub/x86_64-efi/mdraid1x.module
 /usr/lib64/grub/x86_64-efi/memdisk.mod
 /usr/lib64/grub/x86_64-efi/memdisk.module
+/usr/lib64/grub/x86_64-efi/memmove_bench.mod
+/usr/lib64/grub/x86_64-efi/memmove_bench.module
 /usr/lib64/grub/x86_64-efi/memrw.mod
 /usr/lib64/grub/x86_64-efi/memrw.module
+/usr/lib64/grub/x86_64-efi/mfa.mod
+/usr/lib64/grub/x86_64-efi/mfa.module
 /usr/lib64/grub/x86_64-efi/minicmd.mod
 /usr/lib64/grub/x86_64-efi/minicmd.module
 /usr/lib64/grub/x86_64-efi/minix.mod
@@ -385,6 +404,8 @@
 /usr/lib64/grub/x86_64-efi/minix3_be.module
 /usr/lib64/grub/x86_64-efi/minix_be.mod
 /usr/lib64/grub/x86_64-efi/minix_be.module
+/usr/lib64/grub/x86_64-efi/mldsa_test.mod
+/usr/lib64/grub/x86_64-efi/mldsa_test.module
 /usr/lib64/grub/x86_64-efi/mmap.mod
 /usr/lib64/grub/x86_64-efi/mmap.module
 /usr/lib64/grub/x86_64-efi/moddep.lst
@@ -415,6 +436,8 @@
 /usr/lib64/grub/x86_64-efi/ntfs.module
 /usr/lib64/grub/x86_64-efi/ntfscomp.mod
 /usr/lib64/grub/x86_64-efi/ntfscomp.module
+/usr/lib64/grub/x86_64-efi/nvme.mod
+/usr/lib64/grub/x86_64-efi/nvme.module
 /usr/lib64/grub/x86_64-efi/odc.mod
 /usr/lib64/grub/x86_64-efi/odc.module
 /usr/lib64/grub/x86_64-efi/offsetio.mod
@@ -449,6 +472,8 @@
 /usr/lib64/grub/x86_64-efi/parttool.module
 /usr/lib64/grub/x86_64-efi/password.mod
 /usr/lib64/grub/x86_64-efi/password.module
+/usr/lib64/grub/x86_64-efi/password_argon2.mod
+/usr/lib64/grub/x86_64-efi/password_argon2.module
 /usr/lib64/grub/x86_64-efi/password_pbkdf2.mod
 /usr/lib64/grub/x86_64-efi/password_pbkdf2.module
 /usr/lib64/grub/x86_64-efi/pata.mod
@@ -499,6 +524,7 @@
 /usr/lib64/grub/x86_64-efi/romfs.module
 /usr/lib64/grub/x86_64-efi/rsa_sexp_test.mod
 /usr/lib64/grub/x86_64-efi/rsa_sexp_test.module
+/usr/lib64/grub/x86_64-efi/sbat.csv
 /usr/lib64/grub/x86_64-efi/scsi.mod
 /usr/lib64/grub/x86_64-efi/scsi.module
 /usr/lib64/grub/x86_64-efi/search.mod
@@ -558,10 +584,14 @@
 /usr/lib64/grub/x86_64-efi/tga.module
 /usr/lib64/grub/x86_64-efi/time.mod
 /usr/lib64/grub/x86_64-efi/time.module
+/usr/lib64/grub/x86_64-efi/tpcm.mod
+/usr/lib64/grub/x86_64-efi/tpcm.module
 /usr/lib64/grub/x86_64-efi/tpm.mod
 /usr/lib64/grub/x86_64-efi/tpm.module
 /usr/lib64/grub/x86_64-efi/tpm2_key_protector.mod
 /usr/lib64/grub/x86_64-efi/tpm2_key_protector.module
+/usr/lib64/grub/x86_64-efi/tpm_record_pcrs.mod
+/usr/lib64/grub/x86_64-efi/tpm_record_pcrs.module
 /usr/lib64/grub/x86_64-efi/tr.mod
 /usr/lib64/grub/x86_64-efi/tr.module
 /usr/lib64/grub/x86_64-efi/trig.mod
@@ -613,8 +643,12 @@
 /usr/lib64/grub/x86_64-efi/videotest.module
 /usr/lib64/grub/x86_64-efi/videotest_checksum.mod
 /usr/lib64/grub/x86_64-efi/videotest_checksum.module
+/usr/lib64/grub/x86_64-efi/virtionet.mod
+/usr/lib64/grub/x86_64-efi/virtionet.module
 /usr/lib64/grub/x86_64-efi/wrmsr.mod
 /usr/lib64/grub/x86_64-efi/wrmsr.module
+/usr/lib64/grub/x86_64-efi/xen_boot.mod
+/usr/lib64/grub/x86_64-efi/xen_boot.module
 /usr/lib64/grub/x86_64-efi/xfs.mod
 /usr/lib64/grub/x86_64-efi/xfs.module
 /usr/lib64/grub/x86_64-efi/xnu.mod
@@ -650,11 +684,7 @@
 /usr/share/bash-completion/completions/grub-set-default
 /usr/share/bash-completion/completions/grub-sparc64-setup
 /usr/share/grub/grub-mkconfig_lib
-%dir /usr/share/info
 /usr/share/info/grub-dev.info.gz
 /usr/share/info/grub.info-1.gz
 /usr/share/info/grub.info-2.gz
 /usr/share/info/grub.info.gz
-%dir /usr/share/locale
-/usr/bin/grub-mkfont
-/usr/bin/grub-protect

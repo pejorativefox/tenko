@@ -1,5 +1,5 @@
 Name:       patch
-Version:    2.8
+Version:    2.8.1
 Release:    1
 Summary:    GNU patch utility
 License:    GPL3
@@ -26,6 +26,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/patch.1.gz
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 2.8.1-1
+- Update to 2.8.1 (current LFS/BLFS r13.1 trunk version).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.8
 - Sync with LFS r13.1
 

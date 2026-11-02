@@ -1,6 +1,6 @@
 Name:       shadow
-Version:    4.20.2
-Release:    2
+Version:    4.20.3
+Release:    1
 Summary:    Shadow password format tools
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -48,6 +48,9 @@ grpconv
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 4.20.3-1
+- Update to 4.20.3 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.2-2
 - Split lang payload into shadow-lang (size audit)
 

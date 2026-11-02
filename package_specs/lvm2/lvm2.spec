@@ -1,5 +1,5 @@
 Name:       LVM2
-Version:    2.03.42
+Version:    2.03.44
 Release:    1
 Summary:    LVM2 logical volume management tools and device-mapper library
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -56,6 +56,9 @@ sed -e '/locking_dir =/{s/#//;s/var/run/}' \
 %files devel -f %{_sourcedir}/lvm2-devel.filelist
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 2.03.44-1
+- Update to 2.03.44 (current LFS/BLFS r13.1 trunk version).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.03.42-1
 - Update to the BLFS r13.1 version (2.03.42, was 2.03.05)
 - Enable cmdlib, pkgconfig and udev_sync as the book does; install the

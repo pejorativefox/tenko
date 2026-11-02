@@ -1,9 +1,5 @@
-%dir /usr/bin
-%dir /usr/include
 %dir /usr/include/brotli
-%dir /usr/lib64
 %dir /usr/lib64/pkgconfig
-%dir /usr/share
 %dir /usr/share/man
 %dir /usr/share/man/man1
 %dir /usr/share/man/man3
@@ -15,13 +11,13 @@
 /usr/include/brotli/types.h
 /usr/lib64/libbrotlicommon.so
 /usr/lib64/libbrotlicommon.so.1
-/usr/lib64/libbrotlicommon.so.1.2.0
+/usr/lib64/libbrotlicommon.so.1.2.1
 /usr/lib64/libbrotlidec.so
 /usr/lib64/libbrotlidec.so.1
-/usr/lib64/libbrotlidec.so.1.2.0
+/usr/lib64/libbrotlidec.so.1.2.1
 /usr/lib64/libbrotlienc.so
 /usr/lib64/libbrotlienc.so.1
-/usr/lib64/libbrotlienc.so.1.2.0
+/usr/lib64/libbrotlienc.so.1.2.1
 /usr/lib64/pkgconfig/libbrotlicommon.pc
 /usr/lib64/pkgconfig/libbrotlidec.pc
 /usr/lib64/pkgconfig/libbrotlienc.pc

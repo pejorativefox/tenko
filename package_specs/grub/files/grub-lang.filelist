@@ -1,129 +1,132 @@
 %dir /usr/share/locale/ast
 %dir /usr/share/locale/ast/LC_MESSAGES
-/usr/share/locale/ast/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/ca
 %dir /usr/share/locale/ca/LC_MESSAGES
-/usr/share/locale/ca/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/da
 %dir /usr/share/locale/da/LC_MESSAGES
-/usr/share/locale/da/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/de
 %dir /usr/share/locale/de/LC_MESSAGES
-/usr/share/locale/de/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/de@hebrew
 %dir /usr/share/locale/de@hebrew/LC_MESSAGES
-/usr/share/locale/de@hebrew/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/de_CH
 %dir /usr/share/locale/de_CH/LC_MESSAGES
-/usr/share/locale/de_CH/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/en@arabic
 %dir /usr/share/locale/en@arabic/LC_MESSAGES
-/usr/share/locale/en@arabic/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/en@cyrillic
 %dir /usr/share/locale/en@cyrillic/LC_MESSAGES
-/usr/share/locale/en@cyrillic/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/en@greek
 %dir /usr/share/locale/en@greek/LC_MESSAGES
-/usr/share/locale/en@greek/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/en@hebrew
 %dir /usr/share/locale/en@hebrew/LC_MESSAGES
-/usr/share/locale/en@hebrew/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/en@piglatin
 %dir /usr/share/locale/en@piglatin/LC_MESSAGES
-/usr/share/locale/en@piglatin/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/en@quot
 %dir /usr/share/locale/en@quot/LC_MESSAGES
-/usr/share/locale/en@quot/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/eo
 %dir /usr/share/locale/eo/LC_MESSAGES
-/usr/share/locale/eo/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/es
 %dir /usr/share/locale/es/LC_MESSAGES
-/usr/share/locale/es/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/fi
 %dir /usr/share/locale/fi/LC_MESSAGES
-/usr/share/locale/fi/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/fr
 %dir /usr/share/locale/fr/LC_MESSAGES
-/usr/share/locale/fr/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/gl
 %dir /usr/share/locale/gl/LC_MESSAGES
-/usr/share/locale/gl/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/he
 %dir /usr/share/locale/he/LC_MESSAGES
-/usr/share/locale/he/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/hr
 %dir /usr/share/locale/hr/LC_MESSAGES
-/usr/share/locale/hr/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/hu
 %dir /usr/share/locale/hu/LC_MESSAGES
-/usr/share/locale/hu/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/id
 %dir /usr/share/locale/id/LC_MESSAGES
-/usr/share/locale/id/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/it
 %dir /usr/share/locale/it/LC_MESSAGES
-/usr/share/locale/it/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/ja
 %dir /usr/share/locale/ja/LC_MESSAGES
-/usr/share/locale/ja/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/ka
 %dir /usr/share/locale/ka/LC_MESSAGES
-/usr/share/locale/ka/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/ko
 %dir /usr/share/locale/ko/LC_MESSAGES
-/usr/share/locale/ko/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/lg
 %dir /usr/share/locale/lg/LC_MESSAGES
-/usr/share/locale/lg/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/lt
 %dir /usr/share/locale/lt/LC_MESSAGES
-/usr/share/locale/lt/LC_MESSAGES/grub.mo
+%dir /usr/share/locale/lv
+%dir /usr/share/locale/lv/LC_MESSAGES
 %dir /usr/share/locale/nb
 %dir /usr/share/locale/nb/LC_MESSAGES
-/usr/share/locale/nb/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/nl
 %dir /usr/share/locale/nl/LC_MESSAGES
-/usr/share/locale/nl/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/pa
 %dir /usr/share/locale/pa/LC_MESSAGES
-/usr/share/locale/pa/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/pl
 %dir /usr/share/locale/pl/LC_MESSAGES
-/usr/share/locale/pl/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/pt
 %dir /usr/share/locale/pt/LC_MESSAGES
-/usr/share/locale/pt/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/pt_BR
 %dir /usr/share/locale/pt_BR/LC_MESSAGES
-/usr/share/locale/pt_BR/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/ro
 %dir /usr/share/locale/ro/LC_MESSAGES
-/usr/share/locale/ro/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/ru
 %dir /usr/share/locale/ru/LC_MESSAGES
-/usr/share/locale/ru/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/sl
 %dir /usr/share/locale/sl/LC_MESSAGES
-/usr/share/locale/sl/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/sr
 %dir /usr/share/locale/sr/LC_MESSAGES
-/usr/share/locale/sr/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/sv
 %dir /usr/share/locale/sv/LC_MESSAGES
-/usr/share/locale/sv/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/tr
 %dir /usr/share/locale/tr/LC_MESSAGES
-/usr/share/locale/tr/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/uk
 %dir /usr/share/locale/uk/LC_MESSAGES
-/usr/share/locale/uk/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/vi
 %dir /usr/share/locale/vi/LC_MESSAGES
-/usr/share/locale/vi/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/zh_CN
 %dir /usr/share/locale/zh_CN/LC_MESSAGES
-/usr/share/locale/zh_CN/LC_MESSAGES/grub.mo
 %dir /usr/share/locale/zh_TW
 %dir /usr/share/locale/zh_TW/LC_MESSAGES
+/usr/share/locale/ast/LC_MESSAGES/grub.mo
+/usr/share/locale/ca/LC_MESSAGES/grub.mo
+/usr/share/locale/da/LC_MESSAGES/grub.mo
+/usr/share/locale/de/LC_MESSAGES/grub.mo
+/usr/share/locale/de@hebrew/LC_MESSAGES/grub.mo
+/usr/share/locale/de_CH/LC_MESSAGES/grub.mo
+/usr/share/locale/en@arabic/LC_MESSAGES/grub.mo
+/usr/share/locale/en@cyrillic/LC_MESSAGES/grub.mo
+/usr/share/locale/en@greek/LC_MESSAGES/grub.mo
+/usr/share/locale/en@hebrew/LC_MESSAGES/grub.mo
+/usr/share/locale/en@piglatin/LC_MESSAGES/grub.mo
+/usr/share/locale/en@quot/LC_MESSAGES/grub.mo
+/usr/share/locale/eo/LC_MESSAGES/grub.mo
+/usr/share/locale/es/LC_MESSAGES/grub.mo
+/usr/share/locale/fi/LC_MESSAGES/grub.mo
+/usr/share/locale/fr/LC_MESSAGES/grub.mo
+/usr/share/locale/gl/LC_MESSAGES/grub.mo
+/usr/share/locale/he/LC_MESSAGES/grub.mo
+/usr/share/locale/hr/LC_MESSAGES/grub.mo
+/usr/share/locale/hu/LC_MESSAGES/grub.mo
+/usr/share/locale/id/LC_MESSAGES/grub.mo
+/usr/share/locale/it/LC_MESSAGES/grub.mo
+/usr/share/locale/ja/LC_MESSAGES/grub.mo
+/usr/share/locale/ka/LC_MESSAGES/grub.mo
+/usr/share/locale/ko/LC_MESSAGES/grub.mo
+/usr/share/locale/lg/LC_MESSAGES/grub.mo
+/usr/share/locale/lt/LC_MESSAGES/grub.mo
+/usr/share/locale/lv/LC_MESSAGES/grub.mo
+/usr/share/locale/nb/LC_MESSAGES/grub.mo
+/usr/share/locale/nl/LC_MESSAGES/grub.mo
+/usr/share/locale/pa/LC_MESSAGES/grub.mo
+/usr/share/locale/pl/LC_MESSAGES/grub.mo
+/usr/share/locale/pt/LC_MESSAGES/grub.mo
+/usr/share/locale/pt_BR/LC_MESSAGES/grub.mo
+/usr/share/locale/ro/LC_MESSAGES/grub.mo
+/usr/share/locale/ru/LC_MESSAGES/grub.mo
+/usr/share/locale/sl/LC_MESSAGES/grub.mo
+/usr/share/locale/sr/LC_MESSAGES/grub.mo
+/usr/share/locale/sv/LC_MESSAGES/grub.mo
+/usr/share/locale/tr/LC_MESSAGES/grub.mo
+/usr/share/locale/uk/LC_MESSAGES/grub.mo
+/usr/share/locale/vi/LC_MESSAGES/grub.mo
+/usr/share/locale/zh_CN/LC_MESSAGES/grub.mo
 /usr/share/locale/zh_TW/LC_MESSAGES/grub.mo

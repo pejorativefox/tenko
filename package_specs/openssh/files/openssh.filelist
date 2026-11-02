@@ -1,9 +1,21 @@
-%config(noreplace) /etc/pam.d/sshd
+%dir /etc/pam.d
 %dir /etc/ssh
-%config(noreplace) /etc/ssh/moduli
-%config(noreplace) /etc/ssh/ssh_config
-%config(noreplace) /etc/ssh/sshd_config
 %dir /etc/ssh/sshd_config.d
+%dir /usr/lib/systemd/system
+%dir /usr/lib/systemd/system-preset
+%dir /usr/lib/sysusers.d
+%dir /usr/lib/tmpfiles.d
+%dir /usr/share/doc
+%dir /usr/share/doc/openssh-10.6p1
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/man/man5
+%dir /usr/share/man/man8
+%dir /var/lib/sshd
+/etc/pam.d/sshd
+/etc/ssh/moduli
+/etc/ssh/ssh_config
+/etc/ssh/sshd_config
 /usr/bin/scp
 /usr/bin/sftp
 /usr/bin/ssh
@@ -25,30 +37,27 @@
 /usr/libexec/sshd-auth
 /usr/libexec/sshd-session
 /usr/sbin/sshd
-%doc /usr/share/doc/openssh-10.5p1/INSTALL
-%doc /usr/share/doc/openssh-10.5p1/LICENCE
-%doc /usr/share/doc/openssh-10.5p1/OVERVIEW
-%doc /usr/share/doc/openssh-10.5p1/README
-%doc /usr/share/doc/openssh-10.5p1/README.dns
-%doc /usr/share/doc/openssh-10.5p1/README.md
-%doc /usr/share/doc/openssh-10.5p1/README.platform
-%doc /usr/share/doc/openssh-10.5p1/README.privsep
-%dir /usr/share/man/man1
-%doc /usr/share/man/man1/scp.1.gz
-%doc /usr/share/man/man1/sftp.1.gz
-%doc /usr/share/man/man1/ssh-add.1.gz
-%doc /usr/share/man/man1/ssh-agent.1.gz
-%doc /usr/share/man/man1/ssh-copy-id.1.gz
-%doc /usr/share/man/man1/ssh-keygen.1.gz
-%doc /usr/share/man/man1/ssh-keyscan.1.gz
-%doc /usr/share/man/man1/ssh.1.gz
-%dir /usr/share/man/man5
-%doc /usr/share/man/man5/moduli.5.gz
-%doc /usr/share/man/man5/ssh_config.5.gz
-%doc /usr/share/man/man5/sshd_config.5.gz
-%dir /usr/share/man/man8
-%doc /usr/share/man/man8/sftp-server.8.gz
-%doc /usr/share/man/man8/ssh-keysign.8.gz
-%doc /usr/share/man/man8/ssh-pkcs11-helper.8.gz
-%doc /usr/share/man/man8/ssh-sk-helper.8.gz
-%doc /usr/share/man/man8/sshd.8.gz
+/usr/share/doc/openssh-10.6p1/INSTALL
+/usr/share/doc/openssh-10.6p1/LICENCE
+/usr/share/doc/openssh-10.6p1/OVERVIEW
+/usr/share/doc/openssh-10.6p1/README
+/usr/share/doc/openssh-10.6p1/README.dns
+/usr/share/doc/openssh-10.6p1/README.md
+/usr/share/doc/openssh-10.6p1/README.platform
+/usr/share/doc/openssh-10.6p1/README.privsep
+/usr/share/man/man1/scp.1.gz
+/usr/share/man/man1/sftp.1.gz
+/usr/share/man/man1/ssh-add.1.gz
+/usr/share/man/man1/ssh-agent.1.gz
+/usr/share/man/man1/ssh-copy-id.1.gz
+/usr/share/man/man1/ssh-keygen.1.gz
+/usr/share/man/man1/ssh-keyscan.1.gz
+/usr/share/man/man1/ssh.1.gz
+/usr/share/man/man5/moduli.5.gz
+/usr/share/man/man5/ssh_config.5.gz
+/usr/share/man/man5/sshd_config.5.gz
+/usr/share/man/man8/sftp-server.8.gz
+/usr/share/man/man8/ssh-keysign.8.gz
+/usr/share/man/man8/ssh-pkcs11-helper.8.gz
+/usr/share/man/man8/ssh-sk-helper.8.gz
+/usr/share/man/man8/sshd.8.gz

@@ -1,5 +1,3 @@
-%dir /usr/bin
-%dir /usr/share
 %dir /usr/share/applications
 %dir /usr/share/icons
 %dir /usr/share/vim
@@ -460,6 +458,7 @@
 /usr/share/vim/vim92/ftplugin/hurl.vim
 /usr/share/vim/vim92/ftplugin/hyprlang.vim
 /usr/share/vim/vim92/ftplugin/i3config.vim
+/usr/share/vim/vim92/ftplugin/icalendar.vim
 /usr/share/vim/vim92/ftplugin/icon.vim
 /usr/share/vim/vim92/ftplugin/idris2.vim
 /usr/share/vim/vim92/ftplugin/indent.vim
@@ -549,6 +548,7 @@
 /usr/share/vim/vim92/ftplugin/muttrc.vim
 /usr/share/vim/vim92/ftplugin/mysql.vim
 /usr/share/vim/vim92/ftplugin/nanorc.vim
+/usr/share/vim/vim92/ftplugin/nasm.vim
 /usr/share/vim/vim92/ftplugin/neomuttrc.vim
 /usr/share/vim/vim92/ftplugin/netrc.vim
 /usr/share/vim/vim92/ftplugin/nginx.vim
@@ -1390,6 +1390,7 @@
 /usr/share/vim/vim92/syntax/i3config.vim
 /usr/share/vim/vim92/syntax/ia64.vim
 /usr/share/vim/vim92/syntax/ibasic.vim
+/usr/share/vim/vim92/syntax/icalendar.vim
 /usr/share/vim/vim92/syntax/icemenu.vim
 /usr/share/vim/vim92/syntax/icon.vim
 /usr/share/vim/vim92/syntax/idl.vim

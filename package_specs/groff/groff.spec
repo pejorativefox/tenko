@@ -1,6 +1,6 @@
 Name:       groff
-Version:    1.24.1
-Release:    2
+Version:    1.24.2
+Release:    1
 Summary:    GNU typesetting system
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ The groff HTML manual, info files and example documents.
 %files doc -f %{_sourcedir}/groff-doc.filelist
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 1.24.2-1
+- Update to 1.24.2 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.24.1-2
 - Split the Perl helper scripts and documentation out of groff; perl is no
   longer a hard runtime requirement (packaging only; versions unchanged)

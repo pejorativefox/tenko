@@ -1,5 +1,5 @@
 Name:       brotli
-Version:    1.2.0
+Version:    1.2.1
 Release:    1
 Summary:    Brotli compression format
 License:    MIT
@@ -35,6 +35,9 @@ popd
 %files -f %{_sourcedir}/brotli.filelist
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 1.2.1-1
+- Update to 1.2.1 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 Browneye Node.js wave <daspork@browneye.invalid> 1.2.0-1
 - Update 1.0.9 -> 1.2.0 (BLFS r13.1 packages.ent brotli-version).
 - Source: https://github.com/google/brotli/archive/v1.2.0/brotli-1.2.0.tar.gz

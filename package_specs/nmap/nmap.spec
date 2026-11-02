@@ -1,5 +1,5 @@
 Name:       nmap
-Version:    7.991
+Version:    7.993
 Release:    1
 Summary:    Network exploration tool and security scanner
 License:    NPSL
@@ -63,6 +63,9 @@ rm -rf %{buildroot}
 %files -n nping -f %{_sourcedir}/nping.filelist
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 7.993-1
+- Update to 7.993 (current LFS/BLFS r13.1 trunk version).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 7.991-1
 - New package (BLFS r13.1 Nmap 7.991), split into nmap, ncat and nping.
 - Source: https://nmap.org/dist/nmap-7.991.tar.bz2

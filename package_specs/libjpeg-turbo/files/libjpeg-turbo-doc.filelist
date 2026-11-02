@@ -1,16 +1,16 @@
-%dir /usr/share/doc/libjpeg-turbo-3.2.0
-/usr/share/doc/libjpeg-turbo-3.2.0/LICENSE.md
-/usr/share/doc/libjpeg-turbo-3.2.0/README.ijg
-/usr/share/doc/libjpeg-turbo-3.2.0/README.md
-/usr/share/doc/libjpeg-turbo-3.2.0/example.c
-/usr/share/doc/libjpeg-turbo-3.2.0/libjpeg.txt
-/usr/share/doc/libjpeg-turbo-3.2.0/structure.txt
-/usr/share/doc/libjpeg-turbo-3.2.0/tjcomp.c
-/usr/share/doc/libjpeg-turbo-3.2.0/tjdecomp.c
-/usr/share/doc/libjpeg-turbo-3.2.0/tjtran.c
-/usr/share/doc/libjpeg-turbo-3.2.0/usage.txt
-/usr/share/doc/libjpeg-turbo-3.2.0/wizard.txt
+%dir /usr/share/doc/libjpeg-turbo-3.2.1
 %dir /usr/share/man/man1
+/usr/share/doc/libjpeg-turbo-3.2.1/LICENSE.md
+/usr/share/doc/libjpeg-turbo-3.2.1/README.ijg
+/usr/share/doc/libjpeg-turbo-3.2.1/README.md
+/usr/share/doc/libjpeg-turbo-3.2.1/example.c
+/usr/share/doc/libjpeg-turbo-3.2.1/libjpeg.txt
+/usr/share/doc/libjpeg-turbo-3.2.1/structure.txt
+/usr/share/doc/libjpeg-turbo-3.2.1/tjcomp.c
+/usr/share/doc/libjpeg-turbo-3.2.1/tjdecomp.c
+/usr/share/doc/libjpeg-turbo-3.2.1/tjtran.c
+/usr/share/doc/libjpeg-turbo-3.2.1/usage.txt
+/usr/share/doc/libjpeg-turbo-3.2.1/wizard.txt
 /usr/share/man/man1/cjpeg.1.gz
 /usr/share/man/man1/djpeg.1.gz
 /usr/share/man/man1/jpegtran.1.gz

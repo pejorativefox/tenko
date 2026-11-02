@@ -6,8 +6,8 @@
 %global __requires_exclude ^perl\\(
 
 Name:       git
-Version:    2.55.0
-Release:    2
+Version:    2.56.0
+Release:    1
 Summary:    Distributed version control system
 License:    GPL-2.0-only
 URL:        https://git-scm.com/
@@ -55,6 +55,9 @@ cp contrib/completion/git-completion.bash %{buildroot}/etc/bash_completion.d/
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 2.56.0-1
+- Update to 2.56.0 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.55.0-2
 - Split lang payload into git-lang (size audit)
 

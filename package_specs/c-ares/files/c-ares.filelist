@@ -1,10 +1,6 @@
-%dir /usr/bin
-%dir /usr/include
-%dir /usr/lib64
 %dir /usr/lib64/cmake
 %dir /usr/lib64/cmake/c-ares
 %dir /usr/lib64/pkgconfig
-%dir /usr/share
 %dir /usr/share/man
 %dir /usr/share/man/man1
 %dir /usr/share/man/man3
@@ -22,7 +18,7 @@
 /usr/lib64/cmake/c-ares/c-ares-targets.cmake
 /usr/lib64/libcares.so
 /usr/lib64/libcares.so.2
-/usr/lib64/libcares.so.2.19.7
+/usr/lib64/libcares.so.2.19.8
 /usr/lib64/pkgconfig/libcares.pc
 /usr/share/man/man1/adig.1.gz
 /usr/share/man/man1/ahost.1.gz

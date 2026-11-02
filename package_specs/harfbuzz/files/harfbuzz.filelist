@@ -1,26 +1,19 @@
-%dir /usr/bin
+%dir /usr/lib64/cmake
+%dir /usr/share/gir-1.0
 /usr/bin/hb-info
 /usr/bin/hb-raster
 /usr/bin/hb-shape
 /usr/bin/hb-subset
 /usr/bin/hb-vector
-/usr/bin/hb-view
-%dir /usr/include
-%dir /usr/lib64
-%dir /usr/lib64/cmake
-/usr/lib64/libharfbuzz-cairo.so.0
-/usr/lib64/libharfbuzz-cairo.so.0.61450.0
 /usr/lib64/libharfbuzz-gobject.so.0
-/usr/lib64/libharfbuzz-gobject.so.0.61450.0
+/usr/lib64/libharfbuzz-gobject.so.0.61500.0
 /usr/lib64/libharfbuzz-gpu.so.0
-/usr/lib64/libharfbuzz-gpu.so.0.61450.0
+/usr/lib64/libharfbuzz-gpu.so.0.61500.0
 /usr/lib64/libharfbuzz-raster.so.0
-/usr/lib64/libharfbuzz-raster.so.0.61450.0
+/usr/lib64/libharfbuzz-raster.so.0.61500.0
 /usr/lib64/libharfbuzz-subset.so.0
-/usr/lib64/libharfbuzz-subset.so.0.61450.0
+/usr/lib64/libharfbuzz-subset.so.0.61500.0
 /usr/lib64/libharfbuzz-vector.so.0
-/usr/lib64/libharfbuzz-vector.so.0.61450.0
+/usr/lib64/libharfbuzz-vector.so.0.61500.0
 /usr/lib64/libharfbuzz.so.0
-/usr/lib64/libharfbuzz.so.0.61450.0
-%dir /usr/share
-%dir /usr/share/gir-1.0
+/usr/lib64/libharfbuzz.so.0.61500.0

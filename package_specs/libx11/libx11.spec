@@ -1,6 +1,6 @@
 Name:       libx11
-Version:    1.8.13
-Release:    2
+Version:    1.8.14
+Release:    1
 Summary:    X11 protocol library
 License:    GPL3
 Prefix:     /usr
@@ -49,6 +49,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.8.14-1
+- Update to 1.8.14 (current BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.8.13-2
 - Split devel, doc, static payload into libx11-devel, libx11-doc, libx11-static (size audit)
 
