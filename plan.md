@@ -236,7 +236,7 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       librsvg's is the only one left (~9 KB, deferred until a Rust build is
       available).  Note: `g-ir-scanner` is unaffected (it reads `.gir`), but
       `g-ir-inspect` and any language binding need `<pkg>-gir`.
-- [ ] **D7. Spec-only specs below the books (~109 after the 2026-11-02
+- [ ] **D7. Spec-only specs below the books (~105 in the 2026-11-02 late
       audit; ~69 when the X11 client-utilities wave was written).**  They only
       matter if they are ever built; update the chain first if so.  (`unzip`
       additionally references a consolidated patch that is 404 upstream —
