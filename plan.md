@@ -157,16 +157,17 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 - `bbuild` cleanup: exit codes, ORDER-only `all`, NEVRA conflict refusal,
   atomic source staging, repo-aware read-only query, 56 tests; legacy
   duplicate scripts removed.
-- Published: **615 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>
+- Published: **620 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>
   (553 + the 2026-11-02 X11 client utilities wave, 31 more binaries/libs,
   + the fonts wave: 6 new packages incl. font-ttf-unifont and 3 more
   no-book fonts on request: terminus, siji, ubuntu-font-family).
   The 2026-11-02 debt wave replaced sqlite (3.54.1), all 12 LLVM/clang 23.1.0
-  RPMs, xorg-server 21.1.25, perl 5.44.0-3 (the libperl fix, D10) and
-  which 2.25-2 (updates, so no count change), then split the GObject
-  Introspection typelibs into 22 `<pkg>-gir` subpackages (D6, +22 RPMs:
-  593 → 615) and bumped libnotify 0.8.9, polkit 128 and upower 1.91.5 on
-  the way (D9 parity).
+  RPMs, xorg-server 21.1.25, perl 5.44.0-4 (the libperl fix, D10) and
+  which 2.25-2 (updates, so no count change), split the GObject
+  Introspection typelibs into 22 `<pkg>-gir` subpackages (D6, +22), and added
+  libunistring, libidn2, libpsl, docbook-xml and docbook-xsl-nons (D8, +5;
+  593 → 620), bumping libnotify 0.8.9, polkit 128, upower 1.91.5 and
+  curl 8.23.0 on the way (D9 parity).
   A remote `dnf install` resolves `browneye-base xfce-desktop` (212 pkgs) and
   `browneye-build` (62 pkgs); `ncat` and `pasta` resolve from the same repo.
   htop 3.5.3-1 and podman-bin 6.1.4-2 were published with
@@ -241,12 +242,19 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       matter if they are ever built; update the chain first if so.  (`unzip`
       additionally references a consolidated patch that is 404 upstream —
       drop the spec or source the patch.)
-- [ ] **D8. Minor gaps.**  `xfce4-terminal` omits its man page (needs
-      docbook-xsl-nons 1.79.2 — a spec exists but not the xmlcatalog setup —
-      plus docbook-xml and libxslt/xsltproc); `curl` is built
-      `--without-libpsl` (needs libpsl 0.23.3, libidn2 2.3.8 and libunistring);
-      `rsync` is built `--disable-idn` (needs libidn2); `libepoxy` uses the
-      build image's GL headers without declaring `mesa-devel`.
+- [x] **D8. Minor gaps.**  Done 2026-11-02.  New packages: libunistring 1.5,
+      libidn2 2.3.8 and libpsl 0.23.3 (headers/.pc in the runtime package like
+      the other small libraries) plus docbook-xml 4.5 (DTD and XML catalog
+      delegations, owning `/etc/xml`); docbook-xsl-nons 1.79.2-2 now installs
+      the `cdn.docbook.org` / `docbook.sourceforge.net` catalog rewrites.  On
+      top of them: curl 8.23.0 builds without `--without-libpsl` and reports
+      `libidn2/2.3.8 libpsl/0.23.3` (libcurl links both), rsync 3.5.1-2 drops
+      `--disable-idn` (links libidn2), xfce4-terminal 1.2.0-3 builds with
+      `-Ddoc=true` and ships its man page, and libepoxy declares
+      `BuildRequires: mesa-devel`.  Published (+5 RPMs, 620 total); the
+      curl bump also clears one D9 item.  Build note: the curl build needed a
+      working perl in the image (its doc scripts call perl), so the fixed
+      perl 5.44.0-4 was staged into that container.
 - [ ] **D9. Re-baseline the published tree to the moved books.**  The
       2026-11-02 repo audit (`audit_versions.py --primary`, see §5) found 52
       of 593 published packages below the LFS/BLFS trunk: LVM2, at-spi2-core,
@@ -259,9 +267,9 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       xorg-server and xorgproto.  Several are ABI-level jumps (systemd 262,
       python 3.15, openssl 4.1, grub 2.16), so this is a wave of its own:
       bump the specs, check the dependency chain, rebuild and republish.
-      sqlite (D1) and xorg-server (D2) are already done, and libnotify 0.8.9,
-      polkit 128 and upower 1.91.5 were rebuilt with the D6 `-gir` split,
-      leaving 47.  The next
+      sqlite (D1) and xorg-server (D2) are already done, libnotify 0.8.9,
+      polkit 128 and upower 1.91.5 were rebuilt with the D6 `-gir` split, and
+      curl 8.23.0 came with D8, leaving 46.  The next
       obvious block is the toolchain/runtime layer (systemd 262, python 3.15,
       openssl 4.1, coreutils, expat, libarchive, elfutils, util-linux, kmod)
       because the rest links against it.  `xml-parser` 2.59 is *newer* than
