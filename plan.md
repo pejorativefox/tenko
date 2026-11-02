@@ -432,6 +432,10 @@ python3 scripts/audit_versions.py                  # RPM/spec vs the books
   GNOME Boxes may default to Secure Boot; boot the VM with the non-secboot
   OVMF firmware (`/usr/share/edk2/ovmf/OVMF_CODE.fd`) or disable Secure Boot
   in the domain.  BIOS mode cannot work (no syslinux/isolinux).
+  libvirt detail: keep `<os firmware="efi">` out of the domain and give an
+  explicit `<loader>/<nvram>`; the `firmware` attribute makes libvirt
+  autoselect `OVMF_CODE_4M.secboot.qcow2` (with `smm=on`) and ignore the
+  explicit loader, which is exactly the failure seen in GNOME Boxes.
 - The QEMU std-VGA `screendump` is blank with modesetting, so the graphical
   test captures the root window with `xwd` over a 9p share
   (`build/qemu-share/`).  `qemu_run_desktop.sh` has no `-virtfs`, so its 9p
