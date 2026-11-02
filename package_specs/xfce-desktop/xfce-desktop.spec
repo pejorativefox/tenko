@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    8
+Release:    9
 Summary:    Browneye XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -28,6 +28,7 @@ Requires:   xorg-server
 Requires:   lightdm
 Requires:   accountsservice
 Requires:   sudo
+Requires:   librsvg
 Requires:   xinit
 Requires:   xauth
 Requires:   xkeyboard-config
@@ -89,6 +90,9 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-9
+- Require librsvg for SVG icon/wallpaper rendering
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-8
 - Require sudo so the installer's administrative wheel user can escalate
 

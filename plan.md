@@ -31,6 +31,8 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   first-boot password prompt (`scripts/qemu_boot_login.sh`); a second boot
   skips the prompt.  The old one-shot-X `xfce-test.img` flow is retired.
 - Firefox 159.0 (`firefox-bin`, `/opt`) with alsa-lib 1.2.16.1.
+- SVG rendering: librsvg 2.63.2 + gdk-pixbuf SVG loader (cargo-c 0.10.25
+  build tool).
 - LightDM 1.33.1 + lightdm-gtk-greeter 2.0.9 (PAM, systemd unit
   `lightdm.service` aliased to `display-manager.service`, systemd preset,
   XFCE session) and AccountsService 26.27.3 for the greeter's user list;
@@ -97,9 +99,13 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       (LVM2 needs `libaio.so.1`).  Verified with a dnf installroot: the set
       installs and `cryptsetup --version`, `mdadm --version` and `lvm` link
       cleanly (device-mapper itself cannot run inside the userns test).
-- [ ] **A3. SVG icons — decided.**  Build `librsvg` 2.63.2 using the
-      shipped `/opt` Rust 1.99.0, with the crates vendored into the source
-      tarball so the build stays offline.  No Rust-from-source build.
+- [x] **A3. SVG icons.**  `librsvg` 2.63.2 is packaged, built with the
+      shipped `/opt` Rust 1.99.0 and vendored crates (fully offline); the
+      required `cargo-c` 0.10.25 is a new vendored package.  `%post` refreshes
+      the gdk-pixbuf loader cache, and `xfce-desktop` requires librsvg.
+      Verified: the loader is registered (`loaders.cache` has `svg`) and
+      `rsvg-convert` renders.  Vala bindings are disabled (in-tree vala
+      0.40.8 is below the book's 0.56.19).
 - [x] **A4. `xf86-video-amdgpu` 23.0.0.**  Merged from `amdgpu-driver`
       (`a26999b`, cherry-picked as `298724b`), rebuilt with the static
       filelist and published.  Deliberately **not** in any meta: not every

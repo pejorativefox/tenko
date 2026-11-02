@@ -1,6 +1,6 @@
 Name:       librsvg
 Version:    2.63.2
-Release:    1
+Release:    2
 Summary:    SVG rendering library
 License:    LGPL-2.1-or-later
 Prefix:     /usr
@@ -73,11 +73,28 @@ DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
+%post
+# The pixbuf loader is installed after gdk-pixbuf; regenerate its cache so
+# SVG images resolve at runtime.  Image builds with scriptlets disabled must
+# run gdk-pixbuf-query-loaders --update-cache (or rebuild gdk-pixbuf).
+if [ -x /usr/bin/gdk-pixbuf-query-loaders ]; then
+    /usr/bin/gdk-pixbuf-query-loaders --update-cache >/dev/null 2>&1 || :
+fi
+
+%postun
+if [ -x /usr/bin/gdk-pixbuf-query-loaders ]; then
+    /usr/bin/gdk-pixbuf-query-loaders --update-cache >/dev/null 2>&1 || :
+fi
+
 %files -f %{_sourcedir}/librsvg.filelist
 %files devel -f %{_sourcedir}/librsvg-devel.filelist
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.63.2-2
+- Refresh the gdk-pixbuf loader cache in %post/%postun so the SVG loader
+  is usable without rebuilding gdk-pixbuf
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.63.2-1
 - Sync with BLFS r13.1 (librsvg 2.63.2); port build to Meson + Rust
   with vendored crates; enable the gdk-pixbuf SVG loader.
