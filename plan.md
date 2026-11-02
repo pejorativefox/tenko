@@ -278,6 +278,15 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       headers stay in `perl-devel`), verified by installing only the runtime
       RPM and running `perl -e` and `perl -MFile::Temp`; it is published.
       An installed system gets it with `sudo dnf install perl`.
+      **Follow-up:** 5.44.0-3 was built in a container whose own perl was
+      still broken, so rpm's `perl.prov` generator silently emitted only 2
+      `perl(...)` provides instead of 891 and `vim-minimal`'s
+      `perl(Getopt::Long)` & co. became unsatisfiable (dnf then also refused
+      the upgrade with "cannot install both perl-3 and perl-2").  5.44.0-4
+      rebuilds with a bootstrapped working perl and has all 896 provides;
+      verified against `vim-minimal`'s requires and the repo metadata.
+      Lesson: a build image must not itself have a broken perl — this is the
+      S2 image-bootstrap gap in miniature.
 
 ### E. Verification and hygiene
 

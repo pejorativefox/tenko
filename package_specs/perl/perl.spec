@@ -1,6 +1,6 @@
 Name:       perl
 Version:    5.44.0
-Release:    3
+Release:    4
 Summary:    Perl programming language
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -73,6 +73,12 @@ Perl man pages and the core Perl POD documentation.
 %files doc -f %{_sourcedir}/perl-doc.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 5.44.0-4
+- Rebuild with a working perl on the build host.  The 5.44.0-3 build ran in
+  an image whose perl could not start (no libperl.so), so rpm's perl.prov
+  generator silently produced only 2 perl(...) provides instead of 891 and
+  vim-minimal's perl(Getopt::Long) & co. became unsatisfiable.  No payload
+  change from -3.
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 5.44.0-3
 - Ship libperl.so in the runtime package.  /usr/bin/perl is linked against
   libperl.so (unversioned, the library has no SONAME) and finds it through
