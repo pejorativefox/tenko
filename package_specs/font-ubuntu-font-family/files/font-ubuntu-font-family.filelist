@@ -1,0 +1,18 @@
+%dir /usr/share
+%dir /usr/share/fonts
+%dir /usr/share/fonts/ubuntu-font-family
+/usr/share/fonts/ubuntu-font-family/LICENCE.txt
+/usr/share/fonts/ubuntu-font-family/README.txt
+/usr/share/fonts/ubuntu-font-family/Ubuntu-B.ttf
+/usr/share/fonts/ubuntu-font-family/Ubuntu-BI.ttf
+/usr/share/fonts/ubuntu-font-family/Ubuntu-C.ttf
+/usr/share/fonts/ubuntu-font-family/Ubuntu-L.ttf
+/usr/share/fonts/ubuntu-font-family/Ubuntu-LI.ttf
+/usr/share/fonts/ubuntu-font-family/Ubuntu-M.ttf
+/usr/share/fonts/ubuntu-font-family/Ubuntu-MI.ttf
+/usr/share/fonts/ubuntu-font-family/Ubuntu-R.ttf
+/usr/share/fonts/ubuntu-font-family/Ubuntu-RI.ttf
+/usr/share/fonts/ubuntu-font-family/UbuntuMono-B.ttf
+/usr/share/fonts/ubuntu-font-family/UbuntuMono-BI.ttf
+/usr/share/fonts/ubuntu-font-family/UbuntuMono-R.ttf
+/usr/share/fonts/ubuntu-font-family/UbuntuMono-RI.ttf
