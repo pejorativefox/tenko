@@ -46,6 +46,11 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 - make-ca 1.16.1 (121 roots), git 2.55.0, which 2.25, opencode-bin 2.2.5,
   herdr 0.9.5, sudo 1.9.17p2 (PAM, `%wheel`), `browneye-workstation` meta.
   Verified over SSH.
+- podman 6.1.4: user-approved static bundle under `/opt/podman-6.1.4`
+  (`/opt/podman`, `/usr/bin/podman`), bundling crun/conmon/netavark/passt;
+  `/etc/containers` uses `k8s-file` logging and native overlay.  Added to
+  `browneye-workstation`; the installer gives the admin user a 100000-165535
+  subuid/subgid range.
 
 **Storage and installer tooling**
 - cryptsetup 2.8.8, LVM2 2.03.42 + libdevmapper, mdadm 4.6, libaio 0.3.113.
@@ -325,6 +330,7 @@ removed is reproducible from `container-rebuild-*` / `verify_base_in_container.s
 | D43 | Partition tables | **GPT-only MVP**; MBR disks are refused with an explanation |
 | D44 | Root layout | ext4 (min 8 GiB, grows to fill the region) + 2 GiB swap |
 | D45 | Installer logs | JSONL on the ESP plus console/serial mirror |
+| D46 | Podman | Static `podman-bin` 6.1.4 under `/opt` (approved exception), crun/conmon/netavark/passt bundled; `browneye-workstation` requires it |
 
 Consequences already implemented: `package_specs/ORDER` is the chapter-8
 systemd order; `browneye-basefs` owns `/bin /lib /lib64 /sbin`; `browneye-release`
