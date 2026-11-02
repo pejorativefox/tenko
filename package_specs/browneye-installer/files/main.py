@@ -7,6 +7,7 @@ import getpass
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 from dataclasses import asdict
@@ -277,13 +278,51 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     return args
 
 
-def find_answer_path(explicit: str | None) -> str | None:
-    if explicit:
-        return explicit
-    for path in ANSWER_PATHS:
-        if os.path.isfile(path):
-            return path
-    return None
+ANSWER_LABEL = "/dev/disk/by-label/BROWNEYE-ANSWER"
+ANSWER_MOUNT = "/run/browneye/answer"
+
+
+def mount_answer_disk() -> str | None:
+    """Mount a BROWNEYE-ANSWER medium read-only and return its answer.json.
+
+    /dev/disk/by-label/X is a symlink to a block device, not a directory, so
+    the medium has to be mounted before the answer file can be read.
+    """
+    if not os.path.exists(ANSWER_LABEL):
+        return None
+    try:
+        os.makedirs(ANSWER_MOUNT, exist_ok=True)
+        if not os.path.ismount(ANSWER_MOUNT):
+            subprocess.run(
+                ("mount", "-o", "ro", ANSWER_LABEL, ANSWER_MOUNT),
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                timeout=15, check=False,
+            )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    path = os.path.join(ANSWER_MOUNT, "answer.json")
+    return path if os.path.isfile(path) else None
+
+
+def find_answer_path(explicit: str | None, timeout: float = 15.0) -> str | None:
+    """Locate the answer file, waiting briefly for udev/block devices.
+
+    The live system starts the installer as soon as multi-user is reached;
+    a USB or virtio answer disk may not have its /dev/disk/by-label link yet.
+    """
+    deadline = time.monotonic() + max(0.0, timeout)
+    while True:
+        candidates = [explicit] if explicit else list(ANSWER_PATHS)
+        for path in candidates:
+            if path and os.path.isfile(path):
+                return path
+        if explicit is None:
+            mounted = mount_answer_disk()
+            if mounted:
+                return mounted
+        if time.monotonic() >= deadline:
+            return None
+        time.sleep(0.5)
 
 
 def load_answer(path: str) -> dict[str, Any]:

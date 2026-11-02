@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    3
+Release:    5
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -85,6 +85,17 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-5
+- Mount a BROWNEYE-ANSWER medium read-only before reading its answer.json
+  (/dev/disk/by-label/X is a block-device symlink, not a directory)
+- Verified end to end: the installer UI installs to a blank GPT disk and
+  the installed system boots UEFI to the LightDM greeter
+
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-4
+- Wait up to 15 s for the answer file: the live system can start the
+  installer before udev creates /dev/disk/by-label for the answer disk
+- Fix the test sys.path so test_answer/test_probe import the real modules
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-3
 - Never read device nodes, FIFOs or sockets: /run/initramfs/livedev is a
   symlink to the live block device on dracut-ng, and following it read the

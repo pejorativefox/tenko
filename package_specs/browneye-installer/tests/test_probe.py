@@ -3,8 +3,9 @@ import sys
 import tempfile
 import unittest
 
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-sys.path.insert(0, os.path.join(REPO_ROOT, "package_specs", "browneye-installer", "files"))
+FILES = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "files")
+sys.path.insert(0, FILES)
 
 import probe  # noqa: E402
 

@@ -25,6 +25,8 @@ ISO_LABEL=${ISO_LABEL:-BROWNEYE}
 ISOREPO=${ISOREPO:-$PWD/build/iso-repo}
 TOOLS=${TOOLS:-browneye-iso-build}
 SKIP_LIVE=${SKIP_LIVE:-0}
+ISO_AUTO=${ISO_AUTO:-0}
+ISO_ANSWER=${ISO_ANSWER:-}
 
 [ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
 
@@ -115,6 +117,14 @@ podman exec "$TOOLS" mksquashfs /work/live-root /work/iso-stage/LiveOS/squashfs.
 echo "copying the target package repo"
 cp -a "$ISOREPO" "$STAGE/repo"
 
+bootargs="root=live:CDLABEL=$ISO_LABEL rd.live.image rd.live.dir=LiveOS rd.live.squashimg=squashfs.img rd.live.overlay.overlayfs=1 console=tty0 console=ttyS0,115200"
+if [ -n "$ISO_ANSWER" ]; then
+    cp -f "$ISO_ANSWER" "$STAGE/answer.json"
+fi
+if [ "$ISO_AUTO" = "1" ]; then
+    bootargs="$bootargs browneye.auto=1"
+fi
+
 cat > "$STAGE/grub.cfg" <<EOF
 insmod all_video
 insmod iso9660
@@ -122,7 +132,7 @@ set timeout=5
 
 menuentry "Browneye Linux 13.1 installer" {
     search --no-floppy --file --set=root /LiveOS/squashfs.img
-    linux /vmlinuz root=live:CDLABEL=$ISO_LABEL rd.live.image rd.live.dir=LiveOS rd.live.squashimg=squashfs.img rd.live.overlay.overlayfs=1 console=tty0 console=ttyS0,115200
+    linux /vmlinuz $bootargs
     initrd /initrd.img
 }
 EOF
