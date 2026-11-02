@@ -183,20 +183,29 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 ### S. Self-hosting on an installed system
 
 - [x] **S2. Container build images on an installed system.**  Done
-      2026-11-02 with `scripts/make_base_image.sh`.  It installs
-      `browneye-base browneye-build` from the *published* repo into a fresh
-      rootfs with dnf (rootless `unshare -r dnf --installroot` when no image
-      with dnf exists, otherwise `TOOL_IMAGE`), finalizes sysusers/presets,
-      imports the tarball with podman, and verifies gcc/rpmbuild/make/python/
-      meson/dnf/createrepo_c inside the result.  It needs no pre-existing
-      `localhost/browneye/base` image and tags `base:r13.1` for the other
-      scripts, whose defaults now point at that stable name instead of
+      2026-11-02 with `scripts/make_base_image.sh`.  It installs from the
+      *published* repo into a fresh rootfs with dnf (rootless
+      `unshare -r dnf --installroot` when no image with dnf exists, otherwise
+      `TOOL_IMAGE`), finalizes sysusers/presets, imports the tarball with
+      podman, and verifies the toolchain.  It needs no pre-existing
+      `localhost/browneye/base` image.  `TAG_STABLE=0` keeps a dated tag only;
+      otherwise the image also becomes `base:r13.1`.
+      Three images now exist:
+      - `base:r13.1` (147 packages): browneye-base + browneye-build (dnf,
+        createrepo_c) plus the `DEVEL_PACKAGES` header set.  This is the
+        `TOOL_IMAGE` for repo/rootfs assembly.
+      - `base:r13.1-e2` (121 packages): browneye-base + the same headers but
+        **no browneye-build**.  E2 uses this so base packages do not pick up
+        dnf-stack libraries (curl/json-c/libunistring) from the build image.
+      - `base:r13.1-selfhost-20261102` (108 packages): installed exclusively
+        from the 190 RPMs rebuilt by E2.
+      `DEVEL_PACKAGES` defaults to ncurses, readline, xz, linux-pam, elfutils,
+      perl, tcl, e2fsprogs, kmod, expat, sqlite, util-linux and pcre2 `-devel`.
+      The scripts' default image names now point at `base:r13.1` instead of
       build-host-only dated tags.
-      Verified on this host: `localhost/browneye/base:r13.1-20261102`
-      (138 packages) reports gcc 16.2.0, Python 3.15.2, rpm 4.18.1,
-      dnf 4.24.0 and createrepo_c 1.2.6, resolves repo file provides over
-      DNS (`repoquery --whatprovides /usr/bin/python3`), and rebuilds a
-      spec (which 2.25) with its own `browneye-rpm-config` macros, no host
+      Verified: gcc 16.2.0, Python 3.15.2, rpm 4.18.1, dnf 4.24.0 and
+      createrepo_c 1.2.6; DNS/file-provide resolution works; the image
+      rebuilds specs with its own `browneye-rpm-config` macros, no host
       `/rpmsupport` mount.
       `publish_rpm.sh` also grew a guard: re-publishing an existing NEVRA
       with different content is refused (bump Release), because mergerepo_c
@@ -332,10 +341,29 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 
 ### E. Verification and hygiene
 
-- [ ] **E2. Clean single-run rebuild.**  Re-run the whole base set in one
-      `OUT` directory to confirm 93/93 without substituting a separately
-      built package.
-
+- [x] **E2. Clean single-run rebuild.**  Done 2026-11-02: **101/101 specs,
+      190 RPMs, zero failures** in `build/container-rebuild-20261102-e2final`,
+      built in the lean `base:r13.1-e2` image, then installed into a fresh
+      rootfs *only* from those RPMs (`base:r13.1-selfhost-20261102`, 108
+      packages).  The self-hosted image runs gcc 16.2.0, rpm 4.18.1 and
+      pip 26.2.2, so the rebuilt set is closed and self-hosting.
+      Findings fixed on the way:
+      - rpmbuild only saw `/sources`, so helper files under
+        `package_specs/*/files` (patches, `macros.browneye`, firstboot root
+        password, static `%files`) were missing; the driver now stages them.
+      - the image needed the base set's headers: ncurses/readline/xz/pam/
+        elfutils/perl/tcl/e2fsprogs/kmod/expat/sqlite/util-linux/pcre2
+        `-devel`.  Missing pcre2 also explained silent feature loss in
+        `file`/`less`/`grep`; missing expat/sqlite/uuid explained dbus,
+        python, rpm, e2fsprogs and systemd failures.
+      - `browneye-build` in the build image leaked curl/json-c/libunistring
+        into base builds, so a full rootfs then needed the whole dnf stack.
+        The lean image avoids that contamination.
+      - `libcap` builds `pam_cap.so` once PAM headers exist; packaged as
+        2.78-2 (published).
+      - `browneye-base` requires `make-ca`, which needs p11-kit and
+        libtasn1, so those joined the E2 spec set (plus libunistring, which
+        the dnf-stack image had made gettext link).
 ---
 
 ## 3. Environment and layout
