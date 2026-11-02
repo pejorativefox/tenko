@@ -1,6 +1,6 @@
 Name:       libcap
 Version:    2.78
-Release:    1
+Release:    2
 Summary:    POSIX 1003.1e capabilities
 License:    GPL2
 Source0:    %{name}-%{version}.tar.xz
@@ -38,8 +38,13 @@ rm -rf %{buildroot}
 /usr/sbin/getpcaps
 /usr/sbin/setcap
 /usr/share/man/
+/usr/lib64/security/pam_cap.so
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.78-2
+- Ship pam_cap.so: with linux-pam-devel present, libcap's Makefile builds
+  the PAM module (LFS builds libcap before linux-pam and so does not).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.78
 - Sync with LFS r13.1
 
