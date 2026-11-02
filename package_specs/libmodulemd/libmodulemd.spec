@@ -1,6 +1,6 @@
 Name:       libmodulemd
 Version:    2.15.3
-Release:    1
+Release:    2
 Summary:    C library for manipulating module metadata files
 License:    MIT
 Prefix:     /usr
@@ -36,6 +36,10 @@ popd
 %files -f %{_sourcedir}/libmodulemd.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.15.3-2
+- Rebuild for Python 3.15 / the D9 dnf stack refresh (new NEVR so the
+  rebuilt package supersedes the published -1).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.15.3-1
 - Update to 2.15.3 (was 2.15.0 in the modulemd spec) for the E1 dnf/libdnf
   chain; renamed the spec directory/package from modulemd to libmodulemd to

@@ -1,6 +1,6 @@
 Name:       dnf
 Version:    4.24.0
-Release:    2
+Release:    3
 Summary:    Package manager for RPM based distributions
 License:    GPL
 Prefix:     /usr
@@ -44,9 +44,9 @@ pushd build
 DESTDIR=%{buildroot} cmake --install .
 popd
 # Python's sys.path uses /usr/lib64 for this distro.
-if [ -d %{buildroot}/usr/lib/python3.14 ]; then
+if [ -d %{buildroot}/usr/lib/python3.15 ]; then
   mkdir -p %{buildroot}/usr/lib64
-  mv %{buildroot}/usr/lib/python3.14 %{buildroot}/usr/lib64/
+  mv %{buildroot}/usr/lib/python3.15 %{buildroot}/usr/lib64/
 fi
 ln -sfv dnf-3 %{buildroot}%{_bindir}/dnf
 ln -sfv dnf-automatic-3 %{buildroot}%{_bindir}/dnf-automatic
@@ -56,6 +56,9 @@ ln -sfv dnf-automatic-3 %{buildroot}%{_bindir}/dnf-automatic
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.24.0-3
+- Rebuild for Python 3.15 (3.14 site-packages are gone); 2 paths updated.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.24.0-2
 - Split lang payload into dnf-lang (size audit)
 

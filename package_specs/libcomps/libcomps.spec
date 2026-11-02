@@ -1,6 +1,6 @@
 Name:       libcomps
 Version:    0.1.24
-Release:    1
+Release:    2
 Summary:    Comps XML file manipulation library
 License:    GPL
 Prefix:     /usr
@@ -35,6 +35,9 @@ popd
 %files -f %{_sourcedir}/libcomps.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 0.1.24-2
+- Rebuild for Python 3.15 (3.14 site-packages are gone); 0 paths updated.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.1.24-1
 - New package (replaces the stale 0.1.15 python-libcomps spec) for the E1
   dnf/libdnf chain.

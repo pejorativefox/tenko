@@ -1,6 +1,6 @@
 Name:       at-spi2-core
 Version:    2.62.1
-Release:    1
+Release:    2
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -63,6 +63,9 @@ The .gir XML needed for building stays in the -devel package.
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.62.1-2
+- Rebuild for Python 3.15 (3.14 site-packages are gone); 0 paths updated.
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2.62.1-1
 - Update to 2.62.1 (current LFS/BLFS r13.1 trunk version).
 

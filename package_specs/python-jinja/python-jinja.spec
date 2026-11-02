@@ -1,6 +1,6 @@
 Name:       python-jinja
 Version:    3.1.6
-Release:    1
+Release:    2
 Summary:    Python templating language
 License:    Custom
 Source0:    jinja2-3.1.6.tar.gz
@@ -17,15 +17,18 @@ Jinja is a modern and designer-friendly templating language for Python, modelled
 %install
 rm -rf %{buildroot}
 python3 -m pip install --root=%{buildroot} --prefix=/usr --no-deps --no-build-isolation --ignore-installed --no-warn-script-location .
-if [ -d %{buildroot}/usr/lib/python3.14 ]; then
+if [ -d %{buildroot}/usr/lib/python3.15 ]; then
   mkdir -p %{buildroot}/usr/lib64
-  mv %{buildroot}/usr/lib/python3.14 %{buildroot}/usr/lib64/
+  mv %{buildroot}/usr/lib/python3.15 %{buildroot}/usr/lib64/
 fi
 
 %files
-/usr/lib64/python3.14/site-packages/
+/usr/lib64/python3.15/site-packages/
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 3.1.6-2
+- Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 3.1.6
 - Sync with LFS r13.1
 

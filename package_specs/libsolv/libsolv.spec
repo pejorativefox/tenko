@@ -1,6 +1,6 @@
 Name:       libsolv
 Version:    0.7.41
-Release:    1
+Release:    2
 Summary:    Library for solving packages and reading repositories
 License:    BSD
 Prefix:     /usr
@@ -57,6 +57,10 @@ install -Dm0644 cmake/modules/FindLibSolv.cmake \
 %files -f %{_sourcedir}/libsolv.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 0.7.41-2
+- Rebuild for Python 3.15 / the D9 dnf stack refresh (new NEVR so the
+  rebuilt package supersedes the published -1).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.7.41-1
 - Update to upstream 0.7.41 (was 0.7.24) for the E1 dnf/libdnf chain.
   libsolv is not in LFS/BLFS; current libdnf requires >= 0.7.21.

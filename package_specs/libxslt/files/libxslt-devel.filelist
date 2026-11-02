@@ -1,8 +1,10 @@
 %dir /usr/include/libexslt
+%dir /usr/include/libxslt
+%dir /usr/lib64/cmake/libxslt
+%dir /usr/lib64/pkgconfig
 /usr/include/libexslt/exslt.h
 /usr/include/libexslt/exsltconfig.h
 /usr/include/libexslt/exsltexports.h
-%dir /usr/include/libxslt
 /usr/include/libxslt/attributes.h
 /usr/include/libxslt/documents.h
 /usr/include/libxslt/extensions.h
@@ -25,11 +27,9 @@
 /usr/include/libxslt/xsltexports.h
 /usr/include/libxslt/xsltlocale.h
 /usr/include/libxslt/xsltutils.h
-%dir /usr/lib64/cmake/libxslt
 /usr/lib64/cmake/libxslt/FindGcrypt.cmake
 /usr/lib64/cmake/libxslt/libxslt-config.cmake
 /usr/lib64/libexslt.so
 /usr/lib64/libxslt.so
-%dir /usr/lib64/pkgconfig
 /usr/lib64/pkgconfig/libexslt.pc
 /usr/lib64/pkgconfig/libxslt.pc

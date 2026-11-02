@@ -1,6 +1,6 @@
 Name:       libdnf
 Version:    0.76.0
-Release:    1
+Release:    2
 Summary:    Library providing a simplified C and Python API to libsolv
 License:    LGPL
 Prefix:     /usr
@@ -40,6 +40,9 @@ popd
 %files -f %{_sourcedir}/libdnf.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 0.76.0-2
+- Rebuild for Python 3.15 (3.14 site-packages are gone); 0 paths updated.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.76.0-1
 - Update to 0.76.0 (was 0.71.0) for the E1 dnf/libdnf chain.  libdnf is
   not in LFS/BLFS; this is the current release of the dnf-4 branch, which

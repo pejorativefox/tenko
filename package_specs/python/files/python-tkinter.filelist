@@ -1,28 +1,28 @@
-%dir /usr/lib64/python3.14/tkinter
-%dir /usr/lib64/python3.14/tkinter/__pycache__
-/usr/lib64/python3.14/tkinter/__init__.py
-/usr/lib64/python3.14/tkinter/__main__.py
-/usr/lib64/python3.14/tkinter/__pycache__/__init__.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/__main__.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/colorchooser.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/commondialog.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/constants.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/dialog.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/dnd.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/filedialog.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/font.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/messagebox.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/scrolledtext.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/simpledialog.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/__pycache__/ttk.cpython-314.pyc
-/usr/lib64/python3.14/tkinter/colorchooser.py
-/usr/lib64/python3.14/tkinter/commondialog.py
-/usr/lib64/python3.14/tkinter/constants.py
-/usr/lib64/python3.14/tkinter/dialog.py
-/usr/lib64/python3.14/tkinter/dnd.py
-/usr/lib64/python3.14/tkinter/filedialog.py
-/usr/lib64/python3.14/tkinter/font.py
-/usr/lib64/python3.14/tkinter/messagebox.py
-/usr/lib64/python3.14/tkinter/scrolledtext.py
-/usr/lib64/python3.14/tkinter/simpledialog.py
-/usr/lib64/python3.14/tkinter/ttk.py
+%dir /usr/lib64/python3.15/tkinter
+%dir /usr/lib64/python3.15/tkinter/__pycache__
+/usr/lib64/python3.15/tkinter/__init__.py
+/usr/lib64/python3.15/tkinter/__main__.py
+/usr/lib64/python3.15/tkinter/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/__main__.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/colorchooser.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/commondialog.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/constants.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/dialog.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/dnd.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/filedialog.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/font.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/messagebox.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/scrolledtext.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/simpledialog.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/__pycache__/ttk.cpython-315.pyc
+/usr/lib64/python3.15/tkinter/colorchooser.py
+/usr/lib64/python3.15/tkinter/commondialog.py
+/usr/lib64/python3.15/tkinter/constants.py
+/usr/lib64/python3.15/tkinter/dialog.py
+/usr/lib64/python3.15/tkinter/dnd.py
+/usr/lib64/python3.15/tkinter/filedialog.py
+/usr/lib64/python3.15/tkinter/font.py
+/usr/lib64/python3.15/tkinter/messagebox.py
+/usr/lib64/python3.15/tkinter/scrolledtext.py
+/usr/lib64/python3.15/tkinter/simpledialog.py
+/usr/lib64/python3.15/tkinter/ttk.py

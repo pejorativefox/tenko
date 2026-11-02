@@ -1,6 +1,6 @@
 Name:       gobject-introspection
 Version:    1.86.0
-Release:    2
+Release:    3
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -43,6 +43,10 @@ language bindings need it.
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.86.0-3
+- Rebuild for Python 3.15: g-ir-scanner's _giscanner extension was
+  built for 3.14, which breaks every introspection build on 3.15.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.86.0-2
 - Split the GObject Introspection typelibs into %{name}-gir
 # let's skip this for now

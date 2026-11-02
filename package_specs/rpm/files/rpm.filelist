@@ -1,4 +1,75 @@
-%dir /usr/bin
+%dir /usr/lib/rpm
+%dir /usr/lib/rpm/fileattrs
+%dir /usr/lib/rpm/lua
+%dir /usr/lib/rpm/macros.d
+%dir /usr/lib/rpm/platform
+%dir /usr/lib/rpm/platform/aarch64-linux
+%dir /usr/lib/rpm/platform/alpha-linux
+%dir /usr/lib/rpm/platform/alphaev5-linux
+%dir /usr/lib/rpm/platform/alphaev56-linux
+%dir /usr/lib/rpm/platform/alphaev6-linux
+%dir /usr/lib/rpm/platform/alphaev67-linux
+%dir /usr/lib/rpm/platform/alphapca56-linux
+%dir /usr/lib/rpm/platform/amd64-linux
+%dir /usr/lib/rpm/platform/armv3l-linux
+%dir /usr/lib/rpm/platform/armv4b-linux
+%dir /usr/lib/rpm/platform/armv4l-linux
+%dir /usr/lib/rpm/platform/armv5tejl-linux
+%dir /usr/lib/rpm/platform/armv5tel-linux
+%dir /usr/lib/rpm/platform/armv5tl-linux
+%dir /usr/lib/rpm/platform/armv6hl-linux
+%dir /usr/lib/rpm/platform/armv6l-linux
+%dir /usr/lib/rpm/platform/armv7hl-linux
+%dir /usr/lib/rpm/platform/armv7hnl-linux
+%dir /usr/lib/rpm/platform/armv7l-linux
+%dir /usr/lib/rpm/platform/armv8hl-linux
+%dir /usr/lib/rpm/platform/armv8l-linux
+%dir /usr/lib/rpm/platform/athlon-linux
+%dir /usr/lib/rpm/platform/geode-linux
+%dir /usr/lib/rpm/platform/i386-linux
+%dir /usr/lib/rpm/platform/i486-linux
+%dir /usr/lib/rpm/platform/i586-linux
+%dir /usr/lib/rpm/platform/i686-linux
+%dir /usr/lib/rpm/platform/ia32e-linux
+%dir /usr/lib/rpm/platform/ia64-linux
+%dir /usr/lib/rpm/platform/loongarch64-linux
+%dir /usr/lib/rpm/platform/m68k-linux
+%dir /usr/lib/rpm/platform/mips-linux
+%dir /usr/lib/rpm/platform/mips64-linux
+%dir /usr/lib/rpm/platform/mips64el-linux
+%dir /usr/lib/rpm/platform/mips64r6-linux
+%dir /usr/lib/rpm/platform/mips64r6el-linux
+%dir /usr/lib/rpm/platform/mipsel-linux
+%dir /usr/lib/rpm/platform/mipsr6-linux
+%dir /usr/lib/rpm/platform/mipsr6el-linux
+%dir /usr/lib/rpm/platform/noarch-linux
+%dir /usr/lib/rpm/platform/pentium3-linux
+%dir /usr/lib/rpm/platform/pentium4-linux
+%dir /usr/lib/rpm/platform/ppc-linux
+%dir /usr/lib/rpm/platform/ppc32dy4-linux
+%dir /usr/lib/rpm/platform/ppc64-linux
+%dir /usr/lib/rpm/platform/ppc64iseries-linux
+%dir /usr/lib/rpm/platform/ppc64le-linux
+%dir /usr/lib/rpm/platform/ppc64p7-linux
+%dir /usr/lib/rpm/platform/ppc64pseries-linux
+%dir /usr/lib/rpm/platform/ppc8260-linux
+%dir /usr/lib/rpm/platform/ppc8560-linux
+%dir /usr/lib/rpm/platform/ppciseries-linux
+%dir /usr/lib/rpm/platform/ppcpseries-linux
+%dir /usr/lib/rpm/platform/riscv64-linux
+%dir /usr/lib/rpm/platform/s390-linux
+%dir /usr/lib/rpm/platform/s390x-linux
+%dir /usr/lib/rpm/platform/sh-linux
+%dir /usr/lib/rpm/platform/sh3-linux
+%dir /usr/lib/rpm/platform/sh4-linux
+%dir /usr/lib/rpm/platform/sh4a-linux
+%dir /usr/lib/rpm/platform/sparc-linux
+%dir /usr/lib/rpm/platform/sparc64-linux
+%dir /usr/lib/rpm/platform/sparc64v-linux
+%dir /usr/lib/rpm/platform/sparcv8-linux
+%dir /usr/lib/rpm/platform/sparcv9-linux
+%dir /usr/lib/rpm/platform/sparcv9v-linux
+%dir /usr/lib/rpm/platform/x86_64-linux
 /usr/bin/gendiff
 /usr/bin/rpm
 /usr/bin/rpm2archive
@@ -12,9 +83,6 @@
 /usr/bin/rpmsign
 /usr/bin/rpmspec
 /usr/bin/rpmverify
-%dir /usr/include
-%dir /usr/lib
-%dir /usr/lib/rpm
 /usr/lib/rpm/brp-compress
 /usr/lib/rpm/brp-elfperms
 /usr/lib/rpm/brp-remove-la-files
@@ -27,7 +95,6 @@
 /usr/lib/rpm/check-rpaths
 /usr/lib/rpm/check-rpaths-worker
 /usr/lib/rpm/elfdeps
-%dir /usr/lib/rpm/fileattrs
 /usr/lib/rpm/fileattrs/debuginfo.attr
 /usr/lib/rpm/fileattrs/desktop.attr
 /usr/lib/rpm/fileattrs/elf.attr
@@ -43,148 +110,78 @@
 /usr/lib/rpm/find-provides
 /usr/lib/rpm/find-requires
 /usr/lib/rpm/fontconfig.prov
-%dir /usr/lib/rpm/lua
 /usr/lib/rpm/macros
-%dir /usr/lib/rpm/macros.d
 /usr/lib/rpm/mkinstalldirs
 /usr/lib/rpm/ocamldeps.sh
 /usr/lib/rpm/perl.prov
 /usr/lib/rpm/perl.req
 /usr/lib/rpm/pkgconfigdeps.sh
-%dir /usr/lib/rpm/platform
-%dir /usr/lib/rpm/platform/aarch64-linux
 /usr/lib/rpm/platform/aarch64-linux/macros
-%dir /usr/lib/rpm/platform/alpha-linux
 /usr/lib/rpm/platform/alpha-linux/macros
-%dir /usr/lib/rpm/platform/alphaev5-linux
 /usr/lib/rpm/platform/alphaev5-linux/macros
-%dir /usr/lib/rpm/platform/alphaev56-linux
 /usr/lib/rpm/platform/alphaev56-linux/macros
-%dir /usr/lib/rpm/platform/alphaev6-linux
 /usr/lib/rpm/platform/alphaev6-linux/macros
-%dir /usr/lib/rpm/platform/alphaev67-linux
 /usr/lib/rpm/platform/alphaev67-linux/macros
-%dir /usr/lib/rpm/platform/alphapca56-linux
 /usr/lib/rpm/platform/alphapca56-linux/macros
-%dir /usr/lib/rpm/platform/amd64-linux
 /usr/lib/rpm/platform/amd64-linux/macros
-%dir /usr/lib/rpm/platform/armv3l-linux
 /usr/lib/rpm/platform/armv3l-linux/macros
-%dir /usr/lib/rpm/platform/armv4b-linux
 /usr/lib/rpm/platform/armv4b-linux/macros
-%dir /usr/lib/rpm/platform/armv4l-linux
 /usr/lib/rpm/platform/armv4l-linux/macros
-%dir /usr/lib/rpm/platform/armv5tejl-linux
 /usr/lib/rpm/platform/armv5tejl-linux/macros
-%dir /usr/lib/rpm/platform/armv5tel-linux
 /usr/lib/rpm/platform/armv5tel-linux/macros
-%dir /usr/lib/rpm/platform/armv5tl-linux
 /usr/lib/rpm/platform/armv5tl-linux/macros
-%dir /usr/lib/rpm/platform/armv6hl-linux
 /usr/lib/rpm/platform/armv6hl-linux/macros
-%dir /usr/lib/rpm/platform/armv6l-linux
 /usr/lib/rpm/platform/armv6l-linux/macros
-%dir /usr/lib/rpm/platform/armv7hl-linux
 /usr/lib/rpm/platform/armv7hl-linux/macros
-%dir /usr/lib/rpm/platform/armv7hnl-linux
 /usr/lib/rpm/platform/armv7hnl-linux/macros
-%dir /usr/lib/rpm/platform/armv7l-linux
 /usr/lib/rpm/platform/armv7l-linux/macros
-%dir /usr/lib/rpm/platform/armv8hl-linux
 /usr/lib/rpm/platform/armv8hl-linux/macros
-%dir /usr/lib/rpm/platform/armv8l-linux
 /usr/lib/rpm/platform/armv8l-linux/macros
-%dir /usr/lib/rpm/platform/athlon-linux
 /usr/lib/rpm/platform/athlon-linux/macros
-%dir /usr/lib/rpm/platform/geode-linux
 /usr/lib/rpm/platform/geode-linux/macros
-%dir /usr/lib/rpm/platform/i386-linux
 /usr/lib/rpm/platform/i386-linux/macros
-%dir /usr/lib/rpm/platform/i486-linux
 /usr/lib/rpm/platform/i486-linux/macros
-%dir /usr/lib/rpm/platform/i586-linux
 /usr/lib/rpm/platform/i586-linux/macros
-%dir /usr/lib/rpm/platform/i686-linux
 /usr/lib/rpm/platform/i686-linux/macros
-%dir /usr/lib/rpm/platform/ia32e-linux
 /usr/lib/rpm/platform/ia32e-linux/macros
-%dir /usr/lib/rpm/platform/ia64-linux
 /usr/lib/rpm/platform/ia64-linux/macros
-%dir /usr/lib/rpm/platform/loongarch64-linux
 /usr/lib/rpm/platform/loongarch64-linux/macros
-%dir /usr/lib/rpm/platform/m68k-linux
 /usr/lib/rpm/platform/m68k-linux/macros
-%dir /usr/lib/rpm/platform/mips-linux
 /usr/lib/rpm/platform/mips-linux/macros
-%dir /usr/lib/rpm/platform/mips64-linux
 /usr/lib/rpm/platform/mips64-linux/macros
-%dir /usr/lib/rpm/platform/mips64el-linux
 /usr/lib/rpm/platform/mips64el-linux/macros
-%dir /usr/lib/rpm/platform/mips64r6-linux
 /usr/lib/rpm/platform/mips64r6-linux/macros
-%dir /usr/lib/rpm/platform/mips64r6el-linux
 /usr/lib/rpm/platform/mips64r6el-linux/macros
-%dir /usr/lib/rpm/platform/mipsel-linux
 /usr/lib/rpm/platform/mipsel-linux/macros
-%dir /usr/lib/rpm/platform/mipsr6-linux
 /usr/lib/rpm/platform/mipsr6-linux/macros
-%dir /usr/lib/rpm/platform/mipsr6el-linux
 /usr/lib/rpm/platform/mipsr6el-linux/macros
-%dir /usr/lib/rpm/platform/noarch-linux
 /usr/lib/rpm/platform/noarch-linux/macros
-%dir /usr/lib/rpm/platform/pentium3-linux
 /usr/lib/rpm/platform/pentium3-linux/macros
-%dir /usr/lib/rpm/platform/pentium4-linux
 /usr/lib/rpm/platform/pentium4-linux/macros
-%dir /usr/lib/rpm/platform/ppc-linux
 /usr/lib/rpm/platform/ppc-linux/macros
-%dir /usr/lib/rpm/platform/ppc32dy4-linux
 /usr/lib/rpm/platform/ppc32dy4-linux/macros
-%dir /usr/lib/rpm/platform/ppc64-linux
 /usr/lib/rpm/platform/ppc64-linux/macros
-%dir /usr/lib/rpm/platform/ppc64iseries-linux
 /usr/lib/rpm/platform/ppc64iseries-linux/macros
-%dir /usr/lib/rpm/platform/ppc64le-linux
 /usr/lib/rpm/platform/ppc64le-linux/macros
-%dir /usr/lib/rpm/platform/ppc64p7-linux
 /usr/lib/rpm/platform/ppc64p7-linux/macros
-%dir /usr/lib/rpm/platform/ppc64pseries-linux
 /usr/lib/rpm/platform/ppc64pseries-linux/macros
-%dir /usr/lib/rpm/platform/ppc8260-linux
 /usr/lib/rpm/platform/ppc8260-linux/macros
-%dir /usr/lib/rpm/platform/ppc8560-linux
 /usr/lib/rpm/platform/ppc8560-linux/macros
-%dir /usr/lib/rpm/platform/ppciseries-linux
 /usr/lib/rpm/platform/ppciseries-linux/macros
-%dir /usr/lib/rpm/platform/ppcpseries-linux
 /usr/lib/rpm/platform/ppcpseries-linux/macros
-%dir /usr/lib/rpm/platform/riscv64-linux
 /usr/lib/rpm/platform/riscv64-linux/macros
-%dir /usr/lib/rpm/platform/s390-linux
 /usr/lib/rpm/platform/s390-linux/macros
-%dir /usr/lib/rpm/platform/s390x-linux
 /usr/lib/rpm/platform/s390x-linux/macros
-%dir /usr/lib/rpm/platform/sh-linux
 /usr/lib/rpm/platform/sh-linux/macros
-%dir /usr/lib/rpm/platform/sh3-linux
 /usr/lib/rpm/platform/sh3-linux/macros
-%dir /usr/lib/rpm/platform/sh4-linux
 /usr/lib/rpm/platform/sh4-linux/macros
-%dir /usr/lib/rpm/platform/sh4a-linux
 /usr/lib/rpm/platform/sh4a-linux/macros
-%dir /usr/lib/rpm/platform/sparc-linux
 /usr/lib/rpm/platform/sparc-linux/macros
-%dir /usr/lib/rpm/platform/sparc64-linux
 /usr/lib/rpm/platform/sparc64-linux/macros
-%dir /usr/lib/rpm/platform/sparc64v-linux
 /usr/lib/rpm/platform/sparc64v-linux/macros
-%dir /usr/lib/rpm/platform/sparcv8-linux
 /usr/lib/rpm/platform/sparcv8-linux/macros
-%dir /usr/lib/rpm/platform/sparcv9-linux
 /usr/lib/rpm/platform/sparcv9-linux/macros
-%dir /usr/lib/rpm/platform/sparcv9v-linux
 /usr/lib/rpm/platform/sparcv9v-linux/macros
-%dir /usr/lib/rpm/platform/x86_64-linux
 /usr/lib/rpm/platform/x86_64-linux/macros
 /usr/lib/rpm/rpm.daily
 /usr/lib/rpm/rpm.log
@@ -199,7 +196,6 @@
 /usr/lib/rpm/rpmuncompress
 /usr/lib/rpm/script.req
 /usr/lib/rpm/tgpg
-%dir /usr/lib64
 /usr/lib64/librpm.so.9
 /usr/lib64/librpm.so.9.4.0
 /usr/lib64/librpmbuild.so.9

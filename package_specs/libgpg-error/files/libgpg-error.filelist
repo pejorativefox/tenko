@@ -1,12 +1,10 @@
-%dir /usr/bin
-%dir /usr/include
-%dir /usr/lib64
 %dir /usr/lib64/pkgconfig
-%dir /usr/share
 %dir /usr/share/aclocal
 %dir /usr/share/common-lisp
 %dir /usr/share/common-lisp/source
 %dir /usr/share/common-lisp/source/gpg-error
+%dir /usr/share/doc
+%dir /usr/share/doc/libgpg-error-1.61
 %dir /usr/share/info
 %dir /usr/share/libgpg-error
 %dir /usr/share/locale
@@ -55,7 +53,6 @@
 %dir /usr/share/man
 %dir /usr/share/man/man1
 /usr/bin/gpg-error
-/usr/bin/gpg-error-config
 /usr/bin/gpgrt-config
 /usr/bin/yat2m
 /usr/include/gpg-error.h
@@ -70,6 +67,7 @@
 /usr/share/common-lisp/source/gpg-error/gpg-error-package.lisp
 /usr/share/common-lisp/source/gpg-error/gpg-error.asd
 /usr/share/common-lisp/source/gpg-error/gpg-error.lisp
+/usr/share/doc/libgpg-error-1.61/README
 /usr/share/info/gpgrt.info.gz
 /usr/share/libgpg-error/errorref.txt
 /usr/share/locale/cs/LC_MESSAGES/libgpg-error.mo

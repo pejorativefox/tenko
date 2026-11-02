@@ -1,6 +1,6 @@
 Name:       libxslt
 Version:    1.1.45
-Release:    2
+Release:    3
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -43,6 +43,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.1.45-3
+- Rebuild for Python 3.15 (3.14 site-packages are gone); 0 paths updated.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.1.45-2
 - Split doc, devel payload into libxslt-doc, libxslt-devel (size audit)
 

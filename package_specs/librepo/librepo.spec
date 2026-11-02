@@ -1,6 +1,6 @@
 Name:       librepo
 Version:    1.21.3
-Release:    1
+Release:    2
 Summary:    Library for downloading and reading RPM repository metadata
 License:    LGPL
 Prefix:     /usr
@@ -39,6 +39,10 @@ popd
 %files -f %{_sourcedir}/librepo.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.21.3-2
+- Rebuild for Python 3.15 / the D9 dnf stack refresh (new NEVR so the
+  rebuilt package supersedes the published -1).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.21.3-1
 - Update to 1.21.3 (was 1.15.2) for the E1 dnf/libdnf chain.  librepo is
   not in LFS/BLFS; current libdnf requires >= 1.18.0.

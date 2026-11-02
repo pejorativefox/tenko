@@ -1,6 +1,15 @@
 %dir /usr/share/doc/libxslt
 %dir /usr/share/doc/libxslt/python
 %dir /usr/share/doc/libxslt/python/examples
+%dir /usr/share/doc/libxslt/tutorial
+%dir /usr/share/doc/libxslt/tutorial/images
+%dir /usr/share/doc/libxslt/tutorial/images/callouts
+%dir /usr/share/doc/libxslt/tutorial2
+%dir /usr/share/gtk-doc/html
+%dir /usr/share/gtk-doc/html/libexslt
+%dir /usr/share/gtk-doc/html/libxslt
+%dir /usr/share/man/man1
+%dir /usr/share/man/man3
 /usr/share/doc/libxslt/python/examples/basic.py
 /usr/share/doc/libxslt/python/examples/exslt.py
 /usr/share/doc/libxslt/python/examples/extelem.py
@@ -9,9 +18,6 @@
 /usr/share/doc/libxslt/python/examples/setup_test.py
 /usr/share/doc/libxslt/python/examples/test.xml
 /usr/share/doc/libxslt/python/examples/test.xsl
-%dir /usr/share/doc/libxslt/tutorial
-%dir /usr/share/doc/libxslt/tutorial/images
-%dir /usr/share/doc/libxslt/tutorial/images/callouts
 /usr/share/doc/libxslt/tutorial/images/callouts/1.png
 /usr/share/doc/libxslt/tutorial/images/callouts/10.png
 /usr/share/doc/libxslt/tutorial/images/callouts/2.png
@@ -24,12 +30,9 @@
 /usr/share/doc/libxslt/tutorial/images/callouts/9.png
 /usr/share/doc/libxslt/tutorial/libxslt_tutorial.c
 /usr/share/doc/libxslt/tutorial/libxslttutorial.html
-%dir /usr/share/doc/libxslt/tutorial2
 /usr/share/doc/libxslt/tutorial2/libxslt_pipes.c
 /usr/share/doc/libxslt/tutorial2/libxslt_pipes.html
 /usr/share/doc/libxslt/xsltproc.html
-%dir /usr/share/gtk-doc/html
-%dir /usr/share/gtk-doc/html/libexslt
 /usr/share/gtk-doc/html/libexslt/general.html
 /usr/share/gtk-doc/html/libexslt/home.png
 /usr/share/gtk-doc/html/libexslt/index.html
@@ -40,7 +43,6 @@
 /usr/share/gtk-doc/html/libexslt/right.png
 /usr/share/gtk-doc/html/libexslt/style.css
 /usr/share/gtk-doc/html/libexslt/up.png
-%dir /usr/share/gtk-doc/html/libxslt
 /usr/share/gtk-doc/html/libxslt/general.html
 /usr/share/gtk-doc/html/libxslt/home.png
 /usr/share/gtk-doc/html/libxslt/index.html
@@ -69,8 +71,6 @@
 /usr/share/gtk-doc/html/libxslt/right.png
 /usr/share/gtk-doc/html/libxslt/style.css
 /usr/share/gtk-doc/html/libxslt/up.png
-%dir /usr/share/man/man1
 /usr/share/man/man1/xsltproc.1.gz
-%dir /usr/share/man/man3
 /usr/share/man/man3/libexslt.3.gz
 /usr/share/man/man3/libxslt.3.gz

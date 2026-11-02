@@ -1,11 +1,9 @@
-%dir /usr/include
 %dir /usr/include/libcomps
-%dir /usr/lib64
 %dir /usr/lib64/pkgconfig
-%dir /usr/lib64/python3.14
-%dir /usr/lib64/python3.14/site-packages
-%dir /usr/lib64/python3.14/site-packages/libcomps
-%dir /usr/lib64/python3.14/site-packages/libcomps-0.1.24-py3.14.egg-info
+%dir /usr/lib64/python3.15
+%dir /usr/lib64/python3.15/site-packages
+%dir /usr/lib64/python3.15/site-packages/libcomps
+%dir /usr/lib64/python3.15/site-packages/libcomps-0.1.24-py3.15.egg-info
 /usr/include/libcomps/comps_bradix.h
 /usr/include/libcomps/comps_default.h
 /usr/include/libcomps/comps_dict.h
@@ -34,9 +32,9 @@
 /usr/lib64/libcomps.so
 /usr/lib64/libcomps.so.0
 /usr/lib64/pkgconfig/libcomps.pc
-/usr/lib64/python3.14/site-packages/libcomps-0.1.24-py3.14.egg-info/PKG-INFO
-/usr/lib64/python3.14/site-packages/libcomps-0.1.24-py3.14.egg-info/SOURCES.txt
-/usr/lib64/python3.14/site-packages/libcomps-0.1.24-py3.14.egg-info/dependency_links.txt
-/usr/lib64/python3.14/site-packages/libcomps-0.1.24-py3.14.egg-info/top_level.txt
-/usr/lib64/python3.14/site-packages/libcomps/__init__.py
-/usr/lib64/python3.14/site-packages/libcomps/_libpycomps.so
+/usr/lib64/python3.15/site-packages/libcomps-0.1.24-py3.15.egg-info/PKG-INFO
+/usr/lib64/python3.15/site-packages/libcomps-0.1.24-py3.15.egg-info/SOURCES.txt
+/usr/lib64/python3.15/site-packages/libcomps-0.1.24-py3.15.egg-info/dependency_links.txt
+/usr/lib64/python3.15/site-packages/libcomps-0.1.24-py3.15.egg-info/top_level.txt
+/usr/lib64/python3.15/site-packages/libcomps/__init__.py
+/usr/lib64/python3.15/site-packages/libcomps/_libpycomps.so

@@ -1,4 +1,5 @@
 %dir /usr/include/rpm
+%dir /usr/lib64/pkgconfig
 /usr/include/rpm/argv.h
 /usr/include/rpm/header.h
 /usr/include/rpm/rpmarchive.h
@@ -40,5 +41,4 @@
 /usr/lib64/librpmbuild.so
 /usr/lib64/librpmio.so
 /usr/lib64/librpmsign.so
-%dir /usr/lib64/pkgconfig
 /usr/lib64/pkgconfig/rpm.pc

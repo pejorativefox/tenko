@@ -1,8 +1,8 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:       python
-Version:    3.14.7
-Release:    2
+Version:    3.15.2
+Release:    1
 Summary:    The Python programming language
 License:    GPL3
 Source0:    Python-%{version}.tar.xz
@@ -27,7 +27,7 @@ Requires:   python = %{version}-%{release}
 
 %description tests
 The Python standard library test suite and its data files
-(/usr/lib64/python3.14/test).  It is not needed to run Python programs,
+(/usr/lib64/python3.15/test).  It is not needed to run Python programs,
 to build or to install Python modules, and may be omitted from runtime,
 container and desktop images.
 
@@ -52,7 +52,6 @@ only importable once a Tk-enabled _tkinter is provided.
 
 %prep
 %setup -q -n Python-%{version}
-patch -Np1 -i %{_sourcedir}/Python-3.14.7-openssl_4-1.patch
 
 %build
 %configure  --enable-shared        \
@@ -67,25 +66,38 @@ patch -Np1 -i %{_sourcedir}/Python-3.14.7-openssl_4-1.patch
 %install
 rm -rf %{buildroot}
 %make_install
-# Install pip from the bundled wheel.  ensurepip itself skips this because the
-# build container already has pip in its host site-packages; an explicit
-# --ignore-installed install targets the RPM buildroot instead.
-python3 -m pip install --root=%{buildroot} --prefix=/usr --no-deps \
-    --ignore-installed --force-reinstall \
-    %{buildroot}/usr/lib64/python3.14/ensurepip/_bundled/pip-*.whl
-if [ -d %{buildroot}/usr/lib/python3.14 ]; then
-    mkdir -p %{buildroot}/usr/lib64/python3.14
-    cp -a %{buildroot}/usr/lib/python3.14/. %{buildroot}/usr/lib64/python3.14/
-    rm -rf %{buildroot}/usr/lib/python3.14
+# Install pip from the bundled wheel.  ensurepip is disabled, and the build
+# host's pip may belong to another Python minor version, so unpack the wheel
+# into this Python's site-packages and write the console scripts ourselves.
+pipwheel=$(echo %{buildroot}/usr/lib64/python3.15/ensurepip/_bundled/pip-*.whl)
+mkdir -p %{buildroot}/usr/lib64/python3.15/site-packages
+python3 -m zipfile -e "$pipwheel" %{buildroot}/usr/lib64/python3.15/site-packages
+for pipname in pip pip3 pip3.15; do
+    cat > %{buildroot}/usr/bin/$pipname <<'PIPEOF'
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+import re
+import sys
+from pip._internal.cli.main import main
+if __name__ == "__main__":
+    sys.argv[0] = re.sub(r"(-script\.pyw|\.exe)?$", "", sys.argv[0])
+    sys.exit(main())
+PIPEOF
+    chmod 755 %{buildroot}/usr/bin/$pipname
+done
+if [ -d %{buildroot}/usr/lib/python3.15 ]; then
+    mkdir -p %{buildroot}/usr/lib64/python3.15
+    cp -a %{buildroot}/usr/lib/python3.15/. %{buildroot}/usr/lib64/python3.15/
+    rm -rf %{buildroot}/usr/lib/python3.15
 fi
 rm -vf %{buildroot}%{_infodir}/dir*
-sed -i 's|#!/usr/bin/env python$|#!/usr/bin/env python3|' %{buildroot}/usr/lib64/python3.14/encodings/rot_13.py
-ln -s python3.14 %{buildroot}/usr/bin/python
+sed -i 's|#!/usr/bin/env python$|#!/usr/bin/env python3|' %{buildroot}/usr/lib64/python3.15/encodings/rot_13.py
+ln -s python3.15 %{buildroot}/usr/bin/python
 # CPython's "make install" writes bytecode for optimization levels 0, 1 and 2.
 # The .opt-1/.opt-2 copies are pure duplicates (~106 MB): -O only strips
 # asserts and __debug__ blocks, and Python recompiles them on demand when
 # PYTHONOPTIMIZE is set.  Keep only the level-0 .pyc files.
-find %{buildroot}/usr/lib64/python3.14 \
+find %{buildroot}/usr/lib64/python3.15 \
     \( -name '*.opt-1.pyc' -o -name '*.opt-2.pyc' \) -delete
 
 %files -f %{_sourcedir}/python.filelist
@@ -97,6 +109,9 @@ find %{buildroot}/usr/lib64/python3.14 \
 %files tkinter -f %{_sourcedir}/python-tkinter.filelist
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 3.15.2-1
+- Update to 3.15.2 (current LFS/BLFS r13.1 trunk version).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.14.7-2
 - Drop duplicate .opt-1/.opt-2 bytecode (~106 MB apparent)
 - Split the standard library test suite into python-tests

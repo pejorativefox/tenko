@@ -1,41 +1,38 @@
-%dir /usr/lib
-%dir /usr/lib64
-%dir /usr/lib64/python3.14
-%dir /usr/lib64/python3.14/site-packages
-%dir /usr/lib64/python3.14/site-packages/xcbgen
-/usr/lib64/python3.14/site-packages/xcbgen/__init__.py
-%dir /usr/lib64/python3.14/site-packages/xcbgen/__pycache__
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/__init__.cpython-314.opt-1.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/__init__.cpython-314.opt-2.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/__init__.cpython-314.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/align.cpython-314.opt-1.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/align.cpython-314.opt-2.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/align.cpython-314.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/error.cpython-314.opt-1.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/error.cpython-314.opt-2.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/error.cpython-314.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/expr.cpython-314.opt-1.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/expr.cpython-314.opt-2.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/expr.cpython-314.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/matcher.cpython-314.opt-1.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/matcher.cpython-314.opt-2.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/matcher.cpython-314.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/state.cpython-314.opt-1.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/state.cpython-314.opt-2.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/state.cpython-314.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/xtypes.cpython-314.opt-1.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/xtypes.cpython-314.opt-2.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/__pycache__/xtypes.cpython-314.pyc
-/usr/lib64/python3.14/site-packages/xcbgen/align.py
-/usr/lib64/python3.14/site-packages/xcbgen/error.py
-/usr/lib64/python3.14/site-packages/xcbgen/expr.py
-/usr/lib64/python3.14/site-packages/xcbgen/matcher.py
-/usr/lib64/python3.14/site-packages/xcbgen/state.py
-/usr/lib64/python3.14/site-packages/xcbgen/xtypes.py
-%dir /usr/share
+%dir /usr/lib64/python3.15
+%dir /usr/lib64/python3.15/site-packages
+%dir /usr/lib64/python3.15/site-packages/xcbgen
+%dir /usr/lib64/python3.15/site-packages/xcbgen/__pycache__
 %dir /usr/share/pkgconfig
-/usr/share/pkgconfig/xcb-proto.pc
 %dir /usr/share/xcb
+/usr/lib64/python3.15/site-packages/xcbgen/__init__.py
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/__init__.cpython-315.opt-1.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/__init__.cpython-315.opt-2.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/align.cpython-315.opt-1.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/align.cpython-315.opt-2.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/align.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/error.cpython-315.opt-1.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/error.cpython-315.opt-2.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/error.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/expr.cpython-315.opt-1.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/expr.cpython-315.opt-2.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/expr.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/matcher.cpython-315.opt-1.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/matcher.cpython-315.opt-2.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/matcher.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/state.cpython-315.opt-1.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/state.cpython-315.opt-2.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/state.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/xtypes.cpython-315.opt-1.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/xtypes.cpython-315.opt-2.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/__pycache__/xtypes.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/xcbgen/align.py
+/usr/lib64/python3.15/site-packages/xcbgen/error.py
+/usr/lib64/python3.15/site-packages/xcbgen/expr.py
+/usr/lib64/python3.15/site-packages/xcbgen/matcher.py
+/usr/lib64/python3.15/site-packages/xcbgen/state.py
+/usr/lib64/python3.15/site-packages/xcbgen/xtypes.py
+/usr/share/pkgconfig/xcb-proto.pc
 /usr/share/xcb/bigreq.xml
 /usr/share/xcb/composite.xml
 /usr/share/xcb/damage.xml
