@@ -1,4 +1,3 @@
-%dir /usr/include
 %dir /usr/include/librsvg-2.0
 %dir /usr/include/librsvg-2.0/librsvg
 %dir /usr/lib64/pkgconfig

@@ -148,8 +148,8 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 - Version parity: D9 (2026-11-02) re-baselined the published tree to the
   current LFS/BLFS trunk (LFS trunk last updated 2026-10-31, BLFS 2026-11-01).
   The audit of the published metadata (`audit_versions.py --primary`, 620
-  RPMs) now reports **2 packages below the books**, 275 current and 1 newer;
-  the two are cargo-c and librsvg, both waiting on a Rust toolchain.
+  RPMs) now reports **no packages below the books**, 277 current and 1
+  newer (xml-parser 2.59 vs the book's 2.57).
   `lfs.lock` was regenerated from trunk (`581459fa`);
   `sync_lfs_spec.py --all-base` reports 80/80.
 - `bbuild` cleanup: exit codes, ORDER-only `all`, NEVRA conflict refusal,
@@ -272,9 +272,9 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       working perl in the image (its doc scripts call perl), so the fixed
       perl 5.44.0-4 was staged into that container.
 - [x] **D9. Re-baseline the published tree to the moved books.**  Done
-      2026-11-02, except the two Rust-only packages.  The 52/593 audit at the
-      start of the day is now 2/620.  D1, D2, D6 and D8 cleared six of them;
-      this wave rebuilt the other 44 in three batches:
+      2026-11-02.  The 52/593 audit at the start of the day is now 0/620.
+      D1, D2, D6 and D8 cleared six of them; this wave rebuilt the other 44
+      in three batches:
       - Runtime layer: linux-api-headers 7.3.1, coreutils 9.12, expat 2.9.0,
         pcre2 10.49, openssl 4.1.0 (SHLIB_VERSION stays 4, so the
         libssl.so.4/libcrypto.so.4 ABI is unchanged), kmod 34.3, elfutils
@@ -296,10 +296,14 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
         libmodulemd were rebuilt as `-2` so the new NEVRs supersede the
         published `-1` builds, and libgpg-error 1.61 + libassuan 3.0.2 (BLFS
         r13.1) are new specs needed by gpgme.
-      The 2026-11-02 re-audit reports **275 current, 1 newer and 2 below**:
-      cargo-c 0.10.26 and librsvg 2.63.4, both Rust builds blocked by the
-      missing Rust toolchain (D6 skipped librsvg for the same reason).  All
-      SONAMEs are unchanged, so the wave did not force a tree-wide rebuild.
+      The 2026-11-02 re-audit reports **277 current, 1 newer and nothing
+      below** the books.  The last two needed Rust: the published `rust`
+      1.99.0 binary package plus cargo-c 0.10.26 and librsvg 2.63.4, both
+      with freshly generated vendored-crate tarballs for offline builds
+      (normalized to root ownership so container extraction stays clean).
+      `rsvg-convert` renders a test SVG, the gdk-pixbuf SVG loader installs,
+      and both keep their SONAMEs.  All SONAMEs across the wave are unchanged,
+      so it did not force a tree-wide rebuild.
       Verified on a clean container: OpenSSL 4.1.0, systemd 262, Python 3.15.2
       with pip, g-ir-scanner 1.86.0, and dnf 4.24.0 resolving from the
       published repo through the rebuilt rpm/hawkey/libdnf bindings.

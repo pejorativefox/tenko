@@ -1,6 +1,6 @@
 Name:       librsvg
-Version:    2.63.2
-Release:    2
+Version:    2.63.4
+Release:    1
 Summary:    SVG rendering library
 License:    LGPL-2.1-or-later
 Prefix:     /usr
@@ -91,6 +91,11 @@ fi
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.63.4-1
+- Update to 2.63.4 (current BLFS r13.1 trunk).  Vendor tarball regenerated
+  from the shipped Cargo.lock now that the Rust 1.99.0 toolchain and
+  cargo-c 0.10.26 are available.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.63.2-2
 - Refresh the gdk-pixbuf loader cache in %post/%postun so the SVG loader
   is usable without rebuilding gdk-pixbuf
