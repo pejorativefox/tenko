@@ -77,25 +77,26 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 
 ### A. Blocked on a decision from the user
 
-- [ ] **A1. Installer ISO tooling.** `squashfs-tools`, `mtools`, `syslinux`
-      and `busybox` are not in LFS/BLFS; `efivar` and `xorriso` are below the
-      book.  Decide: build them as approved exceptions, use another live-media
-      approach, or defer the ISO.
-- [ ] **A2. Storage stack.** `cryptsetup`, `lvm2` and `mdadm` were deferred.
-      dracut already supports LUKS/LVM/RAID roots, but the userspace tools are
-      not packaged, so those roots cannot be set up after install.
-- [ ] **A3. SVG icons.** `gdk-pixbuf` has glycin disabled and `librsvg` is
-      absent, so SVG icons/wallpapers do not render.  `librsvg` needs a Rust
-      toolchain (we only ship the `/opt` binary distribution).  Decide whether
-      to build Rust from source or accept PNG-only icons.
+- [ ] **A1. Installer ISO tooling — decided.**  UEFI-only live media.
+      `xorriso` comes from the book's **libisoburn 1.5.8.pl02** (plus
+      libisofs/libburn 1.5.8.pl02); `squashfs-tools` and `mtools` are
+      approved exceptions (not in LFS/BLFS).  No syslinux/busybox: GRUB and
+      dracut cover boot and initramfs.  `efivar` is bumped to the book's 39.
+- [ ] **A2. Storage stack — decided.**  Package all three at the book
+      versions: `cryptsetup` 2.8.8, `lvm2` 2.03.42, `mdadm` 4.6.
+      dracut already supports LUKS/LVM/RAID roots; these add the userspace
+      tools for the installer and post-install management.
+- [ ] **A3. SVG icons — decided.**  Build `librsvg` 2.63.2 using the
+      shipped `/opt` Rust 1.99.0, with the crates vendored into the source
+      tarball so the build stays offline.  No Rust-from-source build.
 - [x] **A4. `xf86-video-amdgpu` 23.0.0.**  Merged from `amdgpu-driver`
       (`a26999b`, cherry-picked as `298724b`), rebuilt with the static
       filelist and published.  Deliberately **not** in any meta: not every
       system needs it, so AMD users install it explicitly
       (`dnf install xf86-video-amdgpu`).
-- [ ] **A5. Retire `system-minimal`?** It is legacy (its five broken requires
-      are fixed so it installs again), but `browneye-base` /
-      `browneye-base-runtime` supersede it.  Delete it or leave it as-is.
+- [x] **A5. Retire `system-minimal`.**  Deleted; `browneye-base` /
+      `browneye-base-runtime` supersede it.  The two legacy scripts now
+      reference `browneye-base`.
 
 ### B. Self-hosting
 
@@ -140,8 +141,8 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       uses `/usr/lib64`; `xorg-server` needs `-Wl,-rpath-link,/usr/lib` and
       image builds patch `/etc/ld.so.conf`.  Build with
       `LLVM_LIBDIR_SUFFIX=64` (or move `libLLVM`) and drop the workarounds.
-- [ ] **D3. Sign the repository.**  It is unsigned (`gpgcheck=0`); a signing
-      key and `repo_gpgcheck` path are needed.
+- [ ] **D3. Sign the repository.**  Deferred by decision (2026-11-02): the
+      tree stays unsigned with `gpgcheck=0` for now.
 - [x] **D4. Auto-generate `browneye-base` requires.**  The ~100
       `Requires:` lines are now generated: `scripts/gen_base_requires.py`
       expands `lfs.lock` `base_packages` through its alias map, splits
@@ -281,6 +282,11 @@ removed is reproducible from `container-rebuild-*` / `verify_base_in_container.s
 | D32 | Locales | curated `glibc-locales` archive + full `-extra` |
 | D33 | QEMU test GPU | `virtio-vga-gl` + `gtk,gl=on`; VNC/headless falls back to 2D |
 | D34 | Firefox | `firefox-bin` **159.0**, official build under `/opt/firefox` (approved binary repackage) |
+| D35 | Installer media | **UEFI-only**; xorriso from libisoburn 1.5.8.pl02, squashfs-tools + mtools as exceptions; no syslinux/busybox |
+| D36 | Storage tools | `cryptsetup` 2.8.8, `lvm2` 2.03.42, `mdadm` 4.6 (LUKS/LVM/RAID) |
+| D37 | SVG | `librsvg` 2.63.2 built with `/opt` Rust 1.99.0 and vendored crates, offline |
+| D38 | Users | Ship `sudo` and let the installer create an admin user in `wheel` |
+| D39 | Repo signing | **Deferred**: unsigned repo (`gpgcheck=0`) for now |
 
 Consequences already implemented: `package_specs/ORDER` is the chapter-8
 systemd order; `browneye-basefs` owns `/bin /lib /lib64 /sbin`; `browneye-release`
