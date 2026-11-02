@@ -1,10 +1,11 @@
 Name:       libepoxy
 Version:    1.5.10
-Release:    2
+Release:    3
 Summary:    OpenGL function management
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: mesa-devel
 
 
 %description
@@ -40,6 +41,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.5.10-3
+- Declare BuildRequires: mesa-devel.  libepoxy's meson needs the GL/EGL
+  headers to enable its GLX/EGL entry points; without the declaration the
+  build silently used whatever headers happened to be in the image.
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.5.10-2
 - Split devel payload into libepoxy-devel (size audit)
 

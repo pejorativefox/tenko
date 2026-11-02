@@ -1,6 +1,6 @@
 Name:       xfce4-terminal
 Version:    1.2.0
-Release:    2
+Release:    3
 Summary:    Xfce terminal emulator
 License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
@@ -35,7 +35,7 @@ pushd build
 meson setup ..            \
       --prefix=/usr       \
       --buildtype=release \
-      -Ddoc=false
+      -Ddoc=true
 ninja
 popd
 
@@ -50,10 +50,13 @@ popd
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.2.0-3
+- Build the man page: -Ddoc=true, now that docbook-xml 4.5 and
+  docbook-xsl-nons 1.79.2 are packaged with working XML catalogs.
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.0-2
 - Split lang payload into xfce4-terminal-lang (size audit)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.0
 - Initial RPM, synced with BLFS r13.1 (xfce4-terminal 1.2.0)
-- Build with -Ddoc=false: the man page needs docbook-xsl-nons, which is
+- Build with -Ddoc=true: the man page needs docbook-xsl-nons, which is
   not installed in the build image; the terminal itself is unaffected

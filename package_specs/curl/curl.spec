@@ -1,6 +1,6 @@
 Name:       curl
-Version:    8.22.0
-Release:    2
+Version:    8.23.0
+Release:    1
 Summary:    TODO
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -27,7 +27,7 @@ Development files for curl.
 %setup -q -a0
 
 %build
-%configure --disable-static --with-openssl --with-ca-path=/etc/ssl/certs --without-libpsl
+%configure --disable-static --with-openssl --with-ca-path=/etc/ssl/certs
 %make_build
 
 %install    
@@ -41,6 +41,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 8.23.0-1
+- Update to 8.23.0 (BLFS r13.1 trunk).
+- Enable Public Suffix List support: libpsl 0.23.3 (with libidn2 2.3.8 and
+  libunistring 1.5) is now packaged, so drop --without-libpsl.  BLFS notes
+  that building without libpsl has severe security implications for cookie
+  and HSTS domain scoping.
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 8.22.0-2
 - Split doc, devel payload into curl-doc, curl-devel (size audit)
 

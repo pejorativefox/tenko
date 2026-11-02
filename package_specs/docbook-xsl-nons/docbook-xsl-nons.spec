@@ -1,11 +1,12 @@
 Name:       docbook-xsl-nons
 Version:    1.79.2
-Release:    1
+Release:    2
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 Patch:     docbook-xsl-nons-1.79.2-stack_fix-1.patch
+Requires:   libxml2
 
 %description
 TODO
@@ -35,6 +36,36 @@ install -v -m644 -D README \
 install -v -m644    RELEASE-NOTES* NEWS* \
                     %{buildroot}/usr/share/doc/docbook-xsl-nons-1.79.2
 
+
+
+%post
+mkdir -p /etc/xml
+if [ ! -e /etc/xml/catalog ]; then
+    xmlcatalog --noout --create /etc/xml/catalog
+fi
+for uri in http://cdn.docbook.org/release/xsl-nons/1.79.2 \
+           https://cdn.docbook.org/release/xsl-nons/1.79.2 \
+           http://cdn.docbook.org/release/xsl-nons/current \
+           https://cdn.docbook.org/release/xsl-nons/current \
+           http://docbook.sourceforge.net/release/xsl/current; do
+    for rewrite in System URI; do
+        xmlcatalog --noout --add "rewrite$rewrite" "$uri" \
+            "/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2" /etc/xml/catalog
+    done
+done
+
+%postun
+if [ "$1" -eq 0 ]; then
+    for uri in http://cdn.docbook.org/release/xsl-nons/1.79.2 \
+               https://cdn.docbook.org/release/xsl-nons/1.79.2 \
+               http://cdn.docbook.org/release/xsl-nons/current \
+               https://cdn.docbook.org/release/xsl-nons/current \
+               http://docbook.sourceforge.net/release/xsl/current; do
+        for rewrite in System URI; do
+            xmlcatalog --noout --del "rewrite$rewrite" "$uri" /etc/xml/catalog || :
+        done
+    done
+fi
 
 %files
 /usr/share/doc/docbook-xsl-nons-1.79.2/NEWS
@@ -1877,5 +1908,9 @@ install -v -m644    RELEASE-NOTES* NEWS* \
 /usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2/xhtml5/xhtml2xhtml5.xsl
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.79.2-2
+- Install the XML catalog rewrites (cdn.docbook.org and
+  docbook.sourceforge.net) that the BLFS page wires up, so xsltproc --nonet
+  can find docbook.xsl.  This is what xfce4-terminal's man page needs (D8).
 # let's skip this for now
 
