@@ -1,6 +1,6 @@
 Name:       harfbuzz
 Version:    14.5.0
-Release:    2
+Release:    3
 Summary:    Text shaping engine
 License:    GPL3
 Prefix:     /usr
@@ -11,6 +11,7 @@ The HarfBuzz package contains an OpenType text shaping engine.
 
 %package devel
 Summary:    harfbuzz development files
+Requires:   %{name}-gir = %{version}-%{release}
 Requires:   harfbuzz = %{version}-%{release}
 Provides: pkgconfig(harfbuzz)
 
@@ -38,11 +39,25 @@ DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
+
+%package gir
+Summary:    GObject Introspection data for harfbuzz
+License:    GPL3
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for harfbuzz, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
 %files -f %{_sourcedir}/harfbuzz.filelist
 %files devel -f %{_sourcedir}/harfbuzz-devel.filelist
+%files gir -f %{_sourcedir}/harfbuzz-gir.filelist
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 14.5.0-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 14.5.0-2
 - Split devel payload into harfbuzz-devel (size audit)
 

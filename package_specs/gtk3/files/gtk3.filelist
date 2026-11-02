@@ -14,10 +14,6 @@
 /usr/bin/gtk3-widget-factory
 %dir /usr/include
 %dir /usr/lib64
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/Gdk-3.0.typelib
-/usr/lib64/girepository-1.0/GdkX11-3.0.typelib
-/usr/lib64/girepository-1.0/Gtk-3.0.typelib
 %dir /usr/lib64/gtk-3.0
 %dir /usr/lib64/gtk-3.0/3.0.0
 %dir /usr/lib64/gtk-3.0/3.0.0/immodules

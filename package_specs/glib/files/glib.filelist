@@ -21,14 +21,6 @@
 %dir /usr/lib64
 %dir /usr/lib64/gio
 %dir /usr/lib64/gio/modules
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/GIRepository-3.0.typelib
-/usr/lib64/girepository-1.0/GLib-2.0.typelib
-/usr/lib64/girepository-1.0/GLibUnix-2.0.typelib
-/usr/lib64/girepository-1.0/GModule-2.0.typelib
-/usr/lib64/girepository-1.0/GObject-2.0.typelib
-/usr/lib64/girepository-1.0/Gio-2.0.typelib
-/usr/lib64/girepository-1.0/GioUnix-2.0.typelib
 %dir /usr/lib64/glib-2.0
 %dir /usr/lib64/glib-2.0/include
 /usr/lib64/glib-2.0/include/glibconfig.h

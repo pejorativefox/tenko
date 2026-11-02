@@ -1,6 +1,6 @@
 Name:       gobject-introspection
 Version:    1.86.0
-Release:    1
+Release:    2
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -27,9 +27,23 @@ DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
+
+%package gir
+Summary:    GObject Introspection data for gobject-introspection
+License:    GPL3
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for gobject-introspection.  g-ir-scanner works
+without this package (it reads the .gir XML); g-ir-inspect and
+language bindings need it.
+
 %files -f %{_sourcedir}/gobject-introspection.filelist
+%files gir -f %{_sourcedir}/gobject-introspection-gir.filelist
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.86.0-2
+- Split the GObject Introspection typelibs into %{name}-gir
 # let's skip this for now
 

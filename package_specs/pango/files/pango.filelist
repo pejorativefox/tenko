@@ -4,13 +4,6 @@
 /usr/bin/pango-view
 %dir /usr/include
 %dir /usr/lib64
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/Pango-1.0.typelib
-/usr/lib64/girepository-1.0/PangoCairo-1.0.typelib
-/usr/lib64/girepository-1.0/PangoFT2-1.0.typelib
-/usr/lib64/girepository-1.0/PangoFc-1.0.typelib
-/usr/lib64/girepository-1.0/PangoOT-1.0.typelib
-/usr/lib64/girepository-1.0/PangoXft-1.0.typelib
 /usr/lib64/libpango-1.0.so.0
 /usr/lib64/libpango-1.0.so.0.5800.2
 /usr/lib64/libpangocairo-1.0.so.0
