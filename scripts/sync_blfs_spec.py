@@ -55,6 +55,7 @@ UTIL_PACKAGES = {"bdftopcf": "util"}
 BOOK_FILES = [
     "x/installing/x7app.xml",
     "x/installing/x7lib.xml",
+    "x/installing/x7font.xml",
     "x/installing/x7legacy.xml",
     "x/installing/xbitmaps.xml",
     "x/installing/xcursor-themes.xml",
@@ -96,6 +97,16 @@ META = {
     "xsetroot": ("Set the X11 root window background and cursor", "MIT"),
     "xvinfo": ("Query the X11 Video extension (Xv)", "MIT"),
     "xwud": ("Display an X11 image dumped by xwd", "MIT"),
+    "font-adobe-utopia-type1": ("Adobe Utopia Type1 fonts for X11", "MIT"),
+    "font-bh-type1": ("Bigelow & Holmes Type1 fonts for X11", "MIT"),
+    "font-ibm-type1": ("IBM Type1 fonts for X11", "MIT"),
+    "font-misc-ethiopic": ("Unicode Ethiopic fonts (Abyssinica SIL-based)", "MIT"),
+    "font-xfree86-type1": ("CrossUnicode Type1 fonts for X11", "MIT"),
+    "font-ttf-unifont": ("GNU Unifont: bitmap+outline coverage of the Unicode code points", "OFL"),
+    "font-terminus": ("Terminus console bitmap + TTF font family", "OFL"),
+    "font-ubuntu-font-family": ("Ubuntu UI font family (TTF)", "NASA-Ubuntu-1.3"),
+    "font-siji": ("A bitmap icon font for terminal fonts", "WTFPL"),
+    "font-noto-cjk": ("Noto Sans/Serif CJK variable fonts", "OFL"),
 }
 
 
@@ -135,6 +146,9 @@ def book_entry(pkg, ents):
                .format(stem, version))
     elif pkg in ("xbitmaps", "xcursor-themes"):
         url = ("https://www.x.org/pub/individual/data/{}-{}.tar.xz"
+               .format(pkg, version))
+    elif pkg.startswith("font-"):
+        url = ("https://www.x.org/pub/individual/font/{}-{}.tar.xz"
                .format(pkg, version))
     elif pkg in UTIL_PACKAGES:
         url = ("https://www.x.org/pub/individual/util/{}-{}.tar.xz"
