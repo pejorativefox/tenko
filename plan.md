@@ -65,6 +65,13 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 - proxychains-ng 4.17 (not in LFS/BLFS; user-approved upstream exception):
   LD_PRELOAD TCP redirector with `/etc/proxychains.conf`, `proxychains4` and
   `proxychains4-daemon`.  Rebuild with the same `PHASE=proxy` run.
+- htop 3.5.3 (not in LFS/BLFS; user-approved upstream exception), replacing
+  the 3.2.2 spec from 2023.  Built offline in a podman container from a
+  rootfs installed out of the Browneye repo (`browneye-base` + gcc, make,
+  ncurses-devel, rpm), with capabilities, delay accounting, sensors and
+  hwloc disabled because the base system has no libcap/libnl/lm_sensors/hwloc
+  development files.  The payload is unchanged: `htop`, desktop entry, man
+  page, pixmap and scalable icon.
 
 **Installer (UEFI)**
 - `scripts/build_iso_uefi.sh` builds a 1.0 GB UEFI ISO: zstd squashfs live
@@ -105,9 +112,13 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 - `bbuild` cleanup: exit codes, ORDER-only `all`, NEVRA conflict refusal,
   atomic source staging, repo-aware read-only query, 56 tests; legacy
   duplicate scripts removed.
-- Published: **551 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>.
+- Published: **552 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>.
   A remote `dnf install` resolves `browneye-base xfce-desktop` (212 pkgs) and
   `browneye-build` (62 pkgs); `ncat` and `pasta` resolve from the same repo.
+  htop 3.5.3-1 and podman-bin 6.1.4-2 were published with
+  `scripts/publish_rpm.sh`; `podman-bin` no longer ships `/etc/subuid` and
+  `/etc/subgid` (they belong to `browneye-sysconfig`, and shipping both made
+  the package uninstallable).
 
 ---
 
@@ -188,6 +199,8 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
 │   ├── verify_base_in_container.sh   # 93-spec offline rebuild
 │   ├── bootstrap_selfhosted.sh       # repo + rootfs + image
 │   ├── assemble_repo.sh / publish_repo.sh
+│   ├── publish_rpm.sh                # update the repo with single RPMs
+│   ├── gen_repo_index.py             # package index.html from a listing
 │   ├── make_iso_repo.sh              # pruned on-ISO repo
 │   ├── build_iso_uefi.sh             # UEFI live/installer ISO
 │   ├── qemu_test_installer.sh        # OVMF boot + screendump
@@ -324,6 +337,10 @@ cp ~/rpmbuild/RPMS/x86_64/*.rpm build/rpm-staging/   # + wave worktree RPMs
 ./scripts/assemble_repo.sh
 RSYNC_OPTS=-c ./scripts/publish_repo.sh
 
+# publish a single package without mirroring the whole repo
+./scripts/publish_rpm.sh ~/rpmbuild/RPMS/x86_64/htop-3.5.3-1.x86_64.rpm
+PRUNE=1 ./scripts/publish_rpm.sh podman-bin-6.1.4-2.x86_64.rpm  # drop superseded
+
 # installer ISO (UEFI, live root + pruned repo)
 ./scripts/make_iso_repo.sh              # refresh build/iso-repo
 ./scripts/build_iso_uefi.sh             # full clean build (1.0 GB)
@@ -343,6 +360,12 @@ Notes: `--jobs` parallelises package builds (auto 8); each `rpmbuild` gets
 `-j16` from the macros; downloads are 12-way.  `publish_repo.sh` prunes to the
 newest RPM per package and rsyncs with `--delete` to
 `tomfool8@192.200.112.194:public_html/browneye/packages/13.1/` (port 53211).
+`publish_rpm.sh` is the single-package counterpart: it downloads only
+`repodata/`, merges the new RPMs in with `mergerepo_c --method nvr`,
+refuses to upload if the merged set would be smaller than the published one,
+and regenerates `index.html` from the server's own file listing (so no local
+repo tree is needed).  `PRUNE=1` additionally deletes RPM files the merged
+metadata no longer references.
 `bootstrap_selfhosted.sh` refuses to run if any status file says `fail`.
 RPMs built in a per-wave worktree **must** be copied into `build/rpm-staging`
 before `assemble_repo.sh` (or passed via `EXTRA_RPM_DIRS`), otherwise they are
