@@ -20,7 +20,11 @@
 # Environment:
 #   REPO_URL   published repo (default: the Browneye 13.1 repo)
 #   IMAGE      image tag (default: localhost/browneye/base:r13.1-YYYYMMDD)
-#   PACKAGES   packages to install (default: browneye-base browneye-build)
+#   PACKAGES   packages to install (default: browneye-base browneye-build
+#              plus DEVEL_PACKAGES)
+#   DEVEL_PACKAGES  header packages needed to rebuild the base set inside the
+#              image (default: ncurses/readline/xz/pam/elfutils/perl/tcl/
+#              e2fsprogs -devel)
 #   ROOTFS     staging rootfs directory (default: build/base-rootfs)
 #   TARBALL    exported tarball (default: build/base-rootfs.tar.gz)
 #   FROM_TARBALL  import this tarball instead of running dnf
@@ -32,7 +36,9 @@ cd "$(dirname "$0")/.."
 DATE=${DATE:-$(date +%Y%m%d)}
 REPO_URL=${REPO_URL:-https://tomfool.8bit.ca/browneye/packages/13.1/}
 IMAGE=${IMAGE:-localhost/browneye/base:r13.1-$DATE}
-PACKAGES=${PACKAGES:-browneye-base browneye-build}
+DEVEL_PACKAGES=${DEVEL_PACKAGES:-ncurses-devel readline-devel xz-devel \
+    linux-pam-devel elfutils-devel perl-devel tcl-devel e2fsprogs-devel}
+PACKAGES=${PACKAGES:-browneye-base browneye-build $DEVEL_PACKAGES}
 ROOTFS=${ROOTFS:-build/base-rootfs}
 TARBALL=${TARBALL:-build/base-rootfs.tar.gz}
 FROM_TARBALL=${FROM_TARBALL:-}

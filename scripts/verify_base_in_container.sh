@@ -58,6 +58,17 @@ PY
 
 cat "$OUT/packages.txt"
 
+# rpmbuild reads %{_sourcedir}; stage the per-spec helper files (patches,
+# unit files, macros, root-password, and the static %files lists) next to the
+# tarballs so the container needs only one /sources mount.
+staged=0
+for f in package_specs/*/files/*; do
+    [ -f "$f" ] || continue
+    cp -f "$f" "$HOME/rpmbuild/SOURCES/"
+    staged=$((staged + 1))
+done
+echo "staged $staged spec-side files into $HOME/rpmbuild/SOURCES"
+
 podman run --rm --network=none \
     -e JOBS="$JOBS" -e MAKE_JOBS="$MAKE_JOBS" \
     -v "$PWD/package_specs:/specs:ro,z" \
