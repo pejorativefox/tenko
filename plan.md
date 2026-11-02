@@ -216,8 +216,19 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       those separately (LLVM itself is current at 23.1.0).
 - [ ] **D3. Sign the repository.**  Deferred by decision: the tree stays
       unsigned (`gpgcheck=0`, `repo_gpgcheck=0`).
-- [ ] **D6. Optional `-gir` splits.**  The last unapplied size lever from the
-      desktop split wave.
+- [x] **D6. Optional `-gir` splits.**  The last unapplied size lever from the
+      desktop split wave.  Done for glib, gobject-introspection, pango,
+      harfbuzz, at-spi2-core and gtk+ (published), and for gdk-pixbuf,
+      libgudev, libnotify, polkit, upower, libwnck, libxklavier,
+      libxfce4windowing, garcon, libxfce4ui, libxfce4util, thunar,
+      xfce4-panel and xfconf (typelibs were in the runtime package) plus
+      accountsservice and lightdm (upstream installs theirs into `-devel`).
+      `librsvg` is skipped: its typelib is built by the Rust code and this
+      host has no Rust toolchain.  Each split moves only
+      `/usr/lib64/girepository-1.0/*.typelib` (and the `%dir`) into
+      `<name>-gir`; the `.gir` XML stays in `-devel`, which requires the new
+      subpackage.  Filelist unions are unchanged except polkit's three new
+      translations below.
 - [ ] **D7. Spec-only specs below the books (~109 after the 2026-11-02
       audit; ~69 when the X11 client-utilities wave was written).**  They only
       matter if they are ever built; update the chain first if so.  (`unzip`
@@ -241,7 +252,9 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       xorg-server and xorgproto.  Several are ABI-level jumps (systemd 262,
       python 3.15, openssl 4.1, grub 2.16), so this is a wave of its own:
       bump the specs, check the dependency chain, rebuild and republish.
-      sqlite (D1) and xorg-server (D2) are already done, leaving 50.  The next
+      sqlite (D1) and xorg-server (D2) are already done, and libnotify 0.8.9,
+      polkit 128 and upower 1.91.5 were rebuilt with the D6 `-gir` split,
+      leaving 47.  The next
       obvious block is the toolchain/runtime layer (systemd 262, python 3.15,
       openssl 4.1, coreutils, expat, libarchive, elfutils, util-linux, kmod)
       because the rest links against it.  `xml-parser` 2.59 is *newer* than
