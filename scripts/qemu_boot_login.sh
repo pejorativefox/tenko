@@ -31,6 +31,7 @@ SKIP_INSTALL=${SKIP_INSTALL:-0}
 BUILD_ONLY=${BUILD_ONLY:-0}
 EXTRA_PACKAGES=${EXTRA_PACKAGES:-}
 EXTRA_RPMS=${EXTRA_RPMS:-}
+TEST_USER=${TEST_USER:-}
 WAIT_BOOT=${WAIT_BOOT:-40}
 WAIT_GREETER=${WAIT_GREETER:-45}
 TEST_PASSWORD=${TEST_PASSWORD:-browneye1}
@@ -85,6 +86,12 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     for d in var/lib/lightdm var/lib/lightdm-data var/cache/lightdm var/log/lightdm; do
         [ -d "$ROOTFS/$d" ] && chmod -R a+rwX "$ROOTFS/$d"
     done
+
+    if [ -n "$TEST_USER" ]; then
+        # A normal (UID >= 1000) account gives AccountsService something to
+        # show in the greeter's user list.
+        unshare -r chroot "$ROOTFS" /usr/sbin/useradd -m -c "Test User" "$TEST_USER" || true
+    fi
 
     # Root must stay locked so browneye-firstboot prompts on first boot.
     if unshare -r chroot "$ROOTFS" passwd -S root 2>/dev/null | grep -q '^root P'; then
