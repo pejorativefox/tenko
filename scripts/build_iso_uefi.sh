@@ -149,7 +149,7 @@ podman exec "$TOOLS" xorrisofs \
     -volid "$ISO_LABEL" \
     -J -R \
     -e boot/efiboot.img -no-emul-boot \
-    -append_partition 2 0xef boot/efiboot.img \
+    -append_partition 2 0xef /work/iso-stage/boot/efiboot.img \
     -isohybrid-gpt-basdat \
     /work/iso-stage
 
