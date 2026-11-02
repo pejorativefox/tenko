@@ -59,6 +59,16 @@ if [ "$SKIP_LIVE" != "1" ]; then
         unshare -r chroot "$LIVE" /usr/bin/systemctl --root=/ set-default multi-user.target || true
     fi
 
+    # The rootfs was assembled without scriptlets, so materialize the baseline
+    # accounts (root, nobody, system users) exactly like rootfs_finalize does.
+    if [ -x "$LIVE/usr/bin/systemd-sysusers" ]; then
+        unshare -r chroot "$LIVE" /usr/bin/systemd-sysusers || true
+    fi
+    if [ ! -e "$LIVE/etc/shadow" ] && [ -x "$LIVE/usr/sbin/pwconv" ]; then
+        unshare -r chroot "$LIVE" /usr/sbin/pwconv || true
+        unshare -r chroot "$LIVE" /usr/sbin/grpconv || true
+    fi
+
     # Throwaway console password for debugging the live session only.
     hash=$(openssl passwd -6 live)
     unshare -r sed -i "s|^root:[^:]*:|root:${hash}:|" "$LIVE/etc/shadow"
@@ -124,8 +134,11 @@ unshare -r cp "$LIVE/tmp/BOOTX64.EFI" "$STAGE/boot/BOOTX64.EFI"
 
 echo "building the El Torito EFI image"
 rm -f "$STAGE/boot/efiboot.img"
+mkdir -p "$STAGE/EFI/BOOT"
+cp -f "$STAGE/boot/BOOTX64.EFI" "$STAGE/EFI/BOOT/BOOTX64.EFI"
 truncate -s 24M "$STAGE/boot/efiboot.img"
-mkfs.fat -F 32 -n EFIBOOT "$STAGE/boot/efiboot.img" >/dev/null
+# FAT32 needs >=65525 clusters; 24 MiB is below that, so use FAT16.
+mkfs.fat -F 16 -n EFIBOOT "$STAGE/boot/efiboot.img" >/dev/null
 mmd -i "$STAGE/boot/efiboot.img" ::/EFI ::/EFI/BOOT
 mcopy -i "$STAGE/boot/efiboot.img" "$STAGE/boot/BOOTX64.EFI" ::/EFI/BOOT/BOOTX64.EFI
 
@@ -136,6 +149,7 @@ podman exec "$TOOLS" xorrisofs \
     -volid "$ISO_LABEL" \
     -J -R \
     -e boot/efiboot.img -no-emul-boot \
+    -append_partition 2 0xef boot/efiboot.img \
     -isohybrid-gpt-basdat \
     /work/iso-stage
 
