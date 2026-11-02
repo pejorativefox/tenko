@@ -1,18 +1,22 @@
 Name:       xsetroot
-Version:    1.1.2
+Version:    1.1.4
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Set the X11 root window background and cursor
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    xsetroot-1.1.4.tar.xz
 
 BuildRequires: xbitmaps
 
 %description
-TODO
+Set the X11 root window background and cursor.
+
+xsetroot is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure 
@@ -23,10 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xsetroot
-/usr/share/man/man1/xsetroot.1.gz
-
+%files -f %{_sourcedir}/xsetroot.filelist
 %changelog
 # let's skip this for now
 

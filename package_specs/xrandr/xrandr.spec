@@ -1,15 +1,19 @@
 Name:       xrandr
-Version:    1.5.0
+Version:    1.5.4
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Command line interface to the X11 RandR extension
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.gz
+Source0:    xrandr-1.5.4.tar.xz
 
 
 
 %description
-TODO
+Command line interface to the X11 RandR extension.
+
+xrandr is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
 %setup -n xrandr-%{version}
@@ -23,11 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xkeystone
-/usr/bin/xrandr
-/usr/share/man/man1/xrandr.1.gz
-
+%files -f %{_sourcedir}/xrandr.filelist
 %changelog
 # let's skip this for now
 

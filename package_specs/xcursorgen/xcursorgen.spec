@@ -1,18 +1,22 @@
 Name:       xcursorgen
-Version:    1.0.7
+Version:    1.0.9
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Generate X11 cursor files from PNGs
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    xcursorgen-1.0.9.tar.xz
 
 
 
 %description
-TODO
+Generate X11 cursor files from PNGs.
+
+xcursorgen is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure 
@@ -23,10 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xcursorgen
-/usr/share/man/man1/xcursorgen.1.gz
-
+%files -f %{_sourcedir}/xcursorgen.filelist
 %changelog
 # let's skip this for now
 

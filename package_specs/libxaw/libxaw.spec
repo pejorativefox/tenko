@@ -1,10 +1,10 @@
 Name:       libxaw
-Version:    1.0.15
+Version:    1.0.16
 Release:    1
 Summary:    Xt widget set
-License:    GPL3
+License:    MIT
 Prefix:     /usr
-Source0:    libXaw-%{version}.tar.xz
+Source0:    libXaw-1.0.16.tar.xz
 
 BuildRequires: libxmu, libxpm
 
@@ -23,24 +23,9 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/Xaw/
-/usr/lib64/libXaw.so
-/usr/lib64/libXaw.so.6
-/usr/lib64/libXaw.so.7
-/usr/lib64/libXaw6.a
-/usr/lib64/libXaw6.so
-/usr/lib64/libXaw6.so.6
-/usr/lib64/libXaw6.so.6.0.1
-/usr/lib64/libXaw7.a
-/usr/lib64/libXaw7.so
-/usr/lib64/libXaw7.so.7
-/usr/lib64/libXaw7.so.7.0.0
-/usr/lib64/pkgconfig/xaw6.pc
-/usr/lib64/pkgconfig/xaw7.pc
-/usr/share/doc/libXaw/
-/usr/share/man/
-
+%files -f %{_sourcedir}/libxaw.filelist
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.0.16
+- Sync with BLFS r13.1 (libxaw 1.0.16)
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.0.15-1
 - Version bump

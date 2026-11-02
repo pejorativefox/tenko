@@ -1,18 +1,22 @@
 Name:       xkbutils
-Version:    1.0.4
+Version:    1.0.7
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    X11 keyboard utility programs
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    xkbutils-1.0.7.tar.xz
 
 
 
 %description
-TODO
+X11 keyboard utility programs.
+
+xkbutils is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure 
@@ -23,14 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xkbbell
-/usr/bin/xkbvleds
-/usr/bin/xkbwatch
-/usr/share/man/man1/xkbbell.1.gz
-/usr/share/man/man1/xkbvleds.1.gz
-/usr/share/man/man1/xkbwatch.1.gz
-
+%files -f %{_sourcedir}/xkbutils.filelist
 %changelog
 # let's skip this for now
 

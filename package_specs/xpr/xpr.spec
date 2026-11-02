@@ -1,18 +1,22 @@
 Name:       xpr
-Version:    1.0.5
+Version:    1.2.1
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Print X11 window dumps
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    xpr-1.2.1.tar.xz
 
 
 
 %description
-TODO
+Print X11 window dumps.
+
+xpr is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure 
@@ -23,13 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xdpr
-/usr/bin/xpr
-/usr/share/man/man1/xdpr.1.gz
-/usr/share/man/man1/xpr.1.gz
-
-
+%files -f %{_sourcedir}/xpr.filelist
 %changelog
 # let's skip this for now
 

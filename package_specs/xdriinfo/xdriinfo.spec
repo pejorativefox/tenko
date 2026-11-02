@@ -1,18 +1,22 @@
 Name:       xdriinfo
-Version:    1.0.6
+Version:    1.0.8
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Query DRI drivers on an X server
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    xdriinfo-1.0.8.tar.xz
 
 
 
 %description
-TODO
+Query DRI drivers on an X server.
+
+xdriinfo is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure 
@@ -23,10 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xdriinfo
-/usr/share/man/man1/xdriinfo.1.gz
-
+%files -f %{_sourcedir}/xdriinfo.filelist
 %changelog
 # let's skip this for now
 
