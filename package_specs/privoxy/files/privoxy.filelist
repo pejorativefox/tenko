@@ -1,0 +1,124 @@
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/config
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/default.action
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/default.filter
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/match-all.action
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/regression-tests.action
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/blocked
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/cgi-error-404
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/cgi-error-bad-param
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/cgi-error-disabled
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/cgi-error-file
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/cgi-error-file-read-only
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/cgi-error-modified
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/cgi-error-parse
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/cgi-style.css
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/client-tags
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/connect-failed
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/connection-timeout
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/default
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/edit-actions-add-url-form
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/edit-actions-for-url
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/edit-actions-for-url-filter
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/edit-actions-for-url-string-action
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/edit-actions-list
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/edit-actions-list-button
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/edit-actions-list-section
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/edit-actions-list-url
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/edit-actions-remove-url-form
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/edit-actions-url-form
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/forwarding-failed
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/mod-local-help
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/mod-support-and-service
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/mod-title
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/mod-unstable-warning
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/no-server-data
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/no-such-domain
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/show-request
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/show-status
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/show-status-file
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/show-url-info
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/toggle
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/toggle-mini
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/untrusted
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/url-info-osd.xml
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/templates/wpad.dat
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/trust
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/user.action
+%config(noreplace) %attr(0640,privoxy,privoxy) /etc/privoxy/user.filter
+%attr(0750,privoxy,privoxy) %dir /etc/privoxy
+%attr(0755,privoxy,privoxy) %dir /etc/privoxy/templates
+%dir /usr/bin
+%dir /usr/lib
+%dir /usr/lib/systemd
+%dir /usr/lib/systemd/system
+%dir /usr/lib/sysusers.d
+%dir /usr/sbin
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/privoxy
+%dir /usr/share/doc/privoxy/developer-manual
+%dir /usr/share/doc/privoxy/faq
+%dir /usr/share/doc/privoxy/man-page
+%dir /usr/share/doc/privoxy/user-manual
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/man/man8
+%attr(0750,privoxy,privoxy) %dir /var/log/privoxy
+/usr/bin/privoxy-log-parser
+/usr/bin/privoxy-regression-test
+/usr/bin/uagen
+/usr/lib/systemd/system/privoxy.service
+/usr/lib/sysusers.d/privoxy.conf
+/usr/sbin/privoxy
+/usr/share/doc/privoxy/AUTHORS
+/usr/share/doc/privoxy/ChangeLog
+/usr/share/doc/privoxy/LICENSE
+/usr/share/doc/privoxy/LICENSE.GPLv3
+/usr/share/doc/privoxy/README
+/usr/share/doc/privoxy/developer-manual/coding.html
+/usr/share/doc/privoxy/developer-manual/documentation.html
+/usr/share/doc/privoxy/developer-manual/git.html
+/usr/share/doc/privoxy/developer-manual/index.html
+/usr/share/doc/privoxy/developer-manual/introduction.html
+/usr/share/doc/privoxy/developer-manual/newrelease.html
+/usr/share/doc/privoxy/developer-manual/testing.html
+/usr/share/doc/privoxy/developer-manual/webserver-update.html
+/usr/share/doc/privoxy/faq/configuration.html
+/usr/share/doc/privoxy/faq/contact.html
+/usr/share/doc/privoxy/faq/copyright.html
+/usr/share/doc/privoxy/faq/general.html
+/usr/share/doc/privoxy/faq/index.html
+/usr/share/doc/privoxy/faq/installation.html
+/usr/share/doc/privoxy/faq/misc.html
+/usr/share/doc/privoxy/faq/trouble.html
+/usr/share/doc/privoxy/index.html
+/usr/share/doc/privoxy/man-page/privoxy-log-parser.1.html
+/usr/share/doc/privoxy/man-page/privoxy-man-page.html
+/usr/share/doc/privoxy/man-page/privoxy-regression-test.1.html
+/usr/share/doc/privoxy/man-page/uagen.1.html
+/usr/share/doc/privoxy/p_doc.css
+/usr/share/doc/privoxy/user-manual/actions-file.html
+/usr/share/doc/privoxy/user-manual/appendix.html
+/usr/share/doc/privoxy/user-manual/config.html
+/usr/share/doc/privoxy/user-manual/configuration.html
+/usr/share/doc/privoxy/user-manual/contact.html
+/usr/share/doc/privoxy/user-manual/copyright.html
+/usr/share/doc/privoxy/user-manual/files-in-use.jpg
+/usr/share/doc/privoxy/user-manual/filter-file.html
+/usr/share/doc/privoxy/user-manual/howto.html
+/usr/share/doc/privoxy/user-manual/index.html
+/usr/share/doc/privoxy/user-manual/installation.html
+/usr/share/doc/privoxy/user-manual/introduction.html
+/usr/share/doc/privoxy/user-manual/p_doc.css
+/usr/share/doc/privoxy/user-manual/proxy2.jpg
+/usr/share/doc/privoxy/user-manual/proxy_setup.jpg
+/usr/share/doc/privoxy/user-manual/quickstart.html
+/usr/share/doc/privoxy/user-manual/seealso.html
+/usr/share/doc/privoxy/user-manual/startup.html
+/usr/share/doc/privoxy/user-manual/templates.html
+/usr/share/doc/privoxy/user-manual/whatsnew.html
+/usr/share/man/man1/privoxy-log-parser.1.gz
+/usr/share/man/man1/privoxy-regression-test.1.gz
+/usr/share/man/man1/uagen.1.gz
+/usr/share/man/man8/privoxy.8.gz
+%attr(0640,privoxy,privoxy) /var/log/privoxy/logfile
