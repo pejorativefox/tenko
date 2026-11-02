@@ -109,8 +109,11 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       intltool 0.51.0 and the BLFS perl modules it needs (XML-Parser 2.59,
       File-ShareDir 1.118, File-ShareDir-Install 0.14, Class-Inspector 1.36).
       Verified in the container (`lightdm --version`, greeter runs and reads
-      its config, `systemd-analyze verify` clean); needs a graphical boot
-      test.
+      its config, `systemd-analyze verify` clean) and by a `dnf --installroot`
+      install (user/group created, preset applied).  Needs a graphical boot
+      test; the base defaults to `multi-user.target`, so the installer must
+      run `systemctl set-default graphical.target` for the greeter to come up
+      (C1/C3).
 - [ ] **C3. Test-image hygiene.**  `build/xfce-test.img` uses a temporary
       `root`/`root` password and masks `getty@tty1`; the one-shot
       `xfce-test.service` failed once with `status=1/HUP` and needed a manual
@@ -134,14 +137,19 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       change.
 - [ ] **D5. Scriptlet testing.**  Rootfs installs use
       `--setopt=tsflags=noscripts`; `%post`/`%preun` correctness has only been
-      exercised for the kernel/dracut path and one E1 run.  Install into an
-      image with scriptlets enabled and check the result.
+      exercised for the kernel/dracut path and one E1 run.  First pass done
+      for C2: a `dnf --installroot` install of `browneye-base` followed by
+      `lightdm` + greeter now runs the scriptlets; it exposed a lightdm
+      `%pre` abort in chroots without `/dev/null` (fixed in 1.33.1-2).  Still
+      need a full desktop install with scriptlets enabled and a check of the
+      resulting image.
 - [ ] **D6. Optional `-gir` splits.**  The last unapplied size lever from the
       desktop split wave.
-- [ ] **D7. 108 spec-only specs below the books.**  They only matter if they
+- [ ] **D7. 104 spec-only specs below the books.**  They only matter if they
       are ever built; update the chain first if so.  (`unzip` and
       `autoconf213` additionally reference consolidated patches that are 404
-      upstream — drop those specs or source the patches.)
+      upstream — drop those specs or source the patches.)  `xml-parser` and
+      `libgcrypt` were pulled up to the books for C2.
 - [ ] **D8. Minor gaps.**  `xfce4-terminal` omits its man page (no
       `docbook-xsl-nons`); `curl` is built `--without-libpsl`; `rsync` is
       built `--disable-idn`; `libepoxy` uses host GL headers during the build.

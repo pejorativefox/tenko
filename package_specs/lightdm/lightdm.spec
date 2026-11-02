@@ -1,6 +1,6 @@
 Name:       lightdm
 Version:    1.33.1
-Release:    1
+Release:    2
 Summary:    Lightweight cross-desktop display manager
 License:    GPL-3.0-or-later
 Source0:    lightdm-1.33.1.tar.gz
@@ -84,10 +84,12 @@ install -Dpm0644 %{SOURCE1} %{buildroot}%{_unitdir}/lightdm.service
 install -Dpm0644 %{SOURCE2} %{buildroot}%{_prefix}/lib/systemd/system-preset/50-lightdm.preset
 
 %pre
-getent group lightdm >/dev/null 2>&1 || groupadd -g 65 lightdm
+# Idempotent and tolerant of chroot installs where /dev/null is not mounted
+# yet: a failed check must not abort the transaction.
+getent group lightdm >/dev/null 2>&1 || groupadd -g 65 lightdm || :
 getent passwd lightdm >/dev/null 2>&1 || \
     useradd -c "Lightdm Daemon" -d /var/lib/lightdm -u 65 -g lightdm \
-            -s /bin/false lightdm
+            -s /bin/false lightdm || :
 
 %post
 install -dm755 -o lightdm -g lightdm /var/lib/lightdm /var/lib/lightdm-data
@@ -106,6 +108,11 @@ fi
 %files devel -f %{_sourcedir}/lightdm-devel.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.33.1-2
+- Make the %pre user/group creation idempotent and non-fatal: a chroot
+  install without /dev/null made the getent guard fail and then aborted
+  when groupadd reported the existing group (exit 9)
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.33.1-1
 - Package BLFS r13.1 lightdm 1.33.1, replacing the stale 1.24.0 template
 - Install a systemd unit and preset (lightdm.service, aliased to
