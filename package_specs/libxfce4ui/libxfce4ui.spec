@@ -1,6 +1,6 @@
 Name:       libxfce4ui
 Version:    4.20.2
-Release:    2
+Release:    3
 Summary:    Commonly used Xfce widgets among Xfce applications
 License:    GPL
 Source0:    %{name}-%{version}.tar.bz2
@@ -27,6 +27,7 @@ Documentation for libxfce4ui.
 
 %package devel
 Summary:    libxfce4ui development files
+Requires:   %{name}-gir = %{version}-%{release}
 Requires:   libxfce4ui = %{version}-%{release}
 
 %description devel
@@ -44,13 +45,27 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc
 %make_install
 
+
+%package gir
+Summary:    GObject Introspection data for libxfce4ui
+License:    GPL
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for libxfce4ui, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
 %files -f %{_sourcedir}/libxfce4ui.filelist
 %files lang -f %{_sourcedir}/libxfce4ui-lang.filelist
 %files doc -f %{_sourcedir}/libxfce4ui-doc.filelist
 %files devel -f %{_sourcedir}/libxfce4ui-devel.filelist
+%files gir -f %{_sourcedir}/libxfce4ui-gir.filelist
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20.2-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.2-2
 - Split lang, doc, devel payload into libxfce4ui-lang, libxfce4ui-doc, libxfce4ui-devel (size audit)
 

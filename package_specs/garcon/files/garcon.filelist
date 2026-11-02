@@ -3,9 +3,6 @@
 /etc/xdg/menus/xfce-applications.menu
 %dir /usr/include
 %dir /usr/lib64
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/Garcon-1.0.typelib
-/usr/lib64/girepository-1.0/GarconGtk-1.0.typelib
 /usr/lib64/libgarcon-1.so.0
 /usr/lib64/libgarcon-1.so.0.0.0
 /usr/lib64/libgarcon-gtk3-1.so.0

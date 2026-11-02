@@ -9,8 +9,6 @@
 %dir /usr/lib64/gio
 %dir /usr/lib64/gio/modules
 /usr/lib64/gio/modules/libxfconfgsettingsbackend.so
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/Xfconf-0.typelib
 /usr/lib64/libxfconf-0.so.3
 /usr/lib64/libxfconf-0.so.3.0.0
 %dir /usr/lib64/xfce4

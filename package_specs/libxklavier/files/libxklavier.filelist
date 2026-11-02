@@ -1,7 +1,5 @@
 %dir /usr/include
 %dir /usr/lib64
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/Xkl-1.0.typelib
 /usr/lib64/libxklavier.so.16
 /usr/lib64/libxklavier.so.16.4.0
 %dir /usr/share

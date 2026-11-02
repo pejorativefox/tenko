@@ -1,6 +1,6 @@
 Name:       libwnck
 Version:    43.3
-Release:    2
+Release:    3
 Summary:    Library to manage X windows and workspaces (via pagers, tasklists, etc.)
 License:    LGPL
 Source0:    %{name}-%{version}.tar.xz
@@ -20,6 +20,7 @@ Translations for libwnck.
 
 %package devel
 Summary:    libwnck development files
+Requires:   %{name}-gir = %{version}-%{release}
 Requires:   libwnck = %{version}-%{release}
 
 %description devel
@@ -41,12 +42,26 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
+
+%package gir
+Summary:    GObject Introspection data for libwnck
+License:    LGPL
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for libwnck, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
 %files -f %{_sourcedir}/libwnck.filelist
 %files lang -f %{_sourcedir}/libwnck-lang.filelist
 %files devel -f %{_sourcedir}/libwnck-devel.filelist
+%files gir -f %{_sourcedir}/libwnck-gir.filelist
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 43.3-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 43.3-2
 - Split lang, devel payload into libwnck-lang, libwnck-devel (size audit)
 

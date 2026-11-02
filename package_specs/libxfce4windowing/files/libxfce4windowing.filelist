@@ -1,8 +1,5 @@
 %dir /usr/include
 %dir /usr/lib64
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/Libxfce4windowing-0.0.typelib
-/usr/lib64/girepository-1.0/Libxfce4windowingui-0.0.typelib
 /usr/lib64/libxfce4windowing-0.so.0
 /usr/lib64/libxfce4windowing-0.so.0.0.0
 /usr/lib64/libxfce4windowingui-0.so.0

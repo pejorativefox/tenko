@@ -1,6 +1,6 @@
 Name:       xfce4-panel
 Version:    4.20.8
-Release:    2
+Release:    3
 Summary:    Panel for the Xfce desktop environment
 License:    GPL2
 Source0:    %{name}-%{version}.tar.bz2
@@ -31,6 +31,7 @@ Documentation for xfce4-panel.
 
 %package devel
 Summary:    xfce4-panel development files
+Requires:   %{name}-gir = %{version}-%{release}
 Requires:   xfce4-panel = %{version}-%{release}
 
 %description devel
@@ -48,13 +49,27 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc
 %make_install
 
+
+%package gir
+Summary:    GObject Introspection data for xfce4-panel
+License:    GPL2
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for xfce4-panel, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
 %files -f %{_sourcedir}/xfce4-panel.filelist
 %files lang -f %{_sourcedir}/xfce4-panel-lang.filelist
 %files doc -f %{_sourcedir}/xfce4-panel-doc.filelist
 %files devel -f %{_sourcedir}/xfce4-panel-devel.filelist
+%files gir -f %{_sourcedir}/xfce4-panel-gir.filelist
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20.8-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.8-2
 - Split lang, doc, devel payload into xfce4-panel-lang, xfce4-panel-doc, xfce4-panel-devel (size audit)
 

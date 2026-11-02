@@ -9,8 +9,6 @@
 %dir /usr/lib64
 %dir /usr/lib64/Thunar
 /usr/lib64/Thunar/thunar-sendto-email
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/Thunarx-3.0.typelib
 /usr/lib64/libthunarx-3.so.0
 /usr/lib64/libthunarx-3.so.0.0.0
 %dir /usr/lib64/thunarx-3

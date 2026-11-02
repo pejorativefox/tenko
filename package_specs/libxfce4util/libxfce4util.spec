@@ -1,6 +1,6 @@
 Name:       libxfce4util
 Version:    4.20.1
-Release:    2
+Release:    3
 Summary:    Basic utility library for Xfce4.
 License:    GPL
 Source0:    %{name}-%{version}.tar.bz2
@@ -25,6 +25,7 @@ Documentation for libxfce4util.
 
 %package devel
 Summary:    libxfce4util development files
+Requires:   %{name}-gir = %{version}-%{release}
 Requires:   libxfce4util = %{version}-%{release}
 
 %description devel
@@ -42,13 +43,27 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc
 %make_install
 
+
+%package gir
+Summary:    GObject Introspection data for libxfce4util
+License:    GPL
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for libxfce4util, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
 %files -f %{_sourcedir}/libxfce4util.filelist
 %files lang -f %{_sourcedir}/libxfce4util-lang.filelist
 %files doc -f %{_sourcedir}/libxfce4util-doc.filelist
 %files devel -f %{_sourcedir}/libxfce4util-devel.filelist
+%files gir -f %{_sourcedir}/libxfce4util-gir.filelist
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20.1-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.1-2
 - Split lang, doc, devel payload into libxfce4util-lang, libxfce4util-doc, libxfce4util-devel (size audit)
 

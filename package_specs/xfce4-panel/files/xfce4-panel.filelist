@@ -9,8 +9,6 @@
 /usr/bin/xfce4-popup-windowmenu
 %dir /usr/include
 %dir /usr/lib64
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/Libxfce4panel-2.0.typelib
 /usr/lib64/libxfce4panel-2.0.so.4
 /usr/lib64/libxfce4panel-2.0.so.4.0.0
 %dir /usr/lib64/xfce4

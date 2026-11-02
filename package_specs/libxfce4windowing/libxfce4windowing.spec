@@ -1,6 +1,6 @@
 Name:       libxfce4windowing
 Version:    4.20.7
-Release:    2
+Release:    3
 Summary:    Abstraction library for windowing concepts
 License:    LGPL
 Source0:    %{name}-%{version}.tar.bz2
@@ -20,6 +20,7 @@ Documentation for libxfce4windowing.
 
 %package devel
 Summary:    libxfce4windowing development files
+Requires:   %{name}-gir = %{version}-%{release}
 Requires:   libxfce4windowing = %{version}-%{release}
 
 %description devel
@@ -37,12 +38,26 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc
 %make_install
 
+
+%package gir
+Summary:    GObject Introspection data for libxfce4windowing
+License:    LGPL
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for libxfce4windowing, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
 %files -f %{_sourcedir}/libxfce4windowing.filelist
 %files doc -f %{_sourcedir}/libxfce4windowing-doc.filelist
 %files devel -f %{_sourcedir}/libxfce4windowing-devel.filelist
+%files gir -f %{_sourcedir}/libxfce4windowing-gir.filelist
 
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20.7-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.7-2
 - Split doc, devel payload into libxfce4windowing-doc, libxfce4windowing-devel (size audit)
 

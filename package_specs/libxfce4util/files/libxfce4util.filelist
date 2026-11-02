@@ -2,8 +2,6 @@
 /usr/bin/xfce4-kiosk-query
 %dir /usr/include
 %dir /usr/lib64
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/Libxfce4util-1.0.typelib
 /usr/lib64/libxfce4util.so.7
 /usr/lib64/libxfce4util.so.7.0.0
 %dir /usr/share

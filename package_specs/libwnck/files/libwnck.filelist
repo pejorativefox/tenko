@@ -3,8 +3,6 @@
 /usr/bin/wnckprop
 %dir /usr/include
 %dir /usr/lib64
-%dir /usr/lib64/girepository-1.0
-/usr/lib64/girepository-1.0/Wnck-3.0.typelib
 /usr/lib64/libwnck-3.so.0
 /usr/lib64/libwnck-3.so.0.3.0
 %dir /usr/share
