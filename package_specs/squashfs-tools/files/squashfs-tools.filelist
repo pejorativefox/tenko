@@ -1,0 +1,12 @@
+%dir /usr/bin
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/bin/mksquashfs
+/usr/bin/sqfscat
+/usr/bin/sqfstar
+/usr/bin/unsquashfs
+/usr/share/man/man1/mksquashfs.1.gz
+/usr/share/man/man1/sqfscat.1.gz
+/usr/share/man/man1/sqfstar.1.gz
+/usr/share/man/man1/unsquashfs.1.gz

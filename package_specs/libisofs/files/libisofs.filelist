@@ -1,0 +1,9 @@
+%dir /usr/include
+%dir /usr/include/libisofs
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+/usr/include/libisofs/libisofs.h
+/usr/lib64/libisofs.so
+/usr/lib64/libisofs.so.6
+/usr/lib64/libisofs.so.6.94.0
+/usr/lib64/pkgconfig/libisofs-1.pc

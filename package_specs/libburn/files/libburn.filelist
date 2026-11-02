@@ -1,0 +1,15 @@
+%dir /usr/bin
+%dir /usr/include
+%dir /usr/include/libburn
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/bin/cdrskin
+/usr/include/libburn/libburn.h
+/usr/lib64/libburn.so
+/usr/lib64/libburn.so.4
+/usr/lib64/libburn.so.4.111.0
+/usr/lib64/pkgconfig/libburn-1.pc
+/usr/share/man/man1/cdrskin.1.gz
