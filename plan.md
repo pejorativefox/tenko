@@ -158,7 +158,14 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       repo to `/var/lib/browneye/repo` with a `file://` repo, `opencode-bin`
       2.2.5 and `herdr` 0.9.5 are installed, and
       `dnf --disablerepo=browneye-13.1 install browneye-build` completes from
-      the local repo (63 packages, createrepo_c usable).  The on-ISO repo
+      the local repo (63 packages, createrepo_c usable).  Rootless podman is
+      verified too: `podman-bin` installs from the local repo,
+      `/etc/subuid`/`subgid` carry `admin:100000:65536` (shipped by
+      `browneye-sysconfig`), `podman info` reports rootless + overlay, the
+      userns map is `1 100000 65536`, and a scratch `podman build`/`run`
+      works.  Building a rootfs in the user's home works as well:
+      `unshare -r dnf --installroot=$HOME/rootfs-test ...` plus `chroot`.
+      The on-ISO repo
       also carries the ISO-authoring and container tooling (libburn/libisofs/
       libisoburn, squashfs-tools, mtools, podman-bin) so the media can be
       rebuilt offline.  ISO: 1.0 GB, on-ISO repo 259 RPMs / 665 MB.
