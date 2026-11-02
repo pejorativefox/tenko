@@ -1,0 +1,42 @@
+{
+  "partitiontable": {
+    "label": "gpt",
+    "id": "11111111-2222-3333-4444-555555555555",
+    "device": "/dev/vda",
+    "unit": "sectors",
+    "firstlba": 2048,
+    "lastlba": 41943006,
+    "sectorsize": 512,
+    "partitions": [
+      {
+        "node": "/dev/vda1",
+        "start": 2048,
+        "size": 1048576,
+        "type": "C12A7328-F81F-11D2-BA4B-00A0C93EC93B",
+        "uuid": "AAAAAAAA-1111-2222-3333-444444444444",
+        "name": "EFI",
+        "attrs": "",
+        "fs_uuid": "1234-ABCD",
+        "fstype": "vfat",
+        "label": "EFI"
+      },
+      {
+        "node": "/dev/vda2",
+        "start": 1050624,
+        "size": 32768,
+        "type": "E3C9E316-0B5C-4DB8-817D-F92DF00215AE",
+        "uuid": "BBBBBBBB-1111-2222-3333-444444444444",
+        "name": "Microsoft reserved"
+      },
+      {
+        "node": "/dev/vda3",
+        "start": 1083392,
+        "size": 16777216,
+        "type": "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7",
+        "uuid": "CCCCCCCC-1111-2222-3333-444444444444",
+        "name": "Windows",
+        "attrs": "RequiredPartition"
+      }
+    ]
+  }
+}

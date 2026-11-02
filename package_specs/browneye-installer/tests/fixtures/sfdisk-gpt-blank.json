@@ -1,0 +1,12 @@
+{
+  "partitiontable": {
+    "label": "gpt",
+    "id": "99999999-8888-7777-6666-555555555555",
+    "device": "/dev/vda",
+    "unit": "sectors",
+    "firstlba": 2048,
+    "lastlba": 41943006,
+    "sectorsize": 512,
+    "partitions": []
+  }
+}

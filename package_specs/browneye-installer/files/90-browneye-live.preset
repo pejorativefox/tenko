@@ -1,0 +1,4 @@
+# Browneye live media: the installer owns tty1 and the first-boot root
+# password prompt must never take the console before the installer starts.
+disable browneye-firstboot-root-password.service
+enable browneye-installer.service
