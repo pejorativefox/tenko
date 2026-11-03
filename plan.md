@@ -361,10 +361,13 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       alsa-plugins uses the book's `--sysconfdir=/etc` and the
       ffmpeg-9.0 patch, and builds the pulse plugin against libpulse 17.
       Remaining 4: ffmpeg, pavucontrol, qemu, xdg-desktop-portal.
-      pavucontrol 6.2 is blocked on the GTK4 bindings chain the book
-      requires: libsigc++3 3.6.0 -> glibmm-2.68 -> gtk4 -> gtkmm4 ->
-      pavucontrol, plus graphene 1.10.8 for gtk4.  None of those five have
-      specs yet.  xdg-desktop-portal needs pipewire and fuse3; ffmpeg and
+      pavucontrol 6.2 is blocked on the GTK4 stack the book requires:
+      libsigc++3 3.6.0 -> glibmm-2.68 2.90.0 -> gtk4 -> gtkmm4 ->
+      pavucontrol, and gtk4 itself lists graphene 1.10.8, libepoxy (have),
+      wayland-protocols and pygobject3 as required.  None of libsigc++3,
+      glibmm-2.68, graphene, wayland-protocols/wayland, pygobject3, gtk4 or
+      gtkmm4 has a spec yet, so this is a dedicated wave of about nine
+      packages.  xdg-desktop-portal needs pipewire and fuse3; ffmpeg and
       qemu are very large builds.
       (`unzip` additionally references a consolidated patch that 404s
       upstream — drop the spec or source the patch.)
