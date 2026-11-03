@@ -1,6 +1,6 @@
 Name:       linux-pam
 Version:    1.7.3
-Release:    2
+Release:    3
 Summary:    PAM (Pluggable Authentication Modules) library
 License:    BSD-3-Clause OR GPL-2.0-or-later
 URL:        https://github.com/linux-pam/linux-pam
@@ -122,6 +122,58 @@ session     required        pam_deny.so
 # End /etc/pam.d/other
 EOF
 
+# Service files for the PAM-aware programs the base system ships.  Without
+# them every one of the shadow utilities (login, su, passwd, ...) falls
+# back to the deny-all "other" stack, so console logins and password
+# changes fail.  Found by the installer boot test: chpasswd could not set
+# the admin password.  They use this distro's split stacks (system-auth has
+# the auth stack only, passwords live in system-password).
+
+cat > %{buildroot}/etc/pam.d/login <<'EOF'
+# Begin /etc/pam.d/login
+
+auth        include     system-auth
+account     include     system-account
+password    include     system-password
+session     include     system-session
+
+# End /etc/pam.d/login
+EOF
+
+cat > %{buildroot}/etc/pam.d/su <<'EOF'
+# Begin /etc/pam.d/su
+
+auth        sufficient  pam_rootok.so
+auth        include     system-auth
+account     include     system-account
+session     include     system-session
+
+# End /etc/pam.d/su
+EOF
+
+cat > %{buildroot}/etc/pam.d/passwd <<'EOF'
+# Begin /etc/pam.d/passwd
+
+auth        include     system-auth
+account     include     system-account
+password    include     system-password
+
+# End /etc/pam.d/passwd
+EOF
+
+for service in chpasswd newusers; do
+cat > %{buildroot}/etc/pam.d/$service <<'EOF'
+# Begin /etc/pam.d/@SERVICE@
+
+auth        sufficient  pam_rootok.so
+account     required    pam_permit.so
+password    include     system-password
+
+# End /etc/pam.d/@SERVICE@
+EOF
+sed -i "s/@SERVICE@/$service/" %{buildroot}/etc/pam.d/$service
+done
+
 %files -f %{_sourcedir}/linux-pam.filelist
 %files lang -f %{_sourcedir}/linux-pam-lang.filelist
 %files doc -f %{_sourcedir}/linux-pam-doc.filelist
@@ -129,6 +181,16 @@ EOF
 
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.7.3-3
+- Ship PAM service files for the shadow utilities: login, su, passwd,
+  chpasswd and newusers.  Without them the PAM-enabled login/su/passwd/
+  chpasswd fell through to the deny-all "other" stack, so console logins
+  failed and the installer could not set the admin password
+  (pam_chauthtok: Authentication token manipulation error).  Found by the
+  first unattended installer test.
+- The files use this distro's split stacks: system-auth holds the auth
+  stack, system-password the password stack.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.7.3-2
 - Split lang, doc, devel payload into linux-pam-lang, linux-pam-doc, linux-pam-devel (size audit)
 

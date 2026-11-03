@@ -1,12 +1,19 @@
 %dir /etc/pam.d
+%dir /etc/security
+%dir /etc/security/limits.d
+%dir /etc/security/namespace.d
+%dir /usr/lib64/security/pam_filter
+%dir /usr/share/pam/security
+/etc/pam.d/chpasswd
+/etc/pam.d/login
+/etc/pam.d/newusers
 /etc/pam.d/other
+/etc/pam.d/passwd
+/etc/pam.d/su
 /etc/pam.d/system-account
 /etc/pam.d/system-auth
 /etc/pam.d/system-password
 /etc/pam.d/system-session
-%dir /etc/security
-%dir /etc/security/limits.d
-%dir /etc/security/namespace.d
 /usr/lib/systemd/system/pam_namespace.service
 /usr/lib64/libpam.so.0
 /usr/lib64/libpam.so.0.85.1
@@ -23,7 +30,6 @@
 /usr/lib64/security/pam_exec.so
 /usr/lib64/security/pam_faildelay.so
 /usr/lib64/security/pam_faillock.so
-%dir /usr/lib64/security/pam_filter
 /usr/lib64/security/pam_filter.so
 /usr/lib64/security/pam_filter/upperLOWER
 /usr/lib64/security/pam_ftp.so
@@ -64,7 +70,6 @@
 /usr/sbin/pwhistory_helper
 /usr/sbin/unix_chkpwd
 /usr/share/pam/environment
-%dir /usr/share/pam/security
 /usr/share/pam/security/access.conf
 /usr/share/pam/security/faillock.conf
 /usr/share/pam/security/group.conf
