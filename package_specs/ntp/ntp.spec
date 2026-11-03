@@ -13,6 +13,17 @@ Prefix:     /usr
 %description
 NTP Time sync daemon
 
+%package leap
+Summary:    Leap-second update helper for NTP
+Requires:   ntp = %{version}-%{release}
+Requires:   perl(IO::Socket::SSL) >= 1.56
+Requires:   perl(Net::SSLeay) >= 1.49
+
+%description leap
+The `update-leap` script, which fetches the leap-second list over HTTPS.
+It needs the CPAN modules IO::Socket::SSL and Net::SSLeay, which are not
+part of LFS/BLFS, so this is a separate subpackage.
+
 %prep
 %setup
 sed -i 's/getclock/getclock memchr/'               sntp/m4/ntp_libntp.m4
@@ -64,7 +75,6 @@ install -v -o ntp -g ntp -d /var/lib/ntp
 /usr/sbin/ntptrace
 /usr/sbin/sntp
 /usr/sbin/tickadj
-/usr/sbin/update-leap
 /usr/share/doc/ntp-4.2.8p18/html/.datecheck
 /usr/share/doc/ntp-4.2.8p18/html/access.html
 /usr/share/doc/ntp-4.2.8p18/html/accopt.html
@@ -318,10 +328,13 @@ install -v -o ntp -g ntp -d /var/lib/ntp
 /usr/share/man/man1/ntpq.1.gz
 /usr/share/man/man1/ntptrace.1.gz
 /usr/share/man/man1/sntp.1.gz
-/usr/share/man/man1/update-leap.1.gz
 /usr/share/man/man5/ntp.conf.5.gz
 /usr/share/man/man5/ntp.keys.5.gz
 /usr/share/ntp/lib/NTP/Util.pm
+
+%files leap
+/usr/sbin/update-leap
+/usr/share/man/man1/update-leap.1.gz
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.2.8p18-1

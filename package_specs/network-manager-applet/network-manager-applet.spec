@@ -30,6 +30,9 @@ rm -rf %{buildroot}
 pushd build
 DESTDIR=%{buildroot} ninja install
 popd
+# libnma ships the same schema (both tarballs install it); keep the
+# library as owner so the two packages do not conflict.
+rm -f %{buildroot}/usr/share/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
 rm -vf %{buildroot}%{_infodir}/dir
 
 %files
@@ -39,7 +42,6 @@ rm -vf %{buildroot}%{_infodir}/dir
 /usr/share/GConf/gsettings/nm-applet.convert
 /usr/share/applications/nm-applet.desktop
 /usr/share/applications/nm-connection-editor.desktop
-/usr/share/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
 /usr/share/icons/hicolor/16x16/apps/nm-device-wired.png
 /usr/share/icons/hicolor/16x16/apps/nm-no-connection.png
 /usr/share/icons/hicolor/16x16/apps/nm-vpn-standalone-lock.png

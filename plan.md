@@ -159,15 +159,15 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   podman); `browneye-live` (installer environment).
 - Version parity: D9 (2026-11-02) re-baselined the published tree to the
   current LFS/BLFS trunk (LFS trunk last updated 2026-10-31, BLFS 2026-11-01).
-  The audit of the published metadata (`audit_versions.py --primary`, 629
-  RPMs) now reports **no packages below the books**, 283 current and 1
+  The audit of the published metadata (`audit_versions.py --primary`, 706
+  RPMs) now reports **no packages below the books**, 350 current and 1
   newer (xml-parser 2.59 vs the book's 2.57).
   `lfs.lock` was regenerated from trunk (`581459fa`);
   `sync_lfs_spec.py --all-base` reports 80/80.
 - `bbuild` cleanup: exit codes, ORDER-only `all`, NEVRA conflict refusal,
   atomic source staging, repo-aware read-only query, 56 tests; legacy
   duplicate scripts removed.
-- Published: **629 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>
+- Published: **706 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>
   (553 + the 2026-11-02 X11 client utilities wave, 31 more binaries/libs,
   + the fonts wave: 6 new packages incl. font-ttf-unifont and 3 more
   no-book fonts on request: terminus, siji, ubuntu-font-family).
@@ -390,7 +390,18 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
         New specs: fuse3 and pipewire; gstreamer and gst-plugins-base were
         dormant 1.16.2 specs, bumped and converted to meson.
       - qemu 11.1.3 is explicitly deferred (not built).
-      Nothing in this wave was published.
+      **Everything built in D7 is now published** (2026-11-03): the 76
+      wave packages plus the ntp-leap subpackage, taking the repo from 629
+      to 706 RPMs.  Two packaging fixes were needed first: NetworkManager
+      and nm-applet both ship org.gnome.nm-applet.gschema.xml (libnma now
+      owns it), and ntp's `update-leap` script needs IO::Socket::SSL and
+      Net::SSLeay, which are not in LFS/BLFS — it moved to an `ntp-leap`
+      subpackage so the main ntp installs; ntp-leap itself stays
+      uninstallable until those CPAN modules are added.
+      Install closure was verified by installing all 76 packages together
+      from the published repo, plus a spot check of NetworkManager,
+      nm-applet, xdg-desktop-portal, ffmpeg, ruby, sdl2, gnupg, gcr and
+      pipewire.
       (`unzip` additionally references a consolidated patch that 404s
       upstream — drop the spec or source the patch.)
 - [x] **D8. Minor gaps.**  Done 2026-11-02.  New packages: libunistring 1.5,
