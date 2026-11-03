@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    9
+Release:    10
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -85,6 +85,12 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 13.1-10
+- Preflight: fetch the repository metadata (with retries) instead of
+  calling os.path.isfile() on a URL.  The network repo made every
+  preflight fail with "package repository: https://.../repomd.xml".
+  Also order the installer after network-online.target.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 13.1-9
 - Accept an http(s)/ftp URL for the repository in config validation (the
   default is now a URL, so 13.1-8 rejected its own default).  Fixes the

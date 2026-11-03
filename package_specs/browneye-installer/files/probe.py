@@ -9,9 +9,11 @@ disk is in use, and read a partition table from a real device.
 from __future__ import annotations
 
 import os
-import stat
 import shutil
+import stat
 import time
+import urllib.error
+import urllib.request
 from dataclasses import dataclass, replace
 from typing import Iterable, Sequence
 
@@ -62,6 +64,28 @@ TOOL_PATH = "/usr/sbin:/usr/bin:/sbin:/bin"
 
 class ProbeError(RuntimeError):
     pass
+
+
+def _repository_reachable(repodata: str) -> tuple[bool, str]:
+    """True if the repository metadata exists locally or can be fetched.
+
+    A network repository is retried for a while: the installer starts as
+    soon as the live system reaches multi-user, which can be before DHCP
+    has finished, and a URL is not a path that os.path.isfile() can see.
+    """
+    if "://" not in repodata:
+        return os.path.isfile(repodata), repodata
+    last = "not fetched"
+    for _ in range(6):
+        try:
+            with urllib.request.urlopen(repodata, timeout=15) as response:
+                if response.status == 200:
+                    return True, repodata
+                last = "HTTP %s" % response.status
+        except (urllib.error.URLError, OSError) as exc:
+            last = str(exc)
+        time.sleep(5)
+    return False, "%s (%s)" % (repodata, last)
 
 
 @dataclass(frozen=True)
@@ -559,14 +583,15 @@ class Probe:
             )
         )
 
-        repodata = os.path.join(repo, "repodata", "repomd.xml")
-        repo_ok = os.path.isfile(repodata)
+        repodata = repo.rstrip("/") + "/repodata/repomd.xml" if "://" in repo \
+            else os.path.join(repo, "repodata", "repomd.xml")
+        repo_ok, repo_detail = _repository_reachable(repodata)
         if dry_run and not repo_ok:
             checks.append(
                 Check(True, "package repository", f"{repo} (missing; dry-run only)")
             )
         else:
-            checks.append(Check(repo_ok, "package repository", repodata))
+            checks.append(Check(repo_ok, "package repository", repo_detail))
 
         if live_kname:
             checks.append(Check(True, "installation media", f"/dev/{live_kname}"))
