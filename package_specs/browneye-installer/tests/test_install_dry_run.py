@@ -84,6 +84,8 @@ class DryRunPipelineTest(unittest.TestCase):
             self.assertIn("grub-install", text)
             self.assertIn("--no-nvram", text)
             self.assertIn("dracut --force --no-hostonly", text)
+            self.assertIn("browneye-13.1.repo", text)
+            self.assertIn("https://tomfool.8bit.ca/browneye/packages/13.1/", text)
             self.assertIn("chpasswd", text)
             self.assertIn("passwd -l root", text)
             self.assertIn("firstboot-root-password.done", text)

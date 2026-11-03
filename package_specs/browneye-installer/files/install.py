@@ -716,8 +716,35 @@ class Installer:
     def step_configure(self) -> None:
         self._write_fstab()
         self._write_network_files()
+        self._write_repo_file()
         self._configure_systemd()
         self._configure_users()
+
+    def _write_repo_file(self) -> None:
+        """Configure the repository the installer used, for later use.
+
+        Installs are network-only, so the target needs the source in
+        /etc/yum.repos.d to `dnf install` anything afterwards.
+        """
+        source = self.config.repo
+        if "://" not in source:
+            source = "file://" + source
+        repos_dir = os.path.join(self.target, "etc", "yum.repos.d")
+        self.runner.run(
+            ("install", "-dm0755", repos_dir),
+            step="configure",
+            description="create the repository directory")
+        self.runner.write_file(
+            os.path.join(repos_dir, "browneye-13.1.repo"),
+            "[browneye-13.1]\n"
+            "name=Browneye Linux 13.1\n"
+            "baseurl=" + source + "\n"
+            "enabled=1\n"
+            "gpgcheck=0\n"
+            "repo_gpgcheck=0\n"
+            "skip_if_unavailable=1\n",
+            step="configure",
+        )
 
     def _uuid_ref(self, part: disk.PlannedPartition) -> str:
         if part.fs_uuid:

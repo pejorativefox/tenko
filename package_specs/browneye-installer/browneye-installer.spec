@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    10
+Release:    12
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -85,6 +85,11 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 13.1-11
+- Write /etc/yum.repos.d/browneye-13.1.repo on the target with the
+  repository the install used (same id as the shipped file, so it replaces
+  it instead of duplicating it).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 13.1-10
 - Preflight: fetch the repository metadata (with retries) instead of
   calling os.path.isfile() on a URL.  The network repo made every
