@@ -1,6 +1,6 @@
 # Browneye Linux 13.1 — status
 
-Last updated: 2026-11-03 (qemu 11.1.3 built and published). Branch `lfs-r13.1`.
+Last updated: 2026-11-03 (installer ISO boot + unattended install verified). Branch `lfs-r13.1`.
 Work root `~/browneye`.
 Detailed history is in `git log` (one commit per wave); rules are in
 `AGENTS.md` (LFS/BLFS version parity, subagent worktrees).
@@ -19,13 +19,12 @@ Detailed history is in `git log` (one commit per wave); rules are in
   LFS/BLFS.  The main `ntp` package installs normally; decide whether to
   add specs for the two perl modules (not in the books, so a user call) or
   drop the subpackage.
-- **Kernel 7.3.1 boot tests.**  `linux` 7.3.1-1 is built and published, but
-  the three boot tests are still pending.  qemu 11.1.3 is now built and
-  published (dtc + libslirp from the book came with it), so the tests can
-  run as soon as qemu is installed on a host: this host has /dev/kvm but
-  `daspork` is not in the `kvm` group, so it would be TCG (slow) unless
-  qemu is installed with root and the user added to `kvm`.  The rebuilt
-  642 MiB ISO (runtime-base target set) needs the same boot/install test.
+- **Kernel 7.3.1 boot tests.**  The installer ISO boot and a full
+  unattended install are verified (see the boot/install section below),
+  and qemu 11.1.3 is installed on the host (daspork is in the `kvm`
+  group; tool shells need `sg kvm -c ...`).  Still pending: the direct
+  `-kernel` boot, the dracut initramfs on an NVMe image, and the
+  graphical LightDM/XFCE login test.
 - **Offline repo copy.**  `/var/lib/browneye/repo` is still the old
   259-RPM set.  A 706-RPM copy (sha256-verified, metadata regenerated,
   staged before rpm 4.18.1-6, bwm-ng and bash-completion; the published
@@ -219,6 +218,36 @@ Detailed history is in `git log` (one commit per wave); rules are in
   the generic brp-strip pass chokes on qemu's non-x86 ELF firmware blobs
   (palcode-clipper, hppa-firmware*.img), so `__brp_strip` is disabled for
   this package after the distro's own strip pass has run.
+
+**Installer boot and install test (2026-11-03)**
+- Booted the 642 MiB ISO under UEFI (QEMU's bundled EDK2) with KVM:
+  GRUB -> dracut dmsquash-live -> multi-user, installer started, serial
+  getty up.
+- Added `tests/installer-answer.json` and built an auto-install ISO
+  (`ISO_AUTO=1`, `browneye.auto=1`).  The unattended install into a 20 GiB
+  virtio disk completes with `install-complete disk=/dev/vda` and
+  `BROWNEY-INSTALL: OK`.
+- The installed system boots from the disk and logs in over the serial
+  console as `admin` (`uid=1000`, wheel), `systemctl is-system-running`
+  reports **running**, swap (`/dev/vda2`, 2 GiB) is active and
+  `systemctl --failed` is empty.
+- Bugs found and fixed by this test:
+  - **LVM2 2.03.44-2** - `lvm-devices-import.service` hardcoded
+    `/usr/sbin/vgimportdevices` while the distro installs it in
+    `/usr/bin`; the unit failed on every boot.
+  - **linux-pam 1.7.3-3** - no PAM service files for the shadow
+    utilities, so `chpasswd` could not set the admin password and
+    `login`/`su`/`passwd` fell through to the deny-all `other` stack.
+    Now ships login, su, passwd, chpasswd, newusers.
+  - **systemd 262.1-2** - built with `-Dswapon-path=/usr/bin/swapon`
+    (`swapoff` likewise); the default `/usr/sbin/swapon` does not exist
+    here, so the installer's swap partition never activated.
+  - ISO bootargs use `rd.overlay=1` (dracut 112 deprecates
+    `rd.live.overlay.overlayfs`), and a stale `answer.json` is removed
+    from the staging tree when `ISO_ANSWER` is unset.
+- Test helpers added: `tests/installer-answer.json` and
+  `tests/serial_login.py` (logs in on the installed system and runs the
+  health checks).
 
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
