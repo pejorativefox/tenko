@@ -1,6 +1,6 @@
 Name:       ntp
 Version:    4.2.8p18
-Release:    1
+Release:    2
 Summary:    NTP time sync daemon
 License:    NO_IDEA
 Source0:    %{name}-%{version}.tar.gz
@@ -12,17 +12,6 @@ Prefix:     /usr
 
 %description
 NTP Time sync daemon
-
-%package leap
-Summary:    Leap-second update helper for NTP
-Requires:   ntp = %{version}-%{release}
-Requires:   perl(IO::Socket::SSL) >= 1.56
-Requires:   perl(Net::SSLeay) >= 1.49
-
-%description leap
-The `update-leap` script, which fetches the leap-second list over HTTPS.
-It needs the CPAN modules IO::Socket::SSL and Net::SSLeay, which are not
-part of LFS/BLFS, so this is a separate subpackage.
 
 %prep
 %setup
@@ -46,6 +35,10 @@ export CFLAGS="$CFLAGS -Wno-error=incompatible-pointer-types"
 %install
 rm -rf %{buildroot}
 %make_install
+# update-leap is not packaged: its cargo-culted CPAN dependencies are not
+# in LFS/BLFS (see the changelog).
+rm -f %{buildroot}/usr/sbin/update-leap \
+      %{buildroot}/usr/share/man/man1/update-leap.1*
 
 mkdir -pv %{buildroot}/etc/finit.d/available
 cp %{SOURCE1} %{buildroot}/etc
@@ -332,11 +325,12 @@ install -v -o ntp -g ntp -d /var/lib/ntp
 /usr/share/man/man5/ntp.keys.5.gz
 /usr/share/ntp/lib/NTP/Util.pm
 
-%files leap
-/usr/sbin/update-leap
-/usr/share/man/man1/update-leap.1.gz
-
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 4.2.8p18-2
+- Drop the ntp-leap subpackage (update-leap).  It needs the CPAN modules
+  IO::Socket::SSL and Net::SSLeay, which are not in LFS/BLFS, so the
+  subpackage was never installable; the user chose not to package it.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.2.8p18-1
 - Sync with BLFS r13.1
 

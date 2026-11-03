@@ -14,11 +14,6 @@ Detailed history is in `git log` (one commit per wave); rules are in
   so Secure Boot firmware rejects it.  Doing this means a signing key,
   signing at publish time, exporting the public key to installed systems,
   enforcing signature checks in the repo files, and signing the ISO.
-- **ntp-leap is published but not installable.**  `update-leap` needs the
-  CPAN modules `IO::Socket::SSL` and `Net::SSLeay`, which are not in
-  LFS/BLFS.  The main `ntp` package installs normally; decide whether to
-  add specs for the two perl modules (not in the books, so a user call) or
-  drop the subpackage.
 - **librsvg typelib split (D6 leftover).**  The only typelib still in its
   runtime package (~9 KB).  Now possible because Rust 1.99 is installed.
 - **Decisions that are not tasks:** `libbsd`/`libmd` stay as distro glue
@@ -202,6 +197,13 @@ Detailed history is in `git log` (one commit per wave); rules are in
   in the tools container: `BASH_COMPLETION_VERSINFO=2 18 0` after login, and
   lazy loading works for tar/ssh/rpm/systemctl; dnf keeps its own completion
   from the dnf package.
+
+**ntp-leap dropped (2026-11-03, user decision)**
+- The `ntp-leap` subpackage (`update-leap`) needs the CPAN modules
+  `IO::Socket::SSL` and `Net::SSLeay`, which are not in LFS/BLFS, so it was
+  never installable.  It is no longer packaged: ntp 4.2.8p18-2 ships only
+  the daemon and tools, the script is removed in `%install`, and the
+  repository was republished without `ntp-leap`.
 
 **qemu 11.1.3 and its book dependencies**
 - The tree had a 2023 qemu 8.1.0 stub.  Updated to **11.1.3**, the BLFS
