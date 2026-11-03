@@ -24,12 +24,17 @@ Detailed history is in `git log` (one commit per wave); rules are in
   verified `rpmsign` + `rpmkeys` and `repomd.xml.asc` with dnf, and found
   that `%__gpg` must be overridden to `/usr/bin/gpg` (our gnupg ships no
   `gpg2`); see the issue for the 706-existing-RPMs re-signing problem.
+- **D3c. Packaging hygiene (headers and unversioned `.so`).**  Split out
+  into issue #4 after the `.pc` half landed (commit `49d93e9`); not
+  started.  76 runtime libraries still ship 1215 `/usr/include` entries and
+  100 unversioned `/usr/lib64/*.so`; 12 of them now have a `-devel`
+  package waiting for the rest of the payload.
 - **Decisions that are not tasks:** `libbsd`/`libmd` stay as distro glue
   (book-less, required only by the base metas; user decision 2026-11-03);
   `podman-bin` is a static bundle (not rebuildable, invisible to CVE
   tracking); console/tty logins get no `pam_systemd` (no
   `/etc/pam.d/login`); `vte` vendors simdutf/fmt/fast_float as offline
-  wraps; `unzip`'s spec still references a patch that 404s upstream.
+  wraps.
 
 ---
 
@@ -40,7 +45,7 @@ Detailed history is in `git log` (one commit per wave); rules are in
   container, producing 94 RPMs (glibc also ships `glibc-locales`).
 - Boots to multi-user/serial login three ways (direct `-kernel`, UEFI GRUB
   disk, dracut initramfs on NVMe) with zero failed units.
-- Kernel 7.2.6-5, glibc 2.44-3 with curated locales, systemd 262.1,
+- Kernel 7.3.1, glibc 2.44-3 with curated locales, systemd 262.1,
   merged `/usr` with `/usr/lib64`.  `browneye-base` requires are generated
   from `lfs.lock` and include `make-ca` (Mozilla trust store).
 
@@ -100,10 +105,11 @@ Detailed history is in `git log` (one commit per wave); rules are in
   together from the published repo.
 
 **Installer ISO and media**
-- `build/browneye-installer.iso` is now **642 MiB** (was 1014 MiB), UEFI-only,
-  kernel 7.3.1, with a 221-RPM on-ISO repository (was 263) that includes
-  rpm 4.18.1-6 — installing from the media no longer yields a segfaulting
-  dnf.  See the ISO size round below.
+- `build/browneye-installer.iso` is **323 MiB** and network-only, UEFI-only,
+  kernel 7.3.1, carrying no RPMs at all (the 642 MiB / 221-RPM on-ISO repo
+  and the 1014 MiB original are superseded; see the ISO size round below).
+  It ships rpm 4.18.1-6, so installing from the media no longer yields a
+  segfaulting dnf.
 - `build_iso_uefi.sh` accepts an http(s) repo URL for the live root and
   passes the same URL to the installer; the EFI FAT image is authored
   inside the tools container (no host dosfstools).
