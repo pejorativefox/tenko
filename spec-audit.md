@@ -10,6 +10,11 @@ checkouts. No spec, RPM, repo, rootfs, image or `plan.md` file was changed.
 - RPMs read: `build/repo-all` (282 RPMs, read-only).
 - Date of audit: 2026-11-01.
 
+> Note (2026-11-03): the browser wave removed `chromium-bin` and added
+> `google-chrome-bin`, `xdg-utils` and `liberation-fonts`.  This audit is a
+> 2026-11-01 snapshot; its counts were not re-run.  The binary-only row below
+> names the replacement browser package.
+
 ## Executive summary
 
 | measure | count |
@@ -284,7 +289,7 @@ Notes on the approved exceptions (not defects):
 |---|---:|---|
 | Retired/duplicate of a current package | 5 | `fuse2`, `pcre`, `sdl`, `sqlite3`, `libsoup` (libsoup2) |
 | Archived by the current book (page only in `archive/`) | 10 | `atk`, `at-spi2-atk`, `check`, `dhcp`, `gtk-xfce-engine`, `libcroco`, `mandoc`, `python2`, `udev`, `xfce4-xkb-plugin` |
-| Prebuilt/binary-only tools | 10 | `chromium-bin`, `firefox-bin`, `go-bin`, `kdevelop-bin`, `kubectl`, `kubectx`, `podman-bin`, `transgui-bin`, `dive`, `gotop` |
+| Prebuilt/binary-only tools | 10 | `google-chrome-bin`, `firefox-bin`, `go-bin`, `kdevelop-bin`, `kubectl`, `kubectx`, `podman-bin`, `transgui-bin`, `dive`, `gotop` |
 | E1/legacy build tooling | 5 | `dnf-plugins-core`, `drpm`, `rpmlint`, `build-essential`, `fakeroot-ng` |
 | Python 2 / old Python modules | 13 | `python2-pip`, `python2-psutil`, `python2-pycairo`, `python2-pycurl`, `python2-pygobject`, `python2-setuptools`, `python-pip`, `python-distro`, `python-scikit-build`, `python3-dateutil`, `python3-importlib_metadata`, `python3-pygpgme`, `python3-zipp` |
 | Perl modules not in the current book | 5 | `perl-cgi`, `perl-crypt-password-md5`, `perl-dbi`, `perl-digest-sha1`, `perl-ssleay` |

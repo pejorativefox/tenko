@@ -39,6 +39,14 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   `/opt` Rust 1.99.0, vendored crates, plus cargo-c 0.10.25) — SVG icons and
   wallpapers render.
 - Firefox 159.0 (`firefox-bin`, `/opt`) with alsa-lib 1.2.16.1.
+- Google Chrome 156.0.8078.79 (`google-chrome-bin`, `/opt/google/chrome`)
+  repackaged from the official Google yum-repo RPM.  The stale 2023
+  `chromium-bin` snapshot was removed.  Chrome drops Google's repo/cron/
+  update-alternatives/AppArmor integration but keeps the 4755 sandbox; it
+  adds `xdg-utils` 1.2.1 (BLFS) and `liberation-fonts` 2.1.5 (upstream,
+  user-approved unversioned BLFS font) for desktop integration.  Built and
+  runtime-tested in `build/chrome-web-wave3`; Chrome is a personal-use
+  exception to the LFS/BLFS parity rule.
 - `scripts/qemu_boot_login.sh` verifies the real first-boot flow: tty1
   password prompt → marker → LightDM greeter; the second boot skips the
   prompt.  `build/login-test.img` boots to the greeter.
@@ -571,6 +579,9 @@ only long-lived copy of a build is the published repo.
 | D49 | Web proxy | `privoxy` 4.2.0 stable (not in LFS/BLFS; approved upstream exception), default pcre2 + zlib build |
 | D50 | proxychains-ng | 4.17 upstream (not in LFS/BLFS; approved upstream exception) |
 | D51 | Gitea CLI | `tea` 0.14.2 official static linux-amd64 binary at `/usr/bin/tea` (user-requested exception) |
+| D52 | Web browser | `google-chrome-bin` 156.0.8078.79, official Google yum-repo RPM under `/opt/google/chrome` (personal-use LFS/BLFS exception); replaces the stale `chromium-bin` snapshot |
+| D53 | Desktop helpers | `xdg-utils` 1.2.1 from BLFS r13.1; DocBook-generated help/man pages shipped as a side source because xmlto is not in the build image |
+| D54 | Liberation fonts | `liberation-fonts` 2.1.5 upstream TTF artifact (BLFS references the font without a versioned entity; user-approved exception) |
 
 Consequences already implemented: `package_specs/ORDER` is the chapter-8
 systemd order; `browneye-basefs` owns `/bin /lib /lib64 /sbin`; `browneye-release`

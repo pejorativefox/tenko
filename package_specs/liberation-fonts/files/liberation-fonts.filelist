@@ -1,5 +1,3 @@
-%dir /usr/share
-%dir /usr/share/fonts
 %dir /usr/share/fonts/liberation-fonts
 /usr/share/fonts/liberation-fonts/LICENSE
 /usr/share/fonts/liberation-fonts/LiberationMono-Bold.ttf

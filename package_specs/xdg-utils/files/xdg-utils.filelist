@@ -1,4 +1,3 @@
-%dir /usr/bin
 /usr/bin/xdg-desktop-icon
 /usr/bin/xdg-desktop-menu
 /usr/bin/xdg-email
@@ -7,9 +6,6 @@
 /usr/bin/xdg-open
 /usr/bin/xdg-screensaver
 /usr/bin/xdg-settings
-%dir /usr/share
-%dir /usr/share/man
-%dir /usr/share/man/man1
 %doc /usr/share/man/man1/xdg-desktop-icon.1.gz
 %doc /usr/share/man/man1/xdg-desktop-menu.1.gz
 %doc /usr/share/man/man1/xdg-email.1.gz
