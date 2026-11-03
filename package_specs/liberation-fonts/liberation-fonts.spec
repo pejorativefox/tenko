@@ -41,11 +41,11 @@ with its OFL license and README.  User-approved exception for browneye.
 %install
 rm -rf %{buildroot}
 install -d -m 0755 %{buildroot}/usr/share/fonts/liberation-fonts
-install -m 0644 *.ttf \
+install -m 0644 liberation-fonts-ttf-%{version}/*.ttf \
     %{buildroot}/usr/share/fonts/liberation-fonts/
-install -m 0644 LICENSE \
+install -m 0644 liberation-fonts-ttf-%{version}/LICENSE \
     %{buildroot}/usr/share/fonts/liberation-fonts/LICENSE
-install -m 0644 README.md \
+install -m 0644 liberation-fonts-ttf-%{version}/README.md \
     %{buildroot}/usr/share/fonts/liberation-fonts/README.md
 
 %files -f %{_sourcedir}/liberation-fonts.filelist
