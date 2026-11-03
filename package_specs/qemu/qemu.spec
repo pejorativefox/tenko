@@ -1,6 +1,6 @@
 Name:       qemu
 Version:    11.1.3
-Release:    1
+Release:    2
 Summary:    Open source machine emulator and virtualizer
 License:    GPL-2.0-only AND LGPL-2.1-only
 URL:        https://www.qemu.org/
@@ -9,6 +9,7 @@ Prefix:     /usr
 
 BuildRequires: glib-devel
 BuildRequires: pixman
+BuildRequires: libpng
 BuildRequires: alsa-lib
 BuildRequires: dtc
 BuildRequires: libslirp
@@ -55,6 +56,13 @@ popd
 %files -f %{_sourcedir}/qemu.filelist
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 11.1.3-2
+- Build against pixman and libpng (pixman is a required BLFS dependency).
+  The first build image lacked both, so qemu was silently built without
+  VNC or PNG screendump support (`-vnc: invalid option`), which broke the
+  graphical test scripts.  Add the BuildRequires and use the
+  base:qemu-deps image that now carries them.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 11.1.3-1
 - Update from the 8.1.0 stub to 11.1.3, the version in BLFS r13.1.
 - Source: https://download.qemu.org/qemu-11.1.3.tar.xz
