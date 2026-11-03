@@ -1,6 +1,6 @@
 # Browneye Linux 13.1 — status and remaining work
 
-Last updated: 2026-11-02. Branch: `lfs-r13.1` (pushed). Work root: `~/browneye`.
+Last updated: 2026-11-03. Branch: `lfs-r13.1` (pushed). Work root: `~/browneye`.
 
 Read this first. It replaces the earlier wave-by-wave plan; the detailed
 history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
@@ -45,8 +45,10 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   update-alternatives/AppArmor integration but keeps the 4755 sandbox; it
   adds `xdg-utils` 1.2.1 (BLFS) and `liberation-fonts` 2.1.5 (upstream,
   user-approved unversioned BLFS font) for desktop integration.  Built and
-  runtime-tested in `build/chrome-web-wave3`; Chrome is a personal-use
-  exception to the LFS/BLFS parity rule.
+  runtime-tested in `build/chrome-web-wave3`, then published 2026-11-03
+  (620 -> 623 RPMs).  The stale `chromium-bin` is gone from the source tree;
+  its old published RPM remains until a full repo prune.  Chrome is a
+  personal-use exception to the LFS/BLFS parity rule.
 - `scripts/qemu_boot_login.sh` verifies the real first-boot flow: tty1
   password prompt → marker → LightDM greeter; the second boot skips the
   prompt.  `build/login-test.img` boots to the greeter.
