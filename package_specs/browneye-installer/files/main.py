@@ -32,7 +32,7 @@ from runner import CommandError, CommandRunner
 from ui import BACK, QUIT, RESCAN, CursesUI, Field, Row
 
 VERSION = "13.1"
-DEFAULT_REPO = "/run/initramfs/live/repo"
+DEFAULT_REPO = "https://tomfool.8bit.ca/browneye/packages/13.1/"
 DEFAULT_TARGET = "/mnt/browneye"
 LOG_DIR = "/run/browneye"
 LOG_JSONL = os.path.join(LOG_DIR, "install.jsonl")
@@ -219,7 +219,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--repo",
         default=None,
-        help="RPM repository (default: /run/initramfs/live/repo)",
+        help="RPM repository, URL or path (default: the Browneye 13.1 repository)",
     )
     parser.add_argument(
         "--target",

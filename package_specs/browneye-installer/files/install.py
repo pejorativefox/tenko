@@ -25,6 +25,7 @@ MIB = 1024 * 1024
 GIB = 1024 * MIB
 
 RELEASEVER = "13.1"
+DEFAULT_REPO = "https://tomfool.8bit.ca/browneye/packages/13.1/"
 FALLBACK_KVER = "7.3.1"
 
 BROWNEYE_BASE_PACKAGES = ("browneye-basefs",)
@@ -112,7 +113,7 @@ class InstallConfig:
     admin_password: str = ""
     confirm_disk: str = ""
     confirm_phrase: str = ""
-    repo: str = "/run/initramfs/live/repo"
+    repo: str = DEFAULT_REPO
     target: str = "/mnt/browneye"
     dry_run: bool = False
 
@@ -153,8 +154,8 @@ class InstallConfig:
             issues.append("delete_partitions contains duplicates")
         if any(int(n) < 1 for n in self.delete_partitions):
             issues.append("delete_partitions entries must be positive")
-        if not os.path.isabs(self.repo):
-            issues.append("repo path must be absolute")
+        if "://" not in self.repo and not os.path.isabs(self.repo):
+            issues.append("repo must be an http(s)/ftp URL or an absolute path")
         if not os.path.isabs(self.target):
             issues.append("target path must be absolute")
         return issues
@@ -185,7 +186,7 @@ class InstallConfig:
         cls,
         data: dict[str, Any],
         *,
-        repo: str = "/run/initramfs/live/repo",
+        repo: str = DEFAULT_REPO,
         target: str = "/mnt/browneye",
         dry_run: bool = False,
     ) -> "InstallConfig":
@@ -321,7 +322,6 @@ class Installer:
             Step("mount", "Mounting the target"),
             Step("basefs", "Installing the base filesystem"),
             Step("packages", "Installing packages"),
-            Step("repo", "Copying the package repository"),
             Step("configure", "Configuring the system"),
             Step("initramfs", "Generating the initramfs"),
             Step("bootloader", "Installing the bootloader"),
@@ -592,6 +592,8 @@ class Installer:
     ) -> Any:
         self.runner.makedirs(self.dnf_cache, step=step, allow_failure=True)
         self.runner.makedirs(self.dnf_persist, step=step, allow_failure=True)
+        repo = self.config.repo
+        repo_source = repo if "://" in repo else "file://" + repo
         argv = [
             "dnf",
             "-y",
@@ -600,7 +602,7 @@ class Installer:
             self.target,
             "--releasever=" + RELEASEVER,
             "--disablerepo=*",
-            "--repofrompath=browneye,file://" + self.config.repo,
+            "--repofrompath=browneye," + repo_source,
             "--setopt=install_weak_deps=" + ("True" if weak_deps else "False"),
             "--setopt=cachedir=" + self.dnf_cache,
             "--setopt=persistdir=" + self.dnf_persist,
@@ -710,40 +712,6 @@ class Installer:
             return tuple(int(part) for part in re.split(r"[^0-9]+", value) if part)
 
         return max(entries, key=key)
-
-    def step_repo(self) -> None:
-        """Keep the install media's repository on the target.
-
-        The installed system can then dnf install packages offline
-        (opencode, herdr, build tooling) without the original ISO.
-        """
-        live_repo = "/run/initramfs/live/repo"
-        if not os.path.isdir(live_repo):
-            self.logger.warning(
-                "repo-copy-skipped", reason="no repository on the install media")
-            return
-
-        base = os.path.join(self.target, "var", "lib", "browneye")
-        dest = os.path.join(base, "repo")
-        repos_dir = os.path.join(self.target, "etc", "yum.repos.d")
-        self.runner.run(
-            ("install", "-dm0755", base, dest, repos_dir),
-            step="repo", description="create the local repository directory")
-        self.runner.run(
-            ("cp", "-a", live_repo + "/.", dest + "/"),
-            step="repo", description="copy the install repository",
-            timeout=1800)
-        self.runner.write_file(
-            os.path.join(repos_dir, "browneye-local.repo"),
-            "[browneye-local]\n"
-            "name=Browneye Linux 13.1 (install media)\n"
-            "baseurl=file:///var/lib/browneye/repo\n"
-            "enabled=1\n"
-            "gpgcheck=0\n"
-            "repo_gpgcheck=0\n"
-            "skip_if_unavailable=1\n",
-            step="repo",
-        )
 
     def step_configure(self) -> None:
         self._write_fstab()

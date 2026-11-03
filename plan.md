@@ -27,13 +27,6 @@ Detailed history is in `git log` (one commit per wave); rules are in
   too (Linux 7.3.1 + dracut live initramfs -> multi-user -> login).  Still
   pending: logging into an XFCE session from the greeter (the greeter
   itself is captured).
-- **Offline repo copy.**  `/var/lib/browneye/repo` is still the old
-  259-RPM set.  A 706-RPM copy (sha256-verified, metadata regenerated,
-  staged before rpm 4.18.1-6, bwm-ng and bash-completion; the published
-  repo is now 712) is
-  at `build/repo-all`; `/var/lib` is root-owned, so it needs one
-  privileged command:
-  `sudo rsync -a --delete build/repo-all/ /var/lib/browneye/repo/`.
 - **librsvg typelib split (D6 leftover).**  The only typelib still in its
   runtime package (~9 KB).  Now possible because Rust 1.99 is installed.
 - **Decisions that are not tasks:** `libbsd`/`libmd` stay as distro glue
@@ -116,24 +109,31 @@ Detailed history is in `git log` (one commit per wave); rules are in
   kernel 7.3.1, with a 221-RPM on-ISO repository (was 263) that includes
   rpm 4.18.1-6 — installing from the media no longer yields a segfaulting
   dnf.  See the ISO size round below.
-- `build_iso_uefi.sh`/`make_iso_repo.sh` accept an http(s) repo URL and
-  resolve the ISO closure with `dnf install --downloadonly` from an empty
-  installroot (the host does not have the dnf download plugin); the EFI
-  FAT image is authored inside the tools container (no host dosfstools).
+- `build_iso_uefi.sh` accepts an http(s) repo URL for the live root and
+  passes the same URL to the installer; the EFI FAT image is authored
+  inside the tools container (no host dosfstools).
 - Every boot/ISO script and the installer dry-run fallback now default to
   KVER 7.3.1; `bootstrap_selfhosted.sh` globs the kernel RPMs.
 
 **ISO size round (2026-11-03)**
 - The install media no longer carries developer tools.  `browneye-installer`
   13.1-7 installs `browneye-base-runtime` instead of `browneye-base` and
-  drops `opencode-bin`/`herdr` from its target set; `make_iso_repo.sh`
-  mirrors that set (runtime base, XFCE, kernel/modules, boot tooling, dnf,
-  sudo) plus the five ISO authoring tools its own tools container installs.
-  The on-ISO repo fell from 263 RPMs / 672 MiB to **221 RPMs / 323 MiB**.
+  drops `opencode-bin`/`herdr` from its target set.  The on-ISO repo fell
+  from 263 RPMs / 672 MiB to 221 RPMs / 323 MiB.
+- **Network-only installs (2026-11-03, user decision).**  Installing and
+  running a system requires an internet connection, so the media no longer
+  carries any packages at all: `make_iso_repo.sh` is deleted,
+  `build_iso_uefi.sh` ships no `/repo`, and `browneye-installer` 13.1-8
+  installs from <https://tomfool.8bit.ca/browneye/packages/13.1/> by
+  default (a URL or a local path can still be passed to `--repo`).  The
+  post-install copy to `/var/lib/browneye/repo` and the
+  `browneye-local.repo` file are gone with it.
 - `efiboot.img` shrank from 24 MiB to **12 MiB** (the smallest FAT16
   `mkfs.fat` accepts; it holds the 4.7 MiB `BOOTX64.EFI`).
-- Net result: 1014 MiB -> **642 MiB** (-37%).  The live root now has no
-  gcc/make/git/podman/opencode/herdr and carries the fixed rpm.
+- Net result: 1014 MiB -> **642 MiB** with the pruned on-ISO repo, then
+  **~320 MiB** once the media stopped carrying packages at all.  The live
+  root has no gcc/make/git/podman/opencode/herdr and carries the fixed
+  rpm.
 - The ISO is published at
   <https://tomfool.8bit.ca/browneye/iso/browneye-installer.iso> (with a
   `.sha256` next to it) and linked from the repository overview and the
@@ -228,7 +228,8 @@ Detailed history is in `git log` (one commit per wave); rules are in
 - Added `tests/installer-answer.json` and built an auto-install ISO
   (`ISO_AUTO=1`, `browneye.auto=1`).  The unattended install into a 20 GiB
   virtio disk completes with `install-complete disk=/dev/vda` and
-  `BROWNEY-INSTALL: OK`.
+  `BROWNEY-INSTALL: OK` (that run still installed from the on-media repo;
+  the network-only flow is re-verified after the change).
 - The installed system boots from the disk and logs in over the serial
   console as `admin` (`uid=1000`, wheel), `systemctl is-system-running`
   reports **running**, swap (`/dev/vda2`, 2 GiB) is active and

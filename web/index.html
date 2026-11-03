@@ -149,9 +149,9 @@ sudo dnf install browneye-base</code></pre>
 
   <section>
     <h2><span class="num">02</span>Install media</h2>
-    <p>A UEFI-only installer ISO with an offline package repository on the
-       media (no network needed to install the base system or the XFCE
-       desktop):</p>
+    <p>A small UEFI-only installer ISO.  Installation downloads the
+       packages from this repository, so the machine needs network access
+       while installing (the ISO itself carries no RPMs):</p>
 <pre><code><span class="c"># download and verify</span>
 curl -LO https://tomfool.8bit.ca/browneye/iso/browneye-installer.iso
 curl -LO https://tomfool.8bit.ca/browneye/iso/browneye-installer.iso.sha256
@@ -159,9 +159,9 @@ sha256sum -c browneye-installer.iso.sha256
 
 <span class="c"># write it to a USB stick</span>
 sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</code></pre>
-    <p class="muted">642 MiB · kernel 7.3.1 · rpm 4.18.1-6 · the media no longer
-       carries developer tools; install the build toolchain afterwards with
-       <code>dnf install browneye-base</code>.</p>
+    <p class="muted">~320 MiB · kernel 7.3.1 · installs the runtime base and
+       the XFCE desktop from this repository; install the build toolchain
+       afterwards with <code>dnf install browneye-base</code>.</p>
   </section>
 
   <section>
@@ -195,7 +195,7 @@ sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</
         <tr><td><code>packages/13.1/browneye-13.1.repo</code></td><td>dnf repository definition</td></tr>
         <tr><td><code>packages/13.1/</code> (xfce-desktop)</td><td>XFCE 4.20 desktop meta-package and dependencies, same repo</td></tr>
         <tr><td><code>packages/13.1/README.txt</code></td><td>Short install notes</td></tr>
-        <tr><td><code>iso/browneye-installer.iso</code></td><td>UEFI installer ISO, 642 MiB, with a 221-RPM offline repository on the media</td></tr>
+        <tr><td><code>iso/browneye-installer.iso</code></td><td>UEFI installer ISO, ~320 MiB, network install (no packages on the media)</td></tr>
         <tr><td><code>iso/browneye-installer.iso.sha256</code></td><td>SHA-256 checksum for the ISO</td></tr>
       </tbody>
     </table>

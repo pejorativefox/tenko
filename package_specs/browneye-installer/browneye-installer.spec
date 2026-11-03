@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    7
+Release:    9
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -85,6 +85,20 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 13.1-9
+- Accept an http(s)/ftp URL for the repository in config validation (the
+  default is now a URL, so 13.1-8 rejected its own default).  Fixes the
+  dry-run/runner tests, which also expected the old browneye-base target.
+
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 13.1-8
+- Install from the network repository by default
+  (https://tomfool.8bit.ca/browneye/packages/13.1/).  `--repo`/the answer
+  file still accept a local path; a URL is passed to dnf unchanged.
+- Drop the post-install copy of the media repository to
+  /var/lib/browneye/repo and the browneye-local.repo file.  Installing and
+  using a system now requires network access (user decision), and the
+  media no longer carries packages (642 -> ~320 MiB ISO).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 13.1-7
 - Install browneye-base-runtime instead of browneye-base: the install media
   and the installed desktop no longer carry the compiler/toolchain

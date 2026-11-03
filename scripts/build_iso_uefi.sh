@@ -4,14 +4,15 @@
 # Layout on the ISO:
 #   /vmlinuz, /initrd.img          kernel and live initramfs
 #   /LiveOS/squashfs.img           zstd-compressed live root (dmsquash-live)
-#   /repo/                         pruned package repo for the target install
 #   /boot/efiboot.img              El Torito EFI image with standalone GRUB
 #   /grub.cfg                      reference copy of the embedded config
 #
 # The live root comes from browneye-live (base-runtime + dnf/grub/dracut/
 # efibootmgr/dosfstools/LVM2/kernel/python + browneye-installer).  dracut's
 # dmsquash-live mounts the squashfs with an overlayfs upper in tmpfs; the
-# installer then installs from /run/initramfs/live/repo.
+# installer then installs the target packages from the network repository
+# (https://tomfool.8bit.ca/browneye/packages/13.1/ by default), so the media
+# itself carries no RPMs.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -22,7 +23,7 @@ LIVE=${LIVE:-$PWD/build/live-root}
 STAGE=${STAGE:-$PWD/build/iso-stage}
 ISO=${ISO:-$PWD/build/browneye-installer.iso}
 ISO_LABEL=${ISO_LABEL:-BROWNEYE}
-ISOREPO=${ISOREPO:-$PWD/build/iso-repo}
+TOOLREPO=${TOOLREPO:-$PWD/build/repo-all}
 TOOLS=${TOOLS:-browneye-iso-build}
 SKIP_LIVE=${SKIP_LIVE:-0}
 ISO_AUTO=${ISO_AUTO:-0}
@@ -87,11 +88,8 @@ fi
 [ -f "$LIVE/boot/vmlinuz-$KVER" ] || { echo "missing kernel" >&2; exit 1; }
 [ -f "$LIVE/boot/initramfs-$KVER.img" ] || { echo "missing initramfs" >&2; exit 1; }
 
-# Always refresh the on-ISO repository: package contents (and the closure)
-# change between builds, and a stale copy silently ships old RPMs.
-if [ "${SKIP_REPO:-0}" != "1" ]; then
-    REPO="$REPO" OUT="$ISOREPO" "$PWD/scripts/make_iso_repo.sh"
-fi
+# The media carries no packages: installation pulls them from $REPO.
+# The authoring tools below still come from the local staged repository.
 
 # One container has the ISO authoring tools (xorriso, mksquashfs); the host
 # mounts build/ at /work.  Recreate it every run: the bind mount's :z relabel
@@ -102,7 +100,7 @@ podman rm -f "$TOOLS" >/dev/null 2>&1 || true
 echo "starting the ISO tools container"
 podman run -d --name "$TOOLS" --network=none \
     -v "$PWD/build:/work:z" \
-    -v "$ISOREPO:/repo:ro,z" \
+    -v "$TOOLREPO:/repo:ro,z" \
     "$IMG" sleep infinity >/dev/null
 podman exec "$TOOLS" /usr/bin/bash -c '
     rpm -Uvh --nodeps --replacepkgs \
@@ -122,9 +120,6 @@ echo "compressing the live root (zstd squashfs)"
 podman exec "$TOOLS" mksquashfs /work/live-root /work/iso-stage/LiveOS/squashfs.img \
     -comp zstd -noappend -no-progress \
     -e dev proc sys run tmp
-
-echo "copying the target package repo"
-cp -a "$ISOREPO" "$STAGE/repo"
 
 bootargs="root=live:CDLABEL=$ISO_LABEL rd.live.image rd.live.dir=LiveOS rd.live.squashimg=squashfs.img rd.overlay=1 console=tty0 console=ttyS0,115200"
 rm -f "$STAGE/answer.json"

@@ -134,7 +134,7 @@ class ConfigTest(unittest.TestCase):
     def test_base_package_set(self):
         config = InstallConfig.from_mapping(self._mapping(package_set="base"))
         self.assertNotIn("xfce-desktop", config.packages)
-        self.assertIn("browneye-base", config.packages)
+        self.assertIn("browneye-base-runtime", config.packages)
 
 
 if __name__ == "__main__":

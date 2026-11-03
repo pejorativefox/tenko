@@ -80,7 +80,7 @@ class DryRunPipelineTest(unittest.TestCase):
             self.assertIn("mkswap", text)
             self.assertIn("--installroot /mnt/browneye", text)
             self.assertIn("install browneye-basefs", text)
-            self.assertIn("install browneye-base xfce-desktop", text)
+            self.assertIn("install browneye-base-runtime xfce-desktop", text)
             self.assertIn("grub-install", text)
             self.assertIn("--no-nvram", text)
             self.assertIn("dracut --force --no-hostonly", text)
