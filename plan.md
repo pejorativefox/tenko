@@ -263,7 +263,7 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       available).  Note: `g-ir-scanner` is unaffected (it reads `.gir`), but
       `g-ir-inspect` and any language binding need `<pkg>-gir`.
 - [ ] **D7. Spec-only specs below the books (63 in the 2026-11-03 audit;
-      55 done).**  These specs are not published, so they only matter if
+      56 done).**  These specs are not published, so they only matter if
       they are ever built; they are being brought to the book versions and
       build-verified wave by wave.
       New tooling: `scripts/bump_to_book.py` reads the book version and
@@ -325,11 +325,17 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       Wave 5 (2026-11-03, build-verified): sdl2 2.32.74, which in r13.1
       is sdl2-compat and needs a new sdl3 3.4.18 spec (built too, with the
       book's upstream_fixes-1 patch from patches/blfs/svn).
-      Remaining 8: alsa-plugins, ffmpeg, libportal, network-manager-applet,
+      Wave 6 (2026-11-03, build-verified): libportal 0.9.1.  The book
+      *recommends* gtk4, not requires it: upstream's backends are
+      feature options, so `-Dbackend-gtk4=disabled` builds the GLib and
+      gtk3 backends (with introspection) without gtk4.  qt5/qt6, docs,
+      vapi and tests are disabled for the same reason.
+      Remaining 7: alsa-plugins, ffmpeg, network-manager-applet,
       pavucontrol, pulseaudio, qemu, xdg-desktop-portal.  These are the
-      heaviest chains: libportal needs gtk4; pavucontrol/alsa-plugins need
-      pulseaudio (which in turn needs sbc/webrtc-audio-processing/soxr/
-      speexdsp); ffmpeg and qemu are very large builds.
+      heaviest chains: pavucontrol/alsa-plugins need pulseaudio (which in
+      turn needs sbc/webrtc-audio-processing/soxr/speexdsp);
+      network-manager-applet needs libnma; xdg-desktop-portal needs
+      pipewire and fuse3; ffmpeg and qemu are very large builds.
       (`unzip` additionally references a consolidated patch that 404s
       upstream — drop the spec or source the patch.)
 - [x] **D8. Minor gaps.**  Done 2026-11-02.  New packages: libunistring 1.5,
