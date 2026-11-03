@@ -23,8 +23,10 @@ Detailed history is in `git log` (one commit per wave); rules are in
   install, the installed-disk UEFI boot, the graphical LightDM greeter and
   an NVMe boot are verified (see the boot/install section below); qemu
   11.1.3-2 is installed on the host (daspork is in the `kvm` group; tool
-  shells need `sg kvm -c ...`).  Still pending: the direct `-kernel` boot
-  (test in progress) and logging into an XFCE session from the greeter.
+  shells need `sg kvm -c ...`).  The direct `-kernel` boot is verified
+  too (Linux 7.3.1 + dracut live initramfs -> multi-user -> login).  Still
+  pending: logging into an XFCE session from the greeter (the greeter
+  itself is captured).
 - **Offline repo copy.**  `/var/lib/browneye/repo` is still the old
   259-RPM set.  A 706-RPM copy (sha256-verified, metadata regenerated,
   staged before rpm 4.18.1-6, bwm-ng and bash-completion; the published
@@ -249,6 +251,10 @@ Detailed history is in `git log` (one commit per wave); rules are in
   `graphical.target`; LightDM is active, logind shows a class=`greeter`
   session on seat0, and a VNC screendump shows the Browneye LightDM
   greeter with the `admin` user.
+- **Direct `-kernel` boot:** `qemu -kernel vmlinuz -initrd initramfs`
+  with the ISO attached boots Linux 7.3.1, the dracut live initramfs
+  mounts the squashfs and the system reaches multi-user with a login
+  prompt - no GRUB or UEFI involved.
 - **NVMe boot:** the same installed image attached as an NVMe namespace
   boots GRUB (`grubx64.efi` from the ESP) and reaches `browneye-test
   login:` - the initramfs carries the NVMe driver.  The installer registers
