@@ -27,7 +27,8 @@ Detailed history is in `git log` (one commit per wave); rules are in
   deferred, so run them when a VM is available.
 - **Offline repo copy.**  `/var/lib/browneye/repo` is still the old
   259-RPM set.  A 706-RPM copy (sha256-verified, metadata regenerated,
-  staged before rpm 4.18.1-6 and bwm-ng; the published repo is now 710) is
+  staged before rpm 4.18.1-6, bwm-ng and bash-completion; the published
+  repo is now 711) is
   at `build/repo-all`; `/var/lib` is root-owned, so it needs one
   privileged command:
   `sudo rsync -a --delete build/repo-all/ /var/lib/browneye/repo/`.
@@ -158,7 +159,21 @@ Detailed history is in `git log` (one commit per wave); rules are in
   version-parity exception.  Verified in the tools container: binary runs
   against `/proc/net/dev`, links `libncursesw.so.6`, man page installed.
 
+**bash-completion 2.18.0**
+- The tree had a 2.10 stub (TODO summary/description, never built).  Updated
+  to upstream 2.18.0 and published (repo now 711 RPMs); bash-completion is
+  not in LFS or BLFS r13.1 (only listed as an optional dependency), so this
+  is the user-approved version-parity exception.
+- Configured with `--sysconfdir=/etc`, so the profile snippet lands in
+  `/etc/profile.d/bash_completion.sh` where `/etc/profile` sources it (the
+  2.10 stub installed it into `/usr/etc`, which nothing reads).
+- 1118 files/symlinks, tracked by a generated static filelist
+  (`package_specs/bash-completion/files/bash-completion.filelist`).  Verified
+  in the tools container: `BASH_COMPLETION_VERSINFO=2 18 0` after login, and
+  lazy loading works for tar/ssh/rpm/systemctl; dnf keeps its own completion
+  from the dnf package.
+
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
   16.2.0, Python 3.15.2; `sudo` needs a password, use `unshare -r`.
-- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (710 RPMs).
+- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (711 RPMs).
