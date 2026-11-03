@@ -44,7 +44,8 @@ PAGE = """<!DOCTYPE html>
 <body><div class="wrap">
 <h1>Browneye Linux {version} — packages</h1>
 <p><a href="../../">&larr; repository overview</a> · {count} RPMs ·
-   <a href="{repo_id}.repo">{repo_id}.repo</a></p>
+   <a href="{repo_id}.repo">{repo_id}.repo</a> ·
+   <a href="../../iso/browneye-installer.iso">installer ISO</a></p>
 <table>
   <thead><tr><th>Package</th><th>Size</th></tr></thead>
   <tbody>

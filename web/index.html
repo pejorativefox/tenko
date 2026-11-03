@@ -122,6 +122,7 @@
     <p>Packages for the Browneye base system, built from Linux From Scratch r13.1 with the self-hosted Browneye container toolchain.</p>
     <div class="actions">
       <a class="btn primary" href="packages/13.1/">Browse packages</a>
+      <a class="btn" href="iso/browneye-installer.iso">Installer ISO (642 MiB)</a>
       <a class="btn" href="packages/13.1/browneye-13.1.repo">browneye-13.1.repo</a>
       <a class="btn" href="https://pjfox.xyz/git/daspork/browneye">Source</a>
     </div>
@@ -147,7 +148,24 @@ sudo dnf install browneye-base</code></pre>
   </section>
 
   <section>
-    <h2><span class="num">02</span>What&rsquo;s inside</h2>
+    <h2><span class="num">02</span>Install media</h2>
+    <p>A UEFI-only installer ISO with an offline package repository on the
+       media (no network needed to install the base system or the XFCE
+       desktop):</p>
+<pre><code><span class="c"># download and verify</span>
+curl -LO https://tomfool.8bit.ca/browneye/iso/browneye-installer.iso
+curl -LO https://tomfool.8bit.ca/browneye/iso/browneye-installer.iso.sha256
+sha256sum -c browneye-installer.iso.sha256
+
+<span class="c"># write it to a USB stick</span>
+sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</code></pre>
+    <p class="muted">642 MiB · kernel 7.3.1 · rpm 4.18.1-6 · the media no longer
+       carries developer tools; install the build toolchain afterwards with
+       <code>dnf install browneye-base</code>.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">03</span>What&rsquo;s inside</h2>
     <div class="grid">
       <div class="card">
         <h3>Base system</h3>
@@ -155,21 +173,21 @@ sudo dnf install browneye-base</code></pre>
       </div>
       <div class="card">
         <h3>Toolchain</h3>
-        <p><span class="v">gcc 16.2.0</span>, <span class="v">binutils 2.47</span>, <span class="v">make 4.4</span>, <span class="v">rpm 4.18.1</span>, <span class="v">meson 1.12</span>.</p>
+        <p><span class="v">gcc 16.2.0</span>, <span class="v">binutils 2.47</span>, <span class="v">make 4.4.1</span>, <span class="v">rpm 4.18.1</span>, <span class="v">meson 1.12.1</span>.</p>
       </div>
       <div class="card">
         <h3>Runtime</h3>
-        <p><span class="v">glibc 2.44</span> + <span class="v">glibc-locales</span> (886 locales), <span class="v">systemd 261.2</span>, <span class="v">python 3.14.7</span>, <span class="v">openssl 4.0.1</span>.</p>
+        <p><span class="v">glibc 2.44</span> + <span class="v">glibc-locales</span> (886 locales), <span class="v">systemd 262.1</span>, <span class="v">python 3.15.2</span>, <span class="v">openssl 4.1.0</span>.</p>
       </div>
       <div class="card">
         <h3>Kernel</h3>
-        <p><span class="v">linux-kernel 7.1.8</span> and <span class="v">linux-modules</span> with virtio-blk/pci, serial, and ext4 built in for QEMU testing.</p>
+        <p><span class="v">linux-kernel 7.3.1</span> and <span class="v">linux-modules</span> with virtio-blk/pci, serial, and ext4 built in for QEMU testing.</p>
       </div>
     </div>
   </section>
 
   <section>
-    <h2><span class="num">03</span>Repository layout</h2>
+    <h2><span class="num">04</span>Repository layout</h2>
     <table class="files">
       <thead><tr><th>Path</th><th>Description</th></tr></thead>
       <tbody>
@@ -177,19 +195,21 @@ sudo dnf install browneye-base</code></pre>
         <tr><td><code>packages/13.1/browneye-13.1.repo</code></td><td>dnf repository definition</td></tr>
         <tr><td><code>packages/13.1/</code> (xfce-desktop)</td><td>XFCE 4.20 desktop meta-package and dependencies, same repo</td></tr>
         <tr><td><code>packages/13.1/README.txt</code></td><td>Short install notes</td></tr>
+        <tr><td><code>iso/browneye-installer.iso</code></td><td>UEFI installer ISO, 642 MiB, with a 221-RPM offline repository on the media</td></tr>
+        <tr><td><code>iso/browneye-installer.iso.sha256</code></td><td>SHA-256 checksum for the ISO</td></tr>
       </tbody>
     </table>
   </section>
 
   <section>
-    <h2><span class="num">04</span>Notes</h2>
+    <h2><span class="num">05</span>Notes</h2>
     <div class="note">
       The repository is <strong>unsigned</strong> and lives on a single origin. The build is self-hosted:
       all 93 specs rebuild offline inside <code>localhost/browneye/base:r13.1-selfhost-20261031</code>,
       and <code>build/rootfs-selfhost</code> is installed from these RPMs.
     </div>
     <ul style="margin-top:14px">
-      <li>Built: <span class="muted">2026-10-31</span> · LFS pin: <code>r13.1</code> (<code>71ef60ba</code>)</li>
+      <li>Built: <span class="muted">2026-11-03</span> · LFS pin: <code>r13.1</code> (<code>71ef60ba</code>)</li>
       <li>Sources and build notes: <a href="https://pjfox.xyz/git/daspork/browneye">pjfox.xyz/git/daspork/browneye</a></li>
       <li>Mirror: <a href="https://github.com/pejorativefox/browneye">github.com/pejorativefox/browneye</a></li>
     </ul>

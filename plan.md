@@ -133,6 +133,11 @@ Detailed history is in `git log` (one commit per wave); rules are in
   `mkfs.fat` accepts; it holds the 4.7 MiB `BOOTX64.EFI`).
 - Net result: 1014 MiB -> **642 MiB** (-37%).  The live root now has no
   gcc/make/git/podman/opencode/herdr and carries the fixed rpm.
+- The ISO is published at
+  <https://tomfool.8bit.ca/browneye/iso/browneye-installer.iso> (with a
+  `.sha256` next to it) and linked from the repository overview and the
+  packages index; `gen_repo_index.py`/`publish_repo.sh` keep that link when
+  they regenerate the index.
 - Tested and rejected: excluding `/usr/include`, man/doc/info and
   `gir-1.0` from the squashfs saved only ~6.7 MiB.
 - **Follow-up found:** 10 `*-devel` packages (~2.9 MiB) are still pulled
