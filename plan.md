@@ -159,15 +159,15 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   podman); `browneye-live` (installer environment).
 - Version parity: D9 (2026-11-02) re-baselined the published tree to the
   current LFS/BLFS trunk (LFS trunk last updated 2026-10-31, BLFS 2026-11-01).
-  The audit of the published metadata (`audit_versions.py --primary`, 626
-  RPMs) now reports **no packages below the books**, 281 current and 1
+  The audit of the published metadata (`audit_versions.py --primary`, 629
+  RPMs) now reports **no packages below the books**, 283 current and 1
   newer (xml-parser 2.59 vs the book's 2.57).
   `lfs.lock` was regenerated from trunk (`581459fa`);
   `sync_lfs_spec.py --all-base` reports 80/80.
 - `bbuild` cleanup: exit codes, ORDER-only `all`, NEVRA conflict refusal,
   atomic source staging, repo-aware read-only query, 56 tests; legacy
   duplicate scripts removed.
-- Published: **626 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>
+- Published: **629 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>
   (553 + the 2026-11-02 X11 client utilities wave, 31 more binaries/libs,
   + the fonts wave: 6 new packages incl. font-ttf-unifont and 3 more
   no-book fonts on request: terminus, siji, ubuntu-font-family).
@@ -274,10 +274,12 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       librsvg's is the only one left (~9 KB, deferred until a Rust build is
       available).  Note: `g-ir-scanner` is unaffected (it reads `.gir`), but
       `g-ir-inspect` and any language binding need `<pkg>-gir`.
-- [ ] **D7. Spec-only specs below the books (63 in the 2026-11-03 audit;
-      59 done).**  These specs are not published, so they only matter if
-      they are ever built; they are being brought to the book versions and
-      build-verified wave by wave.
+- [ ] **D7. Spec-only specs below the books (62 in the 2026-11-03 audit;
+      59 done; pavucontrol dropped, see wave 9).**  Most of these specs are
+      unpublished and only matter if built; they were brought to the book
+      versions and build-verified wave by wave.  Published out of this set
+      because Chrome or pulsemixer needs them: cups 2.4.20-3, nspr 4.40,
+      nss 3.132, libsndfile 1.2.2 and pulseaudio 17.0.
       New tooling: `scripts/bump_to_book.py` reads the book version and
       md5sum entity (including `-md5`, `-http-md5sum`, and the page-level
       download URLs), downloads and verifies the tarball, then updates
@@ -360,15 +362,20 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       Class::Inspector (all published, just not in the lean image).
       alsa-plugins uses the book's `--sysconfdir=/etc` and the
       ffmpeg-9.0 patch, and builds the pulse plugin against libpulse 17.
-      Remaining 4: ffmpeg, pavucontrol, qemu, xdg-desktop-portal.
-      pavucontrol 6.2 is blocked on the GTK4 stack the book requires:
-      libsigc++3 3.6.0 -> glibmm-2.68 2.90.0 -> gtk4 -> gtkmm4 ->
-      pavucontrol, and gtk4 itself lists graphene 1.10.8, libepoxy (have),
-      wayland-protocols and pygobject3 as required.  None of libsigc++3,
-      glibmm-2.68, graphene, wayland-protocols/wayland, pygobject3, gtk4 or
-      gtkmm4 has a spec yet, so this is a dedicated wave of about nine
-      packages.  xdg-desktop-portal needs pipewire and fuse3; ffmpeg and
-      qemu are very large builds.
+      Wave 9 (2026-11-03): **pavucontrol was dropped on request** and
+      replaced by **pulsemixer 1.5.1**, a single-file MIT Python 3 curses
+      mixer (user-approved exception: it is not in LFS/BLFS).  That avoids
+      the whole GTK4 bindings chain pavucontrol 6.2 now requires
+      (libsigc++3 3.6.0 -> glibmm-2.68 -> gtk4 -> gtkmm4, plus graphene,
+      wayland-protocols and pygobject3).  pulsemixer needs `python` and
+      `pulseaudio`; to make it installable from the repo, libsndfile 1.2.2
+      and pulseaudio 17.0 were published with it (repo 626 -> 629 RPMs).
+      Verified: `pulsemixer --version` -> 1.5.1 and `--list` reaches the
+      PulseAudio socket (connection refused in the test container, as
+      expected without a server).
+      Remaining 3: ffmpeg, qemu, xdg-desktop-portal.
+      xdg-desktop-portal needs pipewire and fuse3; ffmpeg and qemu are very
+      large builds.
       (`unzip` additionally references a consolidated patch that 404s
       upstream — drop the spec or source the patch.)
 - [x] **D8. Minor gaps.**  Done 2026-11-02.  New packages: libunistring 1.5,
