@@ -1,0 +1,5 @@
+# Google Chrome 156.0.8078.79 stable, official Google yum repo RPM.
+# size 148833873
+# sha256 0399d98f1ee16eccb39fb14a3461b25b2d5ae093f96a9b585cfb54f0a6a67c1a
+# signed by Google Chrome key ID c264648f
+aa265f25739ca1c81b5a64a06f51b56e https://dl.google.com/linux/chrome/rpm/stable/x86_64/google-chrome-stable-156.0.8078.79-1.x86_64.rpm

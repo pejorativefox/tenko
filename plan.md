@@ -263,7 +263,7 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       available).  Note: `g-ir-scanner` is unaffected (it reads `.gir`), but
       `g-ir-inspect` and any language binding need `<pkg>-gir`.
 - [ ] **D7. Spec-only specs below the books (63 in the 2026-11-03 audit;
-      52 done).**  These specs are not published, so they only matter if
+      55 done).**  These specs are not published, so they only matter if
       they are ever built; they are being brought to the book versions and
       build-verified wave by wave.
       New tooling: `scripts/bump_to_book.py` reads the book version and
@@ -311,13 +311,25 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       unversioned; xdg-dbus-proxy needs `-Dman=disabled` offline; the build
       image needs `which` (libvpx configure probes with it) and
       gobject-introspection for appstream-glib/gsettings.
-      Remaining 11 (heaviest chains): alsa-plugins, cups, ffmpeg, libportal,
-      network-manager-applet, NetworkManager, pavucontrol, pulseaudio, qemu,
-      ruby, sdl2.  sdl2 2.32.74 is sdl2-compat and needs an sdl3 3.4.18 spec
-      that does not exist yet; libportal needs gtk4; xdg-desktop-portal
-      needs pipewire/fuse3 specs.  (`unzip` additionally references a
-      consolidated patch that 404s upstream — drop the spec or source the
-      patch.)
+      Wave 4 (2026-11-03, build-verified): ruby 4.0.9, cups 2.4.20,
+      NetworkManager 1.58.1.
+      Wave 4 notes: ruby needs no OpenSSL-4 patch (that hunk is commented in
+      the book) but does need the book's configure options; cups needs its
+      upstream_fix patch, which only exists under `patches/blfs/svn` for this
+      version, plus lp/lpadmin; NetworkManager follows the systemd meson
+      options, needs nss's /usr/lib .pc on PKG_CONFIG_PATH and
+      `-Wl,-rpath-link,/usr/lib` for the GIR link, and was built with
+      `-Dintrospection=false` because no pygobject is published (the
+      python-pygobject spec is the old python2 one) — that is the one
+      deviation in this wave.
+      Remaining 8: alsa-plugins, ffmpeg, libportal, network-manager-applet,
+      pavucontrol, pulseaudio, qemu, sdl2.  These are the heaviest chains:
+      sdl2 2.32.74 is sdl2-compat and needs an sdl3 3.4.18 spec that does
+      not exist yet; libportal needs gtk4; pavucontrol/alsa-plugins need
+      pulseaudio (which in turn needs sbc/webrtc-audio-processing/soxr/
+      speexdsp); ffmpeg and qemu are very large builds.
+      (`unzip` additionally references a consolidated patch that 404s
+      upstream — drop the spec or source the patch.)
 - [x] **D8. Minor gaps.**  Done 2026-11-02.  New packages: libunistring 1.5,
       libidn2 2.3.8 and libpsl 0.23.3 (headers/.pc in the runtime package like
       the other small libraries) plus docbook-xml 4.5 (DTD and XML catalog

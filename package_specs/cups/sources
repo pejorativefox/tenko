@@ -1,1 +1,2 @@
-412434ceefbdf3ec71bc9188a035f589 https://github.com/apple/cups/releases/download/v2.3.3/cups-2.3.3-source.tar.gz
+81d6e839434795d649ae5936e62d8a41 https://github.com/OpenPrinting/cups/releases/download/v2.4.20/cups-2.4.20-source.tar.gz cups-2.4.20-source.tar.gz
+f0afd5d1d41eda9078778e070770d433 https://www.linuxfromscratch.org/patches/blfs/svn/cups-2.4.20-upstream_fix-1.patch cups-2.4.20-upstream_fix-1.patch
