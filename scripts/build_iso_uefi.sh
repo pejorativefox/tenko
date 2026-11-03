@@ -126,7 +126,8 @@ podman exec "$TOOLS" mksquashfs /work/live-root /work/iso-stage/LiveOS/squashfs.
 echo "copying the target package repo"
 cp -a "$ISOREPO" "$STAGE/repo"
 
-bootargs="root=live:CDLABEL=$ISO_LABEL rd.live.image rd.live.dir=LiveOS rd.live.squashimg=squashfs.img rd.live.overlay.overlayfs=1 console=tty0 console=ttyS0,115200"
+bootargs="root=live:CDLABEL=$ISO_LABEL rd.live.image rd.live.dir=LiveOS rd.live.squashimg=squashfs.img rd.overlay=1 console=tty0 console=ttyS0,115200"
+rm -f "$STAGE/answer.json"
 if [ -n "$ISO_ANSWER" ]; then
     cp -f "$ISO_ANSWER" "$STAGE/answer.json"
 fi

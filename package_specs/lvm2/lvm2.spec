@@ -1,6 +1,6 @@
 Name:       LVM2
 Version:    2.03.44
-Release:    1
+Release:    2
 Summary:    LVM2 logical volume management tools and device-mapper library
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:        https://sourceware.org/lvm2/
@@ -51,11 +51,22 @@ make install_systemd_units DESTDIR=%{buildroot}
 # deadlocks at boot; use the runtime lock directory instead.
 sed -e '/locking_dir =/{s/#//;s/var/run/}' \
     -i %{buildroot}%{_sysconfdir}/lvm/lvm.conf
+# The distro maps sbindir to /usr/bin (%_sbindir), so the tools install
+# there, but lvm's own unit hardcodes /usr/sbin.  Point it at the real
+# binary; otherwise lvm-devices-import.service fails on every boot.
+sed -i 's|^ExecStart=/usr/sbin/vgimportdevices|ExecStart=%{_bindir}/vgimportdevices|' \
+    %{buildroot}%{_unitdir}/lvm-devices-import.service
 
 %files -f %{_sourcedir}/lvm2.filelist
 %files devel -f %{_sourcedir}/lvm2-devel.filelist
 
 %changelog
+* Tue Nov  3 2026 browneye <build@browneye.invalid> 2.03.44-2
+- Fix lvm-devices-import.service: it hardcodes /usr/sbin/vgimportdevices,
+  but the distro maps sbindir to /usr/bin, so the unit failed on every
+  boot (`dnf`-installed systems included).  Rewrite the ExecStart path.
+  Found by the first UEFI installer-ISO boot test.
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2.03.44-1
 - Update to 2.03.44 (current LFS/BLFS r13.1 trunk version).
 
