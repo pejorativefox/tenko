@@ -22,6 +22,15 @@
 %dir /usr/share/vim/vim92/macros/life
 %dir /usr/share/vim/vim92/macros/maze
 %dir /usr/share/vim/vim92/macros/urm
+%dir /usr/share/vim/vim92/pack
+%dir /usr/share/vim/vim92/pack/dist
+%dir /usr/share/vim/vim92/pack/dist/opt
+%dir /usr/share/vim/vim92/pack/dist/opt/netrw
+%dir /usr/share/vim/vim92/pack/dist/opt/netrw/autoload
+%dir /usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw
+%dir /usr/share/vim/vim92/pack/dist/opt/netrw/doc
+%dir /usr/share/vim/vim92/pack/dist/opt/netrw/plugin
+%dir /usr/share/vim/vim92/pack/dist/opt/netrw/syntax
 %dir /usr/share/vim/vim92/plugin
 %dir /usr/share/vim/vim92/print
 %dir /usr/share/vim/vim92/syntax
@@ -1048,6 +1057,16 @@
 /usr/share/vim/vim92/menu.vim
 /usr/share/vim/vim92/mswin.vim
 /usr/share/vim/vim92/optwin.vim
+/usr/share/vim/vim92/pack/dist/opt/netrw/LICENSE.txt
+/usr/share/vim/vim92/pack/dist/opt/netrw/README.md
+/usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw.vim
+/usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw/fs.vim
+/usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw/msg.vim
+/usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw/os.vim
+/usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw_gitignore.vim
+/usr/share/vim/vim92/pack/dist/opt/netrw/doc/netrw.txt
+/usr/share/vim/vim92/pack/dist/opt/netrw/plugin/netrwPlugin.vim
+/usr/share/vim/vim92/pack/dist/opt/netrw/syntax/netrw.vim
 /usr/share/vim/vim92/plugin/README.txt
 /usr/share/vim/vim92/plugin/getscriptPlugin.vim
 /usr/share/vim/vim92/plugin/gzip.vim

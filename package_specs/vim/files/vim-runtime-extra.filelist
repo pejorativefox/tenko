@@ -137,9 +137,6 @@
 %dir /usr/share/vim/vim92/lang/zh_TW.UTF-8
 %dir /usr/share/vim/vim92/lang/zh_TW.UTF-8/LC_MESSAGES
 %dir /usr/share/vim/vim92/lang/zh_TW/LC_MESSAGES
-%dir /usr/share/vim/vim92/pack
-%dir /usr/share/vim/vim92/pack/dist
-%dir /usr/share/vim/vim92/pack/dist/opt
 %dir /usr/share/vim/vim92/pack/dist/opt/cfilter
 %dir /usr/share/vim/vim92/pack/dist/opt/cfilter/plugin
 %dir /usr/share/vim/vim92/pack/dist/opt/comment
@@ -173,12 +170,6 @@
 %dir /usr/share/vim/vim92/pack/dist/opt/matchit/autoload
 %dir /usr/share/vim/vim92/pack/dist/opt/matchit/doc
 %dir /usr/share/vim/vim92/pack/dist/opt/matchit/plugin
-%dir /usr/share/vim/vim92/pack/dist/opt/netrw
-%dir /usr/share/vim/vim92/pack/dist/opt/netrw/autoload
-%dir /usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw
-%dir /usr/share/vim/vim92/pack/dist/opt/netrw/doc
-%dir /usr/share/vim/vim92/pack/dist/opt/netrw/plugin
-%dir /usr/share/vim/vim92/pack/dist/opt/netrw/syntax
 %dir /usr/share/vim/vim92/pack/dist/opt/nohlsearch
 %dir /usr/share/vim/vim92/pack/dist/opt/nohlsearch/plugin
 %dir /usr/share/vim/vim92/pack/dist/opt/osc52
@@ -789,16 +780,6 @@
 /usr/share/vim/vim92/pack/dist/opt/matchit/doc/matchit.txt
 /usr/share/vim/vim92/pack/dist/opt/matchit/doc/tags
 /usr/share/vim/vim92/pack/dist/opt/matchit/plugin/matchit.vim
-/usr/share/vim/vim92/pack/dist/opt/netrw/LICENSE.txt
-/usr/share/vim/vim92/pack/dist/opt/netrw/README.md
-/usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw.vim
-/usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw/fs.vim
-/usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw/msg.vim
-/usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw/os.vim
-/usr/share/vim/vim92/pack/dist/opt/netrw/autoload/netrw_gitignore.vim
-/usr/share/vim/vim92/pack/dist/opt/netrw/doc/netrw.txt
-/usr/share/vim/vim92/pack/dist/opt/netrw/plugin/netrwPlugin.vim
-/usr/share/vim/vim92/pack/dist/opt/netrw/syntax/netrw.vim
 /usr/share/vim/vim92/pack/dist/opt/nohlsearch/plugin/nohlsearch.vim
 /usr/share/vim/vim92/pack/dist/opt/osc52/autoload/osc52.vim
 /usr/share/vim/vim92/pack/dist/opt/osc52/doc/osc52.txt
