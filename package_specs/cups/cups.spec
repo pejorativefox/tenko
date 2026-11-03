@@ -1,17 +1,20 @@
 Name:       cups
 Version:    2.4.20
-Release:    1
+Release:    3
 Summary:    Open source printing system
 License:    Apache
 Source0:    %{name}-%{version}-source.tar.gz
 Source1:    %{name}-%{version}-upstream_fix-1.patch
 Prefix:     /usr
+Requires(pre): shadow
 
 %description
 CUPS is a standards-based, open source printing system developed by Apple Inc.
 
 %pre
 getent group lpadmin >/dev/null || groupadd -g 19 lpadmin
+getent passwd lp >/dev/null || useradd -c "Print Service User" \
+    -d /var/spool/cups -g lp -s /bin/false -u 9 lp
 
 %prep
 %setup -q
@@ -895,6 +898,13 @@ ln -sfn ../cups/doc-%{version} %{buildroot}/usr/share/doc/cups-%{version}
 /usr/share/man/man8/lpmove.8.gz
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.4.20-3
+- Requires(pre) shadow: the %pre useradd/groupadd needs it.
+
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.4.20-2
+- %pre creates the lp user when absent (the lp group already exists);
+  cupsd drops privileges to it at runtime.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.4.20-1
 - Sync with BLFS r13.1
 

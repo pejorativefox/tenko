@@ -46,7 +46,9 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   adds `xdg-utils` 1.2.1 (BLFS) and `liberation-fonts` 2.1.5 (upstream,
   user-approved unversioned BLFS font) for desktop integration.  Built and
   runtime-tested in `build/chrome-web-wave3`, then published 2026-11-03
-  (620 -> 623 RPMs).  The stale `chromium-bin` is gone from the source tree;
+  (620 -> 623 RPMs).  The same day, cups 2.4.20-3, nspr 4.40 and
+  nss 3.132 were published (623 -> 626) so Chrome's `libcups.so.2`,
+  `libnspr4.so`, `libnss3.so` and `libnssutil3.so` requires resolve.  The stale `chromium-bin` is gone from the source tree;
   its old published RPM remains until a full repo prune.  Chrome is a
   personal-use exception to the LFS/BLFS parity rule.
 - `scripts/qemu_boot_login.sh` verifies the real first-boot flow: tty1
@@ -157,15 +159,15 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
   podman); `browneye-live` (installer environment).
 - Version parity: D9 (2026-11-02) re-baselined the published tree to the
   current LFS/BLFS trunk (LFS trunk last updated 2026-10-31, BLFS 2026-11-01).
-  The audit of the published metadata (`audit_versions.py --primary`, 620
-  RPMs) now reports **no packages below the books**, 277 current and 1
+  The audit of the published metadata (`audit_versions.py --primary`, 626
+  RPMs) now reports **no packages below the books**, 281 current and 1
   newer (xml-parser 2.59 vs the book's 2.57).
   `lfs.lock` was regenerated from trunk (`581459fa`);
   `sync_lfs_spec.py --all-base` reports 80/80.
 - `bbuild` cleanup: exit codes, ORDER-only `all`, NEVRA conflict refusal,
   atomic source staging, repo-aware read-only query, 56 tests; legacy
   duplicate scripts removed.
-- Published: **620 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>
+- Published: **626 RPMs** at <https://tomfool.8bit.ca/browneye/packages/13.1/>
   (553 + the 2026-11-02 X11 client utilities wave, 31 more binaries/libs,
   + the fonts wave: 6 new packages incl. font-ttf-unifont and 3 more
   no-book fonts on request: terminus, siji, ubuntu-font-family).
