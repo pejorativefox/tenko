@@ -21,15 +21,15 @@ Detailed history is in `git log` (one commit per wave); rules are in
   LFS/BLFS.  The main `ntp` package installs normally; decide whether to
   add specs for the two perl modules (not in the books, so a user call) or
   drop the subpackage.
-- **Kernel 7.3.1 boot tests.**  `linux` 7.3.1-1 is built and published
-  (`linux-kernel`, `linux-modules`, `linux-kernel-debug`), matching the
-  book.  The three boot tests are still pending: QEMU is not installed on
-  the host and the qemu 11.1.3 spec is deferred, so run them when a VM is
-  available.
-- **Offline repo copy.**  `/var/lib/browneye/repo` on installed systems is
-  still the old 259-RPM set; it does not contain the D9 wave, Chrome,
-  cups/nss/nspr, pulseaudio or the D7 packages.  Regenerate it from the
-  current 706-RPM repo when an ISO or offline install is next built.
+- **Kernel 7.3.1 boot tests.**  `linux` 7.3.1-1 is built, published and
+  carried by the new installer ISO, but the three boot tests are still
+  pending: QEMU is not installed on the host and the qemu 11.1.3 spec is
+  deferred, so run them when a VM is available.
+- **Offline repo copy.**  `/var/lib/browneye/repo` is still the old
+  259-RPM set.  A current 706-RPM copy (sha256-verified, metadata regenerated) is
+  staged at `build/repo-all`; `/var/lib` is root-owned, so it needs one
+  privileged command:
+  `sudo rsync -a --delete build/repo-all/ /var/lib/browneye/repo/`.
 - **librsvg typelib split (D6 leftover).**  The only typelib still in its
   runtime package (~9 KB).  Now possible because Rust 1.99 is installed.
 - **Decisions that are not tasks:** `libbsd`/`libmd` stay as distro glue
@@ -107,11 +107,26 @@ Detailed history is in `git log` (one commit per wave); rules are in
   taking the repo from 629 to 706 RPMs after verifying that all 76 install
   together from the published repo.
 
+**Installer ISO and media**
+- `build/browneye-installer.iso` (1014 MiB, UEFI-only) was rebuilt with
+  kernel 7.3.1, a 263-RPM on-ISO repository and the fixed X11 font RPMs.
+- `build_iso_uefi.sh`/`make_iso_repo.sh` accept an http(s) repo URL and
+  resolve the ISO closure with `dnf install --downloadonly` from an empty
+  installroot (the host does not have the dnf download plugin); the EFI
+  FAT image is authored inside the tools container (no host dosfstools).
+- Every boot/ISO script and the installer dry-run fallback now default to
+  KVER 7.3.1; `bootstrap_selfhosted.sh` globs the kernel RPMs.
+
 **Tooling added**
 - `scripts/bump_to_book.py` (book version/md5 → spec+sources),
   `scripts/regen_files.py` (static `%files` from BUILDROOT),
   `scripts/build_specs.sh` (build an arbitrary spec list in a container),
   plus the base-image, container-build, self-host and publish scripts.
+- Repository metadata check: every published RPM's server size was
+  compared against `primary.xml`.  Four X11 font RPMs (encodings,
+  font-alias, font-bh-ttf, font-util) had been overwritten under the same
+  NEVRA; they were rebuilt at release 2 and republished.  A full sweep
+  now reports zero mismatches.
 
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
