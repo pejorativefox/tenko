@@ -34,19 +34,37 @@ PACKAGES=(
     podman-bin
 )
 
-[ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
+case "$REPO" in
+    http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
+    *) REPOPATH="file://$REPO" ;;
+esac
+if [ "$REPOPATH" != "$REPO" ]; then
+    [ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
+fi
 
 rm -rf "$OUT"
 mkdir -p "$OUT"
 
 echo "resolving the target closure from $REPO"
-dnf --refresh \
+# dnf download is a plugin that is not installed on the build host.  Use a
+# throwaway installroot with --downloadonly instead: it resolves against an
+# empty rpmdb (not the host's installed set) and writes the transaction RPMs
+# to $OUT.
+DNFDIR=$PWD/build/dnf-iso
+rm -rf "$DNFDIR"
+mkdir -p "$DNFDIR"/{log,cache,persist,root}
+unshare -r dnf --noplugins -y install --downloadonly \
+    --destdir="$OUT" --installroot="$DNFDIR/root" \
     --setopt=reposdir=/dev/null \
-    --repofrompath=browneye,file://$REPO \
+    --repofrompath=browneye,"$REPOPATH" \
     --releasever=13.1 \
     --setopt=install_weak_deps=False \
+    --setopt=logdir="$DNFDIR/log" \
+    --setopt=cachedir="$DNFDIR/cache" \
+    --setopt=persistdir="$DNFDIR/persist" \
     --nogpgcheck \
-    download --resolve --alldeps --destdir="$OUT" "${PACKAGES[@]}"
+    "${PACKAGES[@]}"
+rm -rf "$DNFDIR"
 
 count=$(find "$OUT" -maxdepth 1 -name '*.rpm' | wc -l)
 size=$(du -sh "$OUT" | cut -f1)

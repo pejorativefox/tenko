@@ -20,7 +20,7 @@ cd "$(dirname "$0")/.."
 
 IMG=${IMG:-$PWD/build/login-test.img}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-login-test}
-KVER=${KVER:-7.2.6}
+KVER=${KVER:-7.3.1}
 MEM=${MEM:-3072}
 SMP=${SMP:-4}
 SNAPSHOT=${SNAPSHOT:-1}

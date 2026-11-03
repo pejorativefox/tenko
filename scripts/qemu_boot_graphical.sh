@@ -11,7 +11,7 @@
 #   SKIP_INSTALL=1 scripts/qemu_boot_graphical.sh   # reuse the rootfs/image
 set -euo pipefail
 cd "$(dirname "$0")/.."
-KVER=${KVER:-7.2.6}
+KVER=${KVER:-7.3.1}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-desktop}
 REPO=${REPO:-$PWD/build/repo-all}
 IMG=${IMG:-$PWD/build/rootfs-desktop.img}

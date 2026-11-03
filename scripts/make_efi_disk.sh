@@ -7,7 +7,7 @@ cd "$(dirname "$0")/.."
 
 ROOTFS=${1:-build/rootfs-xfce-test}
 IMG=${2:-build/browneye-efi.img}
-KVER=${3:-7.2.6}
+KVER=${3:-7.3.1}
 ESP_MB=${ESP_MB:-64}
 WORK=${WORK:-build/efi-work}
 

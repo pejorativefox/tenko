@@ -10,7 +10,7 @@
 # virtio-blk/serial, and writes the serial log to build/qemu-boot.log.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-KVER="${KVER:-7.2.6}"
+KVER="${KVER:-7.3.1}"
 ROOTFS="${ROOTFS:-$PWD/build/rootfs}"
 IMG="${IMG:-$PWD/build/rootfs.img}"
 LOG="${LOG:-$PWD/build/qemu-boot.log}"

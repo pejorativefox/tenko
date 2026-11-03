@@ -39,13 +39,14 @@ mkdir -p "$REPO"
 echo "collecting rebuilt RPMs from $RUN"
 find "$RUN/build" -type f -path '*/RPMS/*/*.rpm' -exec cp -t "$REPO" {} +
 # Keep the phase-2 kernel available for the boot test, but it is not a
-# browneye-base dependency.
-for rpm in "$HOME"/rpmbuild/RPMS/x86_64/linux-kernel-7.2.6-*.rpm \
-           "$HOME"/rpmbuild/RPMS/x86_64/linux-modules-7.2.6-*.rpm; do
-    if [ -f "$rpm" ]; then
-        cp "$rpm" "$REPO/"
-    fi
+# browneye-base dependency.  Glob the version so a kernel bump does not
+# silently drop it from the repo.
+shopt -s nullglob
+for rpm in "$HOME"/rpmbuild/RPMS/x86_64/linux-kernel-*.rpm \
+           "$HOME"/rpmbuild/RPMS/x86_64/linux-modules-*.rpm; do
+    cp "$rpm" "$REPO/"
 done
+shopt -u nullglob
 echo "repo RPMs: $(find "$REPO" -maxdepth 1 -name '*.rpm' | wc -l)"
 createrepo "$REPO"
 

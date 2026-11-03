@@ -17,7 +17,7 @@ cd "$(dirname "$0")/.."
 
 IMG=${IMG:-localhost/browneye/base:r13.1}
 REPO=${REPO:-$PWD/build/repo-all}
-KVER=${KVER:-7.2.6}
+KVER=${KVER:-7.3.1}
 LIVE=${LIVE:-$PWD/build/live-root}
 STAGE=${STAGE:-$PWD/build/iso-stage}
 ISO=${ISO:-$PWD/build/browneye-installer.iso}
@@ -28,7 +28,13 @@ SKIP_LIVE=${SKIP_LIVE:-0}
 ISO_AUTO=${ISO_AUTO:-0}
 ISO_ANSWER=${ISO_ANSWER:-}
 
-[ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
+case "$REPO" in
+    http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
+    *) REPOPATH="file://$REPO" ;;
+esac
+if [ "$REPOPATH" != "$REPO" ]; then
+    [ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
+fi
 
 if [ "$SKIP_LIVE" != "1" ]; then
     echo "building the live root with browneye-live"
@@ -39,13 +45,13 @@ if [ "$SKIP_LIVE" != "1" ]; then
 
     unshare -r dnf -y --nogpgcheck \
         --installroot "$LIVE" --releasever=13.1 \
-        --disablerepo='*' --repofrompath=browneye,file://$REPO \
+        --disablerepo='*' --repofrompath=browneye,"$REPOPATH" \
         --setopt=install_weak_deps=False \
         install browneye-basefs
 
     unshare -r dnf -y --nogpgcheck \
         --installroot "$LIVE" --releasever=13.1 \
-        --disablerepo='*' --repofrompath=browneye,file://$REPO \
+        --disablerepo='*' --repofrompath=browneye,"$REPOPATH" \
         --setopt=install_weak_deps=False \
         install browneye-live
 
@@ -84,7 +90,7 @@ fi
 # Always refresh the on-ISO repository: package contents (and the closure)
 # change between builds, and a stale copy silently ships old RPMs.
 if [ "${SKIP_REPO:-0}" != "1" ]; then
-    OUT="$ISOREPO" "$PWD/scripts/make_iso_repo.sh"
+    REPO="$REPO" OUT="$ISOREPO" "$PWD/scripts/make_iso_repo.sh"
 fi
 
 # One container has the ISO authoring tools (xorriso, mksquashfs); the host
@@ -96,7 +102,7 @@ podman rm -f "$TOOLS" >/dev/null 2>&1 || true
 echo "starting the ISO tools container"
 podman run -d --name "$TOOLS" --network=none \
     -v "$PWD/build:/work:z" \
-    -v "$REPO:/repo:ro,z" \
+    -v "$ISOREPO:/repo:ro,z" \
     "$IMG" sleep infinity >/dev/null
 podman exec "$TOOLS" /usr/bin/bash -c '
     rpm -Uvh --nodeps --replacepkgs \

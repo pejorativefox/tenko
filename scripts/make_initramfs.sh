@@ -14,7 +14,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 ROOTFS=${1:-build/rootfs-desktop}
-KVER=${2:-7.2.6}
+KVER=${2:-7.3.1}
 OUT=${OUT:-/boot/initramfs-$KVER.img}
 
 [ -d "$ROOTFS" ] || { echo "missing rootfs: $ROOTFS" >&2; exit 1; }
