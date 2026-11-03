@@ -16,8 +16,11 @@ IMG="${IMG:-$PWD/build/rootfs.img}"
 LOG="${LOG:-$PWD/build/qemu-boot.log}"
 # Prefer the single base+desktop repo: the kernel now requires dracut, which
 # only exists in repo-all.  build/repo is the historical bootstrap repo.
-REPO="${REPO:-$PWD/build/repo-all}"
-[ -d "$REPO" ] || REPO="$PWD/build/repo"
+REPO="${REPO:-https://tomfool.8bit.ca/browneye/packages/13.1/}"
+case "$REPO" in
+    http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
+    *) REPOPATH="file://$REPO" ;;
+esac
 
 [ -x "$ROOTFS/usr/bin/bash" ] || { echo "missing rootfs: $ROOTFS" >&2; exit 1; }
 ls ~/rpmbuild/RPMS/x86_64/linux-kernel-"$KVER"-*.rpm ~/rpmbuild/RPMS/x86_64/linux-modules-"$KVER"-*.rpm >/dev/null 2>&1 || {
@@ -30,7 +33,7 @@ createrepo_c --quiet --update "$REPO"
 
 unshare -r dnf -y --nogpgcheck \
   --installroot "$ROOTFS" --releasever=13.1 \
-  --disablerepo='*' --repofrompath=browneye,file://$REPO \
+  --disablerepo='*' --repofrompath=browneye,$REPOPATH \
   --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
   install linux-kernel linux-modules
 

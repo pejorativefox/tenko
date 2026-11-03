@@ -282,8 +282,13 @@ Detailed history is in `git log` (one commit per wave); rules are in
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
   16.2.0, Python 3.15.2; `sudo` needs a password, use `unshare -r`.
-- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (732 published
+- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (731 published
   files, including superseded NEVRAs).
+- `build/` was cleaned to just the published ISO, its `.sha256` and
+  `build/iso-tools/` (the six RPMs the ISO tools container needs); it was
+  20 GB of regenerable test/build debris.  `build_iso_uefi.sh` and the
+  qemu scripts now default to the network repository, so nothing depends
+  on the deleted `build/repo-all`.
 - **LAN mirror:** every publish also updates
   `daspork@192.168.31.9:public_html/browneye`, served at
   <http://192.168.31.9/~daspork/browneye/>.  `publish_rpm.sh` and

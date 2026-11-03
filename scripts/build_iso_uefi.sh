@@ -17,13 +17,13 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 IMG=${IMG:-localhost/browneye/base:r13.1}
-REPO=${REPO:-$PWD/build/repo-all}
+REPO=${REPO:-https://tomfool.8bit.ca/browneye/packages/13.1/}
 KVER=${KVER:-7.3.1}
 LIVE=${LIVE:-$PWD/build/live-root}
 STAGE=${STAGE:-$PWD/build/iso-stage}
 ISO=${ISO:-$PWD/build/browneye-installer.iso}
 ISO_LABEL=${ISO_LABEL:-BROWNEYE}
-TOOLREPO=${TOOLREPO:-$PWD/build/repo-all}
+TOOLREPO=${TOOLREPO:-$PWD/build/iso-tools}
 TOOLS=${TOOLS:-browneye-iso-build}
 SKIP_LIVE=${SKIP_LIVE:-0}
 ISO_AUTO=${ISO_AUTO:-0}

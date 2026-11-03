@@ -13,7 +13,11 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 KVER=${KVER:-7.3.1}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-desktop}
-REPO=${REPO:-$PWD/build/repo-all}
+REPO=${REPO:-https://tomfool.8bit.ca/browneye/packages/13.1/}
+case "$REPO" in
+    http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
+    *) REPOPATH="file://$REPO" ;;
+esac
 IMG=${IMG:-$PWD/build/rootfs-desktop.img}
 SERIAL=${SERIAL:-$PWD/build/qemu-graphical-serial.log}
 MON=${MON:-$PWD/build/qemu-graphical-monitor.sock}
@@ -37,7 +41,7 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     unshare -r rm -rf "$ROOTFS"
     unshare -r dnf -y --nogpgcheck \
         --installroot "$ROOTFS" --releasever=13.1 \
-        --disablerepo='*' --repofrompath=desktop,file://$REPO \
+        --disablerepo='*' --repofrompath=desktop,$REPOPATH \
         --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
         install browneye-base xfce-desktop linux-kernel linux-modules \
         ${EXTRA_PACKAGES}

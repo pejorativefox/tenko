@@ -20,7 +20,11 @@ cd "$(dirname "$0")/.."
 KVER=${KVER:-7.3.1}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-login-test}
 IMG=${IMG:-$PWD/build/login-test.img}
-REPO=${REPO:-$PWD/build/repo-all}
+REPO=${REPO:-https://tomfool.8bit.ca/browneye/packages/13.1/}
+case "$REPO" in
+    http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
+    *) REPOPATH="file://$REPO" ;;
+esac
 SERIAL=${SERIAL:-$PWD/build/login-serial.log}
 MON=${MON:-$PWD/build/login-monitor.sock}
 SHOT=${SHOT:-$PWD/build/login-screenshot.png}
@@ -51,13 +55,13 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     # /usr symlinks.  This is what an installer does before anything else.
     unshare -r dnf -y --nogpgcheck \
         --installroot "$ROOTFS" --releasever=13.1 \
-        --disablerepo='*' --repofrompath=browneye,file://$REPO \
+        --disablerepo='*' --repofrompath=browneye,$REPOPATH \
         --setopt=install_weak_deps=False \
         install browneye-basefs
 
     unshare -r dnf -y --nogpgcheck \
         --installroot "$ROOTFS" --releasever=13.1 \
-        --disablerepo='*' --repofrompath=browneye,file://$REPO \
+        --disablerepo='*' --repofrompath=browneye,$REPOPATH \
         --setopt=install_weak_deps=False \
         install browneye-base xfce-desktop linux-kernel linux-modules \
         ${EXTRA_PACKAGES} \
