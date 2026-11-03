@@ -263,7 +263,7 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       available).  Note: `g-ir-scanner` is unaffected (it reads `.gir`), but
       `g-ir-inspect` and any language binding need `<pkg>-gir`.
 - [ ] **D7. Spec-only specs below the books (63 in the 2026-11-03 audit;
-      36 done).**  These specs are not published, so they only matter if
+      52 done).**  These specs are not published, so they only matter if
       they are ever built; they are being brought to the book versions and
       build-verified wave by wave.
       New tooling: `scripts/bump_to_book.py` reads the book version and
@@ -297,13 +297,26 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       `--disable-valadoc` unless graphviz is present, freeglut must be
       given `-DCMAKE_INSTALL_LIBDIR=lib64`, and libsndfile needs the book's
       ALAC sed for gcc 16.
-      Remaining 27 (heavier chains): alsa-plugins, alsa-utils,
-      appstream-glib, atkmm, bubblewrap, cups, ffmpeg, glib-networking,
-      glibmm, icewm, iptables, libass, libportal, libvpx,
-      network-manager-applet, NetworkManager, nss, pangomm, pavucontrol,
-      pulseaudio, qemu, ruby, rxvt-unicode, sdl2, wpa-supplicant,
-      xdg-dbus-proxy, xdg-desktop-portal.  (`unzip` additionally references
-      a consolidated patch that 404s upstream — drop the spec or source the
+      Wave 3 (2026-11-03, build-verified): glibmm 2.66.10,
+      atkmm 2.28.5, pangomm 2.46.5, cairomm 1.14.6 (book page is
+      cairomm-1.0), libvpx 1.17.0, rxvt-unicode 9.31, wpa-supplicant 2.12,
+      alsa-utils 1.2.16, bubblewrap 0.13.1, xdg-dbus-proxy 0.1.9,
+      libass 0.17.5, appstream-glib 0.8.4, icewm 4.1.0,
+      glib-networking 2.90.1, iptables 1.8.13, nss 3.132, and the
+      previously spec-only gsettings-desktop-schemas 51.0.
+      New dependency specs: libptytty 2.0 (rxvt-unicode 9.31) and
+      gsettings-desktop-schemas (hard requirement of glib-networking 2.90).
+      Wave 3 notes: rxvt needs the book's `interpolation` sed for C++23;
+      nss 3.132 no longer builds libcrmf.a and its standalone patch is now
+      unversioned; xdg-dbus-proxy needs `-Dman=disabled` offline; the build
+      image needs `which` (libvpx configure probes with it) and
+      gobject-introspection for appstream-glib/gsettings.
+      Remaining 11 (heaviest chains): alsa-plugins, cups, ffmpeg, libportal,
+      network-manager-applet, NetworkManager, pavucontrol, pulseaudio, qemu,
+      ruby, sdl2.  sdl2 2.32.74 is sdl2-compat and needs an sdl3 3.4.18 spec
+      that does not exist yet; libportal needs gtk4; xdg-desktop-portal
+      needs pipewire/fuse3 specs.  (`unzip` additionally references a
+      consolidated patch that 404s upstream — drop the spec or source the
       patch.)
 - [x] **D8. Minor gaps.**  Done 2026-11-02.  New packages: libunistring 1.5,
       libidn2 2.3.8 and libpsl 0.23.3 (headers/.pc in the runtime package like

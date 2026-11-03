@@ -1,5 +1,5 @@
 Name:       atkmm
-Version:    2.28.3
+Version:    2.28.5
 Release:    1
 Summary:    atkmm is the C++ binding for the ATK library. 
 License:    LGPL
@@ -36,6 +36,9 @@ popd
 /usr/include/atkmm-1.6/
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.28.5-1
+- Sync with BLFS r13.1
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.28.3-1
 - Version bump
 

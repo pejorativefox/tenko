@@ -1,5 +1,5 @@
 Name:       wpa-supplicant
-Version:    2.7
+Version:    2.12
 Release:    1
 Summary:    TODO
 License:    GPL3
@@ -11,7 +11,7 @@ Source0:    wpa_supplicant-%{version}.tar.gz
 TODO
 
 %prep
-%setup -a 0 -n wpa_supplicant-2.7
+%setup -a 0 -n wpa_supplicant-%{version}
 
 %build
 cat > wpa_supplicant/.config << "EOF"
@@ -57,7 +57,7 @@ mkdir -pv %{buildroot}/sbin
 install -v -m755 wpa_{cli,passphrase,supplicant} %{buildroot}/sbin/
 # dbus
 mkdir -pv %{buildroot}/usr/share/dbus-1/system-services/
-install -v -m644 dbus/fi.{epitest.hostap.WPASupplicant,w1.wpa_supplicant1}.service %{buildroot}/usr/share/dbus-1/system-services/
+install -v -m644 dbus/fi.w1.wpa_supplicant1.service %{buildroot}/usr/share/dbus-1/system-services/
 install -v -d -m755 %{buildroot}/etc/dbus-1/system.d
 install -v -m644 dbus/dbus-wpa_supplicant.conf %{buildroot}/etc/dbus-1/system.d/wpa_supplicant.conf
 popd
@@ -67,9 +67,11 @@ popd
 /sbin/wpa_cli
 /sbin/wpa_passphrase
 /sbin/wpa_supplicant
-/usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service
 /usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.12-1
+- Sync with BLFS r13.1
+
 # let's skip this for now
 

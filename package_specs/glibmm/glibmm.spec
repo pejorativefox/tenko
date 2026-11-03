@@ -1,5 +1,5 @@
 Name:       glibmm
-Version:    2.66.5
+Version:    2.66.10
 Release:    1
 Summary:    glibmm is the official C++ interface for the popular cross-platform library Glib. 
 License:    LGPL
@@ -43,6 +43,9 @@ popd
 /usr/lib64/pkgconfig/glibmm-2.4.pc
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.66.10-1
+- Sync with BLFS r13.1
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.66.5-1
 - Version bump
 

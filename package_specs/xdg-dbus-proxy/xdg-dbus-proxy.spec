@@ -1,5 +1,5 @@
 Name:       xdg-dbus-proxy
-Version:    0.1.2
+Version:    0.1.9
 Release:    1
 Summary:    filtering proxy for D-Bus connections
 License:    LGPL
@@ -10,25 +10,28 @@ Prefix:     /usr
 filtering proxy for D-Bus connections
 
 %prep
-%setup
-sed -i 's/XSLTPROC = xsltproc/XSLTPROC = true/g' Makefile.in
-touch xdg-dbus-proxy.1
+%setup -q
 
 %build
-%configure  --disable-doxygen-docs    \
-            --disable-xml-docs        \
-            --disable-man-pages
-%make_build
+mkdir build
+pushd build
+meson setup --prefix=/usr --buildtype=release -Dman=disabled ..
+ninja
+popd
 
 %install
 rm -rf %{buildroot}
-%make_install
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 
 %files
 /usr/bin/xdg-dbus-proxy
-/usr/share/man/man1/xdg-dbus-proxy.1.gz
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 0.1.9-1
+- Sync with BLFS r13.1
+
 * Thu Sep 10 2020 Chris Statzer <chris.statzer@qq.com> 0.1.2
 - Initial RPM
 
