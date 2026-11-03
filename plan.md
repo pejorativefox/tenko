@@ -127,7 +127,9 @@ Detailed history is in `git log` (one commit per wave); rules are in
   installs from <https://tomfool.8bit.ca/browneye/packages/13.1/> by
   default (a URL or a local path can still be passed to `--repo`).  The
   post-install copy to `/var/lib/browneye/repo` and the
-  `browneye-local.repo` file are gone with it.
+  `browneye-local.repo` file are gone with it.  The installer writes
+  `browneye-13.1.repo` on the target with the source it used (13.1-12), so
+  `dnf install` keeps working afterwards.
 - HTTPS needs a trust store, which the runtime meta lacked: **browneye-base-runtime
   13.1-2** now requires `make-ca`, and **make-ca 1.16.1-3** only regenerates
   its bundle when it is missing.  In the ISO's restricted installroot the
@@ -233,8 +235,11 @@ Detailed history is in `git log` (one commit per wave); rules are in
 - Added `tests/installer-answer.json` and built an auto-install ISO
   (`ISO_AUTO=1`, `browneye.auto=1`).  The unattended install into a 20 GiB
   virtio disk completes with `install-complete disk=/dev/vda` and
-  `BROWNEY-INSTALL: OK` (that run still installed from the on-media repo;
-  the network-only flow is re-verified after the change).
+  `BROWNEY-INSTALL: OK`; the network-only flow was then re-verified: with
+  `-nic user` the installer downloaded all 225 packages over HTTPS from
+  the repository in ~9 minutes, the installed system booted, logged in as
+  `admin`, reported `running`, had active swap, and `dnf repoquery` from
+  the installed system resolved `bash-5.3` from the repo.
 - The installed system boots from the disk and logs in over the serial
   console as `admin` (`uid=1000`, wheel), `systemctl is-system-running`
   reports **running**, swap (`/dev/vda2`, 2 GiB) is active and

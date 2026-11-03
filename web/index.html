@@ -159,7 +159,7 @@ sha256sum -c browneye-installer.iso.sha256
 
 <span class="c"># write it to a USB stick</span>
 sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</code></pre>
-    <p class="muted">~320 MiB · kernel 7.3.1 · installs the runtime base and
+    <p class="muted">323 MiB · kernel 7.3.1 · installs the runtime base and
        the XFCE desktop from this repository; install the build toolchain
        afterwards with <code>dnf install browneye-base</code>.</p>
   </section>
@@ -195,7 +195,7 @@ sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</
         <tr><td><code>packages/13.1/browneye-13.1.repo</code></td><td>dnf repository definition</td></tr>
         <tr><td><code>packages/13.1/</code> (xfce-desktop)</td><td>XFCE 4.20 desktop meta-package and dependencies, same repo</td></tr>
         <tr><td><code>packages/13.1/README.txt</code></td><td>Short install notes</td></tr>
-        <tr><td><code>iso/browneye-installer.iso</code></td><td>UEFI installer ISO, ~320 MiB, network install (no packages on the media)</td></tr>
+        <tr><td><code>iso/browneye-installer.iso</code></td><td>UEFI installer ISO, 323 MiB, network install (no packages on the media)</td></tr>
         <tr><td><code>iso/browneye-installer.iso.sha256</code></td><td>SHA-256 checksum for the ISO</td></tr>
       </tbody>
     </table>
