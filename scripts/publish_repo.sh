@@ -18,6 +18,9 @@ REMOTE=${REMOTE:-tomfool8@192.200.112.194}
 PORT=${PORT:-53211}
 PUBLIC=${PUBLIC:-public_html/browneye}
 DEST=${DEST:-$PUBLIC/packages/$VERSION/}
+# LAN mirror; set MIRROR=0 to skip.
+MIRROR=${MIRROR:-daspork@192.168.31.9}
+MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/browneye}
 URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/}
 INDEX=${INDEX:-web/index.html}
 RSYNC_OPTS=${RSYNC_OPTS:-}
@@ -135,5 +138,15 @@ ssh -p "$PORT" "$REMOTE" "mkdir -p ~/$PUBLIC/packages"
 rsync -av $RSYNC_OPTS --delete -e "ssh -p $PORT" "$STAGE/" "$REMOTE:$DEST"
 if [ -f "$INDEX" ]; then
     rsync -av -e "ssh -p $PORT" "$INDEX" "$REMOTE:$PUBLIC/index.html"
+fi
+
+if [ "$MIRROR" != "0" ]; then
+    echo "mirroring to $MIRROR:$MIRROR_PUBLIC"
+    ssh "$MIRROR" "mkdir -p $MIRROR_PUBLIC/packages/$VERSION"
+    rsync -av $RSYNC_OPTS --delete -e "ssh" "$STAGE/" \
+        "$MIRROR:$MIRROR_PUBLIC/packages/$VERSION/"
+    if [ -f "$INDEX" ]; then
+        rsync -av -e "ssh" "$INDEX" "$MIRROR:$MIRROR_PUBLIC/index.html"
+    fi
 fi
 echo "published $URL"

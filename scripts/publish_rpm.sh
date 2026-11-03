@@ -29,6 +29,9 @@ REMOTE=${REMOTE:-tomfool8@192.200.112.194}
 PORT=${PORT:-53211}
 PUBLIC=${PUBLIC:-public_html/browneye}
 DEST=${DEST:-$PUBLIC/packages/$VERSION/}
+# LAN mirror (also refreshed by publish_repo.sh); set MIRROR=0 to skip.
+MIRROR=${MIRROR:-daspork@192.168.31.9}
+MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/browneye}
 URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/}
 REPO_ID=browneye-$VERSION
 STAGE=${STAGE:-build/publish-rpm}
@@ -223,6 +226,16 @@ echo "regenerating index.html"
 python3 scripts/gen_repo_index.py "$STAGE/files.txt" "$STAGE/index.html" \
     "$VERSION" "$URL" "$REPO_ID"
 rsync -av -e "ssh -p $PORT" "$STAGE/index.html" "$REMOTE:$DEST/index.html"
+
+if [ "$MIRROR" != "0" ]; then
+    echo "mirroring to $MIRROR:$MIRROR_PUBLIC/packages/$VERSION/"
+    ssh "$MIRROR" "mkdir -p $MIRROR_PUBLIC/packages/$VERSION/repodata"
+    rsync -av -e "ssh" "${rpms[@]}" "$MIRROR:$MIRROR_PUBLIC/packages/$VERSION/"
+    rsync -av --delete -e "ssh" "$STAGE/merged/repodata/" \
+        "$MIRROR:$MIRROR_PUBLIC/packages/$VERSION/repodata/"
+    rsync -av -e "ssh" "$STAGE/index.html" \
+        "$MIRROR:$MIRROR_PUBLIC/packages/$VERSION/index.html"
+fi
 
 echo
 echo "published:"

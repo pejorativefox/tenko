@@ -30,6 +30,22 @@ Gitea instance (login `pjfox.xyz`, <https://pjfox.xyz/git>, repo
 `tea issues close 1 --repo daspork/browneye`. Do not guess the tracker
 URL or use the web UI when `tea` can do the work.
 
+## Publishing also updates the LAN mirror
+
+Every publish must reach the local-network mirror as well as the public
+site.  The publish scripts already do it (`MIRROR`, default
+`daspork@192.168.31.9`, `MIRROR_PUBLIC=public_html/browneye`; set
+`MIRROR=0` only for a deliberate local-only test):
+
+- `scripts/publish_rpm.sh` mirrors the RPM, the merged repodata and the
+  package index.
+- `scripts/publish_repo.sh` mirrors the whole repository and the overview
+  page.
+- `scripts/publish_iso.sh` uploads an ISO plus a fresh `.sha256` to both.
+
+The mirror is served at <http://192.168.31.9/~daspork/browneye/>.  Never
+publish to only one of the two.
+
 ## Parallel work and subagents
 
 This tree involves long downloads, uploads, compiles, and checks. Use
