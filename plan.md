@@ -19,14 +19,6 @@ Detailed history is in `git log` (one commit per wave); rules are in
   LFS/BLFS.  The main `ntp` package installs normally; decide whether to
   add specs for the two perl modules (not in the books, so a user call) or
   drop the subpackage.
-- **Kernel 7.3.1 boot tests.**  The installer ISO boot, the unattended
-  install, the installed-disk UEFI boot, the graphical LightDM greeter and
-  an NVMe boot are verified (see the boot/install section below); qemu
-  11.1.3-2 is installed on the host (daspork is in the `kvm` group; tool
-  shells need `sg kvm -c ...`).  The direct `-kernel` boot is verified
-  too (Linux 7.3.1 + dracut live initramfs -> multi-user -> login).  Still
-  pending: logging into an XFCE session from the greeter (the greeter
-  itself is captured).
 - **librsvg typelib split (D6 leftover).**  The only typelib still in its
   runtime package (~9 KB).  Now possible because Rust 1.99 is installed.
 - **Decisions that are not tasks:** `libbsd`/`libmd` stay as distro glue
@@ -263,7 +255,9 @@ Detailed history is in `git log` (one commit per wave); rules are in
 - **Graphical boot:** the installed system comes up in
   `graphical.target`; LightDM is active, logind shows a class=`greeter`
   session on seat0, and a VNC screendump shows the Browneye LightDM
-  greeter with the `admin` user.
+  greeter with the `admin` user.  The XFCE session itself was then used
+  interactively on the installed test system and works (user,
+  2026-11-03) - that closes the last of the kernel/ISO boot tests.
 - **Direct `-kernel` boot:** `qemu -kernel vmlinuz -initrd initramfs`
   with the ISO attached boots Linux 7.3.1, the dracut live initramfs
   mounts the squashfs and the system reaches multi-user with a login
