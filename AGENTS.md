@@ -20,6 +20,16 @@ substitute a different project on your own.
 After updating a spec, rebuild and republish it before building packages
 that depend on it, then record the version and the reason in `plan.md`.
 
+## Issue tracking (Gitea)
+
+Use the `tea` CLI to read, comment on and close issues on the project's
+Gitea instance (login `pjfox.xyz`, <https://pjfox.xyz/git>, repo
+`daspork/browneye`): `tea issues list --repo daspork/browneye`,
+`tea issues 1 --repo daspork/browneye --comments`,
+`tea comments add 1 --repo daspork/browneye "text"`, and
+`tea issues close 1 --repo daspork/browneye`. Do not guess the tracker
+URL or use the web UI when `tea` can do the work.
+
 ## Parallel work and subagents
 
 This tree involves long downloads, uploads, compiles, and checks. Use
