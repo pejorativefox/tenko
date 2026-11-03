@@ -112,16 +112,44 @@ if grep -q 'xml:base=' "$STAGE"/strip/*.xml; then
     exit 1
 fi
 
-count_of() { zstd -dc "$1"/repodata/*primary.xml.zst | grep -c '<package type='; }
-old_count=$(count_of "$STAGE/old")
-merged_count=$(count_of "$STAGE/merged")
-new_count=$(count_of "$STAGE/new")
-echo "packages: published $old_count, new $new_count, merged $merged_count"
-if [ "$merged_count" -lt "$old_count" ]; then
-    echo "refusing to publish: merged metadata has fewer packages than the" \
-         "published set ($merged_count < $old_count)" >&2
-    exit 1
-fi
+# The published repository is sometimes regenerated from the full file
+# listing (publish_repo.sh), so its metadata can list superseded NEVRAs that
+# mergerepo_c --method nvr intentionally collapses to the highest release.
+# Compare the distinct (name, arch) sets instead of raw entry counts: a merge
+# must never lose a package, but a smaller entry count is expected.
+python3 - "$STAGE" <<'PY'
+import glob
+import io
+import subprocess
+import sys
+import xml.etree.ElementTree as ET
+
+stage = sys.argv[1]
+ns = {"c": "http://linux.duke.edu/metadata/common"}
+
+def packages(path):
+    data = subprocess.check_output(["zstd", "-dc", path])
+    keys = set()
+    for _, el in ET.iterparse(io.BytesIO(data)):
+        if el.tag.endswith("}package"):
+            keys.add((el.find("c:name", ns).text,
+                      el.find("c:arch", ns).text))
+            el.clear()
+    return keys
+
+old = packages(glob.glob(stage + "/old/repodata/*primary.xml.zst")[0])
+new = packages(glob.glob(stage + "/new/repodata/*primary.xml.zst")[0])
+merged = packages(glob.glob(stage + "/merged/repodata/*primary.xml.zst")[0])
+missing = old - merged
+if missing:
+    print("refusing to publish: merged metadata dropped %d package(s): %s"
+          % (len(missing),
+             ", ".join("%s.%s" % key for key in sorted(missing)[:5])),
+          file=sys.stderr)
+    sys.exit(1)
+print("packages: published %d, new %d, merged %d (distinct name/arch)"
+      % (len(old), len(new), len(merged)))
+PY
 
 # The package must be in the merged metadata at the exact version-release we
 # just built; a plain name match would still pass if the merge had kept an

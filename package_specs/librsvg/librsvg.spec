@@ -1,6 +1,6 @@
 Name:       librsvg
 Version:    2.63.4
-Release:    1
+Release:    2
 Summary:    SVG rendering library
 License:    LGPL-2.1-or-later
 Prefix:     /usr
@@ -22,11 +22,22 @@ Scalable Vector Graphic (SVG) images.
 
 %package devel
 Summary:    librsvg development files
+Requires:   %{name}-gir = %{version}-%{release}
 Requires:   librsvg = %{version}-%{release}
 Provides:   pkgconfig(librsvg-2.0)
 
 %description devel
 Development files for librsvg.
+
+%package gir
+Summary:    GObject Introspection data for librsvg
+License:    LGPL-2.1-or-later
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for librsvg, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
 
 %prep
 %setup -q
@@ -88,9 +99,14 @@ fi
 
 %files -f %{_sourcedir}/librsvg.filelist
 %files devel -f %{_sourcedir}/librsvg-devel.filelist
+%files gir -f %{_sourcedir}/librsvg-gir.filelist
 
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.63.4-2
+- Split the GObject Introspection typelib into %{name}-gir; the -devel
+  package now requires it (last typelib still in a runtime package)
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.63.4-1
 - Update to 2.63.4 (current BLFS r13.1 trunk).  Vendor tarball regenerated
   from the shipped Cargo.lock now that the Rust 1.99.0 toolchain and
