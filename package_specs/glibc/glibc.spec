@@ -99,7 +99,7 @@ if [ -d %{buildroot}/sbin ]; then mkdir -p %{buildroot}/usr/sbin; mv %{buildroot
 sed '/RTLDLIST=/s@/usr@@g' -i %{buildroot}/usr/bin/ldd
 popd
 
-# Locale data split (plan.md D32).
+# Locale data split (2026-10 size audit).
 #
 # glibc-locales gets a curated archive; every other locale from
 # localedata/SUPPORTED is installed as a per-locale directory tree that
@@ -210,7 +210,7 @@ touch %{buildroot}/etc/ld.so.conf.d/.keep
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.44-3
-- Split locale data (plan.md D32): glibc-locales now ships a curated
+- Split locale data (2026-10 size audit): glibc-locales now ships a curated
   locale-archive (C, POSIX, C.UTF-8 and the UTF-8 variants of en_US,
   en_GB, de_DE, fr_FR, es_ES, it_IT, pt_BR, ru_RU, ja_JP, ko_KR, zh_CN
   and zh_TW) instead of all 886 localedata/SUPPORTED entries (~222 MB).

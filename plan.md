@@ -1,5 +1,8 @@
 # Browneye Linux 13.1 — status
 
+**Closed 2026-11-03.** Open work moved to the Gitea issue tracker; see
+section 1. The rest of this file is frozen project history.
+
 Last updated: 2026-11-03 (pkgconfig/-devel split, unzip fixed, network-only
 323 MiB ISO, qemu 11.1.3, LAN mirror, librsvg-gir split). Branch `lfs-r13.1`.
 Work root `~/browneye`.
@@ -8,37 +11,28 @@ Detailed history is in `git log` (one commit per wave); rules are in
 
 ---
 
-## 1. Not finished
+## 1. Open work is tracked in Gitea
 
-- **D3a. Secure Boot.**  Not implementing (user decision 2026-11-03): both
-  target machines (Lenovo laptop, MSI AM4 board) can disable Secure Boot,
-  and SB-off is the supported configuration.  `probe.py` already detects
-  SB-on in preflight and refuses to install with a pointer to the firmware
-  setup.  No shim/sbsign/mokutil/pesign/efitools specs (none are in
-  LFS/BLFS r13.1).  The research stays open as issue #2 for the day a
-  locked-down machine needs it (that would mean option B: Microsoft-signed
-  shim + MOK).
-- **D3b. Repo and ISO GPG signing.**  Split out of D3a into issue #3
-  (2026-11-03); not started.  The repo is unsigned (`gpgcheck=0`,
-  `repo_gpgcheck=0`) and the ISO only has a `.sha256`.  A scratch spike
-  verified `rpmsign` + `rpmkeys` and `repomd.xml.asc` with dnf, and found
-  that `%__gpg` must be overridden to `/usr/bin/gpg` (our gnupg ships no
-  `gpg2`); see the issue for the 706-existing-RPMs re-signing problem.
-- **D3c. Packaging hygiene (headers and unversioned `.so`).**  Split out
-  into issue #4 after the `.pc` half landed (commit `49d93e9`); not
-  started.  76 runtime libraries still ship 1215 `/usr/include` entries and
-  100 unversioned `/usr/lib64/*.so`; 12 of them now have a `-devel`
-  package waiting for the rest of the payload.
-- **Decisions that are not tasks:** `libbsd`/`libmd` stay as distro glue
-  (book-less, required only by the base metas; user decision 2026-11-03);
-  `podman-bin` is a static bundle (not rebuildable, invisible to CVE
-  tracking); console/tty logins get no `pam_systemd` (no
-  `/etc/pam.d/login`); `vte` vendors simdutf/fmt/fast_float as offline
-  wraps.
+`plan.md` is **closed** as of 2026-11-03. It no longer tracks open items:
+every outstanding task and decision lives in the issue tracker at
+<https://pjfox.xyz/git/daspork/browneye/issues>, and section 2 below is kept
+only as project history.
+
+| issue | scope |
+|---|---|
+| #2 | Secure Boot research — deliberately not implemented; SB-off is supported |
+| #3 | Repo and ISO GPG signing |
+| #4 | Packaging hygiene: headers and unversioned `.so` out of runtime packages |
+| #5 | Documentation: user-facing README and build/test docs |
+| #6 | Rebuild and republish the installer ISO after the `.pc` split |
+| #7 | Packaging decisions and known deviations (four open decisions) |
+| #8 | Spec metadata debt: `TODO` summaries/descriptions, licence audit |
+
+New work goes to the tracker, not here. Section 2 is frozen.
 
 ---
 
-## 2. Summary of the work already done
+## 2. Summary of the work already done (frozen)
 
 **Base system (LFS r13.1, systemd)**
 - 93 chapter-8 specs build offline (`--network=none`) in a self-hosted

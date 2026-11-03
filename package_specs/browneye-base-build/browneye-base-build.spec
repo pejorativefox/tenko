@@ -74,4 +74,4 @@ touch %{buildroot}/usr/share/browneye/base-build
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-1
 - New build profile: browneye-base-runtime + GCC/binutils toolchain,
   autotools, gettext/texinfo, meson/ninja/cmake, devel and static
-  subpackages, Python build backends (size audit B3/B4, plan §6.I)
+  subpackages, Python build backends (size audit B3/B4)

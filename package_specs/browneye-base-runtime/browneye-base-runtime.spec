@@ -114,4 +114,4 @@ touch %{buildroot}/usr/share/browneye/base-runtime
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-1
 - New runtime-only base profile: browneye-base without the compiler,
   autotools, devel/static subpackages, documentation toolchain or Python
-  build backends (size audit B3, plan §6.I)
+  build backends (size audit B3)
