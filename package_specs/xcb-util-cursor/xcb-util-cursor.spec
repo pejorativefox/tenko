@@ -1,5 +1,5 @@
 Name:       xcb-util-cursor
-Version:    0.1.4
+Version:    0.1.6
 Release:    1
 Summary:    XCB cursor utilities
 License:    GPL3
@@ -33,5 +33,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/pkgconfig/xcb-cursor.pc
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 0.1.6-1
+- Sync with BLFS r13.1
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 0.1.4-1
 - Version bump

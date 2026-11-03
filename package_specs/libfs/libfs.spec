@@ -1,5 +1,5 @@
 Name:       libfs
-Version:    1.0.9
+Version:    1.0.10
 Release:    1
 Summary:    X Font Service client library
 License:    GPL3
@@ -32,5 +32,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/doc/libFS/FSlib.txt
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.0.10-1
+- Sync with BLFS r13.1
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.0.9-1
 - Version bump
