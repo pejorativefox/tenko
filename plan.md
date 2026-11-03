@@ -1,6 +1,6 @@
 # Browneye Linux 13.1 — status
 
-Last updated: 2026-11-03 (rpm 4.18.1-6 sqlite-log fix). Branch `lfs-r13.1`.
+Last updated: 2026-11-03 (ISO size round: 1014 -> 642 MiB). Branch `lfs-r13.1`.
 Work root `~/browneye`.
 Detailed history is in `git log` (one commit per wave); rules are in
 `AGENTS.md` (LFS/BLFS version parity, subagent worktrees).
@@ -22,13 +22,14 @@ Detailed history is in `git log` (one commit per wave); rules are in
   add specs for the two perl modules (not in the books, so a user call) or
   drop the subpackage.
 - **Kernel 7.3.1 boot tests.**  `linux` 7.3.1-1 is built, published and
-  carried by the new installer ISO, but the three boot tests are still
+  carried by the installer ISO, but the three boot tests are still
   pending: QEMU is not installed on the host and the qemu 11.1.3 spec is
-  deferred, so run them when a VM is available.
+  deferred, so run them when a VM is available.  The rebuilt 642 MiB ISO
+  (runtime-base target set) needs the same boot/install test.
 - **Offline repo copy.**  `/var/lib/browneye/repo` is still the old
   259-RPM set.  A 706-RPM copy (sha256-verified, metadata regenerated,
   staged before rpm 4.18.1-6, bwm-ng and bash-completion; the published
-  repo is now 711) is
+  repo is now 712) is
   at `build/repo-all`; `/var/lib` is root-owned, so it needs one
   privileged command:
   `sudo rsync -a --delete build/repo-all/ /var/lib/browneye/repo/`.
@@ -110,14 +111,36 @@ Detailed history is in `git log` (one commit per wave); rules are in
   together from the published repo.
 
 **Installer ISO and media**
-- `build/browneye-installer.iso` (1014 MiB, UEFI-only) was rebuilt with
-  kernel 7.3.1, a 263-RPM on-ISO repository and the fixed X11 font RPMs.
+- `build/browneye-installer.iso` is now **642 MiB** (was 1014 MiB), UEFI-only,
+  kernel 7.3.1, with a 221-RPM on-ISO repository (was 263) that includes
+  rpm 4.18.1-6 — installing from the media no longer yields a segfaulting
+  dnf.  See the ISO size round below.
 - `build_iso_uefi.sh`/`make_iso_repo.sh` accept an http(s) repo URL and
   resolve the ISO closure with `dnf install --downloadonly` from an empty
   installroot (the host does not have the dnf download plugin); the EFI
   FAT image is authored inside the tools container (no host dosfstools).
 - Every boot/ISO script and the installer dry-run fallback now default to
   KVER 7.3.1; `bootstrap_selfhosted.sh` globs the kernel RPMs.
+
+**ISO size round (2026-11-03)**
+- The install media no longer carries developer tools.  `browneye-installer`
+  13.1-7 installs `browneye-base-runtime` instead of `browneye-base` and
+  drops `opencode-bin`/`herdr` from its target set; `make_iso_repo.sh`
+  mirrors that set (runtime base, XFCE, kernel/modules, boot tooling, dnf,
+  sudo) plus the five ISO authoring tools its own tools container installs.
+  The on-ISO repo fell from 263 RPMs / 672 MiB to **221 RPMs / 323 MiB**.
+- `efiboot.img` shrank from 24 MiB to **12 MiB** (the smallest FAT16
+  `mkfs.fat` accepts; it holds the 4.7 MiB `BOOTX64.EFI`).
+- Net result: 1014 MiB -> **642 MiB** (-37%).  The live root now has no
+  gcc/make/git/podman/opencode/herdr and carries the fixed rpm.
+- Tested and rejected: excluding `/usr/include`, man/doc/info and
+  `gir-1.0` from the squashfs saved only ~6.7 MiB.
+- **Follow-up found:** 10 `*-devel` packages (~2.9 MiB) are still pulled
+  into every closure because runtime libraries ship `.pc` files and the RPM
+  `pkgconfig` generator turns them into runtime `Requires: pkgconfig(...)`
+  (e.g. `libdnf` -> `pkgconfig(rpm)` -> `rpm-devel`).  The fix is to move
+  the `.pc` files into `-devel` subpackages; it would also remove the 16 MiB
+  `/usr/include` from the live root.
 
 **Tooling added**
 - `scripts/bump_to_book.py` (book version/md5 → spec+sources),
@@ -161,7 +184,7 @@ Detailed history is in `git log` (one commit per wave); rules are in
 
 **bash-completion 2.18.0**
 - The tree had a 2.10 stub (TODO summary/description, never built).  Updated
-  to upstream 2.18.0 and published (repo now 711 RPMs); bash-completion is
+  to upstream 2.18.0 and published (repo 710 -> 711 RPMs); bash-completion is
   not in LFS or BLFS r13.1 (only listed as an optional dependency), so this
   is the user-approved version-parity exception.
 - Configured with `--sysconfdir=/etc`, so the profile snippet lands in
@@ -176,4 +199,4 @@ Detailed history is in `git log` (one commit per wave); rules are in
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
   16.2.0, Python 3.15.2; `sudo` needs a password, use `unshare -r`.
-- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (711 RPMs).
+- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (712 RPMs).

@@ -30,7 +30,7 @@ FALLBACK_KVER = "7.3.1"
 BROWNEYE_BASE_PACKAGES = ("browneye-basefs",)
 
 TARGET_PACKAGES_DESKTOP = (
-    "browneye-base",
+    "browneye-base-runtime",
     "xfce-desktop",
     "linux-kernel",
     "linux-modules",
@@ -40,8 +40,6 @@ TARGET_PACKAGES_DESKTOP = (
     "dosfstools",
     "sudo",
     "dnf",
-    "opencode-bin",
-    "herdr",
 )
 
 TARGET_PACKAGES_BASE = tuple(

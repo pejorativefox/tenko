@@ -157,9 +157,11 @@ echo "building the El Torito EFI image"
 rm -f "$STAGE/boot/efiboot.img"
 mkdir -p "$STAGE/EFI/BOOT"
 cp -f "$STAGE/boot/BOOTX64.EFI" "$STAGE/EFI/BOOT/BOOTX64.EFI"
-truncate -s 24M "$STAGE/boot/efiboot.img"
-# FAT32 needs >=65525 clusters; 24 MiB is below that, so use FAT16.
-# mkfs.fat and mtools live in the ISO tools container, not on the host.
+truncate -s 12M "$STAGE/boot/efiboot.img"
+# FAT32 needs >=65525 clusters; 12 MiB is below that, so use FAT16 (the
+# smallest size mkfs.fat accepts for FAT16; it holds the ~4.7 MiB
+# BOOTX64.EFI with plenty of room).  mkfs.fat and mtools live in the ISO
+# tools container, not on the host.
 podman exec "$TOOLS" mkfs.fat -F 16 -n EFIBOOT /work/iso-stage/boot/efiboot.img >/dev/null
 podman exec "$TOOLS" mmd -i /work/iso-stage/boot/efiboot.img ::/EFI ::/EFI/BOOT
 podman exec "$TOOLS" mcopy -i /work/iso-stage/boot/efiboot.img \

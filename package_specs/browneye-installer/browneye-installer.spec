@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    6
+Release:    7
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -85,6 +85,17 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 13.1-7
+- Install browneye-base-runtime instead of browneye-base: the install media
+  and the installed desktop no longer carry the compiler/toolchain
+  (gcc, binutils, autotools, bison/flex, ninja, pkgconf, ...).  The full
+  build-capable meta is still one `dnf install browneye-base` away from the
+  network repository.
+- Drop opencode-bin and herdr from the default target set; they are
+  developer extras and are still available from the network repository.
+  This keeps the on-ISO repository free of developer tools (saves ~270 MiB
+  of media).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-6
 - Install opencode-bin and herdr by default
 - Copy the install media's package repository to /var/lib/browneye/repo

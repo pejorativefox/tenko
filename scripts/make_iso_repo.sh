@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 # Build the pruned package repository that goes on the installer ISO.
 #
-# The closure is exactly what the installer can install: the base system, the
-# XFCE desktop (which pulls lightdm/accountsservice/sudo/librsvg) and the boot
-# tooling.  Keep this list in sync with browneye-installer's target set.
+# The closure is exactly what the installer can install: the runtime base
+# (browneye-base-runtime, i.e. no compiler/toolchain or development
+# headers), the XFCE desktop (which pulls lightdm/accountsservice/sudo/
+# librsvg) and the boot tooling.  The install media carries no developer
+# tools (no gcc/autotools/git/podman/opencode); those stay in the network
+# repository.  Keep this list in sync with browneye-installer's target set.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -11,7 +14,7 @@ REPO=${REPO:-$PWD/build/repo-all}
 OUT=${OUT:-$PWD/build/iso-repo}
 
 PACKAGES=(
-    browneye-base
+    browneye-base-runtime
     xfce-desktop
     linux-kernel
     linux-modules
@@ -21,17 +24,13 @@ PACKAGES=(
     dosfstools
     dnf
     sudo
-    opencode-bin
-    herdr
-    browneye-build
-    # ISO authoring and container tooling, so an installed system can
-    # rebuild the media offline.
+    # ISO authoring tools: the ISO build installs these from /repo into its
+    # own tools container (see build_iso_uefi.sh), so they must stay here.
     libburn
     libisofs
     libisoburn
     squashfs-tools
     mtools
-    podman-bin
 )
 
 case "$REPO" in
