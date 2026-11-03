@@ -1,6 +1,6 @@
 # Browneye Linux 13.1 — status
 
-Last updated: 2026-11-03 (post-audit book-parity wave). Branch `lfs-r13.1`.
+Last updated: 2026-11-03 (rpm 4.18.1-6 sqlite-log fix). Branch `lfs-r13.1`.
 Work root `~/browneye`.
 Detailed history is in `git log` (one commit per wave); rules are in
 `AGENTS.md` (LFS/BLFS version parity, subagent worktrees).
@@ -127,6 +127,26 @@ Detailed history is in `git log` (one commit per wave); rules are in
   font-alias, font-bh-ttf, font-util) had been overwritten under the same
   NEVRA; they were rebuilt at release 2 and republished.  A full sweep
   now reports zero mismatches.
+
+**rpm 4.18.1-6: dnf segfaults fixed**
+- `dnf list installed`, `dnf info`, `dnf list --all` and `dnf history`
+  crashed with SIGSEGV inside `vsnprintf` (rpmlog).  rpm 4.18's sqlite
+  backend installed a *process-global* `SQLITE_CONFIG_LOG` handler that
+  dereferences the `rpmdb` passed as user data.  The hook is global, so it
+  also fired for libdnf's later `/var/lib/dnf/history.sqlite` connection
+  after the rpmdb had been closed, and rpmlog formatted the freed
+  `rdb->db_descr`; the crash path was
+  `Swdb::Swdb` → sqlite3_exec → sqlite3_log → rpmlog → vsnprintf.
+- Fixed with a backport of upstream commit `d018e756b72c` ("Don't muck
+  with per-process global sqlite configuration from the db backend",
+  patch `rpm-4.18.1-sqlite-global-log.patch`).  rpm 4.18.1-6,
+  python3-rpm 4.18.1-6 and rpm-devel 4.18.1-6 are published (repo: 709
+  RPMs); the four crashing commands were verified in the tools container
+  before and after the upgrade (139 → 0).
+- Bootstrap note: `dnf upgrade` itself is one of the crashing commands,
+  so an installed system must take the fixed rpm with
+  `sudo rpm -Uvh rpm-4.18.1-6 python3-rpm-4.18.1-6 rpm-devel-4.18.1-6`
+  (download them from the repo) once, after which dnf works normally.
 
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc

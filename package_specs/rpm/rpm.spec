@@ -1,9 +1,10 @@
 Name:       rpm
 Version:    4.18.1
-Release:    5
+Release:    6
 Summary:    RPM package manager
 License:    GPL3
 Source0:    %{name}-%{version}.tar.bz2
+Patch0:     rpm-4.18.1-sqlite-global-log.patch
 Prefix:     /usr
 
 %description
@@ -26,6 +27,7 @@ Development files for rpm.
 
 %prep
 %setup -q
+%patch 0 -p1
 
 %build
 export ac_cv_header_elfutils_libdwelf_h=no
@@ -57,6 +59,16 @@ rmdir %{buildroot}/var 2>/dev/null || true
 
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 4.18.1-6
+- Backport upstream d018e756b72c ("Don't muck with per-process global
+  sqlite configuration from the db backend"): drop the process-global
+  SQLITE_CONFIG_LOG handler that kept a stale rpmdb pointer.  Once the
+  rpmdb had been closed, the next sqlite log message from any other
+  connection in the process (libdnf's history.sqlite) reached rpmlog()
+  with freed memory in rdb->db_descr and crashed inside vsnprintf.
+  This is what made `dnf list installed`, `dnf info` and `dnf history`
+  segfault.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.18.1-5
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 1 paths updated.
 
