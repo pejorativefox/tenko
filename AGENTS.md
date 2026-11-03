@@ -47,6 +47,19 @@ site.  The publish scripts already do it (`MIRROR`, default
 The mirror is served at <http://192.168.31.9/~daspork/browneye/>.  Never
 publish to only one of the two.
 
+## Images are rebuilt only on request
+
+The RPM repository is the normal delivery channel.  Fixing a package and
+publishing its RPM does **not** mean rebuilding the installer ISO or the
+container rootfs tarball: those artifacts are expensive to build, test and
+upload, so rebuild and republish them only when the user explicitly asks
+for it (or a specific issue says to).
+
+When a package fix should eventually reach the images, note it in the
+relevant issue (for example the ISO/rootfs rebuild issue) instead of
+rebuilding on your own.  Existing ISOs and rootfs tarballs keep the
+packages they were built with until such a rebuild.
+
 ## Parallel work and subagents
 
 This tree involves long downloads, uploads, compiles, and checks. Use
