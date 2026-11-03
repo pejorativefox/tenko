@@ -1,6 +1,6 @@
 Name:       browneye-base-runtime
 Version:    13.1
-Release:    1
+Release:    2
 Summary:    Browneye Linux runtime base (no build toolchain)
 License:    MIT
 Prefix:     /usr
@@ -73,6 +73,7 @@ Requires:   browneye-sysconfig
 Requires:   browneye-release
 Requires:   browneye-firstboot
 Requires:   linux-pam
+Requires:   make-ca
 
 %description
 The Browneye Linux base system with no build toolchain: libc and the
@@ -104,6 +105,12 @@ touch %{buildroot}/usr/share/browneye/base-runtime
 /usr/share/browneye/base-runtime
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 13.1-2
+- Require make-ca.  browneye-base had it, but the runtime meta (used by the
+  live installer and by network installs) did not, so neither the live
+  environment nor a freshly installed system had a CA trust store.  That
+  breaks HTTPS for dnf now that installs pull from the repository URL.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-1
 - New runtime-only base profile: browneye-base without the compiler,
   autotools, devel/static subpackages, documentation toolchain or Python
