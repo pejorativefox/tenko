@@ -252,4 +252,4 @@ Detailed history is in `git log` (one commit per wave); rules are in
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
   16.2.0, Python 3.15.2; `sudo` needs a password, use `unshare -r`.
-- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (715 RPMs).
+- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (724 RPMs).
