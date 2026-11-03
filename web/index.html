@@ -162,6 +162,16 @@ sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</
     <p class="muted">323 MiB · kernel 7.3.1 · installs the runtime base and
        the XFCE desktop from this repository; install the build toolchain
        afterwards with <code>dnf install browneye-base</code>.</p>
+
+    <p>A container rootfs built from this repository is published too.
+       It is the build image (gcc, make, Python 3.15, Perl, CMake/meson,
+       rpm/dnf, createrepo_c) and can be imported directly:</p>
+<pre><code>curl -LO https://tomfool.8bit.ca/browneye/rootfs/browneye-rootfs.tar.gz
+curl -LO https://tomfool.8bit.ca/browneye/rootfs/browneye-rootfs.tar.gz.sha256
+sha256sum -c browneye-rootfs.tar.gz.sha256
+podman import browneye-rootfs.tar.gz localhost/browneye/rootfs:13.1</code></pre>
+    <p class="muted">244 MiB gzip · 160 packages · regenerated from the
+       repository with <code>scripts/make_base_image.sh</code>.</p>
   </section>
 
   <section>
@@ -197,6 +207,8 @@ sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</
         <tr><td><code>packages/13.1/README.txt</code></td><td>Short install notes</td></tr>
         <tr><td><code>iso/browneye-installer.iso</code></td><td>UEFI installer ISO, 323 MiB, network install (no packages on the media)</td></tr>
         <tr><td><code>iso/browneye-installer.iso.sha256</code></td><td>SHA-256 checksum for the ISO</td></tr>
+        <tr><td><code>rootfs/browneye-rootfs.tar.gz</code></td><td>container build rootfs, 244 MiB gzip, 160 packages</td></tr>
+        <tr><td><code>rootfs/browneye-rootfs.tar.gz.sha256</code></td><td>SHA-256 checksum for the rootfs tarball</td></tr>
       </tbody>
     </table>
   </section>
