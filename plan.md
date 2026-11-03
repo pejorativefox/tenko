@@ -143,9 +143,11 @@ Detailed history is in `git log` (one commit per wave); rules are in
   rpm.
 - The ISO is published at
   <https://tomfool.8bit.ca/browneye/iso/browneye-installer.iso> (with a
-  `.sha256` next to it) and linked from the repository overview and the
-  packages index; `gen_repo_index.py`/`publish_repo.sh` keep that link when
-  they regenerate the index.
+  `.sha256` next to it) and at the LAN mirror
+  <http://192.168.31.9/~daspork/browneye/iso/browneye-installer.iso>; it is
+  linked from the repository overview and the packages index, and
+  `gen_repo_index.py`/`publish_repo.sh` keep that link when they regenerate
+  the index.
 - Tested and rejected: excluding `/usr/include`, man/doc/info and
   `gir-1.0` from the squashfs saved only ~6.7 MiB.
 - **Follow-up found:** 10 `*-devel` packages (~2.9 MiB) are still pulled
@@ -284,4 +286,13 @@ Detailed history is in `git log` (one commit per wave); rules are in
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
   16.2.0, Python 3.15.2; `sudo` needs a password, use `unshare -r`.
-- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (725 RPMs).
+- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (732 published
+  files, including superseded NEVRAs).
+- **LAN mirror:** every publish also updates
+  `daspork@192.168.31.9:public_html/browneye`, served at
+  <http://192.168.31.9/~daspork/browneye/>.  `publish_rpm.sh` and
+  `publish_repo.sh` mirror automatically; the new `scripts/publish_iso.sh`
+  uploads an ISO plus a fresh `.sha256` to both sites.  `MIRROR=0` skips
+  the LAN copy (AGENTS.md rule).  The initial sync (732 RPMs + repodata +
+  index + ISO) is done and verified with `dnf --repofrompath` against the
+  mirror.
