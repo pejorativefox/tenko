@@ -275,7 +275,7 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       available).  Note: `g-ir-scanner` is unaffected (it reads `.gir`), but
       `g-ir-inspect` and any language binding need `<pkg>-gir`.
 - [ ] **D7. Spec-only specs below the books (63 in the 2026-11-03 audit;
-      57 done).**  These specs are not published, so they only matter if
+      59 done).**  These specs are not published, so they only matter if
       they are ever built; they are being brought to the book versions and
       build-verified wave by wave.
       New tooling: `scripts/bump_to_book.py` reads the book version and
@@ -353,10 +353,19 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       into /usr/lib64 (tree convention) instead of the book's /usr/lib,
       which removed the PKG_CONFIG_PATH/rpath-link hacks from
       NetworkManager and libnma; NM was rebuilt accordingly.
-      Remaining 6: alsa-plugins, ffmpeg, pavucontrol, pulseaudio, qemu,
-      xdg-desktop-portal.  pavucontrol/alsa-plugins need pulseaudio (which
-      needs sbc/webrtc-audio-processing/soxr/speexdsp); xdg-desktop-portal
-      needs pipewire and fuse3; ffmpeg and qemu are very large builds.
+      Wave 8 (2026-11-03, build-verified): pulseaudio 17.0 and
+      alsa-plugins 1.2.12.  pulseaudio moved to meson
+      (`-D database=gdbm -D bluez5=disabled -D tests=false`); its man pages
+      need perl XML::Parser, which in turn needs File::ShareDir and
+      Class::Inspector (all published, just not in the lean image).
+      alsa-plugins uses the book's `--sysconfdir=/etc` and the
+      ffmpeg-9.0 patch, and builds the pulse plugin against libpulse 17.
+      Remaining 4: ffmpeg, pavucontrol, qemu, xdg-desktop-portal.
+      pavucontrol 6.2 is blocked on the GTK4 bindings chain the book
+      requires: libsigc++3 3.6.0 -> glibmm-2.68 -> gtk4 -> gtkmm4 ->
+      pavucontrol, plus graphene 1.10.8 for gtk4.  None of those five have
+      specs yet.  xdg-desktop-portal needs pipewire and fuse3; ffmpeg and
+      qemu are very large builds.
       (`unzip` additionally references a consolidated patch that 404s
       upstream — drop the spec or source the patch.)
 - [x] **D8. Minor gaps.**  Done 2026-11-02.  New packages: libunistring 1.5,
