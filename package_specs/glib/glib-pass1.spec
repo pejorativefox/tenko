@@ -1,5 +1,5 @@
 Name:       glib
-Version:    2.90.0
+Version:    2.90.1
 Release:    1
 Summary:    Glib low level system libraries (bootstrap pass, no introspection)
 License:    GPL3
