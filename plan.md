@@ -19,12 +19,12 @@ Detailed history is in `git log` (one commit per wave); rules are in
   LFS/BLFS.  The main `ntp` package installs normally; decide whether to
   add specs for the two perl modules (not in the books, so a user call) or
   drop the subpackage.
-- **Kernel 7.3.1 boot tests.**  The installer ISO boot and a full
-  unattended install are verified (see the boot/install section below),
-  and qemu 11.1.3 is installed on the host (daspork is in the `kvm`
-  group; tool shells need `sg kvm -c ...`).  Still pending: the direct
-  `-kernel` boot, the dracut initramfs on an NVMe image, and the
-  graphical LightDM/XFCE login test.
+- **Kernel 7.3.1 boot tests.**  The installer ISO boot, the unattended
+  install, the installed-disk UEFI boot, the graphical LightDM greeter and
+  an NVMe boot are verified (see the boot/install section below); qemu
+  11.1.3-2 is installed on the host (daspork is in the `kvm` group; tool
+  shells need `sg kvm -c ...`).  Still pending: the direct `-kernel` boot
+  (test in progress) and logging into an XFCE session from the greeter.
 - **Offline repo copy.**  `/var/lib/browneye/repo` is still the old
   259-RPM set.  A 706-RPM copy (sha256-verified, metadata regenerated,
   staged before rpm 4.18.1-6, bwm-ng and bash-completion; the published
@@ -245,6 +245,21 @@ Detailed history is in `git log` (one commit per wave); rules are in
   - ISO bootargs use `rd.overlay=1` (dracut 112 deprecates
     `rd.live.overlay.overlayfs`), and a stale `answer.json` is removed
     from the staging tree when `ISO_ANSWER` is unset.
+- **Graphical boot:** the installed system comes up in
+  `graphical.target`; LightDM is active, logind shows a class=`greeter`
+  session on seat0, and a VNC screendump shows the Browneye LightDM
+  greeter with the `admin` user.
+- **NVMe boot:** the same installed image attached as an NVMe namespace
+  boots GRUB (`grubx64.efi` from the ESP) and reaches `browneye-test
+  login:` - the initramfs carries the NVMe driver.  The installer registers
+  its UEFI boot entry in the install VM's NVRAM, so on a fresh NVRAM the
+  firmware falls back to the EFI shell; launching the removable
+  `\EFI\BOOT\BOOTX64.EFI` works.
+- **qemu 11.1.3-2:** the first build image had no pixman or libpng, so
+  qemu was silently built without VNC (`-vnc: invalid option`) or PNG
+  screendump.  pixman is a required BLFS dependency; both are now
+  BuildRequires and VNC/PNG are enabled, which is what made the greeter
+  screenshot possible.
 - Test helpers added: `tests/installer-answer.json` and
   `tests/serial_login.py` (logs in on the installed system and runs the
   health checks).
@@ -252,4 +267,4 @@ Detailed history is in `git log` (one commit per wave); rules are in
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
   16.2.0, Python 3.15.2; `sudo` needs a password, use `unshare -r`.
-- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (724 RPMs).
+- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (725 RPMs).
