@@ -1,6 +1,6 @@
 Name:       font-bh-ttf
 Version:    1.0.4
-Release:    1
+Release:    2
 Summary:    Bigelow & Holmes TrueType fonts
 License:    MIT
 Prefix:     /usr
@@ -25,6 +25,11 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/font-bh-ttf.filelist
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.0.4-2
+- Rebuild: the published metadata still described the earlier
+  build of this NEVRA, so dnf rejected the server file on a
+  size/checksum mismatch.  Same content, new release.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.0.4
 - Sync with BLFS r13.1 (font-bh-ttf 1.0.4)
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.0.4

@@ -1,6 +1,6 @@
 Name:       encodings
 Version:    1.1.0
-Release:    1
+Release:    2
 Summary:    X.org font encodings
 License:    MIT
 Prefix:     /usr
@@ -25,6 +25,11 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/encodings.filelist
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.1.0-2
+- Rebuild: the published metadata still described the earlier
+  build of this NEVRA, so dnf rejected the server file on a
+  size/checksum mismatch.  Same content, new release.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.1.0
 - Sync with BLFS r13.1 (encodings 1.1.0)
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.1.0
