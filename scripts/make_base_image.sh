@@ -5,10 +5,9 @@
 # This is the missing first step for the container workflows: it installs a
 # root filesystem with dnf (rootless, via unshare -r when no tool image is
 # available), finalizes it, imports it with podman, and verifies the result.
-# The two follow-up scripts then work against the image it produces:
+# The follow-up script then works against the image it produces:
 #
 #   IMAGE=<image> OUT=build/container-rebuild scripts/verify_base_in_container.sh
-#   TOOL_IMAGE=<image> scripts/make_build_tools_image.sh
 #
 # Usage:
 #   scripts/make_base_image.sh
@@ -145,4 +144,3 @@ fi
 
 echo "created $IMAGE"
 echo "next: IMAGE=$IMAGE OUT=build/container-rebuild scripts/verify_base_in_container.sh"
-echo "next: TOOL_IMAGE=$IMAGE scripts/make_build_tools_image.sh   # dnf/createrepo_c image"

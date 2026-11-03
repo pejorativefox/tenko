@@ -14,9 +14,11 @@
 #
 # TOOL_IMAGE defaults to the self-hosted base image.  That image does not
 # have dnf/createrepo_c yet, so the helpers fall back to the host binaries
-# until an image built with browneye-build is passed in.  Set
+# until an image that provides them is passed in.  Set
 #   TOOL_IMAGE=localhost/browneye/base:r13.1-build-YYYYMMDD
-# (see scripts/make_build_tools_image.sh) for a fully self-hosted run.
+# for a fully self-hosted run.  (The old scratch bootstrap chain that built
+# such an image was removed on 2026-11-03; the published repo is the
+# checkpoint.)
 
 TOOL_IMAGE=${TOOL_IMAGE:-localhost/browneye/base:r13.1}
 

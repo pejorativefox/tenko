@@ -87,10 +87,12 @@ already correct in most cases; the local filename was not):
 | `xorg-server` | URL fetched 21.1.24 while the spec says 21.1.25 | URL + md5 21.1.25 |
 
 `glib`'s bootstrap stage (`glib-pass1`, a no-introspection glib with the
-same NEVRA as the final package) was deleted on 2026-11-03 along with its
-references in `build_build_tools.sh` and `build_blfs_stack.sh`; the
-toolchain is self-hosted and the stack build now expects `glib` in the
-build image.
+same NEVRA as the final package) was deleted on 2026-11-03, together with
+the scratch-bootstrap scripts (`build_build_tools.sh`,
+`bootstrap_selfhosted.sh`, `verify_build_tools.sh`,
+`make_build_tools_image.sh`).  The published repo is the checkpoint:
+package-level rebuilds run in a base image built from it, and the stack
+build now expects `glib` in that image.
 
 The `sources/version mismatch` rows that remain are all expected: date- or
 commit-named archives (`font-siji`, `passt`), binary bundles
