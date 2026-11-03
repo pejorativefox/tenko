@@ -107,7 +107,8 @@ podman run -d --name "$TOOLS" --network=none \
 podman exec "$TOOLS" /usr/bin/bash -c '
     rpm -Uvh --nodeps --replacepkgs \
         /repo/libburn-*.rpm /repo/libisofs-*.rpm /repo/libisoburn-*.rpm \
-        /repo/squashfs-tools-*.rpm /repo/mtools-*.rpm >/dev/null 2>&1
+        /repo/squashfs-tools-*.rpm /repo/mtools-*.rpm \
+        /repo/dosfstools-*.rpm >/dev/null 2>&1
     command -v xorrisofs mksquashfs >/dev/null
 '
 
@@ -158,9 +159,11 @@ mkdir -p "$STAGE/EFI/BOOT"
 cp -f "$STAGE/boot/BOOTX64.EFI" "$STAGE/EFI/BOOT/BOOTX64.EFI"
 truncate -s 24M "$STAGE/boot/efiboot.img"
 # FAT32 needs >=65525 clusters; 24 MiB is below that, so use FAT16.
-mkfs.fat -F 16 -n EFIBOOT "$STAGE/boot/efiboot.img" >/dev/null
-mmd -i "$STAGE/boot/efiboot.img" ::/EFI ::/EFI/BOOT
-mcopy -i "$STAGE/boot/efiboot.img" "$STAGE/boot/BOOTX64.EFI" ::/EFI/BOOT/BOOTX64.EFI
+# mkfs.fat and mtools live in the ISO tools container, not on the host.
+podman exec "$TOOLS" mkfs.fat -F 16 -n EFIBOOT /work/iso-stage/boot/efiboot.img >/dev/null
+podman exec "$TOOLS" mmd -i /work/iso-stage/boot/efiboot.img ::/EFI ::/EFI/BOOT
+podman exec "$TOOLS" mcopy -i /work/iso-stage/boot/efiboot.img \
+    /work/iso-stage/boot/BOOTX64.EFI ::/EFI/BOOT/BOOTX64.EFI
 
 echo "writing $ISO"
 rm -f "$ISO"
