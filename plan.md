@@ -128,10 +128,15 @@ Detailed history is in `git log` (one commit per wave); rules are in
   default (a URL or a local path can still be passed to `--repo`).  The
   post-install copy to `/var/lib/browneye/repo` and the
   `browneye-local.repo` file are gone with it.
+- HTTPS needs a trust store, which the runtime meta lacked: **browneye-base-runtime
+  13.1-2** now requires `make-ca`, and **make-ca 1.16.1-3** only regenerates
+  its bundle when it is missing.  In the ISO's restricted installroot the
+  old %post ran make-ca without anchors and replaced the shipped bundle
+  with an empty file, so the live environment had no CA certificates.
 - `efiboot.img` shrank from 24 MiB to **12 MiB** (the smallest FAT16
   `mkfs.fat` accepts; it holds the 4.7 MiB `BOOTX64.EFI`).
 - Net result: 1014 MiB -> **642 MiB** with the pruned on-ISO repo, then
-  **~320 MiB** once the media stopped carrying packages at all.  The live
+  **323 MiB** once the media stopped carrying packages at all.  The live
   root has no gcc/make/git/podman/opencode/herdr and carries the fixed
   rpm.
 - The ISO is published at
