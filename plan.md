@@ -263,7 +263,7 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       available).  Note: `g-ir-scanner` is unaffected (it reads `.gir`), but
       `g-ir-inspect` and any language binding need `<pkg>-gir`.
 - [ ] **D7. Spec-only specs below the books (63 in the 2026-11-03 audit;
-      55 done).**  These specs are not published, so they only matter if
+      54 done).**  These specs are not published, so they only matter if
       they are ever built; they are being brought to the book versions and
       build-verified wave by wave.
       New tooling: `scripts/bump_to_book.py` reads the book version and
@@ -322,8 +322,8 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       `-Dintrospection=false` because no pygobject is published (the
       python-pygobject spec is the old python2 one) — that is the one
       deviation in this wave.
-      Remaining 8: alsa-plugins, ffmpeg, libportal, network-manager-applet,
-      pavucontrol, pulseaudio, qemu, sdl2.  These are the heaviest chains:
+      Remaining 9: alsa-plugins, ffmpeg, libportal, network-manager-applet,
+      pavucontrol, pulseaudio, qemu, sdl2, xdg-desktop-portal.  These are the heaviest chains:
       sdl2 2.32.74 is sdl2-compat and needs an sdl3 3.4.18 spec that does
       not exist yet; libportal needs gtk4; pavucontrol/alsa-plugins need
       pulseaudio (which in turn needs sbc/webrtc-audio-processing/soxr/
