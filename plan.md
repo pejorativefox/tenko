@@ -29,7 +29,7 @@ Detailed history is in `git log` (one commit per wave); rules are in
 - **Offline repo copy.**  `/var/lib/browneye/repo` on installed systems is
   still the old 259-RPM set; it does not contain the D9 wave, Chrome,
   cups/nss/nspr, pulseaudio or the D7 packages.  Regenerate it from the
-  current 705-RPM repo when an ISO or offline install is next built.
+  current 706-RPM repo when an ISO or offline install is next built.
 - **libbsd/libmd decision.**  Both are shipped and required by
   `browneye-base`/`browneye-base-runtime` (RPM toolchain), but neither has an
   LFS/BLFS counterpart.  AGENTS.md requires a user decision: keep them as
@@ -59,12 +59,15 @@ Detailed history is in `git log` (one commit per wave); rules are in
 - XFCE 4.20 on X11 only; Xorg 21.1.25, Mesa 26.2.3 (llvmpipe + virgl),
   LightDM + GTK greeter, AccountsService, sudo, VTE 0.84.1, xfce4-terminal
   1.2.0, librsvg 2.63.4 with the gdk-pixbuf SVG loader.
+- kitty 0.49.2 is available as the official prebuilt `kitty-bin` bundle
+  (self-contained Python/GL stack, static kitten, X11 only; no libssh or
+  Wayland extras).
 
 **Version parity (D9) and packaging**
 - Every published package was re-baselined to the current LFS/BLFS trunk:
   glibc, openssl 4.1.0, systemd 262.1, Python 3.15.2, rpm/dnf stack,
   glib/harfbuzz/GTK, git, openssh, X11, Rust/cargo-c/librsvg, etc.
-- Post-audit wave (2026-11-03): **705 RPMs published, 0 outdated**, one
+- Post-audit wave (2026-11-03): **706 RPMs published, 0 outdated**, one
   newer (`xml-parser 2.59` vs book 2.57).  Bumped `freetype` 2.15.0,
   `icu4c` 79.1 (filelists/sonames regenerated), `python-flit-core` 4.2.0,
   `python-markupsafe` 3.0.4, `python-setuptools` 84.2.1 and `linux` 7.3.1.
@@ -72,9 +75,12 @@ Detailed history is in `git log` (one commit per wave); rules are in
   --all-base` now reports 80/80 up-to-date instead of proposing downgrades.
 - The retired `system-minimal` RPM was pruned from the published repo and
   the duplicate `package_specs/libgcr` (the shipped gcr is 3.41.2) removed.
+- Added `kitty-bin` 0.49.2 (prebuilt bundle) to the repo, taking it to 706
+  RPMs; it installs its own Python 3.14/GL stack under `/opt/kitty-0.49.2`.
 - User-approved exceptions outside the books: Google Chrome
   (`google-chrome-bin`), `pulsemixer` (replaces pavucontrol), three extra
-  fonts, `podman-bin`, `linux-firmware`.
+  fonts, `podman-bin`, `linux-firmware`, `kitty-bin` (official prebuilt
+  0.49.2 bundle; the source chain needs book-less xxhash/simde/slang/Go).
 - `scripts/publish_rpm.sh` refuses re-publishing an existing NEVRA with
   different content (bump Release); `PRUNE=1` drops superseded files.
 
@@ -113,4 +119,4 @@ Detailed history is in `git log` (one commit per wave); rules are in
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
   16.2.0, Python 3.15.2; `sudo` needs a password, use `unshare -r`.
-- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (705 RPMs).
+- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (706 RPMs).
