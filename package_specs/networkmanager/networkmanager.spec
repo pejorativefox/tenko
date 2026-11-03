@@ -18,12 +18,6 @@ NetworkManager is the standard Linux network configuration tool suite.
 %setup
 
 %build
-# nss installs its .pc into /usr/lib/pkgconfig, which is not on the
-# default 64-bit pkg-config search path.
-export PKG_CONFIG_PATH=/usr/lib/pkgconfig:$PKG_CONFIG_PATH
-# nss lives in /usr/lib (book layout); the gobject-introspection link
-# needs that directory to resolve libnm's DT_NEEDED entries.
-export LDFLAGS="$LDFLAGS -Wl,-rpath-link,/usr/lib"
 sed '/initrd/d' -i src/meson.build
 grep -rl '^#!.*python$' | xargs sed -i '1s/python/&3/'
 mkdir build

@@ -31,13 +31,13 @@ popd
 rm -rf %{buildroot}
 
 pushd dist
-mkdir -pv %{buildroot}/usr/lib
+mkdir -pv %{buildroot}/usr/lib64
 mkdir -pv %{buildroot}/usr/include/nss
 mkdir -pv %{buildroot}/usr/bin
-mkdir -pv %{buildroot}/usr/lib/pkgconfig
+mkdir -pv %{buildroot}/usr/lib64/pkgconfig
 
-install -v -m755 Linux*/lib/*.so              %{buildroot}/usr/lib
-install -v -m644 Linux*/lib/*.chk %{buildroot}/usr/lib
+install -v -m755 Linux*/lib/*.so              %{buildroot}/usr/lib64
+install -v -m644 Linux*/lib/*.chk %{buildroot}/usr/lib64
 
 install -v -m755 -d                           %{buildroot}/usr/include/nss
 cp -v -RL {public,private}/nss/*              %{buildroot}/usr/include/nss
@@ -45,7 +45,7 @@ chmod -v 644                                  %{buildroot}/usr/include/nss/*
 
 install -v -m755 Linux*/bin/{certutil,nss-config,pk12util} %{buildroot}/usr/bin
 
-install -v -m644 Linux*/lib/pkgconfig/nss.pc  %{buildroot}/usr/lib/pkgconfig
+install -v -m644 Linux*/lib/pkgconfig/nss.pc  %{buildroot}/usr/lib64/pkgconfig
 
 rm -vf %{buildroot}%{_infodir}/dir*
 
@@ -305,23 +305,23 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/nss/utilrename.h
 /usr/include/nss/verref.h
 /usr/include/nss/xconst.h
-/usr/lib/libfreebl3.chk
-/usr/lib/libfreebl3.so
-/usr/lib/libfreeblpriv3.chk
-/usr/lib/libfreeblpriv3.so
-/usr/lib/libnss3.so
-/usr/lib/libnssckbi-testlib.so
-/usr/lib/libnssckbi.so
-/usr/lib/libnssdbm3.chk
-/usr/lib/libnssdbm3.so
-/usr/lib/libnsssysinit.so
-/usr/lib/libnssutil3.so
-/usr/lib/libpkcs11testmodule.so
-/usr/lib/libsmime3.so
-/usr/lib/libsoftokn3.chk
-/usr/lib/libsoftokn3.so
-/usr/lib/libssl3.so
-/usr/lib/pkgconfig/nss.pc
+/usr/lib64/libfreebl3.chk
+/usr/lib64/libfreebl3.so
+/usr/lib64/libfreeblpriv3.chk
+/usr/lib64/libfreeblpriv3.so
+/usr/lib64/libnss3.so
+/usr/lib64/libnssckbi-testlib.so
+/usr/lib64/libnssckbi.so
+/usr/lib64/libnssdbm3.chk
+/usr/lib64/libnssdbm3.so
+/usr/lib64/libnsssysinit.so
+/usr/lib64/libnssutil3.so
+/usr/lib64/libpkcs11testmodule.so
+/usr/lib64/libsmime3.so
+/usr/lib64/libsoftokn3.chk
+/usr/lib64/libsoftokn3.so
+/usr/lib64/libssl3.so
+/usr/lib64/pkgconfig/nss.pc
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.132-1

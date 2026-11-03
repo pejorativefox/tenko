@@ -43,7 +43,7 @@ sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import audit_versions  # noqa: E402
 
 
-ALIASES = {"libglu": "glu", "cairomm": "cairomm10"}
+ALIASES = {"libglu": "glu", "cairomm": "cairomm10", "gnupg": "gnupg2"}
 
 MD5_SUFFIXES = ("-md5sum", "-md5", "-http-md5sum", "-download-md5sum")
 URL_SUFFIXES = ("-download-http", "-url", "-download-ftp")
