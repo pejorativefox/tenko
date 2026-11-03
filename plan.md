@@ -274,8 +274,10 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       librsvg's is the only one left (~9 KB, deferred until a Rust build is
       available).  Note: `g-ir-scanner` is unaffected (it reads `.gir`), but
       `g-ir-inspect` and any language binding need `<pkg>-gir`.
-- [ ] **D7. Spec-only specs below the books (62 in the 2026-11-03 audit;
-      59 done; pavucontrol dropped, see wave 9).**  Most of these specs are
+- [x] **D7. Spec-only specs below the books (61 of 61 done).**  Done
+      2026-11-03; pavucontrol was dropped in favour of pulsemixer and qemu
+      is deferred at the user's request, which is why the original 63 is
+      now 61.  Most of these specs are
       unpublished and only matter if built; they were brought to the book
       versions and build-verified wave by wave.  Published out of this set
       because Chrome or pulsemixer needs them: cups 2.4.20-3, nspr 4.40,
@@ -373,9 +375,22 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       Verified: `pulsemixer --version` -> 1.5.1 and `--list` reaches the
       PulseAudio socket (connection refused in the test container, as
       expected without a server).
-      Remaining 3: ffmpeg, qemu, xdg-desktop-portal.
-      xdg-desktop-portal needs pipewire and fuse3; ffmpeg and qemu are very
-      large builds.
+      Wave 10 (2026-11-03, build-verified): ffmpeg 9.0.2 and
+      xdg-desktop-portal 1.22.1, which completes D7.
+      - ffmpeg 9.0.2 uses the book's configure with the codecs that exist
+        here: libass, libfreetype, libmp3lame, libvorbis, libvpx and
+        openssl.  The book also enables libaom, libfdk-aac, libopus,
+        libx264, libx265, libdav1d and libsvtav1; those have no specs yet,
+        so they are disabled (feature deviation, version is current).
+        libvpx now installs into /usr/lib64 and lame ships a
+        libmp3lame.pc (upstream ships none) so ffmpeg can find both.
+      - xdg-desktop-portal 1.22.1 (meson, tests disabled) needs fuse3
+        3.18.3, pipewire 1.6.11, gstreamer 1.28.8 + gst-plugins-base
+        1.28.8 (gstreamer-pbutils), json-glib, gdk-pixbuf and bubblewrap.
+        New specs: fuse3 and pipewire; gstreamer and gst-plugins-base were
+        dormant 1.16.2 specs, bumped and converted to meson.
+      - qemu 11.1.3 is explicitly deferred (not built).
+      Nothing in this wave was published.
       (`unzip` additionally references a consolidated patch that 404s
       upstream — drop the spec or source the patch.)
 - [x] **D8. Minor gaps.**  Done 2026-11-02.  New packages: libunistring 1.5,

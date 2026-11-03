@@ -20,8 +20,9 @@ sed -i 's/cp -p/cp/' build/make/Makefile &&
 mkdir -pv libvpx-build
 pushd libvpx-build
 
-../configure --prefix=/usr    \
-             --enable-shared  \
+../configure --prefix=/usr            \
+             --libdir=/usr/lib64       \
+             --enable-shared           \
              --disable-static
 %make_build
 popd
@@ -47,11 +48,11 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/vpx/vpx_image.h
 /usr/include/vpx/vpx_integer.h
 /usr/include/vpx/vpx_tpl.h
-/usr/lib/libvpx.so
-/usr/lib/libvpx.so.12
-/usr/lib/libvpx.so.12.1
-/usr/lib/libvpx.so.12.1.0
-/usr/lib/pkgconfig/vpx.pc
+/usr/lib64/libvpx.so
+/usr/lib64/libvpx.so.12
+/usr/lib64/libvpx.so.12.1
+/usr/lib64/libvpx.so.12.1.0
+/usr/lib64/pkgconfig/vpx.pc
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.17.0-1
