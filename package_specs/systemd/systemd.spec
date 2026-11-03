@@ -1,6 +1,6 @@
 Name:       systemd
 Version:    262.1
-Release:    1
+Release:    2
 Summary:    The systemd package contains programs for controlling the startup, running, and shutdown of the system.
 License:    GPL
 Source0:    %{name}-%{version}.tar.gz
@@ -58,6 +58,8 @@ meson setup ..                  \
       -D pam=true               \
       -D pamconfdir=/etc/pam.d  \
       -D dev-kvm-mode=0660      \
+      -D swapon-path=/usr/bin/swapon   \
+      -D swapoff-path=/usr/bin/swapoff \
       -D nobody-group=nogroup   \
       -D sysupdate=disabled     \
       -D ukify=disabled         \
@@ -80,6 +82,14 @@ popd
 %files doc -f %{_sourcedir}/systemd-doc.filelist
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 262.1-2
+- Build with -Dswapon-path=/usr/bin/swapon and
+  -Dswapoff-path=/usr/bin/swapoff.  The distro maps sbindir to /usr/bin
+  (util-linux installs swapon there), but systemd's default is
+  /usr/sbin/swapon, so activating the installer's swap partition failed
+  at boot with "Failed at step EXEC spawning /usr/sbin/swapon".  Found by
+  the unattended installer test.
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 262.1-1
 - Update to 262.1 (current LFS/BLFS r13.1 trunk version).
 
