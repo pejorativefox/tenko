@@ -11,7 +11,7 @@
 # source so the package builds and regenerates its trust store offline.
 Name:       make-ca
 Version:    1.16.1
-Release:    2
+Release:    3
 Summary:    PKI setup script and Mozilla CA trust store
 License:    GPL-3.0-or-later
 URL:        https://github.com/lfs-book/make-ca
@@ -83,7 +83,12 @@ test "$(grep -c 'BEGIN CERTIFICATE' %{buildroot}/etc/pki/tls/certs/ca-bundle.crt
 grep -q 'ISRG Root X1' %{buildroot}/etc/pki/tls/certs/ca-bundle.crt
 
 %post
-if [ -x /usr/sbin/make-ca ] && [ -r /etc/ssl/certdata.txt ]; then
+# The package ships a trust bundle that %install generated and verified.
+# Only regenerate it when it is missing: in a restricted installroot (no
+# /dev, early boot) make-ca cannot read the anchors and would silently
+# replace the bundle with an empty file, which breaks HTTPS for dnf.
+if [ ! -s /etc/pki/tls/certs/ca-bundle.crt ] &&
+   [ -x /usr/sbin/make-ca ] && [ -r /etc/ssl/certdata.txt ]; then
     /usr/sbin/make-ca -f -C /etc/ssl/certdata.txt >/dev/null 2>&1 || :
 fi
 # make-ca recreates /etc/ssl/certs; restore the curl/git bundle names.
@@ -96,6 +101,13 @@ fi
 %files -f %{_sourcedir}/make-ca.filelist
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.16.1-3
+- %post only regenerates the trust bundle when it is missing.  In a
+  restricted installroot make-ca cannot read the anchors and wrote an
+  empty bundle, so the live ISO had no CA certificates and HTTPS to the
+  package repository would fail.  The package already ships a populated,
+  build-verified bundle.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.16.1-2
 - Stop owning %dir /etc/ssl/certs: make-ca created it 0555 while
   openssl-libs ships it 0755, so installing both aborted the dnf
