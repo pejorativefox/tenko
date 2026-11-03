@@ -1,35 +1,40 @@
 Name:       zip
-Version:    30
+Version:    3.0
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Info-ZIP zip
+License:    Info-ZIP
 Prefix:     /usr
-Source0:    %{name}%{version}.tgz
-
+Source0:    zip30.tar.gz
 
 %description
-TODO
+Zip is a compression and file packaging utility for Unix, VMS, MSDOS,
+OS/2, Windows NT, Minix, Atari and Macintosh.  Zip is analogous to a
+combination of tar and compress: it creates a compressed archive of one or
+more files, with per-file compression, and is the standard tool for
+producing .zip archives on Unix.  Companion utilities zipcloak, zipnote and
+zipsplit encrypt, annotate and split archives.
 
 %prep
-%setup -a 0 -n zip30
+%setup -q -n zip30
 
 %build
-make -f unix/Makefile generic_gcc
+# The upstream sources are K&R C.  GCC 16 defaults to gnu23, where "f()"
+# means "f(void)" and every old-style definition is a hard error, so compile
+# in gnu89 mode (same fix BLFS uses for this package).
+make -f unix/Makefile generic CC="gcc -std=gnu89"
 
-%install    
+%install
 rm -rf %{buildroot}
-#make prefix=/usr MANDIR=/usr/share/man/man1 -f unix/Makefile install DESTDIR=%{buildroot}
-rm -vf %{buildroot}%{_infodir}/dir*
-mkdir -pv %{buildroot}/usr/bin
-cp zip zipcloak zipnote zipsplit %{buildroot}/usr/bin
+make prefix=%{buildroot}/usr MANDIR=%{buildroot}/usr/share/man/man1 \
+    -f unix/Makefile install
 
-%files
-/usr/bin/zip
-/usr/bin/zipcloak
-/usr/bin/zipnote
-/usr/bin/zipsplit
-
+%files -f %{_sourcedir}/zip.filelist
 
 %changelog
-# let's skip this for now
-
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 3.0-1
+- Ship zip.  The spec was a stub (Version 30, Summary TODO, %setup -a0
+  re-extracting the tarball, %make_install commented out) and no zip RPM
+  was ever published, so Browneye could extract archives but not create
+  them.  Rebuilt from the BLFS r13.1 page: Version 3.0, generic target with
+  gcc -std=gnu89 (the K&R sources do not survive GCC 16's gnu23 default),
+  upstream install target, man pages included.
