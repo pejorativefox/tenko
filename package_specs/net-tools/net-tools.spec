@@ -23,28 +23,23 @@ sed -e /ROM/s/1/0/  \
 
 %install
 rm -rf %{buildroot}
+export BINDIR=/usr/bin SBINDIR=/usr/bin
 make DESTDIR=%{buildroot} install
 rm -f %{buildroot}/usr/bin/{nis,yp}domainname
 rm -f %{buildroot}/usr/bin/{hostname,dnsdomainname,domainname,ifconfig}
 rm -rf %{buildroot}/usr/share/man
 
 %files
-/bin/dnsdomainname
-/bin/domainname
-/bin/hostname
-/bin/ifconfig
-/bin/netstat
-/bin/nisdomainname
-/bin/route
-/bin/ypdomainname
-/sbin/arp
-/sbin/ipmaddr
-/sbin/iptunnel
-/sbin/mii-tool
-/sbin/nameif
-/sbin/plipconfig
-/sbin/rarp
-/sbin/slattach
+/usr/bin/arp
+/usr/bin/ipmaddr
+/usr/bin/iptunnel
+/usr/bin/mii-tool
+/usr/bin/nameif
+/usr/bin/netstat
+/usr/bin/plipconfig
+/usr/bin/rarp
+/usr/bin/route
+/usr/bin/slattach
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.10-1
