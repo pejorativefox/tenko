@@ -564,8 +564,8 @@ PY
 - `xf86-video-vesa` and `xf86-video-amdgpu`/`-intel`/`-fbdev`/`-vmware`
   are archive-only in the current book. They are NO-BOOK, not outdated.
 - The `build/repo-all` tree is a 282-RPM staging tree; the last published
-  tree was 258 RPMs. `plan.md` already records that the split waves are
-  newer than the published tree. This audit treats `build/repo-all` as the
+  tree was 258 RPMs. Git history records that the split waves are newer
+  than the published tree. This audit treats `build/repo-all` as the
   shipped set, as instructed.
 - `~/rpmbuild/SOURCES` was read only to check whether referenced files
   exist. A missing cached tarball is reported only when the `sources` file

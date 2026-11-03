@@ -18,7 +18,8 @@ LFS/BLFS**, stop and ask the user how to proceed. Do not choose a version or
 substitute a different project on your own.
 
 After updating a spec, rebuild and republish it before building packages
-that depend on it, then record the version and the reason in `plan.md`.
+that depend on it, then record the version and the reason in the commit
+message (and in the Gitea issue if the change belongs to one).
 
 ## Issue tracking (Gitea)
 
