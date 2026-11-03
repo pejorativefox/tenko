@@ -1,5 +1,5 @@
 Name:       enchant
-Version:    2.2.11
+Version:    2.8.21
 Release:    1
 Summary:    Spell check library
 License:    LGPL
@@ -24,18 +24,25 @@ rm -rf %{buildroot}
 /usr/bin/enchant-2
 /usr/bin/enchant-lsmod-2
 /usr/include/enchant-2/enchant++.h
-/usr/include/enchant-2/enchant-provider.h
 /usr/include/enchant-2/enchant.h
+/usr/lib64/enchant-2/enchant_aspell.so
 /usr/lib64/libenchant-2.a
 /usr/lib64/libenchant-2.so
 /usr/lib64/libenchant-2.so.2
-/usr/lib64/libenchant-2.so.2.2.11
+/usr/lib64/libenchant-2.so.2.8.21
 /usr/lib64/pkgconfig/enchant-2.pc
-/usr/share/enchant/enchant.ordering
+/usr/share/doc/enchant/enchant-2.html
+/usr/share/doc/enchant/enchant-lsmod-2.html
+/usr/share/doc/enchant/enchant.html
+/usr/share/enchant-2/enchant.ordering
 /usr/share/man/man1/enchant-2.1.gz
 /usr/share/man/man1/enchant-lsmod-2.1.gz
+/usr/share/man/man5/enchant.5.gz
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.8.21-1
+- Sync with BLFS r13.1
+
 * Wed Sep 09 2020 Chris Statzer <chris.statzer@qq.com> 2.2.11
 - Initial RPM
 

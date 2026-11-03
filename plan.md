@@ -262,11 +262,49 @@ history is in `git log` (one commit per wave). `AGENTS.md` holds the rules
       librsvg's is the only one left (~9 KB, deferred until a Rust build is
       available).  Note: `g-ir-scanner` is unaffected (it reads `.gir`), but
       `g-ir-inspect` and any language binding need `<pkg>-gir`.
-- [ ] **D7. Spec-only specs below the books (~105 in the 2026-11-02 late
-      audit; ~69 when the X11 client-utilities wave was written).**  They only
-      matter if they are ever built; update the chain first if so.  (`unzip`
-      additionally references a consolidated patch that is 404 upstream —
-      drop the spec or source the patch.)
+- [ ] **D7. Spec-only specs below the books (63 in the 2026-11-03 audit;
+      36 done).**  These specs are not published, so they only matter if
+      they are ever built; they are being brought to the book versions and
+      build-verified wave by wave.
+      New tooling: `scripts/bump_to_book.py` reads the book version and
+      md5sum entity (including `-md5`, `-http-md5sum`, and the page-level
+      download URLs), downloads and verifies the tarball, then updates
+      `sources` and `Version:`.  It refuses anything it cannot verify.
+      `scripts/regen_files.py` rewrites a single `%files` section from an
+      installed BUILDROOT (static lists, no `%dir`), and
+      `scripts/build_specs.sh` runs an arbitrary spec list in a container.
+      Done and build-verified (2026-11-03):
+      - X11: libfs 1.0.10, libxvmc 1.0.15, libxxf86dga 1.1.7,
+        libxscrnsaver 1.2.5, xcb-util-cursor 0.1.6 (with the spec-only
+        xcb-util family built as its dependency chain).
+      - Standalone: nasm 3.02, slang 2.3.3, net-tools 2.10, sysklogd 2.8.0,
+        acpid 2.0.34, npth 1.8, libndp 1.9, libevent 2.1.13, giflib 6.1.3,
+        libnl 3.12.0, pciutils 3.15.0, usbutils 020, libssh2 1.11.1,
+        stunnel 5.82, wget 1.25.0, screen 5.0.2, nspr 4.40, libksba 1.8.1,
+        ne 0.116, npth, libglu 9.0.3.
+      - GLib/GTK/desktop: json-glib 1.10.8, libsigc++ 2.12.1,
+        adwaita-icon-theme 51.0, vala 0.56.19, glew 2.3.1, freeglut 3.8.0,
+        imlib2 1.12.7, newt 0.52.25 (python2 subpackage dropped; the python3
+        bindings are built against 3.15).
+      - Media: flac 1.5.0, libsndfile 1.2.2, enchant 2.8.21 (new aspell
+        0.60.8.3 spec, required by the book; aspell needs no dictionary at
+        build time).
+      - ntp 4.2.8p18 (book's autoreconf fixes and OpenSSL-4 patch; the
+        bundled isc md5 is shadowed by libmd's stricter md5.h, so the build
+        disables that one warning).
+      Findings worth keeping: several 2026 releases moved to meson
+      (adwaita-icon-theme, libsigc++, glu, usbutils), vala needs
+      `--disable-valadoc` unless graphviz is present, freeglut must be
+      given `-DCMAKE_INSTALL_LIBDIR=lib64`, and libsndfile needs the book's
+      ALAC sed for gcc 16.
+      Remaining 27 (heavier chains): alsa-plugins, alsa-utils,
+      appstream-glib, atkmm, bubblewrap, cups, ffmpeg, glib-networking,
+      glibmm, icewm, iptables, libass, libportal, libvpx,
+      network-manager-applet, NetworkManager, nss, pangomm, pavucontrol,
+      pulseaudio, qemu, ruby, rxvt-unicode, sdl2, wpa-supplicant,
+      xdg-dbus-proxy, xdg-desktop-portal.  (`unzip` additionally references
+      a consolidated patch that 404s upstream — drop the spec or source the
+      patch.)
 - [x] **D8. Minor gaps.**  Done 2026-11-02.  New packages: libunistring 1.5,
       libidn2 2.3.8 and libpsl 0.23.3 (headers/.pc in the runtime package like
       the other small libraries) plus docbook-xml 4.5 (DTD and XML catalog

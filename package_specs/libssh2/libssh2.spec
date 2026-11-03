@@ -1,5 +1,5 @@
 Name:       libssh2
-Version:    1.8.0
+Version:    1.11.1
 Release:    1
 Summary:    TODO
 License:    GPL3
@@ -26,7 +26,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/libssh2.h
 /usr/include/libssh2_publickey.h
 /usr/include/libssh2_sftp.h
-/usr/lib64/libssh2.la
 /usr/lib64/libssh2.so
 /usr/lib64/libssh2.so.1
 /usr/lib64/libssh2.so.1.0.1
@@ -35,12 +34,16 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libssh2_agent_disconnect.3.gz
 /usr/share/man/man3/libssh2_agent_free.3.gz
 /usr/share/man/man3/libssh2_agent_get_identity.3.gz
+/usr/share/man/man3/libssh2_agent_get_identity_path.3.gz
 /usr/share/man/man3/libssh2_agent_init.3.gz
 /usr/share/man/man3/libssh2_agent_list_identities.3.gz
+/usr/share/man/man3/libssh2_agent_set_identity_path.3.gz
+/usr/share/man/man3/libssh2_agent_sign.3.gz
 /usr/share/man/man3/libssh2_agent_userauth.3.gz
 /usr/share/man/man3/libssh2_banner_set.3.gz
 /usr/share/man/man3/libssh2_base64_decode.3.gz
 /usr/share/man/man3/libssh2_channel_close.3.gz
+/usr/share/man/man3/libssh2_channel_direct_streamlocal_ex.3.gz
 /usr/share/man/man3/libssh2_channel_direct_tcpip.3.gz
 /usr/share/man/man3/libssh2_channel_direct_tcpip_ex.3.gz
 /usr/share/man/man3/libssh2_channel_eof.3.gz
@@ -66,6 +69,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libssh2_channel_read_stderr.3.gz
 /usr/share/man/man3/libssh2_channel_receive_window_adjust.3.gz
 /usr/share/man/man3/libssh2_channel_receive_window_adjust2.3.gz
+/usr/share/man/man3/libssh2_channel_request_auth_agent.3.gz
 /usr/share/man/man3/libssh2_channel_request_pty.3.gz
 /usr/share/man/man3/libssh2_channel_request_pty_ex.3.gz
 /usr/share/man/man3/libssh2_channel_request_pty_size.3.gz
@@ -75,6 +79,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libssh2_channel_setenv.3.gz
 /usr/share/man/man3/libssh2_channel_setenv_ex.3.gz
 /usr/share/man/man3/libssh2_channel_shell.3.gz
+/usr/share/man/man3/libssh2_channel_signal_ex.3.gz
 /usr/share/man/man3/libssh2_channel_subsystem.3.gz
 /usr/share/man/man3/libssh2_channel_wait_closed.3.gz
 /usr/share/man/man3/libssh2_channel_wait_eof.3.gz
@@ -87,6 +92,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libssh2_channel_write_stderr.3.gz
 /usr/share/man/man3/libssh2_channel_x11_req.3.gz
 /usr/share/man/man3/libssh2_channel_x11_req_ex.3.gz
+/usr/share/man/man3/libssh2_crypto_engine.3.gz
 /usr/share/man/man3/libssh2_exit.3.gz
 /usr/share/man/man3/libssh2_free.3.gz
 /usr/share/man/man3/libssh2_hostkey_hash.3.gz
@@ -125,11 +131,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libssh2_session_banner_set.3.gz
 /usr/share/man/man3/libssh2_session_block_directions.3.gz
 /usr/share/man/man3/libssh2_session_callback_set.3.gz
+/usr/share/man/man3/libssh2_session_callback_set2.3.gz
 /usr/share/man/man3/libssh2_session_disconnect.3.gz
 /usr/share/man/man3/libssh2_session_disconnect_ex.3.gz
 /usr/share/man/man3/libssh2_session_flag.3.gz
 /usr/share/man/man3/libssh2_session_free.3.gz
 /usr/share/man/man3/libssh2_session_get_blocking.3.gz
+/usr/share/man/man3/libssh2_session_get_read_timeout.3.gz
 /usr/share/man/man3/libssh2_session_get_timeout.3.gz
 /usr/share/man/man3/libssh2_session_handshake.3.gz
 /usr/share/man/man3/libssh2_session_hostkey.3.gz
@@ -141,6 +149,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libssh2_session_methods.3.gz
 /usr/share/man/man3/libssh2_session_set_blocking.3.gz
 /usr/share/man/man3/libssh2_session_set_last_error.3.gz
+/usr/share/man/man3/libssh2_session_set_read_timeout.3.gz
 /usr/share/man/man3/libssh2_session_set_timeout.3.gz
 /usr/share/man/man3/libssh2_session_startup.3.gz
 /usr/share/man/man3/libssh2_session_supported_algs.3.gz
@@ -160,7 +169,11 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libssh2_sftp_mkdir_ex.3.gz
 /usr/share/man/man3/libssh2_sftp_open.3.gz
 /usr/share/man/man3/libssh2_sftp_open_ex.3.gz
+/usr/share/man/man3/libssh2_sftp_open_ex_r.3.gz
+/usr/share/man/man3/libssh2_sftp_open_r.3.gz
 /usr/share/man/man3/libssh2_sftp_opendir.3.gz
+/usr/share/man/man3/libssh2_sftp_posix_rename.3.gz
+/usr/share/man/man3/libssh2_sftp_posix_rename_ex.3.gz
 /usr/share/man/man3/libssh2_sftp_read.3.gz
 /usr/share/man/man3/libssh2_sftp_readdir.3.gz
 /usr/share/man/man3/libssh2_sftp_readdir_ex.3.gz
@@ -185,9 +198,11 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libssh2_sftp_unlink.3.gz
 /usr/share/man/man3/libssh2_sftp_unlink_ex.3.gz
 /usr/share/man/man3/libssh2_sftp_write.3.gz
+/usr/share/man/man3/libssh2_sign_sk.3.gz
 /usr/share/man/man3/libssh2_trace.3.gz
 /usr/share/man/man3/libssh2_trace_sethandler.3.gz
 /usr/share/man/man3/libssh2_userauth_authenticated.3.gz
+/usr/share/man/man3/libssh2_userauth_banner.3.gz
 /usr/share/man/man3/libssh2_userauth_hostbased_fromfile.3.gz
 /usr/share/man/man3/libssh2_userauth_hostbased_fromfile_ex.3.gz
 /usr/share/man/man3/libssh2_userauth_keyboard_interactive.3.gz
@@ -199,8 +214,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libssh2_userauth_publickey_fromfile.3.gz
 /usr/share/man/man3/libssh2_userauth_publickey_fromfile_ex.3.gz
 /usr/share/man/man3/libssh2_userauth_publickey_frommemory.3.gz
+/usr/share/man/man3/libssh2_userauth_publickey_sk.3.gz
 /usr/share/man/man3/libssh2_version.3.gz
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.11.1-1
+- Sync with BLFS r13.1
+
 # let's skip this for now
 

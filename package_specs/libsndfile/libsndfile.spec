@@ -1,10 +1,10 @@
 Name:       libsndfile
-Version:    1.0.28
+Version:    1.2.2
 Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.gz
+Source0:    %{name}-%{version}.tar.xz
 
 
 %description
@@ -14,7 +14,8 @@ TODO
 %setup -a 0 
 
 %build
-%configure  --disable-static \
+sed -i '/typedef enum/,/bool ;/d' src/ALAC/alac_{en,de}coder.c
+%configure --docdir=/usr/share/doc/libsndfile-%{version}  --disable-static \
             --docdir=/usr/share/doc/libsndfile-1.0.28
 %make_build
 
@@ -38,22 +39,24 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/sndfile.hh
 /usr/lib64/libsndfile.so
 /usr/lib64/libsndfile.so.1
-/usr/lib64/libsndfile.so.1.0.28
+/usr/lib64/libsndfile.so.1.0.37
 /usr/lib64/pkgconfig/sndfile.pc
-/usr/share/doc/libsndfile-1.0.28/FAQ.html
-/usr/share/doc/libsndfile-1.0.28/api.html
-/usr/share/doc/libsndfile-1.0.28/bugs.html
-/usr/share/doc/libsndfile-1.0.28/command.html
-/usr/share/doc/libsndfile-1.0.28/embedded_files.html
-/usr/share/doc/libsndfile-1.0.28/index.html
+/usr/share/doc/libsndfile-1.0.28/FAQ.md
+/usr/share/doc/libsndfile-1.0.28/api.md
+/usr/share/doc/libsndfile-1.0.28/bugs.md
+/usr/share/doc/libsndfile-1.0.28/command.md
+/usr/share/doc/libsndfile-1.0.28/embedded_files.md
+/usr/share/doc/libsndfile-1.0.28/formats.md
+/usr/share/doc/libsndfile-1.0.28/index.md
 /usr/share/doc/libsndfile-1.0.28/libsndfile.css
 /usr/share/doc/libsndfile-1.0.28/libsndfile.jpg
-/usr/share/doc/libsndfile-1.0.28/lists.html
-/usr/share/doc/libsndfile-1.0.28/new_file_type.HOWTO
-/usr/share/doc/libsndfile-1.0.28/octave.html
-/usr/share/doc/libsndfile-1.0.28/sndfile_info.html
-/usr/share/doc/libsndfile-1.0.28/tutorial.html
-/usr/share/doc/libsndfile-1.0.28/win32.html
+/usr/share/doc/libsndfile-1.0.28/lists.md
+/usr/share/doc/libsndfile-1.0.28/new_file_type_howto.md
+/usr/share/doc/libsndfile-1.0.28/octave.md
+/usr/share/doc/libsndfile-1.0.28/print.css
+/usr/share/doc/libsndfile-1.0.28/sndfile_info.md
+/usr/share/doc/libsndfile-1.0.28/tutorial.md
+/usr/share/doc/libsndfile-1.0.28/win32.md
 /usr/share/man/man1/sndfile-cmp.1.gz
 /usr/share/man/man1/sndfile-concat.1.gz
 /usr/share/man/man1/sndfile-convert.1.gz
@@ -64,8 +67,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/sndfile-metadata-set.1.gz
 /usr/share/man/man1/sndfile-play.1.gz
 /usr/share/man/man1/sndfile-salvage.1.gz
-/usr/bin/sndfile-regtest
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.2.2-1
+- Sync with BLFS r13.1
+
 # let's skip this for now
 

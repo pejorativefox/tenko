@@ -1,6 +1,6 @@
 Name:       acpid
-Version:    2.0.28
-Release:    3
+Version:    2.0.34
+Release:    1
 Summary:    The acpid (Advanced Configuration and Power Interface event daemon)
 License:    NO_IDEA
 Source0:    %{name}-%{version}.tar.xz
@@ -33,9 +33,13 @@ mkdir -pv %{buildroot}/etc/finit.d/available
 cp %{SOURCE4} %{buildroot}/etc/finit.d/available/
 
 %files
+/etc/acpi/events/brightnessdown
+/etc/acpi/events/brightnessup
+/etc/acpi/events/lidclose
+/etc/finit.d/available/acpid.conf
 /usr/bin/acpi_listen
-/usr/sbin/acpid
-/usr/sbin/kacpimon
+/usr/bin/acpid
+/usr/bin/kacpimon
 /usr/share/doc/acpid/COPYING
 /usr/share/doc/acpid/Changelog
 /usr/share/doc/acpid/README
@@ -44,12 +48,11 @@ cp %{SOURCE4} %{buildroot}/etc/finit.d/available/
 /usr/share/man/man8/acpi_listen.8.gz
 /usr/share/man/man8/acpid.8.gz
 /usr/share/man/man8/kacpimon.8.gz
-/etc/acpi/events/brightnessdown
-/etc/acpi/events/brightnessup
-/etc/acpi/events/lidclose
-/etc/finit.d/available/acpid.conf
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.0.34-1
+- Sync with BLFS r13.1
+
 * Mon May 18 2020 Chris Statzer <chris.statzer@qq.com> 2.0.28-3
 - Added basic events and finit service
 

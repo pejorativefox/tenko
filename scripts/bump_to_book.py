@@ -43,12 +43,21 @@ sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import audit_versions  # noqa: E402
 
 
+ALIASES = {"libglu": "glu"}
+
+MD5_SUFFIXES = ("-md5sum", "-md5", "-http-md5sum", "-download-md5sum")
+URL_SUFFIXES = ("-download-http", "-url", "-download-ftp")
+
+
 def entity_map():
     """Every entity defined in the two books, with the defining file."""
-    ents, where = {}, {}
+    ents, where, byfile = {}, {}, {}
     paths = [os.path.join(LFS, "packages.ent")]
     paths += [os.path.join(BLFS, "packages.ent"), os.path.join(BLFS, "general.ent")]
-    paths += glob.glob(os.path.join(BLFS, "**", "*.xml"), recursive=True)
+    paths += glob.glob(os.path.join(LFS, "**", "*.xml"), recursive=True)
+    paths += glob.glob(os.path.join(BLFS, "*.ent"))
+    paths += [p for p in glob.glob(os.path.join(BLFS, "**", "*.xml"), recursive=True)
+              if os.sep + "archive" + os.sep not in p]
     for path in paths:
         try:
             text = open(path, encoding="utf-8", errors="replace").read()
@@ -56,9 +65,14 @@ def entity_map():
             continue
         text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
         for name, value in ENTITY_RE.findall(text):
+            # The book sometimes defines the same entity in a "-3" page
+            # (e.g. libsigc++ and libsigc++3); keep the first definition for
+            # the global map but also remember per-file definitions so the
+            # URL is read from the page that owns the checksum.
             ents.setdefault(name, value)
             where.setdefault(name, path)
-    return ents, where
+            byfile.setdefault(path, {})[name] = value
+    return ents, where, byfile
 
 
 def spec_path(pkg):
@@ -109,6 +123,39 @@ def download(url, want_md5, filename):
     return None, "download failed (%s)" % url
 
 
+def book_artifacts(stem, bver, ents, byfile):
+    """Return (md5, url) from the book page that matches *bver*.
+
+    A few BLFS pages reuse the same entity names for different major
+    versions (libsigc++ 2.x and 3.x both define libsigc-md5sum), so the
+    global map can point at the wrong checksum.  Prefer a page whose
+    resolved download URL names the requested version.
+    """
+    fallback = None
+    for local in byfile.values():
+        merged = dict(ents)
+        merged.update(local)
+        for suffix in MD5_SUFFIXES:
+            if stem + suffix not in local:
+                continue
+            md5 = audit_versions.resolve(local[stem + suffix], merged)
+            url = None
+            for usuffix in URL_SUFFIXES:
+                raw = local.get(stem + usuffix)
+                if not raw:
+                    continue
+                candidate = audit_versions.resolve(raw, merged).strip()
+                if candidate.startswith("http"):
+                    url = candidate
+                    break
+            if url and bver in url:
+                return md5, url
+            if fallback is None:
+                fallback = (md5, url)
+            break
+    return fallback or (None, None)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
@@ -118,7 +165,7 @@ def main():
     day = args.date or datetime.date.today().strftime("%a %b %d %Y")
 
     book = audit_versions.book_versions()
-    ents, where = entity_map()
+    ents, where, byfile = entity_map()
     changed, skipped = [], []
 
     for pkg in args.packages:
@@ -128,7 +175,8 @@ def main():
             skipped.append((pkg, str(exc)))
             continue
         text, name, ver, rel = read_spec(spec)
-        hit = book.get(audit_versions.norm(name))
+        key = audit_versions.norm(name)
+        hit = book.get(ALIASES.get(key, key))
         if not hit:
             skipped.append((pkg, "no book entry"))
             continue
@@ -136,12 +184,11 @@ def main():
         if audit_versions.vcmp(ver, bver) >= 0:
             skipped.append((pkg, "already %s (book %s)" % (ver, bver)))
             continue
-        md5_ent = entity[: -len("-version")] + "-md5sum"
-        want = ents.get(md5_ent)
+        stem = entity[: -len("-version")]
+        want, book_url = book_artifacts(stem, bver, ents, byfile)
         if not want:
-            skipped.append((pkg, "book has no %s" % md5_ent))
+            skipped.append((pkg, "book has no checksum for %s" % stem))
             continue
-        want = audit_versions.resolve(want, ents)
 
         srcfile = os.path.join(os.path.dirname(spec), "sources")
         if not os.path.isfile(srcfile):
@@ -149,6 +196,12 @@ def main():
             continue
         lines = [l.rstrip("\n") for l in open(srcfile) if l.strip()]
         new_lines, ok, why = [], True, ""
+        versioned = [l for l in lines
+                     if len(l.split()) >= 2 and l.split()[1].startswith("http")
+                     and ver in l.split()[1]]
+        if len(versioned) > 1:
+            skipped.append((pkg, "several versioned sources; update by hand"))
+            continue
         for line in lines:
             parts = line.split()
             if len(parts) < 2 or not parts[1].startswith("http"):
@@ -157,22 +210,30 @@ def main():
             old_md5, url = parts[0], parts[1]
             fname = parts[2] if len(parts) > 2 else os.path.basename(url)
             if ver not in url:
+                # Patches and side sources stay untouched.
                 new_lines.append(line)
                 continue
-            url2 = url.replace(ver, bver)
-            fname2 = fname.replace(ver, bver)
-            new_md5 = want if len(lines) == 1 else old_md5
-            if len(lines) > 1:
-                skipped.append((pkg, "multiple sources; update by hand"))
-                ok = False
-                break
-            got, how = (None, "dry-run")
-            if not args.dry_run:
-                got, how = download(url2, new_md5, fname2)
+            got, how, url2, fname2 = None, "dry-run", None, None
+            candidates = []
+            if book_url:
+                candidates.append(book_url)
+            candidates.append(url.replace(ver, bver))
+            if args.dry_run:
+                url2 = candidates[0]
+                fname2 = fname.replace(ver, bver)
+            else:
+                for cand in candidates:
+                    url2 = cand
+                    fname2 = os.path.basename(cand.split("?")[0])
+                    if not fname2 or fname2 == "download":
+                        fname2 = fname.replace(ver, bver)
+                    got, how = download(url2, want, fname2)
+                    if got:
+                        break
                 if not got:
                     ok, why = False, how
                     break
-            new_lines.append("%s %s %s" % (new_md5, url2, fname2))
+            new_lines.append("%s %s %s" % (want, url2, fname2))
         if not ok:
             skipped.append((pkg, why or "unsupported sources layout"))
             continue
