@@ -26,8 +26,9 @@ Detailed history is in `git log` (one commit per wave); rules are in
   pending: QEMU is not installed on the host and the qemu 11.1.3 spec is
   deferred, so run them when a VM is available.
 - **Offline repo copy.**  `/var/lib/browneye/repo` is still the old
-  259-RPM set.  A current 706-RPM copy (sha256-verified, metadata regenerated) is
-  staged at `build/repo-all`; `/var/lib` is root-owned, so it needs one
+  259-RPM set.  A 706-RPM copy (sha256-verified, metadata regenerated,
+  staged before rpm 4.18.1-6 and bwm-ng; the published repo is now 710) is
+  at `build/repo-all`; `/var/lib` is root-owned, so it needs one
   privileged command:
   `sudo rsync -a --delete build/repo-all/ /var/lib/browneye/repo/`.
 - **librsvg typelib split (D6 leftover).**  The only typelib still in its
@@ -148,7 +149,16 @@ Detailed history is in `git log` (one commit per wave); rules are in
   `sudo rpm -Uvh rpm-4.18.1-6 python3-rpm-4.18.1-6 rpm-devel-4.18.1-6`
   (download them from the repo) once, after which dnf works normally.
 
+**bwm-ng 0.6.3**
+- The tree had a 0.6.2 stub (TODO summary/description, never built or
+  published).  Updated to upstream 0.6.3 (2021-01-10), built with
+  `--with-ncurses` (the tarball is a git archive with no `configure`, so
+  `autogen.sh` generates it) and published; repo is now 710 RPMs.
+- bwm-ng is not in LFS or BLFS r13.1; the user approved 0.6.3 as the
+  version-parity exception.  Verified in the tools container: binary runs
+  against `/proc/net/dev`, links `libncursesw.so.6`, man page installed.
+
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
   16.2.0, Python 3.15.2; `sudo` needs a password, use `unshare -r`.
-- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (706 RPMs).
+- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (710 RPMs).
