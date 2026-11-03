@@ -1,6 +1,6 @@
 Name:       libmodulemd
 Version:    2.15.3
-Release:    2
+Release:    3
 Summary:    C library for manipulating module metadata files
 License:    MIT
 Prefix:     /usr
@@ -9,6 +9,13 @@ Source0:    %{name}-%{version}.tar.gz
 %description
 libmodulemd is a C library for manipulating the module metadata (modulemd)
 files used by dnf and libdnf.
+
+%package devel
+Summary:    Development files for libmodulemd
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+pkg-config files for libmodulemd, used to build software against it.
 
 %prep
 %setup -q -n %{name}-libmodulemd-%{version}
@@ -34,8 +41,13 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/libmodulemd.filelist
+%files devel -f %{_sourcedir}/libmodulemd-devel.filelist
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.15.3-3
+- Move the pkg-config files into a new -devel subpackage so the runtime
+  package no longer drags pkgconfig(...) consumers into every install.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.15.3-2
 - Rebuild for Python 3.15 / the D9 dnf stack refresh (new NEVR so the
   rebuilt package supersedes the published -1).

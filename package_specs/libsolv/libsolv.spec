@@ -1,6 +1,6 @@
 Name:       libsolv
 Version:    0.7.41
-Release:    2
+Release:    3
 Summary:    Library for solving packages and reading repositories
 License:    BSD
 Prefix:     /usr
@@ -10,6 +10,13 @@ Source0:    %{name}-%{version}.tar.gz
 libsolv is a dependency solver and repository reader used by libdnf and
 dnf.  This build includes the RPM database (via librpm), rpmmd and RPM
 package readers required by libdnf.
+
+%package devel
+Summary:    Development files for libsolv
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+pkg-config files for libsolv, used to build software against it.
 
 %prep
 %setup -q
@@ -55,8 +62,13 @@ install -Dm0644 cmake/modules/FindLibSolv.cmake \
     "%{buildroot}${cmake_root}/Modules/FindLibSolv.cmake"
 
 %files -f %{_sourcedir}/libsolv.filelist
+%files devel -f %{_sourcedir}/libsolv-devel.filelist
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 0.7.41-3
+- Move the pkg-config files into a new -devel subpackage so the runtime
+  package no longer drags pkgconfig(...) consumers into every install.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.7.41-2
 - Rebuild for Python 3.15 / the D9 dnf stack refresh (new NEVR so the
   rebuilt package supersedes the published -1).

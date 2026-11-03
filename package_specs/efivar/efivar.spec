@@ -1,6 +1,6 @@
 Name:       efivar
 Version:    39
-Release:    1
+Release:    2
 Summary:    Tools and libraries to manipulate EFI variables
 License:    LGPL-2.1
 Source0:    %{name}-%{version}.tar.gz
@@ -9,6 +9,13 @@ Prefix:     /usr
 
 %description
 Tools and libraries to work with EFI variables
+
+%package devel
+Summary:    Development files for efivar
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+pkg-config files for efivar, used to build software against it.
 
 %prep
 %setup -q
@@ -25,8 +32,13 @@ install -d %{buildroot}/usr/share/man/man3
 install -m644 docs/*.3 %{buildroot}/usr/share/man/man3/
 
 %files -f %{_sourcedir}/efivar.filelist
+%files devel -f %{_sourcedir}/efivar-devel.filelist
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 39-2
+- Move the pkg-config files into a new -devel subpackage so the runtime
+  package no longer drags pkgconfig(...) consumers into every install.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 39-1
 - Update to 39 (current BLFS r13.1, was 38)
 - Apply the BLFS efivar-39-upstream_fixes-1.patch (glibc-2.43+ build fix)

@@ -35,9 +35,6 @@
 /usr/lib64/libbsd.so.0
 /usr/lib64/libbsd.so.0.12.2
 %dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/libbsd-ctor.pc
-/usr/lib64/pkgconfig/libbsd-overlay.pc
-/usr/lib64/pkgconfig/libbsd.pc
 %dir /usr/share/man
 %dir /usr/share/man/man3
 %doc /usr/share/man/man3/LIST_CLASS_ENTRY.3bsd.gz

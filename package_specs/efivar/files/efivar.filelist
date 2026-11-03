@@ -29,9 +29,6 @@
 /usr/lib64/libefivar.so
 /usr/lib64/libefivar.so.1
 /usr/lib64/libefivar.so.1.39
-/usr/lib64/pkgconfig/efiboot.pc
-/usr/lib64/pkgconfig/efisec.pc
-/usr/lib64/pkgconfig/efivar.pc
 /usr/share/man/man1/efivar.1.gz
 /usr/share/man/man3/efi_append_variable.3.gz
 /usr/share/man/man3/efi_del_variable.3.gz

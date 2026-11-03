@@ -171,7 +171,6 @@
 /usr/lib64/libdnf.so
 /usr/lib64/libdnf.so.2
 /usr/lib64/libdnf/plugins/README
-/usr/lib64/pkgconfig/libdnf.pc
 /usr/lib64/python3.15/site-packages/hawkey/__init__.py
 /usr/lib64/python3.15/site-packages/hawkey/_hawkey.so
 /usr/lib64/python3.15/site-packages/libdnf-0.76.0.dist-info/METADATA

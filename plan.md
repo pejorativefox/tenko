@@ -1,7 +1,7 @@
 # Browneye Linux 13.1 — status
 
-Last updated: 2026-11-03 (network-only 323 MiB ISO, qemu 11.1.3, LAN mirror,
-librsvg-gir split). Branch `lfs-r13.1`.
+Last updated: 2026-11-03 (pkgconfig/-devel split, unzip fixed, network-only
+323 MiB ISO, qemu 11.1.3, LAN mirror, librsvg-gir split). Branch `lfs-r13.1`.
 Work root `~/browneye`.
 Detailed history is in `git log` (one commit per wave); rules are in
 `AGENTS.md` (LFS/BLFS version parity, subagent worktrees).
@@ -10,11 +10,20 @@ Detailed history is in `git log` (one commit per wave); rules are in
 
 ## 1. Not finished
 
-- **D3. Repository signing.**  Deferred by decision: the repo is unsigned
-  (`gpgcheck=0`, `repo_gpgcheck=0`) and the ISO is UEFI-only and unsigned,
-  so Secure Boot firmware rejects it.  Doing this means a signing key,
-  signing at publish time, exporting the public key to installed systems,
-  enforcing signature checks in the repo files, and signing the ISO.
+- **D3a. Secure Boot.**  Not implementing (user decision 2026-11-03): both
+  target machines (Lenovo laptop, MSI AM4 board) can disable Secure Boot,
+  and SB-off is the supported configuration.  `probe.py` already detects
+  SB-on in preflight and refuses to install with a pointer to the firmware
+  setup.  No shim/sbsign/mokutil/pesign/efitools specs (none are in
+  LFS/BLFS r13.1).  The research stays open as issue #2 for the day a
+  locked-down machine needs it (that would mean option B: Microsoft-signed
+  shim + MOK).
+- **D3b. Repo and ISO GPG signing.**  Split out of D3a into issue #3
+  (2026-11-03); not started.  The repo is unsigned (`gpgcheck=0`,
+  `repo_gpgcheck=0`) and the ISO only has a `.sha256`.  A scratch spike
+  verified `rpmsign` + `rpmkeys` and `repomd.xml.asc` with dnf, and found
+  that `%__gpg` must be overridden to `/usr/bin/gpg` (our gnupg ships no
+  `gpg2`); see the issue for the 706-existing-RPMs re-signing problem.
 - **Decisions that are not tasks:** `libbsd`/`libmd` stay as distro glue
   (book-less, required only by the base metas; user decision 2026-11-03);
   `podman-bin` is a static bundle (not rebuildable, invisible to CVE
@@ -136,12 +145,41 @@ Detailed history is in `git log` (one commit per wave); rules are in
   the index.
 - Tested and rejected: excluding `/usr/include`, man/doc/info and
   `gir-1.0` from the squashfs saved only ~6.7 MiB.
-- **Follow-up found:** 10 `*-devel` packages (~2.9 MiB) are still pulled
-  into every closure because runtime libraries ship `.pc` files and the RPM
-  `pkgconfig` generator turns them into runtime `Requires: pkgconfig(...)`
-  (e.g. `libdnf` -> `pkgconfig(rpm)` -> `rpm-devel`).  The fix is to move
-  the `.pc` files into `-devel` subpackages; it would also remove the 16 MiB
-  `/usr/include` from the live root.
+- **pkgconfig pollution fixed (2026-11-03).**  Runtime libraries shipped
+  `.pc` files, so the RPM `pkgconfig` generator added runtime
+  `Requires: pkgconfig(...)` (e.g. `libdnf` -> `pkgconfig(rpm)` ->
+  `rpm-devel`) and dragged 9 `*-devel` packages plus `glib-gir` into every
+  closure.  The `.pc` files moved into new `-devel` subpackages for
+  efivar, gpgme, libarchive, libassuan, libbsd, libcomps, libdnf,
+  libmodulemd, libpsl, librepo, libsolv and zchunk (25 RPMs published,
+  including `libarchive-static` and `unzip`).  The live-root closure went
+  from **112 to 102 packages with no `-devel` left** (verified with
+  `dnf repoquery --requires --resolve --recursive` against the published
+  repo), which also drops the 16 MiB `/usr/include` from the live root.
+  The 12 new `-devel` packages were added to `DEVEL_PACKAGES` in
+  `scripts/make_base_image.sh`; without them a fresh build image built
+  from the new repo would no longer find the `.pc` files (libdnf needs
+  libsolv.pc, librepo.pc, libmodulemd.pc, ...).
+  Build note: the existing `base:*` images still ship rpm 4.18.1-5, whose
+  sqlite history crash makes `dnf install` inside them unreliable, so swig
+  (needed by libdnf) was installed into a `base:pc-split` image with a
+  plain `rpm -Uvh` instead.
+
+**unzip 6.0 buildable again (2026-11-03)**
+- The spec was an unbuildable stub: `unzip-6.0-consolidated_fixes-1.patch`
+  is no longer served under `patches/blfs/13.1`, and BLFS now also requires
+  `unzip-6.0-gcc14-1.patch`.  Both patches are vendored in
+  `package_specs/unzip/files`, sourced from
+  `linuxfromscratch.org/patches/downloads/unzip/` with md5s recorded in
+  `sources`.
+- The build uses the upstream `generic` target (`generic_gcc` is gone) and
+  compiles in gnu17 mode: the K&R sources declare `gmtime()/localtime()`
+  with an empty argument list and GCC 16's gnu23 default reads `f()` as
+  `f(void)`, which clashes with glibc's prototypes.  The flag is injected
+  into the `flags` file that `unix/configure` generates.
+- Installs unzip, zipinfo, funzip, unzipsfx, zipgrep and their man pages;
+  verified by extracting a python-made zip (`unzip -l`, `-o`, `zipinfo`).
+  Published as `unzip-6.0-1` (it was not shipped before).
 
 **Tooling added**
 - `scripts/bump_to_book.py` (book version/md5 → spec+sources),

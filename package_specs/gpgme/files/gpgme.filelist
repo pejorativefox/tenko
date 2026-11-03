@@ -13,8 +13,6 @@
 /usr/lib64/libgpgme.so
 /usr/lib64/libgpgme.so.45
 /usr/lib64/libgpgme.so.45.2.0
-/usr/lib64/pkgconfig/gpgme-glib.pc
-/usr/lib64/pkgconfig/gpgme.pc
 /usr/share/aclocal/gpgme.m4
 /usr/share/common-lisp/source/gpgme/gpgme-grovel.lisp
 /usr/share/common-lisp/source/gpgme/gpgme-package.lisp
