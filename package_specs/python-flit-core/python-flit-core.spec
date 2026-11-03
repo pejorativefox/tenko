@@ -1,6 +1,6 @@
 Name:       python-flit-core
-Version:    4.0.2
-Release:    2
+Version:    4.2.0
+Release:    1
 Summary:    Python packaging utility (core)
 License:    BSD
 Source0:    flit_core-%{version}.tar.gz
@@ -26,6 +26,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 4.2.0-1
+- Sync with LFS r13.1
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.0.2-2
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
 

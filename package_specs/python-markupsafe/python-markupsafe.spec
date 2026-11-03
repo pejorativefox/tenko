@@ -1,9 +1,9 @@
 Name:       python-markupsafe
-Version:    3.0.3
-Release:    2
+Version:    3.0.4
+Release:    1
 Summary:    Safely add untrusted strings to HTML/XML markup.
 License:    BSD
-Source0:    markupsafe-3.0.3.tar.gz
+Source0:    markupsafe-3.0.4.tar.gz
 Prefix:     /usr
 
 %description
@@ -26,6 +26,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 3.0.4-1
+- Sync with LFS r13.1
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 3.0.3-2
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
 

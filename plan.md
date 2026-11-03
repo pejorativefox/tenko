@@ -1,6 +1,7 @@
 # Browneye Linux 13.1 — status
 
-Last updated: 2026-11-03. Branch `lfs-r13.1` (pushed). Work root `~/browneye`.
+Last updated: 2026-11-03 (post-audit book-parity wave). Branch `lfs-r13.1`.
+Work root `~/browneye`.
 Detailed history is in `git log` (one commit per wave); rules are in
 `AGENTS.md` (LFS/BLFS version parity, subagent worktrees).
 
@@ -20,14 +21,19 @@ Detailed history is in `git log` (one commit per wave); rules are in
   LFS/BLFS.  The main `ntp` package installs normally; decide whether to
   add specs for the two perl modules (not in the books, so a user call) or
   drop the subpackage.
-- **Kernel version gap.**  The published `linux-kernel` is 7.2.6-5 while
-  the book is at 7.3.1.  The audit misses it because the spec is named
-  `linux` and the RPMs are `linux-kernel`/`linux-modules`; a version bump
-  needs a full kernel build and the three boot tests.
+- **Kernel 7.3.1 boot tests.**  `linux` 7.3.1-1 is built and published
+  (`linux-kernel`, `linux-modules`, `linux-kernel-debug`), matching the
+  book.  The three boot tests are still pending: QEMU is not installed on
+  the host and the qemu 11.1.3 spec is deferred, so run them when a VM is
+  available.
 - **Offline repo copy.**  `/var/lib/browneye/repo` on installed systems is
-  still the old 620-ish RPM set; it does not contain the D9 wave, Chrome,
+  still the old 259-RPM set; it does not contain the D9 wave, Chrome,
   cups/nss/nspr, pulseaudio or the D7 packages.  Regenerate it from the
-  current 706-RPM repo when an ISO or offline install is next built.
+  current 705-RPM repo when an ISO or offline install is next built.
+- **libbsd/libmd decision.**  Both are shipped and required by
+  `browneye-base`/`browneye-base-runtime` (RPM toolchain), but neither has an
+  LFS/BLFS counterpart.  AGENTS.md requires a user decision: keep them as
+  distro glue or drop them and the packages that need them.
 - **librsvg typelib split (D6 leftover).**  The only typelib still in its
   runtime package (~9 KB).  Now possible because Rust 1.99 is installed.
 - **Decisions that are not tasks:** `podman-bin` is a static bundle (not
@@ -58,8 +64,14 @@ Detailed history is in `git log` (one commit per wave); rules are in
 - Every published package was re-baselined to the current LFS/BLFS trunk:
   glibc, openssl 4.1.0, systemd 262.1, Python 3.15.2, rpm/dnf stack,
   glib/harfbuzz/GTK, git, openssh, X11, Rust/cargo-c/librsvg, etc.
-- Final audit: **706 RPMs published, 0 outdated**, 350 current, 1 newer
-  (`xml-parser 2.59` vs book 2.57).
+- Post-audit wave (2026-11-03): **705 RPMs published, 0 outdated**, one
+  newer (`xml-parser 2.59` vs book 2.57).  Bumped `freetype` 2.15.0,
+  `icu4c` 79.1 (filelists/sonames regenerated), `python-flit-core` 4.2.0,
+  `python-markupsafe` 3.0.4, `python-setuptools` 84.2.1 and `linux` 7.3.1.
+- `lfs.lock` is regenerated from LFS trunk `1493db7`; `sync_lfs_spec.py
+  --all-base` now reports 80/80 up-to-date instead of proposing downgrades.
+- The retired `system-minimal` RPM was pruned from the published repo and
+  the duplicate `package_specs/libgcr` (the shipped gcr is 3.41.2) removed.
 - User-approved exceptions outside the books: Google Chrome
   (`google-chrome-bin`), `pulsemixer` (replaces pavucontrol), three extra
   fonts, `podman-bin`, `linux-firmware`.
@@ -101,4 +113,4 @@ Detailed history is in `git log` (one commit per wave); rules are in
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
   16.2.0, Python 3.15.2; `sudo` needs a password, use `unshare -r`.
-- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (706 RPMs).
+- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (705 RPMs).

@@ -1,6 +1,7 @@
 %dir /usr/include/freetype2
 %dir /usr/include/freetype2/freetype
 %dir /usr/include/freetype2/freetype/config
+%dir /usr/lib64/pkgconfig
 /usr/include/freetype2/freetype/config/ftconfig.h
 /usr/include/freetype2/freetype/config/ftheader.h
 /usr/include/freetype2/freetype/config/ftmodule.h
@@ -57,6 +58,5 @@
 /usr/include/freetype2/freetype/tttags.h
 /usr/include/freetype2/ft2build.h
 /usr/lib64/libfreetype.so
-%dir /usr/lib64/pkgconfig
 /usr/lib64/pkgconfig/freetype2.pc
 /usr/share/aclocal/freetype2.m4

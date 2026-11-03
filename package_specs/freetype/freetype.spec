@@ -1,6 +1,6 @@
 Name:       freetype
-Version:    2.14.3
-Release:    2
+Version:    2.15.0
+Release:    1
 Summary:    TrueType font library
 License:    GPL3
 Prefix:     /usr
@@ -40,6 +40,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.15.0-1
+- Sync with BLFS r13.1
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.14.3-2
 - Split devel payload into freetype-devel (size audit)
 

@@ -44,7 +44,11 @@ import audit_versions  # noqa: E402
 
 
 ALIASES = {"libglu": "glu", "cairomm": "cairomm10", "gnupg": "gnupg2",
-           "gstreamer": "gstreamer10", "gstpluginsbase": "gst10pluginsbase"}
+           "gstreamer": "gstreamer10", "gstpluginsbase": "gst10pluginsbase",
+           "freetype": "freetype2", "icu4c": "icu",
+           "python-flit-core": "flit-core",
+           "python-markupsafe": "markupsafe",
+           "python-setuptools": "setuptools"}
 
 MD5_SUFFIXES = ("-md5sum", "-md5", "-http-md5sum", "-download-md5sum")
 URL_SUFFIXES = ("-download-http", "-url", "-download-ftp")

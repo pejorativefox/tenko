@@ -1,6 +1,6 @@
 Name:       python-setuptools
-Version:    84.0.0
-Release:    2
+Version:    84.2.1
+Release:    1
 Summary:    Python setuptools build system.
 License:    LGPL
 Source0:    setuptools-%{version}.tar.gz
@@ -26,6 +26,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 84.2.1-1
+- Sync with LFS r13.1
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 84.0.0-2
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
 

@@ -1,6 +1,6 @@
 Name:       linux
-Version:    7.2.6
-Release:    5
+Version:    7.3.1
+Release:    1
 Summary:    Linux kernel
 License:    GPL2
 Prefix:     /usr
@@ -105,6 +105,9 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 7.3.1-1
+- Sync with LFS r13.1
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 7.2.6-5
 - Set CONFIG_DRM_PANIC_SCREEN="user": the sanitized config selected the
   qr_code formatter while CONFIG_DRM_PANIC_SCREEN_QR_CODE is off (it needs

@@ -1,4 +1,5 @@
 %dir /usr/include/unicode
+%dir /usr/lib64/pkgconfig
 /usr/include/unicode/alphaindex.h
 /usr/include/unicode/appendable.h
 /usr/include/unicode/basictz.h
@@ -210,7 +211,6 @@
 /usr/lib64/libicutest.so
 /usr/lib64/libicutu.so
 /usr/lib64/libicuuc.so
-%dir /usr/lib64/pkgconfig
 /usr/lib64/pkgconfig/icu-i18n.pc
 /usr/lib64/pkgconfig/icu-io.pc
 /usr/lib64/pkgconfig/icu-uc.pc

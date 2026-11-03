@@ -1,6 +1,6 @@
 Name:       icu4c
-Version:    78.3
-Release:    2
+Version:    79.1
+Release:    1
 Summary:    International Components for Unicode (C/C++ libraries)
 License:    Unicode-3.0
 URL:        https://icu.unicode.org/
@@ -40,6 +40,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 79.1-1
+- Sync with BLFS r13.1
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 78.3-2
 - Split devel payload into icu4c-devel (size audit)
 
