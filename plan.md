@@ -1,6 +1,6 @@
 # Browneye Linux 13.1 — status
 
-Last updated: 2026-11-03 (installer ISO boot + unattended install verified). Branch `lfs-r13.1`.
+Last updated: 2026-11-03 (network-only 323 MiB ISO, qemu 11.1.3, LAN mirror). Branch `lfs-r13.1`.
 Work root `~/browneye`.
 Detailed history is in `git log` (one commit per wave); rules are in
 `AGENTS.md` (LFS/BLFS version parity, subagent worktrees).
