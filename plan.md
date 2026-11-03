@@ -30,17 +30,14 @@ Detailed history is in `git log` (one commit per wave); rules are in
   still the old 259-RPM set; it does not contain the D9 wave, Chrome,
   cups/nss/nspr, pulseaudio or the D7 packages.  Regenerate it from the
   current 706-RPM repo when an ISO or offline install is next built.
-- **libbsd/libmd decision.**  Both are shipped and required by
-  `browneye-base`/`browneye-base-runtime` (RPM toolchain), but neither has an
-  LFS/BLFS counterpart.  AGENTS.md requires a user decision: keep them as
-  distro glue or drop them and the packages that need them.
 - **librsvg typelib split (D6 leftover).**  The only typelib still in its
   runtime package (~9 KB).  Now possible because Rust 1.99 is installed.
-- **Decisions that are not tasks:** `podman-bin` is a static bundle (not
-  rebuildable, invisible to CVE tracking); console/tty logins get no
-  `pam_systemd` (no `/etc/pam.d/login`); `vte` vendors simdutf/fmt/
-  fast_float as offline wraps; `unzip`'s spec still references a patch
-  that 404s upstream.
+- **Decisions that are not tasks:** `libbsd`/`libmd` stay as distro glue
+  (book-less, required only by the base metas; user decision 2026-11-03);
+  `podman-bin` is a static bundle (not rebuildable, invisible to CVE
+  tracking); console/tty logins get no `pam_systemd` (no
+  `/etc/pam.d/login`); `vte` vendors simdutf/fmt/fast_float as offline
+  wraps; `unzip`'s spec still references a patch that 404s upstream.
 
 ---
 
