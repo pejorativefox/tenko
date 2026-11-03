@@ -1,6 +1,6 @@
 # Browneye Linux 13.1 — status
 
-Last updated: 2026-11-03 (ISO size round: 1014 -> 642 MiB). Branch `lfs-r13.1`.
+Last updated: 2026-11-03 (qemu 11.1.3 built and published). Branch `lfs-r13.1`.
 Work root `~/browneye`.
 Detailed history is in `git log` (one commit per wave); rules are in
 `AGENTS.md` (LFS/BLFS version parity, subagent worktrees).
@@ -14,18 +14,18 @@ Detailed history is in `git log` (one commit per wave); rules are in
   so Secure Boot firmware rejects it.  Doing this means a signing key,
   signing at publish time, exporting the public key to installed systems,
   enforcing signature checks in the repo files, and signing the ISO.
-- **qemu 11.1.3.**  Deferred on request (2026-11-03).  It is the only D7
-  package that was not built; ffmpeg and everything else is done.
 - **ntp-leap is published but not installable.**  `update-leap` needs the
   CPAN modules `IO::Socket::SSL` and `Net::SSLeay`, which are not in
   LFS/BLFS.  The main `ntp` package installs normally; decide whether to
   add specs for the two perl modules (not in the books, so a user call) or
   drop the subpackage.
-- **Kernel 7.3.1 boot tests.**  `linux` 7.3.1-1 is built, published and
-  carried by the installer ISO, but the three boot tests are still
-  pending: QEMU is not installed on the host and the qemu 11.1.3 spec is
-  deferred, so run them when a VM is available.  The rebuilt 642 MiB ISO
-  (runtime-base target set) needs the same boot/install test.
+- **Kernel 7.3.1 boot tests.**  `linux` 7.3.1-1 is built and published, but
+  the three boot tests are still pending.  qemu 11.1.3 is now built and
+  published (dtc + libslirp from the book came with it), so the tests can
+  run as soon as qemu is installed on a host: this host has /dev/kvm but
+  `daspork` is not in the `kvm` group, so it would be TCG (slow) unless
+  qemu is installed with root and the user added to `kvm`.  The rebuilt
+  642 MiB ISO (runtime-base target set) needs the same boot/install test.
 - **Offline repo copy.**  `/var/lib/browneye/repo` is still the old
   259-RPM set.  A 706-RPM copy (sha256-verified, metadata regenerated,
   staged before rpm 4.18.1-6, bwm-ng and bash-completion; the published
@@ -104,8 +104,8 @@ Detailed history is in `git log` (one commit per wave); rules are in
   pulseaudio + alsa-plugins, ffmpeg, gstreamer/gst-plugins-base,
   fuse3/pipewire and xdg-desktop-portal.
 - pavucontrol was dropped (it now needs the whole GTK4 bindings stack) and
-  replaced by `pulsemixer`; qemu was deferred.  That is why the original
-  63 is now 61.
+  replaced by `pulsemixer`.  That is why the original 63 is now 61.  qemu
+  was deferred during D7 and built later (see the qemu 11.1.3 section).
 - **All of D7 is published** (76 packages plus the `ntp-leap` subpackage),
   taking the repo from 629 to 706 RPMs after verifying that all 76 install
   together from the published repo.
@@ -201,7 +201,26 @@ Detailed history is in `git log` (one commit per wave); rules are in
   lazy loading works for tar/ssh/rpm/systemctl; dnf keeps its own completion
   from the dnf package.
 
+**qemu 11.1.3 and its book dependencies**
+- The tree had a 2023 qemu 8.1.0 stub.  Updated to **11.1.3**, the BLFS
+  r13.1 version, and published; the build follows the book
+  (`--target-list=x86_64-softmmu`, `--sysconfdir=/etc`,
+  `--audio-drv-list=alsa`, `--disable-pa`, `--disable-download`,
+  `--enable-slirp`).  `qemu-bridge-helper` is setuid root:kvm (4750).
+- New book dependencies, also built and published: **dtc 1.8.1** (libfdt)
+  and **libslirp 4.9.7** (user-mode networking).  The build image used for
+  qemu is `localhost/browneye/base:qemu-deps` (base + dtc + libslirp +
+  alsa-lib).
+- qemu installs the x86_64 system emulator, qemu-img/io/nbd/storage-daemon,
+  the guest agent and tools, EDK2/vgabios firmware and keymaps (167 files,
+  72 MiB RPM).  User-mode networking was smoke-tested (`-netdev user`
+  starts, TCG); KVM is compiled in but needs /dev/kvm access.
+- Two build snags fixed in the spec: the tools image lacked alsa-lib, and
+  the generic brp-strip pass chokes on qemu's non-x86 ELF firmware blobs
+  (palcode-clipper, hppa-firmware*.img), so `__brp_strip` is disabled for
+  this package after the distro's own strip pass has run.
+
 **Environment**
 - Host is Browneye 13.1 itself: 16 cores / 19 GB, rootless podman, gcc
   16.2.0, Python 3.15.2; `sudo` needs a password, use `unshare -r`.
-- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (712 RPMs).
+- Repo: <https://tomfool.8bit.ca/browneye/packages/13.1/> (715 RPMs).
