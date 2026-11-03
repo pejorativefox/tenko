@@ -64,7 +64,9 @@ freetype fontconfig libxft fribidi"
         build "$p" "$p" || exit 1
     done
 
-    build glib glib-pass1 --define "glib_introspection disabled" || exit 1
+    # glib-pass1 (the no-introspection stage-1 glib) was removed
+    # 2026-11-03; a from-scratch stack build now needs glib present in the
+    # build image.
     build gobject-introspection gobject-introspection || exit 1
     build glib glib || exit 1
 

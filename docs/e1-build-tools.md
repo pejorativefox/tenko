@@ -58,9 +58,11 @@ Outputs:
 - `build/e1/out/logs/<package>.log`
 - `build/e1/out/status/<package>`
 
-`build/e1/out/build/glib-pass1/` is a bootstrap-only RPM: it is the
-same NEVRA as the final `glib` package but without introspection data, and
-it must **not** be added to a repository.  Collectors skip it explicitly.
+The bootstrap-only `glib-pass1` stage (a no-introspection glib with the
+same NEVRA as the final package) was deleted on 2026-11-03.  The toolchain
+is self-hosted, so `scripts/build_blfs_stack.sh` now relies on `glib`
+already being present in the build image instead of building its own
+stage-1 copy.
 
 Static filelists live in `package_specs/<package>/files/<package>.filelist`.
 A package whose filelist is missing or empty is built once with

@@ -50,8 +50,7 @@ if [ -d "$EXTRA_REPO" ]; then
     done
 fi
 # Our freshly built toolchain RPMs win over older copies.
-find "$OUT/build" -path '*/RPMS/x86_64/*.rpm' \
-    -not -path '*/glib-pass1/*' -exec cp -pf {} "$REPO"/ \;
+find "$OUT/build" -path '*/RPMS/x86_64/*.rpm' -exec cp -pf {} "$REPO"/ \;
 
 # A tiny package with a %post scriptlet, used to prove that scriptlets run
 # in a dnf --installroot transaction.

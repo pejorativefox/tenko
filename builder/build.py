@@ -34,8 +34,8 @@ def spec_nevra(spec_path):
     """Return NAME-VERSION-RELEASE for a spec, or None if rpm cannot parse it.
 
     Used to refuse building two specs that would write the same RPM (for
-    example glib and glib-pass1): the second build silently replaces the
-    first in ~/rpmbuild/RPMS.
+    example a bootstrap and a final variant of the same package): the second
+    build silently replaces the first in ~/rpmbuild/RPMS.
     """
     try:
         output = subprocess.check_output(

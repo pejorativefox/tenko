@@ -8,7 +8,8 @@ Audit of `package_specs/` against the LFS and BLFS checkouts and the
   from **433 source packages**.
 - Books: `~/repos/lfs` branch `trunk` (`1493db7`) and `~/repos/blfs`
   branch `trunk` (`60fb6e5`).
-- Spec tree at commit `9961e02`, plus the fixes listed in §3.
+- Spec tree after the zip/glib-pass1 changes of 2026-11-03 (see §1.1
+  and §2.1).
 - Regenerate with `python3 scripts/spec_audit.py --primary primary.xml.zst`
   (see §5).
 
@@ -24,20 +25,20 @@ this way and is reported as **NO-ENTITY** ("not comparable"), not as
 
 | measure | count |
 |---|---:|
-| spec files / spec directories | 556 / 553 |
+| spec files / spec directories | 555 / 553 |
 | shipped spec files (live source package in the repo) | 434 |
-| source packages in the published repo | 433 |
-| RPM names in the published repo | 724 |
+| source packages in the published repo | 434 |
+| RPM names in the published repo | 725 |
 | **shipped packages below the book** | **0** |
-| shipped packages at the book | 358 |
+| shipped packages at the book | 359 |
 | shipped packages above the book | 1 (`xml-parser`, approved) |
-| shipped packages with no comparable book entity | 75 |
-| unbuilt spec files | 122 |
+| shipped packages with no comparable book entity | 74 |
+| unbuilt spec files | 121 |
 | unbuilt specs below the book | 0 |
 | unbuilt specs at the book | 5 |
-| unbuilt specs above the book | 2 (`db`, `zip`) |
+| unbuilt specs above the book | 1 (`db`) |
 | unbuilt specs with no comparable book entity | 115 |
-| specs with `Summary: TODO` | 76 |
+| specs with `Summary: TODO` | 75 |
 | specs with `TODO` in `%description` | 87 |
 | shipped specs with a missing referenced patch | 0 |
 | shipped specs with a sources/version mismatch | 0 |
@@ -50,8 +51,8 @@ rule. The remaining debt is metadata, not versions.
 
 ## 1. Shipped packages
 
-358 shipped source packages match the book exactly and one (`xml-parser`)
-is newer. The 75 without a comparable entity fall into four groups and
+359 shipped source packages match the book exactly and one (`xml-parser`)
+is newer. The 74 without a comparable entity fall into four groups and
 spot checks of each found no stale versions:
 
 - **Distro-specific metas and bundles**: the 13 `browneye-*` packages,
@@ -85,9 +86,11 @@ already correct in most cases; the local filename was not):
 | `xorgproto` | URL 2026.1, local name 2025.1 | name 2026.1 |
 | `xorg-server` | URL fetched 21.1.24 while the spec says 21.1.25 | URL + md5 21.1.25 |
 
-`glib`'s bootstrap spec (`glib-pass1`) was still at 2.90.0 while the book
-and the main spec are 2.90.1; it now matches. It is bootstrap-only and was
-not published from that spec.
+`glib`'s bootstrap stage (`glib-pass1`, a no-introspection glib with the
+same NEVRA as the final package) was deleted on 2026-11-03 along with its
+references in `build_build_tools.sh` and `build_blfs_stack.sh`; the
+toolchain is self-hosted and the stack build now expects `glib` in the
+build image.
 
 The `sources/version mismatch` rows that remain are all expected: date- or
 commit-named archives (`font-siji`, `passt`), binary bundles
@@ -100,14 +103,14 @@ issue #8 with the missing patch.
 
 - **`Summary: TODO` / `TODO` descriptions** in 76 and 87 specs — issue #8.
 - **`autoconf213`** is unbuildable (patch 404s, not vendored) — issue #8.
-- **`zip` is not shipped** while `unzip` now is — decision in issue #7.
+- **`zip`** is shipped from 2026-11-03 (`zip-3.0-1`), so archives can be
+  created as well as extracted; that decision in issue #7 is done.
 
 ## 2. Unbuilt specs (122)
 
-122 spec files have no matching source package in the published repo: 115
-have no comparable book entity, 5 are at the book, 2 are above it (`db`
-6.2.32 vs 5.3.28, `zip` 30 vs 3.0 — the same 3.0 release written without a
-decimal point). None of them is below the book.
+121 spec files have no matching source package in the published repo: 115
+have no comparable book entity and 5 are at the book. One is above the book
+(`db` 6.2.32 vs 5.3.28). None of them is below the book.
 
 They cost nothing while they stay unbuilt, but the parity rule in
 `AGENTS.md` applies the moment someone builds one. Grouped by intent:
@@ -140,7 +143,6 @@ mentions are comments, filename fragments and `Provides:` strings).
 |---|---|---|---|
 | `xml-parser` | 2.59 | 2.57 | shipped; allowed ("at least the book") |
 | `db` | 6.2.32 | 5.3.28 | unbuilt stub |
-| `zip` | 30 | 3.0 | unbuilt; same release, no decimal point |
 
 `sqlite` 3.54.1 is **not** newer: the book entity `sqlite-version` is the
 autoconf build number `3540100`, which equals 3.54.1. The script converts

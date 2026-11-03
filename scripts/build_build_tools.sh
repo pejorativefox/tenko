@@ -197,7 +197,6 @@ curl
 libuv
 cmake
 python3-docutils
-glib-pass1
 gobject-introspection
 glib
 libxml2
@@ -222,7 +221,6 @@ browneye-build
 # spec directory and spec file name for each entry in ALL_ORDER
 spec_dir_of() {
     case $1 in
-        glib-pass1) echo "glib glib-pass1" ;;
         libmodulemd) echo "libmodulemd libmodulemd" ;;
         *) echo "$1 $1" ;;
     esac
