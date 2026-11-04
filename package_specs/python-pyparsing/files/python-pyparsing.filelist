@@ -1,0 +1,59 @@
+%dir /usr/lib
+%dir /usr/lib64
+%dir /usr/lib64/python3.15
+%dir /usr/lib64/python3.15/site-packages
+%dir /usr/lib64/python3.15/site-packages/pyparsing
+%dir /usr/lib64/python3.15/site-packages/pyparsing-3.3.3.dist-info
+/usr/lib64/python3.15/site-packages/pyparsing-3.3.3.dist-info/INSTALLER
+/usr/lib64/python3.15/site-packages/pyparsing-3.3.3.dist-info/METADATA
+/usr/lib64/python3.15/site-packages/pyparsing-3.3.3.dist-info/RECORD
+/usr/lib64/python3.15/site-packages/pyparsing-3.3.3.dist-info/REQUESTED
+/usr/lib64/python3.15/site-packages/pyparsing-3.3.3.dist-info/WHEEL
+/usr/lib64/python3.15/site-packages/pyparsing-3.3.3.dist-info/direct_url.json
+%dir /usr/lib64/python3.15/site-packages/pyparsing-3.3.3.dist-info/licenses
+/usr/lib64/python3.15/site-packages/pyparsing-3.3.3.dist-info/licenses/LICENSE
+/usr/lib64/python3.15/site-packages/pyparsing/__init__.py
+%dir /usr/lib64/python3.15/site-packages/pyparsing/__pycache__
+/usr/lib64/python3.15/site-packages/pyparsing/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/__pycache__/actions.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/__pycache__/common.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/__pycache__/core.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/__pycache__/exceptions.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/__pycache__/helpers.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/__pycache__/results.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/__pycache__/testing.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/__pycache__/unicode.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/__pycache__/util.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/__pycache__/warnings.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/actions.py
+%dir /usr/lib64/python3.15/site-packages/pyparsing/ai
+/usr/lib64/python3.15/site-packages/pyparsing/ai/__init__.py
+%dir /usr/lib64/python3.15/site-packages/pyparsing/ai/__pycache__
+/usr/lib64/python3.15/site-packages/pyparsing/ai/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/ai/best_practices.md
+%dir /usr/lib64/python3.15/site-packages/pyparsing/ai/show_best_practices
+/usr/lib64/python3.15/site-packages/pyparsing/ai/show_best_practices/__init__.py
+/usr/lib64/python3.15/site-packages/pyparsing/ai/show_best_practices/__main__.py
+%dir /usr/lib64/python3.15/site-packages/pyparsing/ai/show_best_practices/__pycache__
+/usr/lib64/python3.15/site-packages/pyparsing/ai/show_best_practices/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/ai/show_best_practices/__pycache__/__main__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/common.py
+/usr/lib64/python3.15/site-packages/pyparsing/core.py
+%dir /usr/lib64/python3.15/site-packages/pyparsing/diagram
+/usr/lib64/python3.15/site-packages/pyparsing/diagram/__init__.py
+%dir /usr/lib64/python3.15/site-packages/pyparsing/diagram/__pycache__
+/usr/lib64/python3.15/site-packages/pyparsing/diagram/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/exceptions.py
+/usr/lib64/python3.15/site-packages/pyparsing/helpers.py
+/usr/lib64/python3.15/site-packages/pyparsing/py.typed
+/usr/lib64/python3.15/site-packages/pyparsing/results.py
+/usr/lib64/python3.15/site-packages/pyparsing/testing.py
+%dir /usr/lib64/python3.15/site-packages/pyparsing/tools
+/usr/lib64/python3.15/site-packages/pyparsing/tools/__init__.py
+%dir /usr/lib64/python3.15/site-packages/pyparsing/tools/__pycache__
+/usr/lib64/python3.15/site-packages/pyparsing/tools/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/tools/__pycache__/cvt_pyparsing_pep8_names.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyparsing/tools/cvt_pyparsing_pep8_names.py
+/usr/lib64/python3.15/site-packages/pyparsing/unicode.py
+/usr/lib64/python3.15/site-packages/pyparsing/util.py
+/usr/lib64/python3.15/site-packages/pyparsing/warnings.py

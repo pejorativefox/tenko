@@ -1,0 +1,76 @@
+%dir /etc/grub.d
+/etc/grub.d/15_ostree
+%dir /etc/ostree
+%dir /etc/ostree/remotes.d
+%dir /usr/bin
+/usr/bin/ostree
+/usr/bin/rofiles-fuse
+%dir /usr/include
+%dir /usr/include/ostree-1
+/usr/include/ostree-1/ostree-async-progress.h
+/usr/include/ostree-1/ostree-autocleanups.h
+/usr/include/ostree-1/ostree-blob-reader.h
+/usr/include/ostree-1/ostree-bootconfig-parser.h
+/usr/include/ostree-1/ostree-content-writer.h
+/usr/include/ostree-1/ostree-core.h
+/usr/include/ostree-1/ostree-deployment.h
+/usr/include/ostree-1/ostree-diff.h
+/usr/include/ostree-1/ostree-dummy-enumtypes.h
+/usr/include/ostree-1/ostree-gpg-verify-result.h
+/usr/include/ostree-1/ostree-kernel-args.h
+/usr/include/ostree-1/ostree-mutable-tree.h
+/usr/include/ostree-1/ostree-ref.h
+/usr/include/ostree-1/ostree-remote.h
+/usr/include/ostree-1/ostree-repo-deprecated.h
+/usr/include/ostree-1/ostree-repo-file.h
+/usr/include/ostree-1/ostree-repo-finder-avahi.h
+/usr/include/ostree-1/ostree-repo-finder-config.h
+/usr/include/ostree-1/ostree-repo-finder-mount.h
+/usr/include/ostree-1/ostree-repo-finder-override.h
+/usr/include/ostree-1/ostree-repo-finder.h
+/usr/include/ostree-1/ostree-repo-os.h
+/usr/include/ostree-1/ostree-repo.h
+/usr/include/ostree-1/ostree-sepolicy.h
+/usr/include/ostree-1/ostree-sign-ed25519.h
+/usr/include/ostree-1/ostree-sign.h
+/usr/include/ostree-1/ostree-sysroot-upgrader.h
+/usr/include/ostree-1/ostree-sysroot.h
+/usr/include/ostree-1/ostree-types.h
+/usr/include/ostree-1/ostree-version.h
+/usr/include/ostree-1/ostree.h
+%dir /usr/lib
+%dir /usr/lib/ostree
+/usr/lib/ostree/ostree-prepare-root
+/usr/lib/ostree/ostree-remount
+%dir /usr/lib/systemd
+%dir /usr/lib/systemd/system
+%dir /usr/lib/systemd/system-generators
+/usr/lib/systemd/system-generators/ostree-system-generator
+/usr/lib/systemd/system/ostree-boot-complete.service
+/usr/lib/systemd/system/ostree-finalize-staged-hold.service
+/usr/lib/systemd/system/ostree-finalize-staged.service
+/usr/lib/systemd/system/ostree-prepare-root.service
+/usr/lib/systemd/system/ostree-remount.service
+/usr/lib/systemd/system/ostree-state-overlay@.service
+%dir /usr/lib/tmpfiles.d
+/usr/lib/tmpfiles.d/ostree-tmpfiles.conf
+%dir /usr/lib64
+%dir /usr/lib64/girepository-1.0
+/usr/lib64/girepository-1.0/OSTree-1.0.typelib
+/usr/lib64/libostree-1.so
+/usr/lib64/libostree-1.so.1
+/usr/lib64/libostree-1.so.1.0.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/ostree-1.pc
+%dir /usr/libexec
+%dir /usr/libexec/libostree
+/usr/libexec/libostree/grub2-15_ostree
+%dir /usr/share
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+/usr/share/bash-completion/completions/ostree
+%dir /usr/share/gir-1.0
+/usr/share/gir-1.0/OSTree-1.0.gir
+%dir /usr/share/ostree
+%dir /usr/share/ostree/trusted.gpg.d
+/usr/share/ostree/trusted.gpg.d/README-gpg
