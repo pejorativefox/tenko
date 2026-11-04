@@ -65,7 +65,7 @@ DEFAULT_ALIGN_MIB = 1
 MIN_REGION_MIB = 2
 ROOT_MIN_MIB = 8192
 SWAP_MIB = 2048
-ESP_MIB = 512
+ESP_MIB = 1024
 
 
 class PlanError(RuntimeError):
@@ -710,7 +710,7 @@ def plan_layout(
     """Plan ESP/swap/root inside one free region.
 
     Existing partitions are preserved.  An existing ESP is reused unless
-    ``reuse_existing_esp`` is false; otherwise a new 512 MiB ESP is placed at
+    ``reuse_existing_esp`` is false; otherwise a new 1 GiB ESP is placed at
     the start of the region.  Swap is 2 GiB when it fits next to the minimum
     root and is skipped with a warning otherwise.  Root grows to fill the
     remaining region unless ``root_mib`` is given.
@@ -808,14 +808,15 @@ def plan_layout(
         if not esp.partuuid:
             raise PlanError("the existing ESP has no partition UUID")
         esp_mib_actual = (esp.size * sector_unit) // MIB
-        if esp_mib_actual < 100:
+        if esp_mib_actual < 256:
             warnings.append(
                 f"reusing a small existing ESP ({esp_mib_actual} MiB); "
-                "256 MiB or more is recommended"
+                "the bootloader keeps the kernel and initramfs on the ESP, "
+                "so 1 GiB is recommended"
             )
         if not esp.fs_uuid:
             warnings.append(
-                "the existing ESP has no filesystem UUID; /boot/efi will use PARTUUID"
+                "the existing ESP has no filesystem UUID; /boot will use PARTUUID"
             )
     else:
         if esp_mib < 32:

@@ -961,7 +961,7 @@ def _interactive(
         (part.type or "").upper() == disk.ESP_TYPE
         for part in remaining.partitions
     )
-    required_mib = 8192 if has_esp else 8704
+    required_mib = 8192 if has_esp else 9216
     region_rows = _region_rows(regions, required_mib)
     if not any(row.enabled for row in region_rows):
         ui.message(
@@ -970,7 +970,7 @@ def _interactive(
                 "The largest free region is {} MiB; at least {} MiB is required ".format(
                     max(region.size_mib for region in regions), required_mib
                 )
-                + ("for the root filesystem." if has_esp else "for a 512 MiB ESP and an 8 GiB root."),
+                + ("for the root filesystem." if has_esp else "for a 1 GiB ESP and an 8 GiB root."),
                 "Delete more partitions or choose another disk.",
             ],
             footer="Press any key to go back",
@@ -995,7 +995,7 @@ def _interactive(
                 table,
                 region,
                 disk_path=selected.disk.path,
-                esp_mib=512,
+                esp_mib=disk.ESP_MIB,
                 root_mib=None,
                 swap_mib=2048,
                 root_min_mib=8192,
@@ -1043,7 +1043,7 @@ def _interactive(
                 table,
                 region,
                 disk_path=selected.disk.path,
-                esp_mib=512,
+                esp_mib=disk.ESP_MIB,
                 root_mib=root_mib,
                 swap_mib=chosen_swap,
                 root_min_mib=8192,
@@ -1068,7 +1068,8 @@ def _interactive(
         ]
         package_choice = ui.menu(
             "Package set",
-            "The target always includes the kernel, modules, GRUB, dracut, "
+            "The target always includes the kernel, modules, systemd-boot, "
+            "dracut, "
             "efibootmgr, dosfstools and dnf.",
             package_rows,
             footer="Up/Down select   Enter continue   Esc back",
@@ -1108,7 +1109,7 @@ def _interactive(
             disk_model=selected.disk.model,
             delete_partitions=tuple(sorted(deleted)),
             region_start_mib=region.start_mib,
-            esp_mib=512,
+            esp_mib=disk.ESP_MIB,
             root_mib=(plan.root.size * plan.unit) // MIB,
             swap_mib=((plan.swap.size * plan.unit) // MIB if plan.swap else 0),
             package_set=package_set,

@@ -2,12 +2,16 @@
 # Build the UEFI-only Browneye installer ISO.
 #
 # Layout on the ISO:
-#   /vmlinuz, /initrd.img          kernel and live initramfs
 #   /LiveOS/squashfs.img           zstd-compressed live root (dmsquash-live)
-#   /boot/efiboot.img              El Torito EFI image with standalone GRUB
-#   /grub.cfg                      reference copy of the embedded config
+#   /boot/efiboot.img              El Torito EFI system partition (FAT32)
+#   /answer.json                   optional unattended answer file
 #
-# The live root comes from browneye-live (base-runtime + dnf/grub/dracut/
+# The EFI image is a FAT filesystem holding systemd-boot, loader.conf, the
+# loader entry and the live kernel/initramfs.  sd-boot only reads FAT (ESP or
+# XBOOTLDR), never ISO9660, so everything it loads lives on that image; the
+# squashfs stays on the ISO filesystem.
+#
+# The live root comes from browneye-live (base-runtime + dnf/dracut/
 # efibootmgr/dosfstools/LVM2/kernel/python + browneye-installer).  dracut's
 # dmsquash-live mounts the squashfs with an overlayfs upper in tmpfs; the
 # installer then installs the target packages from the network repository
@@ -57,7 +61,7 @@ if [ "$SKIP_LIVE" != "1" ]; then
         install browneye-live
 
     for pkg in browneye-live browneye-base-runtime browneye-installer \
-               dnf grub dracut efibootmgr efivar dosfstools LVM2 python \
+               dnf dracut efibootmgr efivar dosfstools LVM2 python \
                linux-kernel linux-modules; do
         rpm -q --root "$LIVE" "$pkg" >/dev/null || {
             echo "live root is missing $pkg" >&2; exit 1; }
@@ -113,8 +117,6 @@ podman exec "$TOOLS" /usr/bin/bash -c '
 echo "staging the ISO tree"
 rm -rf "$STAGE"
 mkdir -p "$STAGE/LiveOS" "$STAGE/boot"
-cp -f "$LIVE/boot/vmlinuz-$KVER" "$STAGE/vmlinuz"
-cp -f "$LIVE/boot/initramfs-$KVER.img" "$STAGE/initrd.img"
 
 echo "compressing the live root (zstd squashfs)"
 podman exec "$TOOLS" mksquashfs /work/live-root /work/iso-stage/LiveOS/squashfs.img \
@@ -130,38 +132,53 @@ if [ "$ISO_AUTO" = "1" ]; then
     bootargs="$bootargs browneye.auto=1"
 fi
 
-cat > "$STAGE/grub.cfg" <<EOF
-insmod all_video
-insmod iso9660
-set timeout=5
-
-menuentry "Browneye Linux 13.1 installer" {
-    search --no-floppy --file --set=root /LiveOS/squashfs.img
-    linux /vmlinuz $bootargs
-    initrd /initrd.img
+echo "building the systemd-boot EFI image"
+SDBOOT="$LIVE/usr/lib/systemd/boot/efi/systemd-bootx64.efi"
+[ -f "$SDBOOT" ] || {
+    echo "missing $SDBOOT: systemd was built without -D bootloader=enabled" >&2
+    exit 1
 }
+
+# Stage the ESP contents outside the ISO tree, so the kernel and initramfs
+# are not duplicated on the ISO filesystem.
+EFIDIR=$PWD/build/iso-efi
+rm -rf "$EFIDIR"
+mkdir -p "$EFIDIR/EFI/BOOT" "$EFIDIR/loader/entries"
+cp -f "$SDBOOT" "$EFIDIR/EFI/BOOT/BOOTX64.EFI"
+cp -f "$LIVE/boot/vmlinuz-$KVER" "$EFIDIR/vmlinuz"
+cp -f "$LIVE/boot/initramfs-$KVER.img" "$EFIDIR/initrd.img"
+
+cat > "$EFIDIR/loader/loader.conf" <<EOF
+default browneye.conf
+timeout 5
+console-mode keep
 EOF
 
-echo "building the standalone GRUB EFI image"
-unshare -r cp "$STAGE/grub.cfg" "$LIVE/tmp/browneye-grub.cfg"
-unshare -r chroot "$LIVE" /usr/bin/grub-mkstandalone \
-    -O x86_64-efi -o /tmp/BOOTX64.EFI \
-    "boot/grub/grub.cfg=/tmp/browneye-grub.cfg"
-unshare -r cp "$LIVE/tmp/BOOTX64.EFI" "$STAGE/boot/BOOTX64.EFI"
+cat > "$EFIDIR/loader/entries/browneye.conf" <<EOF
+title Browneye Linux 13.1 installer
+linux /vmlinuz
+initrd /initrd.img
+options $bootargs
+EOF
 
-echo "building the El Torito EFI image"
+# FAT32 requires at least 65525 clusters; 96 MiB holds the ~48 MiB of kernel,
+# initramfs and loader with room for a larger initramfs later.  mkfs.fat,
+# mtools and xorrisofs live in the ISO tools container, not on the host.
 rm -f "$STAGE/boot/efiboot.img"
-mkdir -p "$STAGE/EFI/BOOT"
-cp -f "$STAGE/boot/BOOTX64.EFI" "$STAGE/EFI/BOOT/BOOTX64.EFI"
-truncate -s 12M "$STAGE/boot/efiboot.img"
-# FAT32 needs >=65525 clusters; 12 MiB is below that, so use FAT16 (the
-# smallest size mkfs.fat accepts for FAT16; it holds the ~4.7 MiB
-# BOOTX64.EFI with plenty of room).  mkfs.fat and mtools live in the ISO
-# tools container, not on the host.
-podman exec "$TOOLS" mkfs.fat -F 16 -n EFIBOOT /work/iso-stage/boot/efiboot.img >/dev/null
-podman exec "$TOOLS" mmd -i /work/iso-stage/boot/efiboot.img ::/EFI ::/EFI/BOOT
+truncate -s 96M "$STAGE/boot/efiboot.img"
+podman exec "$TOOLS" mkfs.fat -F 32 -n EFIBOOT /work/iso-stage/boot/efiboot.img >/dev/null
+podman exec "$TOOLS" mmd -i /work/iso-stage/boot/efiboot.img \
+    ::/EFI ::/EFI/BOOT ::/loader ::/loader/entries
 podman exec "$TOOLS" mcopy -i /work/iso-stage/boot/efiboot.img \
-    /work/iso-stage/boot/BOOTX64.EFI ::/EFI/BOOT/BOOTX64.EFI
+    /work/iso-efi/EFI/BOOT/BOOTX64.EFI ::/EFI/BOOT/BOOTX64.EFI
+podman exec "$TOOLS" mcopy -i /work/iso-stage/boot/efiboot.img \
+    /work/iso-efi/vmlinuz ::/vmlinuz
+podman exec "$TOOLS" mcopy -i /work/iso-stage/boot/efiboot.img \
+    /work/iso-efi/initrd.img ::/initrd.img
+podman exec "$TOOLS" mcopy -i /work/iso-stage/boot/efiboot.img \
+    /work/iso-efi/loader/loader.conf ::/loader/loader.conf
+podman exec "$TOOLS" mcopy -i /work/iso-stage/boot/efiboot.img \
+    /work/iso-efi/loader/entries/browneye.conf ::/loader/entries/browneye.conf
 
 echo "writing $ISO"
 rm -f "$ISO"

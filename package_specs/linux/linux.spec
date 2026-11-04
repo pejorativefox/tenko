@@ -1,6 +1,6 @@
 Name:       linux
 Version:    7.3.1
-Release:    1
+Release:    2
 Summary:    Linux kernel
 License:    GPL2
 Prefix:     /usr
@@ -62,6 +62,26 @@ Linux kernel image (vmlinuz).
 %files kernel
 /boot/vmlinuz-%{version}
 
+%post kernel
+# systemd-boot reads loader entries from the ESP, which the installer mounts
+# at /boot.  /etc/kernel/cmdline is written there with the root UUID; reuse it
+# so upgrading the kernel adds an entry for the new image.  Systems that do not
+# boot through systemd-boot have no loader directory and are left alone.
+if [ -d /boot/loader/entries ] && [ -f /etc/kernel/cmdline ]; then
+    cmdline=$(tr '\n' ' ' < /etc/kernel/cmdline)
+    cat > "/boot/loader/entries/browneye-%{version}.conf" <<BROWNEYE_EOF
+title Browneye Linux 13.1 (%{version})
+linux /vmlinuz-%{version}
+initrd /initramfs-%{version}.img
+options $cmdline
+BROWNEYE_EOF
+fi
+
+%preun kernel
+if [ "$1" = 0 ]; then
+    rm -f "/boot/loader/entries/browneye-%{version}.conf"
+fi
+
 %package kernel-debug
 Summary:    Linux kernel symbol map and configuration
 Requires:   linux-kernel = %{version}-%{release}
@@ -105,6 +125,13 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 7.3.1-2
+- Add loader entries for systemd-boot: %post kernel writes
+  /boot/loader/entries/browneye-<kver>.conf from /etc/kernel/cmdline when the
+  ESP is mounted at /boot, and %preun removes it.  Part of the systemd-boot
+  conversion (docs/systemd-boot.md); systems with GRUB have no loader
+  directory and are unaffected.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 7.3.1-1
 - Sync with LFS r13.1
 

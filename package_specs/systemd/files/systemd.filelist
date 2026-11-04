@@ -32,6 +32,8 @@
 %dir /usr/lib/modprobe.d
 %dir /usr/lib/modules-load.d
 %dir /usr/lib/sysctl.d
+%dir /usr/lib/systemd/boot
+%dir /usr/lib/systemd/boot/efi
 %dir /usr/lib/systemd/catalog
 %dir /usr/lib/systemd/initrd-preset
 %dir /usr/lib/systemd/network
@@ -217,6 +219,9 @@
 /usr/lib/sysctl.d/50-default.conf
 /usr/lib/sysctl.d/50-pid-max.conf
 /usr/lib/sysctl.d/README
+/usr/lib/systemd/boot/efi/addonx64.efi.stub
+/usr/lib/systemd/boot/efi/linuxx64.efi.stub
+/usr/lib/systemd/boot/efi/systemd-bootx64.efi
 /usr/lib/systemd/catalog/systemd.be.catalog
 /usr/lib/systemd/catalog/systemd.be@latin.catalog
 /usr/lib/systemd/catalog/systemd.bg.catalog
@@ -277,6 +282,7 @@
 /usr/lib/systemd/resolv.conf
 /usr/lib/systemd/ssh_config.d/20-systemd-ssh-proxy.conf
 /usr/lib/systemd/sshd_config.d/20-systemd-userdb.conf
+/usr/lib/systemd/system-generators/systemd-bless-boot-generator
 /usr/lib/systemd/system-generators/systemd-clonesetup-generator
 /usr/lib/systemd/system-generators/systemd-debug-generator
 /usr/lib/systemd/system-generators/systemd-factory-reset-generator
@@ -389,6 +395,7 @@
 /usr/lib/systemd/system/smartcard.target
 /usr/lib/systemd/system/sockets.target
 /usr/lib/systemd/system/sockets.target.wants/systemd-ask-password.socket
+/usr/lib/systemd/system/sockets.target.wants/systemd-bootctl.socket
 /usr/lib/systemd/system/sockets.target.wants/systemd-coredump.socket
 /usr/lib/systemd/system/sockets.target.wants/systemd-creds.socket
 /usr/lib/systemd/system/sockets.target.wants/systemd-factory-reset.socket
@@ -429,6 +436,7 @@
 /usr/lib/systemd/system/sysinit.target.wants/sys-kernel-tracing.mount
 /usr/lib/systemd/system/sysinit.target.wants/systemd-ask-password-console.path
 /usr/lib/systemd/system/sysinit.target.wants/systemd-binfmt.service
+/usr/lib/systemd/system/sysinit.target.wants/systemd-boot-random-seed.service
 /usr/lib/systemd/system/sysinit.target.wants/systemd-hibernate-clear.service
 /usr/lib/systemd/system/sysinit.target.wants/systemd-journal-catalog-update.service
 /usr/lib/systemd/system/sysinit.target.wants/systemd-journal-flush.service
@@ -463,7 +471,13 @@
 /usr/lib/systemd/system/systemd-backlight@.service
 /usr/lib/systemd/system/systemd-battery-check.service
 /usr/lib/systemd/system/systemd-binfmt.service
+/usr/lib/systemd/system/systemd-bless-boot.service
 /usr/lib/systemd/system/systemd-boot-check-no-failures.service
+/usr/lib/systemd/system/systemd-boot-clear-sysfail.service
+/usr/lib/systemd/system/systemd-boot-random-seed.service
+/usr/lib/systemd/system/systemd-boot-update.service
+/usr/lib/systemd/system/systemd-bootctl.socket
+/usr/lib/systemd/system/systemd-bootctl@.service
 /usr/lib/systemd/system/systemd-confext-initrd.service
 /usr/lib/systemd/system/systemd-confext-sysroot.service
 /usr/lib/systemd/system/systemd-confext.service
@@ -577,6 +591,8 @@
 /usr/lib/systemd/system/systemd-sysinstall.service
 /usr/lib/systemd/system/systemd-sysinstall.socket
 /usr/lib/systemd/system/systemd-sysinstall@.service
+/usr/lib/systemd/system/systemd-sysupdate-notify-bootctl.socket
+/usr/lib/systemd/system/systemd-sysupdate-notify-bootctl@.service
 /usr/lib/systemd/system/systemd-sysupdate-notify-sysext.socket
 /usr/lib/systemd/system/systemd-sysupdate-notify-sysext@.service
 /usr/lib/systemd/system/systemd-sysusers.service
@@ -623,6 +639,7 @@
 /usr/lib/systemd/systemd-backlight
 /usr/lib/systemd/systemd-battery-check
 /usr/lib/systemd/systemd-binfmt
+/usr/lib/systemd/systemd-bless-boot
 /usr/lib/systemd/systemd-boot-check-no-failures
 /usr/lib/systemd/systemd-clonesetup
 /usr/lib/systemd/systemd-coredump

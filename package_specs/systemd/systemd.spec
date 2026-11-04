@@ -1,11 +1,12 @@
 Name:       systemd
 Version:    262.1
-Release:    2
+Release:    3
 Summary:    The systemd package contains programs for controlling the startup, running, and shutdown of the system.
 License:    GPL
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: linux-pam
+BuildRequires: python3-pyelftools
 Requires: linux-pam
 # The hardware database is only useful on real hardware.  Containers and
 # other minimal installs can omit it (dnf --setopt=install_weak_deps=False)
@@ -63,6 +64,8 @@ meson setup ..                  \
       -D nobody-group=nogroup   \
       -D sysupdate=disabled     \
       -D ukify=disabled         \
+      -D bootloader=enabled     \
+      -D sbat-distro-url=https://pjfox.xyz/git/daspork/browneye/issues \
       -D importd=disabled      \
       -D remote=disabled       \
       -D imds=disabled         \
@@ -76,12 +79,31 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
+# -D bootloader=enabled is only honoured when python3-pyelftools is present;
+# meson otherwise disables ENABLE_BOOTLOADER silently.  Fail loudly instead of
+# shipping a systemd without sd-boot.
+test -f %{buildroot}/usr/lib/systemd/boot/efi/systemd-bootx64.efi || {
+    echo "systemd-bootx64.efi was not built; install python3-pyelftools" >&2
+    exit 1
+}
+
 %files -f %{_sourcedir}/systemd.filelist
 %files hwdb -f %{_sourcedir}/systemd-hwdb.filelist
 %files lang -f %{_sourcedir}/systemd-lang.filelist
 %files doc -f %{_sourcedir}/systemd-doc.filelist
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 262.1-3
+- Build the EFI bootloader: -D bootloader=enabled with the new
+  python3-pyelftools build dependency.  meson requires the Python elftools
+  module for ENABLE_BOOTLOADER and silently skips sd-boot and the EFI stub
+  without it, which is why 262.1-1/-2 shipped bootctl but no
+  /usr/lib/systemd/boot/efi/systemd-bootx64.efi.  First step of the
+  systemd-boot conversion (docs/systemd-boot.md); ukify stays disabled, so
+  python-pefile is still not needed.
+- Assert in %%install that systemd-bootx64.efi was produced so a future
+  build without pyelftools fails instead of regressing.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 262.1-2
 - Build with -Dswapon-path=/usr/bin/swapon and
   -Dswapoff-path=/usr/bin/swapoff.  The distro maps sbindir to /usr/bin

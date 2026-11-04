@@ -21,9 +21,9 @@
 #   IMAGE      image tag (default: localhost/browneye/base:r13.1-YYYYMMDD)
 #   PACKAGES   packages to install (default: browneye-base browneye-build
 #              plus DEVEL_PACKAGES)
-#   DEVEL_PACKAGES  header packages needed to rebuild the base set inside the
-#              image (default: ncurses/readline/xz/pam/elfutils/perl/tcl/
-#              e2fsprogs/kmod -devel)
+#   DEVEL_PACKAGES  build-time packages needed to rebuild the base set inside
+#              the image (default: -devel headers plus python3-pyelftools,
+#              which systemd requires for -D bootloader=enabled)
 #   TAG_STABLE set to 0 to keep the dated tag only (e.g. for a lean E2 image
 #              that must not replace the dnf-capable base:r13.1)
 #   ROOTFS     staging rootfs directory (default: build/base-rootfs)
@@ -43,7 +43,7 @@ DEVEL_PACKAGES=${DEVEL_PACKAGES:-ncurses-devel readline-devel xz-devel \
     kmod-devel expat-devel sqlite-devel util-linux-devel pcre2-devel \
     efivar-devel gpgme-devel libarchive-devel libassuan-devel libbsd-devel \
     libcomps-devel libdnf-devel libmodulemd-devel libpsl-devel \
-    librepo-devel libsolv-devel zchunk-devel}
+    librepo-devel libsolv-devel zchunk-devel python3-pyelftools}
 PACKAGES=${PACKAGES:-browneye-base browneye-build $DEVEL_PACKAGES}
 ROOTFS=${ROOTFS:-build/base-rootfs}
 TARBALL=${TARBALL:-build/base-rootfs.tar.gz}

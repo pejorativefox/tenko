@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    12
+Release:    14
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -14,7 +14,6 @@ Requires:   util-linux
 Requires:   e2fsprogs
 Requires:   dosfstools
 Requires:   dnf
-Requires:   grub
 Requires:   dracut
 Requires:   efibootmgr
 Requires:   efivar
@@ -27,9 +26,10 @@ A Python 3 / ncurses installer for Browneye Linux 13.1.
 It is UEFI-only and GPT-only.  It selects one GPT disk, optionally deletes
 selected partition entries, and installs into one contiguous free region
 while preserving every other partition.  An existing ESP is reused;
-otherwise a 512 MiB FAT32 ESP is created.  Root is ext4 (minimum 8 GiB,
-growing to fill the region); swap is 2 GiB when it fits.  The target is
-browneye-base + xfce-desktop + kernel/modules + dracut/grub/efibootmgr/
+otherwise a 1 GiB FAT32 ESP is created.  Root is ext4 (minimum 8 GiB,
+growing to fill the region); swap is 2 GiB when it fits.  The ESP is mounted
+at /boot and carries systemd-boot, the kernel and the initramfs.  The target
+is browneye-base + xfce-desktop + kernel/modules + dracut/efibootmgr/
 dosfstools/dnf, installed with dnf --installroot after browneye-basefs.
 
 The disk layer is a pure planner: it parses sfdisk --json and lsblk --json,
@@ -85,6 +85,19 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 13.1-14
+- Replace GRUB with systemd-boot: mount the ESP at /boot instead of
+  /boot/efi, run `bootctl --esp-path=/boot --no-variables install`, write
+  loader/loader.conf and loader/entries/browneye-<kver>.conf by UUID, and
+  point the efibootmgr entry at \EFI\systemd\systemd-bootx64.efi.  Write
+  /etc/kernel/cmdline so kernel packages can add entries for future
+  kernels.
+- Default ESP size is 1 GiB (sd-boot keeps the kernel and initramfs on it)
+  and an existing ESP with less than 256 MiB free is refused.
+- Drop the grub dependency and package from the target set; probe for
+  bootctl instead of grub-install, and update the Secure Boot preflight
+  message (the bootloader is systemd-boot now).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 13.1-11
 - Write /etc/yum.repos.d/browneye-13.1.repo on the target with the
   repository the install used (same id as the shipped file, so it replaces
