@@ -1,6 +1,6 @@
 Name:       libbsd
 Version:    0.12.2
-Release:    2
+Release:    4
 Summary:    BSD compatibility library
 License:    BSD
 Source0:    %{name}-%{version}.tar.xz
@@ -31,6 +31,11 @@ rm -rf %{buildroot}
 %files devel -f %{_sourcedir}/libbsd-devel.filelist
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 0.12.2-4
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.12.2-2
 - Move the pkg-config files into a new -devel subpackage so the runtime
   package no longer drags pkgconfig(...) consumers into every install.

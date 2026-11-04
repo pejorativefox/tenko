@@ -1,6 +1,6 @@
 Name:       libyaml
 Version:    0.2.5
-Release:    1
+Release:    3
 Summary:    YAML 1.1 parser and emitter written in C
 License:    MIT
 Prefix:     /usr
@@ -8,6 +8,15 @@ Source0:    yaml-%{version}.tar.gz
 
 %description
 LibYAML is a YAML 1.1 parser and emitter written in C.
+
+%package devel
+Summary:    Development files for libyaml
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in libyaml; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q -n yaml-%{version}
@@ -22,8 +31,16 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libyaml.filelist
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 0.2.5-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.2.5-1
 - Update to the BLFS r13.1 version (0.2.5, was 0.2.1) for the E1
   dnf/libdnf dependency chain (libmodulemd and libdnf).

@@ -1,6 +1,6 @@
 Name:       libarchive
 Version:    3.8.11
-Release:    2
+Release:    4
 Summary:    Library for various archive formats
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -41,6 +41,11 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 3.8.11-4
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.8.11-2
 - Move the pkg-config files into a new -devel subpackage so the runtime
   package no longer drags pkgconfig(...) consumers into every install.

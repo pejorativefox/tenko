@@ -1,6 +1,6 @@
 Name:       json-c
 Version:    0.19
-Release:    1
+Release:    3
 Summary:    JSON implementation in C
 License:    MIT
 Prefix:     /usr
@@ -11,6 +11,15 @@ JSON-C implements a reference counting object model that allows you to
 easily construct JSON objects in C, output them as JSON formatted strings
 and parse JSON formatted strings back into the C representation of JSON
 objects.
+
+%package devel
+Summary:    Development files for json-c
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in json-c; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q
@@ -35,8 +44,16 @@ DESTDIR=%{buildroot} cmake --install .
 popd
 
 %files -f %{_sourcedir}/json-c.filelist
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 0.19-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.19-1
 - New package for the self-hosted dnf/libdnf toolchain (E1).
 - BLFS r13.1 version (json-c 0.19). Built with shared libraries only.

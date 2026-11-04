@@ -1,6 +1,6 @@
 Name:       libgpg-error
 Version:    1.61
-Release:    2
+Release:    4
 Summary:    Library of error codes and messages for GnuPG components
 License:    LGPL-2.1-or-later
 Prefix:     /usr
@@ -9,6 +9,15 @@ Source0:    %{name}-%{version}.tar.bz2
 %description
 libgpg-error provides the common error codes, messages and helper macros
 shared by GnuPG, libgcrypt, libassuan and gpgme.  BLFS r13.1 version.
+
+%package devel
+Summary:    Development files for libgpg-error
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in libgpg-error; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q
@@ -25,8 +34,16 @@ install -v -m644 -D README \
     %{buildroot}/usr/share/doc/libgpg-error-%{version}/README
 
 %files -f %{_sourcedir}/libgpg-error.filelist
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.61-4
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.61-2
 - Bump the release: -1 was already published with different content, and
   re-publishing the same NEVRA would leave the repo metadata stale.

@@ -1,6 +1,6 @@
 Name:       xcb-util-cursor
 Version:    0.1.6
-Release:    1
+Release:    3
 Summary:    XCB cursor utilities
 License:    GPL3
 Prefix:     /usr
@@ -10,6 +10,15 @@ Source0:    %{name}-%{version}.tar.xz
 
 %description
 XCB cursor utilities
+
+%package devel
+Summary:    Development files for xcb-util-cursor
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in xcb-util-cursor; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q
@@ -31,8 +40,16 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/libxcb-cursor.so.0
 /usr/lib64/libxcb-cursor.so.0.0.0
 /usr/lib64/pkgconfig/xcb-cursor.pc
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 0.1.6-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.1.6-1
 - Sync with BLFS r13.1
 

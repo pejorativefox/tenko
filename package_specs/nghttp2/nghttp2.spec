@@ -1,6 +1,6 @@
 Name:       nghttp2
 Version:    1.70.0
-Release:    1
+Release:    3
 Summary:    HTTP/2 C library and tools
 License:    MIT
 URL:        https://nghttp2.org/
@@ -11,6 +11,15 @@ Prefix:     /usr
 nghttp2 is an implementation of HTTP/2 and its header compression algorithm
 HPACK.  This package builds the library only (BLFS --enable-lib-only), which
 is what Node.js links against with --shared-nghttp2.
+
+%package devel
+Summary:    Development files for nghttp2
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in nghttp2; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -27,8 +36,16 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/nghttp2.filelist
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.70.0-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Sun Nov 01 2026 Browneye Node.js wave <daspork@browneye.invalid> 1.70.0-1
 - New package (BLFS r13.1 packages.ent nghttp2-version 1.70.0).
 - Source: https://github.com/nghttp2/nghttp2/releases/download/v1.70.0/nghttp2-1.70.0.tar.xz

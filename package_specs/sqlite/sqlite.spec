@@ -1,6 +1,6 @@
 Name:       sqlite
 Version:    3.54.1
-Release:    1
+Release:    3
 Summary:    SQLite database engine
 License:    Public Domain
 Source0:    sqlite-autoconf-3540100.tar.gz
@@ -44,6 +44,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 3.54.1-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 3.54.1-1
 - Update to 3.54.1 (autoconf 3540100), the current LFS trunk version.
 - Add the missing SONAME: libsqlite3.so.<version> now carries

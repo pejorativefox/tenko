@@ -1,6 +1,6 @@
 Name:       libpcap
 Version:    1.10.7
-Release:    1
+Release:    3
 Summary:    Packet capture library
 License:    BSD-3-Clause
 URL:        https://www.tcpdump.org/
@@ -10,6 +10,15 @@ Prefix:     /usr
 %description
 libpcap provides functions for user-level packet capture, used in low-level
 network monitoring.  Nmap links against it for its packet-capture engine.
+
+%package devel
+Summary:    Development files for libpcap
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in libpcap; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q
@@ -24,8 +33,16 @@ rm -rf %{buildroot}
 rm -rf %{buildroot}%{_docdir}/%{name}-%{version}/html
 
 %files -f %{_sourcedir}/libpcap.filelist
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.10.7-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.10.7-1
 - New package (BLFS r13.1 libpcap 1.10.7, the version Nmap 7.991 uses).
 - Source: https://www.tcpdump.org/release/libpcap-1.10.7.tar.gz

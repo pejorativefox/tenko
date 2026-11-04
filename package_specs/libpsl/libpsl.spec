@@ -1,6 +1,6 @@
 Name:       libpsl
 Version:    0.23.3
-Release:    2
+Release:    4
 Summary:    Public Suffix List library
 License:    MIT
 Prefix:     /usr
@@ -39,6 +39,11 @@ popd
 
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 0.23.3-4
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.23.3-2
 - Move the pkg-config files into a new -devel subpackage so the runtime
   package no longer drags pkgconfig(...) consumers into every install.

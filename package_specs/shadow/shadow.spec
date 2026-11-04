@@ -1,6 +1,6 @@
 Name:       shadow
 Version:    4.20.3
-Release:    1
+Release:    3
 Summary:    Shadow password format tools
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -15,6 +15,15 @@ Requires:   shadow = %{version}-%{release}
 
 %description lang
 Translations for shadow.
+
+%package devel
+Summary:    Development files for shadow
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in shadow; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q -a0
@@ -44,10 +53,18 @@ pwconv
 grpconv
 
 %files -f %{_sourcedir}/shadow.filelist
+%files devel
 %files lang -f %{_sourcedir}/shadow-lang.filelist
 
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 4.20.3-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 4.20.3-1
 - Update to 4.20.3 (current LFS/BLFS r13.1 trunk version).
 

@@ -1,6 +1,6 @@
 Name:       gobject-introspection
 Version:    1.86.0
-Release:    3
+Release:    5
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -9,6 +9,15 @@ Source0:    %{name}-%{version}.tar.xz
 
 %description
 TODO
+
+%package devel
+Summary:    Development files for gobject-introspection
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in gobject-introspection; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q
@@ -39,10 +48,18 @@ without this package (it reads the .gir XML); g-ir-inspect and
 language bindings need it.
 
 %files -f %{_sourcedir}/gobject-introspection.filelist
+%files devel
 %files gir -f %{_sourcedir}/gobject-introspection-gir.filelist
 
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.86.0-5
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.86.0-3
 - Rebuild for Python 3.15: g-ir-scanner's _giscanner extension was
   built for 3.14, which breaks every introspection build on 3.15.

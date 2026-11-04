@@ -1,6 +1,6 @@
 Name:       brotli
 Version:    1.2.1
-Release:    1
+Release:    3
 Summary:    Brotli compression format
 License:    MIT
 URL:        https://github.com/google/brotli
@@ -12,6 +12,15 @@ Brotli is a generic-purpose lossless compression algorithm that compresses
 data using a combination of a modern variant of the LZ77 algorithm, Huffman
 coding and second order context modeling.  This package provides the
 libbrotli libraries and the brotli command.
+
+%package devel
+Summary:    Development files for brotli
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in brotli; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -33,8 +42,16 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/brotli.filelist
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.2.1-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.2.1-1
 - Update to 1.2.1 (current LFS/BLFS r13.1 trunk version).
 

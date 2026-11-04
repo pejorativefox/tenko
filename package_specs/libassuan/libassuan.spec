@@ -1,6 +1,6 @@
 Name:       libassuan
 Version:    3.0.2
-Release:    3
+Release:    5
 Summary:    IPC library used by GnuPG and related components
 License:    LGPL-2.1-or-later
 Prefix:     /usr
@@ -33,6 +33,11 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files devel -f %{_sourcedir}/libassuan-devel.filelist
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 3.0.2-5
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.0.2-3
 - Move the pkg-config files into a new -devel subpackage so the runtime
   package no longer drags pkgconfig(...) consumers into every install.

@@ -1,6 +1,6 @@
 Name:       fribidi
 Version:    1.0.18
-Release:    1
+Release:    3
 Summary:    GNU FriBidi 
 License:    GPL3
 Prefix:     /usr
@@ -9,6 +9,15 @@ Provides: pkgconfig(fribidi)
 
 %description
 The Free Implementation of the Unicode Bidirectional Algorithm.
+
+%package devel
+Summary:    Development files for fribidi
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in fribidi; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q
@@ -29,9 +38,17 @@ popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/fribidi.filelist
+%files devel
 
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.0.18-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.0.18-1
 - Update to 1.0.18 (current LFS/BLFS r13.1 trunk version).
 

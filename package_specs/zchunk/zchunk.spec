@@ -1,6 +1,6 @@
 Name:       zchunk
 Version:    1.5.5
-Release:    2
+Release:    4
 Summary:    A file format designed for highly efficient deltas while maintaining good compression
 License:    BSD
 Prefix:     /usr
@@ -45,6 +45,11 @@ popd
 %files devel -f %{_sourcedir}/zchunk-devel.filelist
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.5.5-4
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.5.5-2
 - Move the pkg-config files into a new -devel subpackage so the runtime
   package no longer drags pkgconfig(...) consumers into every install.

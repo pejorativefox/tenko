@@ -1,6 +1,6 @@
 Name:       dtc
 Version:    1.8.1
-Release:    1
+Release:    3
 Summary:    Device Tree Compiler and libfdt
 License:    GPL-2.0-or-later AND BSD-2-Clause
 URL:        https://www.devicetree.org/
@@ -14,6 +14,15 @@ utilities fdtget, fdtput and fdtdump.  The package also ships libfdt, a
 library for reading and manipulating flat device trees at runtime.
 
 dtc-1.8.1 is the version in BLFS r13.1 (general/prog/dtc).
+
+%package devel
+Summary:    Development files for dtc
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in dtc; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q
@@ -33,8 +42,16 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/dtc.filelist
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.8.1-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.8.1-1
 - New package for the qemu dependency chain.  dtc is in BLFS r13.1 at
   1.8.1.

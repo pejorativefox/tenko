@@ -1,6 +1,6 @@
 Name:       flatpak
 Version:    1.18.4
-Release:    3
+Release:    5
 Summary:    Application sandboxing and distribution framework
 License:    LGPL
 Source0:    %{name}-%{version}.tar.xz
@@ -18,6 +18,15 @@ helpers, and the bundled bwrap/dbus-proxy launchers.
 Flatpak is not in the BLFS r13.1 book.  This spec tracks the current upstream
 stable release; the dependency chain comes from BLFS where the book has a
 page, and from upstream for libostree.
+
+%package devel
+Summary:    Development files for flatpak
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in flatpak; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q
@@ -63,8 +72,16 @@ if [ -x /usr/bin/systemd-sysusers ]; then
 fi
 
 %files -f %{_sourcedir}/flatpak.filelist
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.18.4-5
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.18.4-3
 - Run systemd-sysusers in %post so the flatpak system-helper user exists
   immediately after installation.  The systemd package has no sysusers.d

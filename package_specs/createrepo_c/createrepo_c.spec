@@ -1,6 +1,6 @@
 Name:       createrepo_c
 Version:    1.2.6
-Release:    1
+Release:    4
 Summary:    Creates a common metadata repository
 License:    GPL
 Prefix:     /usr
@@ -10,6 +10,15 @@ Source0:    %{name}-%{version}.tar.gz
 createrepo_c is a C implementation of createrepo.  It generates the
 repodata (primary, filelists, other, and the repomd indexes) needed by dnf
 to consume a local or remote RPM repository.
+
+%package devel
+Summary:    Development files for createrepo_c
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in createrepo_c; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q
@@ -38,8 +47,16 @@ DESTDIR=%{buildroot} cmake --install .
 popd
 
 %files -f %{_sourcedir}/createrepo_c.filelist
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.2.6-4
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.6-1
 - New package for the E1 self-hosted repo assembly work (replaces the host
   createrepo_c).  createrepo_c is not in LFS/BLFS; this is the current

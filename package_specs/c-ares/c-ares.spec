@@ -1,6 +1,6 @@
 Name:       c-ares
 Version:    1.34.9
-Release:    1
+Release:    3
 Summary:    C library for asynchronous DNS requests
 License:    MIT
 URL:        https://c-ares.org/
@@ -10,6 +10,15 @@ Prefix:     /usr
 %description
 c-ares is a C library for asynchronous DNS requests, including name
 resolves.  It is used by Node.js for its DNS implementation.
+
+%package devel
+Summary:    Development files for c-ares
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in c-ares; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -29,8 +38,16 @@ DESTDIR=%{buildroot} make install
 popd
 
 %files -f %{_sourcedir}/c-ares.filelist
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.34.9-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.34.9-1
 - Update to 1.34.9 (current LFS/BLFS r13.1 trunk version).
 

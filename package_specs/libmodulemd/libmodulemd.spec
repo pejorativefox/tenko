@@ -1,6 +1,6 @@
 Name:       libmodulemd
 Version:    2.15.3
-Release:    3
+Release:    5
 Summary:    C library for manipulating module metadata files
 License:    MIT
 Prefix:     /usr
@@ -44,6 +44,11 @@ popd
 %files devel -f %{_sourcedir}/libmodulemd-devel.filelist
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 2.15.3-5
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.15.3-3
 - Move the pkg-config files into a new -devel subpackage so the runtime
   package no longer drags pkgconfig(...) consumers into every install.

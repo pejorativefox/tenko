@@ -1,6 +1,6 @@
 Name:       libsolv
 Version:    0.7.41
-Release:    3
+Release:    5
 Summary:    Library for solving packages and reading repositories
 License:    BSD
 Prefix:     /usr
@@ -65,6 +65,11 @@ install -Dm0644 cmake/modules/FindLibSolv.cmake \
 %files devel -f %{_sourcedir}/libsolv-devel.filelist
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 0.7.41-5
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.7.41-3
 - Move the pkg-config files into a new -devel subpackage so the runtime
   package no longer drags pkgconfig(...) consumers into every install.

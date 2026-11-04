@@ -1,6 +1,6 @@
 Name:       efivar
 Version:    39
-Release:    2
+Release:    4
 Summary:    Tools and libraries to manipulate EFI variables
 License:    LGPL-2.1
 Source0:    %{name}-%{version}.tar.gz
@@ -35,6 +35,11 @@ install -m644 docs/*.3 %{buildroot}/usr/share/man/man3/
 %files devel -f %{_sourcedir}/efivar-devel.filelist
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 39-4
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 39-2
 - Move the pkg-config files into a new -devel subpackage so the runtime
   package no longer drags pkgconfig(...) consumers into every install.

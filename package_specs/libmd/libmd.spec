@@ -1,6 +1,6 @@
 Name:       libmd
 Version:    1.3.0
-Release:    1
+Release:    3
 Summary:    Message digest library
 License:    BSD
 Source0:    %{name}-%{version}.tar.xz
@@ -8,6 +8,15 @@ Prefix:     /usr
 
 %description
 Message digest library used by libbsd.
+
+%package devel
+Summary:    Development files for libmd
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The development files are back in libmd; this empty package only
+exists so upgrades from the split layout resolve without a file
+conflict.
 
 %prep
 %setup -q
@@ -21,8 +30,16 @@ rm -rf %{buildroot}
 %make_install
 
 %files -f %{_sourcedir}/libmd.filelist
+%files devel
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.3.0-3
+- Revert the -devel split (issue #4): the headers, include
+  directories, unversioned .so symlinks and pkg-config files return
+  to the runtime package.
+  The now-empty -devel package is kept so an upgrade from the
+  split layout resolves without a file conflict.
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.3.0
 - Replace directory globs with a generated static filelist
 
