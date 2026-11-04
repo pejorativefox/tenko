@@ -1,67 +1,83 @@
 Name:       flatpak
-Version:    1.5.1
-Release:    1
-Summary:    Flatpak app distribution system.
-License:    GPL
+Version:    1.18.4
+Release:    3
+Summary:    Application sandboxing and distribution framework
+License:    LGPL
 Source0:    %{name}-%{version}.tar.xz
+Requires:   bubblewrap
+Requires:   xdg-dbus-proxy
+Requires:   fuse3
+Requires:   gnupg
 Prefix:     /usr
 
 %description
-Flatpak app distribution system.
+Flatpak is a system for building, distributing and running sandboxed desktop
+applications.  It provides the flatpak command, the session and system
+helpers, and the bundled bwrap/dbus-proxy launchers.
+
+Flatpak is not in the BLFS r13.1 book.  This spec tracks the current upstream
+stable release; the dependency chain comes from BLFS where the book has a
+page, and from upstream for libostree.
 
 %prep
-%setup
+%setup -q
 
 %build
-%configure --disable-documentation
-%make_build
+mkdir build
+pushd build
+meson setup ..                     \
+      --prefix=/usr                 \
+      --buildtype=release           \
+      -Dman=disabled                \
+      -Dgtkdoc=disabled             \
+      -Ddocbook_docs=disabled       \
+      -Dtests=false                 \
+      -Dsystem_helper=enabled       \
+      -Dseccomp=enabled             \
+      -Dgir=enabled                 \
+      -Dmalcontent=disabled         \
+      -Ddconf=auto                  \
+      -Dwayland_security_context=disabled \
+      -Dxauth=enabled               \
+      -Dlibzstd=enabled             \
+      -Dsystemd=enabled             \
+      -Dsystem_bubblewrap=/usr/bin/bwrap \
+      -Dsystem_dbus_proxy=/usr/bin/xdg-dbus-proxy
+ninja
+popd
 
 %install
 rm -rf %{buildroot}
-%make_install
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 
-%files
-/usr/bin/flatpak
-/usr/bin/flatpak-bisect
-/usr/bin/flatpak-coredumpctl
-/usr/etc/dbus-1/system.d/org.freedesktop.Flatpak.SystemHelper.conf
-/usr/etc/profile.d/flatpak.sh
-/usr/include/flatpak/*
-/usr/lib/systemd/system/flatpak-system-helper.service
-/usr/lib/systemd/user-environment-generators/60-flatpak
-/usr/lib/systemd/user/flatpak-portal.service
-/usr/lib/systemd/user/flatpak-session-helper.service
-/usr/lib64/girepository-1.0/Flatpak-1.0.typelib
-/usr/lib64/libflatpak.la
-/usr/lib64/libflatpak.so
-/usr/lib64/libflatpak.so.0
-/usr/lib64/libflatpak.so.0.10501.0
-/usr/lib64/pkgconfig/flatpak.pc
-/usr/libexec/flatpak-bwrap
-/usr/libexec/flatpak-dbus-proxy
-/usr/libexec/flatpak-portal
-/usr/libexec/flatpak-session-helper
-/usr/libexec/flatpak-system-helper
-/usr/libexec/flatpak-validate-icon
-/usr/libexec/revokefs-fuse
-/usr/share/bash-completion/completions/flatpak
-/usr/share/dbus-1/interfaces/org.freedesktop.Flatpak.Authenticator.xml
-/usr/share/dbus-1/interfaces/org.freedesktop.Flatpak.xml
-/usr/share/dbus-1/interfaces/org.freedesktop.portal.Flatpak.xml
-/usr/share/dbus-1/services/org.freedesktop.Flatpak.service
-/usr/share/dbus-1/services/org.freedesktop.portal.Flatpak.service
-/usr/share/dbus-1/system-services/org.freedesktop.Flatpak.SystemHelper.service
-/usr/share/flatpak/triggers/desktop-database.trigger
-/usr/share/flatpak/triggers/gtk-icon-cache.trigger
-/usr/share/flatpak/triggers/mime-database.trigger
-/usr/share/gdm/env.d/flatpak.env
-/usr/share/gir-1.0/Flatpak-1.0.gir
-/usr/share/locale/*
-/usr/share/polkit-1/actions/org.freedesktop.Flatpak.policy
-/usr/share/polkit-1/rules.d/org.freedesktop.Flatpak.rules
-/usr/share/zsh/site-functions/_flatpak
+%post
+# Make the system-helper user available immediately.  The Browneye systemd
+# package does not ship a sysusers.d file trigger, so packages that own a
+# sysusers file must materialise it themselves (same pattern as openssh and
+# privoxy).  Without this, revokefs fails with "User flatpak does not exist
+# in password file entry" until the next boot.
+if [ -x /usr/bin/systemd-sysusers ]; then
+    /usr/bin/systemd-sysusers /usr/lib/sysusers.d/flatpak.conf || :
+fi
+
+%files -f %{_sourcedir}/flatpak.filelist
 
 %changelog
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.5.1
-- Initial RPM
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.18.4-3
+- Run systemd-sysusers in %post so the flatpak system-helper user exists
+  immediately after installation.  The systemd package has no sysusers.d
+  file trigger, so revokefs previously failed with "User flatpak does not
+  exist in password file entry" until the next boot.
 
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.18.4-2
+- Require gnupg.  gpgme finds the OpenPGP engine at runtime; without it
+  gpgme reports "Invalid crypto engine" and flatpak remote-add fails
+  before it can even set up the remote keyring.
+
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.18.4-1
+- Update from 1.5.1 (2019) to 1.18.4.  Flatpak is not in BLFS r13.1;
+  pinned to the current upstream stable release.  Uses the system bubblewrap
+  and xdg-dbus-proxy instead of the offline subproject wraps; Wayland
+  security-context support is disabled because the Browneye desktop is X11.

@@ -1,0 +1,54 @@
+%dir /usr/bin
+/usr/bin/xb-tool
+%dir /usr/include
+%dir /usr/include/libxmlb-2
+%dir /usr/include/libxmlb-2/libxmlb
+/usr/include/libxmlb-2/libxmlb/xb-builder-fixup.h
+/usr/include/libxmlb-2/libxmlb/xb-builder-node.h
+/usr/include/libxmlb-2/libxmlb/xb-builder-source-ctx.h
+/usr/include/libxmlb-2/libxmlb/xb-builder-source.h
+/usr/include/libxmlb-2/libxmlb/xb-builder.h
+/usr/include/libxmlb-2/libxmlb/xb-compile-glib-2-62.h
+/usr/include/libxmlb-2/libxmlb/xb-compile.h
+/usr/include/libxmlb-2/libxmlb/xb-machine.h
+/usr/include/libxmlb-2/libxmlb/xb-node-query.h
+/usr/include/libxmlb-2/libxmlb/xb-node-silo.h
+/usr/include/libxmlb-2/libxmlb/xb-node.h
+/usr/include/libxmlb-2/libxmlb/xb-opcode.h
+/usr/include/libxmlb-2/libxmlb/xb-query-context.h
+/usr/include/libxmlb-2/libxmlb/xb-query.h
+/usr/include/libxmlb-2/libxmlb/xb-silo-export.h
+/usr/include/libxmlb-2/libxmlb/xb-silo-query.h
+/usr/include/libxmlb-2/libxmlb/xb-silo.h
+/usr/include/libxmlb-2/libxmlb/xb-stack.h
+/usr/include/libxmlb-2/libxmlb/xb-string.h
+/usr/include/libxmlb-2/libxmlb/xb-value-bindings.h
+/usr/include/libxmlb-2/libxmlb/xb-version.h
+/usr/include/libxmlb-2/xmlb.h
+%dir /usr/lib64
+%dir /usr/lib64/girepository-1.0
+/usr/lib64/girepository-1.0/Xmlb-2.0.typelib
+/usr/lib64/libxmlb.so
+/usr/lib64/libxmlb.so.2
+/usr/lib64/libxmlb.so.2.0.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/xmlb.pc
+%dir /usr/libexec
+%dir /usr/libexec/installed-tests
+%dir /usr/libexec/installed-tests/libxmlb
+/usr/libexec/installed-tests/libxmlb/test.desktop
+/usr/libexec/installed-tests/libxmlb/test.quirk
+/usr/libexec/installed-tests/libxmlb/test.xml
+/usr/libexec/installed-tests/libxmlb/test.xml.gz.gz.gz
+/usr/libexec/installed-tests/libxmlb/test.xml.xz
+/usr/libexec/installed-tests/libxmlb/test.xml.zst
+/usr/libexec/installed-tests/libxmlb/xb-self-test
+%dir /usr/share
+%dir /usr/share/gir-1.0
+/usr/share/gir-1.0/Xmlb-2.0.gir
+%dir /usr/share/installed-tests
+%dir /usr/share/installed-tests/libxmlb
+/usr/share/installed-tests/libxmlb/libxmlb.test
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/xb-tool.1.gz
