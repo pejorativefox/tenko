@@ -361,8 +361,22 @@ qemu-system-x86_64 ... -drive file=build/systemd-boot-test.img
 ```
 
 Artifacts from the run are under `build/` (`browneye-installer-systemd.iso`,
-`systemd-boot-install-serial.log`, `systemd-boot-run-serial.log`) and are not
-published.
+`systemd-boot-install-serial.log`, `systemd-boot-run-serial.log`).
+
+### Published images
+
+Rebuilt from this branch (rebased onto `main` at `21a3abc`) and published to
+the public site and the LAN mirror on 2026-11-04:
+
+| Artifact | Size | SHA-256 |
+|---|---|---|
+| `iso/browneye-installer.iso` | 421 MiB | `a14721870445b87ae19b0844e51d1c61d9fd50764a4f56792a000ed6ee3c9fcf` |
+| `rootfs/browneye-rootfs.tar.gz` | 245 MiB | `f3d5cf379ad154608133a2659e882d4800f42d68324e2ad022587beb00a608d3` |
+
+The rootfs is the build rootfs: it now carries `systemd-262.1-3` (sd-boot)
+and `python3-pyelftools`, so a base image rebuilt from it can rebuild systemd
+with `-D bootloader=enabled`.  Verified by rebuilding `systemd-262.1-3` inside
+the new `localhost/browneye/base:r13.1` image.
 
 ## Risks
 
