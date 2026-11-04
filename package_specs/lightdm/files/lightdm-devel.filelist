@@ -1,0 +1,15 @@
+%dir /usr/include/lightdm-gobject-1
+%dir /usr/include/lightdm-gobject-1/lightdm
+%dir /usr/lib64/pkgconfig
+%dir /usr/share/gir-1.0
+/usr/include/lightdm-gobject-1/lightdm.h
+/usr/include/lightdm-gobject-1/lightdm/greeter.h
+/usr/include/lightdm-gobject-1/lightdm/language.h
+/usr/include/lightdm-gobject-1/lightdm/layout.h
+/usr/include/lightdm-gobject-1/lightdm/power.h
+/usr/include/lightdm-gobject-1/lightdm/session.h
+/usr/include/lightdm-gobject-1/lightdm/system.h
+/usr/include/lightdm-gobject-1/lightdm/user.h
+/usr/lib64/liblightdm-gobject-1.so
+/usr/lib64/pkgconfig/liblightdm-gobject-1.pc
+/usr/share/gir-1.0/LightDM-1.gir

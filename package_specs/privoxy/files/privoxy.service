@@ -1,0 +1,16 @@
+[Unit]
+Description=Privoxy Web Proxy With Advanced Filtering Capabilities
+Documentation=man:privoxy(8) man:privoxy-log-parser(1)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=forking
+PIDFile=/run/privoxy.pid
+ExecStart=/usr/sbin/privoxy --pidfile /run/privoxy.pid --user privoxy.privoxy /etc/privoxy/config
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

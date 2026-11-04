@@ -1,72 +1,90 @@
 Name:       gdk-pixbuf
-Version:    2.42.9
-Release:    1
+Version:    2.44.8
+Release:    3
 Summary:    Image loading library
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
-Provides: pkgconfig(gdk-pixbuf-2.0)
-Requires: librsvg
-
 %description
 GdkPixbuf is a library that loads image data in various formats and stores it as linear buffers in memory.
+
+%package lang
+Summary:    gdk-pixbuf translations
+Requires:   gdk-pixbuf = %{version}-%{release}
+
+%description lang
+Translations for gdk-pixbuf.
+
+%package tests
+Summary:    gdk-pixbuf tests
+Requires:   gdk-pixbuf = %{version}-%{release}
+
+%description tests
+Test suite and test data for gdk-pixbuf.
+
+%package devel
+Summary:    gdk-pixbuf development files
+Requires:   %{name}-gir = %{version}-%{release}
+Requires:   gdk-pixbuf = %{version}-%{release}
+Provides: pkgconfig(gdk-pixbuf-2.0)
+
+%description devel
+Development files for gdk-pixbuf.
 
 %prep
 %setup -q
 
 %build
-mkdir build-pb
-pushd build-pb
-
-meson setup --prefix=/usr -Dman=false \
-      -Dgtk_doc=false --buildtype=release \
-      --wrap-mode=nofallback \
-      ..
+mkdir build
+pushd build
+meson setup ..                \
+      --prefix=/usr           \
+      --buildtype=release     \
+      -D png=enabled          \
+      -D gif=disabled         \
+      -D jpeg=enabled        \
+      -D tiff=disabled        \
+      -D thumbnailer=disabled \
+      -D glycin=disabled      \
+      -D man=false           \
+      --wrap-mode=nofallback
 ninja
 popd
 
-%install    
+%install
 rm -rf %{buildroot}
-pushd build-pb
+pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%post
-update-mime-database /usr/share/mime
-gdk-pixbuf-query-loaders --update-cache
 
+%package gir
+Summary:    GObject Introspection data for gdk-pixbuf
+License:    GPL3
+Requires:   %{name} = %{version}-%{release}
 
-%files
-/usr/bin/gdk-pixbuf-csource
-/usr/bin/gdk-pixbuf-pixdata
-/usr/bin/gdk-pixbuf-query-loaders
-/usr/bin/gdk-pixbuf-thumbnailer
-/usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-ani.so
-/usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-bmp.so
-/usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-gif.so
-/usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-icns.so
-/usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-ico.so
-/usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-pnm.so
-/usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-qtif.so
-/usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-tga.so
-/usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-xbm.so
-/usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-xpm.so
-/usr/lib64/girepository-1.0/GdkPixbuf-2.0.typelib
-/usr/lib64/girepository-1.0/GdkPixdata-2.0.typelib
-/usr/lib64/libgdk_pixbuf-2.0.so
-/usr/lib64/libgdk_pixbuf-2.0.so.0
-/usr/lib64/libgdk_pixbuf-2.0.so.0.4200.9
-/usr/lib64/pkgconfig/gdk-pixbuf-2.0.pc
-/usr/share/thumbnailers/gdk-pixbuf-thumbnailer.thumbnailer
-/usr/libexec/installed-tests/gdk-pixbuf/
-/usr/share/gir-1.0/GdkPixbuf-2.0.gir
-/usr/share/gir-1.0/GdkPixdata-2.0.gir
-/usr/share/installed-tests/
-/usr/include/gdk-pixbuf-2.0/
-/usr/share/locale/
+%description gir
+GObject Introspection typelibs for gdk-pixbuf, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
+%files -f %{_sourcedir}/gdk-pixbuf.filelist
+%files lang -f %{_sourcedir}/gdk-pixbuf-lang.filelist
+%files tests -f %{_sourcedir}/gdk-pixbuf-tests.filelist
+%files devel -f %{_sourcedir}/gdk-pixbuf-devel.filelist
+%files gir -f %{_sourcedir}/gdk-pixbuf-gir.filelist
+
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.44.8-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.44.8-2
+- Split lang, tests, devel payload into gdk-pixbuf-lang, gdk-pixbuf-tests, gdk-pixbuf-devel (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 2.44.7
+- Sync with BLFS r13.1 (2.42.9)
+
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 2.42.9
 - Version bump

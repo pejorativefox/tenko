@@ -1,0 +1,7 @@
+%dir /usr/bin
+/usr/bin/xkbcomp
+%dir /usr/lib64
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/share/man/man1/xkbcomp.1.gz

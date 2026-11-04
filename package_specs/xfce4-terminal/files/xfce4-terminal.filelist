@@ -1,0 +1,55 @@
+%dir /usr/bin
+%dir /usr/share
+%dir /usr/share/applications
+%dir /usr/share/icons
+%dir /usr/share/icons/hicolor
+%dir /usr/share/icons/hicolor/128x128
+%dir /usr/share/icons/hicolor/128x128/apps
+%dir /usr/share/icons/hicolor/16x16
+%dir /usr/share/icons/hicolor/16x16/apps
+%dir /usr/share/icons/hicolor/24x24
+%dir /usr/share/icons/hicolor/24x24/apps
+%dir /usr/share/icons/hicolor/32x32
+%dir /usr/share/icons/hicolor/32x32/apps
+%dir /usr/share/icons/hicolor/48x48
+%dir /usr/share/icons/hicolor/48x48/apps
+%dir /usr/share/icons/hicolor/64x64
+%dir /usr/share/icons/hicolor/64x64/apps
+%dir /usr/share/icons/hicolor/96x96
+%dir /usr/share/icons/hicolor/96x96/apps
+%dir /usr/share/icons/hicolor/scalable
+%dir /usr/share/icons/hicolor/scalable/apps
+%dir /usr/share/locale
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/xfce4
+%dir /usr/share/xfce4/terminal
+%dir /usr/share/xfce4/terminal/colorschemes
+/usr/bin/xfce4-terminal
+/usr/share/applications/xfce4-terminal-settings.desktop
+/usr/share/applications/xfce4-terminal.desktop
+/usr/share/icons/hicolor/128x128/apps/org.xfce.terminal-settings.png
+/usr/share/icons/hicolor/128x128/apps/org.xfce.terminal.png
+/usr/share/icons/hicolor/16x16/apps/org.xfce.terminal-settings.png
+/usr/share/icons/hicolor/16x16/apps/org.xfce.terminal.png
+/usr/share/icons/hicolor/24x24/apps/org.xfce.terminal-settings.png
+/usr/share/icons/hicolor/24x24/apps/org.xfce.terminal.png
+/usr/share/icons/hicolor/32x32/apps/org.xfce.terminal-settings.png
+/usr/share/icons/hicolor/32x32/apps/org.xfce.terminal.png
+/usr/share/icons/hicolor/48x48/apps/org.xfce.terminal-settings.png
+/usr/share/icons/hicolor/48x48/apps/org.xfce.terminal.png
+/usr/share/icons/hicolor/64x64/apps/org.xfce.terminal-settings.png
+/usr/share/icons/hicolor/64x64/apps/org.xfce.terminal.png
+/usr/share/icons/hicolor/96x96/apps/org.xfce.terminal-settings.png
+/usr/share/icons/hicolor/96x96/apps/org.xfce.terminal.png
+/usr/share/icons/hicolor/scalable/apps/org.xfce.terminal-settings.svg
+/usr/share/icons/hicolor/scalable/apps/org.xfce.terminal.svg
+/usr/share/man/man1/xfce4-terminal.1.gz
+/usr/share/xfce4/terminal/colorschemes/black-on-white.theme
+/usr/share/xfce4/terminal/colorschemes/dark-pastels.theme
+/usr/share/xfce4/terminal/colorschemes/green-on-black.theme
+/usr/share/xfce4/terminal/colorschemes/solarized-dark.theme
+/usr/share/xfce4/terminal/colorschemes/solarized-light.theme
+/usr/share/xfce4/terminal/colorschemes/tango.theme
+/usr/share/xfce4/terminal/colorschemes/white-on-black.theme
+/usr/share/xfce4/terminal/colorschemes/xterm.theme

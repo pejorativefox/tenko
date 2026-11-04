@@ -1,0 +1,51 @@
+%dir /usr/bin
+/usr/bin/xfdesktop
+/usr/bin/xfdesktop-settings
+%dir /usr/share
+%dir /usr/share/applications
+/usr/share/applications/xfce-backdrop-settings.desktop
+%dir /usr/share/backgrounds
+%dir /usr/share/backgrounds/xfce
+/usr/share/backgrounds/xfce/xfce-blue.jpg
+/usr/share/backgrounds/xfce/xfce-cp-dark.svg
+/usr/share/backgrounds/xfce/xfce-flower.svg
+/usr/share/backgrounds/xfce/xfce-leaves.svg
+/usr/share/backgrounds/xfce/xfce-light.svg
+/usr/share/backgrounds/xfce/xfce-mouserace.svg
+/usr/share/backgrounds/xfce/xfce-shapes.svg
+/usr/share/backgrounds/xfce/xfce-stripes.svg
+/usr/share/backgrounds/xfce/xfce-teal.svg
+/usr/share/backgrounds/xfce/xfce-verticals.svg
+/usr/share/backgrounds/xfce/xfce-x.svg
+%dir /usr/share/icons
+%dir /usr/share/icons/hicolor
+%dir /usr/share/icons/hicolor/128x128
+%dir /usr/share/icons/hicolor/128x128/apps
+/usr/share/icons/hicolor/128x128/apps/org.xfce.xfdesktop.png
+%dir /usr/share/icons/hicolor/16x16
+%dir /usr/share/icons/hicolor/16x16/apps
+/usr/share/icons/hicolor/16x16/apps/org.xfce.xfdesktop.png
+%dir /usr/share/icons/hicolor/24x24
+%dir /usr/share/icons/hicolor/24x24/apps
+/usr/share/icons/hicolor/24x24/apps/org.xfce.xfdesktop.png
+%dir /usr/share/icons/hicolor/32x32
+%dir /usr/share/icons/hicolor/32x32/apps
+/usr/share/icons/hicolor/32x32/apps/org.xfce.xfdesktop.png
+%dir /usr/share/icons/hicolor/48x48
+%dir /usr/share/icons/hicolor/48x48/apps
+/usr/share/icons/hicolor/48x48/apps/org.xfce.xfdesktop.png
+%dir /usr/share/icons/hicolor/scalable
+%dir /usr/share/icons/hicolor/scalable/apps
+/usr/share/icons/hicolor/scalable/apps/org.xfce.xfdesktop.svg
+%dir /usr/share/locale
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/share/man/man1/xfdesktop.1.gz
+%dir /usr/share/pixmaps
+/usr/share/pixmaps/xfce4_xicon.png
+/usr/share/pixmaps/xfce4_xicon1.png
+/usr/share/pixmaps/xfce4_xicon2.png
+/usr/share/pixmaps/xfce4_xicon3.png
+/usr/share/pixmaps/xfce4_xicon4.png
+%dir /usr/share/pixmaps/xfdesktop
+/usr/share/pixmaps/xfdesktop/xfdesktop-fallback-icon.png

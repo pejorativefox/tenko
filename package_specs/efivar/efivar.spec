@@ -1,54 +1,47 @@
 Name:       efivar
-Version:    38
-Release:    1
-Summary:     The efivar package provides tools and libraries to manipulate EFI variables.
+Version:    39
+Release:    2
+Summary:    Tools and libraries to manipulate EFI variables
 License:    LGPL-2.1
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    %{name}-%{version}.tar.gz
+Patch0:     efivar-39-upstream_fixes-1.patch
 Prefix:     /usr
 
 %description
-Tools and libraries to work with EFI variables 
+Tools and libraries to work with EFI variables
+
+%package devel
+Summary:    Development files for efivar
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+pkg-config files for efivar, used to build software against it.
 
 %prep
-%setup
-sed '/prep :/a\\ttouch prep' -i src/Makefile
+%setup -q
+%patch 0 -p1
 
 %build
-%make_build ERRORS=
+%make_build ENABLE_DOCS=0 ERRORS=
 
 %install
 rm -rf %{buildroot}
-%make_install LIBDIR=/usr/lib64
+%make_install ENABLE_DOCS=0 LIBDIR=/usr/lib64
+install -Dm644 docs/efivar.1 %{buildroot}/usr/share/man/man1/efivar.1
+install -d %{buildroot}/usr/share/man/man3
+install -m644 docs/*.3 %{buildroot}/usr/share/man/man3/
 
-%files
-/usr/bin/efisecdb
-/usr/bin/efivar
-/usr/include/efivar/efiboot-creator.h
-/usr/include/efivar/efiboot-loadopt.h
-/usr/include/efivar/efiboot.h
-/usr/include/efivar/efisec-secdb.h
-/usr/include/efivar/efisec-types.h
-/usr/include/efivar/efisec.h
-/usr/include/efivar/efivar-dp.h
-/usr/include/efivar/efivar-guids.h
-/usr/include/efivar/efivar-time.h
-/usr/include/efivar/efivar-types.h
-/usr/include/efivar/efivar.h
-/usr/lib64/libefiboot.so
-/usr/lib64/libefiboot.so.1
-/usr/lib64/libefiboot.so.1.38
-/usr/lib64/libefisec.so
-/usr/lib64/libefisec.so.1
-/usr/lib64/libefisec.so.1.38
-/usr/lib64/libefivar.so
-/usr/lib64/libefivar.so.1
-/usr/lib64/libefivar.so.1.38
-/usr/lib64/pkgconfig/efiboot.pc
-/usr/lib64/pkgconfig/efisec.pc
-/usr/lib64/pkgconfig/efivar.pc
-/usr/share/man/
+%files -f %{_sourcedir}/efivar.filelist
+%files devel -f %{_sourcedir}/efivar-devel.filelist
 
 %changelog
-* Tue Jun 13 2023 Chris Statzer <chris.statzer@gmail.com> 3.30.1
-- Initial RPM
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 39-2
+- Move the pkg-config files into a new -devel subpackage so the runtime
+  package no longer drags pkgconfig(...) consumers into every install.
 
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 39-1
+- Update to 39 (current BLFS r13.1, was 38)
+- Apply the BLFS efivar-39-upstream_fixes-1.patch (glibc-2.43+ build fix)
+- ENABLE_DOCS=0 and install the pre-generated man pages, as in BLFS
+- Install the libraries into /usr/lib64, matching this distro's layout
+- Ship a generated static filelist

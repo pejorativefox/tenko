@@ -1,0 +1,10 @@
+%dir /usr/lib64/gdk-pixbuf-2.0
+%dir /usr/lib64/gdk-pixbuf-2.0/2.10.0
+%dir /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders
+%dir /usr/share/gir-1.0
+%dir /usr/share/thumbnailers
+/usr/bin/rsvg-convert
+/usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader_svg.so
+/usr/lib64/librsvg-2.so.2
+/usr/lib64/librsvg-2.so.2.63.4
+/usr/share/thumbnailers/librsvg.thumbnailer

@@ -1,0 +1,2 @@
+g privoxy 73
+u privoxy 73:73 "Privoxy web proxy" /etc/privoxy /sbin/nologin

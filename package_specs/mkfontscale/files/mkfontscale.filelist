@@ -1,0 +1,8 @@
+%dir /usr/bin
+/usr/bin/mkfontdir
+/usr/bin/mkfontscale
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/mkfontdir.1.gz
+%doc /usr/share/man/man1/mkfontscale.1.gz

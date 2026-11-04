@@ -1,0 +1,10 @@
+%dir /usr/bin
+/usr/bin/wnck-urgency-monitor
+/usr/bin/wnckprop
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libwnck-3.so.0
+/usr/lib64/libwnck-3.so.0.3.0
+%dir /usr/share
+%dir /usr/share/gir-1.0
+%dir /usr/share/locale

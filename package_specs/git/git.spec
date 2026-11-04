@@ -1,50 +1,68 @@
+# git installs its git-core commands as hardlinks to a single binary; stripping
+# the same inode repeatedly fails in %%__spec_install_post.
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
+# Optional git subcommands (git svn, git send-email, git gui) need Perl modules
+# that are not in the base system; do not make the core package depend on them.
+%global __requires_exclude ^perl\\(
 
 Name:       git
-Version:    2.22.0
+Version:    2.56.0
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Distributed version control system
+License:    GPL-2.0-only
+URL:        https://git-scm.com/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
-AutoReq: no
-
-Requires: libc.so.6()(64bit), libcrypto.so.3()(64bit), libcurl.so.4()(64bit), libexpat.so.1()(64bit), libpthread.so.0()(64bit), librt.so.1()(64bit), libssl.so.3()(64bit), libz.so.1()(64bit), perl >= 0:5.004
-
+BuildRequires: curl
+BuildRequires: expat
+BuildRequires: openssl
+BuildRequires: pcre2
+BuildRequires: perl
+BuildRequires: zlib
+Requires:      perl
 
 %description
-TODO
+Git is a free and open source distributed version control system designed
+to handle everything from small to very large projects with speed and
+efficiency.
+
+%package lang
+Summary:    git translations
+Requires:   git = %{version}-%{release}
+
+%description lang
+Translations for git.
 
 %prep
-%setup -q -a0
+%setup -q
 
 %build
-%configure
-%make_build
+%configure --prefix=/usr                   \
+           --with-gitconfig=/etc/gitconfig \
+           --with-python=python3           \
+           --with-libpcre2
+make -j8 NO_RUST=1
 
-%install    
+%install
 rm -rf %{buildroot}
-mkdir -pv %{buildroot}/etc/bash_completion.d/
+make perllibdir=/usr/lib/perl5/5.44.0/site_perl install DESTDIR=%{buildroot} NO_RUST=1
+mkdir -p %{buildroot}/etc/bash_completion.d
 cp contrib/completion/git-completion.bash %{buildroot}/etc/bash_completion.d/
-%make_install
 
-%files
-/usr/bin/git
-/usr/bin/git-cvsserver
-/usr/bin/git-receive-pack
-/usr/bin/git-shell
-/usr/bin/git-upload-archive
-/usr/bin/git-upload-pack
-/usr/bin/gitk
-/usr/libexec/git-core/*
-/usr/share/locale/*
-/usr/share/perl5/*
-/usr/share/git-gui/
-/usr/share/gitk/*
-/usr/share/gitweb/*
-/usr/share/git-core/*
-/etc/bash_completion.d/git-completion.bash
+%files -f %{_sourcedir}/git.filelist
+%files lang -f %{_sourcedir}/git-lang.filelist
+
 
 %changelog
-# let's skip this for now
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 2.56.0-1
+- Update to 2.56.0 (current LFS/BLFS r13.1 trunk version).
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.55.0-2
+- Split lang payload into git-lang (size audit)
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.55.0
+- Update to 2.55.0 (BLFS r13.1)
+- Use the book configure options and skip the Rust components
+- Install Perl modules under /usr/lib/perl5/5.44.0/site_perl
+- Replace the directory listing with a generated static filelist

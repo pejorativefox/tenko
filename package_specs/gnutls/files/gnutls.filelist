@@ -1,0 +1,19 @@
+%dir /usr/bin
+/usr/bin/certtool
+/usr/bin/gnutls-cli
+/usr/bin/gnutls-cli-debug
+/usr/bin/gnutls-serv
+/usr/bin/ocsptool
+/usr/bin/p11tool
+/usr/bin/psktool
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libgnutls.so.30
+/usr/lib64/libgnutls.so.30.42.0
+/usr/lib64/libgnutlsxx.so.30
+/usr/lib64/libgnutlsxx.so.30.0.0
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/info
+%dir /usr/share/locale
+%dir /usr/share/man

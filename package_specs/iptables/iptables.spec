@@ -1,9 +1,9 @@
 Name:       iptables
-Version:    1.8.0
+Version:    1.8.13
 Release:    1
 Summary:    Firewall tool
 License:    GPL
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 %description
@@ -28,15 +28,10 @@ rm -rf %{buildroot}
 %make_install
 
 %files
-/lib/xtables/libip6t_DNAT.so
 /lib/xtables/libip6t_DNPT.so
 /lib/xtables/libip6t_HL.so
-/lib/xtables/libip6t_LOG.so
-/lib/xtables/libip6t_MASQUERADE.so
 /lib/xtables/libip6t_NETMAP.so
-/lib/xtables/libip6t_REDIRECT.so
 /lib/xtables/libip6t_REJECT.so
-/lib/xtables/libip6t_SNAT.so
 /lib/xtables/libip6t_SNPT.so
 /lib/xtables/libip6t_ah.so
 /lib/xtables/libip6t_dst.so
@@ -50,14 +45,9 @@ rm -rf %{buildroot}
 /lib/xtables/libip6t_rt.so
 /lib/xtables/libip6t_srh.so
 /lib/xtables/libipt_CLUSTERIP.so
-/lib/xtables/libipt_DNAT.so
 /lib/xtables/libipt_ECN.so
-/lib/xtables/libipt_LOG.so
-/lib/xtables/libipt_MASQUERADE.so
 /lib/xtables/libipt_NETMAP.so
-/lib/xtables/libipt_REDIRECT.so
 /lib/xtables/libipt_REJECT.so
-/lib/xtables/libipt_SNAT.so
 /lib/xtables/libipt_TTL.so
 /lib/xtables/libipt_ULOG.so
 /lib/xtables/libipt_ah.so
@@ -70,17 +60,23 @@ rm -rf %{buildroot}
 /lib/xtables/libxt_CONNMARK.so
 /lib/xtables/libxt_CONNSECMARK.so
 /lib/xtables/libxt_CT.so
+/lib/xtables/libxt_DNAT.so
 /lib/xtables/libxt_DSCP.so
 /lib/xtables/libxt_HMARK.so
 /lib/xtables/libxt_IDLETIMER.so
 /lib/xtables/libxt_LED.so
+/lib/xtables/libxt_LOG.so
 /lib/xtables/libxt_MARK.so
+/lib/xtables/libxt_MASQUERADE.so
+/lib/xtables/libxt_NAT.so
 /lib/xtables/libxt_NFLOG.so
 /lib/xtables/libxt_NFQUEUE.so
 /lib/xtables/libxt_NOTRACK.so
 /lib/xtables/libxt_RATEEST.so
+/lib/xtables/libxt_REDIRECT.so
 /lib/xtables/libxt_SECMARK.so
 /lib/xtables/libxt_SET.so
+/lib/xtables/libxt_SNAT.so
 /lib/xtables/libxt_SYNPROXY.so
 /lib/xtables/libxt_TCPMSS.so
 /lib/xtables/libxt_TCPOPTSTRIP.so
@@ -111,7 +107,6 @@ rm -rf %{buildroot}
 /lib/xtables/libxt_length.so
 /lib/xtables/libxt_limit.so
 /lib/xtables/libxt_mac.so
-/lib/xtables/libxt_mangle.so
 /lib/xtables/libxt_mark.so
 /lib/xtables/libxt_multiport.so
 /lib/xtables/libxt_nfacct.so
@@ -138,12 +133,14 @@ rm -rf %{buildroot}
 /lib/xtables/libxt_u32.so
 /lib/xtables/libxt_udp.so
 /sbin/ip6tables
+/sbin/ip6tables-apply
 /sbin/ip6tables-legacy
 /sbin/ip6tables-legacy-restore
 /sbin/ip6tables-legacy-save
 /sbin/ip6tables-restore
 /sbin/ip6tables-save
 /sbin/iptables
+/sbin/iptables-apply
 /sbin/iptables-legacy
 /sbin/iptables-legacy-restore
 /sbin/iptables-legacy-save
@@ -160,28 +157,49 @@ rm -rf %{buildroot}
 /usr/include/xtables-version.h
 /usr/include/xtables.h
 /usr/lib64/libip4tc.so
-/usr/lib64/libip4tc.so.0
-/usr/lib64/libip4tc.so.0.1.0
+/usr/lib64/libip4tc.so.2
+/usr/lib64/libip4tc.so.2.0.0
 /usr/lib64/libip6tc.so
-/usr/lib64/libip6tc.so.0
-/usr/lib64/libip6tc.so.0.1.0
+/usr/lib64/libip6tc.so.2
+/usr/lib64/libip6tc.so.2.0.0
 /usr/lib64/libipq.so
 /usr/lib64/libipq.so.0
 /usr/lib64/libipq.so.0.0.0
-/usr/lib64/libiptc.so
-/usr/lib64/libiptc.so.0
-/usr/lib64/libiptc.so.0.0.0
 /usr/lib64/libxtables.so
 /usr/lib64/libxtables.so.12
-/usr/lib64/libxtables.so.12.0.0
+/usr/lib64/libxtables.so.12.7.0
 /usr/lib64/pkgconfig/libip4tc.pc
 /usr/lib64/pkgconfig/libip6tc.pc
 /usr/lib64/pkgconfig/libipq.pc
 /usr/lib64/pkgconfig/libiptc.pc
 /usr/lib64/pkgconfig/xtables.pc
-/usr/share/man/*
+/usr/share/man/man1/iptables-xml.1.gz
+/usr/share/man/man3/ipq_create_handle.3.gz
+/usr/share/man/man3/ipq_destroy_handle.3.gz
+/usr/share/man/man3/ipq_errstr.3.gz
+/usr/share/man/man3/ipq_get_msgerr.3.gz
+/usr/share/man/man3/ipq_get_packet.3.gz
+/usr/share/man/man3/ipq_message_type.3.gz
+/usr/share/man/man3/ipq_perror.3.gz
+/usr/share/man/man3/ipq_read.3.gz
+/usr/share/man/man3/ipq_set_mode.3.gz
+/usr/share/man/man3/ipq_set_verdict.3.gz
+/usr/share/man/man3/libipq.3.gz
+/usr/share/man/man8/ip6tables-apply.8.gz
+/usr/share/man/man8/ip6tables-restore.8.gz
+/usr/share/man/man8/ip6tables-save.8.gz
+/usr/share/man/man8/ip6tables.8.gz
+/usr/share/man/man8/iptables-apply.8.gz
+/usr/share/man/man8/iptables-extensions.8.gz
+/usr/share/man/man8/iptables-restore.8.gz
+/usr/share/man/man8/iptables-save.8.gz
+/usr/share/man/man8/iptables.8.gz
+/usr/share/xtables/iptables.xslt
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.8.13-1
+- Sync with BLFS r13.1
+
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.8.0
 - Initial RPM
 

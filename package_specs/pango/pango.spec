@@ -1,76 +1,73 @@
 Name:       pango
-Version:    1.50.14
-Release:    1
+Version:    1.58.2
+Release:    3
 Summary:    text layout library
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
-
 BuildRequires: fontconfig >= 2.13.1
 BuildRequires: fribidi >= 1.0.13
 BuildRequires: glib >= 2.76.4
 
+
+%description
+Pango is a library for laying out and rendering text
+
+%package devel
+Summary:    pango development files
+Requires:   %{name}-gir = %{version}-%{release}
+Requires:   pango = %{version}-%{release}
 Provides: pkgconfig(pango)
 Provides: pkgconfig(pangocairo)
 Provides: pkgconfig(pangoft2)
 
-%description
-Pango is a library for laying out and rendering text
+%description devel
+Development files for pango.
 
 %prep
 %setup -q
 
 %build
-mkdir build-glib
-pushd build-glib
-
-meson --prefix=/usr --sysconfdir=/etc ..
+mkdir build
+pushd build
+meson setup --prefix=/usr            \
+            --buildtype=release      \
+            --wrap-mode=nofallback   \
+            -D introspection=enabled
 ninja
 popd
 
-%install    
+%install
 rm -rf %{buildroot}
-pushd build-glib
+pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/pango-list
-/usr/bin/pango-view
-/usr/bin/pango-segmentation
-/usr/lib64/girepository-1.0/Pango-1.0.typelib
-/usr/lib64/girepository-1.0/PangoCairo-1.0.typelib
-/usr/lib64/girepository-1.0/PangoFT2-1.0.typelib
-/usr/lib64/girepository-1.0/PangoFc-1.0.typelib
-/usr/lib64/girepository-1.0/PangoOT-1.0.typelib
-/usr/lib64/libpango-1.0.so
-/usr/lib64/libpango-1.0.so.0
-/usr/lib64/libpango-1.0.so.0.5000.14
-/usr/lib64/libpangocairo-1.0.so
-/usr/lib64/libpangocairo-1.0.so.0
-/usr/lib64/libpangocairo-1.0.so.0.5000.14
-/usr/lib64/libpangoft2-1.0.so
-/usr/lib64/libpangoft2-1.0.so.0
-/usr/lib64/libpangoft2-1.0.so.0.5000.14
-/usr/lib64/pkgconfig/pango.pc
-/usr/lib64/pkgconfig/pangocairo.pc
-/usr/lib64/pkgconfig/pangofc.pc
-/usr/lib64/pkgconfig/pangoft2.pc
-/usr/lib64/pkgconfig/pangoot.pc
-/usr/lib64/girepository-1.0/PangoXft-1.0.typelib
-/usr/lib64/libpangoxft-1.0.so
-/usr/lib64/libpangoxft-1.0.so.0
-/usr/lib64/libpangoxft-1.0.so.0.5000.14
-/usr/lib64/pkgconfig/pangoxft.pc
-/usr/share/gir-1.0/PangoXft-1.0.gir
-/usr/share/gir-1.0/Pango-1.0.gir
-/usr/share/gir-1.0/PangoCairo-1.0.gir
-/usr/share/gir-1.0/PangoFT2-1.0.gir
-/usr/share/gir-1.0/PangoFc-1.0.gir
-/usr/share/gir-1.0/PangoOT-1.0.gir
-/usr/include/pango-1.0/
+
+%package gir
+Summary:    GObject Introspection data for pango
+License:    GPL3
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for pango, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
+%files -f %{_sourcedir}/pango.filelist
+%files devel -f %{_sourcedir}/pango-devel.filelist
+%files gir -f %{_sourcedir}/pango-gir.filelist
+
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.58.2-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.58.2-2
+- Split devel payload into pango-devel (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.58.2
+- Sync with BLFS r13.1 (1.50.14)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.50.14-1
 - Version bump

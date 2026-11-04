@@ -1,0 +1,11 @@
+%dir /etc/X11
+%dir /etc/X11/xinit
+/etc/X11/xinit/xinitrc
+%dir /usr/bin
+/usr/bin/startx
+/usr/bin/xinit
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/startx.1.gz
+%doc /usr/share/man/man1/xinit.1.gz

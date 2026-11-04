@@ -1,6 +1,6 @@
 Name:       diffutils
-Version:    3.10
-Release:    1
+Version:    3.12
+Release:    2
 Summary:    GNU file difference utilities
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 GNU Diffutils is a package of several programs related to finding differences between files.
+
+%package lang
+Summary:    diffutils translations
+Requires:   diffutils = %{version}-%{release}
+
+%description lang
+Translations for diffutils.
 
 %prep
 %setup -q
@@ -21,18 +28,16 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/cmp
-/usr/bin/diff
-/usr/bin/diff3
-/usr/bin/sdiff
-/usr/share/info/diffutils.info.gz
-/usr/share/locale/
-/usr/share/man/man1/cmp.1.gz
-/usr/share/man/man1/diff.1.gz
-/usr/share/man/man1/diff3.1.gz
-/usr/share/man/man1/sdiff.1.gz
+%files -f %{_sourcedir}/diffutils.filelist
+%files lang -f %{_sourcedir}/diffutils-lang.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 3.12-2
+- Split lang payload into diffutils-lang (size audit)
+
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 3.12
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 3.10-1
 - Version bump

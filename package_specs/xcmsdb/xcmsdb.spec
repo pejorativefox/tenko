@@ -1,18 +1,22 @@
 Name:       xcmsdb
-Version:    1.0.5
+Version:    1.0.7
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Query and modify the X11 colour raster database
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    xcmsdb-1.0.7.tar.xz
 
 
 
 %description
-TODO
+Query and modify the X11 colour raster database.
+
+xcmsdb is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure 
@@ -23,10 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xcmsdb
-/usr/share/man/man1/xcmsdb.1.gz
-
+%files -f %{_sourcedir}/xcmsdb.filelist
 %changelog
 # let's skip this for now
 

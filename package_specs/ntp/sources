@@ -1,1 +1,2 @@
-783edaf1d68ddf651bde64eda54a579d https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p14.tar.gz
+516bdabd94ab7c824e9771390761a46c https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p18.tar.gz ntp-4.2.8p18.tar.gz
+db818060bc6c300e7f5c2df749d2249b https://www.linuxfromscratch.org/patches/blfs/13.1/ntp-4.2.8p18-openssl_4-1.patch ntp-4.2.8p18-openssl_4-1.patch

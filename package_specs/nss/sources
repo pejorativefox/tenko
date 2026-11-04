@@ -1,2 +1,2 @@
-589167c3be81d09b9e332ff17d46ebca https://archive.mozilla.org/pub/security/nss/releases/NSS_3_92_RTM/src/nss-3.92.tar.gz
-f8a7ce473bd61792ef182cf0fb2d359a https://www.linuxfromscratch.org/patches/blfs/12.0/nss-3.92-standalone-1.patch
+1fb0c0dc32274e24daf9183517f31f29 https://archive.mozilla.org/pub/security/nss/releases/NSS_3_132_RTM/src/nss-3.132.tar.gz nss-3.132.tar.gz
+f8a7ce473bd61792ef182cf0fb2d359a https://www.linuxfromscratch.org/patches/blfs/13.1/nss-standalone-1.patch nss-standalone-1.patch

@@ -1,54 +1,74 @@
+# Official Rust binary distribution, installed under /opt.  This is not a
+# source build: rustc/cargo/rustdoc/rustfmt/clippy/rust-analyzer are the
+# published upstream binaries.
+%global __strip /bin/true
+%global __spec_install_post %{nil}
+%global debug_package %{nil}
+
 Name:       rust
-Version:    1.31.1
-Release:    2
-Summary:    TODO
-License:    GPL3
-Prefix:     /usr
-Source0:    rustc-1.31.1-x86_64-unknown-linux-gnu.tar.gz
-Source1:    rust-std-1.31.1-x86_64-unknown-linux-gnu.tar.gz
-Source2:    cargo-0.32.0-x86_64-unknown-linux-gnu.tar.gz
+Version:    1.99.0
+Release:    1
+Summary:    Rust programming language toolchain (official binary distribution)
+License:    MIT OR Apache-2.0
+URL:        https://www.rust-lang.org/
+Source0:    rust-%{version}-x86_64-unknown-linux-gnu.tar.gz
 
-AutoReq: no
+ExclusiveArch: x86_64
 
-Requires: ld-linux-x86-64.so.2()(64bit), libc.so.6()(64bit), libdl.so.2()(64bit), libgcc_s.so.1()(64bit), libm.so.6()(64bit), libpthread.so.0()(64bit), librt.so.1()(64bit)
-
+Provides:   cargo = %{version}
+Provides:   rustc = %{version}
+Requires:   gcc
+Requires:   ca-certificates
 
 %description
-TODO
+The Rust programming language toolchain, installed from the official
+rust-1.99.0-x86_64-unknown-linux-gnu binary distribution.
+
+The toolchain lives under /opt/rust-1.99.0-x86_64-unknown-linux-gnu
+(with /opt/rust as a stable symlink).  rustc, cargo, rustdoc, rustfmt,
+clippy, and rust-analyzer are linked into /usr/bin.
+
+BLFS r13.1 pins Rust 1.98.1; this is the newer upstream stable release.
 
 %prep
-rm -rf rust-1.31.1
-mkdir rust-1.31.1
-pushd rust-1.31.1
-tar xf %{SOURCE0}
-tar xf %{SOURCE1}
-tar xf %{SOURCE2}
-popd
+%setup -q -n rust-%{version}-x86_64-unknown-linux-gnu
 
 %build
 
-%install    
+%install
 rm -rf %{buildroot}
-mkdir -pv %{buildroot}/opt/rust
-pushd rust-1.31.1
-cp -r cargo-0.32.0-x86_64-unknown-linux-gnu/cargo/* %{buildroot}/opt/rust
-cp -r rust-std-1.31.1-x86_64-unknown-linux-gnu/rust-std-x86_64-unknown-linux-gnu/* %{buildroot}/opt/rust
-cp -r rustc-1.31.1-x86_64-unknown-linux-gnu/rustc/* %{buildroot}/opt/rust
+./install.sh \
+    --prefix=/opt/rust-%{version}-x86_64-unknown-linux-gnu \
+    --destdir=%{buildroot} \
+    --disable-ldconfig
 
-mkdir -pv %{buildroot}/etc/profile.d
-cat > %{buildroot}/etc/profile.d/rust_path.sh << "EOF"
-export PATH=$PATH:/opt/rust/bin
-EOF
-
-popd
-
+ln -s rust-%{version}-x86_64-unknown-linux-gnu %{buildroot}/opt/rust
+install -d %{buildroot}/usr/bin
+for b in rustc cargo rustdoc rustfmt cargo-clippy cargo-fmt clippy-driver \
+         rust-analyzer rust-gdb rust-gdbgui rust-lldb; do
+    if [ -e "%{buildroot}/opt/rust/bin/$b" ]; then
+        ln -s "/opt/rust/bin/$b" "%{buildroot}/usr/bin/$b"
+    fi
+done
 
 %files
-/opt/rust/*
-/etc/profile.d/rust_path.sh
+%dir /opt
+/opt/rust-%{version}-x86_64-unknown-linux-gnu/
+/opt/rust
+/usr/bin/rustc
+/usr/bin/cargo
+/usr/bin/rustdoc
+/usr/bin/rustfmt
+/usr/bin/cargo-clippy
+/usr/bin/cargo-fmt
+/usr/bin/clippy-driver
+/usr/bin/rust-analyzer
+/usr/bin/rust-gdb
+/usr/bin/rust-gdbgui
+/usr/bin/rust-lldb
 
 %changelog
-* Tue May 12 2020 Chris Statzer <chris.statzer@qq.com> 1.31.1
-- Initial RPM
-- Added path to default bash profile
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.99.0-1
+- New package: official rust-1.99.0-x86_64-unknown-linux-gnu binary
+  distribution installed under /opt, with /opt/rust and /usr/bin symlinks.
+  User-requested binary packaging (not a source build).

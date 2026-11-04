@@ -1,16 +1,23 @@
 Name:       mtools
-Version:    4.0.43
+Version:    4.0.50
 Release:    1
-Summary:    Mtools is a collection of utilities to access MS-DOS disks from GNU and Unix without mounting them.
-License:    GPL-3
+Summary:    Utilities to access MS-DOS disks from GNU and Unix without mounting them
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 %description
-Mtools is a collection of utilities to access MS-DOS disks from GNU and Unix without mounting them.
+Mtools is a collection of utilities to access MS-DOS disks (FAT filesystems)
+from GNU and Unix without mounting them.  The Browneye UEFI installer uses
+mcopy/mmd to populate the FAT EFI system partition of the hybrid ISO.
+
+This package is a user-approved exception to the LFS/BLFS version-parity
+rule: mtools is not in either book, so it tracks current upstream.
+Source: https://ftp.gnu.org/gnu/mtools/mtools-4.0.50.tar.gz
+sha256: 7f078accae7551c6b3a316ccd8296357329f7bbbc09583dcd1a2bbaeb081a7a4
 
 %prep
-%setup
+%setup -q
 
 %build
 %configure
@@ -19,48 +26,15 @@ Mtools is a collection of utilities to access MS-DOS disks from GNU and Unix wit
 %install
 rm -rf %{buildroot}
 %make_install
-rm %{buildroot}/usr/share/info/dir
+rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/amuFormat.sh
-/usr/bin/floppyd
-/usr/bin/floppyd_installtest
-/usr/bin/lz
-/usr/bin/mattrib
-/usr/bin/mbadblocks
-/usr/bin/mcat
-/usr/bin/mcd
-/usr/bin/mcheck
-/usr/bin/mcomp
-/usr/bin/mcopy
-/usr/bin/mdel
-/usr/bin/mdeltree
-/usr/bin/mdir
-/usr/bin/mdu
-/usr/bin/mformat
-/usr/bin/minfo
-/usr/bin/mkmanifest
-/usr/bin/mlabel
-/usr/bin/mmd
-/usr/bin/mmount
-/usr/bin/mmove
-/usr/bin/mpartition
-/usr/bin/mrd
-/usr/bin/mren
-/usr/bin/mshortname
-/usr/bin/mshowfat
-/usr/bin/mtools
-/usr/bin/mtoolstest
-/usr/bin/mtype
-/usr/bin/mxtar
-/usr/bin/mzip
-/usr/bin/tgz
-/usr/bin/uz
-/usr/share/info/mtools.info.gz
-/usr/share/man/man1/
-/usr/share/man/man5/
+%files -f %{_sourcedir}/mtools.filelist
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.0.50-1
+- Update to upstream 4.0.50 (approved exception; not in LFS/BLFS), replacing
+  the 4.0.43 template.  Recorded source sha256:
+  7f078accae7551c6b3a316ccd8296357329f7bbbc09583dcd1a2bbaeb081a7a4
+
 * Tue Jun 13 2023 Chris Statzer <chris.statzer@gmail.com> 3.30.1
 - Initial RPM
-

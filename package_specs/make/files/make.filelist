@@ -1,0 +1,8 @@
+/usr/bin/make
+/usr/include/gnumake.h
+/usr/share/info/make.info-1.gz
+/usr/share/info/make.info-2.gz
+/usr/share/info/make.info-3.gz
+/usr/share/info/make.info.gz
+%dir /usr/share/locale
+/usr/share/man/man1/make.1.gz

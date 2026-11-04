@@ -1,0 +1,7 @@
+%dir /usr/include/fontconfig
+/usr/include/fontconfig/fcfreetype.h
+/usr/include/fontconfig/fcprivate.h
+/usr/include/fontconfig/fontconfig.h
+/usr/lib64/libfontconfig.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/fontconfig.pc

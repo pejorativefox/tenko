@@ -10,26 +10,21 @@ Prefix:     /usr
 dosfstools consists of the programs mkfs.fat, fsck.fat and fatlabel to create, check and label file systems of the FAT family. 
 
 %prep
-%setup
+%setup -q
 
 %build
-%configure
+%configure --sbindir=/usr/sbin --enable-compat-symlinks --docdir=/usr/share/doc/dosfstools-%{version}
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/sbin/fatlabel
-/usr/sbin/fsck.fat
-/usr/sbin/mkfs.fat
-/usr/share/doc/dosfstools/
-/usr/share/man/man8/fatlabel.8.gz
-/usr/share/man/man8/fsck.fat.8.gz
-/usr/share/man/man8/mkfs.fat.8.gz
+%files -f %{_sourcedir}/dosfstools.filelist
 
 %changelog
-* Tue Jun 13 2023 Chris Statzer <chris.statzer@gmail.com> 3.30.1
-- Initial RPM
-
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.2-1
+- Build the current BLFS r13.1 version (4.2)
+- Configure with --enable-compat-symlinks as the book does, providing
+  mkfs.vfat/mkfs.msdos/fsck.vfat/fsck.msdos for the installer
+- Ship a generated static filelist

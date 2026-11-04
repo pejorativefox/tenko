@@ -1,0 +1,27 @@
+{
+  "partitiontable": {
+    "label": "dos",
+    "id": "0x12345678",
+    "device": "/dev/vdc",
+    "unit": "sectors",
+    "sectorsize": 512,
+    "partitions": [
+      {
+        "node": "/dev/vdc1",
+        "start": 2048,
+        "size": 2097152,
+        "type": "83",
+        "uuid": null,
+        "name": null
+      },
+      {
+        "node": "/dev/vdc2",
+        "start": 2099200,
+        "size": 4096,
+        "type": "82",
+        "uuid": null,
+        "name": null
+      }
+    ]
+  }
+}

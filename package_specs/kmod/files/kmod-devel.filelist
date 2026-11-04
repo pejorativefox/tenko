@@ -1,0 +1,4 @@
+/usr/include/libkmod.h
+/usr/lib64/libkmod.so
+/usr/lib64/pkgconfig/libkmod.pc
+/usr/share/pkgconfig/kmod.pc

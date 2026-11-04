@@ -1,68 +1,82 @@
 Name:       libsolv
-Version:    0.7.24
+Version:    0.7.41
 Release:    3
 Summary:    Library for solving packages and reading repositories
 License:    BSD
-Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+Source0:    %{name}-%{version}.tar.gz
 
 %description
-Library for solving packages and reading repositories
+libsolv is a dependency solver and repository reader used by libdnf and
+dnf.  This build includes the RPM database (via librpm), rpmmd and RPM
+package readers required by libdnf.
+
+%package devel
+Summary:    Development files for libsolv
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+pkg-config files for libsolv, used to build software against it.
 
 %prep
-%setup
+%setup -q
 
 %build
 mkdir build
 pushd build
-cmake -DENABLE_COMPLEX_DEPS=1 -DENABLE_RPMDB=1 -DENABLE_RPMMD=1 \
-      -DENABLE_RPMPKG=1 -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-      -DENABLE_PYTHON=ON \
-      -DPYTHON_LIBRARY=/usr/lib64/libpython3.so \
-      -DPYTHON_INCLUDE_DIR=/usr/include/python3.11/ \
-       ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_INSTALL_LIBDIR=lib64    \
+      -DCMAKE_BUILD_TYPE=Release     \
+      -DENABLE_COMPLEX_DEPS=ON       \
+      -DENABLE_RPMDB=ON              \
+      -DENABLE_RPMDB_LIBRPM=ON       \
+      -DENABLE_RPMPKG=ON             \
+      -DENABLE_RPMPKG_LIBRPM=ON      \
+      -DENABLE_RPMMD=ON              \
+      -DENABLE_LZMA_COMPRESSION=ON   \
+      -DENABLE_BZIP2_COMPRESSION=ON  \
+      -DENABLE_ZSTD_COMPRESSION=ON   \
+      -DENABLE_ZCHUNK_COMPRESSION=ON \
+      -DWITH_SYSTEM_ZCHUNK=ON        \
+      -DENABLE_PYTHON=OFF            \
+      -DENABLE_PERL=OFF              \
+      -DENABLE_RUBY=OFF              \
+      -DENABLE_TCL=OFF               \
+      -DENABLE_LUA=OFF               \
+      ..
 %make_build
 popd
 
 %install
 rm -rf %{buildroot}
 pushd build
-%make_install
-mkdir -pv %{buildroot}/usr/share/cmake-3.17/Modules/
-mv %{buildroot}/usr/share/cmake/Modules/* %{buildroot}/usr/share/cmake-3.17/Modules/
+DESTDIR=%{buildroot} cmake --install .
 popd
+# FindLibSolv.cmake is installed under /usr/share/cmake/Modules, but CMake
+# searches ${CMAKE_ROOT}/Modules (here /usr/share/cmake-4.4/Modules) and
+# CMAKE_MODULE_PATH, not the generic /usr/share/cmake/Modules.  Install a
+# copy in the real module directory so find_package(LibSolv) works.
+cmake_root=$(cmake --system-information 2>/dev/null | sed -n 's/^CMAKE_ROOT "\([^"]*\)"/\1/p' | head -1)
+[ -n "$cmake_root" ] || cmake_root=/usr/share/cmake
+install -Dm0644 cmake/modules/FindLibSolv.cmake \
+    "%{buildroot}${cmake_root}/Modules/FindLibSolv.cmake"
 
-%files
-/usr/bin/deltainfoxml2solv
-/usr/bin/dumpsolv
-/usr/bin/installcheck
-/usr/bin/mergesolv
-/usr/bin/repo2solv
-/usr/bin/repomdxml2solv
-/usr/bin/rpmdb2solv
-/usr/bin/rpmmd2solv
-/usr/bin/rpms2solv
-/usr/bin/testsolv
-/usr/bin/updateinfoxml2solv
-/usr/lib64/libsolv.so
-/usr/lib64/libsolv.so.1
-/usr/lib64/libsolvext.so
-/usr/lib64/libsolvext.so.1
-/usr/lib64/pkgconfig/libsolv.pc
-/usr/lib64/pkgconfig/libsolvext.pc
-/usr/lib64/python3.11/site-packages/_solv.so
-/usr/lib64/python3.11/site-packages/solv.py
-/usr/include/solv
-/usr/share/cmake-3.17/Modules/FindLibSolv.cmake
-/usr/share/man/
+%files -f %{_sourcedir}/libsolv.filelist
+%files devel -f %{_sourcedir}/libsolv-devel.filelist
 
 %changelog
-* Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 0.7.24
-- Version bump
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 0.7.41-3
+- Move the pkg-config files into a new -devel subpackage so the runtime
+  package no longer drags pkgconfig(...) consumers into every install.
 
-* Sun Jun 18 2023 Chris Statzer <chris.statzer@gmail.com> 0.7.10-3
-- Terrible kludge to fix cmake module path. This needs to be fixed in a larger change.
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 0.7.41-2
+- Rebuild for Python 3.15 / the D9 dnf stack refresh (new NEVR so the
+  rebuilt package supersedes the published -1).
 
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 0.7.10
-- Initial RPM
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 0.7.41-1
+- Update to upstream 0.7.41 (was 0.7.24) for the E1 dnf/libdnf chain.
+  libsolv is not in LFS/BLFS; current libdnf requires >= 0.7.21.
+- Enable the RPM database/rpmmd/rpmpkg readers (librpm based) that
+  libdnf uses, plus lzma/bzip2/zstd/zchunk compression.
+- Do not build the perl/python/ruby/tcl/lua language bindings.
+- Use a generated static filelist.

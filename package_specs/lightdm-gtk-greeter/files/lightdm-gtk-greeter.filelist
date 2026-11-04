@@ -1,0 +1,36 @@
+%config(noreplace) /etc/lightdm/lightdm-gtk-greeter.conf
+%dir /etc/lightdm
+%dir /usr/bin
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/icons
+%dir /usr/share/icons/hicolor
+%dir /usr/share/icons/hicolor/scalable
+%dir /usr/share/icons/hicolor/scalable/places
+%dir /usr/share/xgreeters
+/usr/bin/lightdm-gtk-greeter
+/usr/share/icons/hicolor/scalable/places/budgie-desktop_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/cinnamon2d_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/cinnamon_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/gnome-classic_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/gnome-fallback-compiz_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/gnome-fallback_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/gnome-flashback-compiz_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/gnome-flashback_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/gnome-shell_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/gnome_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/kde-plasma_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/kde_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/lubuntu_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/lxde_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/lxqt_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/mate_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/pantheon_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/ubuntu-2d_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/ubuntu_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/ubuntustudio_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/wmaker-common_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/xfce_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/xterm_badge-symbolic.svg
+/usr/share/icons/hicolor/scalable/places/xubuntu_badge-symbolic.svg
+/usr/share/xgreeters/lightdm-gtk-greeter.desktop

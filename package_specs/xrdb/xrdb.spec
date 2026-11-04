@@ -1,10 +1,10 @@
 Name:       xrdb
-Version:    1.1.1
+Version:    1.2.3
 Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    %{name}-%{version}.tar.xz
 
 
 
@@ -18,14 +18,13 @@ TODO
 %configure 
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xrdb
-/usr/share/man/man1/xrdb.1.gz
+%files -f %{_sourcedir}/xrdb.filelist
 
 %changelog
 # let's skip this for now

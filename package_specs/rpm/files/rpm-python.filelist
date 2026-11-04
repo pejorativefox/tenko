@@ -1,0 +1,7 @@
+%dir /usr/lib64/python3.15
+%dir /usr/lib64/python3.15/site-packages
+%dir /usr/lib64/python3.15/site-packages/rpm
+/usr/lib64/python3.15/site-packages/rpm-4.18.1-py3.15.egg-info
+/usr/lib64/python3.15/site-packages/rpm/__init__.py
+/usr/lib64/python3.15/site-packages/rpm/_rpm.so
+/usr/lib64/python3.15/site-packages/rpm/transaction.py

@@ -1,0 +1,26 @@
+%dir /usr/bin
+/usr/bin/xfconf-query
+%dir /usr/include
+%dir /usr/lib
+%dir /usr/lib/systemd
+%dir /usr/lib/systemd/user
+/usr/lib/systemd/user/xfconfd.service
+%dir /usr/lib64
+%dir /usr/lib64/gio
+%dir /usr/lib64/gio/modules
+/usr/lib64/gio/modules/libxfconfgsettingsbackend.so
+/usr/lib64/libxfconf-0.so.3
+/usr/lib64/libxfconf-0.so.3.0.0
+%dir /usr/lib64/xfce4
+%dir /usr/lib64/xfce4/xfconf
+/usr/lib64/xfce4/xfconf/xfconfd
+%dir /usr/share
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+/usr/share/bash-completion/completions/xfconf-query
+%dir /usr/share/dbus-1
+%dir /usr/share/dbus-1/services
+/usr/share/dbus-1/services/org.xfce.Xfconf.service
+%dir /usr/share/gir-1.0
+%dir /usr/share/gtk-doc
+%dir /usr/share/locale

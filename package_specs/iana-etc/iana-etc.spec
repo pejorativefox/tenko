@@ -1,5 +1,5 @@
 Name:       iana-etc
-Version:    20230810
+Version:    20261015
 Release:    1
 Summary:    Authoritative list of internet protocals
 License:    GPL3
@@ -24,5 +24,11 @@ cp services protocols %{buildroot}/etc
 /etc/services
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 20261015-1
+- Update to 20261015 (current LFS/BLFS r13.1 trunk version).
+
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 20260805
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 20230810
 - Version bump

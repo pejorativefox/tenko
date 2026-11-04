@@ -1,5 +1,7 @@
+%global _python_bytecompile_errors_terminate_build 0
+
 Name:       dbus
-Version:    1.14.8
+Version:    1.16.2
 Release:    1
 Summary:    D-BUS message bus
 License:    GPL3
@@ -13,21 +15,19 @@ D-BUS is a system for sending messages between applications.
 %setup
 
 %build
-%configure  --sysconfdir=/etc                    \
-            --localstatedir=/var                 \
-            --disable-doxygen-docs               \
-            --disable-xml-docs                   \
-            --disable-static                     \
-            --docdir=/usr/share/doc/dbus-1.14.8  \
-            --with-console-auth-dir=/run/console \
-            --with-system-pid-file=/run/dbus/pid \
-            --with-system-socket=/run/dbus/system_bus_socket
-%make_build
+mkdir -p build
+pushd build
+meson setup --prefix=/usr --buildtype=release --wrap-mode=nofallback -D selinux=disabled ..
+ninja -j%{_smp_build_ncpus}
+popd
 
-%install    
+%install
 rm -rf %{buildroot}
-%make_install
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 rm -vf %{buildroot}%{_infodir}/dir*
+sed -i 's|#!/usr/bin/env python$|#!/usr/bin/env python3|' %{buildroot}/usr/share/doc/dbus/examples/GetAllMatchRules.py
 
 %post
 mkdir -pv /var/lib/dbus
@@ -55,6 +55,9 @@ The DBUS daemon
 /usr/bin/dbus-update-activation-environment
 /usr/bin/dbus-uuidgen
 /usr/include/dbus-1.0/*
+/usr/lib/systemd/
+/usr/lib/sysusers.d/
+/usr/lib/tmpfiles.d/
 /usr/lib64/cmake/DBus1/DBus1Config.cmake
 /usr/lib64/cmake/DBus1/DBus1ConfigVersion.cmake
 /usr/lib64/dbus-1.0/include/dbus/dbus-arch-deps.h
@@ -62,7 +65,7 @@ The DBUS daemon
 /usr/libexec/dbus-daemon-launch-helper
 /usr/share/dbus-1/session.conf
 /usr/share/dbus-1/system.conf
-/usr/share/doc/dbus-%{version}/*
+/usr/share/doc/dbus/
 /usr/share/xml/dbus-1/busconfig.dtd
 /usr/share/xml/dbus-1/introspect.dtd
 /usr/share/xml/dbus-1/catalog.xml
@@ -83,9 +86,12 @@ This package contains libraries for accessing D-BUS.
 %files libs
 /usr/lib64/libdbus-1.so
 /usr/lib64/libdbus-1.so.3
-/usr/lib64/libdbus-1.so.3.32.3
+/usr/lib64/libdbus-1.so.3.38.3
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 1.16.2
+- Sync with LFS r13.1
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.14.8-1
 - Version bump
 

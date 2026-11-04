@@ -1,0 +1,16 @@
+%dir /usr/bin
+/usr/bin/cvt
+%dir /usr/include
+%dir /usr/include/libxcvt
+/usr/include/libxcvt/libxcvt.h
+/usr/include/libxcvt/libxcvt_mode.h
+%dir /usr/lib64
+/usr/lib64/libxcvt.so
+/usr/lib64/libxcvt.so.0
+/usr/lib64/libxcvt.so.0.1.3
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libxcvt.pc
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/cvt.1.gz

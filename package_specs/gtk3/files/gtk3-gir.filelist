@@ -1,0 +1,4 @@
+%dir /usr/lib64/girepository-1.0
+/usr/lib64/girepository-1.0/Gdk-3.0.typelib
+/usr/lib64/girepository-1.0/GdkX11-3.0.typelib
+/usr/lib64/girepository-1.0/Gtk-3.0.typelib

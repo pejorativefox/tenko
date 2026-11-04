@@ -1,6 +1,6 @@
 Name:       libwnck
-Version:    3.32.0
-Release:    1
+Version:    43.3
+Release:    3
 Summary:    Library to manage X windows and workspaces (via pagers, tasklists, etc.)
 License:    LGPL
 Source0:    %{name}-%{version}.tar.xz
@@ -11,13 +11,28 @@ Requires: startup-notification
 %description
 Library to manage X windows and workspaces (via pagers, tasklists, etc.)
 
+%package lang
+Summary:    libwnck translations
+Requires:   libwnck = %{version}-%{release}
+
+%description lang
+Translations for libwnck.
+
+%package devel
+Summary:    libwnck development files
+Requires:   %{name}-gir = %{version}-%{release}
+Requires:   libwnck = %{version}-%{release}
+
+%description devel
+Development files for libwnck.
+
 %prep
 %setup
 
 %build
 mkdir build
 pushd build
-meson --prefix=/usr ..
+meson setup .. --prefix=/usr --buildtype=release
 ninja
 popd
 
@@ -27,31 +42,32 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/bin/wnck-urgency-monitor
-/usr/bin/wnckprop
-/usr/include/libwnck-3.0/libwnck/application.h
-/usr/include/libwnck-3.0/libwnck/class-group.h
-/usr/include/libwnck-3.0/libwnck/libwnck.h
-/usr/include/libwnck-3.0/libwnck/pager.h
-/usr/include/libwnck-3.0/libwnck/screen.h
-/usr/include/libwnck-3.0/libwnck/selector.h
-/usr/include/libwnck-3.0/libwnck/tasklist.h
-/usr/include/libwnck-3.0/libwnck/util.h
-/usr/include/libwnck-3.0/libwnck/version.h
-/usr/include/libwnck-3.0/libwnck/window-action-menu.h
-/usr/include/libwnck-3.0/libwnck/window.h
-/usr/include/libwnck-3.0/libwnck/wnck-enum-types.h
-/usr/include/libwnck-3.0/libwnck/workspace.h
-/usr/share/gir-1.0/Wnck-3.0.gir
-/usr/share/locale/*
-/usr/lib64/girepository-1.0/Wnck-3.0.typelib
-/usr/lib64/libwnck-3.so
-/usr/lib64/libwnck-3.so.0
-/usr/lib64/libwnck-3.so.0.3.0
-/usr/lib64/pkgconfig/libwnck-3.0.pc
+
+%package gir
+Summary:    GObject Introspection data for libwnck
+License:    LGPL
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for libwnck, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
+%files -f %{_sourcedir}/libwnck.filelist
+%files lang -f %{_sourcedir}/libwnck-lang.filelist
+%files devel -f %{_sourcedir}/libwnck-devel.filelist
+%files gir -f %{_sourcedir}/libwnck-gir.filelist
+
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 43.3-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 43.3-2
+- Split lang, devel payload into libwnck-lang, libwnck-devel (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 43.1
+- Sync with BLFS r13.1 (3.32.0)
+
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 3.32.0
 - Initial RPM
 

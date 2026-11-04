@@ -1,5 +1,5 @@
 Name:       kmod
-Version:    30
+Version:    34.3
 Release:    1
 Summary:    Kernel module utilities
 License:    GPL3
@@ -9,20 +9,28 @@ Prefix:     /usr
 %description
 The Kmod package contains libraries and utilities for loading kernel modules 
 
+%package devel
+Summary:    kmod development files
+Requires:   kmod = %{version}-%{release}
+
+%description devel
+Development files for kmod.
+
 %prep
 %setup -q
 
 %build
-%configure  --with-openssl         \
-            --with-xz              \
-            --with-zstd            \
-            --with-zlib
-%make_build
+mkdir -p build
+pushd build
+meson setup --prefix=/usr --libdir=%{_libdir} -D manpages=false -D openssl=disabled ..
+ninja -j%{_smp_build_ncpus}
+popd
 
 %install
 rm -rf %{buildroot}
-%make_install
-rm -vf %{buildroot}%{_infodir}/dir*
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 
 mkdir -pv %{buildroot}/usr/sbin
 
@@ -32,32 +40,29 @@ done
 
 ln -sfv kmod %{buildroot}/usr/bin/lsmod
 
-%files
-/usr/bin/kmod
-/usr/bin/lsmod
-/usr/sbin/depmod
-/usr/sbin/insmod
-/usr/sbin/modinfo
-/usr/sbin/modprobe
-/usr/sbin/rmmod
-/usr/include/libkmod.h
-/usr/lib64/libkmod.so
-/usr/lib64/libkmod.so.2
-/usr/lib64/libkmod.so.2.4.0
-/usr/lib64/pkgconfig/libkmod.pc
-/usr/share/bash-completion/completions/kmod
-/usr/share/man/man5/depmod.d.5.gz
-/usr/share/man/man5/modprobe.d.5.gz
-/usr/share/man/man5/modules.dep.5.gz
-/usr/share/man/man5/modules.dep.bin.5.gz
-/usr/share/man/man8/depmod.8.gz
-/usr/share/man/man8/insmod.8.gz
-/usr/share/man/man8/kmod.8.gz
-/usr/share/man/man8/lsmod.8.gz
-/usr/share/man/man8/modinfo.8.gz
-/usr/share/man/man8/modprobe.8.gz
-/usr/share/man/man8/rmmod.8.gz
+# The kernel is built with CONFIG_MODPROBE_PATH="/usr/bin/modprobe" (from the
+# Fedora config).  Module autoloading for filesystems and socket families goes
+# through that path, so it must exist even though the utilities live in
+# /usr/sbin.
+ln -sfv kmod %{buildroot}/usr/bin/modprobe
+
+%files -f %{_sourcedir}/kmod.filelist
+%files devel -f %{_sourcedir}/kmod-devel.filelist
 
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 34.3-1
+- Update to 34.3 (current LFS/BLFS r13.1 trunk version).
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 34.2-3
+- Split devel payload into kmod-devel (size audit)
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 34.2-2
+- Install /usr/bin/modprobe.  The kernel's CONFIG_MODPROBE_PATH points there;
+  without it, request_module() autoloading fails (e.g. mounting
+  binfmt_misc), while an explicit "modprobe" still works.
+
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 34.2
+- Sync with LFS r13.1
+
 # let's skip this for now

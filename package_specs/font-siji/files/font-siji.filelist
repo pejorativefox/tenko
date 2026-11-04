@@ -1,0 +1,6 @@
+%dir /usr/share
+%dir /usr/share/fonts
+%dir /usr/share/fonts/siji
+/usr/share/fonts/siji/LICENSE
+/usr/share/fonts/siji/siji.bdf
+/usr/share/fonts/siji/siji.pcf

@@ -1,0 +1,35 @@
+%dir /etc/xdg
+%dir /etc/xdg/Xwayland-session.d
+%dir /etc/xdg/autostart
+%dir /usr/lib/systemd/user
+%dir /usr/lib64/gnome-settings-daemon-3.0
+%dir /usr/lib64/gnome-settings-daemon-3.0/gtk-modules
+%dir /usr/lib64/python3.15
+%dir /usr/lib64/python3.15/site-packages
+%dir /usr/lib64/python3.15/site-packages/gi
+%dir /usr/lib64/python3.15/site-packages/gi/overrides
+%dir /usr/lib64/python3.15/site-packages/gi/overrides/__pycache__
+%dir /usr/share/dbus-1
+%dir /usr/share/dbus-1/accessibility-services
+%dir /usr/share/dbus-1/services
+%dir /usr/share/defaults
+%dir /usr/share/defaults/at-spi2
+%dir /usr/share/gir-1.0
+%dir /usr/share/locale
+/etc/xdg/Xwayland-session.d/00-at-spi
+/etc/xdg/autostart/at-spi-dbus-bus.desktop
+/usr/lib/systemd/user/at-spi-dbus-bus.service
+/usr/lib64/gnome-settings-daemon-3.0/gtk-modules/at-spi2-atk.desktop
+/usr/lib64/libatk-1.0.so.0
+/usr/lib64/libatk-1.0.so.0.26210.1
+/usr/lib64/libatk-bridge-2.0.so.0
+/usr/lib64/libatk-bridge-2.0.so.0.0.0
+/usr/lib64/libatspi.so.0
+/usr/lib64/libatspi.so.0.0.1
+/usr/lib64/python3.15/site-packages/gi/overrides/Atspi.py
+/usr/lib64/python3.15/site-packages/gi/overrides/__pycache__/Atspi.cpython-315.pyc
+/usr/libexec/at-spi-bus-launcher
+/usr/libexec/at-spi2-registryd
+/usr/share/dbus-1/accessibility-services/org.a11y.atspi.Registry.service
+/usr/share/dbus-1/services/org.a11y.Bus.service
+/usr/share/defaults/at-spi2/accessibility.conf

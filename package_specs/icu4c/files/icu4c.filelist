@@ -1,0 +1,66 @@
+%dir /usr/bin
+%dir /usr/include
+%dir /usr/lib64
+%dir /usr/lib64/icu
+%dir /usr/lib64/icu/79.1
+%dir /usr/share
+%dir /usr/share/icu
+%dir /usr/share/icu/79.1
+%dir /usr/share/icu/79.1/config
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/man/man8
+/usr/bin/derb
+/usr/bin/escapesrc
+/usr/bin/genbrk
+/usr/bin/genccode
+/usr/bin/gencfu
+/usr/bin/gencmn
+/usr/bin/gencnval
+/usr/bin/gendict
+/usr/bin/gennorm2
+/usr/bin/genrb
+/usr/bin/gensprep
+/usr/bin/icu-config
+/usr/bin/icuexportdata
+/usr/bin/icuinfo
+/usr/bin/icupkg
+/usr/bin/makeconv
+/usr/bin/pkgdata
+/usr/bin/uconv
+/usr/lib64/icu/79.1/Makefile.inc
+/usr/lib64/icu/79.1/pkgdata.inc
+/usr/lib64/icu/Makefile.inc
+/usr/lib64/icu/current
+/usr/lib64/icu/pkgdata.inc
+/usr/lib64/libicudata.so.79
+/usr/lib64/libicudata.so.79.1
+/usr/lib64/libicui18n.so.79
+/usr/lib64/libicui18n.so.79.1
+/usr/lib64/libicuio.so.79
+/usr/lib64/libicuio.so.79.1
+/usr/lib64/libicutest.so.79
+/usr/lib64/libicutest.so.79.1
+/usr/lib64/libicutu.so.79
+/usr/lib64/libicutu.so.79.1
+/usr/lib64/libicuuc.so.79
+/usr/lib64/libicuuc.so.79.1
+/usr/share/icu/79.1/LICENSE
+/usr/share/icu/79.1/config/mh-linux
+/usr/share/icu/79.1/install-sh
+/usr/share/icu/79.1/mkinstalldirs
+/usr/share/man/man1/derb.1.gz
+/usr/share/man/man1/genbrk.1.gz
+/usr/share/man/man1/gencfu.1.gz
+/usr/share/man/man1/gencnval.1.gz
+/usr/share/man/man1/gendict.1.gz
+/usr/share/man/man1/genrb.1.gz
+/usr/share/man/man1/icu-config.1.gz
+/usr/share/man/man1/icuexportdata.1.gz
+/usr/share/man/man1/makeconv.1.gz
+/usr/share/man/man1/pkgdata.1.gz
+/usr/share/man/man1/uconv.1.gz
+/usr/share/man/man8/genccode.8.gz
+/usr/share/man/man8/gencmn.8.gz
+/usr/share/man/man8/gensprep.8.gz
+/usr/share/man/man8/icupkg.8.gz

@@ -1,0 +1,23 @@
+%dir /usr/share/gtk-doc/html
+%dir /usr/share/gtk-doc/html/xfconf
+/usr/share/gtk-doc/html/xfconf/annotation-glossary.html
+/usr/share/gtk-doc/html/xfconf/ch01.html
+/usr/share/gtk-doc/html/xfconf/ch02.html
+/usr/share/gtk-doc/html/xfconf/ch03.html
+/usr/share/gtk-doc/html/xfconf/ch04.html
+/usr/share/gtk-doc/html/xfconf/home.png
+/usr/share/gtk-doc/html/xfconf/index.html
+/usr/share/gtk-doc/html/xfconf/left-insensitive.png
+/usr/share/gtk-doc/html/xfconf/left.png
+/usr/share/gtk-doc/html/xfconf/right-insensitive.png
+/usr/share/gtk-doc/html/xfconf/right.png
+/usr/share/gtk-doc/html/xfconf/style.css
+/usr/share/gtk-doc/html/xfconf/up-insensitive.png
+/usr/share/gtk-doc/html/xfconf/up.png
+/usr/share/gtk-doc/html/xfconf/xfconf-Error-Reporting.html
+/usr/share/gtk-doc/html/xfconf/xfconf-Xfconf-Backend.html
+/usr/share/gtk-doc/html/xfconf/xfconf-Xfconf-Channel.html
+/usr/share/gtk-doc/html/xfconf/xfconf-Xfconf-GObject-Binding.html
+/usr/share/gtk-doc/html/xfconf/xfconf-Xfconf-Library-Core.html
+/usr/share/gtk-doc/html/xfconf/xfconf-Xfconf-Types.html
+/usr/share/gtk-doc/html/xfconf/xfconf.devhelp2

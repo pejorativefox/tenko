@@ -1,0 +1,4 @@
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libxkbfile.so.1
+/usr/lib64/libxkbfile.so.1.0.2

@@ -13,6 +13,8 @@ Library for arbitrary precision arithmetic
 %setup -q 
 
 %build
+# gcc-15+ compatibility (LFS r13.1)
+sed -i '/long long t1;/,+1s/()/(...)/' configure
 %configure --enable-cxx --disable-static --docdir=/usr/share/doc/gmp-%{version}
 %make_build
 

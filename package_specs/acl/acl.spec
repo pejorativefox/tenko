@@ -1,5 +1,5 @@
 Name:       acl
-Version:    2.3.1
+Version:    2.4.0
 Release:    1
 Summary:    Linux access control lists.
 License:    LGPL
@@ -31,13 +31,16 @@ rm -rf %{buildroot}
 /usr/include/sys/acl.h
 /usr/lib64/libacl.so
 /usr/lib64/libacl.so.1
-/usr/lib64/libacl.so.1.1.2301
+/usr/lib64/libacl.so.1.2.2400
 /usr/lib64/pkgconfig/libacl.pc
 /usr/share/doc/acl-%{version}/
 /usr/share/locale/
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 2.4.0
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump
 

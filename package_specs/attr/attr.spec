@@ -1,5 +1,5 @@
 Name:       attr
-Version:    2.5.1
+Version:    2.6.0
 Release:    1
 Summary:    Commands for Manipulating Filesystem Extended Attributes
 License:    GPL3
@@ -33,13 +33,16 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/attr/libattr.h
 /usr/lib64/libattr.so
 /usr/lib64/libattr.so.1
-/usr/lib64/libattr.so.1.1.2501
+/usr/lib64/libattr.so.1.1.2600
 /usr/lib64/pkgconfig/libattr.pc
 /usr/share/doc/
 /usr/share/locale/
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 2.6.0
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump
 

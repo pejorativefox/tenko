@@ -1,0 +1,4 @@
+/usr/bin/sed
+/usr/share/info/sed.info.gz
+%dir /usr/share/locale
+/usr/share/man/man1/sed.1.gz

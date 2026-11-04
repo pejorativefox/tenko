@@ -1,18 +1,22 @@
 Name:       xlsatoms
-Version:    1.1.2
+Version:    1.1.5
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    List interned X atoms
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    xlsatoms-1.1.5.tar.xz
 
 
 
 %description
-TODO
+List interned X atoms.
+
+xlsatoms is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure 
@@ -23,10 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xlsatoms
-/usr/share/man/man1/xlsatoms.1.gz
-
+%files -f %{_sourcedir}/xlsatoms.filelist
 %changelog
 # let's skip this for now
 

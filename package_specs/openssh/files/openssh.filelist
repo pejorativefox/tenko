@@ -1,0 +1,63 @@
+%dir /etc/pam.d
+%dir /etc/ssh
+%dir /etc/ssh/sshd_config.d
+%dir /usr/lib/systemd/system
+%dir /usr/lib/systemd/system-preset
+%dir /usr/lib/sysusers.d
+%dir /usr/lib/tmpfiles.d
+%dir /usr/share/doc
+%dir /usr/share/doc/openssh-10.6p1
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/man/man5
+%dir /usr/share/man/man8
+%dir /var/lib/sshd
+/etc/pam.d/sshd
+/etc/ssh/moduli
+/etc/ssh/ssh_config
+/etc/ssh/sshd_config
+/usr/bin/scp
+/usr/bin/sftp
+/usr/bin/ssh
+/usr/bin/ssh-add
+/usr/bin/ssh-agent
+/usr/bin/ssh-copy-id
+/usr/bin/ssh-gen-host-keys
+/usr/bin/ssh-keygen
+/usr/bin/ssh-keyscan
+/usr/lib/systemd/system-preset/90-openssh.preset
+/usr/lib/systemd/system/sshd-keygen.service
+/usr/lib/systemd/system/sshd.service
+/usr/lib/sysusers.d/openssh.conf
+/usr/lib/tmpfiles.d/openssh.conf
+/usr/libexec/sftp-server
+/usr/libexec/ssh-keysign
+/usr/libexec/ssh-pkcs11-helper
+/usr/libexec/ssh-sk-helper
+/usr/libexec/sshd-auth
+/usr/libexec/sshd-session
+/usr/sbin/sshd
+/usr/share/doc/openssh-10.6p1/INSTALL
+/usr/share/doc/openssh-10.6p1/LICENCE
+/usr/share/doc/openssh-10.6p1/OVERVIEW
+/usr/share/doc/openssh-10.6p1/README
+/usr/share/doc/openssh-10.6p1/README.dns
+/usr/share/doc/openssh-10.6p1/README.md
+/usr/share/doc/openssh-10.6p1/README.platform
+/usr/share/doc/openssh-10.6p1/README.privsep
+/usr/share/man/man1/scp.1.gz
+/usr/share/man/man1/sftp.1.gz
+/usr/share/man/man1/ssh-add.1.gz
+/usr/share/man/man1/ssh-agent.1.gz
+/usr/share/man/man1/ssh-copy-id.1.gz
+/usr/share/man/man1/ssh-keygen.1.gz
+/usr/share/man/man1/ssh-keyscan.1.gz
+/usr/share/man/man1/ssh.1.gz
+/usr/share/man/man5/moduli.5.gz
+/usr/share/man/man5/ssh_config.5.gz
+/usr/share/man/man5/sshd_config.5.gz
+/usr/share/man/man8/sftp-server.8.gz
+/usr/share/man/man8/ssh-keysign.8.gz
+/usr/share/man/man8/ssh-pkcs11-helper.8.gz
+/usr/share/man/man8/ssh-sk-helper.8.gz
+/usr/share/man/man8/sshd.8.gz

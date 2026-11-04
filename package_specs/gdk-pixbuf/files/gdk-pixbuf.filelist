@@ -1,0 +1,12 @@
+%dir /usr/bin
+/usr/bin/gdk-pixbuf-csource
+/usr/bin/gdk-pixbuf-pixdata
+/usr/bin/gdk-pixbuf-query-loaders
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libgdk_pixbuf-2.0.so.0
+/usr/lib64/libgdk_pixbuf-2.0.so.0.4400.8
+%dir /usr/libexec
+%dir /usr/share
+%dir /usr/share/gir-1.0
+%dir /usr/share/locale

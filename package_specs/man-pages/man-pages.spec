@@ -1,5 +1,5 @@
 Name:       man-pages
-Version:    6.05.01
+Version:    6.20
 Release:    1
 Summary:    The Linux man-pages
 License:    Various
@@ -17,12 +17,29 @@ rm -v man3/crypt*
 
 %install
 rm -rf %{buildroot}
-%make_install prefix=/usr
+make -R install DESTDIR=%{buildroot} prefix=/usr GIT=false
 
 %files
+/usr/bin/diffman-git
+/usr/bin/git-bisect-rebase
+/usr/bin/git-bisect-rebase--callback
+/usr/bin/git-bisect-rebase--continue
+/usr/bin/grepc
+/usr/bin/grepc_c
+/usr/bin/grepc_mk
+/usr/bin/mansect
+/usr/bin/mansectf
+/usr/bin/pdfman
+/usr/bin/sortman
 /usr/share/man
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 6.20-1
+- Update to 6.20 (current LFS/BLFS r13.1 trunk version).
+
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 6.18
+- Sync with LFS r13.1
+
 * Tue Jun 13 2023 Chris Statzer <chris.statzer@gmail.com> 3.30.1
 - Initial RPM
 

@@ -1,0 +1,7 @@
+%dir /usr/bin
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/bin/xkeystone
+/usr/bin/xrandr
+/usr/share/man/man1/xrandr.1.gz

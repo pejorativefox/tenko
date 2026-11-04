@@ -1,0 +1,8 @@
+%dir /usr/bin
+/usr/bin/notify-send
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libnotify.so.4
+/usr/lib64/libnotify.so.4.0.0
+%dir /usr/share
+%dir /usr/share/gir-1.0

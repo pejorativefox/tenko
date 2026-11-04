@@ -1,47 +1,38 @@
 Name:       font-bh-ttf
-Version:    1.0.3
-Release:    1
-Summary:    TODO
-License:    GPL3
+Version:    1.0.4
+Release:    2
+Summary:    Bigelow & Holmes TrueType fonts
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
-
-
+Source0:    font-bh-ttf-1.0.4.tar.xz
 
 %description
-TODO
+The Bigelow & Holmes Luxi TrueType fonts (Bitstream Vera family).
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
-%configure 
+%configure --with-fontrootdir=/usr/share/fonts
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
-rm -rf %{buildroot}/usr/share/fonts/X11/TTF/fonts.dir
-rm -rf %{buildroot}/usr/share/fonts/X11/TTF/fonts.scale
 
-%files
-/etc/fonts/conf.avail/42-luxi-mono.conf
-/etc/fonts/conf.d/42-luxi-mono.conf
-/usr/share/fonts/X11/TTF/luximb.ttf
-/usr/share/fonts/X11/TTF/luximbi.ttf
-/usr/share/fonts/X11/TTF/luximr.ttf
-/usr/share/fonts/X11/TTF/luximri.ttf
-/usr/share/fonts/X11/TTF/luxirb.ttf
-/usr/share/fonts/X11/TTF/luxirbi.ttf
-/usr/share/fonts/X11/TTF/luxirr.ttf
-/usr/share/fonts/X11/TTF/luxirri.ttf
-/usr/share/fonts/X11/TTF/luxisb.ttf
-/usr/share/fonts/X11/TTF/luxisbi.ttf
-/usr/share/fonts/X11/TTF/luxisr.ttf
-/usr/share/fonts/X11/TTF/luxisri.ttf
-
+%files -f %{_sourcedir}/font-bh-ttf.filelist
 
 %changelog
-# let's skip this for now
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.0.4-2
+- Rebuild: the published metadata still described the earlier
+  build of this NEVRA, so dnf rejected the server file on a
+  size/checksum mismatch.  Same content, new release.
 
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.0.4
+- Sync with BLFS r13.1 (font-bh-ttf 1.0.4)
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.0.4
+- Sync with BLFS r13.1 (font-bh-ttf 1.0.4)
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.0.4-1
+- Initial package (BLFS r13.1)

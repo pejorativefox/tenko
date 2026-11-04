@@ -1,5 +1,5 @@
 Name:       libevent
-Version:    2.1.12
+Version:    2.1.13
 Release:    1
 Summary:    Provides callback functions for file descriptors.
 License:    BSD
@@ -26,6 +26,9 @@ rm -rf %{buildroot}
 /usr/bin/event_rpcgen.py
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.1.13-1
+- Sync with BLFS r13.1
+
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 2.1.12
 - Initial RPM
 

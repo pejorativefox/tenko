@@ -1,58 +1,68 @@
 Name:       xorg-server
-Version:    21.1.8
+Version:    21.1.25
 Release:    1
-Summary:    Xorg server
-License:    GPL3
+Summary:    Xorg X11 server
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
-BuildRequires: libx11, mesa, pixman, libdrm, libxfont2, libxkbfile, xtrans
-BuildRequires: libepoxy, libxcvt
+BuildRequires: libx11, pixman, libdrm, libxkbfile, xtrans
+BuildRequires: libepoxy, libxcvt, libtirpc, font-util
+Requires:   xkbcomp
+Requires:   xkeyboard-config
+Requires:   xf86-input-libinput
 
 %description
-Xorg server
+The Xorg X11 server, built X11-only with glamor and the setuid wrapper
+(no systemd-logind session tracking).
+
+%package devel
+Summary:    xorg-server development files
+Requires:   xorg-server = %{version}-%{release}
+
+%description devel
+Development files for xorg-server.
 
 %prep
 %setup -q
 
 %build
-%configure --enable-glamor          \
-           --enable-install-setuid  \
-           --enable-suid-wrapper    \
-           --disable-systemd-logind \
-           --with-xkb-output=/var/lib/xkb
-%make_build
+mkdir build
+pushd build
+meson setup .. --prefix=/usr --localstatedir=/var --buildtype=release \
+      -Dglamor=true        \
+      -Dglx=true           \
+      -Ddri3=true          \
+      -Dsystemd_logind=false \
+      -Dsuid_wrapper=true  \
+      -Dxkb_output_dir=/var/lib/xkb
+ninja
+popd
 
-%install    
+%install
 rm -rf %{buildroot}
-%make_install
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 rm -vf %{buildroot}%{_infodir}/dir*
-mkdir -pv %{buildroot}/etc/X11/xorg.conf.d &&
-mkdir -pv %{buildroot}/etc/sysconfig
-cat >> %{buildroot}/etc/sysconfig/createfiles << "EOF"
+mkdir -pv %{buildroot}/etc/X11/xorg.conf.d %{buildroot}/etc/sysconfig
+cat > %{buildroot}/etc/sysconfig/createfiles << 'EOF'
 /tmp/.ICE-unix dir 1777 root root
 /tmp/.X11-unix dir 1777 root root
 EOF
-rm %{buildroot}/var/lib/xkb/README.compiled
+rm -f %{buildroot}/var/lib/xkb/README.compiled
 
-%files
-/etc/sysconfig/createfiles
-/usr/bin/X
-/usr/bin/Xnest
-/usr/bin/Xorg
-/usr/bin/Xvfb
-/usr/bin/gtf
-/usr/include/xorg/
-/usr/lib64/pkgconfig/xorg-server.pc
-/usr/lib64/xorg/modules/
-/usr/lib64/xorg/protocol.txt
-/usr/libexec/Xorg
-/usr/libexec/Xorg.wrap
-/usr/share/X11/xorg.conf.d/10-quirks.conf
-/usr/share/aclocal/xorg-server.m4
-/usr/share/man/
+%files -f %{_sourcedir}/xorg-server.filelist
+%files devel -f %{_sourcedir}/xorg-server-devel.filelist
+
 
 %changelog
-* Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 21.1.8-1
-- Version bump
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 21.1.25-1
+- Update to 21.1.25 (BLFS trunk).
+- Drop the -Wl,-rpath-link,/usr/lib workaround: llvm-libs 23.1.0-3 installs
+  into /usr/lib64, so libgallium's libLLVM dependency resolves normally.
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 21.1.24-2
+- Split devel payload into xorg-server-devel (size audit)
 
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 21.1.24-1
+- Sync with BLFS r13.1 (meson build)

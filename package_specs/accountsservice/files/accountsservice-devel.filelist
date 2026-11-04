@@ -1,0 +1,11 @@
+%dir /usr/include/accountsservice-1.0
+%dir /usr/include/accountsservice-1.0/act
+%dir /usr/lib64/pkgconfig
+%dir /usr/share/gir-1.0
+/usr/include/accountsservice-1.0/act/act-user-enum-types.h
+/usr/include/accountsservice-1.0/act/act-user-manager.h
+/usr/include/accountsservice-1.0/act/act-user.h
+/usr/include/accountsservice-1.0/act/act.h
+/usr/lib64/libaccountsservice.so
+/usr/lib64/pkgconfig/accountsservice.pc
+/usr/share/gir-1.0/AccountsService-1.0.gir

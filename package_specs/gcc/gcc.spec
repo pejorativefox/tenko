@@ -1,10 +1,13 @@
 Name:       gcc
-Version:    13.2.0
-Release:    2
+Version:    16.2.0
+Release:    4
 Summary:    The GNU Compiler Collection
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+Requires:   gcc-libs = %{version}-%{release}
+Recommends: gcc-devel = %{version}-%{release}
+Recommends: gcc-lto = %{version}-%{release}
 
 
 %description
@@ -16,6 +19,9 @@ The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran
 
 
 %build
+export CFLAGS="-O2 -g"
+export CXXFLAGS="-O2 -g"
+export LDFLAGS=""
 case $(uname -m) in
   x86_64)
     sed -e '/m64=/s/lib64/lib/' \
@@ -33,6 +39,8 @@ pushd build
              --enable-languages=c,c++ \
              --enable-default-pie     \
              --enable-default-ssp     \
+             --enable-host-pie        \
+             --enable-targets=all     \
              --disable-multilib       \
              --disable-bootstrap      \
              --disable-fixincludes    \
@@ -51,37 +59,76 @@ rm -vf %{buildroot}%{_infodir}/dir*
 ln -sfv gcc %{buildroot}/usr/bin/cc
 
 
-%package -n libstdc++
-Summary: The GNU Standard C++ Library v3
-%description -n libstdc++
-The GNU Standard C++ Library v3 is an ongoing project to implement the ISO 14882 C++ Standard Library as described in clauses 20 through 33 and annex D (prior to the 2017 standard the library clauses started with 17).
+%package libs
+Summary:    GCC runtime libraries
+License:    GPL3
 
-%files -n libstdc++
-/usr/lib64/libstdc++.a
-/usr/lib64/libstdc++.so
-/usr/lib64/libstdc++.so.6
-/usr/lib64/libstdc++.so.6.0.32
-/usr/lib64/libstdc++.so.6.0.32-gdb.py
-/usr/lib64/libstdc++fs.a
-/usr/lib64/libstdc++exp.a
-/usr/share/gcc-13.2.0/python/libstdcxx/__init__.py
-/usr/share/gcc-13.2.0/python/libstdcxx/v6/__init__.py
-/usr/share/gcc-13.2.0/python/libstdcxx/v6/printers.py
-/usr/share/gcc-13.2.0/python/libstdcxx/v6/xmethods.py
+%description libs
+The GCC runtime support libraries: libgcc_s, libstdc++, libatomic, libgomp,
+libquadmath, libitm, libasan, libhwasan, liblsan, libtsan, libubsan, libssp
+and libcc1.  The compiler in gcc requires this package; runtime-only installs
+can use it without pulling the compiler.
 
-%package -n libgcc
-Summary: GCC low-level runtime library
-Provides: libgcc_s.so.1()(64bit), libgcc_s.so.1(GCC_3.0)(64bit), libgcc_s.so.1(GCC_3.3)(64bit), libgcc_s.so.1(GCC_4.2.0)(64bit), libgcc_s.so.1(GCC_3.4)(64bit), libgcc_s.so.1(GCC_3.3.1)(64bit), libgcc_s.so.1(GCC_4.7.0)(64bit)
-%description -n libgcc
-The GCC low-level runtime library
+%package lto
+Summary:    GCC link-time optimization support
+License:    GPL3
+Requires:   gcc = %{version}-%{release}
 
-%files -n libgcc
-/usr/lib64/libgcc_s.so
-/usr/lib64/libgcc_s.so.1
+%description lto
+The GCC LTO backend (lto1), the linker wrapper and lto-dump.  Install this
+package to link with -flto.  The small liblto_plugin.so stays in the gcc
+package because gcc-ar, gcc-nm and gcc-ranlib pass it for ordinary
+(non-LTO) archives too.
 
-%files -f ../../SOURCES/gcc.filelist
+%package devel
+Summary:    GCC development headers, static libraries and linker files
+License:    GPL3
+Requires:   gcc = %{version}-%{release}
+Requires:   gcc-libs = %{version}-%{release}
+
+%description devel
+The C++ and GCC-internal headers, plugin headers, static archives,
+unversioned linker stubs (.so), linker specs, and the libstdc++ pretty
+printers.  A compiler install needs this package to build and link normal
+programs; the gcc package alone has the drivers and front ends only.
+
+%package lang
+Summary:    GCC translations
+License:    GPL3
+Supplements: gcc = %{version}-%{release}
+
+%description lang
+Translations for the GCC driver, cpplib and libstdc++ messages.
+
+%package doc
+Summary:    GCC documentation
+License:    GPL3
+Supplements: gcc = %{version}-%{release}
+
+%description doc
+Info and man pages for GCC, cpp, gcov, libgomp, libitm and libquadmath.
+
+%files -f %{_sourcedir}/gcc.filelist
+%files libs -f %{_sourcedir}/gcc-libs.filelist
+%files lto -f %{_sourcedir}/gcc-lto.filelist
+%files devel -f %{_sourcedir}/gcc-devel.filelist
+%files lang -f %{_sourcedir}/gcc-lang.filelist
+%files doc -f %{_sourcedir}/gcc-doc.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 16.2.0-4
+- Split LTO, development files, translations and documentation out of gcc
+  (packaging only; versions unchanged)
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 16.2.0-3
+- Split the runtime libraries into gcc-libs; gcc requires it (size audit P0)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 16.2.0
+- Replace directory globs with a generated static filelist
+
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 16.2.0
+- Sync with LFS r13.1
+
 * Sun Sep 3 2023 Chris Statzer <chris.statzer@gmail.com> 13.2.0
 - Version bump
 

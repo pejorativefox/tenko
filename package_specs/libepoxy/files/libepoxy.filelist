@@ -1,0 +1,4 @@
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libepoxy.so.0
+/usr/lib64/libepoxy.so.0.0.0

@@ -1,6 +1,6 @@
 Name:       libxt
-Version:    1.3.0
-Release:    1
+Version:    1.3.1
+Release:    2
 Summary:    X Toolkit Intrinsics library
 License:    GPL3
 Prefix:     /usr
@@ -10,6 +10,27 @@ BuildRequires: libsm
 
 %description
 X Toolkit Intrinsics library
+
+%package devel
+Summary:    libxt development files
+Requires:   libxt = %{version}-%{release}
+
+%description devel
+Development files for libxt.
+
+%package doc
+Summary:    libxt documentation
+Requires:   libxt = %{version}-%{release}
+
+%description doc
+Documentation for libxt.
+
+%package static
+Summary:    libxt static libraries
+Requires:   libxt = %{version}-%{release}
+
+%description static
+Static libraries for libxt.
 
 %prep
 %setup -q -n libXt-%{version}
@@ -24,48 +45,15 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/CallbackI.h
-/usr/include/X11/Composite.h
-/usr/include/X11/CompositeP.h
-/usr/include/X11/ConstrainP.h
-/usr/include/X11/Constraint.h
-/usr/include/X11/ConvertI.h
-/usr/include/X11/Core.h
-/usr/include/X11/CoreP.h
-/usr/include/X11/CreateI.h
-/usr/include/X11/EventI.h
-/usr/include/X11/HookObjI.h
-/usr/include/X11/InitialI.h
-/usr/include/X11/Intrinsic.h
-/usr/include/X11/IntrinsicI.h
-/usr/include/X11/IntrinsicP.h
-/usr/include/X11/Object.h
-/usr/include/X11/ObjectP.h
-/usr/include/X11/PassivGraI.h
-/usr/include/X11/RectObj.h
-/usr/include/X11/RectObjP.h
-/usr/include/X11/ResConfigP.h
-/usr/include/X11/ResourceI.h
-/usr/include/X11/SelectionI.h
-/usr/include/X11/Shell.h
-/usr/include/X11/ShellI.h
-/usr/include/X11/ShellP.h
-/usr/include/X11/StringDefs.h
-/usr/include/X11/ThreadsI.h
-/usr/include/X11/TranslateI.h
-/usr/include/X11/VarargsI.h
-/usr/include/X11/Vendor.h
-/usr/include/X11/VendorP.h
-/usr/include/X11/Xtos.h
-/usr/lib64/libXt.a
-/usr/lib64/libXt.so
-/usr/lib64/libXt.so.6
-/usr/lib64/libXt.so.6.0.0
-/usr/lib64/pkgconfig/xt.pc
-/usr/share/doc/
-/usr/share/man/
+%files -f %{_sourcedir}/libxt.filelist
+%files devel -f %{_sourcedir}/libxt-devel.filelist
+%files doc -f %{_sourcedir}/libxt-doc.filelist
+%files static -f %{_sourcedir}/libxt-static.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.3.1-2
+- Split devel, doc, static payload into libxt-devel, libxt-doc, libxt-static (size audit)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.3.0-1
 - Version bump

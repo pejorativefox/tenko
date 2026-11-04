@@ -1,10 +1,10 @@
 Name:       xmodmap
-Version:    1.0.9
+Version:    1.0.12
 Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    %{name}-%{version}.tar.xz
 
 
 
@@ -18,14 +18,13 @@ TODO
 %configure 
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xmodmap
-/usr/share/man/man1/xmodmap.1.gz
+%files -f %{_sourcedir}/xmodmap.filelist
 
 %changelog
 # let's skip this for now

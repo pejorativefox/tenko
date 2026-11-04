@@ -1,0 +1,6 @@
+%dir /usr/bin
+/usr/bin/xhost
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/xhost.1.gz

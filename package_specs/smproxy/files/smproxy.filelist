@@ -1,0 +1,6 @@
+%dir /usr/bin
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/bin/smproxy
+/usr/share/man/man1/smproxy.1.gz

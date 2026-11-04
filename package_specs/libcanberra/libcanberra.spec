@@ -1,6 +1,6 @@
 Name:       libcanberra
 Version:    0.30
-Release:    1
+Release:    2
 Summary:    libcanberra is an implementation of the XDG Sound Theme and Name Specifications
 License:    GPL
 Source0:    %{name}-%{version}.tar.xz
@@ -9,47 +9,32 @@ Prefix:     /usr
 %description
 libcanberra is an implementation of the XDG Sound Theme and Name Specifications
 
+%package devel
+Summary:    libcanberra development files
+Requires:   libcanberra = %{version}-%{release}
+
+%description devel
+Development files for libcanberra.
+
 %prep
 %setup
 
 %build
-%configure
+%configure --disable-oss
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/bin/canberra-boot
-/usr/bin/canberra-gtk-play
-/usr/include/canberra-gtk.h
-/usr/include/canberra.h
-/usr/lib64/gnome-settings-daemon-3.0/gtk-modules/canberra-gtk-module.desktop
-/usr/lib64/gtk-3.0/modules/libcanberra-gtk-module.so
-/usr/lib64/gtk-3.0/modules/libcanberra-gtk3-module.so
-/usr/lib64/libcanberra-0.30/libcanberra-alsa.so
-/usr/lib64/libcanberra-0.30/libcanberra-multi.so
-/usr/lib64/libcanberra-0.30/libcanberra-null.so
-/usr/lib64/libcanberra-0.30/libcanberra-oss.so
-/usr/lib64/libcanberra-0.30/libcanberra-pulse.so
-/usr/lib64/libcanberra-gtk3.so
-/usr/lib64/libcanberra-gtk3.so.0
-/usr/lib64/libcanberra-gtk3.so.0.1.9
-/usr/lib64/libcanberra.so
-/usr/lib64/libcanberra.so.0
-/usr/lib64/libcanberra.so.0.2.5
-/usr/lib64/pkgconfig/libcanberra-gtk3.pc
-/usr/lib64/pkgconfig/libcanberra.pc
-/usr/share/doc/libcanberra/README
-/usr/share/gdm/autostart/LoginWindow/libcanberra-ready-sound.desktop
-/usr/share/gnome/autostart/libcanberra-login-sound.desktop
-/usr/share/gnome/shutdown/libcanberra-logout-sound.sh
-/usr/share/gtk-doc/html/libcanberra/
-/usr/share/vala/vapi/libcanberra-gtk.vapi
-/usr/share/vala/vapi/libcanberra.vapi
+%files -f %{_sourcedir}/libcanberra.filelist
+%files devel -f %{_sourcedir}/libcanberra-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 0.30-2
+- Split devel payload into libcanberra-devel (size audit)
+
 * Sun May 17 2020 Chris Statzer <chris.statzer@qq.com> 0.30
 - Initial RPM
 

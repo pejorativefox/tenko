@@ -1,0 +1,8 @@
+%dir /usr/include
+/usr/include/pciaccess.h
+%dir /usr/lib64
+/usr/lib64/libpciaccess.so
+/usr/lib64/libpciaccess.so.0
+/usr/lib64/libpciaccess.so.0.11.1
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/pciaccess.pc

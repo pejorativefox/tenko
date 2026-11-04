@@ -1,34 +1,34 @@
 Name:       libpciaccess
-Version:    0.17
+Version:    0.19
 Release:    1
-Summary:    Generic PCI access library.
-License:    GPL3
+Summary:    X.org PCI access library
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.xz
+Source0:    libpciaccess-0.19.tar.xz
 
 %description
-Generic PCI access library.
+libpciaccess provides a portable interface to PCI devices.
 
 %prep
 %setup -q
 
 %build
-%configure 
-%make_build
+mkdir build
+pushd build
+meson setup .. --prefix=/usr --buildtype=release
+ninja
+popd
 
-%install    
+%install
 rm -rf %{buildroot}
-%make_install
+mkdir -p %{buildroot}/etc
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/pciaccess.h
-/usr/lib64/libpciaccess.a
-/usr/lib64/libpciaccess.so
-/usr/lib64/libpciaccess.so.0
-/usr/lib64/libpciaccess.so.0.11.1
-/usr/lib64/pkgconfig/pciaccess.pc
+%files -f %{_sourcedir}/libpciaccess.filelist
 
 %changelog
-* Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 0.17-1
-- Version bump
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 0.19-1
+- Initial package (BLFS r13.1)

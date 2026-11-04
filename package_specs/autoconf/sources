@@ -1,1 +1,6 @@
-12cfa1687ffa2606337efe1a64416106 https://ftp.gnu.org/gnu/autoconf/autoconf-2.71.tar.xz
+9cbad9a116ef845bafeed8e7bc771bf4 https://ftpmirror.gnu.org/autoconf/autoconf-2.73.tar.xz
+# autoconf213 is archive-only in BLFS and is not built by this distro.  Its
+# %prep patch, autoconf-2.13-consolidated_fixes-1.patch, is no longer served
+# (404 under patches/blfs/13.1), so it cannot be listed here; the 2.13 tarball
+# is recorded for completeness.
+9de56d4a161a723228220b0f425dc711 https://ftp.gnu.org/gnu/autoconf/autoconf-2.13.tar.gz

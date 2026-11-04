@@ -1,5 +1,5 @@
 Name:       npth
-Version:    1.6
+Version:    1.8
 Release:    1
 Summary:    POSIX/ANSI-C Scheduling library
 License:    GPL
@@ -21,15 +21,17 @@ rm -rf %{buildroot}
 %make_install
 
 %files
-/usr/bin/npth-config
 /usr/include/npth.h
-/usr/lib64/libnpth.la
 /usr/lib64/libnpth.so
 /usr/lib64/libnpth.so.0
-/usr/lib64/libnpth.so.0.1.2
+/usr/lib64/libnpth.so.0.3.0
+/usr/lib64/pkgconfig/npth.pc
 /usr/share/aclocal/npth.m4
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.8-1
+- Sync with BLFS r13.1
+
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.6
 - Initial RPM
 

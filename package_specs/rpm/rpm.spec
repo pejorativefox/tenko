@@ -1,66 +1,90 @@
 Name:       rpm
 Version:    4.18.1
-Release:    1
+Release:    6
 Summary:    RPM package manager
 License:    GPL3
 Source0:    %{name}-%{version}.tar.bz2
+Patch0:     rpm-4.18.1-sqlite-global-log.patch
 Prefix:     /usr
 
 %description
 Programs to manage, build and install using the RPM package format.
 
+%package -n python3-rpm
+Summary:    Python bindings for the RPM package manager
+Requires:   %{name} = %{version}-%{release}
+
+%description -n python3-rpm
+The rpm Python module allows Python programs (notably dnf) to query the
+RPM database and run transactions through librpm.
+
+%package devel
+Summary:    rpm development files
+Requires:   rpm = %{version}-%{release}
+
+%description devel
+Development files for rpm.
+
 %prep
 %setup -q
+%patch 0 -p1
 
 %build
-export PYTHON=/bin/python3.11
-%configure --without-lua --enable-python --localstatedir=/var/
+export ac_cv_header_elfutils_libdwelf_h=no
+%configure --without-lua \
+           --enable-python \
+           --without-selinux \
+           --without-cap \
+           --without-acl \
+           --without-readline \
+           --disable-plugins \
+           --disable-nls \
+           --enable-libelf=yes \
+           --enable-sqlite=yes \
+           --with-crypto=openssl
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
+rmdir %{buildroot}/var/tmp 2>/dev/null || true
+rmdir %{buildroot}/var 2>/dev/null || true
 
-%files
-/usr/bin/gendiff
-/usr/bin/rpm
-/usr/bin/rpm2archive
-/usr/bin/rpm2cpio
-/usr/bin/rpmbuild
-/usr/bin/rpmdb
-/usr/bin/rpmgraph
-/usr/bin/rpmkeys
-/usr/bin/rpmquery
-/usr/bin/rpmsign
-/usr/bin/rpmspec
-/usr/bin/rpmverify
-/usr/bin/rpmlua
-/usr/lib64/python3.11/site-packages/rpm-4.18.1-py3.11.egg-info
-/usr/lib64/python3.11/site-packages/rpm/__init__.py
-/usr/lib64/python3.11/site-packages/rpm/_rpm.so
-/usr/lib64/python3.11/site-packages/rpm/transaction.py
-/usr/lib64/librpm.so
-/usr/lib64/librpm.so.9
-/usr/lib64/librpm.so.9.4.0
-/usr/lib64/librpmbuild.so
-/usr/lib64/librpmbuild.so.9
-/usr/lib64/librpmbuild.so.9.4.0
-/usr/lib64/librpmio.so
-/usr/lib64/librpmio.so.9
-/usr/lib64/librpmio.so.9.4.0
-/usr/lib64/librpmsign.so
-/usr/lib64/librpmsign.so.9
-/usr/lib64/librpmsign.so.9.4.0
-/usr/lib64/pkgconfig/rpm.pc
-/usr/include/rpm/
-/usr/lib/rpm/
-/usr/lib64/rpm-plugins/
-/usr/share/locale/
+# The Python bindings are their own subpackage: rpm.filelist must not list
+# these paths or rpmbuild fails with "File listed twice".
+%files -f %{_sourcedir}/rpm.filelist
+%files -n python3-rpm -f %{_sourcedir}/rpm-python.filelist
+%files devel -f %{_sourcedir}/rpm-devel.filelist
+
 
 %changelog
-* Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 4.18.1-1
-- Version bump
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 4.18.1-6
+- Backport upstream d018e756b72c ("Don't muck with per-process global
+  sqlite configuration from the db backend"): drop the process-global
+  SQLITE_CONFIG_LOG handler that kept a stale rpmdb pointer.  Once the
+  rpmdb had been closed, the next sqlite log message from any other
+  connection in the process (libdnf's history.sqlite) reached rpmlog()
+  with freed memory in rdb->db_descr and crashed inside vsnprintf.
+  This is what made `dnf list installed`, `dnf info` and `dnf history`
+  segfault.
 
-* Wed May 20 2020 Chris Statzer <chris.statzer@qq.com> 4.14.2.1-2
-- Updated build to use python3
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.18.1-5
+- Rebuild for Python 3.15 (3.14 site-packages are gone); 1 paths updated.
+
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.18.1-4
+- Wire up the python3-rpm subpackage: the spec declared it since 4.18.1-2
+  but never added a %files section, so the bindings shipped inside rpm and
+  the stale python3-rpm-4.18.1-2 required rpm = 4.18.1-2 (no provider).
+  The five /usr/lib64/python3.15/site-packages/rpm* paths move to
+  rpm-python.filelist; rpm.filelist no longer lists them.
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.18.1-3
+- Split devel payload into rpm-devel (size audit)
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.18.1-2
+- Enable the Python 3 bindings and split them into python3-rpm for the E1
+  dnf/libdnf chain (dnf 4 imports the rpm module).  The main rpm package
+  contents are unchanged.
+- Keep --without-lua/--without-selinux/--without-cap/--without-acl and the
+  existing libelf/sqlite/OpenSSL configuration.

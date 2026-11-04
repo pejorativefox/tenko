@@ -1,6 +1,6 @@
 Name:       libxfont2
-Version:    2.0.6
-Release:    1
+Version:    2.0.9
+Release:    2
 Summary:    X font handling library for server & utilities.
 License:    GPL3
 Prefix:     /usr
@@ -10,6 +10,20 @@ BuildRequires: libfontenc
 
 %description
 X font handling library for server & utilities.
+
+%package devel
+Summary:    libxfont2 development files
+Requires:   libxfont2 = %{version}-%{release}
+
+%description devel
+Development files for libxfont2.
+
+%package static
+Summary:    libxfont2 static libraries
+Requires:   libxfont2 = %{version}-%{release}
+
+%description static
+Static libraries for libxfont2.
 
 %prep
 %setup -q -n libXfont2-%{version}
@@ -23,14 +37,14 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/fonts/libxfont2.h
-/usr/lib64/libXfont2.a
-/usr/lib64/libXfont2.so
-/usr/lib64/libXfont2.so.2
-/usr/lib64/libXfont2.so.2.0.0
-/usr/lib64/pkgconfig/xfont2.pc
+%files -f %{_sourcedir}/libxfont2.filelist
+%files devel -f %{_sourcedir}/libxfont2-devel.filelist
+%files static -f %{_sourcedir}/libxfont2-static.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.0.9-2
+- Split devel, static payload into libxfont2-devel, libxfont2-static (size audit)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.0.6-1
 - Version bump

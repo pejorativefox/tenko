@@ -1,0 +1,180 @@
+%dir /usr/share/locale/ar
+%dir /usr/share/locale/ar/LC_MESSAGES
+%dir /usr/share/locale/be
+%dir /usr/share/locale/be/LC_MESSAGES
+%dir /usr/share/locale/bg
+%dir /usr/share/locale/bg/LC_MESSAGES
+%dir /usr/share/locale/bn
+%dir /usr/share/locale/bn/LC_MESSAGES
+%dir /usr/share/locale/bn_IN
+%dir /usr/share/locale/bn_IN/LC_MESSAGES
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+%dir /usr/share/locale/el
+%dir /usr/share/locale/el/LC_MESSAGES
+%dir /usr/share/locale/en_GB
+%dir /usr/share/locale/en_GB/LC_MESSAGES
+%dir /usr/share/locale/eo
+%dir /usr/share/locale/eo/LC_MESSAGES
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+%dir /usr/share/locale/eu
+%dir /usr/share/locale/eu/LC_MESSAGES
+%dir /usr/share/locale/fa
+%dir /usr/share/locale/fa/LC_MESSAGES
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+%dir /usr/share/locale/fil
+%dir /usr/share/locale/fil/LC_MESSAGES
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+%dir /usr/share/locale/fur
+%dir /usr/share/locale/fur/LC_MESSAGES
+%dir /usr/share/locale/gd
+%dir /usr/share/locale/gd/LC_MESSAGES
+%dir /usr/share/locale/gu
+%dir /usr/share/locale/gu/LC_MESSAGES
+%dir /usr/share/locale/he
+%dir /usr/share/locale/he/LC_MESSAGES
+%dir /usr/share/locale/hi
+%dir /usr/share/locale/hi/LC_MESSAGES
+%dir /usr/share/locale/hr
+%dir /usr/share/locale/hr/LC_MESSAGES
+%dir /usr/share/locale/hu
+%dir /usr/share/locale/hu/LC_MESSAGES
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+%dir /usr/share/locale/ie
+%dir /usr/share/locale/ie/LC_MESSAGES
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+%dir /usr/share/locale/kk
+%dir /usr/share/locale/kk/LC_MESSAGES
+%dir /usr/share/locale/ko
+%dir /usr/share/locale/ko/LC_MESSAGES
+%dir /usr/share/locale/lt
+%dir /usr/share/locale/lt/LC_MESSAGES
+%dir /usr/share/locale/ml
+%dir /usr/share/locale/ml/LC_MESSAGES
+%dir /usr/share/locale/mr
+%dir /usr/share/locale/mr/LC_MESSAGES
+%dir /usr/share/locale/ms
+%dir /usr/share/locale/ms/LC_MESSAGES
+%dir /usr/share/locale/nb
+%dir /usr/share/locale/nb/LC_MESSAGES
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+%dir /usr/share/locale/om
+%dir /usr/share/locale/om/LC_MESSAGES
+%dir /usr/share/locale/or
+%dir /usr/share/locale/or/LC_MESSAGES
+%dir /usr/share/locale/pa
+%dir /usr/share/locale/pa/LC_MESSAGES
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+%dir /usr/share/locale/pt
+%dir /usr/share/locale/pt/LC_MESSAGES
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+%dir /usr/share/locale/si
+%dir /usr/share/locale/si/LC_MESSAGES
+%dir /usr/share/locale/sk
+%dir /usr/share/locale/sk/LC_MESSAGES
+%dir /usr/share/locale/sl
+%dir /usr/share/locale/sl/LC_MESSAGES
+%dir /usr/share/locale/sq
+%dir /usr/share/locale/sq/LC_MESSAGES
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+%dir /usr/share/locale/sr@latin
+%dir /usr/share/locale/sr@latin/LC_MESSAGES
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+%dir /usr/share/locale/th
+%dir /usr/share/locale/th/LC_MESSAGES
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+%dir /usr/share/locale/ur
+%dir /usr/share/locale/ur/LC_MESSAGES
+%dir /usr/share/locale/vi
+%dir /usr/share/locale/vi/LC_MESSAGES
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+%dir /usr/share/locale/zh_Hans
+%dir /usr/share/locale/zh_Hans/LC_MESSAGES
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+/usr/share/locale/ar/LC_MESSAGES/dnf.mo
+/usr/share/locale/be/LC_MESSAGES/dnf.mo
+/usr/share/locale/bg/LC_MESSAGES/dnf.mo
+/usr/share/locale/bn/LC_MESSAGES/dnf.mo
+/usr/share/locale/bn_IN/LC_MESSAGES/dnf.mo
+/usr/share/locale/ca/LC_MESSAGES/dnf.mo
+/usr/share/locale/cs/LC_MESSAGES/dnf.mo
+/usr/share/locale/da/LC_MESSAGES/dnf.mo
+/usr/share/locale/de/LC_MESSAGES/dnf.mo
+/usr/share/locale/el/LC_MESSAGES/dnf.mo
+/usr/share/locale/en_GB/LC_MESSAGES/dnf.mo
+/usr/share/locale/eo/LC_MESSAGES/dnf.mo
+/usr/share/locale/es/LC_MESSAGES/dnf.mo
+/usr/share/locale/eu/LC_MESSAGES/dnf.mo
+/usr/share/locale/fa/LC_MESSAGES/dnf.mo
+/usr/share/locale/fi/LC_MESSAGES/dnf.mo
+/usr/share/locale/fil/LC_MESSAGES/dnf.mo
+/usr/share/locale/fr/LC_MESSAGES/dnf.mo
+/usr/share/locale/fur/LC_MESSAGES/dnf.mo
+/usr/share/locale/gd/LC_MESSAGES/dnf.mo
+/usr/share/locale/gu/LC_MESSAGES/dnf.mo
+/usr/share/locale/he/LC_MESSAGES/dnf.mo
+/usr/share/locale/hi/LC_MESSAGES/dnf.mo
+/usr/share/locale/hr/LC_MESSAGES/dnf.mo
+/usr/share/locale/hu/LC_MESSAGES/dnf.mo
+/usr/share/locale/id/LC_MESSAGES/dnf.mo
+/usr/share/locale/ie/LC_MESSAGES/dnf.mo
+/usr/share/locale/it/LC_MESSAGES/dnf.mo
+/usr/share/locale/ja/LC_MESSAGES/dnf.mo
+/usr/share/locale/ka/LC_MESSAGES/dnf.mo
+/usr/share/locale/kk/LC_MESSAGES/dnf.mo
+/usr/share/locale/ko/LC_MESSAGES/dnf.mo
+/usr/share/locale/lt/LC_MESSAGES/dnf.mo
+/usr/share/locale/ml/LC_MESSAGES/dnf.mo
+/usr/share/locale/mr/LC_MESSAGES/dnf.mo
+/usr/share/locale/ms/LC_MESSAGES/dnf.mo
+/usr/share/locale/nb/LC_MESSAGES/dnf.mo
+/usr/share/locale/nl/LC_MESSAGES/dnf.mo
+/usr/share/locale/om/LC_MESSAGES/dnf.mo
+/usr/share/locale/or/LC_MESSAGES/dnf.mo
+/usr/share/locale/pa/LC_MESSAGES/dnf.mo
+/usr/share/locale/pl/LC_MESSAGES/dnf.mo
+/usr/share/locale/pt/LC_MESSAGES/dnf.mo
+/usr/share/locale/pt_BR/LC_MESSAGES/dnf.mo
+/usr/share/locale/ru/LC_MESSAGES/dnf.mo
+/usr/share/locale/si/LC_MESSAGES/dnf.mo
+/usr/share/locale/sk/LC_MESSAGES/dnf.mo
+/usr/share/locale/sl/LC_MESSAGES/dnf.mo
+/usr/share/locale/sq/LC_MESSAGES/dnf.mo
+/usr/share/locale/sr/LC_MESSAGES/dnf.mo
+/usr/share/locale/sr@latin/LC_MESSAGES/dnf.mo
+/usr/share/locale/sv/LC_MESSAGES/dnf.mo
+/usr/share/locale/th/LC_MESSAGES/dnf.mo
+/usr/share/locale/tr/LC_MESSAGES/dnf.mo
+/usr/share/locale/uk/LC_MESSAGES/dnf.mo
+/usr/share/locale/ur/LC_MESSAGES/dnf.mo
+/usr/share/locale/vi/LC_MESSAGES/dnf.mo
+/usr/share/locale/zh_CN/LC_MESSAGES/dnf.mo
+/usr/share/locale/zh_Hans/LC_MESSAGES/dnf.mo
+/usr/share/locale/zh_TW/LC_MESSAGES/dnf.mo

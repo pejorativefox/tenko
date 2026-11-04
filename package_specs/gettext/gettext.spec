@@ -1,19 +1,59 @@
 Name:       gettext
-Version:    0.22
-Release:    1
+Version:    1.0
+Release:    2
 Summary:    GNU Internationalization utilities
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+Requires:   gettext-libs = %{version}-%{release}
+Requires:   gettext-tools = %{version}-%{release}
+
 %description
-GNU Internationalization utilities
+GNU Internationalization utilities.  This package is a meta-package that
+pulls in the runtime libraries and the build tools.
+
+%package libs
+Summary:    GNU gettext runtime libraries
+License:    GPL3
+
+%description libs
+The GNU gettext runtime libraries: libintl (preloadable_libintl), libasprintf,
+libgettextpo, libtextstyle and the private libgettextlib/libgettextsrc helper
+libraries.  Packages that only need translated messages at runtime need this
+package, not the gettext build tools.
+
+%package tools
+Summary:    GNU gettext build tools
+License:    GPL3
+Requires:   gettext-libs = %{version}-%{release}
+
+%description tools
+The GNU gettext development and build tools, including xgettext, msgfmt,
+msgmerge, msgcat and the rest of the msg* utilities, plus the headers,
+autopoint/gettextize data and libtool/autoconf macros.
+
+%package lang
+Summary:    Translations for GNU gettext
+License:    GPL3
+Requires:   gettext-libs = %{version}-%{release}
+
+%description lang
+Translated messages for the gettext tools and runtime.
+
+%package doc
+Summary:    Documentation for GNU gettext
+License:    GPL3
+
+%description doc
+Info, man and HTML documentation for GNU gettext.
 
 %prep
 %setup -q
 
 %build
-%configure --disable-static \
+CFLAGS="$CFLAGS -Wformat"
+%configure --with-included-libxml --without-selinux --disable-static \
            --docdir=/usr/share/doc/gettext-%{version}
 %make_build
 
@@ -25,62 +65,21 @@ chmod -v 0755 %{buildroot}/usr/lib64/preloadable_libintl.so
 rm -rf %{buildroot}/usr/share/doc/gettext-%{version}/examples
 
 %files
-/usr/bin/autopoint
-/usr/bin/envsubst
-/usr/bin/gettext
-/usr/bin/gettext.sh
-/usr/bin/gettextize
-/usr/bin/msgattrib
-/usr/bin/msgcat
-/usr/bin/msgcmp
-/usr/bin/msgcomm
-/usr/bin/msgconv
-/usr/bin/msgen
-/usr/bin/msgexec
-/usr/bin/msgfilter
-/usr/bin/msgfmt
-/usr/bin/msggrep
-/usr/bin/msginit
-/usr/bin/msgmerge
-/usr/bin/msgunfmt
-/usr/bin/msguniq
-/usr/bin/ngettext
-/usr/bin/recode-sr-latin
-/usr/bin/xgettext
-/usr/include/autosprintf.h
-/usr/include/gettext-po.h
-/usr/include/textstyle.h
-/usr/include/textstyle/stdbool.h
-/usr/include/textstyle/version.h
-/usr/include/textstyle/woe32dll.h
-/usr/lib64/gettext/cldr-plurals
-/usr/lib64/gettext/hostname
-/usr/lib64/gettext/project-id
-/usr/lib64/gettext/urlget
-/usr/lib64/gettext/user-email
-/usr/lib64/libasprintf.so
-/usr/lib64/libasprintf.so.0
-/usr/lib64/libasprintf.so.0.0.0
-/usr/lib64/libgettextlib-0.22.so
-/usr/lib64/libgettextlib.so
-/usr/lib64/libgettextpo.so
-/usr/lib64/libgettextpo.so.0
-/usr/lib64/libgettextpo.so.0.5.9
-/usr/lib64/libgettextsrc-0.22.so
-/usr/lib64/libgettextsrc.so
-/usr/lib64/libtextstyle.so
-/usr/lib64/libtextstyle.so.0
-/usr/lib64/libtextstyle.so.0.2.0
-/usr/lib64/preloadable_libintl.so
-/usr/share/info/libtextstyle.info.gz
-/usr/share/aclocal/
-/usr/share/doc/
-/usr/share/gettext-%{version}/
-/usr/share/gettext/
-/usr/share/info/autosprintf.info.gz
-/usr/share/info/gettext.info.gz
-/usr/share/locale/
-/usr/share/man/
+%files libs -f %{_sourcedir}/gettext-libs.filelist
+%files tools -f %{_sourcedir}/gettext-tools.filelist
+%files lang -f %{_sourcedir}/gettext-lang.filelist
+%files doc -f %{_sourcedir}/gettext-doc.filelist
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.0-2
+- Split runtime libraries, build tools, translations and documentation;
+  gettext is now a meta-package requiring gettext-libs and gettext-tools
+  (size audit §7)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.0-1
+- Replace directory globs with a generated static filelist
+
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 1.0
+- Sync with LFS r13.1
+
 # let's skip this for now

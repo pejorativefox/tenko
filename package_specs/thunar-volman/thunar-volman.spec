@@ -1,6 +1,6 @@
 Name:       thunar-volman
-Version:    4.18.0
-Release:    1
+Version:    4.20.0
+Release:    2
 Summary:    Automatic management of removeable devices in Thunar
 License:    GPL2
 Source0:    %{name}-%{version}.tar.bz2
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 Automatic management of removeable devices in Thunar
+
+%package lang
+Summary:    thunar-volman translations
+Requires:   thunar-volman = %{version}-%{release}
+
+%description lang
+Translations for thunar-volman.
 
 %prep
 %setup
@@ -18,14 +25,20 @@ Automatic management of removeable devices in Thunar
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/bin/thunar-volman
-/usr/bin/thunar-volman-settings
-/usr/share/
+%files -f %{_sourcedir}/thunar-volman.filelist
+%files lang -f %{_sourcedir}/thunar-volman-lang.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.0-2
+- Split lang payload into thunar-volman-lang (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0
+- Sync with BLFS r13.1 (4.18.0)
+
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.18.0
 - Version bump
 

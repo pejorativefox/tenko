@@ -1,0 +1,122 @@
+Browneye Linux installer
+=======================
+
+browneye-installer is a Python 3 / ncurses installer for Browneye Linux
+13.1.  It is UEFI-only and GPT-only.  It modifies only the selected disk and
+only inside one chosen free region; existing partitions are preserved.
+
+The application and its tests use the Python standard library only.  The
+live image needs the packages listed by the browneye-live meta-package.
+
+Running
+-------
+
+  browneye-installer                 interactive ncurses installer
+  browneye-installer --plain         line-oriented serial fallback
+  browneye-installer --answer FILE   non-interactive install
+  browneye-installer --dry-run --answer FILE
+                                     plan and log, execute no mutations
+  browneye-installer --plan-json --answer FILE
+                                     print the validated layout and exit
+
+The kernel command line can supply:
+
+  browneye.answer=/path/to/answer.json
+  browneye.auto=1                    same as --non-interactive
+  browneye.console=serial            same as --plain
+  browneye.dry_run=1                 same as --dry-run
+
+Answer file
+-----------
+
+The file is JSON.  See the recon document and install.py for the exact
+schema; a minimal example is:
+
+  {
+    "version": 1,
+    "disk": {"path": "/dev/vda", "serial": "QM00001",
+             "size_bytes": 21474836480},
+    "delete_partitions": [],
+    "region": null,
+    "esp_mib": 512,
+    "root_mib": null,
+    "swap_mib": 2048,
+    "package_set": "desktop",
+    "hostname": "browneye",
+    "admin": {"username": "admin", "password": "change-me"},
+    "confirm": {"disk": "/dev/vda", "phrase": "ERASE"}
+  }
+
+The answer file contains a plaintext test password.  Keep it mode 0600 and
+remove it from the live media after use.  The installer never writes the
+password into a log or into plan.sh.
+
+Layout policy
+-------------
+
+  * GPT only.  MBR disks are refused with an explanation.
+  * An existing EFI System Partition is reused.  Otherwise a 512 MiB FAT32
+    ESP is created at the start of the chosen free region.
+  * Root is ext4, at least 8 GiB, and grows to fill the region.
+  * Swap is 2 GiB.  It is skipped with a warning when the region cannot
+    hold it next to the minimum root.
+  * The GPT tail gap ends at the last usable LBA, never at the device end;
+    the backup GPT is never included.
+
+Safety features
+---------------
+
+  * The live medium is detected from /run/initramfs/livedev, the
+    /run/initramfs/live mount source and the BROWNEYE label, and is never
+    selectable.  Failure to identify it is a hard failure.
+  * Mounted, swapped, read-only, holder-bearing (LVM/RAID/dm) and
+    whole-disk-filesystem devices are refused with the specific reason.
+  * The complete table is snapshotted (text and binary sectors) before any
+    change.  Addition/modification commands are emitted by the pure planner.
+  * After writing, every untouched partition is compared by number, start,
+    size, type, partition UUID, name and attributes.  A mismatch restores
+    the saved table automatically before the first mkfs.
+  * The confirmation screen requires the disk path and the word ERASE.
+  * --dry-run executes only read-only probes and writes plan.sh; no
+    mutating command and no target file write is performed.
+
+Install flow
+------------
+
+  1. snapshot, delete selected entries, write the full replacement GPT,
+     re-read, verify preservation (rollback on mismatch)
+  2. mkfs.fat (only for a new ESP), mke2fs ext4, mkswap
+  3. mount root + ESP, bind /dev /proc /sys /run, efivarfs
+  4. dnf --installroot: browneye-basefs in its own first transaction
+  5. dnf --installroot: browneye-base + xfce-desktop + kernel/modules +
+     dracut + grub + efibootmgr + dosfstools + sudo + dnf
+  6. fstab by UUID, hostname, admin user in wheel, root locked, first-boot
+     marker, systemd presets and graphical.target
+  7. depmod + dracut --force --no-hostonly
+  8. chroot grub-install --efi-directory=/boot/efi --bootloader-id=browneye
+     --no-nvram; static grub.cfg by UUID; EFI/BOOT/BOOTX64.EFI fallback;
+     best-effort efibootmgr NVRAM entry
+  9. copy install.jsonl/install.log to the target and the ESP, unmount
+
+Logs
+----
+
+  /run/browneye/install.jsonl   JSON Lines, one event/command per line
+  /run/browneye/install.log     human-readable mirror
+  /run/browneye/plan.json       validated layout
+  /run/browneye/plan.sh         dry-run command script
+  /run/browneye/backup/         sfdisk text dump + binary sector backup
+
+On success the logs are copied to /var/log/browneye-install/ on the target
+and to the root of the ESP (browneye-install.jsonl/.log).  On failure the
+tail is copied to the ESP as browneye-install-failure.jsonl/.log so it
+survives the reboot.  Passwords are redacted everywhere.
+
+Tests
+-----
+
+From the repository root, without root and without touching a disk:
+
+  python3 -m unittest discover -s package_specs/browneye-installer/tests -v
+
+The planner tests use the JSON fixtures in tests/fixtures/.

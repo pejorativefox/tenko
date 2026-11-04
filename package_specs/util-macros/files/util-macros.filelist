@@ -1,0 +1,7 @@
+%dir /usr/share
+%dir /usr/share/aclocal
+/usr/share/aclocal/xorg-macros.m4
+%dir /usr/share/pkgconfig
+/usr/share/pkgconfig/xorg-macros.pc
+%dir /usr/share/util-macros
+/usr/share/util-macros/INSTALL

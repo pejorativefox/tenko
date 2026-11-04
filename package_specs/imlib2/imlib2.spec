@@ -1,5 +1,5 @@
 Name:       imlib2
-Version:    1.12.0
+Version:    1.12.7
 Release:    1
 Summary:    imlib2 is a general image loading and rendering library
 License:    imlib2
@@ -27,6 +27,9 @@ rm -rf %{buildroot}
 /usr/bin/
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.12.7-1
+- Sync with BLFS r13.1
+
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 1.12.0
 - Initial RPM
 

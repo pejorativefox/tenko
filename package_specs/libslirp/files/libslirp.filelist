@@ -1,0 +1,10 @@
+%dir /usr/include
+%dir /usr/include/slirp
+/usr/include/slirp/libslirp-version.h
+/usr/include/slirp/libslirp.h
+%dir /usr/lib64
+/usr/lib64/libslirp.so
+/usr/lib64/libslirp.so.0
+/usr/lib64/libslirp.so.0.4.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/slirp.pc

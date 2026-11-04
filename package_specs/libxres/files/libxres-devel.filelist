@@ -1,0 +1,6 @@
+%dir /usr/include/X11
+%dir /usr/include/X11/extensions
+/usr/include/X11/extensions/XRes.h
+/usr/lib64/libXRes.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/xres.pc

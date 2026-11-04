@@ -1,0 +1,12 @@
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libXinerama.so.1
+/usr/lib64/libXinerama.so.1.0.0
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man3
+/usr/share/man/man3/Xinerama.3.gz
+/usr/share/man/man3/XineramaIsActive.3.gz
+/usr/share/man/man3/XineramaQueryExtension.3.gz
+/usr/share/man/man3/XineramaQueryScreens.3.gz
+/usr/share/man/man3/XineramaQueryVersion.3.gz

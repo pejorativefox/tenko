@@ -1,9 +1,9 @@
 Name:       upower
-Version:    0.99.7
+Version:    1.91.5
 Release:    1
 Summary:    Abstraction for enumerating power devices, listening to device events and querying history and statistics
 License:    GPL
-Source0:    %{name}-%{version}.tar.xz
+Source0:    upower-v%{version}.tar.bz2
 Prefix:     /usr
 
 BuildRequires: libgudev
@@ -13,53 +13,56 @@ BuildRequires: udev
 %description
 Abstraction for enumerating power devices, listening to device events and querying history and statistics
 
+%package devel
+Summary:    upower development files
+Requires:   %{name}-gir = %{version}-%{release}
+Requires:   upower = %{version}-%{release}
+
+%description devel
+Development files for upower.
+
 %prep
-%setup
+%setup -q -n upower-v%{version}
 
 %build
-%configure --disable-man-pages --disable-gtk-doc-html --enable-deprecated
-%make_build XSLTPROC="/bin/true"
+mkdir build
+pushd build
+meson setup .. --prefix=/usr --buildtype=release -D gtk-doc=false -D man=false -D systemdsystemunitdir=/usr/lib/systemd/system -D udevrulesdir=/usr/lib/udev/rules.d
+ninja
+popd
 
 %install
 rm -rf %{buildroot}
-%make_install XSLTPROC="/bin/true"
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 
-%files
-/usr/bin/upower
-/usr/etc/UPower/UPower.conf
-/usr/etc/dbus-1/system.d/org.freedesktop.UPower.conf
-/usr/include/libupower-glib/up-autocleanups.h
-/usr/include/libupower-glib/up-client.h
-/usr/include/libupower-glib/up-device.h
-/usr/include/libupower-glib/up-history-item.h
-/usr/include/libupower-glib/up-stats-item.h
-/usr/include/libupower-glib/up-types.h
-/usr/include/libupower-glib/up-version.h
-/usr/include/libupower-glib/up-wakeup-item.h
-/usr/include/libupower-glib/up-wakeups.h
-/usr/include/libupower-glib/upower.h
-/usr/lib64/girepository-1.0/UPowerGlib-1.0.typelib
-/usr/lib64/libupower-glib.a
-/usr/lib64/libupower-glib.so
-/usr/lib64/libupower-glib.so.3
-/usr/lib64/libupower-glib.so.3.0.1
-/usr/lib64/pkgconfig/upower-glib.pc
-/usr/lib/udev/rules.d/95-upower-csr.rules
-/usr/lib/udev/rules.d/95-upower-hid.rules
-/usr/lib/udev/rules.d/95-upower-wup.rules
-/usr/libexec/upowerd
-/usr/share/dbus-1/interfaces/org.freedesktop.UPower.Device.xml
-/usr/share/dbus-1/interfaces/org.freedesktop.UPower.KbdBacklight.xml
-/usr/share/dbus-1/interfaces/org.freedesktop.UPower.Wakeups.xml
-/usr/share/dbus-1/interfaces/org.freedesktop.UPower.xml
-/usr/share/dbus-1/system-services/org.freedesktop.UPower.service
-/usr/share/gir-1.0/UPowerGlib-1.0.gir
-/usr/share/locale/fr/LC_MESSAGES/upower.mo
-/usr/share/locale/it/LC_MESSAGES/upower.mo
-/usr/share/locale/pl/LC_MESSAGES/upower.mo
-/usr/share/locale/sv/LC_MESSAGES/upower.mo
+
+%package gir
+Summary:    GObject Introspection data for upower
+License:    GPL
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for upower, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
+%files -f %{_sourcedir}/upower.filelist
+%files devel -f %{_sourcedir}/upower-devel.filelist
+%files gir -f %{_sourcedir}/upower-gir.filelist
+
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.91.5-1
+- Update to 1.91.5 (BLFS r13.1 trunk, D9 parity)
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.91.4-2
+- Split devel payload into upower-devel (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.91.3
+- Sync with BLFS r13.1 (0.99.7)
+
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 0.99.7
 - Initial RPM
 

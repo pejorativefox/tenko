@@ -1,0 +1,39 @@
+%dir /usr/include/libcomps
+%dir /usr/lib64/pkgconfig
+%dir /usr/lib64/python3.15
+%dir /usr/lib64/python3.15/site-packages
+%dir /usr/lib64/python3.15/site-packages/libcomps
+%dir /usr/lib64/python3.15/site-packages/libcomps-0.1.24-py3.15.egg-info
+/usr/include/libcomps/comps_bradix.h
+/usr/include/libcomps/comps_default.h
+/usr/include/libcomps/comps_dict.h
+/usr/include/libcomps/comps_doc.h
+/usr/include/libcomps/comps_doccategory.h
+/usr/include/libcomps/comps_docenv.h
+/usr/include/libcomps/comps_docgroup.h
+/usr/include/libcomps/comps_docgroupid.h
+/usr/include/libcomps/comps_docpackage.h
+/usr/include/libcomps/comps_elem.h
+/usr/include/libcomps/comps_hslist.h
+/usr/include/libcomps/comps_log.h
+/usr/include/libcomps/comps_log_codes.h
+/usr/include/libcomps/comps_mm.h
+/usr/include/libcomps/comps_mradix.h
+/usr/include/libcomps/comps_obj.h
+/usr/include/libcomps/comps_objdict.h
+/usr/include/libcomps/comps_objlist.h
+/usr/include/libcomps/comps_objmradix.h
+/usr/include/libcomps/comps_objradix.h
+/usr/include/libcomps/comps_parse.h
+/usr/include/libcomps/comps_radix.h
+/usr/include/libcomps/comps_set.h
+/usr/include/libcomps/comps_utils.h
+/usr/include/libcomps/comps_validate.h
+/usr/lib64/libcomps.so
+/usr/lib64/libcomps.so.0
+/usr/lib64/python3.15/site-packages/libcomps-0.1.24-py3.15.egg-info/PKG-INFO
+/usr/lib64/python3.15/site-packages/libcomps-0.1.24-py3.15.egg-info/SOURCES.txt
+/usr/lib64/python3.15/site-packages/libcomps-0.1.24-py3.15.egg-info/dependency_links.txt
+/usr/lib64/python3.15/site-packages/libcomps-0.1.24-py3.15.egg-info/top_level.txt
+/usr/lib64/python3.15/site-packages/libcomps/__init__.py
+/usr/lib64/python3.15/site-packages/libcomps/_libpycomps.so

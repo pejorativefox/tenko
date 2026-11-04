@@ -1,0 +1,24 @@
+[Unit]
+Description=Browneye Linux installer
+Documentation=file:///usr/share/doc/browneye-installer/README
+After=local-fs.target network-online.target
+Wants=network-online.target
+Before=getty@tty1.service
+Conflicts=getty@tty1.service
+ConditionPathExists=/run/initramfs/live
+
+[Service]
+Type=idle
+Environment=TERM=linux
+ExecStart=/usr/bin/browneye-installer
+StandardInput=tty-force
+StandardOutput=tty
+StandardError=tty
+TTYPath=/dev/tty1
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=no
+TimeoutStartSec=infinity
+
+[Install]
+WantedBy=multi-user.target

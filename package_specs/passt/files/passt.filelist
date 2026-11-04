@@ -1,0 +1,15 @@
+%dir /usr/bin
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/passt
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/bin/passt
+/usr/bin/passt-repair
+/usr/bin/passt.avx2
+/usr/bin/pesto
+/usr/share/doc/passt/README.md
+/usr/share/doc/passt/demo.sh
+/usr/share/man/man1/passt-repair.1.gz
+/usr/share/man/man1/passt.1.gz
+/usr/share/man/man1/pesto.1.gz

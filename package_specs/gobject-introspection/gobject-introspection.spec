@@ -1,6 +1,6 @@
 Name:       gobject-introspection
-Version:    1.76.1
-Release:    1
+Version:    1.86.0
+Release:    3
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -11,17 +11,12 @@ Source0:    %{name}-%{version}.tar.xz
 TODO
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 mkdir build
 pushd build
-meson setup --prefix=/usr \
-            --buildtype=release \
-            -Dcairo=disabled \
-            -Ddoctool=disabled \
-            -Dgtk_doc=false \
-            ..
+meson setup .. --prefix=/usr --buildtype=release
 ninja
 popd
 
@@ -30,10 +25,29 @@ rm -rf %{buildroot}
 pushd build
 DESTDIR=%{buildroot} ninja install
 popd
+rm -vf %{buildroot}%{_infodir}/dir*
 
 
-%files -f ../../SOURCES/gobject-introspection.filelist
+%package gir
+Summary:    GObject Introspection data for gobject-introspection
+License:    GPL3
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for gobject-introspection.  g-ir-scanner works
+without this package (it reads the .gir XML); g-ir-inspect and
+language bindings need it.
+
+%files -f %{_sourcedir}/gobject-introspection.filelist
+%files gir -f %{_sourcedir}/gobject-introspection-gir.filelist
+
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.86.0-3
+- Rebuild for Python 3.15: g-ir-scanner's _giscanner extension was
+  built for 3.14, which breaks every introspection build on 3.15.
+
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.86.0-2
+- Split the GObject Introspection typelibs into %{name}-gir
 # let's skip this for now
 

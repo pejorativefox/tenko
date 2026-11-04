@@ -1,101 +1,75 @@
 Name:       p11-kit
-Version:    0.23.15
-Release:    1
-Summary:    TODO
-License:    GPL3
-Source0:    %{name}-%{version}.tar.gz
+Version:    0.26.5
+Release:    2
+Summary:    Load and enumerate PKCS#11 modules
+License:    BSD-3-Clause
+URL:        https://p11-glue.github.io/p11-glue/p11-kit.html
+Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+BuildRequires: libtasn1
+BuildRequires: meson
+BuildRequires: ninja
+Requires:      libtasn1
+
 %description
-TODO
+p11-kit provides a way to load and enumerate PKCS#11 modules.  Its trust
+module exposes the system certificate anchors to PKCS#11 consumers, and
+the trust utility extracts OpenSSL/GnuTLS certificate stores from those
+anchors.
+
+%package lang
+Summary:    p11-kit translations
+Requires:   p11-kit = %{version}-%{release}
+
+%description lang
+Translations for p11-kit.
+
+%package devel
+Summary:    p11-kit development files
+Requires:   p11-kit = %{version}-%{release}
+
+%description devel
+Development files for p11-kit.
 
 %prep
-%setup -q -a0
+%setup -q
 
-%build
-sed '20,$ d' -i trust/trust-extract-compat.in &&
-cat >> trust/trust-extract-compat.in << "EOF"
+sed '20,$ d' -i trust/trust-extract-compat
+cat >> trust/trust-extract-compat << "END"
 # Copy existing anchor modifications to /etc/ssl/local
 /usr/libexec/make-ca/copy-trust-modifications
 
-# Generate a new trust store
-/usr/sbin/make-ca -f -g
-EOF
+# Update trust stores
+/usr/sbin/make-ca -r
+END
 
-%configure --sysconfdir=/etc \
-           --with-trust-paths=/etc/pki/anchors
-%make_build
+%build
+mkdir p11-build
+cd p11-build
+meson setup ..                 \
+      --prefix=/usr            \
+      --buildtype=release      \
+      -D trust_paths=/etc/pki/anchors
+ninja -j8
 
-%install    
+%install
 rm -rf %{buildroot}
-%make_install
-rm -vf %{buildroot}%{_infodir}/dir*
-ln -s /usr/libexec/p11-kit/trust-extract-compat \
-      %{buildroot}/usr/bin/update-ca-certificates
-      
-%files
-/etc/pkcs11/pkcs11.conf.example
-/usr/bin/p11-kit
-/usr/bin/trust
-/usr/bin/update-ca-certificates
-/usr/include/p11-kit-1/p11-kit/deprecated.h
-/usr/include/p11-kit-1/p11-kit/iter.h
-/usr/include/p11-kit-1/p11-kit/p11-kit.h
-/usr/include/p11-kit-1/p11-kit/pin.h
-/usr/include/p11-kit-1/p11-kit/pkcs11.h
-/usr/include/p11-kit-1/p11-kit/pkcs11x.h
-/usr/include/p11-kit-1/p11-kit/remote.h
-/usr/include/p11-kit-1/p11-kit/uri.h
-/usr/lib64/libp11-kit.so
-/usr/lib64/libp11-kit.so.0
-/usr/lib64/libp11-kit.so.0.3.0
-/usr/lib64/p11-kit-proxy.so
-/usr/lib64/pkcs11/p11-kit-client.so
-/usr/lib64/pkcs11/p11-kit-trust.so
-/usr/lib64/pkgconfig/p11-kit-1.pc
-/usr/libexec/p11-kit/p11-kit-remote
-/usr/libexec/p11-kit/p11-kit-server
-/usr/libexec/p11-kit/trust-extract-compat
-/usr/share/gtk-doc/html/p11-kit/config-example.html
-/usr/share/gtk-doc/html/p11-kit/config-files.html
-/usr/share/gtk-doc/html/p11-kit/config.html
-/usr/share/gtk-doc/html/p11-kit/devel-building-style.html
-/usr/share/gtk-doc/html/p11-kit/devel-building.html
-/usr/share/gtk-doc/html/p11-kit/devel-commands.html
-/usr/share/gtk-doc/html/p11-kit/devel-debugging.html
-/usr/share/gtk-doc/html/p11-kit/devel-paths.html
-/usr/share/gtk-doc/html/p11-kit/devel-testing.html
-/usr/share/gtk-doc/html/p11-kit/devel.html
-/usr/share/gtk-doc/html/p11-kit/gtk-doc.css
-/usr/share/gtk-doc/html/p11-kit/home.png
-/usr/share/gtk-doc/html/p11-kit/index.html
-/usr/share/gtk-doc/html/p11-kit/left-insensitive.png
-/usr/share/gtk-doc/html/p11-kit/left.png
-/usr/share/gtk-doc/html/p11-kit/p11-kit-Deprecated.html
-/usr/share/gtk-doc/html/p11-kit/p11-kit-Future.html
-/usr/share/gtk-doc/html/p11-kit/p11-kit-Modules.html
-/usr/share/gtk-doc/html/p11-kit/p11-kit-PIN-Callbacks.html
-/usr/share/gtk-doc/html/p11-kit/p11-kit-URIs.html
-/usr/share/gtk-doc/html/p11-kit/p11-kit-Utilities.html
-/usr/share/gtk-doc/html/p11-kit/p11-kit.devhelp2
-/usr/share/gtk-doc/html/p11-kit/p11-kit.html
-/usr/share/gtk-doc/html/p11-kit/pkcs11-conf.html
-/usr/share/gtk-doc/html/p11-kit/reference.html
-/usr/share/gtk-doc/html/p11-kit/remoting.html
-/usr/share/gtk-doc/html/p11-kit/right-insensitive.png
-/usr/share/gtk-doc/html/p11-kit/right.png
-/usr/share/gtk-doc/html/p11-kit/sharing-managed.html
-/usr/share/gtk-doc/html/p11-kit/sharing.html
-/usr/share/gtk-doc/html/p11-kit/style.css
-/usr/share/gtk-doc/html/p11-kit/tools.html
-/usr/share/gtk-doc/html/p11-kit/trust-disable.html
-/usr/share/gtk-doc/html/p11-kit/trust-glib-networking.html
-/usr/share/gtk-doc/html/p11-kit/trust-module.html
-/usr/share/gtk-doc/html/p11-kit/trust-nss.html
-/usr/share/gtk-doc/html/p11-kit/trust.html
-/usr/share/gtk-doc/html/p11-kit/up-insensitive.png
-/usr/share/gtk-doc/html/p11-kit/up.png
-/usr/share/p11-kit/modules/p11-kit-trust.module
+DESTDIR=%{buildroot} ninja -C p11-build install
+mkdir -p %{buildroot}%{_bindir}
+ln -sf /usr/libexec/p11-kit/trust-extract-compat \
+       %{buildroot}%{_bindir}/update-ca-certificates
+
+%files -f %{_sourcedir}/p11-kit.filelist
+%files lang -f %{_sourcedir}/p11-kit-lang.filelist
+%files devel -f %{_sourcedir}/p11-kit-devel.filelist
+
 
 %changelog
-# let's skip this for now
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 0.26.5-2
+- Split lang, devel payload into p11-kit-lang, p11-kit-devel (size audit)
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 0.26.5
+- Update to 0.26.5 (BLFS r13.1)
+- Switch from autotools to meson with trust_paths=/etc/pki/anchors
+- Replace the directory listing with a generated static filelist

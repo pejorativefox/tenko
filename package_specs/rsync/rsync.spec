@@ -1,32 +1,24 @@
 Name:       rsync
-Version:    3.1.3
-Release:    1
-Summary:    TODO
-License:    GPL3
-Source0:    %{name}-%{version}.tar.gz
+Version:    3.5.1
+Release:    2
+Summary:    Fast incremental file transfer tool
+License:    GPL-3.0-or-later
 Prefix:     /usr
+Source0:    %{name}-%{version}.tar.gz
 
 %description
-TODO
+rsync is a fast, versatile file-copying tool.  It is also a build
+dependency of the kernel's headers_install target.
 
 %prep
-%setup -q -a0
+%setup -q
 
 %build
-%configure --without-included-zlib
+%configure --without-included-zlib --disable-xxhash
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
 
-%post
-
-
-%files
-/usr/bin/rsync
-/usr/share/man/man1/rsync.1.gz
-/usr/share/man/man5/rsyncd.conf.5.gz
-
-%changelog
-# let's skip this for now
+%files -f %{_sourcedir}/rsync.filelist

@@ -1,9 +1,9 @@
 Name:       inetutils
-Version:    2.4
+Version:    2.8
 Release:    1
 Summary:    Collection of common network programs.
 License:    GPL3
-Source0:    %{name}-%{version}.tar.xz
+Source0:    inetutils-2.8.tar.gz
 Prefix:     /usr
 
 %description
@@ -13,13 +13,17 @@ Collection of common network programs.
 %setup -q
 
 %build
+CFLAGS="$CFLAGS -Wformat"
+LIBS="-lncurses -ltinfo"
+export LIBS
 %configure  --disable-logger     \
             --disable-whois      \
             --disable-rcp        \
             --disable-rexec      \
             --disable-rlogin     \
             --disable-rsh        \
-            --disable-servers 
+            --disable-ncurses    \
+            --disable-servers
 %make_build
 
 %install
@@ -28,6 +32,7 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files
+/usr/bin/talk
 /usr/bin/dnsdomainname
 /usr/bin/ftp
 /usr/bin/hostname
@@ -41,6 +46,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 2.8
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.4-1
 - Version bump
 

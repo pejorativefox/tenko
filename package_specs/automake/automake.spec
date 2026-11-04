@@ -1,5 +1,5 @@
 Name:       automake
-Version:    1.16.5
+Version:    1.19
 Release:    1
 Summary:    Tool for producing inputs for autoconf
 License:    GPL3
@@ -23,13 +23,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files
 /usr/bin/aclocal
-/usr/bin/aclocal-1.16
+/usr/bin/aclocal-1.19
 /usr/bin/automake
-/usr/bin/automake-1.16
+/usr/bin/automake-1.19
 /usr/share/aclocal/README
-/usr/share/aclocal-1.16/
-/usr/share/automake-1.16/
-/usr/share/doc/automake-1.16.5/amhello-1.0.tar.gz
+/usr/share/aclocal-1.19/
+/usr/share/automake-1.19/
+/usr/share/doc/automake-%{version}/amhello-1.0.tar.gz
 /usr/share/info/automake-history.info.gz
 /usr/share/info/automake.info-1.gz
 /usr/share/info/automake.info-2.gz
@@ -37,5 +37,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.16.1
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 1.19.1
+- Sync with LFS r13.1
+
+* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.19.1
 - Initial RPM

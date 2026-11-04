@@ -1,4 +1,23 @@
-    
+# browneye RPM macros.
+#
+# Installed as ~/.rpmmacros (host builds) or shipped by browneye-rpm-config
+# (build container). Keep %_libdir at /usr/lib64: browneye follows the
+# Fedora-style layout, not LFS's /usr/lib.
+
+%_prefix            /usr
+%_lib               /usr/lib64
+%_libdir            /usr/lib64
+%_unitdir           /usr/lib/systemd/system
+%_udevrulesdir      /usr/lib/udev/rules.d
+
+# Standard runpaths (e.g. /usr/lib64) are acceptable for browneye.
+%__brp_check_rpaths %{nil}
+
+# browneye does not ship debuginfo packages.
+%_enable_debug_packages 0
+%_build_id_links        none
+
+# Strip binaries into the buildroot. strip_debug.sh must be on PATH.
 %strip strip_debug.sh %{buildroot}
 
 %__spec_install_post\
@@ -6,5 +25,4 @@
     %{?__debug_package:%{__debug_install_post}}\
     %{__arch_install_post}\
     %{__os_install_post}\
-%{nil}
-
+%nil

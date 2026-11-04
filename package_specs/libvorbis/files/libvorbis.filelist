@@ -1,0 +1,163 @@
+%dir /usr/include
+%dir /usr/include/vorbis
+/usr/include/vorbis/codec.h
+/usr/include/vorbis/vorbisenc.h
+/usr/include/vorbis/vorbisfile.h
+%dir /usr/lib64
+/usr/lib64/libvorbis.so
+/usr/lib64/libvorbis.so.0
+/usr/lib64/libvorbis.so.0.4.9
+/usr/lib64/libvorbisenc.so
+/usr/lib64/libvorbisenc.so.2
+/usr/lib64/libvorbisenc.so.2.0.12
+/usr/lib64/libvorbisfile.so
+/usr/lib64/libvorbisfile.so.3
+/usr/lib64/libvorbisfile.so.3.3.8
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/vorbis.pc
+/usr/lib64/pkgconfig/vorbisenc.pc
+/usr/lib64/pkgconfig/vorbisfile.pc
+%dir /usr/share
+%dir /usr/share/aclocal
+/usr/share/aclocal/vorbis.m4
+%dir /usr/share/doc
+%dir /usr/share/doc/libvorbis-1.3.7
+%doc /usr/share/doc/libvorbis-1.3.7/doxygen-build.stamp
+%doc /usr/share/doc/libvorbis-1.3.7/eightphase.png
+%doc /usr/share/doc/libvorbis-1.3.7/fish_xiph_org.png
+%doc /usr/share/doc/libvorbis-1.3.7/floor1_inverse_dB_table.html
+%doc /usr/share/doc/libvorbis-1.3.7/floorval.png
+%doc /usr/share/doc/libvorbis-1.3.7/fourphase.png
+%doc /usr/share/doc/libvorbis-1.3.7/framing.html
+%doc /usr/share/doc/libvorbis-1.3.7/helper.html
+%doc /usr/share/doc/libvorbis-1.3.7/index.html
+%dir /usr/share/doc/libvorbis-1.3.7/libvorbis
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/index.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/overview.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/reference.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/return.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/style.css
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_analysis.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_analysis_blockout.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_analysis_buffer.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_analysis_headerout.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_analysis_init.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_analysis_wrote.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_bitrate_addblock.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_bitrate_flushpacket.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_block.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_block_clear.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_block_init.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_comment.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_comment_add.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_comment_add_tag.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_comment_clear.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_comment_init.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_comment_query.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_comment_query_count.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_commentheader_out.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_dsp_clear.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_dsp_state.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_granule_time.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_info.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_info_blocksize.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_info_clear.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_info_init.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_packet_blocksize.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis_blockin.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis_halfrate.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis_halfrate_p.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis_headerin.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis_idheader.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis_init.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis_lapout.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis_pcmout.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis_read.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis_restart.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_synthesis_trackonly.html
+%doc /usr/share/doc/libvorbis-1.3.7/libvorbis/vorbis_version_string.html
+%doc /usr/share/doc/libvorbis-1.3.7/oggstream.html
+%doc /usr/share/doc/libvorbis-1.3.7/programming.html
+%doc /usr/share/doc/libvorbis-1.3.7/rfc5215.txt
+%doc /usr/share/doc/libvorbis-1.3.7/rfc5215.xml
+%doc /usr/share/doc/libvorbis-1.3.7/squarepolar.png
+%doc /usr/share/doc/libvorbis-1.3.7/stereo.html
+%doc /usr/share/doc/libvorbis-1.3.7/stream.png
+%doc /usr/share/doc/libvorbis-1.3.7/v-comment.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbis-clip.txt
+%doc /usr/share/doc/libvorbis-1.3.7/vorbis-errors.txt
+%doc /usr/share/doc/libvorbis-1.3.7/vorbis-fidelity.html
+%dir /usr/share/doc/libvorbis-1.3.7/vorbisenc
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/changes.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/examples.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/index.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/ovectl_ratemanage2_arg.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/ovectl_ratemanage_arg.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/overview.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/reference.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/style.css
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/vorbis_encode_ctl.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/vorbis_encode_init.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/vorbis_encode_init_vbr.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/vorbis_encode_setup_init.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/vorbis_encode_setup_managed.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisenc/vorbis_encode_setup_vbr.html
+%dir /usr/share/doc/libvorbis-1.3.7/vorbisfile
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/OggVorbis_File.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/callbacks.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/chaining_example_c.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/chainingexample.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/crosslap.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/datastructures.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/decoding.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/example.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/exampleindex.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/fileinfo.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/index.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/initialization.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_bitrate.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_bitrate_instant.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_callbacks.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_clear.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_comment.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_crosslap.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_fopen.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_info.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_open.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_open_callbacks.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_pcm_seek.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_pcm_seek_lap.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_pcm_seek_page.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_pcm_seek_page_lap.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_pcm_tell.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_pcm_total.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_raw_seek.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_raw_seek_lap.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_raw_tell.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_raw_total.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_read.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_read_filter.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_read_float.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_seekable.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_serialnumber.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_streams.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_test.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_test_callbacks.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_test_open.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_time_seek.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_time_seek_lap.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_time_seek_page.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_time_seek_page_lap.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_time_tell.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/ov_time_total.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/overview.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/reference.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/seekexample.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/seeking.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/seeking_example_c.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/seeking_test_c.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/seekingexample.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/style.css
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/threads.html
+%doc /usr/share/doc/libvorbis-1.3.7/vorbisfile/vorbisfile_example_c.html

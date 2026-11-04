@@ -1,0 +1,14 @@
+%dir /usr/bin
+/usr/bin/exo-desktop-item-edit
+/usr/bin/exo-open
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libexo-2.so.0
+/usr/lib64/libexo-2.so.0.1.0
+%dir /usr/share
+%dir /usr/share/gtk-doc
+%dir /usr/share/locale
+%dir /usr/share/man
+%dir /usr/share/pixmaps
+%dir /usr/share/pixmaps/exo
+/usr/share/pixmaps/exo/exo-thumbnail-frame.png

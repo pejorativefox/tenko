@@ -1,31 +1,29 @@
 Name:       util-macros
-Version:    1.20.0
+Version:    1.20.2
 Release:    1
-Summary:    TODO
-License:    GPL3
-Source0:    %{name}-%{version}.tar.xz
+Summary:    X.org autotools macros
+License:    MIT
 Prefix:     /usr
+Source0:    util-macros-1.20.2.tar.xz
 
 %description
-TODO
+util-macros provides the autoconf macros used by X.org packages.
 
 %prep
-%setup -q -a0
+%setup -q
 
-%build 
+%build
 %configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/share/aclocal/xorg-macros.m4
-/usr/share/pkgconfig/xorg-macros.pc
-/usr/share/util-macros/INSTALL
+%files -f %{_sourcedir}/util-macros.filelist
 
 %changelog
-* Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.20.0-1
-- Version bump
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.20.2-1
+- Initial package (BLFS r13.1)

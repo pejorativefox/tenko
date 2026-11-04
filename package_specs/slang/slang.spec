@@ -1,5 +1,5 @@
 Name:       slang
-Version:    2.3.2
+Version:    2.3.3
 Release:    1
 Summary:    TODO
 License:    GPL3
@@ -31,7 +31,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/slcurses.h
 /usr/lib64/libslang.so
 /usr/lib64/libslang.so.2
-/usr/lib64/libslang.so.2.3.2
+/usr/lib64/libslang.so.2.3.3
 /usr/lib64/pkgconfig/slang.pc
 /usr/lib64/slang/v2/modules/base64-module.so
 /usr/lib64/slang/v2/modules/chksum-module.so
@@ -41,7 +41,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/slang/v2/modules/histogram-module.so
 /usr/lib64/slang/v2/modules/iconv-module.so
 /usr/lib64/slang/v2/modules/json-module.so
-/usr/lib64/slang/v2/modules/pcre-module.so
 /usr/lib64/slang/v2/modules/png-module.so
 /usr/lib64/slang/v2/modules/rand-module.so
 /usr/lib64/slang/v2/modules/select-module.so
@@ -135,6 +134,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/slsh/help/sockfuns.hlp
 /usr/share/slsh/help/statsfuns.hlp
 /usr/share/slsh/help/structfuns.hlp
+/usr/share/slsh/help/timestamp.hlp
 /usr/share/slsh/histogram.sl
 /usr/share/slsh/iconv.sl
 /usr/share/slsh/json.sl
@@ -158,6 +158,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/slsh/rline/vikeys.sl
 /usr/share/slsh/scripts/jpegsize
 /usr/share/slsh/scripts/lsrpm
+/usr/share/slsh/scripts/slcov
 /usr/share/slsh/scripts/sldb
 /usr/share/slsh/scripts/slprof
 /usr/share/slsh/scripts/slstkchk
@@ -179,10 +180,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/slsh/structfuns.sl
 /usr/share/slsh/sysconf.sl
 /usr/share/slsh/termios.sl
+/usr/share/slsh/timestamp.sl
 /usr/share/slsh/varray.sl
 /usr/share/slsh/zlib.sl
 
-
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.3.3-1
+- Sync with BLFS r13.1
+
 # let's skip this for now
 

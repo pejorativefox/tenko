@@ -1,0 +1,21 @@
+%dir /usr/include
+%dir /usr/include/X11
+%dir /usr/include/X11/ICE
+/usr/include/X11/ICE/ICE.h
+/usr/include/X11/ICE/ICEconn.h
+/usr/include/X11/ICE/ICElib.h
+/usr/include/X11/ICE/ICEmsg.h
+/usr/include/X11/ICE/ICEproto.h
+/usr/include/X11/ICE/ICEutil.h
+%dir /usr/lib64
+/usr/lib64/libICE.a
+/usr/lib64/libICE.so
+/usr/lib64/libICE.so.6
+/usr/lib64/libICE.so.6.3.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/ice.pc
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/libICE
+%doc /usr/share/doc/libICE/ICElib.xml
+%doc /usr/share/doc/libICE/ice.xml

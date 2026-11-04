@@ -1,0 +1,4 @@
+# Start the display manager on boot.  lightdm.service Conflicts=getty@tty1
+# and is aliased to display-manager.service, so this replaces the console
+# login prompt on the graphical VT.
+enable lightdm.service

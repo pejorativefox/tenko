@@ -1,0 +1,6 @@
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libgudev-1.0.so.0
+/usr/lib64/libgudev-1.0.so.0.3.0
+%dir /usr/share
+%dir /usr/share/gir-1.0

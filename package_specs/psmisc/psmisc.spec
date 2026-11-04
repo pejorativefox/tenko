@@ -1,6 +1,6 @@
 Name:       psmisc
-Version:    23.6
-Release:    1
+Version:    23.7
+Release:    2
 Summary:    procfs tools
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 This package contains miscellaneous utilities that use the proc file-system.
+
+%package lang
+Summary:    psmisc translations
+Requires:   psmisc = %{version}-%{release}
+
+%description lang
+Translations for psmisc.
 
 %prep
 %setup -q
@@ -22,17 +29,16 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 
-%files
-/usr/bin/fuser
-/usr/bin/killall
-/usr/bin/peekfd
-/usr/bin/prtstat
-/usr/bin/pslog
-/usr/bin/pstree
-/usr/bin/pstree.x11
-/usr/share/locale/
-/usr/share/man/
+%files -f %{_sourcedir}/psmisc.filelist
+%files lang -f %{_sourcedir}/psmisc-lang.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 23.7-2
+- Split lang payload into psmisc-lang (size audit)
+
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 23.7
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump

@@ -1,0 +1,11 @@
+%dir /usr/bin
+%dir /usr/include
+%dir /usr/lib64
+%dir /usr/share
+%dir /usr/share/aclocal
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/bin/freetype-config
+/usr/lib64/libfreetype.so.6
+/usr/lib64/libfreetype.so.6.20.7
+/usr/share/man/man1/freetype-config.1.gz

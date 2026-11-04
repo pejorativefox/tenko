@@ -1,5 +1,5 @@
 Name:       libndp
-Version:    1.7
+Version:    1.9
 Release:    1
 Summary:    TODO
 License:    GPL3
@@ -14,7 +14,6 @@ TODO
 %setup
 
 %build
-./autogen.sh
 %configure  --sysconfdir=/etc    \
             --localstatedir=/var \
             --disable-static
@@ -30,11 +29,14 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/ndp.h
 /usr/lib64/libndp.so
 /usr/lib64/libndp.so.0
-/usr/lib64/libndp.so.0.1.1
+/usr/lib64/libndp.so.0.3.0
 /usr/lib64/pkgconfig/libndp.pc
 /usr/share/man/man8/ndptool.8.gz
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.9-1
+- Sync with BLFS r13.1
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.7-1
 - Version bump
 

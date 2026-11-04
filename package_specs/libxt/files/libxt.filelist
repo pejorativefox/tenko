@@ -1,0 +1,7 @@
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libXt.so.6
+/usr/lib64/libXt.so.6.0.0
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/man

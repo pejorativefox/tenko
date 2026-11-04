@@ -1,0 +1,10 @@
+%dir /usr/lib64/cmake/expat-2.9.0
+/usr/include/expat.h
+/usr/include/expat_config.h
+/usr/include/expat_external.h
+/usr/lib64/cmake/expat-2.9.0/expat-config-version.cmake
+/usr/lib64/cmake/expat-2.9.0/expat-config.cmake
+/usr/lib64/cmake/expat-2.9.0/expat-noconfig.cmake
+/usr/lib64/cmake/expat-2.9.0/expat.cmake
+/usr/lib64/libexpat.so
+/usr/lib64/pkgconfig/expat.pc

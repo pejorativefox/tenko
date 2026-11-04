@@ -1,0 +1,100 @@
+{
+  "blockdevices": [
+    {
+      "name": "vda",
+      "kname": "vda",
+      "path": "/dev/vda",
+      "type": "disk",
+      "size": 21474836480,
+      "ro": false,
+      "model": "QEMU HARDDISK",
+      "serial": "QM00001",
+      "tran": "virtio",
+      "pttype": "gpt",
+      "log-sec": 512,
+      "mountpoints": [],
+      "children": [
+        {
+          "name": "vda1",
+          "kname": "vda1",
+          "path": "/dev/vda1",
+          "type": "part",
+          "size": 536870912,
+          "ro": false,
+          "partn": 1,
+          "partuuid": "AAAAAAAA-1111-2222-3333-444444444444",
+          "uuid": "1234-ABCD",
+          "fstype": "vfat",
+          "label": "EFI",
+          "mountpoints": []
+        }
+      ]
+    },
+    {
+      "name": "sdb",
+      "kname": "sdb",
+      "path": "/dev/sdb",
+      "type": "disk",
+      "size": 3221225472,
+      "ro": false,
+      "model": "USB DISK 3.0",
+      "serial": "USB0001",
+      "tran": "usb",
+      "pttype": "gpt",
+      "log-sec": 512,
+      "mountpoints": [],
+      "children": [
+        {
+          "name": "sdb1",
+          "kname": "sdb1",
+          "path": "/dev/sdb1",
+          "type": "part",
+          "size": 3220176896,
+          "ro": true,
+          "partn": 1,
+          "fstype": "iso9660",
+          "label": "BROWNEYE",
+          "mountpoints": ["/run/initramfs/live"]
+        }
+      ]
+    },
+    {
+      "name": "vdb",
+      "kname": "vdb",
+      "path": "/dev/vdb",
+      "type": "disk",
+      "size": 10737418240,
+      "ro": false,
+      "model": "DATA DISK",
+      "serial": "DATA0001",
+      "tran": "virtio",
+      "pttype": "gpt",
+      "log-sec": 512,
+      "mountpoints": [],
+      "children": [
+        {
+          "name": "vdb1",
+          "kname": "vdb1",
+          "path": "/dev/vdb1",
+          "type": "part",
+          "size": 10736369664,
+          "ro": false,
+          "partn": 1,
+          "fstype": "ext4",
+          "mountpoints": ["/mnt/data"]
+        }
+      ]
+    },
+    {
+      "name": "loop0",
+      "kname": "loop0",
+      "path": "/dev/loop0",
+      "type": "loop",
+      "size": 1048576,
+      "ro": true,
+      "pttype": null,
+      "log-sec": 512,
+      "mountpoints": []
+    }
+  ]
+}

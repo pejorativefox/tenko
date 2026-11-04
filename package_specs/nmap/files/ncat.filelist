@@ -1,0 +1,8 @@
+%dir /usr/bin
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/ncat
+/usr/bin/ncat
+/usr/share/man/man1/ncat.1.gz
+/usr/share/ncat/ca-bundle.crt

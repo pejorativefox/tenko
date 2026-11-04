@@ -1,0 +1,4 @@
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libXfont2.so.2
+/usr/lib64/libXfont2.so.2.0.0

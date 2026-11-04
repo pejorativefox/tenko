@@ -1,5 +1,5 @@
 Name:       shadow
-Version:    4.13
+Version:    4.20.3
 Release:    1
 Summary:    Shadow password format tools
 License:    GPL3
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 The shadow-utils package includes the necessary programs for converting UNIX password files to the shadow password format.
+
+%package lang
+Summary:    shadow translations
+Requires:   shadow = %{version}-%{release}
+
+%description lang
+Translations for shadow.
 
 %prep
 %setup -q -a0
@@ -28,6 +35,7 @@ sed -i -e 's@#ENCRYPT_METHOD DES@ENCRYPT_METHOD SHA512@' \
 %install
 rm -rf %{buildroot}
 %make_install
+rm -f %{buildroot}/usr/lib64/libsubid.a
 rm -vf %{buildroot}%{_infodir}/dir*
 rm -rf %{buildroot}/etc/pam.d
 
@@ -35,53 +43,23 @@ rm -rf %{buildroot}/etc/pam.d
 pwconv
 grpconv
 
-%files
-/usr/bin/chage                                                                              
-/usr/bin/chfn                                                                               
-/usr/bin/chsh                                                                               
-/usr/bin/expiry                                                                             
-/usr/bin/faillog                                                                            
-/usr/bin/getsubids                                                                          
-/usr/bin/gpasswd                                                                            
-/usr/bin/lastlog                                                                            
-/usr/bin/login                                                                              
-/usr/bin/newgidmap                                                                          
-/usr/bin/newgrp                                                                             
-/usr/bin/newuidmap                                                                          
-/usr/bin/passwd                                                                             
-/usr/bin/sg                                                                                 
-/usr/bin/su                                                                                 
-/usr/etc/limits                                                                             
-/usr/etc/login.access                                                                       
-/usr/etc/login.defs                                                                         
-/usr/include/shadow/subid.h                                                                 
-/usr/lib64/libsubid.a                                                                       
-/usr/lib64/libsubid.so                                                                      
-/usr/lib64/libsubid.so.4                                                                    
-/usr/lib64/libsubid.so.4.0.0                                                                
-/usr/sbin/chgpasswd                                                                         
-/usr/sbin/chpasswd                                                                          
-/usr/sbin/groupadd                                                                          
-/usr/sbin/groupdel                                                                          
-/usr/sbin/groupmems                                                                         
-/usr/sbin/groupmod                                                                          
-/usr/sbin/grpck                                                                             
-/usr/sbin/grpconv                                                                           
-/usr/sbin/grpunconv                                                                         
-/usr/sbin/logoutd                                                                           
-/usr/sbin/newusers     
-/usr/sbin/nologin
-/usr/sbin/pwck  
-/usr/sbin/pwconv
-/usr/sbin/pwunconv
-/usr/sbin/useradd
-/usr/sbin/userdel
-/usr/sbin/usermod
-/usr/sbin/vigr
-/usr/sbin/vipw
-/usr/share/locale/
+%files -f %{_sourcedir}/shadow.filelist
+%files lang -f %{_sourcedir}/shadow-lang.filelist
+
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 4.20.3-1
+- Update to 4.20.3 (current LFS/BLFS r13.1 trunk version).
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.2-2
+- Split lang payload into shadow-lang (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.2
+- Replace directory globs with a generated static filelist
+
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 4.20.2
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 4.13-1
 - Version bump
 

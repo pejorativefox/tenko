@@ -1,0 +1,742 @@
+{
+  "aliases": {
+    "flit-core": "python-flit-core",
+    "jinja2": "python-jinja",
+    "libelf": "elfutils",
+    "markupsafe": "python-markupsafe",
+    "packaging": "python-packaging",
+    "pcre": "pcre2",
+    "procps": "procps-ng",
+    "setuptools": "python-setuptools",
+    "wheel": "python-wheel"
+  },
+  "base_packages": [
+    "man-pages",
+    "iana-etc",
+    "glibc",
+    "zlib",
+    "bzip2",
+    "xz",
+    "lz4",
+    "zstd",
+    "file",
+    "readline",
+    "pcre",
+    "m4",
+    "bc",
+    "flex",
+    "tcl",
+    "expect",
+    "dejagnu",
+    "ninja",
+    "pkgconf",
+    "binutils",
+    "gmp",
+    "mpfr",
+    "mpc",
+    "attr",
+    "acl",
+    "libcap",
+    "libxcrypt",
+    "shadow",
+    "gawk",
+    "gcc",
+    "ncurses",
+    "sed",
+    "psmisc",
+    "gettext",
+    "bison",
+    "grep",
+    "bash",
+    "libtool",
+    "gdbm",
+    "gperf",
+    "expat",
+    "inetutils",
+    "less",
+    "perl",
+    "autoconf",
+    "automake",
+    "openssl",
+    "libelf",
+    "libffi",
+    "sqlite",
+    "mpdecimal",
+    "python",
+    "flit-core",
+    "packaging",
+    "wheel",
+    "setuptools",
+    "meson",
+    "kmod",
+    "coreutils",
+    "diffutils",
+    "findutils",
+    "groff",
+    "grub",
+    "gzip",
+    "iproute2",
+    "kbd",
+    "libpipeline",
+    "make",
+    "patch",
+    "tar",
+    "texinfo",
+    "vim",
+    "markupsafe",
+    "jinja2",
+    "systemd",
+    "dbus",
+    "man-db",
+    "procps",
+    "util-linux",
+    "e2fsprogs"
+  ],
+  "canonical_names": {
+    "acl": "acl",
+    "attr": "attr",
+    "autoconf": "autoconf",
+    "automake": "automake",
+    "bash": "bash",
+    "bc": "bc",
+    "binutils": "binutils",
+    "bison": "bison",
+    "bzip2": "bzip2",
+    "coreutils": "coreutils",
+    "dbus": "dbus",
+    "dejagnu": "dejagnu",
+    "diffutils": "diffutils",
+    "e2fsprogs": "e2fsprogs",
+    "expat": "expat",
+    "expect": "expect",
+    "file": "file",
+    "findutils": "findutils",
+    "flex": "flex",
+    "flit-core": "flit-core",
+    "gawk": "gawk",
+    "gcc": "gcc",
+    "gdbm": "gdbm",
+    "gettext": "gettext",
+    "glibc": "glibc",
+    "gmp": "gmp",
+    "gperf": "gperf",
+    "grep": "grep",
+    "groff": "groff",
+    "grub": "grub",
+    "gzip": "gzip",
+    "iana-etc": "iana-etc",
+    "inetutils": "inetutils",
+    "iproute2": "iproute2",
+    "jinja2": "jinja2",
+    "kbd": "kbd",
+    "kmod": "kmod",
+    "less": "less",
+    "libcap": "libcap",
+    "libelf": "elfutils",
+    "libffi": "libffi",
+    "libpipeline": "libpipeline",
+    "libtool": "libtool",
+    "libxcrypt": "libxcrypt",
+    "lz4": "lz4",
+    "m4": "m4",
+    "make": "make",
+    "man-db": "man-db",
+    "man-pages": "man-pages",
+    "markupsafe": "markupsafe",
+    "meson": "meson",
+    "mpc": "mpc",
+    "mpdecimal": "mpdecimal",
+    "mpfr": "mpfr",
+    "ncurses": "ncurses",
+    "ninja": "ninja",
+    "openssl": "openssl",
+    "packaging": "packaging",
+    "patch": "patch",
+    "pcre": "pcre2",
+    "perl": "perl",
+    "pkgconf": "pkgconf",
+    "procps": "procps-ng",
+    "psmisc": "psmisc",
+    "python": "python",
+    "readline": "readline",
+    "sed": "sed",
+    "setuptools": "setuptools",
+    "shadow": "shadow",
+    "sqlite": "sqlite",
+    "systemd": "systemd",
+    "tar": "tar",
+    "tcl": "tcl",
+    "texinfo": "texinfo",
+    "util-linux": "util-linux",
+    "vim": "vim",
+    "wheel": "wheel",
+    "xz": "xz",
+    "zlib": "zlib",
+    "zstd": "zstd"
+  },
+  "lfs": {
+    "commit": "1493db7e15cc7253405ad18a835f84257fb9b990",
+    "commit_date": "2026-10-31T15:28:31-05:00",
+    "repo": "https://git.linuxfromscratch.org/lfs.git",
+    "tag": "trunk"
+  },
+  "packages": {
+    "acl": "2.4.0",
+    "am-minor": "1.19",
+    "attr": "2.6.0",
+    "autoconf": "2.73",
+    "automake": "1.19",
+    "bash": "5.3",
+    "bc": "7.0.3",
+    "binutils": "2.47",
+    "bison": "3.8.2",
+    "bzip2": "1.0.8",
+    "coreutils": "9.12",
+    "dbus": "1.16.2",
+    "dejagnu": "1.6.3",
+    "diffutils": "3.12",
+    "e2fsprogs": "1.47.4",
+    "elfutils": "0.197",
+    "expat": "2.9.0",
+    "expat-dl": "2_9_0",
+    "expect": "5.45.4",
+    "file": "5.48",
+    "findutils": "4.11.0",
+    "flex": "2.6.4",
+    "flit-core": "4.2.0",
+    "gawk": "5.4.1",
+    "gcc": "16.2.0",
+    "gdbm": "1.26",
+    "gettext": "1.0",
+    "glibc": "2.44",
+    "gmp": "6.3.0",
+    "gperf": "3.3",
+    "grep": "3.12",
+    "groff": "1.24.2",
+    "grub": "2.16",
+    "gzip": "1.15",
+    "iana-etc": "20261015",
+    "inetutils": "2.8",
+    "iproute2": "7.3.0",
+    "jinja2": "3.1.6",
+    "kbd": "2.10.0",
+    "kmod": "34.3",
+    "less": "710",
+    "lfs-bootscripts": "20250827",
+    "libatomic": "1.2.0",
+    "libbfd": "2.47.20260726",
+    "libcap": "2.78",
+    "libffi": "3.8.0",
+    "libitm": "1.0.0",
+    "libpipeline": "1.5.8",
+    "libquadmath": "0.0.0",
+    "libsframe": "3.0.0",
+    "libstdcpp": "6.0.36",
+    "libtool": "2.6.2",
+    "libxcrypt": "4.5.2",
+    "linux": "7.3.1",
+    "linux-majmin": "7.3",
+    "linux-major": "7",
+    "linux-minor": "3",
+    "linux-patch": "1",
+    "lz4": "1.10.0",
+    "m4": "1.4.21",
+    "make": "4.4.1",
+    "man-db": "2.13.1",
+    "man-pages": "6.20",
+    "markupsafe": "3.0.4",
+    "meson": "1.12.1",
+    "mpc": "1.4.1",
+    "mpdecimal": "4.0.1",
+    "mpfr": "4.2.2",
+    "ncurses": "6.6",
+    "ncurses-base": "6.6",
+    "ninja": "1.13.2",
+    "openssl": "4.1.0",
+    "packaging": "26.3",
+    "patch": "2.8.1",
+    "pcre2": "10.49",
+    "perl": "5.44.0",
+    "pkgconf": "3.0.10",
+    "procps-ng": "4.0.7",
+    "psmisc": "23.7",
+    "python": "3.15.2",
+    "readline": "8.3",
+    "sed": "4.10",
+    "setuptools": "84.2.1",
+    "shadow": "4.20.3",
+    "sqlite": "3540100",
+    "sqlite-doc": "3540100",
+    "sqlite-short": "3.54.1",
+    "sysklogd": "2.8.0",
+    "systemd": "262.1",
+    "systemd-man": "262.1",
+    "sysvinit": "3.14",
+    "tar": "1.35",
+    "tcl": "8.6.18",
+    "tcl-major": "8.6",
+    "texinfo": "7.3",
+    "tzdata": "2026f",
+    "udev-lfs": "udev-lfs-20230818",
+    "util-linux": "2.42.4",
+    "vim": "9.2.1225",
+    "wheel": "0.48.0",
+    "xml-parser": "2.57",
+    "xz": "5.8.4",
+    "zlib": "1.3.2",
+    "zstd": "1.5.7"
+  },
+  "patches": {
+    "bzip2-docs-patch": {
+      "file": "bzip2-1.0.8-install_docs-1.patch",
+      "md5": "6a5ac7e89b791aae556de0f745916f7f",
+      "size": "1.6 KB",
+      "url": "https://www.linuxfromscratch.org/patches/lfs/13.1/bzip2-1.0.8-install_docs-1.patch"
+    },
+    "coreutils-i18n-patch": {
+      "file": "coreutils-9.12-i18n-1.patch",
+      "md5": "e776ce5c8e03e065dc07dc6f20ab65e9",
+      "size": "67 KB",
+      "url": "https://www.linuxfromscratch.org/patches/lfs/13.1/coreutils-9.12-i18n-1.patch"
+    },
+    "expect-gcc15-patch": {
+      "file": "expect-5.45.4-gcc15-1.patch",
+      "md5": "0ca4d6bb8d572fbcdb13cb36cd34833e",
+      "size": "12 KB",
+      "url": "https://www.linuxfromscratch.org/patches/lfs/13.1/expect-5.45.4-gcc15-1.patch"
+    },
+    "glibc-fhs-patch": {
+      "file": "glibc-fhs-1.patch",
+      "md5": "9a5997c3452909b1769918c759eff8a2",
+      "size": "2.8 KB",
+      "url": "https://www.linuxfromscratch.org/patches/lfs/13.1/glibc-fhs-1.patch"
+    },
+    "glibc-upstream-patch": {
+      "file": "glibc-2.44-upstream_fixes-3.patch",
+      "md5": "9edd452f9f99d4f87d8470c7029d237c",
+      "size": "269 KB",
+      "url": "https://www.linuxfromscratch.org/patches/downloads/glibc/glibc-2.44-upstream_fixes-3.patch"
+    },
+    "kbd-backspace-patch": {
+      "file": "kbd-2.10.0-backspace-1.patch",
+      "md5": "f75cca16a38da6caa7d52151f7136895",
+      "size": "12 KB",
+      "url": "https://www.linuxfromscratch.org/patches/lfs/13.1/kbd-2.10.0-backspace-1.patch"
+    },
+    "sysvinit-consolidated-patch": {
+      "file": "sysvinit-3.14-consolidated-1.patch",
+      "md5": "3af8fd8e13cad481eeeaa48be4247445",
+      "size": "2.5 KB",
+      "url": "https://www.linuxfromscratch.org/patches/lfs/13.1/sysvinit-3.14-consolidated-1.patch"
+    },
+    "tar-aclfix-patch": {
+      "file": "tar-1.35-acl_fix-1.patch",
+      "md5": "dbab49e317105539611866dac5dd54f6",
+      "size": "4.3 KB",
+      "url": "https://www.linuxfromscratch.org/patches/lfs/13.1/tar-1.35-acl_fix-1.patch"
+    }
+  },
+  "sources": {
+    "acl": {
+      "md5": "e289f370161698a96f50b2a3fdadf411",
+      "size": "376 KB",
+      "url": "https://download.savannah.gnu.org/releases/acl/acl-2.4.0.tar.xz"
+    },
+    "attr": {
+      "md5": "910a09c3ae0a211569d180586371cf7e",
+      "size": "495 KB",
+      "url": "https://download.savannah.gnu.org/releases/attr/attr-2.6.0.tar.gz"
+    },
+    "autoconf": {
+      "md5": "9cbad9a116ef845bafeed8e7bc771bf4",
+      "size": "1,385 KB",
+      "url": "https://ftpmirror.gnu.org/autoconf/autoconf-2.73.tar.xz"
+    },
+    "automake": {
+      "md5": "da9b5c852b94089c7b7b16071ce8803c",
+      "size": "1,644 KB",
+      "url": "https://ftpmirror.gnu.org/automake/automake-1.19.tar.xz"
+    },
+    "bash": {
+      "md5": "977c8c0c5ae6309191e7768e28ebc951",
+      "size": "11,089 KB",
+      "url": "https://ftpmirror.gnu.org/bash/bash-5.3.tar.gz"
+    },
+    "bc": {
+      "md5": "ad4db5a0eb4fdbb3f6813be4b6b3da74",
+      "size": "464 KB",
+      "url": "https://github.com/gavinhoward/bc/releases/download/7.0.3/bc-7.0.3.tar.xz"
+    },
+    "binutils": {
+      "md5": "d772acfbd55a81644e9fe7b8189cd2a5",
+      "size": "28,355 KB",
+      "url": "https://sourceware.org/pub/binutils/releases/binutils-2.47.tar.xz"
+    },
+    "bison": {
+      "md5": "c28f119f405a2304ff0a7ccdcc629713",
+      "size": "2,752 KB",
+      "url": "https://ftpmirror.gnu.org/bison/bison-3.8.2.tar.xz"
+    },
+    "bzip2": {
+      "md5": "67e051268d0c475ea773822f7500d0e5",
+      "size": "792 KB",
+      "url": "https://www.sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz"
+    },
+    "coreutils": {
+      "md5": "d7451ac748c319e6e1bc30e9ec63956c",
+      "size": "6,548 KB",
+      "url": "https://ftpmirror.gnu.org/coreutils/coreutils-9.12.tar.xz"
+    },
+    "dbus": {
+      "md5": "97832e6f0a260936d28536e5349c22e5",
+      "size": "1,090 KB",
+      "url": "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz"
+    },
+    "dejagnu": {
+      "md5": "68c5208c58236eba447d7d6d1326b821",
+      "size": "608 KB",
+      "url": "https://ftpmirror.gnu.org/dejagnu/dejagnu-1.6.3.tar.gz"
+    },
+    "diffutils": {
+      "md5": "d1b18b20868fb561f77861cd90b05de4",
+      "size": "1,894 KB",
+      "url": "https://ftpmirror.gnu.org/diffutils/diffutils-3.12.tar.xz"
+    },
+    "e2fsprogs": {
+      "md5": "733a93bc688314834ff2d10530ff4dc4",
+      "size": "9,870 KB",
+      "url": "https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.47.4/e2fsprogs-1.47.4.tar.gz"
+    },
+    "elfutils": {
+      "md5": "072992c8388b958dc006c6cfb74a0100",
+      "size": "11,939 KB",
+      "url": "https://sourceware.org/ftp/elfutils/0.197/elfutils-0.197.tar.bz2"
+    },
+    "expat": {
+      "md5": "fa5ea2bb996c624133368a87206d72af",
+      "size": "516 KB",
+      "url": "https://github.com/libexpat/libexpat/releases/download/R_2_9_0/expat-2.9.0.tar.xz"
+    },
+    "expect": {
+      "md5": "00fce8de158422f5ccd2666512329bd2",
+      "size": "618 KB",
+      "url": "https://prdownloads.sourceforge.net/expect/expect5.45.4.tar.gz"
+    },
+    "file": {
+      "md5": "423686e97f731d8c24e9cd1a22b03dec",
+      "size": "2,631 KB",
+      "url": "https://astron.com/pub/file/file-5.48.tar.gz"
+    },
+    "findutils": {
+      "md5": "512c6875ed84034dca240c4bc9380b96",
+      "size": "2,394 KB",
+      "url": "https://ftpmirror.gnu.org/findutils/findutils-4.11.0.tar.xz"
+    },
+    "flex": {
+      "md5": "2882e3179748cc9f9c23ec593d6adc8d",
+      "size": "1,386 KB",
+      "url": "https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz"
+    },
+    "flit-core": {
+      "md5": "f31d6369b52accb2764e87177985f4fd",
+      "size": "59 KB",
+      "url": "https://pypi.org/packages/source/f/flit-core/flit_core-4.2.0.tar.gz"
+    },
+    "gawk": {
+      "md5": "d379c2110e7a3e15347dd5559a41ad64",
+      "size": "3,749 KB",
+      "url": "https://ftpmirror.gnu.org/gawk/gawk-5.4.1.tar.xz"
+    },
+    "gcc": {
+      "md5": "19b777fb19ea4982731392481306f0d3",
+      "size": "104,689 KB",
+      "url": "https://ftpmirror.gnu.org/gcc/gcc-16.2.0/gcc-16.2.0.tar.xz"
+    },
+    "gdbm": {
+      "md5": "aaa600665bc89e2febb3c7bd90679115",
+      "size": "1,198 KB",
+      "url": "https://ftpmirror.gnu.org/gdbm/gdbm-1.26.tar.gz"
+    },
+    "gettext": {
+      "md5": "dc8b2911535929cec1e263706b0a13a1",
+      "size": "10,471 KB",
+      "url": "https://ftpmirror.gnu.org/gettext/gettext-1.0.tar.xz"
+    },
+    "glibc": {
+      "md5": "7677da43ef759c68e005f5d4c37986a6",
+      "size": "20,138 KB",
+      "url": "https://ftpmirror.gnu.org/glibc/glibc-2.44.tar.xz"
+    },
+    "gmp": {
+      "md5": "956dc04e864001a9c22429f761f2c283",
+      "size": "2,046 KB",
+      "url": "https://ftpmirror.gnu.org/gmp/gmp-6.3.0.tar.xz"
+    },
+    "gperf": {
+      "md5": "31753b021ea78a21f154bf9eecb8b079",
+      "size": "1,789 KB",
+      "url": "https://ftpmirror.gnu.org/gperf/gperf-3.3.tar.gz"
+    },
+    "grep": {
+      "md5": "5d9301ed9d209c4a88c8d3a6fd08b9ac",
+      "size": "1,874 KB",
+      "url": "https://ftpmirror.gnu.org/grep/grep-3.12.tar.xz"
+    },
+    "groff": {
+      "md5": "4568a9c35000784246cfebff8e93121a",
+      "size": "8,805 KB",
+      "url": "https://ftpmirror.gnu.org/groff/groff-1.24.2.tar.gz"
+    },
+    "grub": {
+      "md5": "1c611aa4712ce1ea447b9cbdfdb072a4",
+      "size": "7,753 KB",
+      "url": "https://gitlab.freedesktop.org/api/v4/projects/26558/packages/generic/source-assets/grub-2.16/grub-2.16.tar.xz"
+    },
+    "gzip": {
+      "md5": "8b5711442bf246612d0c51de0bf79964",
+      "size": "790 KB",
+      "url": "https://ftpmirror.gnu.org/gzip/gzip-1.15.tar.xz"
+    },
+    "iana-etc": {
+      "md5": "ce2bd3902a91499ab38d4dda06be5be7",
+      "size": "597 KB",
+      "url": "https://github.com/Mic92/iana-etc/releases/download/20261015/iana-etc-20261015.tar.gz"
+    },
+    "inetutils": {
+      "md5": "f0f9ad13045a67da9c882148f9efae6b",
+      "size": "2,916 KB",
+      "url": "https://ftpmirror.gnu.org/inetutils/inetutils-2.8.tar.gz"
+    },
+    "iproute2": {
+      "md5": "b51e7e3eaf2cee927417192045f3466d",
+      "size": "954 KB",
+      "url": "https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-7.3.0.tar.xz"
+    },
+    "jinja2": {
+      "md5": "66d4c25ff43d1deaf9637ccda523dec8",
+      "size": "240 KB",
+      "url": "https://pypi.org/packages/source/J/Jinja2/jinja2-3.1.6.tar.gz"
+    },
+    "kbd": {
+      "md5": "77ff950dfa4c34fdf41125547bfa831a",
+      "size": "1,747 KB",
+      "url": "https://www.kernel.org/pub/linux/utils/kbd/kbd-2.10.0.tar.xz"
+    },
+    "kmod": {
+      "md5": "142a3e10a40fb14fadedae2e2147c2d6",
+      "size": "435 KB",
+      "url": "https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-34.3.tar.xz"
+    },
+    "less": {
+      "md5": "c5b0ed0d7cebd3869feeae499c66a97b",
+      "size": "994 KB",
+      "url": "https://www.greenwoodsoftware.com/less/less-710.tar.gz"
+    },
+    "libcap": {
+      "md5": "0ff11419aa4813c0a0f84fe67bf3b39e",
+      "size": "197 KB",
+      "url": "https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.78.tar.xz"
+    },
+    "libffi": {
+      "md5": "96fe46f2a7bb82559b35a268a2c000ba",
+      "size": "1,545 KB",
+      "url": "https://github.com/libffi/libffi/releases/download/v3.8.0/libffi-3.8.0.tar.gz"
+    },
+    "libpipeline": {
+      "md5": "17ac6969b2015386bcb5d278a08a40b5",
+      "size": "1,046 KB",
+      "url": "https://download.savannah.gnu.org/releases/libpipeline/libpipeline-1.5.8.tar.gz"
+    },
+    "libtool": {
+      "md5": "87743862e6cabfb9e76651bc64e31e5c",
+      "size": "1,068 KB",
+      "url": "https://ftpmirror.gnu.org/libtool/libtool-2.6.2.tar.xz"
+    },
+    "libxcrypt": {
+      "md5": "25e888919ddcd153a07daa95224fa436",
+      "size": "655 KB",
+      "url": "https://github.com/besser82/libxcrypt/releases/download/v4.5.2/libxcrypt-4.5.2.tar.xz"
+    },
+    "lz4": {
+      "md5": "dead9f5f1966d9ae56e1e32761e4e675",
+      "size": "379 KB",
+      "url": "https://github.com/lz4/lz4/releases/download/v1.10.0/lz4-1.10.0.tar.gz"
+    },
+    "m4": {
+      "md5": "8051eef7239b2f187791f2ab0034d6b7",
+      "size": "2,032 KB",
+      "url": "https://ftpmirror.gnu.org/m4/m4-1.4.21.tar.xz"
+    },
+    "make": {
+      "md5": "c8469a3713cbbe04d955d4ae4be23eeb",
+      "size": "2,300 KB",
+      "url": "https://ftpmirror.gnu.org/make/make-4.4.1.tar.gz"
+    },
+    "man-db": {
+      "md5": "b6335533cbeac3b24cd7be31fdee8c83",
+      "size": "2,061 KB",
+      "url": "https://download.savannah.gnu.org/releases/man-db/man-db-2.13.1.tar.xz"
+    },
+    "man-pages": {
+      "md5": "a9a0c253b048d38dfc0c994f1dff993b",
+      "size": "1,870 KB",
+      "url": "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-6.20.tar.xz"
+    },
+    "markupsafe": {
+      "md5": "7c70b0284d3733795287d8d67e7164e0",
+      "size": "151 KB",
+      "url": "https://pypi.org/packages/source/M/MarkupSafe/markupsafe-3.0.4.tar.gz"
+    },
+    "meson": {
+      "md5": "c6eb71722ba220419cbebab8b1bd895f",
+      "size": "2,466 KB",
+      "url": "https://github.com/mesonbuild/meson/releases/download/1.12.1/meson-1.12.1.tar.gz"
+    },
+    "mpc": {
+      "md5": "40c5fba305125279ea46041160e81daf",
+      "size": "520 KB",
+      "url": "https://ftpmirror.gnu.org/mpc/mpc-1.4.1.tar.xz"
+    },
+    "mpdecimal": {
+      "md5": "3d4412579b1edc1047efab151889cca9",
+      "size": "309 KB",
+      "url": "https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-4.0.1.tar.gz"
+    },
+    "mpfr": {
+      "md5": "7c32c39b8b6e3ae85f25156228156061",
+      "size": "1,471 KB",
+      "url": "https://ftpmirror.gnu.org/mpfr/mpfr-4.2.2.tar.xz"
+    },
+    "ncurses": {
+      "md5": "dd45bf6854430af403452a7a6a40652c",
+      "size": "3,703 KB",
+      "url": "https://invisible-mirror.net/archives/ncurses/ncurses-6.6.tar.gz"
+    },
+    "ninja": {
+      "md5": "76c00637fde44909cd7d56f8d73f2042",
+      "size": "286 KB",
+      "url": "https://github.com/ninja-build/ninja/archive/v1.13.2/ninja-1.13.2.tar.gz"
+    },
+    "openssl": {
+      "md5": "3dd690cc5ed65605cf4d125c1176439c",
+      "size": "54,432 KB",
+      "url": "https://github.com/openssl/openssl/releases/download/openssl-4.1.0/openssl-4.1.0.tar.gz"
+    },
+    "packaging": {
+      "md5": "c6809ec56986682ceffe573b8778a1ce",
+      "size": "307 KB",
+      "url": "https://files.pythonhosted.org/packages/source/p/packaging/packaging-26.3.tar.gz"
+    },
+    "patch": {
+      "md5": "385458c8de6334c36b56ce7fd198411c",
+      "size": "919 KB",
+      "url": "https://ftpmirror.gnu.org/patch/patch-2.8.1.tar.xz"
+    },
+    "pcre2": {
+      "md5": "7b8509249cbd23ea76b6437bcce9be94",
+      "size": "2,135 KB",
+      "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.49/pcre2-10.49.tar.bz2"
+    },
+    "perl": {
+      "md5": "55761cf1543af326492fd194647796d1",
+      "size": "14,571 KB",
+      "url": "https://www.cpan.org/src/5.0/perl-5.44.0.tar.xz"
+    },
+    "pkgconf": {
+      "md5": "a825346f51f1ca2f09dddf891e6d1e3c",
+      "size": "420 KB",
+      "url": "https://distfiles.ariadne.space/pkgconf/pkgconf-3.0.10.tar.xz"
+    },
+    "procps-ng": {
+      "md5": "d47bdda51c4bd595a1ab21b8e538bcb3",
+      "size": "1,552 KB",
+      "url": "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.7.tar.xz"
+    },
+    "psmisc": {
+      "md5": "53eae841735189a896d614cba440eb10",
+      "size": "423 KB",
+      "url": "https://sourceforge.net/projects/psmisc/files/psmisc/psmisc-23.7.tar.xz"
+    },
+    "python": {
+      "md5": "fa9fdb83b421033bd86f43662d311f69",
+      "size": "27,306 KB",
+      "url": "https://www.python.org/ftp/python/3.15.2/Python-3.15.2.tar.xz"
+    },
+    "readline": {
+      "md5": "25a73bfb2a3ad7146c5e9d4408d9f6cd",
+      "size": "3,340 KB",
+      "url": "https://ftpmirror.gnu.org/readline/readline-8.3.tar.gz"
+    },
+    "sed": {
+      "md5": "c70dc5372db95c816442ffedf77a0d0f",
+      "size": "1,693 KB",
+      "url": "https://ftpmirror.gnu.org/sed/sed-4.10.tar.xz"
+    },
+    "setuptools": {
+      "md5": "251cbfc8f83414155e0e595cc4cffdd2",
+      "size": "1,202 KB",
+      "url": "https://pypi.org/packages/source/s/setuptools/setuptools-84.2.1.tar.gz"
+    },
+    "shadow": {
+      "md5": "dd905c09b339e825b21512df7ba49063",
+      "size": "2,277 KB",
+      "url": "https://github.com/shadow-maint/shadow/releases/download/4.20.3/shadow-4.20.3.tar.xz"
+    },
+    "sqlite": {
+      "md5": "5578c8ff43f5eb1ec671f0a2766b53c9",
+      "size": "3,255 KB",
+      "url": "https://sqlite.org/2026/sqlite-autoconf-3540100.tar.gz"
+    },
+    "systemd": {
+      "md5": "5aff3c8c8a663d4cd99d1cc89530fd09",
+      "size": "18,641 KB",
+      "url": "https://github.com/systemd/systemd/archive/v262.1/systemd-262.1.tar.gz"
+    },
+    "tar": {
+      "md5": "a2d8042658cfd8ea939e6d911eaf4152",
+      "size": "2,263 KB",
+      "url": "https://ftpmirror.gnu.org/tar/tar-1.35.tar.xz"
+    },
+    "tcl": {
+      "md5": "acfe0c9f7d0c626ecf026e834a888da6",
+      "size": "11,540 KB",
+      "url": "https://downloads.sourceforge.net/tcl/tcl8.6.18-src.tar.gz"
+    },
+    "texinfo": {
+      "md5": "915a09fcdfc2bf0f5ecf9e556d5698ff",
+      "size": "6,778 KB",
+      "url": "https://ftpmirror.gnu.org/texinfo/texinfo-7.3.tar.xz"
+    },
+    "util-linux": {
+      "md5": "0d25a2070c56b1f9f0b5a0ac6b29135a",
+      "size": "10,479 KB",
+      "url": "https://www.kernel.org/pub/linux/utils/util-linux/v2.42/util-linux-2.42.4.tar.xz"
+    },
+    "vim": {
+      "md5": "a3594aae508c628c50bf3c71af37813b",
+      "size": "19,812 KB",
+      "url": "https://github.com/vim/vim/archive/v9.2.1225/vim-9.2.1225.tar.gz"
+    },
+    "wheel": {
+      "md5": "f668e4885de814378b332eceea04a8a0",
+      "size": "65 KB",
+      "url": "https://pypi.org/packages/source/w/wheel/wheel-0.48.0.tar.gz"
+    },
+    "xz": {
+      "md5": "8b2f092ad33e560bc04ffdbe3101daa7",
+      "size": "1,531 KB",
+      "url": "https://github.com/tukaani-project/xz/releases/download/v5.8.4/xz-5.8.4.tar.xz"
+    },
+    "zlib": {
+      "md5": "a1e6c958597af3c67d162995a342138a",
+      "size": "1,468 KB",
+      "url": "https://zlib.net/fossils/zlib-1.3.2.tar.gz"
+    },
+    "zstd": {
+      "md5": "780fc1896922b1bc52a4e90980cdda48",
+      "size": "2,378 KB",
+      "url": "https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-1.5.7.tar.gz"
+    }
+  },
+  "variant": "systemd"
+}

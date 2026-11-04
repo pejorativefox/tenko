@@ -1,5 +1,5 @@
 Name:       nspr
-Version:    4.35
+Version:    4.40
 Release:    1
 Summary:    Netscape Portable Runtime
 License:    GPL3
@@ -30,7 +30,19 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files
 /usr/bin/nspr-config
-/usr/include/md/
+/usr/include/md/_aix32.cfg
+/usr/include/md/_aix64.cfg
+/usr/include/md/_darwin.cfg
+/usr/include/md/_freebsd.cfg
+/usr/include/md/_linux.cfg
+/usr/include/md/_netbsd.cfg
+/usr/include/md/_nto.cfg
+/usr/include/md/_openbsd.cfg
+/usr/include/md/_qnx.cfg
+/usr/include/md/_riscos.cfg
+/usr/include/md/_solaris.cfg
+/usr/include/md/_win95.cfg
+/usr/include/md/_winnt.cfg
 /usr/include/nspr.h
 /usr/include/obsolete/pralarm.h
 /usr/include/obsolete/probslet.h
@@ -85,7 +97,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/prtrace.h
 /usr/include/prtypes.h
 /usr/include/prvrsion.h
-/usr/include/prwin16.h
 /usr/lib64/libnspr4.so
 /usr/lib64/libplc4.so
 /usr/lib64/libplds4.so
@@ -93,5 +104,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/aclocal/nspr.m4
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 4.40-1
+- Sync with BLFS r13.1
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 4.35-1
 - Version bump

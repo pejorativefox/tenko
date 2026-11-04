@@ -1,0 +1,8 @@
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libXmu.so.6
+/usr/lib64/libXmu.so.6.2.0
+/usr/lib64/libXmuu.so.1
+/usr/lib64/libXmuu.so.1.0.0
+%dir /usr/share
+%dir /usr/share/doc

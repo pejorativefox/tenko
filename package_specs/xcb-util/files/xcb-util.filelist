@@ -1,0 +1,16 @@
+%dir /usr/include
+%dir /usr/include/xcb
+/usr/include/xcb/xcb_atom.h
+/usr/include/xcb/xcb_aux.h
+/usr/include/xcb/xcb_event.h
+/usr/include/xcb/xcb_util.h
+%dir /usr/lib64
+/usr/lib64/libxcb-util.a
+/usr/lib64/libxcb-util.so
+/usr/lib64/libxcb-util.so.1
+/usr/lib64/libxcb-util.so.1.0.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/xcb-atom.pc
+/usr/lib64/pkgconfig/xcb-aux.pc
+/usr/lib64/pkgconfig/xcb-event.pc
+/usr/lib64/pkgconfig/xcb-util.pc

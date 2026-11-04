@@ -1,18 +1,22 @@
 Name:       xvinfo
-Version:    1.1.3
+Version:    1.1.6
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Query the X11 Video extension (Xv)
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    xvinfo-1.1.6.tar.xz
 
 
 
 %description
-TODO
+Query the X11 Video extension (Xv).
+
+xvinfo is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure 
@@ -23,10 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xvinfo
-/usr/share/man/man1/xvinfo.1.gz
-
+%files -f %{_sourcedir}/xvinfo.filelist
 %changelog
 # let's skip this for now
 

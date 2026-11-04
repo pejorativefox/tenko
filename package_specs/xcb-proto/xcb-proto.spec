@@ -1,6 +1,6 @@
 Name:       xcb-proto
-Version:    1.15
-Release:    1
+Version:    1.17.0
+Release:    2
 Summary:    XML-XCB protocol library
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -22,12 +22,22 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 mv %{buildroot}/usr/lib/* %{buildroot}/usr/lib64/
 rm -rf %{buildroot}/lib
+# xcb-proto installs xcbgen under site-packages; Python only searches
+# /usr/lib64/python3.15/site-packages in this layout.
+if [ -d %{buildroot}/usr/lib64/site-packages ]; then
+    mkdir -p %{buildroot}/usr/lib64/python3.15
+    mv %{buildroot}/usr/lib64/site-packages %{buildroot}/usr/lib64/python3.15/
+fi
 
-%files
-/usr/share/xcb/
-/usr/lib64/python3.11/site-packages/
-/usr/lib64/pkgconfig/xcb-proto.pc
+%files -f %{_sourcedir}/xcb-proto.filelist
+
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 1.17.0-2
+- Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.17.0
+- Sync with BLFS r13.1 (1.15)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.15-1
 - Version bump

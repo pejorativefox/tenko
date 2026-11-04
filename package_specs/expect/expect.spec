@@ -11,12 +11,13 @@ Expect is a tool for automating interactive applications.
 
 %prep
 %setup -n %{name}%{version}
+patch -Np1 -i %{_sourcedir}/expect-5.45.4-gcc15-1.patch
 
 %build
-%configure  --with-tcl=/usr/lib   \
+CFLAGS="$CFLAGS -Wno-error=format-security"
+%configure  --with-tcl=/usr/lib64  \
             --enable-shared         \
-            --with-tclinclude=/usr/include \
-            --with-tcl=/usr/lib64
+            --with-tclinclude=/usr/include
 %make_build
 
 %install

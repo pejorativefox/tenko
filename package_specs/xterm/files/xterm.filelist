@@ -1,0 +1,34 @@
+%dir /usr/bin
+%dir /usr/lib
+%dir /usr/lib/X11
+%dir /usr/lib/X11/app-defaults
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/pixmaps
+/usr/bin/koi8rxterm
+/usr/bin/resize
+/usr/bin/uxterm
+/usr/bin/xterm
+/usr/lib/X11/app-defaults/KOI8RXTerm
+/usr/lib/X11/app-defaults/KOI8RXTerm-color
+/usr/lib/X11/app-defaults/UXTerm
+/usr/lib/X11/app-defaults/UXTerm-color
+/usr/lib/X11/app-defaults/XTerm
+/usr/lib/X11/app-defaults/XTerm-color
+/usr/share/man/man1/koi8rxterm.1.gz
+/usr/share/man/man1/resize.1.gz
+/usr/share/man/man1/uxterm.1.gz
+/usr/share/man/man1/xterm.1.gz
+/usr/share/pixmaps/filled-xterm_16x16.xpm
+/usr/share/pixmaps/filled-xterm_32x32.xpm
+/usr/share/pixmaps/filled-xterm_48x48.xpm
+/usr/share/pixmaps/mini.xterm_16x16.xpm
+/usr/share/pixmaps/mini.xterm_32x32.xpm
+/usr/share/pixmaps/mini.xterm_48x48.xpm
+/usr/share/pixmaps/xterm-color_16x16.xpm
+/usr/share/pixmaps/xterm-color_32x32.xpm
+/usr/share/pixmaps/xterm-color_48x48.xpm
+/usr/share/pixmaps/xterm_16x16.xpm
+/usr/share/pixmaps/xterm_32x32.xpm
+/usr/share/pixmaps/xterm_48x48.xpm

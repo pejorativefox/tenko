@@ -1,5 +1,5 @@
 Name:       nasm
-Version:    2.14.02
+Version:    3.02
 Release:    1
 Summary:    TODO
 License:    GPL3
@@ -29,5 +29,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/ndisasm.1.gz
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 3.02-1
+- Sync with BLFS r13.1
+
 # let's skip this for now
 

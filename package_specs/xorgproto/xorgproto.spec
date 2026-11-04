@@ -1,5 +1,5 @@
 Name:       xorgproto
-Version:    2023.2
+Version:    2026.1
 Release:    1
 Summary:    Xorg Protocols
 License:    GPL3
@@ -8,6 +8,13 @@ Prefix:     /usr
 
 %description
 Xorg Protocols
+
+%package doc
+Summary:    xorgproto documentation
+Requires:   xorgproto = %{version}-%{release}
+
+%description doc
+Documentation for xorgproto.
 
 %prep
 %setup -q
@@ -21,44 +28,19 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/GL/glxint.h
-/usr/include/GL/glxmd.h
-/usr/include/GL/glxproto.h
-/usr/include/GL/glxtokens.h
-/usr/include/GL/internal/glcore.h
-/usr/share/pkgconfig/applewmproto.pc
-/usr/share/pkgconfig/bigreqsproto.pc
-/usr/share/pkgconfig/compositeproto.pc
-/usr/share/pkgconfig/damageproto.pc
-/usr/share/pkgconfig/dmxproto.pc
-/usr/share/pkgconfig/dpmsproto.pc
-/usr/share/pkgconfig/dri2proto.pc
-/usr/share/pkgconfig/dri3proto.pc
-/usr/share/pkgconfig/fixesproto.pc
-/usr/share/pkgconfig/fontsproto.pc
-/usr/share/pkgconfig/glproto.pc
-/usr/share/pkgconfig/inputproto.pc
-/usr/share/pkgconfig/kbproto.pc
-/usr/share/pkgconfig/presentproto.pc
-/usr/share/pkgconfig/randrproto.pc
-/usr/share/pkgconfig/recordproto.pc
-/usr/share/pkgconfig/renderproto.pc
-/usr/share/pkgconfig/resourceproto.pc
-/usr/share/pkgconfig/scrnsaverproto.pc
-/usr/share/pkgconfig/videoproto.pc
-/usr/share/pkgconfig/xcmiscproto.pc
-/usr/share/pkgconfig/xextproto.pc
-/usr/share/pkgconfig/xf86bigfontproto.pc
-/usr/share/pkgconfig/xf86dgaproto.pc
-/usr/share/pkgconfig/xf86driproto.pc
-/usr/share/pkgconfig/xf86vidmodeproto.pc
-/usr/share/pkgconfig/xineramaproto.pc
-/usr/share/pkgconfig/xproto.pc
-/usr/share/pkgconfig/xwaylandproto.pc
-/usr/include/X11/
-/usr/share/doc/
+%files -f %{_sourcedir}/xorgproto.filelist
+%files doc -f %{_sourcedir}/xorgproto-doc.filelist
+
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 2026.1-1
+- Update to 2026.1 (current LFS/BLFS r13.1 trunk version).
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2025.1-2
+- Split doc payload into xorgproto-doc (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 2025.1
+- Sync with BLFS r13.1 (2023.2)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2023.2
 - Version bump

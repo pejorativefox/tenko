@@ -1,0 +1,6 @@
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libSM.so.6
+/usr/lib64/libSM.so.6.0.1
+%dir /usr/share
+%dir /usr/share/doc

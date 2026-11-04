@@ -1,6 +1,6 @@
 Name:       libxfce4util
-Version:    4.19.2
-Release:    1
+Version:    4.20.1
+Release:    3
 Summary:    Basic utility library for Xfce4.
 License:    GPL
 Source0:    %{name}-%{version}.tar.bz2
@@ -8,6 +8,28 @@ Prefix:     /usr
 
 %description
 Basic utility library for Xfce4.
+
+%package lang
+Summary:    libxfce4util translations
+Requires:   libxfce4util = %{version}-%{release}
+
+%description lang
+Translations for libxfce4util.
+
+%package doc
+Summary:    libxfce4util documentation
+Requires:   libxfce4util = %{version}-%{release}
+
+%description doc
+Documentation for libxfce4util.
+
+%package devel
+Summary:    libxfce4util development files
+Requires:   %{name}-gir = %{version}-%{release}
+Requires:   libxfce4util = %{version}-%{release}
+
+%description devel
+Development files for libxfce4util.
 
 %prep
 %setup
@@ -18,22 +40,36 @@ Basic utility library for Xfce4.
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 
-%files
-/usr/include/xfce4/libxfce4util/
-/usr/lib64/girepository-1.0/Libxfce4util-1.0.typelib
-/usr/lib64/libxfce4util.so
-/usr/lib64/libxfce4util.so.7
-/usr/lib64/libxfce4util.so.7.0.0
-/usr/lib64/pkgconfig/libxfce4util-1.0.pc
-/usr/sbin/xfce4-kiosk-query
-/usr/share/gir-1.0/Libxfce4util-1.0.gir
 
-/usr/share/gtk-doc/html/libxfce4util/
-/usr/share/locale/
+%package gir
+Summary:    GObject Introspection data for libxfce4util
+License:    GPL
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for libxfce4util, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
+%files -f %{_sourcedir}/libxfce4util.filelist
+%files lang -f %{_sourcedir}/libxfce4util-lang.filelist
+%files doc -f %{_sourcedir}/libxfce4util-doc.filelist
+%files devel -f %{_sourcedir}/libxfce4util-devel.filelist
+%files gir -f %{_sourcedir}/libxfce4util-gir.filelist
+
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20.1-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.1-2
+- Split lang, doc, devel payload into libxfce4util-lang, libxfce4util-doc, libxfce4util-devel (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.1
+- Sync with BLFS r13.1 (4.19.2)
+
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.19.2
 - Version bump
 

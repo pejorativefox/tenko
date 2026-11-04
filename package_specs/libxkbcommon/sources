@@ -1,1 +1,2 @@
-40f0486b4eb491928ec6616c2ff85120 https://xkbcommon.org/download/libxkbcommon-1.5.0.tar.xz
+07f838f575d62c267cfc53eaf5ee739b https://github.com/lfs-book/libxkbcommon/archive/v1.13.2/libxkbcommon-1.13.2.tar.gz libxkbcommon-1.13.2.tar.gz
+aba273b7ce6ef1ce8c17491f81aadce6 https://www.linuxfromscratch.org/patches/blfs/13.1/libxkbcommon-1.13.2-upstream_fix-1.patch libxkbcommon-1.13.2-upstream_fix-1.patch

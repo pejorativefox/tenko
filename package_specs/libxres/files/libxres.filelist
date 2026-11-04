@@ -1,0 +1,13 @@
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libXRes.so.1
+/usr/lib64/libXRes.so.1.0.0
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man3
+/usr/share/man/man3/XRes.3.gz
+/usr/share/man/man3/XResQueryClientPixmapBytes.3.gz
+/usr/share/man/man3/XResQueryClientResources.3.gz
+/usr/share/man/man3/XResQueryClients.3.gz
+/usr/share/man/man3/XResQueryExtension.3.gz
+/usr/share/man/man3/XResQueryVersion.3.gz

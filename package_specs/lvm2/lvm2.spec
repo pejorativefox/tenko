@@ -1,94 +1,76 @@
 Name:       LVM2
-Version:    2.03.05
-Release:    1
-Summary:    LVM library
-License:    GPL3
+Version:    2.03.44
+Release:    2
+Summary:    LVM2 logical volume management tools and device-mapper library
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later
+URL:        https://sourceware.org/lvm2/
 Source0:    %{name}.%{version}.tgz
 Prefix:     /usr
 
 BuildRequires: libaio
+BuildRequires: readline
+BuildRequires: systemd
+BuildRequires: util-linux-devel
 
 %description
-Provides logical volume management facilities on linux.
+The LVM2 package is a set of tools that manage logical partitions. It
+allows spanning of file systems across multiple physical disks and disk
+partitions and provides for dynamic growing or shrinking of logical
+partitions, mirroring and low storage footprint snapshots.
+
+This package also provides the device-mapper library (libdevmapper).
+
+%package devel
+Summary:    Development files for LVM2 and libdevmapper
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+Headers, pkg-config metadata and linker symlinks for libdevmapper and
+liblvm2cmd.
 
 %prep
-%setup -q -a0 -n LVM2.%{version}
+%setup -q -n LVM2.%{version}
 
 %build
-%configure --prefix=/usr --enable-pkgconfig
+# LVM2's configure detects system tools in /usr/sbin.
+export PATH="$PATH:/usr/sbin"
+%configure \
+    --enable-cmdlib     \
+    --enable-pkgconfig  \
+    --enable-udev_sync  \
+    --with-usrlibdir=%{_libdir}
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
+# systemd revision of the BLFS instructions: install the units that
+# activate logical volumes at boot (not installed by default).
+make install_systemd_units DESTDIR=%{buildroot}
+# BLFS systemd configuration step: the default locking_dir under /var/lock
+# deadlocks at boot; use the runtime lock directory instead.
+sed -e '/locking_dir =/{s/#//;s/var/run/}' \
+    -i %{buildroot}%{_sysconfdir}/lvm/lvm.conf
+# The distro maps sbindir to /usr/bin (%_sbindir), so the tools install
+# there, but lvm's own unit hardcodes /usr/sbin.  Point it at the real
+# binary; otherwise lvm-devices-import.service fails on every boot.
+sed -i 's|^ExecStart=/usr/sbin/vgimportdevices|ExecStart=%{_bindir}/vgimportdevices|' \
+    %{buildroot}%{_unitdir}/lvm-devices-import.service
 
-%files
-/etc/lvm/lvm.conf
-/etc/lvm/lvmlocal.conf
-/etc/lvm/profile/cache-mq.profile
-/etc/lvm/profile/cache-smq.profile
-/etc/lvm/profile/command_profile_template.profile
-/etc/lvm/profile/lvmdbusd.profile
-/etc/lvm/profile/metadata_profile_template.profile
-/etc/lvm/profile/thin-generic.profile
-/etc/lvm/profile/thin-performance.profile
-/etc/lvm/profile/vdo-small.profile
-/usr/include/libdevmapper.h
-/usr/lib/libdevmapper.so
-/usr/lib/pkgconfig/devmapper.pc
-/usr/lib64/libdevmapper.so.1.02
-/usr/sbin/blkdeactivate
-/usr/sbin/dmsetup
-/usr/sbin/dmstats
-/usr/sbin/fsadm
-/usr/sbin/lvchange
-/usr/sbin/lvconvert
-/usr/sbin/lvcreate
-/usr/sbin/lvdisplay
-/usr/sbin/lvextend
-/usr/sbin/lvm
-/usr/sbin/lvmconfig
-/usr/sbin/lvmdiskscan
-/usr/sbin/lvmdump
-/usr/sbin/lvmsadc
-/usr/sbin/lvmsar
-/usr/sbin/lvreduce
-/usr/sbin/lvremove
-/usr/sbin/lvrename
-/usr/sbin/lvresize
-/usr/sbin/lvs
-/usr/sbin/lvscan
-/usr/sbin/pvchange
-/usr/sbin/pvck
-/usr/sbin/pvcreate
-/usr/sbin/pvdisplay
-/usr/sbin/pvmove
-/usr/sbin/pvremove
-/usr/sbin/pvresize
-/usr/sbin/pvs
-/usr/sbin/pvscan
-/usr/sbin/vgcfgbackup
-/usr/sbin/vgcfgrestore
-/usr/sbin/vgchange
-/usr/sbin/vgck
-/usr/sbin/vgconvert
-/usr/sbin/vgcreate
-/usr/sbin/vgdisplay
-/usr/sbin/vgexport
-/usr/sbin/vgextend
-/usr/sbin/vgimport
-/usr/sbin/vgimportclone
-/usr/sbin/vgmerge
-/usr/sbin/vgmknodes
-/usr/sbin/vgreduce
-/usr/sbin/vgremove
-/usr/sbin/vgrename
-/usr/sbin/vgs
-/usr/sbin/vgscan
-/usr/sbin/vgsplit
-/usr/share/man/*
-
-
+%files -f %{_sourcedir}/lvm2.filelist
+%files devel -f %{_sourcedir}/lvm2-devel.filelist
 
 %changelog
-# let's skip this for now
+* Tue Nov  3 2026 browneye <build@browneye.invalid> 2.03.44-2
+- Fix lvm-devices-import.service: it hardcodes /usr/sbin/vgimportdevices,
+  but the distro maps sbindir to /usr/bin, so the unit failed on every
+  boot (`dnf`-installed systems included).  Rewrite the ExecStart path.
+  Found by the first UEFI installer-ISO boot test.
+
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 2.03.44-1
+- Update to 2.03.44 (current LFS/BLFS r13.1 trunk version).
+
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.03.42-1
+- Update to the BLFS r13.1 version (2.03.42, was 2.03.05)
+- Enable cmdlib, pkgconfig and udev_sync as the book does; install the
+  systemd units (systemd revision) and use the static filelist.

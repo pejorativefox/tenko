@@ -1,71 +1,121 @@
 Name:       librsvg
-Version:    2.44.12
-Release:    1
-Summary:    TODO
-License:    GPL3
+Version:    2.63.4
+Release:    2
+Summary:    SVG rendering library
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
-
+Source1:    %{name}-%{version}-vendor.tar.xz
+BuildRequires: cairo-devel
+BuildRequires: pango-devel
+BuildRequires: gdk-pixbuf-devel
+BuildRequires: gobject-introspection
+BuildRequires: libxml2-devel
+BuildRequires: freetype-devel
+BuildRequires: harfbuzz-devel
+BuildRequires: rust
+BuildRequires: cargo-c
 
 %description
-TODO
+librsvg is a library and tools used to manipulate, convert and view
+Scalable Vector Graphic (SVG) images.
+
+%package devel
+Summary:    librsvg development files
+Requires:   %{name}-gir = %{version}-%{release}
+Requires:   librsvg = %{version}-%{release}
+Provides:   pkgconfig(librsvg-2.0)
+
+%description devel
+Development files for librsvg.
+
+%package gir
+Summary:    GObject Introspection data for librsvg
+License:    LGPL-2.1-or-later
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for librsvg, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
 
 %prep
-%setup
+%setup -q
+tar -xf %{SOURCE1}
+mkdir -p .cargo
+cat > .cargo/config.toml <<'EOF'
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "vendor"
+EOF
+sed -e "/OUTDIR/s|,| / 'librsvg-%{version}', '--no-namespace-dir',|" \
+    -e '/output/s|Rsvg-2.0|librsvg-%{version}|'                            \
+    -i doc/meson.build
 
 %build
-%configure --disable-static
-%make_build
+export PATH=/opt/rust/bin:$PATH
+export CARGO_HOME="$PWD/cargo-home"
+export CARGO_NET_OFFLINE=true
+export CARGO_BUILD_JOBS=4
+mkdir -p "$CARGO_HOME"
+mkdir build
+pushd build
+meson setup ..                \
+      --prefix=/usr           \
+      --buildtype=release     \
+      --wrap-mode=nofallback  \
+      -D introspection=enabled \
+      -D pixbuf-loader=enabled \
+      -D vala=disabled        \
+      -D docs=disabled        \
+      -D tests=false
+ninja %{?_smp_mflags}
+popd
 
-%install    
+%install
 rm -rf %{buildroot}
-%make_install
+export PATH=/opt/rust/bin:$PATH
+export CARGO_HOME="$PWD/cargo-home"
+export CARGO_NET_OFFLINE=true
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/rsvg-convert
-/usr/bin/rsvg-view-3
-/usr/include/librsvg-2.0/librsvg/librsvg-enum-types.h
-/usr/include/librsvg-2.0/librsvg/librsvg-features.h
-/usr/include/librsvg-2.0/librsvg/rsvg-cairo.h
-/usr/include/librsvg-2.0/librsvg/rsvg.h
-/usr/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.la
-/usr/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so
-/usr/lib64/girepository-1.0/Rsvg-2.0.typelib
-/usr/lib64/librsvg-2.la
-/usr/lib64/librsvg-2.so
-/usr/lib64/librsvg-2.so.2
-/usr/lib64/librsvg-2.so.2.44.12
-/usr/lib64/pkgconfig/librsvg-2.0.pc
-/usr/share/doc/librsvg/COMPILING.md
-/usr/share/doc/librsvg/CONTRIBUTING.md
-/usr/share/doc/librsvg/README.md
-/usr/share/doc/librsvg/code-of-conduct.md
-/usr/share/gir-1.0/Rsvg-2.0.gir
-/usr/share/gtk-doc/html/rsvg-2.0/annotation-glossary.html
-/usr/share/gtk-doc/html/rsvg-2.0/api-index-full.html
-/usr/share/gtk-doc/html/rsvg-2.0/ch01.html
-/usr/share/gtk-doc/html/rsvg-2.0/home.png
-/usr/share/gtk-doc/html/rsvg-2.0/index.html
-/usr/share/gtk-doc/html/rsvg-2.0/left-insensitive.png
-/usr/share/gtk-doc/html/rsvg-2.0/left.png
-/usr/share/gtk-doc/html/rsvg-2.0/licence.html
-/usr/share/gtk-doc/html/rsvg-2.0/object-tree.html
-/usr/share/gtk-doc/html/rsvg-2.0/right-insensitive.png
-/usr/share/gtk-doc/html/rsvg-2.0/right.png
-/usr/share/gtk-doc/html/rsvg-2.0/rsvg-2.0.devhelp2
-/usr/share/gtk-doc/html/rsvg-2.0/rsvg-RsvgHandle.html
-/usr/share/gtk-doc/html/rsvg-2.0/rsvg-Using-RSVG-with-GIO.html
-/usr/share/gtk-doc/html/rsvg-2.0/rsvg-Using-RSVG-with-GdkPixbuf.html
-/usr/share/gtk-doc/html/rsvg-2.0/rsvg-Using-RSVG-with-cairo.html
-/usr/share/gtk-doc/html/rsvg-2.0/rsvg-Version-check-and-feature-tests.html
-/usr/share/gtk-doc/html/rsvg-2.0/rsvg.html
-/usr/share/gtk-doc/html/rsvg-2.0/style.css
-/usr/share/gtk-doc/html/rsvg-2.0/up-insensitive.png
-/usr/share/gtk-doc/html/rsvg-2.0/up.png
-/usr/share/man/man1/rsvg-convert.1.gz
-/usr/share/thumbnailers/librsvg.thumbnailer
+%post
+# The pixbuf loader is installed after gdk-pixbuf; regenerate its cache so
+# SVG images resolve at runtime.  Image builds with scriptlets disabled must
+# run gdk-pixbuf-query-loaders --update-cache (or rebuild gdk-pixbuf).
+if [ -x /usr/bin/gdk-pixbuf-query-loaders ]; then
+    /usr/bin/gdk-pixbuf-query-loaders --update-cache >/dev/null 2>&1 || :
+fi
+
+%postun
+if [ -x /usr/bin/gdk-pixbuf-query-loaders ]; then
+    /usr/bin/gdk-pixbuf-query-loaders --update-cache >/dev/null 2>&1 || :
+fi
+
+%files -f %{_sourcedir}/librsvg.filelist
+%files devel -f %{_sourcedir}/librsvg-devel.filelist
+%files gir -f %{_sourcedir}/librsvg-gir.filelist
+
 
 %changelog
-# let's skip this for now
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.63.4-2
+- Split the GObject Introspection typelib into %{name}-gir; the -devel
+  package now requires it (last typelib still in a runtime package)
 
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.63.4-1
+- Update to 2.63.4 (current BLFS r13.1 trunk).  Vendor tarball regenerated
+  from the shipped Cargo.lock now that the Rust 1.99.0 toolchain and
+  cargo-c 0.10.26 are available.
+
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.63.2-2
+- Refresh the gdk-pixbuf loader cache in %post/%postun so the SVG loader
+  is usable without rebuilding gdk-pixbuf
+
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.63.2-1
+- Sync with BLFS r13.1 (librsvg 2.63.2); port build to Meson + Rust
+  with vendored crates; enable the gdk-pixbuf SVG loader.

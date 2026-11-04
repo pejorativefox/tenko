@@ -1,5 +1,5 @@
 Name:       libxxf86dga
-Version:    1.1.6
+Version:    1.1.7
 Release:    1
 Summary:    Client library for the XFree86-DGA extension
 License:    GPL3
@@ -32,5 +32,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.1.7-1
+- Sync with BLFS r13.1
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.1.6-1
 - Version bump

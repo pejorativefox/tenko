@@ -1,54 +1,82 @@
 Name:       gnutls
-Version:    3.5.19
-Release:    1
-Summary:    GnuTLS Library.
-License:    GPL
+Version:    3.8.13
+Release:    2
+Summary:    A TLS protocol implementation
+License:    LGPL-2.1-or-later AND GPL-3.0-or-later
+URL:        https://www.gnutls.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 BuildRequires: nettle
+BuildRequires: gmp
+BuildRequires: libtasn1
+BuildRequires: p11-kit
+
+# Runtime TLS primitives.  The shared-library sonames are generated
+# automatically; this keeps the package name visible to dependency tools.
+Requires:      nettle
 
 %description
-The GnuTLS package contains libraries and userspace tools which provide a secure 
-layer over a reliable transport layer. Currently the GnuTLS library implements 
-the proposed standards by the IETF's TLS working group. 
+GnuTLS is a secure layer over a reliable transport layer.  It implements
+the TLS 1.3, TLS 1.2, TLS 1.1 and TLS 1.0 protocols along with X.509, OpenPGP
+and PSK authentication, and ships the gnutls-cli/certtool/p11tool utilities.
+
+The package bundles libunistring (--with-included-unistring) because
+libunistring is not part of the Browneye package set; this mirrors the
+historical GnuTLS spec and avoids an unpackaged runtime dependency.
+
+%package doc
+Summary:    gnutls documentation
+Requires:   gnutls = %{version}-%{release}
+
+%description doc
+Documentation for gnutls.
+
+%package lang
+Summary:    gnutls translations
+Requires:   gnutls = %{version}-%{release}
+
+%description lang
+Translations for gnutls.
+
+%package devel
+Summary:    gnutls development files
+Requires:   gnutls = %{version}-%{release}
+
+%description devel
+Development files for gnutls.
 
 %prep
-%setup
+%setup -q
 
 %build
-%configure    --with-default-trust-store-pkcs11="pkcs11:" \
-              --with-included-unistring
+%configure                       \
+    --prefix=/usr                \
+    --docdir=%{_docdir}/%{name}-%{version} \
+    --with-default-trust-store-pkcs11="pkcs11:" \
+    --with-included-unistring
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
-rm -rf %{buildroot}/usr/share/info/dir
+rm -rf %{buildroot}%{_infodir}/dir
 
-%files
-/usr/share/man/*
-/usr/share/info/*
-/usr/share/locale/*
-/usr/share/doc/gnutls/*
-/usr/bin/certtool
-/usr/bin/gnutls-cli
-/usr/bin/gnutls-cli-debug
-/usr/bin/gnutls-serv
-/usr/bin/ocsptool
-/usr/bin/p11tool
-/usr/bin/psktool
-/usr/bin/srptool
-/usr/include/gnutls/*
-/usr/lib64/libgnutls.so
-/usr/lib64/libgnutls.so.30
-/usr/lib64/libgnutls.so.30.14.11
-/usr/lib64/libgnutlsxx.so
-/usr/lib64/libgnutlsxx.so.28
-/usr/lib64/libgnutlsxx.so.28.1.0
-/usr/lib64/pkgconfig/gnutls.pc
+%files -f %{_sourcedir}/gnutls.filelist
+%files doc -f %{_sourcedir}/gnutls-doc.filelist
+%files lang -f %{_sourcedir}/gnutls-lang.filelist
+%files devel -f %{_sourcedir}/gnutls-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.13-2
+- Split doc, lang, devel payload into gnutls-doc, gnutls-lang, gnutls-devel (size audit)
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.13
+- Update to 3.8.13 (BLFS r13.1)
+- Build against nettle 4.0, libtasn1 4.21.0 and p11-kit 0.26.5
+- Use the PKCS#11 trust store and the bundled libunistring
+- Replace the hand-written file list with a generated static filelist
+
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 3.5.19
 - Initial RPM
-

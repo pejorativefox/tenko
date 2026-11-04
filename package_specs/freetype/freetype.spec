@@ -1,17 +1,23 @@
 Name:       freetype
-Version:    2.13.1
+Version:    2.15.0
 Release:    1
 Summary:    TrueType font library
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
-
 BuildRequires: harfbuzz >= 8.1.1
 
-Provides: pkgconfig(freetype2)
 
 %description
 The FreeType2 package contains a library which allows applications to properly render TrueType fonts. 
+
+%package devel
+Summary:    freetype development files
+Requires:   freetype = %{version}-%{release}
+Provides: pkgconfig(freetype2)
+
+%description devel
+Development files for freetype.
 
 %prep
 %setup -q
@@ -29,16 +35,19 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/freetype-config
-/usr/include/freetype2/
-/usr/lib64/libfreetype.so
-/usr/lib64/libfreetype.so.6
-/usr/lib64/libfreetype.so.6.20.0
-/usr/lib64/pkgconfig/freetype2.pc
-/usr/share/aclocal/freetype2.m4
-/usr/share/man/man1/freetype-config.1.gz
+%files -f %{_sourcedir}/freetype.filelist
+%files devel -f %{_sourcedir}/freetype-devel.filelist
+
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.15.0-1
+- Sync with BLFS r13.1
+
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.14.3-2
+- Split devel payload into freetype-devel (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 2.14.3
+- Sync with BLFS r13.1 (2.13.1)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.13.1-1
 - Version bump

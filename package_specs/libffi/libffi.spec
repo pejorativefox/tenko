@@ -1,5 +1,5 @@
 Name:       libffi
-Version:    3.4.4
+Version:    3.8.0
 Release:    1
 Summary:    Foreign Function Interface library
 License:    GPL3
@@ -26,7 +26,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/include/ffitarget.h
 /usr/lib64/libffi.so
 /usr/lib64/libffi.so.8
-/usr/lib64/libffi.so.8.1.2
+/usr/lib64/libffi.so.8.5.0
 /usr/lib64/pkgconfig/libffi.pc
 /usr/share/info/libffi.info.gz
 /usr/share/man/man3/ffi.3.gz
@@ -36,5 +36,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 3.8.0
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump

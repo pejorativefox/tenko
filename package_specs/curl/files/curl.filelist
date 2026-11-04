@@ -1,0 +1,11 @@
+%dir /usr/bin
+/usr/bin/curl
+/usr/bin/curl-config
+/usr/bin/wcurl
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libcurl.so.4
+/usr/lib64/libcurl.so.4.8.0
+%dir /usr/share
+%dir /usr/share/aclocal
+%dir /usr/share/man

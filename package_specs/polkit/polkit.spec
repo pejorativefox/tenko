@@ -1,11 +1,10 @@
 Name:       polkit
-Version:    0.115
-Release:    2
+Version:    128
+Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.gz
-Patch:      polkit-0.115-security_patch-3.patch
+Source0:    polkit-128.tar.gz
 
 %description
 TODO
@@ -17,58 +16,56 @@ groupadd -fg 27 polkitd &&
 useradd -c "PolicyKit Daemon Owner" -d /etc/polkit-1 -u 27 \
         -g polkitd -s /bin/false polkitd
 
+%package devel
+Summary:    polkit development files
+Requires:   %{name}-gir = %{version}-%{release}
+Requires:   polkit = %{version}-%{release}
+
+%description devel
+Development files for polkit.
+
 %prep
-%setup -a 0
-%patch -p1
+%setup -q
 
 %build
-%configure  --sysconfdir=/etc                \
-            --localstatedir=/var             \
-            --disable-static                 \
-            --enable-libsystemd-login=no     \
-            --enable-libelogind=no           \
-            --with-authfw=shadow --disable-man-pages
-%make_build
+mkdir build
+pushd build
+meson setup .. --prefix=/usr --buildtype=release -D man=false -D session_tracking=logind -D authfw=shadow -D tests=false
+ninja
+popd
 
-
-%install    
+%install
 rm -rf %{buildroot}
-%make_install
-rm -vf %{buildroot}%{_infodir}/dir*
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 
-%files
-/etc/dbus-1/system.d/org.freedesktop.PolicyKit1.conf
-/etc/polkit-1/rules.d/50-default.rules
-/usr/bin/pk-example-frobnicate
-/usr/bin/pkaction
-/usr/bin/pkcheck
-/usr/bin/pkexec
-/usr/bin/pkttyagent
-/usr/include/polkit-1/*
-/usr/lib/polkit-1/polkit-agent-helper-1
-/usr/lib/polkit-1/polkitd
-/usr/lib64/girepository-1.0/Polkit-1.0.typelib
-/usr/lib64/girepository-1.0/PolkitAgent-1.0.typelib
-/usr/lib64/libpolkit-agent-1.la
-/usr/lib64/libpolkit-agent-1.so
-/usr/lib64/libpolkit-agent-1.so.0
-/usr/lib64/libpolkit-agent-1.so.0.0.0
-/usr/lib64/libpolkit-gobject-1.la
-/usr/lib64/libpolkit-gobject-1.so
-/usr/lib64/libpolkit-gobject-1.so.0
-/usr/lib64/libpolkit-gobject-1.so.0.0.0
-/usr/lib64/pkgconfig/polkit-agent-1.pc
-/usr/lib64/pkgconfig/polkit-gobject-1.pc
-/usr/share/dbus-1/system-services/org.freedesktop.PolicyKit1.service
-/usr/share/gettext/its/polkit.its
-/usr/share/gettext/its/polkit.loc
-/usr/share/gir-1.0/Polkit-1.0.gir
-/usr/share/gir-1.0/PolkitAgent-1.0.gir
-/usr/share/locale/*
-/usr/share/polkit-1/actions/org.freedesktop.policykit.examples.pkexec.policy
-/usr/share/polkit-1/actions/org.freedesktop.policykit.policy
+
+%package gir
+Summary:    GObject Introspection data for polkit
+License:    GPL3
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for polkit, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
+%files -f %{_sourcedir}/polkit.filelist
+%files devel -f %{_sourcedir}/polkit-devel.filelist
+%files gir -f %{_sourcedir}/polkit-gir.filelist
+
 
 %changelog
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 128-1
+- Update to 128 (BLFS r13.1 trunk, D9 parity)
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 127-3
+- Split devel payload into polkit-devel (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 127
+- Sync with BLFS r13.1 (0.115)
+
 * Sun May 10 2020 Chris Statzer <chris.statzer@qq.com> 0.115
 - Updated post install to create proper polkitd user
 

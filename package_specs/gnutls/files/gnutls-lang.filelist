@@ -1,0 +1,54 @@
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+/usr/share/locale/cs/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+/usr/share/locale/de/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/eo
+%dir /usr/share/locale/eo/LC_MESSAGES
+/usr/share/locale/eo/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+/usr/share/locale/es/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+/usr/share/locale/fi/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+/usr/share/locale/fr/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+/usr/share/locale/it/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+/usr/share/locale/ka/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/ms
+%dir /usr/share/locale/ms/LC_MESSAGES
+/usr/share/locale/ms/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+/usr/share/locale/nl/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+/usr/share/locale/pl/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+/usr/share/locale/pt_BR/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/ro
+%dir /usr/share/locale/ro/LC_MESSAGES
+/usr/share/locale/ro/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+/usr/share/locale/sr/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+/usr/share/locale/sv/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+/usr/share/locale/uk/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/vi
+%dir /usr/share/locale/vi/LC_MESSAGES
+/usr/share/locale/vi/LC_MESSAGES/gnutls.mo
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+/usr/share/locale/zh_CN/LC_MESSAGES/gnutls.mo

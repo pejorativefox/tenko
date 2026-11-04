@@ -1,0 +1,118 @@
+%dir /etc/xdg
+%dir /etc/xdg/autostart
+/etc/xdg/autostart/xfce4-power-manager.desktop
+%dir /usr/bin
+/usr/bin/xfce4-pm-helper
+/usr/bin/xfce4-power-manager
+/usr/bin/xfce4-power-manager-settings
+/usr/bin/xfpm-power-backlight-helper
+%dir /usr/lib64
+%dir /usr/lib64/xfce4
+%dir /usr/lib64/xfce4/panel
+%dir /usr/lib64/xfce4/panel/plugins
+/usr/lib64/xfce4/panel/plugins/libxfce4powermanager.so
+%dir /usr/share
+%dir /usr/share/applications
+/usr/share/applications/xfce4-power-manager-settings.desktop
+%dir /usr/share/icons
+%dir /usr/share/icons/hicolor
+%dir /usr/share/icons/hicolor/128x128
+%dir /usr/share/icons/hicolor/128x128/apps
+/usr/share/icons/hicolor/128x128/apps/org.xfce.powermanager.png
+%dir /usr/share/icons/hicolor/16x16
+%dir /usr/share/icons/hicolor/16x16/apps
+/usr/share/icons/hicolor/16x16/apps/org.xfce.powermanager.png
+%dir /usr/share/icons/hicolor/24x24
+%dir /usr/share/icons/hicolor/24x24/apps
+/usr/share/icons/hicolor/24x24/apps/org.xfce.powermanager.png
+%dir /usr/share/icons/hicolor/48x48
+%dir /usr/share/icons/hicolor/48x48/apps
+/usr/share/icons/hicolor/48x48/apps/org.xfce.powermanager.png
+%dir /usr/share/icons/hicolor/48x48/status
+/usr/share/icons/hicolor/48x48/status/ac-adapter.png
+/usr/share/icons/hicolor/48x48/status/battery-caution-charging.png
+/usr/share/icons/hicolor/48x48/status/battery-caution.png
+/usr/share/icons/hicolor/48x48/status/battery-empty-charging.png
+/usr/share/icons/hicolor/48x48/status/battery-empty.png
+/usr/share/icons/hicolor/48x48/status/battery-full-charged.png
+/usr/share/icons/hicolor/48x48/status/battery-full-charging.png
+/usr/share/icons/hicolor/48x48/status/battery-full.png
+/usr/share/icons/hicolor/48x48/status/battery-good-charging.png
+/usr/share/icons/hicolor/48x48/status/battery-good.png
+/usr/share/icons/hicolor/48x48/status/battery-low-charging.png
+/usr/share/icons/hicolor/48x48/status/battery-low.png
+/usr/share/icons/hicolor/48x48/status/battery-missing.png
+/usr/share/icons/hicolor/48x48/status/computer.png
+/usr/share/icons/hicolor/48x48/status/display-brightness.png
+/usr/share/icons/hicolor/48x48/status/input-keyboard.png
+/usr/share/icons/hicolor/48x48/status/input-mouse.png
+/usr/share/icons/hicolor/48x48/status/keyboard-brightness.png
+/usr/share/icons/hicolor/48x48/status/multimedia-player.png
+/usr/share/icons/hicolor/48x48/status/pda.png
+/usr/share/icons/hicolor/48x48/status/phone.png
+/usr/share/icons/hicolor/48x48/status/tablet.png
+/usr/share/icons/hicolor/48x48/status/uninterruptible-power-supply.png
+/usr/share/icons/hicolor/48x48/status/video-display.png
+%dir /usr/share/icons/hicolor/64x64
+%dir /usr/share/icons/hicolor/64x64/apps
+/usr/share/icons/hicolor/64x64/apps/org.xfce.powermanager.png
+%dir /usr/share/icons/hicolor/96x96
+%dir /usr/share/icons/hicolor/96x96/apps
+/usr/share/icons/hicolor/96x96/apps/org.xfce.powermanager.png
+%dir /usr/share/icons/hicolor/scalable
+%dir /usr/share/icons/hicolor/scalable/apps
+/usr/share/icons/hicolor/scalable/apps/org.xfce.powermanager.svg
+%dir /usr/share/icons/hicolor/scalable/status
+/usr/share/icons/hicolor/scalable/status/ac-adapter-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/ac-adapter.svg
+/usr/share/icons/hicolor/scalable/status/battery-caution-charging-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-caution-charging.svg
+/usr/share/icons/hicolor/scalable/status/battery-caution-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-caution.svg
+/usr/share/icons/hicolor/scalable/status/battery-empty-charging-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-empty-charging.svg
+/usr/share/icons/hicolor/scalable/status/battery-empty-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-empty.svg
+/usr/share/icons/hicolor/scalable/status/battery-full-charged-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-full-charged.svg
+/usr/share/icons/hicolor/scalable/status/battery-full-charging-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-full-charging.svg
+/usr/share/icons/hicolor/scalable/status/battery-full-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-full.svg
+/usr/share/icons/hicolor/scalable/status/battery-good-charging-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-good-charging.svg
+/usr/share/icons/hicolor/scalable/status/battery-good-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-good.svg
+/usr/share/icons/hicolor/scalable/status/battery-low-charging-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-low-charging.svg
+/usr/share/icons/hicolor/scalable/status/battery-low-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-low.svg
+/usr/share/icons/hicolor/scalable/status/battery-missing-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/battery-missing.svg
+/usr/share/icons/hicolor/scalable/status/computer.svg
+/usr/share/icons/hicolor/scalable/status/display-brightness-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/display-brightness.svg
+/usr/share/icons/hicolor/scalable/status/keyboard-brightness-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/keyboard-brightness.svg
+/usr/share/icons/hicolor/scalable/status/keyboard.svg
+/usr/share/icons/hicolor/scalable/status/mouse.svg
+/usr/share/icons/hicolor/scalable/status/multimedia-player.svg
+/usr/share/icons/hicolor/scalable/status/pda.svg
+/usr/share/icons/hicolor/scalable/status/phone.svg
+/usr/share/icons/hicolor/scalable/status/tablet.svg
+/usr/share/icons/hicolor/scalable/status/uninterruptible-power-supply.svg
+/usr/share/icons/hicolor/scalable/status/video-display.svg
+%dir /usr/share/locale
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/share/man/man1/xfce4-power-manager-settings.1.gz
+/usr/share/man/man1/xfce4-power-manager.1.gz
+%dir /usr/share/metainfo
+/usr/share/metainfo/xfce4-power-manager.appdata.xml
+%dir /usr/share/polkit-1
+%dir /usr/share/polkit-1/actions
+/usr/share/polkit-1/actions/org.xfce.power.policy
+%dir /usr/share/xfce4
+%dir /usr/share/xfce4/panel
+%dir /usr/share/xfce4/panel/plugins
+/usr/share/xfce4/panel/plugins/power-manager-plugin.desktop

@@ -1,2 +1,5 @@
-25a429319dff20dfbfb9956c2b5be911 https://www.lua.org/ftp/lua-5.4.6.tar.gz
-dd9bafa25310f188f711b2670275e0cc https://www.linuxfromscratch.org/patches/blfs/12.0/lua-5.4.6-shared_library-1.patch
+81cf5265b8634967d8a7480d238168ce https://www.lua.org/ftp/lua-5.4.8.tar.gz
+# The shared-library patch is kept in files/ because the book's 5.4.8 URL is
+# 404; it is the 5.4.6 file renamed (identical content, md5
+# dd9bafa25310f188f711b2670275e0cc; user-approved parity deviation, recorded
+# in Gitea issue #7).

@@ -1,52 +1,50 @@
 Name:       gpgme
-Version:    1.21.0
-Release:    1
-Summary:    High-Level Crypto API for encryption
-License:    GPL
-Source0:    %{name}-%{version}.tar.bz2
+Version:    2.2.0
+Release:    3
+Summary:    High-level crypto API for GnuPG
+License:    LGPL
 Prefix:     /usr
+Source0:    %{name}-%{version}.tar.bz2
 
 %description
-High-Level Crypto API for encryption
+GPGME is a library that allows applications to access GnuPG functionality
+without requiring knowledge of the GnuPG internals.
+
+%package devel
+Summary:    Development files for gpgme
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+pkg-config files for gpgme, used to build software against it.
 
 %prep
-%setup
+%setup -q
 
 %build
-export PYTHON_VERSION=3.11
-export PYTHON=/bin/python3.11
-%configure --disable-gpg-test 
+%configure --disable-static --disable-gpg-test
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
-rm -rf %{buildroot}/usr/share/info/dir
-ln -sfv gpg-1.21.0-py3.11-linux-x86_64.egg/gpg/ %{buildroot}/usr/lib64/python3.11/site-packages/gpg
+rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/gpgme-json
-/usr/bin/gpgme-tool
-/usr/include/gpgme.h
-/usr/bin/gpgme-config
-/usr/lib64/cmake/Gpgmepp/GpgmeppConfig.cmake
-/usr/lib64/cmake/Gpgmepp/GpgmeppConfigVersion.cmake
-/usr/lib64/libgpgme.so
-/usr/lib64/libgpgme.so.11
-/usr/lib64/libgpgme.so.11.30.0
-/usr/lib64/libgpgmepp.so
-/usr/lib64/libgpgmepp.so.6
-/usr/lib64/libgpgmepp.so.6.18.0
-/usr/lib64/pkgconfig/gpgme-glib.pc
-/usr/lib64/pkgconfig/gpgme.pc
-/usr/share/
-/usr/include/gpgme++/*
-/usr/lib64/python3.11/site-packages/
+%files -f %{_sourcedir}/gpgme.filelist
+%files devel -f %{_sourcedir}/gpgme-devel.filelist
 
 %changelog
-* Wed May 20 2020 Chris Statzer <chris.statzer@qq.com> 1.11.1-2
-- seperated out the python2 module to allow install without deps.
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 2.2.0-3
+- Move the pkg-config files into a new -devel subpackage so the runtime
+  package no longer drags pkgconfig(...) consumers into every install.
 
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.11.1-1
-- Initial RPM
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 2.2.0-2
+- Rebuild for Python 3.15 / the D9 dnf stack refresh (new NEVR so the
+  rebuilt package supersedes the published -1).
 
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.2.0-1
+- Update to the BLFS r13.1 version (2.2.0, was 1.21.0) for the E1
+  dnf/libdnf dependency chain.
+- Built with --disable-static --disable-gpg-test (no gnupg binary in the
+  build image; the Browneye repo is unsigned, so signature helpers are not
+  exercised at assembly time).
+- Use a generated static filelist.

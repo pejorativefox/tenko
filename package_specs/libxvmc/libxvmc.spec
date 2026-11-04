@@ -1,5 +1,5 @@
 Name:       libxvmc
-Version:    1.0.13
+Version:    1.0.15
 Release:    1
 Summary:    Xlib-based X-Video Motion Compensation API.
 License:    GPL3
@@ -39,5 +39,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/doc/libXvMC/XvMC_API.txt
 
 %changelog
+* Tue Nov 03 2026 browneye <build@browneye.invalid> 1.0.15-1
+- Sync with BLFS r13.1
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.0.13-1
 - Version bump

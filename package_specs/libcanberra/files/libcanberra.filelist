@@ -1,0 +1,46 @@
+%dir /usr/bin
+/usr/bin/canberra-gtk-play
+%dir /usr/include
+%dir /usr/lib64
+%dir /usr/lib64/gnome-settings-daemon-3.0
+%dir /usr/lib64/gnome-settings-daemon-3.0/gtk-modules
+/usr/lib64/gnome-settings-daemon-3.0/gtk-modules/canberra-gtk-module.desktop
+%dir /usr/lib64/gtk-3.0
+%dir /usr/lib64/gtk-3.0/modules
+/usr/lib64/gtk-3.0/modules/libcanberra-gtk-module.so
+/usr/lib64/gtk-3.0/modules/libcanberra-gtk3-module.so
+%dir /usr/lib64/libcanberra-0.30
+/usr/lib64/libcanberra-0.30/libcanberra-multi.so
+/usr/lib64/libcanberra-0.30/libcanberra-null.so
+/usr/lib64/libcanberra-gtk3.so.0
+/usr/lib64/libcanberra-gtk3.so.0.1.9
+/usr/lib64/libcanberra.so.0
+/usr/lib64/libcanberra.so.0.2.5
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/libcanberra
+/usr/share/doc/libcanberra/README
+%dir /usr/share/gdm
+%dir /usr/share/gdm/autostart
+%dir /usr/share/gdm/autostart/LoginWindow
+/usr/share/gdm/autostart/LoginWindow/libcanberra-ready-sound.desktop
+%dir /usr/share/gnome
+%dir /usr/share/gnome/autostart
+/usr/share/gnome/autostart/libcanberra-login-sound.desktop
+%dir /usr/share/gnome/shutdown
+/usr/share/gnome/shutdown/libcanberra-logout-sound.sh
+%dir /usr/share/gtk-doc
+%dir /usr/share/gtk-doc/html
+%dir /usr/share/gtk-doc/html/libcanberra
+/usr/share/gtk-doc/html/libcanberra/ch01.html
+/usr/share/gtk-doc/html/libcanberra/home.png
+/usr/share/gtk-doc/html/libcanberra/index.html
+/usr/share/gtk-doc/html/libcanberra/index.sgml
+/usr/share/gtk-doc/html/libcanberra/left.png
+/usr/share/gtk-doc/html/libcanberra/libcanberra-canberra-gtk.html
+/usr/share/gtk-doc/html/libcanberra/libcanberra-canberra.html
+/usr/share/gtk-doc/html/libcanberra/libcanberra.devhelp2
+/usr/share/gtk-doc/html/libcanberra/right.png
+/usr/share/gtk-doc/html/libcanberra/style.css
+/usr/share/gtk-doc/html/libcanberra/up.png
+%dir /usr/share/vala

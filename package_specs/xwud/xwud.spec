@@ -1,18 +1,22 @@
 Name:       xwud
-Version:    1.0.5
+Version:    1.0.8
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Display an X11 image dumped by xwd
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    xwud-1.0.8.tar.xz
 
 
 
 %description
-TODO
+Display an X11 image dumped by xwd.
+
+xwud is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure 
@@ -23,10 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xwud
-/usr/share/man/man1/xwud.1.gz
-
+%files -f %{_sourcedir}/xwud.filelist
 %changelog
 # let's skip this for now
 

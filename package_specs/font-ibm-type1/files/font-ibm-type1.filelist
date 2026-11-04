@@ -1,0 +1,13 @@
+%dir /usr/share
+%dir /usr/share/fonts
+%dir /usr/share/fonts/Type1
+/usr/share/fonts/Type1/cour.afm
+/usr/share/fonts/Type1/cour.pfa
+/usr/share/fonts/Type1/courb.afm
+/usr/share/fonts/Type1/courb.pfa
+/usr/share/fonts/Type1/courbi.afm
+/usr/share/fonts/Type1/courbi.pfa
+/usr/share/fonts/Type1/couri.afm
+/usr/share/fonts/Type1/couri.pfa
+/usr/share/fonts/Type1/fonts.dir
+/usr/share/fonts/Type1/fonts.scale

@@ -1,0 +1,81 @@
+%dir /usr/share/locale/bg
+%dir /usr/share/locale/bg/LC_MESSAGES
+/usr/share/locale/bg/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+/usr/share/locale/cs/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+/usr/share/locale/da/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+/usr/share/locale/de/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/el
+%dir /usr/share/locale/el/LC_MESSAGES
+/usr/share/locale/el/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/eo
+%dir /usr/share/locale/eo/LC_MESSAGES
+/usr/share/locale/eo/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+/usr/share/locale/es/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+/usr/share/locale/fi/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+/usr/share/locale/fr/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/ga
+%dir /usr/share/locale/ga/LC_MESSAGES
+/usr/share/locale/ga/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/gl
+%dir /usr/share/locale/gl/LC_MESSAGES
+/usr/share/locale/gl/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/hr
+%dir /usr/share/locale/hr/LC_MESSAGES
+/usr/share/locale/hr/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+/usr/share/locale/id/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+/usr/share/locale/ja/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+/usr/share/locale/ka/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/ko
+%dir /usr/share/locale/ko/LC_MESSAGES
+/usr/share/locale/ko/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+/usr/share/locale/nl/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+/usr/share/locale/pl/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+/usr/share/locale/pt_BR/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/ro
+%dir /usr/share/locale/ro/LC_MESSAGES
+/usr/share/locale/ro/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+/usr/share/locale/ru/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+/usr/share/locale/sr/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+/usr/share/locale/sv/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+/usr/share/locale/uk/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/vi
+%dir /usr/share/locale/vi/LC_MESSAGES
+/usr/share/locale/vi/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+/usr/share/locale/zh_CN/LC_MESSAGES/m4.mo
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+/usr/share/locale/zh_TW/LC_MESSAGES/m4.mo

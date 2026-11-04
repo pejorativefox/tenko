@@ -1,51 +1,30 @@
 Name:       xf86-video-intel
-Version:    20190208
+Version:    20230223
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Xorg Intel video driver
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.xz
-
-
+Source0:    xf86-video-intel-20230223.tar.xz
 
 %description
-TODO
+The Intel video driver for Xorg.
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
-sed -i "s/#define force_inline inline __attribute__((always_inline))/#define force_inline inline/" src/sna/compiler.h
-./autogen.sh --prefix=/usr     \
-             --enable-kms-only \
-             --enable-uxa      \
-             --mandir=/usr/share/man
+%configure --enable-kms-only --enable-uxa
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-mv -v %{buildroot}/usr/share/man/man4/intel-virtual-output.4 \
-      %{buildroot}/usr/share/man/man1/intel-virtual-output.1 &&
-      
-sed -i '/\.TH/s/4/1/' %{buildroot}/usr/share/man/man1/intel-virtual-output.1
-
 %files
-/usr/bin/intel-virtual-output
-/usr/lib/libIntelXvMC.la
-/usr/lib/libIntelXvMC.so
-/usr/lib/libIntelXvMC.so.1
-/usr/lib/libIntelXvMC.so.1.0.0
-/usr/lib/xorg/modules/drivers/intel_drv.la
-/usr/lib/xorg/modules/drivers/intel_drv.so
-/usr/libexec/xf86-video-intel-backlight-helper
-/usr/share/man/man4/intel-virtual-output.4.gz
-/usr/share/man/man4/intel.4.gz
-/usr/share/polkit-1/actions/org.x.xf86-video-intel.backlight-helper.policy
-
+/usr/
 
 %changelog
-# let's skip this for now
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 20230223-1
+- Initial package (BLFS r13.1)

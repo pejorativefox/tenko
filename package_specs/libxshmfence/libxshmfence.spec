@@ -1,10 +1,10 @@
 Name:       libxshmfence
-Version:    1.3
+Version:    1.3.3
 Release:    1
 Summary:    X SyncFence library
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    %{name}-%{version}.tar.xz
 
 %description
 This library offers a CPU-based synchronization primitive compatible with the X SyncFence

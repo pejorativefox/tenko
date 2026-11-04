@@ -1,0 +1,35 @@
+Backport of upstream rpm commit d018e756b72c
+("Don't muck with per-process global sqlite configuration from the db backend").
+
+rpm's sqlite backend installed a process-global SQLITE_CONFIG_LOG handler
+that dereferences the rpmdb passed as its user data.  The sqlite log hook is
+global, so it also fires for unrelated sqlite connections opened later in the
+same process (for example libdnf's /var/lib/dnf/history.sqlite) long after the
+rpmdb has been closed.  rpmlog() then formats rdb->db_descr from freed memory
+and segfaults inside vsnprintf, which is what breaks `dnf list installed`,
+`dnf info` and `dnf history`.
+
+--- a/lib/backend/sqlite.c
++++ b/lib/backend/sqlite.c
+@@ -44,13 +44,6 @@ static void rpm_match3(sqlite3_context *sctx, int argc, sqlite3_value **argv)
+     sqlite3_result_int(sctx, match);
+ }
+ 
+-static void errCb(void *data, int err, const char *msg)
+-{
+-    rpmdb rdb = data;
+-    rpmlog(RPMLOG_WARNING, "%s: %s: %s\n",
+-		rdb->db_descr, sqlite3_errstr(err), msg);
+-}
+-
+ static int dbiCursorReset(dbiCursor dbc)
+ {
+     if (dbc->stmt) {
+@@ -170,7 +163,6 @@ static int sqlite_init(rpmdb rdb, const char * dbhome)
+ 	 * the "database is locked" errors at every cost
+ 	 */
+ 	sqlite3_busy_timeout(sdb, 10000);
+-	sqlite3_config(SQLITE_CONFIG_LOG, errCb, rdb);
+ 
+ 	sqlexec(sdb, "PRAGMA secure_delete = OFF");
+ 	sqlexec(sdb, "PRAGMA case_sensitive_like = ON");

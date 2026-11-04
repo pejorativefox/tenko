@@ -1,10 +1,10 @@
 Name:       libusb
-Version:    1.0.23
+Version:    1.0.30
 Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    libusb-1.0.30.tar.bz2
 
 %description
 TODO
@@ -19,14 +19,10 @@ TODO
 %install
 %make_install
 
-%files
-/usr/include/libusb-1.0/libusb.h
-/usr/lib64/libusb-1.0.a
-/usr/lib64/libusb-1.0.so
-/usr/lib64/libusb-1.0.so.0
-/usr/lib64/libusb-1.0.so.0.2.0
-/usr/lib64/pkgconfig/libusb-1.0.pc
-
+%files -f %{_sourcedir}/libusb.filelist
 
 %changelog
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.0.30
+- Sync with BLFS r13.1 (1.0.23)
+
 # let's skip this for now

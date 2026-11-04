@@ -1,0 +1,8 @@
+%dir /usr/sbin
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man8
+/usr/sbin/efibootdump
+/usr/sbin/efibootmgr
+/usr/share/man/man8/efibootdump.8.gz
+/usr/share/man/man8/efibootmgr.8.gz

@@ -1,18 +1,22 @@
 Name:       xev
-Version:    1.2.2
+Version:    1.2.7
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Print the content of X11 events
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    xev-1.2.7.tar.xz
 
 
 
 %description
-TODO
+Print the content of X11 events.
+
+xev is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure 
@@ -23,10 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xev
-/usr/share/man/man1/xev.1.gz
-
+%files -f %{_sourcedir}/xev.filelist
 %changelog
 # let's skip this for now
 

@@ -1,0 +1,41 @@
+%dir /etc/containers
+%dir /opt
+%dir /opt/podman-6.1.4
+%dir /opt/podman-6.1.4/bin
+%dir /opt/podman-6.1.4/libexec
+%dir /opt/podman-6.1.4/share
+%dir /opt/podman-6.1.4/share/bash-completion
+%dir /opt/podman-6.1.4/share/bash-completion/completions
+%dir /opt/podman-6.1.4/share/fish
+%dir /opt/podman-6.1.4/share/fish/vendor_completions.d
+%dir /opt/podman-6.1.4/share/zsh
+%dir /opt/podman-6.1.4/share/zsh/site-functions
+%dir /usr/bin
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/podman-bin-6.1.4
+%config(noreplace) /etc/containers/containers.conf
+%config(noreplace) /etc/containers/policy.json
+%config(noreplace) /etc/containers/registries.conf
+%config(noreplace) /etc/containers/seccomp.json
+%config(noreplace) /etc/containers/storage.conf
+/opt/podman
+/opt/podman-6.1.4/bin/crun
+/opt/podman-6.1.4/bin/fuse-overlayfs
+/opt/podman-6.1.4/bin/fusermount3
+/opt/podman-6.1.4/bin/passt
+/opt/podman-6.1.4/bin/passt.avx2
+/opt/podman-6.1.4/bin/pasta
+/opt/podman-6.1.4/bin/pasta.avx2
+/opt/podman-6.1.4/bin/podman
+/opt/podman-6.1.4/bin/runc
+/opt/podman-6.1.4/libexec/aardvark-dns
+/opt/podman-6.1.4/libexec/catatonit
+/opt/podman-6.1.4/libexec/conmon
+/opt/podman-6.1.4/libexec/netavark
+/opt/podman-6.1.4/libexec/rootlessport
+/opt/podman-6.1.4/share/bash-completion/completions/podman
+/opt/podman-6.1.4/share/fish/vendor_completions.d/podman.fish
+/opt/podman-6.1.4/share/zsh/site-functions/_podman
+/usr/bin/podman
+/usr/share/doc/podman-bin-6.1.4/README.md

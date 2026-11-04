@@ -1,0 +1,7 @@
+%dir /usr/share
+%dir /usr/share/fonts
+%dir /usr/share/fonts/unifont
+/usr/share/fonts/unifont/unifont-17.0.03.otf
+/usr/share/fonts/unifont/unifont-17.0.03.pcf.gz
+/usr/share/fonts/unifont/unifont_csur-17.0.03.otf
+/usr/share/fonts/unifont/unifont_upper-17.0.03.otf

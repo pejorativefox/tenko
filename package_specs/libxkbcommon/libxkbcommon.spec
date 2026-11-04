@@ -1,16 +1,23 @@
 Name:       libxkbcommon
-Version:    1.5.0
-Release:    1
+Version:    1.13.2
+Release:    2
 Summary:    library for handling of keyboard descriptions
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.xz
-
+Source0:    %{name}-%{version}.tar.gz
 %description
 library for handling of keyboard descriptions
 
+%package devel
+Summary:    libxkbcommon development files
+Requires:   libxkbcommon = %{version}-%{release}
+
+%description devel
+Development files for libxkbcommon.
+
 %prep
 %setup -q
+patch -Np1 -i %{_sourcedir}/libxkbcommon-1.13.2-upstream_fix-1.patch
 
 %build
 mkdir build &&
@@ -32,35 +39,17 @@ DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xkbcli
-/usr/include/xkbcommon/xkbregistry.h
-/usr/include/xkbcommon/xkbcommon-compat.h
-/usr/include/xkbcommon/xkbcommon-compose.h
-/usr/include/xkbcommon/xkbcommon-keysyms.h
-/usr/include/xkbcommon/xkbcommon-names.h
-/usr/include/xkbcommon/xkbcommon-x11.h
-/usr/include/xkbcommon/xkbcommon.h
-/usr/lib64/libxkbcommon-x11.so
-/usr/lib64/libxkbcommon-x11.so.0
-/usr/lib64/libxkbcommon-x11.so.0.0.0
-/usr/lib64/libxkbcommon.so
-/usr/lib64/libxkbcommon.so.0
-/usr/lib64/libxkbcommon.so.0.0.0
-/usr/lib64/pkgconfig/xkbcommon-x11.pc
-/usr/lib64/pkgconfig/xkbcommon.pc
-/usr/lib64/libxkbregistry.so
-/usr/lib64/libxkbregistry.so.0
-/usr/lib64/libxkbregistry.so.0.0.0
-/usr/lib64/pkgconfig/xkbregistry.pc
-/usr/libexec/xkbcommon/xkbcli-compile-keymap
-/usr/libexec/xkbcommon/xkbcli-how-to-type
-/usr/libexec/xkbcommon/xkbcli-interactive-evdev
-/usr/libexec/xkbcommon/xkbcli-interactive-x11
-/usr/libexec/xkbcommon/xkbcli-list
-/usr/share/man/
+%files -f %{_sourcedir}/libxkbcommon.filelist
+%files devel -f %{_sourcedir}/libxkbcommon-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.13.2-2
+- Split devel payload into libxkbcommon-devel (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 1.13.2
+- Sync with BLFS r13.1 (1.5.0)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.5.0-1
 - Version bump
 

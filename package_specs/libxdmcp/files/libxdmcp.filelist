@@ -1,0 +1,14 @@
+%dir /usr/include
+%dir /usr/include/X11
+/usr/include/X11/Xdmcp.h
+%dir /usr/lib64
+/usr/lib64/libXdmcp.a
+/usr/lib64/libXdmcp.so
+/usr/lib64/libXdmcp.so.6
+/usr/lib64/libXdmcp.so.6.0.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/xdmcp.pc
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/libXdmcp
+%doc /usr/share/doc/libXdmcp/xdmcp.xml

@@ -1,0 +1,10 @@
+%dir /usr/bin
+/usr/bin/xfce4-kiosk-query
+%dir /usr/include
+%dir /usr/lib64
+/usr/lib64/libxfce4util.so.7
+/usr/lib64/libxfce4util.so.7.0.0
+%dir /usr/share
+%dir /usr/share/gir-1.0
+%dir /usr/share/gtk-doc
+%dir /usr/share/locale

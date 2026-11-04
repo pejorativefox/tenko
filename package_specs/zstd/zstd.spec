@@ -1,5 +1,5 @@
 Name:       zstd
-Version:    1.5.5
+Version:    1.5.7
 Release:    1
 Summary:    Fast real-time compression algorith
 License:    BSD
@@ -17,7 +17,7 @@ make prefix=/usr
 
 %install
 rm -rf %{buildroot}
-make prefix=%{buildroot}/usr/ libdir=%{buildroot}/%{_libdir} install
+make DESTDIR=%{buildroot} prefix=/usr libdir=%{_libdir} install
 rm -v %{buildroot}/usr/lib64/libzstd.a
 
 %files
@@ -32,11 +32,14 @@ rm -v %{buildroot}/usr/lib64/libzstd.a
 /usr/include/zstd_errors.h
 /usr/lib64/libzstd.so
 /usr/lib64/libzstd.so.1
-/usr/lib64/libzstd.so.1.5.5
+/usr/lib64/libzstd.so.1.5.7
 /usr/lib64/pkgconfig/libzstd.pc
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 1.5.7
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 1.5.5
 - Version bump
 

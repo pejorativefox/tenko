@@ -1,5 +1,5 @@
 Name:       libxcrypt
-Version:    4.4.36
+Version:    4.5.2
 Release:    1
 Summary:    Password hashing library
 License:    GPL2
@@ -16,6 +16,7 @@ The Libxcrypt package contains a modern library for one-way hashing of passwords
 %configure  --enable-hashes=strong,glibc \
             --enable-obsolete-api=no     \
             	--disable-static             \
+            --disable-werror             \
             --disable-failure-tokens
 %make_build
 
@@ -33,6 +34,9 @@ rm -rf %{buildroot}
 /usr/share/man/
 
 %changelog
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 4.5.2
+- Sync with LFS r13.1
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Initial RPM
 

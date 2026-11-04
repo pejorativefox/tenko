@@ -1,0 +1,20 @@
+%dir /usr/lib64
+%dir /usr/lib64/perl5
+%dir /usr/lib64/perl5/5.44.0
+%dir /usr/lib64/perl5/5.44.0/vendor_perl
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/File
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/share
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/File-ShareDir
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/File-ShareDir/subdir
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/share/module
+%dir /usr/lib64/perl5/5.44.0/vendor_perl/auto/share/module/File-ShareDir
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man3
+/usr/lib64/perl5/5.44.0/vendor_perl/File/ShareDir.pm
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/File-ShareDir/sample.txt
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/dist/File-ShareDir/subdir/sample.txt
+/usr/lib64/perl5/5.44.0/vendor_perl/auto/share/module/File-ShareDir/test_file.txt
+/usr/share/man/man3/File::ShareDir.3.gz

@@ -1,10 +1,10 @@
 Name:       xwd
-Version:    1.0.7
+Version:    1.0.10
 Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    %{name}-%{version}.tar.xz
 
 
 
@@ -23,9 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xwd
-/usr/share/man/man1/xwd.1.gz
+%files -f %{_sourcedir}/xwd.filelist
 
 %changelog
 # let's skip this for now

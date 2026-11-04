@@ -1,0 +1,9 @@
+%dir /usr/share/doc/dejagnu-1.6.3
+/usr/share/doc/dejagnu-1.6.3/dejagnu.html
+/usr/share/doc/dejagnu-1.6.3/dejagnu.txt
+/usr/share/info/dejagnu.info.gz
+%dir /usr/share/man/man1
+/usr/share/man/man1/dejagnu-help.1.gz
+/usr/share/man/man1/dejagnu-report-card.1.gz
+/usr/share/man/man1/dejagnu.1.gz
+/usr/share/man/man1/runtest.1.gz

@@ -1,51 +1,52 @@
 Name:       libxml2
-Version:    2.10.4
-Release:    1
+Version:    2.15.4
+Release:    2
 Summary:    XML parsing library
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
-
-
 %description
 The libxml2 package contains libraries and utilities used for parsing XML files. 
 
+%package devel
+Summary:    libxml2 development files
+Requires:   libxml2 = %{version}-%{release}
+
+%description devel
+Development files for libxml2.
+
 %prep
 %setup -q
+sed -i "/'git'/,+3d" meson.build
 
 %build
-%configure  --disable-static \
-            --with-history   \
-            --with-python=/usr/bin/python3
-%make_build
+mkdir build
+pushd build
+meson setup ..            \
+      --prefix=/usr       \
+      --buildtype=release \
+      -D history=enabled  \
+      -D icu=disabled
+ninja
+popd
 
-%install    
+%install
 rm -rf %{buildroot}
-%make_install
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xml2-config
-/usr/bin/xmlcatalog
-/usr/bin/xmllint
-/usr/include/libxml2/
-/usr/lib/python3.11/site-packages/__pycache__/drv_libxml2.cpython-311.opt-1.pyc
-/usr/lib/python3.11/site-packages/__pycache__/drv_libxml2.cpython-311.pyc
-/usr/lib/python3.11/site-packages/__pycache__/libxml2.cpython-311.opt-1.pyc
-/usr/lib/python3.11/site-packages/__pycache__/libxml2.cpython-311.pyc
-/usr/lib/python3.11/site-packages/drv_libxml2.py
-/usr/lib/python3.11/site-packages/libxml2.py
-/usr/lib64/cmake/libxml2/libxml2-config.cmake
-/usr/lib64/libxml2.so
-/usr/lib64/libxml2.so.2
-/usr/lib64/libxml2.so.2.10.4
-/usr/lib64/pkgconfig/libxml-2.0.pc
-/usr/lib64/python3.11/site-packages/libxml2mod.so
-/usr/share/aclocal/libxml.m4
-/usr/share/doc/
-/usr/share/gtk-doc/
-/usr/share/man/
+%files -f %{_sourcedir}/libxml2.filelist
+%files devel -f %{_sourcedir}/libxml2-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 2.15.4-2
+- Split devel payload into libxml2-devel (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 2.15.3
+- Sync with BLFS r13.1 (2.10.4)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.10.4
 - Version bump

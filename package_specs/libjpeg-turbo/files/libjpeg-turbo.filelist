@@ -1,0 +1,13 @@
+%dir /usr/lib64/cmake
+%dir /usr/share/doc
+%dir /usr/share/man
+/usr/bin/cjpeg
+/usr/bin/djpeg
+/usr/bin/jpegtran
+/usr/bin/rdjpgcom
+/usr/bin/tjbench
+/usr/bin/wrjpgcom
+/usr/lib64/libjpeg.so.62
+/usr/lib64/libjpeg.so.62.4.0
+/usr/lib64/libturbojpeg.so.0
+/usr/lib64/libturbojpeg.so.0.5.0

@@ -1,14 +1,13 @@
 Name:       mtdev
-Version:    1.1.5
+Version:    1.1.7
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Multitouch protocol translation library
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
-
+Source0:    mtdev-1.1.7.tar.bz2
 
 %description
-TODO
+mtdev converts kernel multitouch events to the MT protocol.
 
 %prep
 %setup -q
@@ -17,23 +16,14 @@ TODO
 %configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/mtdev-test
-/usr/include/mtdev-mapping.h
-/usr/include/mtdev-plumbing.h
-/usr/include/mtdev.h
-/usr/lib64/libmtdev.a
-/usr/lib64/libmtdev.so
-/usr/lib64/libmtdev.so.1
-/usr/lib64/libmtdev.so.1.0.0
-/usr/lib64/pkgconfig/mtdev.pc
+%files -f %{_sourcedir}/mtdev.filelist
 
 %changelog
-* Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.1.5-1
-- Version bump
-
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 1.1.7-1
+- Initial package (BLFS r13.1)

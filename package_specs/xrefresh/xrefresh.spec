@@ -1,18 +1,22 @@
 Name:       xrefresh
-Version:    1.0.6
+Version:    1.1.1
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Refresh the X11 screen
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    xrefresh-1.1.1.tar.xz
 
 
 
 %description
-TODO
+Refresh the X11 screen.
+
+xrefresh is maintained at its BLFS r13.1 version and is built
+with the standard autotools build inline in its spec.
+
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure 
@@ -23,10 +27,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xrefresh
-/usr/share/man/man1/xrefresh.1.gz
-
+%files -f %{_sourcedir}/xrefresh.filelist
 %changelog
 # let's skip this for now
 

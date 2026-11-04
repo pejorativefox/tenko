@@ -1,20 +1,30 @@
 Name:       tcl
-Version:    8.6.13
-Release:    1
+Version:    8.6.18
+Release:    2
 Summary:    The tcl programming language
 License:    Tcl/Tk
 Source0:    %{name}%{version}-src.tar.gz
 Prefix:     /usr
-Patch0:     tcl-8.6.12-autopath.patch
-Patch1:     tcl-8.6.12-conf.patch
 
 %description
 The tcl programming language
 
+%package doc
+Summary:    tcl documentation
+Requires:   tcl = %{version}-%{release}
+
+%description doc
+Documentation for tcl.
+
+%package devel
+Summary:    tcl development files
+Requires:   tcl = %{version}-%{release}
+
+%description devel
+Development files for tcl.
+
 %prep
-%setup -q -n tcl8.6.13
-%patch0 -p1
-%patch1 -p1
+%setup -q -n tcl8.6.18
 
 %build
 export SRCDIR=$(pwd)
@@ -26,16 +36,16 @@ sed -e "s|$SRCDIR/unix|/usr/lib64|" \
     -e "s|$SRCDIR|/usr/include|"  \
     -i tclConfig.sh
 
-sed -e "s|$SRCDIR/unix/pkgs/tdbc1.1.5|/usr/lib64/tdbc1.1.5|" \
-    -e "s|$SRCDIR/pkgs/tdbc1.1.5/generic|/usr/include|"    \
-    -e "s|$SRCDIR/pkgs/tdbc1.1.5/library|/usr/lib/64tcl8.6|" \
-    -e "s|$SRCDIR/pkgs/tdbc1.1.5|/usr/include|"            \
-    -i pkgs/tdbc1.1.5/tdbcConfig.sh
+sed -e "s|$SRCDIR/unix/pkgs/tdbc1.1.13|/usr/lib64/tdbc1.1.13|" \
+    -e "s|$SRCDIR/pkgs/tdbc1.1.13/generic|/usr/include|"    \
+    -e "s|$SRCDIR/pkgs/tdbc1.1.13/library|/usr/lib/64tcl8.6|" \
+    -e "s|$SRCDIR/pkgs/tdbc1.1.13|/usr/include|"            \
+    -i pkgs/tdbc1.1.13/tdbcConfig.sh
 
-sed -e "s|$SRCDIR/unix/pkgs/itcl4.2.3|/usr/lib64/itcl4.2.3|" \
-    -e "s|$SRCDIR/pkgs/itcl4.2.3/generic|/usr/include|"    \
-    -e "s|$SRCDIR/pkgs/itcl4.2.3|/usr/include|"            \
-    -i pkgs/itcl4.2.3/itclConfig.sh
+sed -e "s|$SRCDIR/unix/pkgs/itcl4.3.7|/usr/lib64/itcl4.3.7|" \
+    -e "s|$SRCDIR/pkgs/itcl4.3.7/generic|/usr/include|"    \
+    -e "s|$SRCDIR/pkgs/itcl4.3.7|/usr/include|"            \
+    -i pkgs/itcl4.3.7/itclConfig.sh
 
 unset SRCDIR
 popd
@@ -46,11 +56,23 @@ pushd unix
 %make_install
 DESTDIR=%{buildroot} make install-private-headers
 mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
+mkdir -p %{buildroot}/usr/lib
+ln -sf tclsh8.6 %{buildroot}/usr/bin/tclsh
+ln -sfn /usr/lib64/lib/tcl8.6 %{buildroot}/usr/lib/tcl8.6
 popd
 
-%files -f ../../SOURCES/tcl.filelist
+%files -f %{_sourcedir}/tcl.filelist
+%files doc -f %{_sourcedir}/tcl-doc.filelist
+%files devel -f %{_sourcedir}/tcl-devel.filelist
+
 
 %changelog
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 8.6.18-2
+- Split doc, devel payload into tcl-doc, tcl-devel (size audit)
+
+* Fri Oct 30 2026 browneye <build@browneye.invalid> 8.6.18
+- Sync with LFS r13.1
+
 * Tue Jun 13 2023 Chris Statzer <chris.statzer@gmail.com> 3.30.1
 - Initial RPM
 

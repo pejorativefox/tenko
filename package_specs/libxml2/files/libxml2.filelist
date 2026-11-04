@@ -1,0 +1,9 @@
+%dir /usr/bin
+/usr/bin/xml2-config
+/usr/bin/xmlcatalog
+/usr/bin/xmllint
+%dir /usr/include
+%dir /usr/lib64
+%dir /usr/lib64/cmake
+/usr/lib64/libxml2.so.16
+/usr/lib64/libxml2.so.16.1.4

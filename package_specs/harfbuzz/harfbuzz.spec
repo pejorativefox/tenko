@@ -1,56 +1,71 @@
 Name:       harfbuzz
-Version:    8.1.1
+Version:    15.0.0
 Release:    1
 Summary:    Text shaping engine
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
-Provides: pkgconfig(harfbuzz)
-
 %description
 The HarfBuzz package contains an OpenType text shaping engine.
+
+%package devel
+Summary:    harfbuzz development files
+Requires:   %{name}-gir = %{version}-%{release}
+Requires:   harfbuzz = %{version}-%{release}
+Provides: pkgconfig(harfbuzz)
+
+%description devel
+Development files for harfbuzz.
 
 %prep
 %setup -q
 
 %build
-%configure  --disable-static --with-gobject
-%make_build
+mkdir build
+pushd build
+meson setup ..              \
+      --prefix=/usr         \
+      --buildtype=release   \
+      -D graphite2=disabled \
+      -D introspection=enabled
+ninja
+popd
 
-%install    
+%install
 rm -rf %{buildroot}
-%make_install
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/hb-info
-/usr/bin/hb-ot-shape-closure
-/usr/bin/hb-shape
-/usr/bin/hb-subset
-/usr/bin/hb-view
-/usr/lib64/cmake/harfbuzz/harfbuzz-config.cmake
-/usr/lib64/girepository-1.0/HarfBuzz-0.0.typelib
-/usr/lib64/libharfbuzz-cairo.so
-/usr/lib64/libharfbuzz-cairo.so.0
-/usr/lib64/libharfbuzz-cairo.so.0.60811.0
-/usr/lib64/libharfbuzz-gobject.so
-/usr/lib64/libharfbuzz-gobject.so.0
-/usr/lib64/libharfbuzz-gobject.so.0.60811.0
-/usr/lib64/libharfbuzz-subset.so
-/usr/lib64/libharfbuzz-subset.so.0
-/usr/lib64/libharfbuzz-subset.so.0.60811.0
-/usr/lib64/libharfbuzz.so
-/usr/lib64/libharfbuzz.so.0
-/usr/lib64/libharfbuzz.so.0.60811.0
-/usr/lib64/pkgconfig/harfbuzz-cairo.pc
-/usr/lib64/pkgconfig/harfbuzz-gobject.pc
-/usr/lib64/pkgconfig/harfbuzz-subset.pc
-/usr/lib64/pkgconfig/harfbuzz.pc
-/usr/share/gir-1.0/HarfBuzz-0.0.gir
-/usr/include/harfbuzz/
-/usr/share/gtk-doc/html/harfbuzz/
+
+%package gir
+Summary:    GObject Introspection data for harfbuzz
+License:    GPL3
+Requires:   %{name} = %{version}-%{release}
+
+%description gir
+GObject Introspection typelibs for harfbuzz, split out of the runtime
+package so a plain install does not carry the introspection data.
+The .gir XML needed for building stays in the -devel package.
+
+%files -f %{_sourcedir}/harfbuzz.filelist
+%files devel -f %{_sourcedir}/harfbuzz-devel.filelist
+%files gir -f %{_sourcedir}/harfbuzz-gir.filelist
+
 
 %changelog
+* Mon Nov  2 2026 browneye <build@browneye.invalid> 15.0.0-1
+- Update to 15.0.0 (current LFS/BLFS r13.1 trunk version).
+
+* Mon Nov 02 2026 browneye <build@browneye.invalid> 14.5.0-3
+- Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
+* Sun Nov 01 2026 browneye <build@browneye.invalid> 14.5.0-2
+- Split devel payload into harfbuzz-devel (size audit)
+
+* Sat Oct 31 2026 browneye <build@browneye.invalid> 14.3.1
+- Sync with BLFS r13.1 (8.1.1)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 8.1.1-1
 - Version bump
