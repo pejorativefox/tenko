@@ -1,6 +1,6 @@
 # Converting Browneye to systemd-boot
 
-**Status:** design only, nothing implemented. Branch `systemd-boot`,
+**Status:** design committed; phase P0 (packaging) done. Branch `systemd-boot`,
 2026-11-04. Related: Gitea issue #2 (Secure Boot research, option C).
 
 This document covers replacing GRUB with systemd-boot (sd-boot) for both the
@@ -281,12 +281,23 @@ Source0 URL: `https://files.pythonhosted.org/packages/source/p/pyelftools/pyelft
 
 - `BuildRequires: python3-pyelftools`
 - `-D bootloader=enabled` (keep `-D ukify=disabled`)
+- `-D sbat-distro-url=https://pjfox.xyz/git/daspork/browneye/issues`: SBAT
+  autodetection reads `BUG_REPORT_URL` from `/etc/os-release`, which
+  `browneye-release` does not set yet, so the build fails without an explicit
+  URL
 - `Release: 3`, changelog entry naming pyelftools and the new bootloader
 - after install, assert
   `test -f %{buildroot}/usr/lib/systemd/boot/efi/systemd-bootx64.efi`, so a
   missing module cannot silently drop the loader again
-- check that the SBAT section got a distribution id (`sbat-distro=auto` reads
-  `/etc/os-release` in the build container)
+- add the new payload to the static filelist: the three EFI binaries under
+  `/usr/lib/systemd/boot/efi/`, plus the boot-assessment units and helpers
+  (`systemd-bless-boot`, `systemd-boot-update.service`, `systemd-bootctl.*`,
+  `systemd-sysupdate-notify-bootctl.*`, their `.wants` links and the
+  generator)
+
+The build image needs the module too: `scripts/make_base_image.sh` now lists
+`python3-pyelftools` in its `DEVEL_PACKAGES` default, so a base image rebuilt
+from the published repo can rebuild systemd.
 
 Order of work: add pyelftools → build and publish it → rebuild systemd
 262.1-3 → verify the loader in the RPM and in a fresh live root → rebuild and
@@ -297,7 +308,7 @@ public site and the LAN mirror together.
 
 | Phase | Work | Exit criteria |
 |---|---|---|
-| P0 | pyelftools spec; systemd rebuild/publish | `rpm -qpl` shows `systemd-bootx64.efi`; a live root built from the repo has `/usr/lib/systemd/boot/efi/systemd-bootx64.efi` |
+| P0 | pyelftools spec; systemd rebuild/publish | **done**: `python3-pyelftools-0.33-1` and `systemd-262.1-3` published; `rpm -qpl` shows `systemd-bootx64.efi` (UEFI architectures: x64, SBAT distro `browneye`) |
 | P1 | installer, kernel entry scriptlets, fstab/mount, probe, tests | unattended install into a QEMU disk boots with `bootctl status` showing sd-boot and the entry |
 | P2 | ISO rework, retire legacy GRUB/syslinux paths | ISO boots in OVMF from both `-cdrom` and a USB image; serial log shows the sd-boot menu |
 | P3 | cleanup: drop `grub` requirements, README/docs, decide `grub` spec fate | no package depends on grub; docs match reality |
