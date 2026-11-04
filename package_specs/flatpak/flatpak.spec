@@ -1,6 +1,6 @@
 Name:       flatpak
 Version:    1.18.4
-Release:    2
+Release:    3
 Summary:    Application sandboxing and distribution framework
 License:    LGPL
 Source0:    %{name}-%{version}.tar.xz
@@ -52,9 +52,25 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
+%post
+# Make the system-helper user available immediately.  The Browneye systemd
+# package does not ship a sysusers.d file trigger, so packages that own a
+# sysusers file must materialise it themselves (same pattern as openssh and
+# privoxy).  Without this, revokefs fails with "User flatpak does not exist
+# in password file entry" until the next boot.
+if [ -x /usr/bin/systemd-sysusers ]; then
+    /usr/bin/systemd-sysusers /usr/lib/sysusers.d/flatpak.conf || :
+fi
+
 %files -f %{_sourcedir}/flatpak.filelist
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 1.18.4-3
+- Run systemd-sysusers in %post so the flatpak system-helper user exists
+  immediately after installation.  The systemd package has no sysusers.d
+  file trigger, so revokefs previously failed with "User flatpak does not
+  exist in password file entry" until the next boot.
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.18.4-2
 - Require gnupg.  gpgme finds the OpenPGP engine at runtime; without it
   gpgme reports "Invalid crypto engine" and flatpak remote-add fails
