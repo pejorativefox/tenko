@@ -44,7 +44,7 @@ REQUIRED_TOOLS = (
     "mkswap",
     "dnf",
     "rpm",
-    "grub-install",
+    "bootctl",
     "efibootmgr",
     "dracut",
     "chroot",
@@ -559,8 +559,8 @@ class Probe:
                 Check(
                     False,
                     "Secure Boot",
-                    "Secure Boot is enabled; Browneye GRUB is unsigned, "
-                    "disable Secure Boot in the firmware setup",
+                    "Secure Boot is enabled; the Browneye bootloader is "
+                    "unsigned, disable Secure Boot in the firmware setup",
                 )
             )
         else:

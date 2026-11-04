@@ -38,7 +38,7 @@ schema; a minimal example is:
              "size_bytes": 21474836480},
     "delete_partitions": [],
     "region": null,
-    "esp_mib": 512,
+    "esp_mib": 1024,
     "root_mib": null,
     "swap_mib": 2048,
     "package_set": "desktop",
@@ -55,8 +55,9 @@ Layout policy
 -------------
 
   * GPT only.  MBR disks are refused with an explanation.
-  * An existing EFI System Partition is reused.  Otherwise a 512 MiB FAT32
-    ESP is created at the start of the chosen free region.
+  * An existing EFI System Partition is reused, with a warning when it is
+    too small for systemd-boot plus a kernel and initramfs.  Otherwise a
+    1 GiB FAT32 ESP is created at the start of the chosen free region.
   * Root is ext4, at least 8 GiB, and grows to fill the region.
   * Swap is 2 GiB.  It is skipped with a warning when the region cannot
     hold it next to the minimum root.
@@ -86,16 +87,17 @@ Install flow
   1. snapshot, delete selected entries, write the full replacement GPT,
      re-read, verify preservation (rollback on mismatch)
   2. mkfs.fat (only for a new ESP), mke2fs ext4, mkswap
-  3. mount root + ESP, bind /dev /proc /sys /run, efivarfs
+  3. mount root, the ESP at /boot, bind /dev /proc /sys /run, efivarfs
   4. dnf --installroot: browneye-basefs in its own first transaction
   5. dnf --installroot: browneye-base + xfce-desktop + kernel/modules +
-     dracut + grub + efibootmgr + dosfstools + sudo + dnf
+     dracut + efibootmgr + dosfstools + sudo + dnf
   6. fstab by UUID, hostname, admin user in wheel, root locked, first-boot
      marker, systemd presets and graphical.target
   7. depmod + dracut --force --no-hostonly
-  8. chroot grub-install --efi-directory=/boot/efi --bootloader-id=browneye
-     --no-nvram; static grub.cfg by UUID; EFI/BOOT/BOOTX64.EFI fallback;
-     best-effort efibootmgr NVRAM entry
+  8. chroot bootctl --esp-path=/boot --no-variables install; loader.conf and
+     loader/entries/browneye-<kver>.conf by UUID; EFI/BOOT/BOOTX64.EFI
+     fallback; best-effort efibootmgr NVRAM entry; /etc/kernel/cmdline for
+     future kernel packages
   9. copy install.jsonl/install.log to the target and the ESP, unmount
 
 Logs

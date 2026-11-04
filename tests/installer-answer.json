@@ -3,7 +3,7 @@
   "disk": {"path": "/dev/vda"},
   "delete_partitions": [],
   "region": null,
-  "esp_mib": 512,
+  "esp_mib": 1024,
   "root_mib": null,
   "swap_mib": 2048,
   "package_set": "desktop",

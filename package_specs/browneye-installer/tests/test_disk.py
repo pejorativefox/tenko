@@ -267,7 +267,7 @@ class PlanTest(unittest.TestCase):
             table, region, disk_path="/dev/vda", total_sectors=41943040
         )
         self.assertFalse(plan.esp.existing)
-        self.assertEqual(plan.esp.size, 1048576)  # 512 MiB at 512-byte sectors
+        self.assertEqual(plan.esp.size, 2097152)  # 1 GiB at 512-byte sectors
         self.assertEqual(plan.esp.number, 1)
         self.assertEqual(plan.esp.start, region.start)
         self.assertIsNotNone(plan.swap)
@@ -365,7 +365,7 @@ class PlanTest(unittest.TestCase):
         plan = disk.plan_layout(
             table, region, disk_path="/dev/vdd", total_sectors=total
         )
-        self.assertEqual(plan.esp.size, 131072)  # 512 MiB in 4K sectors
+        self.assertEqual(plan.esp.size, 262144)  # 1 GiB in 4K sectors
         self.assertEqual(plan.esp.start % 256, 0)
         self.assertEqual(plan.root.start % 256, 0)
         commands = disk.format_commands(plan)

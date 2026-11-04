@@ -3,7 +3,7 @@
 The pipeline is intentionally linear and logs every command.  The disk
 planner decides *what* to do; this module decides *when* and performs the
 target installation: basefs first, then the target package set, fstab by
-UUID, users, initramfs, GRUB UEFI, the removable fallback, and the log copy.
+UUID, users, initramfs, systemd-boot on the ESP, and the log copy.
 """
 
 from __future__ import annotations
@@ -24,6 +24,11 @@ from runner import Command, CommandError, CommandRunner
 MIB = 1024 * 1024
 GIB = 1024 * MIB
 
+# sd-boot and the kernel/initramfs live on the ESP.  A 7.3.1 kernel plus its
+# generated initramfs is about 48 MiB, so refuse installs that cannot hold a
+# couple of generations.
+ESP_MIN_FREE_MIB = 256
+
 RELEASEVER = "13.1"
 DEFAULT_REPO = "https://tomfool.8bit.ca/browneye/packages/13.1/"
 FALLBACK_KVER = "7.3.1"
@@ -36,7 +41,6 @@ TARGET_PACKAGES_DESKTOP = (
     "linux-kernel",
     "linux-modules",
     "dracut",
-    "grub",
     "efibootmgr",
     "dosfstools",
     "sudo",
@@ -104,7 +108,7 @@ class InstallConfig:
     disk_model: str | None = None
     delete_partitions: tuple[int, ...] = ()
     region_start_mib: int | None = None
-    esp_mib: int = 512
+    esp_mib: int = disk.ESP_MIB
     root_mib: int | None = None
     swap_mib: int | None = 2048
     package_set: str = "desktop"
@@ -259,7 +263,7 @@ class InstallConfig:
             disk_model=disk_data.get("model"),
             delete_partitions=tuple(int(n) for n in delete),
             region_start_mib=region_start_mib,
-            esp_mib=int(data.get("esp_mib", 512)),
+            esp_mib=int(data.get("esp_mib", disk.ESP_MIB)),
             root_mib=int(root_mib) if root_mib is not None else None,
             swap_mib=int(swap_mib) if swap_mib is not None else None,
             package_set=str(data.get("package_set", "desktop")),
@@ -549,19 +553,32 @@ class Installer:
             description="mount the new root filesystem",
         )
         self.root_mounted = True
-        self.runner.makedirs(os.path.join(self.target, "boot", "efi"), step="mount")
+        boot = os.path.join(self.target, "boot")
+        self.runner.makedirs(boot, step="mount")
         self.runner.run(
             (
                 "mount",
                 "-o",
                 "rw,umask=0077",
                 esp_dev,
-                os.path.join(self.target, "boot", "efi"),
+                boot,
             ),
             step="mount",
-            description="mount the EFI System Partition",
+            description="mount the EFI System Partition at /boot",
         )
         self.esp_mounted = True
+        if not self.runner.dry_run:
+            stats = os.statvfs(boot)
+            free_mib = (stats.f_bavail * stats.f_frsize) // MIB
+            if free_mib < ESP_MIN_FREE_MIB:
+                raise InstallError(
+                    "mount",
+                    "the ESP has only {} MiB free, but systemd-boot keeps "
+                    "the kernel and initramfs on it".format(free_mib),
+                    reversible=True,
+                    remedy="delete the partition and let the installer "
+                           "create a larger ESP (1 GiB is recommended)",
+                )
         for name in ("dev", "proc", "sys", "run"):
             self.runner.makedirs(os.path.join(self.target, name), step="mount")
         for name in ("dev", "proc", "sys", "run"):
@@ -578,7 +595,7 @@ class Installer:
             self.runner.run(
                 ("mount", "-t", "efivarfs", "efivarfs", target_efivars),
                 step="mount",
-                description="mount efivarfs for grub-install",
+                description="mount efivarfs for bootctl and efibootmgr",
                 allow_failure=True,
             )
 
@@ -755,7 +772,7 @@ class Installer:
         lines = [
             "# <file system> <mount point> <type> <options> <dump> <pass>",
             "{} / ext4 defaults,noatime 0 1".format(self._uuid_ref(self.plan.root)),
-            "{} /boot/efi vfat umask=0077,shortname=winnt 0 2".format(
+            "{} /boot vfat umask=0077,shortname=winnt 0 2".format(
                 self._uuid_ref(self.plan.esp)
             ),
         ]
@@ -977,52 +994,57 @@ class Installer:
         )
 
     def step_bootloader(self) -> None:
+        # bootctl writes EFI/systemd/systemd-bootx64.efi and the removable
+        # EFI/BOOT/BOOTX64.EFI fallback.  --no-variables leaves NVRAM to
+        # efibootmgr below, the same split grub-install --no-nvram used.
         self.runner.run(
             (
                 "chroot",
                 self.target,
-                "/usr/bin/grub-install",
-                "--target=x86_64-efi",
-                "--efi-directory=/boot/efi",
-                "--boot-directory=/boot",
-                "--bootloader-id=browneye",
-                "--recheck",
-                "--no-nvram",
+                "/usr/bin/bootctl",
+                "--esp-path=/boot",
+                "--no-variables",
+                "install",
             ),
             step="bootloader",
-            description="install GRUB for x86_64-efi without touching NVRAM",
+            description="install systemd-boot on the ESP without touching NVRAM",
         )
         self.runner.write_file(
-            os.path.join(self.target, "boot", "grub", "grub.cfg"),
-            self._grub_cfg(),
+            os.path.join(self.target, "boot", "loader", "loader.conf"),
+            self._loader_conf(),
             mode=0o644,
             step="bootloader",
         )
-        source = os.path.join(
-            self.target, "boot", "efi", "EFI", "browneye", "grubx64.efi"
-        )
-        destination = os.path.join(
-            self.target, "boot", "efi", "EFI", "BOOT", "BOOTX64.EFI"
-        )
-        self.runner.run(
-            ("install", "-D", "-m", "0644", source, destination),
+        self.runner.write_file(
+            os.path.join(self.target, "boot", "loader", "entries", self._entry_name()),
+            self._loader_entry(),
+            mode=0o644,
             step="bootloader",
-            description="install the removable EFI/BOOT/BOOTX64.EFI fallback",
+        )
+        # Future kernel packages read this and write matching loader entries.
+        self.runner.write_file(
+            os.path.join(self.target, "etc", "kernel", "cmdline"),
+            self._kernel_cmdline() + "\n",
+            mode=0o644,
+            step="bootloader",
         )
         if not self.runner.dry_run:
-            if not os.path.isfile(source):
+            expected = (
+                os.path.join("boot", "EFI", "systemd", "systemd-bootx64.efi"),
+                os.path.join("boot", "EFI", "BOOT", "BOOTX64.EFI"),
+                os.path.join("boot", "loader", "entries", self._entry_name()),
+            )
+            missing = [
+                rel for rel in expected
+                if not os.path.isfile(os.path.join(self.target, rel))
+            ]
+            if missing:
                 raise InstallError(
                     "bootloader",
-                    "grub-install did not create EFI/browneye/grubx64.efi",
+                    "the systemd-boot installation is incomplete: "
+                    + ", ".join(missing),
                     reversible=False,
                 )
-            if not os.path.isfile(destination):
-                raise InstallError(
-                    "bootloader",
-                    "the removable BOOTX64.EFI fallback was not installed",
-                    reversible=False,
-                )
-        loader = r"\EFI\browneye\grubx64.efi"
         self.runner.run(
             (
                 "efibootmgr",
@@ -1034,7 +1056,7 @@ class Installer:
                 "--label",
                 "Browneye Linux",
                 "--loader",
-                loader,
+                r"\EFI\systemd\systemd-bootx64.efi",
             ),
             step="bootloader",
             description="add a firmware boot entry (fallback if NVRAM is read-only)",
@@ -1049,33 +1071,36 @@ class Installer:
             allow_failure=True,
         )
 
-    def _grub_cfg(self) -> str:
-        root_ref = self._uuid_ref(self.plan.root)
-        root_uuid = self.plan.root.fs_uuid or ""
-        lines = [
-            "set timeout=5",
-            "set default=0",
-            "",
-            "menuentry 'Browneye Linux 13.1' {",
-            "    insmod part_gpt",
-            "    insmod fat",
-            "    insmod ext2",
-        ]
-        if root_uuid:
-            lines.append(
-                "    search --no-floppy --fs-uuid --set=root " + root_uuid
-            )
-        lines.extend(
+    def _entry_name(self) -> str:
+        return "browneye-{}.conf".format(self.kver)
+
+    def _kernel_cmdline(self) -> str:
+        return "root={} ro rootwait".format(self._uuid_ref(self.plan.root))
+
+    def _loader_conf(self) -> str:
+        return "\n".join(
             [
-                "    linux /boot/vmlinuz-{} root={} ro rootwait".format(
-                    self.kver, root_ref
-                ),
-                "    initrd /boot/initramfs-{}.img".format(self.kver),
-                "}",
+                "default browneye-*",
+                "timeout 3",
+                "console-mode keep",
+                "editor no",
                 "",
             ]
         )
-        return "\n".join(lines)
+
+    def _loader_entry(self) -> str:
+        # The kernel image and initramfs are flat files on the ESP: the
+        # installer runs kernel-install only through the package scriptlets,
+        # and sd-boot resolves these paths relative to the ESP.
+        return "\n".join(
+            [
+                "title Browneye Linux 13.1 ({})".format(self.kver),
+                "linux /vmlinuz-{}".format(self.kver),
+                "initrd /initramfs-{}.img".format(self.kver),
+                "options " + self._kernel_cmdline(),
+                "",
+            ]
+        )
 
     def step_finish(self) -> None:
         self.logger.flush()
@@ -1125,7 +1150,7 @@ class Installer:
     def _copy_logs_to_esp(self) -> None:
         if not self.esp_mounted and not self.runner.dry_run:
             return
-        esp = os.path.join(self.target, "boot", "efi")
+        esp = os.path.join(self.target, "boot")
         self._copy_file(
             os.path.join(self.log_dir, "install.jsonl"),
             os.path.join(esp, "browneye-install.jsonl"),
@@ -1144,7 +1169,7 @@ class Installer:
             return
         self.logger.flush()
         if self.esp_mounted:
-            esp = os.path.join(self.target, "boot", "efi")
+            esp = os.path.join(self.target, "boot")
             self._copy_file(
                 os.path.join(self.log_dir, "install.jsonl"),
                 os.path.join(esp, "browneye-install-failure.jsonl"),

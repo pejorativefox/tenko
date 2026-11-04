@@ -1,7 +1,8 @@
 # Converting Browneye to systemd-boot
 
-**Status:** design committed; phase P0 (packaging) done. Branch `systemd-boot`,
-2026-11-04. Related: Gitea issue #2 (Secure Boot research, option C).
+**Status:** implemented on branch `systemd-boot`, 2026-11-04 (P0 packaging,
+P1 installer/kernel, P2 ISO). Related: Gitea issue #2 (Secure Boot research,
+option C).
 
 This document covers replacing GRUB with systemd-boot (sd-boot) for both the
 installed system and the installer ISO. It records the decisions taken so far,
@@ -234,13 +235,12 @@ drop the ISO9660 copies only (already planned) and shrink to 64 MiB.
 Live-root/ISO tooling: no new packages. `systemd` now ships the loader;
 `dosfstools`/`mtools` already build the FAT image.
 
-### Legacy paths to retire
+### Legacy paths retired
 
-`scripts/build_iso.sh`, `scripts/build_iso_efi.sh`, `iso/isolinux.cfg`,
-`iso/grub.cfg`, `iso/grub-stub.cfg` and `scripts/make_efi_disk.sh` reference
-syslinux under `/share`, kernel 5.6.14 and host-side dracut; they do
-not match the current RPM-based flow. Delete them with this conversion (or in
-the cleanup phase) rather than porting them.
+`scripts/build_iso.sh`, `scripts/build_iso_efi.sh`, `scripts/make_efi_disk.sh`
+and `iso/{isolinux.cfg,grub.cfg,grub-stub.cfg}` were deleted: they referenced
+syslinux under `/share`, kernel 5.6.14 and host-side dracut, none of which
+match the RPM-based flow. `iso/core.repo` remains.
 
 ## Packaging: enabling sd-boot
 
@@ -309,9 +309,9 @@ public site and the LAN mirror together.
 | Phase | Work | Exit criteria |
 |---|---|---|
 | P0 | pyelftools spec; systemd rebuild/publish | **done**: `python3-pyelftools-0.33-1` and `systemd-262.1-3` published; `rpm -qpl` shows `systemd-bootx64.efi` (UEFI architectures: x64, SBAT distro `browneye`) |
-| P1 | installer, kernel entry scriptlets, fstab/mount, probe, tests | unattended install into a QEMU disk boots with `bootctl status` showing sd-boot and the entry |
-| P2 | ISO rework, retire legacy GRUB/syslinux paths | ISO boots in OVMF from both `-cdrom` and a USB image; serial log shows the sd-boot menu |
-| P3 | cleanup: drop `grub` requirements, README/docs, decide `grub` spec fate | no package depends on grub; docs match reality |
+| P1 | installer, kernel entry scriptlets, fstab/mount, probe, tests | **done in code**: `browneye-installer-13.1-13`, `linux-7.3.1-2`; unit tests pass. QEMU install run still pending |
+| P2 | ISO rework, retire legacy GRUB/syslinux paths | **done in code**: `scripts/build_iso_uefi.sh` builds a FAT32 ESP with sd-boot; legacy scripts/configs removed. ISO build/boot run still pending |
+| P3 | cleanup: drop `grub` requirements, README/docs, decide `grub` spec fate | requirements dropped from `browneye-installer`/`browneye-live`; the `grub` spec itself is kept (open question 2) |
 
 Per `AGENTS.md`, the ISO is rebuilt and republished only when requested, so P2
 may land as code plus a local test image and the published ISO stays GRUB-based
