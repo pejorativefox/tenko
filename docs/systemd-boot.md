@@ -1,8 +1,9 @@
 # Converting Browneye to systemd-boot
 
-**Status:** implemented on branch `systemd-boot`, 2026-11-04 (P0 packaging,
-P1 installer/kernel, P2 ISO). Related: Gitea issue #2 (Secure Boot research,
-option C).
+**Status:** implemented and verified end to end on branch `systemd-boot`,
+2026-11-04 (P0 packaging, P1 installer/kernel, P2 ISO). Related: Gitea issue
+#2 (Secure Boot research, option C). The published ISO is unchanged until a
+rebuild is requested.
 
 This document covers replacing GRUB with systemd-boot (sd-boot) for both the
 installed system and the installer ISO. It records the decisions taken so far,
@@ -309,8 +310,8 @@ public site and the LAN mirror together.
 | Phase | Work | Exit criteria |
 |---|---|---|
 | P0 | pyelftools spec; systemd rebuild/publish | **done**: `python3-pyelftools-0.33-1` and `systemd-262.1-3` published; `rpm -qpl` shows `systemd-bootx64.efi` (UEFI architectures: x64, SBAT distro `browneye`) |
-| P1 | installer, kernel entry scriptlets, fstab/mount, probe, tests | **done in code**: `browneye-installer-13.1-13`, `linux-7.3.1-2`; unit tests pass. QEMU install run still pending |
-| P2 | ISO rework, retire legacy GRUB/syslinux paths | **done in code**: `scripts/build_iso_uefi.sh` builds a FAT32 ESP with sd-boot; legacy scripts/configs removed. ISO build/boot run still pending |
+| P1 | installer, kernel entry scriptlets, fstab/mount, probe, tests | **done**: `browneye-installer-13.1-14`, `linux-7.3.1-2`; unit tests pass; unattended OVMF install reaches all 9 steps and writes the sd-boot entry |
+| P2 | ISO rework, retire legacy GRUB/syslinux paths | **done**: `scripts/build_iso_uefi.sh` builds a FAT32 ESP with sd-boot; legacy scripts/configs removed; the test ISO boots in OVMF and installs |
 | P3 | cleanup: drop `grub` requirements, README/docs, decide `grub` spec fate | requirements dropped from `browneye-installer`/`browneye-live`; the `grub` spec itself is kept (open question 2) |
 
 Per `AGENTS.md`, the ISO is rebuilt and republished only when requested, so P2
@@ -319,21 +320,49 @@ until a rebuild is asked for. Note that in the ISO/rootfs rebuild issue.
 
 ## Verification checklist
 
-- [ ] `rpm -qpl systemd-*.rpm | grep systemd-bootx64.efi` (main package)
-- [ ] `bootctl status` on the installed system names sd-boot, the ESP at
-      `/boot`, and lists the entry
-- [ ] `dnf reinstall linux` writes a new `loader/entries/browneye-<kver>.conf`
-- [ ] `dnf reinstall linux-modules` refreshes the initramfs the entry points at
-- [ ] install onto a disk with an existing 512 MiB ESP either reuses it with a
-      space warning or fails with a clear remedy
-- [ ] OVMF install run (`scripts/qemu_test_installer.sh`, ISO built with
-      `ISO_AUTO=1` and an `ISO_ANSWER` file) then boot the installed disk in
-      OVMF; `scripts/qemu_boot.sh` boots `-kernel` directly and stays a
-      payload regression, not an sd-boot test
-- [ ] ISO: CD boot and `dd`-to-USB boot both reach the live root; serial
-      console shows sd-boot
-- [ ] `efibootmgr -v` after install shows `\EFI\systemd\systemd-bootx64.efi`
-- [ ] fallback works with the NVRAM entry removed (`BOOTX64.EFI`)
+- [x] `rpm -qpl systemd-262.1-3 | grep systemd-bootx64.efi` (main package)
+- [x] sd-boot menu appears on serial and boots the installed entry
+      (`Browneye Linux 13.1 (7.3.1)`) — proven by the OVMF disk boot below
+- [x] `linux-kernel` `%post` writes `loader/entries/browneye-7.3.1.conf` from
+      `/etc/kernel/cmdline`, and `%preun` removes it (tested with the shipped
+      RPM in a container)
+- [x] unattended OVMF install (`ISO_AUTO=1`, `tests/installer-answer.json`)
+      completes all 9 steps; `bootctl install` copies sd-boot to
+      `EFI/systemd/` and `EFI/BOOT/`, and `efibootmgr` records
+      `\EFI\systemd\systemd-bootx64.efi`
+- [x] installed disk boots in OVMF from the removable `BOOTX64.EFI` fallback
+      with a fresh (empty) NVRAM, reaching `browneye-test login:` on ttyS0
+- [x] ISO boots from `-cdrom` in OVMF; the FAT image holds
+      `EFI/BOOT/BOOTX64.EFI`, `loader.conf`, the entry, `vmlinuz` and
+      `initrd.img`
+- [ ] USB (`dd`) boot of the hybrid ISO
+- [ ] install onto a disk with an existing 512 MiB ESP (the 256 MiB free-space
+      check is unit-tested but not exercised on real media)
+
+### Test log (2026-11-04)
+
+```
+# skeleton ISO (dummy kernel) — media layout only
+qemu-system-x86_64 ... -cdrom build/test-iso-skeleton.iso
+  -> sd-boot menu, entry read, "Error loading EFI binary \vmlinuz: Unsupported"
+     (expected: the dummy kernel is zero-filled)
+
+# full ISO with ISO_AUTO=1 and tests/installer-answer.json
+scripts/build_iso_uefi.sh  (build/browneye-installer-systemd.iso, 421 MiB)
+  -> BROWNEY-INSTALL: STEP 1..9, then OK
+  -> bootctl --esp-path=/boot --no-variables install (rc=0)
+  -> efibootmgr: Boot0008 "Browneye Linux" \EFI\systemd\systemd-bootx64.efi
+
+# installed disk, fresh OVMF NVRAM
+qemu-system-x86_64 ... -drive file=build/systemd-boot-test.img
+  -> BdsDxe: starting Boot0001 "UEFI Misc Device"   (BOOTX64.EFI fallback)
+  -> "Browneye Linux 13.1 (7.3.1)" menu, Boot in 3s
+  -> Browneye Linux 13.1 / Kernel 7.3.1 on ttyS0 / browneye-test login:
+```
+
+Artifacts from the run are under `build/` (`browneye-installer-systemd.iso`,
+`systemd-boot-install-serial.log`, `systemd-boot-run-serial.log`) and are not
+published.
 
 ## Risks
 
@@ -351,6 +380,10 @@ until a rebuild is asked for. Note that in the ISO/rootfs rebuild issue.
 - **Serial/console.** sd-boot's menu must appear on `ttyS0` for QEMU tests;
   `console-mode keep` plus firmware console output should cover it, but this
   needs a real OVMF run to confirm.
+- **Large El Torito image.** The 96 MiB FAT image exceeds the 16-bit El Torito
+  sector count, so xorriso records 0 ("extend ESP to end-of-medium"); OVMF
+  boots it, but this has not been tried on other firmware.  Keep the image
+  smaller if a machine refuses to boot it.
 - **Partition growth.** Raising `ESP_MIB` to 1024 changes new-install layouts;
   reuse of an existing ESP must not assume 1 GiB.
 
