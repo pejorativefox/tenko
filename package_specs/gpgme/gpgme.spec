@@ -1,9 +1,10 @@
 Name:       gpgme
 Version:    2.2.0
-Release:    3
+Release:    4
 Summary:    High-level crypto API for GnuPG
 License:    LGPL
 Prefix:     /usr
+Recommends: gnupg
 Source0:    %{name}-%{version}.tar.bz2
 
 %description
@@ -33,6 +34,11 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files devel -f %{_sourcedir}/gpgme-devel.filelist
 
 %changelog
+* Wed Nov 04 2026 browneye <build@browneye.invalid> 2.2.0-4
+- Recommends: gnupg, matching BLFS.  gpgme looks up its OpenPGP and CMS
+  engines at runtime; without gnupg they are reported as unavailable
+  (file=/nonexistent) and gpgme_ctx_set_engine_info fails.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.2.0-3
 - Move the pkg-config files into a new -devel subpackage so the runtime
   package no longer drags pkgconfig(...) consumers into every install.
