@@ -1,12 +1,15 @@
 Name:       binutils
 Version:    2.47
-Release:    3
+Release:    4
 Summary:    GNU binutils
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 %description
-TODO
+The GNU binutils are utilities for working with binary files, either object
+files or executables. They include the linkers ld and gold, the assembler
+gas, the profilers gprof and gprofng, the disassembler objdump, and the bfd
+and opcodes libraries.
 
 %prep
 %setup -q
@@ -41,7 +44,7 @@ popd
 
 %package lang
 Summary:    binutils translations
-License:    GPL3
+License:    GPL-3.0-or-later
 Supplements: binutils = %{version}-%{release}
 
 %description lang
@@ -49,7 +52,7 @@ Translations for the binutils tools, bfd, gas, gprof, ld and opcodes.
 
 %package doc
 Summary:    binutils documentation
-License:    GPL3
+License:    GFDL-1.3-or-later
 Supplements: binutils = %{version}-%{release}
 
 %description doc
@@ -60,6 +63,10 @@ Info and man pages for the binutils tools.
 %files doc -f %{_sourcedir}/binutils-doc.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.47-4
+- Replace the TODO summary/description and record the verified license
+  (GPL-3.0-or-later): COPYING3 (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.47-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

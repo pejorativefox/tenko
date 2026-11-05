@@ -1,15 +1,16 @@
 Name:       font-bh-type1
 Version:    1.0.4
-Release:    1
+Release:    2
 Summary:    Bigelow & Holmes Type1 fonts for X11
-License:    GPL3
+License:    Luxi
 Prefix:     /usr
 Source0:    font-bh-type1-1.0.4.tar.xz
 
 
 
 %description
-TODO
+This package contains the Luxi Type 1 fonts from Bigelow & Holmes Inc.,
+with font instruction code by URW++ GmbH, for use in the X Window System.
 
 %prep
 %setup
@@ -27,5 +28,9 @@ rm -rf %{buildroot}/usr/share/fonts/X11/Type1/fonts.scale
 
 %files -f %{_sourcedir}/font-bh-type1.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.4-2
+- Replace the TODO summary/description and record the verified license
+  (Luxi, no SPDX identifier): COPYING (issue #8).
+
 # let's skip this for now
 

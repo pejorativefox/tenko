@@ -1,15 +1,17 @@
 Name:       docbook-xsl-nons
 Version:    1.79.2
-Release:    2
-Summary:    TODO
-License:    GPL3
+Release:    3
+Summary:    XSL stylesheets for transforming DocBook XML
+License:    MIT AND BSD-3-Clause AND Apache-2.0
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 Patch:     docbook-xsl-nons-1.79.2-stack_fix-1.patch
 Requires:   libxml2
 
 %description
-TODO
+These are XSL stylesheets for transforming DocBook XML document instances
+into various output formats. This package contains the non-namespaced
+stylesheets.
 
 %prep
 %setup -a 0
@@ -1908,6 +1910,10 @@ fi
 /usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2/xhtml5/xhtml2xhtml5.xsl
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.79.2-3
+- Replace the TODO summary/description and record the verified license
+  (MIT AND BSD-3-Clause AND Apache-2.0): COPYING, extensions/LICENSE.txt (issue #8).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.79.2-2
 - Install the XML catalog rewrites (cdn.docbook.org and
   docbook.sourceforge.net) that the BLFS page wires up, so xsltproc --nonet

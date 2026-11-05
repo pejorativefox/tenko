@@ -1,13 +1,15 @@
 Name:       curl
 Version:    8.23.0
-Release:    2
-Summary:    TODO
-License:    GPL3
+Release:    3
+Summary:    Command line tool and library for transferring data with URLs
+License:    curl
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 %description
-TODO
+curl is a command line tool for transferring data specified with URL
+syntax. libcurl is the library curl uses, and it is readily available to be
+used by other software.
 
 %package doc
 Summary:    curl documentation
@@ -31,6 +33,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/curl.filelist
 %files doc -f %{_sourcedir}/curl-doc.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 8.23.0-3
+- Replace the TODO summary/description and record the verified license
+  (curl): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 8.23.0-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

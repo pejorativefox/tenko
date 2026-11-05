@@ -1,8 +1,8 @@
 Name:       libpng
 Version:    1.6.59
-Release:    3
-Summary:    TODO
-License:    GPL3
+Release:    4
+Summary:    PNG reference library
+License:    libpng-2.0
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -11,7 +11,9 @@ BuildRequires: zlib, pkgconf
 Provides: pkgconfig(libpng)
 
 %description
-TODO
+libpng is the reference implementation of the PNG (Portable Network
+Graphics) image format. It provides a complete library for reading,
+writing and manipulating PNG images.
 
 %prep
 %setup -q
@@ -29,6 +31,10 @@ rm -vf %{buildroot}/usr/lib64/libpng.la
 %files -f %{_sourcedir}/libpng.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.6.59-4
+- Replace the TODO summary/description and record the verified license
+  (libpng-2.0): LICENSE (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.6.59-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

@@ -1,13 +1,16 @@
 Name:       libogg
 Version:    1.3.6
-Release:    3
-Summary:    TODO
-License:    GPL3
+Release:    4
+Summary:    Ogg bitstream container library
+License:    BSD-3-Clause
 Prefix:     /usr
 Source0:    libogg-1.3.6.tar.xz
 
 %description
-TODO
+libogg is a library for working with the Ogg bitstream format. Ogg
+arranges compressed bitstreams so that seeking, time stamping and error
+recovery are possible, and it can mix several concurrent media streams
+into a single physical bitstream.
 
 %prep
 %setup -q
@@ -25,6 +28,10 @@ rm -rf %{buildroot}
 %files -f %{_sourcedir}/libogg.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.3.6-4
+- Replace the TODO summary/description and record the verified license
+  (BSD-3-Clause): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.3.6-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

@@ -1,13 +1,15 @@
 Name:       libass
 Version:    0.17.5
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Portable ASS/SSA subtitle renderer
+License:    ISC
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 %description
-TODO
+libass is a portable subtitle renderer for the ASS/SSA (Advanced
+Substation Alpha/Substation Alpha) subtitle format. It is mostly
+compatible with VSFilter.
 
 %prep
 %setup -q -a0
@@ -30,6 +32,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/pkgconfig/libass.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.17.5-2
+- Replace the TODO summary/description and record the verified license
+  (ISC): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.17.5-1
 - Sync with BLFS r13.1
 

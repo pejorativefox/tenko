@@ -1,13 +1,16 @@
 Name:       gobject-introspection
 Version:    1.86.0
-Release:    5
-Summary:    TODO
-License:    GPL3
+Release:    6
+Summary:    GObject API introspection tools and library
+License:    GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 %description
-TODO
+GObject Introspection describes the APIs of GObject-based libraries and
+collects them in a uniform, machine-readable GIR format. It provides the
+typelib library and tools such as g-ir-scanner, g-ir-compiler and
+g-ir-generate.
 
 %prep
 %setup -q
@@ -28,7 +31,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %package gir
 Summary:    GObject Introspection data for gobject-introspection
-License:    GPL3
+License:    GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -40,6 +43,10 @@ language bindings need it.
 %files gir -f %{_sourcedir}/gobject-introspection-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.86.0-6
+- Replace the TODO summary/description and record the verified license
+  (GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.86.0-5
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

@@ -1,16 +1,18 @@
 Name:       glibc
 Version:    2.44
-Release:    4
-Summary:    Provides the GNU glibc library
-License:    GPL3
+Release:    5
+Summary:    GNU C Library
+License:    LGPL-2.1-or-later AND GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 Provides: rtld(GNU_HASH)
 
 %description
-TODO
-kluged to work around: https://www.linuxquestions.org/questions/slackware-14/bug-while-building-glibc-2-27-with-new-gcc-8-1-1-and-perl-5-28-0-a-4175632782/
+The GNU C Library is the standard system C library for all GNU systems. It
+provides the system API for programs written in C and C-compatible
+languages and works with the Linux kernel to implement the operating
+system behavior seen by user applications.
 
 %package i18n
 Summary:    Locale source definitions for glibc
@@ -23,7 +25,7 @@ locales at runtime.
 
 %package doc
 Summary:    Documentation for glibc
-License:    GPL3
+License:    GFDL-1.3-or-later
 
 %description doc
 Info documentation for the GNU C library.
@@ -198,6 +200,10 @@ touch %{buildroot}/etc/ld.so.conf.d/.keep
 %files locales-extra -f %{_sourcedir}/glibc-locales-extra.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.44-5
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.1-or-later AND GPL-2.0-or-later): COPYING.LESSERv2, COPYINGv2 (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.44-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

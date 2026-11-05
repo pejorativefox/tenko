@@ -1,13 +1,16 @@
 Name:       bc
 Version:    7.0.3
-Release:    1
-Summary:    Bc, an arbitrary precision numeric processing language. 
-License:    GPL3
+Release:    2
+Summary:    Arbitrary precision numeric processing language
+License:    BSD-2-Clause
 Source0:    bc-7.0.3.tar.xz
 Prefix:     /usr
 
 %description
-TODO
+bc is an implementation of the POSIX bc calculator that implements GNU bc
+extensions, as well as the period extension for the BSD flavor of bc. The
+same binary also implements dc, and bc's math is provided as a C library
+called bcl.
 
 %prep
 %setup -q
@@ -33,6 +36,10 @@ install -Dm644 manuals/dc.1 %{buildroot}%{_mandir}/man1/dc.1
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 7.0.3-2
+- Replace the TODO summary/description and record the verified license
+  (BSD-2-Clause): LICENSE.md (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 7.0.3
 - Sync with LFS r13.1
 

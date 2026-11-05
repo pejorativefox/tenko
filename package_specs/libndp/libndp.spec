@@ -1,14 +1,15 @@
 Name:       libndp
 Version:    1.9
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Library for the IPv6 Neighbor Discovery Protocol
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
 
 %description
-TODO
+libndp provides a wrapper for the IPv6 Neighbor Discovery Protocol. It also
+includes ndptool, a utility for sending and receiving NDP messages.
 
 %prep
 %setup
@@ -34,6 +35,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man8/ndptool.8.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.9-2
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.1-or-later): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.9-1
 - Sync with BLFS r13.1
 

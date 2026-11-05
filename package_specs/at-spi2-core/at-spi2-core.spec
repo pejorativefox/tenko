@@ -1,14 +1,17 @@
 Name:       at-spi2-core
 Version:    2.62.1
-Release:    4
-Summary:    TODO
-License:    GPL3
+Release:    5
+Summary:    Assistive Technology Service Provider Interface core
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 Provides: pkgconfig(atspi-2)
 %description
-TODO
+AT-SPI (Assistive Technology Service Provider Interface) is the core of an
+accessibility stack for free software systems. It provides the D-Bus
+interface definitions, the basic accessibility daemons, the ATK library
+and the internal hooks between AT-SPI and ATK.
 
 %package lang
 Summary:    at-spi2-core translations
@@ -39,7 +42,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %package gir
 Summary:    GObject Introspection data for at-spi2-core
-License:    GPL3
+License:    LGPL-2.1-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -52,6 +55,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/at-spi2-core-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.62.1-5
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.1-or-later): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.62.1-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

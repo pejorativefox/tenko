@@ -1,14 +1,16 @@
 Name:       libsndfile
 Version:    1.2.2
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Library for reading and writing sampled audio files
+License:    LGPL-2.1-or-later AND Apache-2.0
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 
 %description
-TODO
+libsndfile is a library of C routines for reading and writing files
+containing sampled audio data. It supports a wide range of audio file
+formats and is used by many audio applications and libraries.
 
 %prep
 %setup -a 0 
@@ -69,6 +71,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/sndfile-salvage.1.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.2-2
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.1-or-later AND Apache-2.0): COPYING, src/ALAC/alac_encoder.c (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.2.2-1
 - Sync with BLFS r13.1
 
