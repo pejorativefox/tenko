@@ -35,7 +35,8 @@ H = os.path.expanduser("~")
 
 # book entities that are known under a different name than our spec
 ALIASES = {"gnupg": "gnupg2", "freetype": "freetype2", "icu4c": "icu",
-           "libglu": "glu", "python-setuptools": "setuptools"}
+           "libglu": "glu", "python-setuptools": "setuptools",
+           "gtkmm": "gtkmm3", "gtk+": "gtk3", "webp": "libwebp"}
 
 
 def repo_data(path):
@@ -60,8 +61,11 @@ def repo_data(path):
 def book_versions():
     ents_re = re.compile(r'<!ENTITY\s+([A-Za-z0-9_.+-]+)\s+"([^"]*)"\s*>')
     ref_re = re.compile(r"&([A-Za-z0-9_.+-]+);")
-    paths = [H + "/repos/lfs/packages.ent", H + "/repos/blfs/packages.ent",
-             H + "/repos/blfs/general.ent"]
+    paths = [H + "/repos/lfs/packages.ent"]
+    # every entity file in the BLFS root: general.ent, packages.ent and the
+    # per-chapter files (gnome.ent, xfce.ent, ...), which hold the GNOME and
+    # desktop package versions
+    paths += sorted(glob.glob(H + "/repos/blfs/*.ent"))
     paths += [p for p in glob.glob(H + "/repos/blfs/**/*.xml", recursive=True)
               if "/archive/" not in p]
     ents = {}
@@ -160,10 +164,19 @@ def main():
                             or ver in base):
                         bad_src = base
                 break
-        missing = [p for p in patches
-                   if not os.path.exists(
-                       os.path.join(ROOT, "package_specs", d, "files", p))
-                   and p not in (open(sfile).read() if os.path.exists(sfile) else "")]
+        missing = []
+        for p in patches:
+            # Patch lines may use %{name}/%{version}; expand them so a
+            # vendored patch is not reported missing under its literal name.
+            expanded = p.replace("%{name}", name or "").replace(
+                "%{version}", ver or "")
+            sref = open(sfile).read() if os.path.exists(sfile) else ""
+            if os.path.exists(
+                    os.path.join(ROOT, "package_specs", d, "files", expanded)):
+                continue
+            if expanded in sref or p in sref:
+                continue
+            missing.append(p)
         rows.append(dict(dir=d, name=name, ver=ver, shipped=shipped,
                          status=status, bver=bver, bad_src=bad_src,
                          missing=missing,
