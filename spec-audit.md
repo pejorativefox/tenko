@@ -31,15 +31,15 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 | spec files / spec directories | 495 / 495 |
 | shipped spec files (live source package in the repo) | 495 |
 | source packages in the published repo | 495 |
-| RPM names in the published repo | 687 |
+| RPM names in the published repo | 688 |
 | **shipped packages below the book** | **0** |
 | shipped packages at the book | 382 |
 | shipped packages above the book | 2 (`db`, `xml-parser`) |
 | shipped packages with no comparable book entity | 111 |
 | unbuilt spec files | 0 |
 | unbuilt specs below the book | 0 |
-| specs with `Summary: TODO` | 48 |
-| specs with `TODO` in `%description` | 64 |
+| specs with `Summary: TODO` | 0 |
+| specs with `TODO` in `%description` | 0 |
 | shipped specs with a missing referenced patch | 0 |
 | shipped specs with a sources/version mismatch | 0 (7 audit false positives, §1.3) |
 | specs with neither `sources` nor `nosources` | 0 |
@@ -178,6 +178,21 @@ page; the rest approved latest-stable deviations, issue #7):
 | `x11perf` | 1.6.1 | no book page; latest x.org release |
 | `xf86-input-synaptics` | 1.10.0 | no book page; latest x.org release |
 
+**Metadata and licence waves, 2026-11-05 (second pass).** PR #18 replaced
+the `TODO` summaries and descriptions for 59 specs and verified their
+licences (`curl` → `curl`, `cmake` → `BSD-3-Clause`, `libpng` →
+`libpng-2.0`, `pcre2` → `BSD-3-Clause WITH PCRE2-exception`, `polkit` →
+`LGPL-2.0-or-later`, `pulseaudio` → `LGPL-2.1-or-later`, …). PR #19 then
+verified the remaining 118 specs that still said `License: GPL3` (`glib`
+→ `LGPL-2.1-or-later`, `gcc` → `GPL-3.0-or-later WITH
+GCC-exception-3.1`, `openssl` → `Apache-2.0`, `perl` → `Artistic-1.0-Perl
+OR GPL-1.0-or-later`, `python` → `PSF-2.0`, `zlib` → `Zlib`, `ncurses` →
+`X11`, `cairo` → `LGPL-2.1-only OR MPL-1.1`, …). All 177 packages were
+rebuilt and published (80 + 207 RPMs including subpackages); the
+repository now reports no `TODO` metadata and no `GPL3` placeholder.
+`grub` now also ships `grub-mkfont` and `grub-mount`, which the rebuild
+environment builds when freetype/fuse3 are present.
+
 `mkfontdir` was retired rather than built: its only files are already
 shipped by `mkfontscale` and the two packages conflict. `rpmlint` was
 retired because its six Python runtime dependencies are not in the
@@ -198,13 +213,17 @@ The seven rows the script prints are all expected:
 
 ### 1.4 Open shipped-package debt
 
-- **`Summary: TODO` / `TODO` descriptions** in 48 and 64 specs — PR #18
-  fills these in (plus 11 description-only specs) with verified licences;
-  the specs are not rebuilt/published yet, so the repo still advertises
-  the TODO text until that follow-up.
+- **Metadata and licences are clean.** PR #18 filled the 48 `Summary:
+  TODO` and 11 description-only specs; PR #19 verified the last 118
+  `License: GPL3` placeholders. Both waves were rebuilt and the repo now
+  reports **0 TODO** summaries and **0 `GPL3`** licences.
+- **`openssl-perl` has a dangling require**: `perl(Net::Curl::Easy)` is
+  not provided by any package. The previous published RPM had the same
+  require, so the rebuild does not regress it, but it needs a separate
+  look.
 - **Images lag the repo**: the published installer ISO and rootfs were
-  built before all three 2026-11-05 waves and do not contain them. They
-  are only rebuilt on request (AGENTS.md).
+  built before all 2026-11-05 waves and do not contain them. They are
+  only rebuilt on request (AGENTS.md).
 - **`imagemagick` PNG support** — fixed in 7.1.2-3 (`54cc843`). The
   package had been built with `--with-modules`, so coders were loaded
   through libltdl; `brp-remove-la-files` strips the companion `.la`
