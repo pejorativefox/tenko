@@ -1,0 +1,14 @@
+%dir /usr/lib64
+%dir /usr/lib64/xorg
+%dir /usr/lib64/xorg/modules
+%dir /usr/lib64/xorg/modules/drivers
+/usr/lib64/xorg/modules/drivers/intel_drv.so
+%dir /usr/libexec
+/usr/libexec/xf86-video-intel-backlight-helper
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man4
+%doc /usr/share/man/man4/intel.4.gz
+%dir /usr/share/polkit-1
+%dir /usr/share/polkit-1/actions
+/usr/share/polkit-1/actions/org.x.xf86-video-intel.backlight-helper.policy

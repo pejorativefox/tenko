@@ -4,7 +4,7 @@ Release:    1
 Summary:    Xorg Intel video driver
 License:    MIT
 Prefix:     /usr
-Source0:    xf86-video-intel-20230223.tar.xz
+Source0:    %{name}-%{version}.tar.xz
 
 %description
 The Intel video driver for Xorg.
@@ -13,18 +13,23 @@ The Intel video driver for Xorg.
 %setup -q
 
 %build
+# The 20230223 snapshot ships no generated configure script, so run
+# autogen.sh (autoreconf) first and keep it from configuring twice.
+NOCONFIGURE=1 ./autogen.sh
 %configure --enable-kms-only --enable-uxa
 %make_build
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/etc
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/
+%files -f %{_sourcedir}/xf86-video-intel.filelist
 
 %changelog
-* Sun Nov 01 2026 browneye <build@browneye.invalid> 20230223-1
-- Initial package (BLFS r13.1)
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 20230223-1
+- Keep 20230223: it is the latest upstream snapshot (the last tagged x.org
+  release, 2.99.917, is older), matching the archived BLFS page.  The
+  package is not in the r13.1 book outside archive/
+- Build through autogen.sh because the tarball has no configure script
+- Drop the stray mkdir of an /etc buildroot entry that nothing installs

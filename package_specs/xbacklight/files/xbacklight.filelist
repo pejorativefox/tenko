@@ -1,0 +1,6 @@
+%dir /usr/bin
+/usr/bin/xbacklight
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/xbacklight.1.gz

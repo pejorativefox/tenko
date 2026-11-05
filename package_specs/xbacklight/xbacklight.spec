@@ -1,32 +1,32 @@
 Name:       xbacklight
-Version:    1.2.2
+Version:    1.2.4
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Adjust backlight brightness using RandR extension
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
-
-
+Source0:    %{name}-%{version}.tar.xz
 
 %description
-TODO
+xbacklight is a simple command-line client to adjust the backlight
+brightness of a display using the X RandR extension.
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
-%configure 
+%configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/xbacklight
-/usr/share/man/man1/xbacklight.1.gz
+%files -f %{_sourcedir}/xbacklight.filelist
 
 %changelog
-# let's skip this for now
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.4-1
+- Update to 1.2.4 (latest upstream release)
+- Not in the BLFS r13.1 book (nor in archive/); version taken from
+  upstream x.org
+- Fix man page path in %files (/usr/share/man, not /usr/man)

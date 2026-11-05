@@ -1,34 +1,31 @@
 Name:       xf86-video-fbdev
-Version:    0.5.0
+Version:    0.5.1
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Xorg framebuffer (fbdev) video driver
+License:    MIT
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
-
-
+Source0:    %{name}-%{version}.tar.xz
 
 %description
-TODO
+The framebuffer (fbdev) video driver for Xorg.
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-
-%files
-/usr/lib64/xorg/modules/drivers/fbdev_drv.la
-/usr/lib64/xorg/modules/drivers/fbdev_drv.so
-/usr/share/man/man4/fbdev.4.gz
+%files -f %{_sourcedir}/xf86-video-fbdev.filelist
 
 %changelog
-# let's skip this for now
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.5.1-1
+- Update to 0.5.1 (latest upstream release)
+- Not in the BLFS r13.1 book; only the archive copy exists there, and it
+  still lists 0.5.0, so the version was taken from upstream x.org
+- Fix man page path in %files (/usr/share/man, not /usr/man)

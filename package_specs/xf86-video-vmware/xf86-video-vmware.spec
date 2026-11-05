@@ -1,34 +1,30 @@
 Name:       xf86-video-vmware
 Version:    13.4.0
 Release:    1
-Summary:    Vmware video friver for Xorg
-License:    GPL3
+Summary:    Xorg VMware video driver
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
-
-
 %description
-Vmware video deiver for Xorg.
+The VMware video driver for Xorg.
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-
-%files
-/usr/lib64/xorg/modules/drivers/vmware_drv.la
-/usr/lib64/xorg/modules/drivers/vmware_drv.so
-/usr/share/man/man4/vmware.4.gz
+%files -f %{_sourcedir}/xf86-video-vmware.filelist
 
 %changelog
-* Tue Jun 20 2023 Chris Statzer <chris.statzer@gmail.com> 13.4.0
-- Version bump needed for new mesa/libdrm versions
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 13.4.0-1
+- Keep 13.4.0: latest upstream release, and the same version the archived
+  BLFS page lists (the package is not in the r13.1 book outside archive/)
+- Fix man page path in %files (/usr/share/man, not /usr/man)
