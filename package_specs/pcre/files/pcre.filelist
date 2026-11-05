@@ -1,0 +1,207 @@
+%dir /usr/bin
+/usr/bin/pcre-config
+/usr/bin/pcregrep
+/usr/bin/pcretest
+%dir /usr/include
+/usr/include/pcre.h
+/usr/include/pcre_scanner.h
+/usr/include/pcre_stringpiece.h
+/usr/include/pcrecpp.h
+/usr/include/pcrecpparg.h
+/usr/include/pcreposix.h
+%dir /usr/lib64
+/usr/lib64/libpcre.so
+/usr/lib64/libpcre.so.1
+/usr/lib64/libpcre.so.1.2.13
+/usr/lib64/libpcre16.so
+/usr/lib64/libpcre16.so.0
+/usr/lib64/libpcre16.so.0.2.13
+/usr/lib64/libpcre32.so
+/usr/lib64/libpcre32.so.0
+/usr/lib64/libpcre32.so.0.0.13
+/usr/lib64/libpcrecpp.so
+/usr/lib64/libpcrecpp.so.0
+/usr/lib64/libpcrecpp.so.0.0.2
+/usr/lib64/libpcreposix.so
+/usr/lib64/libpcreposix.so.0
+/usr/lib64/libpcreposix.so.0.0.7
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libpcre.pc
+/usr/lib64/pkgconfig/libpcre16.pc
+/usr/lib64/pkgconfig/libpcre32.pc
+/usr/lib64/pkgconfig/libpcrecpp.pc
+/usr/lib64/pkgconfig/libpcreposix.pc
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/pcre-8.45
+%doc /usr/share/doc/pcre-8.45/AUTHORS
+%doc /usr/share/doc/pcre-8.45/COPYING
+%doc /usr/share/doc/pcre-8.45/ChangeLog
+%doc /usr/share/doc/pcre-8.45/LICENCE
+%doc /usr/share/doc/pcre-8.45/NEWS
+%doc /usr/share/doc/pcre-8.45/README
+%dir /usr/share/doc/pcre-8.45/html
+%doc /usr/share/doc/pcre-8.45/html/NON-AUTOTOOLS-BUILD.txt
+%doc /usr/share/doc/pcre-8.45/html/README.txt
+%doc /usr/share/doc/pcre-8.45/html/index.html
+%doc /usr/share/doc/pcre-8.45/html/pcre-config.html
+%doc /usr/share/doc/pcre-8.45/html/pcre.html
+%doc /usr/share/doc/pcre-8.45/html/pcre16.html
+%doc /usr/share/doc/pcre-8.45/html/pcre32.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_assign_jit_stack.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_compile.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_compile2.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_config.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_copy_named_substring.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_copy_substring.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_dfa_exec.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_exec.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_free_study.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_free_substring.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_free_substring_list.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_fullinfo.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_get_named_substring.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_get_stringnumber.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_get_stringtable_entries.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_get_substring.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_get_substring_list.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_jit_exec.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_jit_stack_alloc.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_jit_stack_free.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_maketables.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_pattern_to_host_byte_order.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_refcount.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_study.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_utf16_to_host_byte_order.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_utf32_to_host_byte_order.html
+%doc /usr/share/doc/pcre-8.45/html/pcre_version.html
+%doc /usr/share/doc/pcre-8.45/html/pcreapi.html
+%doc /usr/share/doc/pcre-8.45/html/pcrebuild.html
+%doc /usr/share/doc/pcre-8.45/html/pcrecallout.html
+%doc /usr/share/doc/pcre-8.45/html/pcrecompat.html
+%doc /usr/share/doc/pcre-8.45/html/pcrecpp.html
+%doc /usr/share/doc/pcre-8.45/html/pcredemo.html
+%doc /usr/share/doc/pcre-8.45/html/pcregrep.html
+%doc /usr/share/doc/pcre-8.45/html/pcrejit.html
+%doc /usr/share/doc/pcre-8.45/html/pcrelimits.html
+%doc /usr/share/doc/pcre-8.45/html/pcrematching.html
+%doc /usr/share/doc/pcre-8.45/html/pcrepartial.html
+%doc /usr/share/doc/pcre-8.45/html/pcrepattern.html
+%doc /usr/share/doc/pcre-8.45/html/pcreperform.html
+%doc /usr/share/doc/pcre-8.45/html/pcreposix.html
+%doc /usr/share/doc/pcre-8.45/html/pcreprecompile.html
+%doc /usr/share/doc/pcre-8.45/html/pcresample.html
+%doc /usr/share/doc/pcre-8.45/html/pcrestack.html
+%doc /usr/share/doc/pcre-8.45/html/pcresyntax.html
+%doc /usr/share/doc/pcre-8.45/html/pcretest.html
+%doc /usr/share/doc/pcre-8.45/html/pcreunicode.html
+%doc /usr/share/doc/pcre-8.45/pcre-config.txt
+%doc /usr/share/doc/pcre-8.45/pcre.txt
+%doc /usr/share/doc/pcre-8.45/pcregrep.txt
+%doc /usr/share/doc/pcre-8.45/pcretest.txt
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/pcre-config.1.gz
+%doc /usr/share/man/man1/pcregrep.1.gz
+%doc /usr/share/man/man1/pcretest.1.gz
+%dir /usr/share/man/man3
+%doc /usr/share/man/man3/pcre.3.gz
+%doc /usr/share/man/man3/pcre16.3.gz
+%doc /usr/share/man/man3/pcre16_assign_jit_stack.3.gz
+%doc /usr/share/man/man3/pcre16_compile.3.gz
+%doc /usr/share/man/man3/pcre16_compile2.3.gz
+%doc /usr/share/man/man3/pcre16_config.3.gz
+%doc /usr/share/man/man3/pcre16_copy_named_substring.3.gz
+%doc /usr/share/man/man3/pcre16_copy_substring.3.gz
+%doc /usr/share/man/man3/pcre16_dfa_exec.3.gz
+%doc /usr/share/man/man3/pcre16_exec.3.gz
+%doc /usr/share/man/man3/pcre16_free_study.3.gz
+%doc /usr/share/man/man3/pcre16_free_substring.3.gz
+%doc /usr/share/man/man3/pcre16_free_substring_list.3.gz
+%doc /usr/share/man/man3/pcre16_fullinfo.3.gz
+%doc /usr/share/man/man3/pcre16_get_named_substring.3.gz
+%doc /usr/share/man/man3/pcre16_get_stringnumber.3.gz
+%doc /usr/share/man/man3/pcre16_get_stringtable_entries.3.gz
+%doc /usr/share/man/man3/pcre16_get_substring.3.gz
+%doc /usr/share/man/man3/pcre16_get_substring_list.3.gz
+%doc /usr/share/man/man3/pcre16_jit_exec.3.gz
+%doc /usr/share/man/man3/pcre16_jit_stack_alloc.3.gz
+%doc /usr/share/man/man3/pcre16_jit_stack_free.3.gz
+%doc /usr/share/man/man3/pcre16_maketables.3.gz
+%doc /usr/share/man/man3/pcre16_pattern_to_host_byte_order.3.gz
+%doc /usr/share/man/man3/pcre16_refcount.3.gz
+%doc /usr/share/man/man3/pcre16_study.3.gz
+%doc /usr/share/man/man3/pcre16_utf16_to_host_byte_order.3.gz
+%doc /usr/share/man/man3/pcre16_version.3.gz
+%doc /usr/share/man/man3/pcre32.3.gz
+%doc /usr/share/man/man3/pcre32_assign_jit_stack.3.gz
+%doc /usr/share/man/man3/pcre32_compile.3.gz
+%doc /usr/share/man/man3/pcre32_compile2.3.gz
+%doc /usr/share/man/man3/pcre32_config.3.gz
+%doc /usr/share/man/man3/pcre32_copy_named_substring.3.gz
+%doc /usr/share/man/man3/pcre32_copy_substring.3.gz
+%doc /usr/share/man/man3/pcre32_dfa_exec.3.gz
+%doc /usr/share/man/man3/pcre32_exec.3.gz
+%doc /usr/share/man/man3/pcre32_free_study.3.gz
+%doc /usr/share/man/man3/pcre32_free_substring.3.gz
+%doc /usr/share/man/man3/pcre32_free_substring_list.3.gz
+%doc /usr/share/man/man3/pcre32_fullinfo.3.gz
+%doc /usr/share/man/man3/pcre32_get_named_substring.3.gz
+%doc /usr/share/man/man3/pcre32_get_stringnumber.3.gz
+%doc /usr/share/man/man3/pcre32_get_stringtable_entries.3.gz
+%doc /usr/share/man/man3/pcre32_get_substring.3.gz
+%doc /usr/share/man/man3/pcre32_get_substring_list.3.gz
+%doc /usr/share/man/man3/pcre32_jit_exec.3.gz
+%doc /usr/share/man/man3/pcre32_jit_stack_alloc.3.gz
+%doc /usr/share/man/man3/pcre32_jit_stack_free.3.gz
+%doc /usr/share/man/man3/pcre32_maketables.3.gz
+%doc /usr/share/man/man3/pcre32_pattern_to_host_byte_order.3.gz
+%doc /usr/share/man/man3/pcre32_refcount.3.gz
+%doc /usr/share/man/man3/pcre32_study.3.gz
+%doc /usr/share/man/man3/pcre32_utf32_to_host_byte_order.3.gz
+%doc /usr/share/man/man3/pcre32_version.3.gz
+%doc /usr/share/man/man3/pcre_assign_jit_stack.3.gz
+%doc /usr/share/man/man3/pcre_compile.3.gz
+%doc /usr/share/man/man3/pcre_compile2.3.gz
+%doc /usr/share/man/man3/pcre_config.3.gz
+%doc /usr/share/man/man3/pcre_copy_named_substring.3.gz
+%doc /usr/share/man/man3/pcre_copy_substring.3.gz
+%doc /usr/share/man/man3/pcre_dfa_exec.3.gz
+%doc /usr/share/man/man3/pcre_exec.3.gz
+%doc /usr/share/man/man3/pcre_free_study.3.gz
+%doc /usr/share/man/man3/pcre_free_substring.3.gz
+%doc /usr/share/man/man3/pcre_free_substring_list.3.gz
+%doc /usr/share/man/man3/pcre_fullinfo.3.gz
+%doc /usr/share/man/man3/pcre_get_named_substring.3.gz
+%doc /usr/share/man/man3/pcre_get_stringnumber.3.gz
+%doc /usr/share/man/man3/pcre_get_stringtable_entries.3.gz
+%doc /usr/share/man/man3/pcre_get_substring.3.gz
+%doc /usr/share/man/man3/pcre_get_substring_list.3.gz
+%doc /usr/share/man/man3/pcre_jit_exec.3.gz
+%doc /usr/share/man/man3/pcre_jit_stack_alloc.3.gz
+%doc /usr/share/man/man3/pcre_jit_stack_free.3.gz
+%doc /usr/share/man/man3/pcre_maketables.3.gz
+%doc /usr/share/man/man3/pcre_pattern_to_host_byte_order.3.gz
+%doc /usr/share/man/man3/pcre_refcount.3.gz
+%doc /usr/share/man/man3/pcre_study.3.gz
+%doc /usr/share/man/man3/pcre_utf16_to_host_byte_order.3.gz
+%doc /usr/share/man/man3/pcre_utf32_to_host_byte_order.3.gz
+%doc /usr/share/man/man3/pcre_version.3.gz
+%doc /usr/share/man/man3/pcreapi.3.gz
+%doc /usr/share/man/man3/pcrebuild.3.gz
+%doc /usr/share/man/man3/pcrecallout.3.gz
+%doc /usr/share/man/man3/pcrecompat.3.gz
+%doc /usr/share/man/man3/pcrecpp.3.gz
+%doc /usr/share/man/man3/pcredemo.3.gz
+%doc /usr/share/man/man3/pcrejit.3.gz
+%doc /usr/share/man/man3/pcrelimits.3.gz
+%doc /usr/share/man/man3/pcrematching.3.gz
+%doc /usr/share/man/man3/pcrepartial.3.gz
+%doc /usr/share/man/man3/pcrepattern.3.gz
+%doc /usr/share/man/man3/pcreperform.3.gz
+%doc /usr/share/man/man3/pcreposix.3.gz
+%doc /usr/share/man/man3/pcreprecompile.3.gz
+%doc /usr/share/man/man3/pcresample.3.gz
+%doc /usr/share/man/man3/pcrestack.3.gz
+%doc /usr/share/man/man3/pcresyntax.3.gz
+%doc /usr/share/man/man3/pcreunicode.3.gz

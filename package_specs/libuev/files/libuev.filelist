@@ -1,0 +1,16 @@
+%dir /usr/include
+%dir /usr/include/uev
+/usr/include/uev/private.h
+/usr/include/uev/uev.h
+%dir /usr/lib64
+/usr/lib64/libuev.a
+/usr/lib64/libuev.so
+/usr/lib64/libuev.so.3
+/usr/lib64/libuev.so.3.0.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libuev.pc
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/libuev
+%doc /usr/share/doc/libuev/LICENSE
+%doc /usr/share/doc/libuev/README.md

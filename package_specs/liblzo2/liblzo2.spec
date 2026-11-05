@@ -13,20 +13,21 @@ LZO is a portable lossless data compression library written in ANSI C.
 %setup -n lzo-%{version}
 
 %build
-%configure
+%configure --enable-shared  \
+           --disable-static \
+           --docdir=/usr/share/doc/lzo-%{version}
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/include/lzo/
-/usr/lib64/liblzo2.a
-/usr/lib64/pkgconfig/lzo2.pc
-/usr/share/doc/lzo/
+%files -f %{_sourcedir}/liblzo2.filelist
 
 %changelog
-* Wed Aug 19 2020 Chris Statzer <chris.statzer@qq.com> 2.10
-- Initial RPM
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.10-1
+- Rebuild against the r13.1 toolchain.
+- Basis: BLFS r13.1 general/genlib/lzo.xml (lzo 2.10).
+- Configure per the book: --enable-shared --disable-static
+  --docdir=/usr/share/doc/lzo-2.10.
+- Static filelist generated from the install tree.

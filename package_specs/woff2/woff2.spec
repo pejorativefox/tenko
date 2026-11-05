@@ -10,36 +10,35 @@ Prefix:     /usr
 The primary purpose of the WOFF2 format is to efficiently package fonts linked to Web documents by means of CSS
 
 %prep
-%setup
+%setup -q
+sed -i '/output.h/i #include <cstdint>' src/woff2_out.cc
 
 %build
-mkdir build
-pushd build
-cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+mkdir out
+pushd out
+cmake -D CMAKE_INSTALL_PREFIX=/usr         \
+      -D CMAKE_INSTALL_LIBDIR=lib64        \
+      -D CMAKE_BUILD_TYPE=Release          \
+      -D CMAKE_POLICY_VERSION_MINIMUM=3.5  \
+      -D CMAKE_SKIP_INSTALL_RPATH=ON ..
 %make_build
 popd
 
 %install
 rm -rf %{buildroot}
-pushd build
+pushd out
 %make_install
 popd
 
-%files
-/usr/include/woff2/decode.h
-/usr/include/woff2/encode.h
-/usr/include/woff2/output.h
-/usr/lib64/libwoff2common.so
-/usr/lib64/libwoff2common.so.1.0.2
-/usr/lib64/libwoff2dec.so
-/usr/lib64/libwoff2dec.so.1.0.2
-/usr/lib64/libwoff2enc.so
-/usr/lib64/libwoff2enc.so.1.0.2
-/usr/lib64/pkgconfig/libwoff2common.pc
-/usr/lib64/pkgconfig/libwoff2dec.pc
-/usr/lib64/pkgconfig/libwoff2enc.pc
+%files -f %{_sourcedir}/woff2.filelist
 
 %changelog
-* Wed Sep 09 2020 Chris Statzer <chris.statzer@qq.com> 1.0.2
-- Initial RPM
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.2-1
+- Rebuild 1.0.2 (version already matches the book).
+- Basis: BLFS r13.1 general/graphlib/woff2.xml (woff2 1.0.2).
+- Add the book's gcc-15+ fix: include <cstdint> in src/woff2_out.cc.
+- Build per the book: Release build, CMAKE_POLICY_VERSION_MINIMUM=3.5
+  and CMAKE_SKIP_INSTALL_RPATH=ON.  CMAKE_INSTALL_LIBDIR=lib64 keeps the
+  distro's library layout.
+- Requires brotli (published 1.2.1).
+- Static filelist generated from the install tree.

@@ -1,0 +1,31 @@
+%dir /usr/include
+%dir /usr/include/lzo
+/usr/include/lzo/lzo1.h
+/usr/include/lzo/lzo1a.h
+/usr/include/lzo/lzo1b.h
+/usr/include/lzo/lzo1c.h
+/usr/include/lzo/lzo1f.h
+/usr/include/lzo/lzo1x.h
+/usr/include/lzo/lzo1y.h
+/usr/include/lzo/lzo1z.h
+/usr/include/lzo/lzo2a.h
+/usr/include/lzo/lzo_asm.h
+/usr/include/lzo/lzoconf.h
+/usr/include/lzo/lzodefs.h
+/usr/include/lzo/lzoutil.h
+%dir /usr/lib64
+/usr/lib64/liblzo2.so
+/usr/lib64/liblzo2.so.2
+/usr/lib64/liblzo2.so.2.0.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/lzo2.pc
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/lzo-2.10
+%doc /usr/share/doc/lzo-2.10/AUTHORS
+%doc /usr/share/doc/lzo-2.10/COPYING
+%doc /usr/share/doc/lzo-2.10/LZO.FAQ
+%doc /usr/share/doc/lzo-2.10/LZO.TXT
+%doc /usr/share/doc/lzo-2.10/LZOAPI.TXT
+%doc /usr/share/doc/lzo-2.10/NEWS
+%doc /usr/share/doc/lzo-2.10/THANKS

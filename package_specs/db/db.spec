@@ -1,19 +1,21 @@
 Name:       db
 Version:    6.2.32
 Release:    1
-Summary:    TODO
+Summary:    Berkeley DB embedded database library
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 %description
-TODO
+Berkeley DB is an embedded database library providing transactions,
+replication and a B-tree access method.
 
 %prep
 %setup -q -a0
 
 %build
 pushd build_unix
+CFLAGS="-std=gnu17" CXXFLAGS="-std=gnu++17" \
 ../dist/configure --prefix=/usr      \
                   --enable-compat185 \
                   --enable-dbm       \
@@ -29,31 +31,20 @@ pushd build_unix
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 rm -rf %{buildroot}/usr/share/doc/
-%files
-/usr/bin/db_archive
-/usr/bin/db_checkpoint
-/usr/bin/db_convert
-/usr/bin/db_deadlock
-/usr/bin/db_dump
-/usr/bin/db_hotbackup
-/usr/bin/db_load
-/usr/bin/db_log_verify
-/usr/bin/db_printlog
-/usr/bin/db_recover
-/usr/bin/db_replicate
-/usr/bin/db_stat
-/usr/bin/db_tuner
-/usr/bin/db_upgrade
-/usr/bin/db_verify
-/usr/include/db.h
-/usr/include/db_185.h
-/usr/include/db_cxx.h
-/usr/lib/libdb-6.2.so
-/usr/lib/libdb-6.so
-/usr/lib/libdb.so
-/usr/lib/libdb_cxx-6.2.so
-/usr/lib/libdb_cxx-6.so
-/usr/lib/libdb_cxx.so
+%files -f %{_sourcedir}/db.filelist
 
 %changelog
-# let's skip this for now
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 6.2.32-1
+- Rebuild 6.2.32 against the r13.1 toolchain.
+- Basis: the r13.1 book only carries the archived 5.3.28 page;
+  6.2.32 is the current upstream stable release and is already
+  above the book version, so the version is unchanged.
+- Source: https://download.oracle.com/berkeley-db/db-6.2.32.tar.gz
+  md5 33491b4756cb44b91c3318b727e71023
+- Built from build_unix as before.  GCC 16 defaults to C23, where an
+  empty parameter list means (void), which breaks db's old-style
+  function definitions ("incompatible pointer type" errors in
+  env_config.c).  Build with CFLAGS=-std=gnu17 and
+  CXXFLAGS=-std=gnu++17; no source patch is needed.
+- Removed the stale empty "skip this" changelog stub.
+- Static filelist generated from the install tree.
