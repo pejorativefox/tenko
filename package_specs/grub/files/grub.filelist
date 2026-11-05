@@ -26,6 +26,7 @@
 /usr/bin/grub-macbless
 /usr/bin/grub-menulst2cfg
 /usr/bin/grub-mkconfig
+/usr/bin/grub-mkfont
 /usr/bin/grub-mkimage
 /usr/bin/grub-mklayout
 /usr/bin/grub-mknetdir
@@ -34,6 +35,7 @@
 /usr/bin/grub-mkrelpath
 /usr/bin/grub-mkrescue
 /usr/bin/grub-mkstandalone
+/usr/bin/grub-mount
 /usr/bin/grub-ofpathname
 /usr/bin/grub-probe
 /usr/bin/grub-protect
