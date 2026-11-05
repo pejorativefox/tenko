@@ -29,7 +29,7 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 
 | measure | count |
 |---|---:|
-| spec files / spec directories | 507 / 505 |
+| spec files / spec directories | 502 / 501 |
 | shipped spec files (live source package in the repo) | 477 |
 | source packages in the published repo | 477 |
 | RPM names in the published repo | 669 |
@@ -37,15 +37,15 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 | shipped packages at the book | 380 |
 | shipped packages above the book | 1 (`xml-parser`, approved) |
 | shipped packages with no comparable book entity | 96 |
-| unbuilt spec files | 30 |
+| unbuilt spec files | 25 |
 | unbuilt specs below the book | 0 |
-| unbuilt specs at the book | 3 |
+| unbuilt specs at the book | 2 |
 | unbuilt specs above the book | 1 (`db`) |
-| unbuilt specs with no comparable book entity | 26 |
-| specs with `Summary: TODO` | 59 |
-| specs with `TODO` in `%description` | 73 |
+| unbuilt specs with no comparable book entity | 22 |
+| specs with `Summary: TODO` | 55 |
+| specs with `TODO` in `%description` | 69 |
 | shipped specs with a missing referenced patch | 0 |
-| shipped specs with a sources/version mismatch | 0 (9 audit false positives, §1.3) |
+| shipped specs with a sources/version mismatch | 0 (8 audit false positives, §1.3) |
 | specs with neither `sources` nor `nosources` | 0 |
 
 **Bottom line.** Version parity for everything the distro ships still
@@ -164,20 +164,18 @@ dnf installroot (102 packages).
 
 ### 1.3 Sources/version mismatches that remain
 
-The nine rows the script prints are all expected:
+The eight rows the script prints are all expected:
 
 - Date/commit-named archives: `font-siji`, `passt`.
 - Binary bundles: `herdr`, `opencode-bin`, `podman-bin`.
 - SF "download" aliases: `font-terminus`.
 - `sqlite`: the book/spec version 3.54.1 is the autoconf number 3540100.
-- `autoconf213`: the shared `sources` file lists the 2.73 tarball first;
-  the 2.13 patch 404s upstream (issue #8).
 - `fuse`: shared-directory layout. `fuse/sources` lists `fuse-2.9.7`
   (for `fuse2`) before `fuse-3.2.5`.
 
 ### 1.4 Open shipped-package debt
 
-- **`Summary: TODO` / `TODO` descriptions** in 59 and 73 specs — issue #8.
+- **`Summary: TODO` / `TODO` descriptions** in 55 and 69 specs — issue #8.
 - **Images lag the repo**: the published installer ISO and rootfs were
   built before both 2026-11-05 waves and do not contain them. They are
   only rebuilt on request (AGENTS.md).
@@ -186,10 +184,10 @@ The nine rows the script prints are all expected:
   the spec/RPM were not changed. Needs a fix before the next image
   rebuild (issue #8).
 
-## 2. Unbuilt specs (30)
+## 2. Unbuilt specs (25)
 
-30 spec files have no matching source package in the published repo: 26
-have no comparable book entity, 3 are at the book, 1 is above it (`db`
+25 spec files have no matching source package in the published repo: 22
+have no comparable book entity, 2 are at the book, 1 is above it (`db`
 6.2.32 vs 5.3.28), and none is below it.
 
 They cost nothing while they stay unbuilt, but the parity rule in
@@ -197,15 +195,15 @@ They cost nothing while they stay unbuilt, but the parity rule in
 
 | group | count | examples |
 |---|---:|---|
-| Media / system libraries | 10 | `libsoup`, `pcre`, `fuse`, `db`, `cppunit` |
-| Container / k8s / packaging | 6 | `kubectl`, `kubectx`, `drpm`, `rpmlint` |
-| CLI / dev tools | 6 | `cdrkit`, `go-bin`, `gotop`, `help2man` |
+| Media / system libraries | 9 | `libsoup`, `pcre`, `fuse`, `db`, `cppunit` |
+| Container / k8s / packaging | 3 | `drpm`, `fakeroot-ng`, `rpmlint` |
+| CLI / dev tools | 5 | `cdrkit`, `go-bin`, `gotop`, `help2man` |
 | Boot / init | 3 | `syslinux`, `pm-utils`, `tzdb` |
 | X11 tools | 4 | `x11perf`, `libdmx`, `xf86-input-synaptics` |
 | Fonts | 1 | `woff2` |
 
-The three unbuilt specs at the book version are `autoconf213` (2.13),
-`pm-utils` (1.4.1) and `woff2` (1.0.2). `db` 6.2.32 is above the book's
+The two unbuilt specs at the book version are `pm-utils` (1.4.1) and
+`woff2` (1.0.2). `db` 6.2.32 is above the book's
 5.3.28, which the parity rule allows.
 
 A handful of names in this bucket may be mismatches rather than truly
@@ -262,8 +260,6 @@ for one package.
   on branch `pkg-syslinux` (`1a67ba5`). Those two module specs were also
   dropped in the 2026-11-05 cleanup, so completing `syslinux` would mean
   recreating them.
-- **`autoconf213`**: unbuildable — its consolidated-fixes patch 404s and
-  is not vendored (issue #8).
 
 ## 3. Newer or older than the book
 
@@ -281,7 +277,7 @@ it; other tools report it as a false mismatch.
 - Cross-compilation and non-x86_64: the repo is x86_64 only.
 - Optional BLFS features with no spec (Wayland, PipeWire, printing, …);
   those are product decisions rather than version skew.
-- The 26 unbuilt no-entity specs are not individually version-checked;
+- The 22 unbuilt no-entity specs are not individually version-checked;
   `scripts/spec_audit.py` prints the list and compares whatever the books
   expose as entities.
 
