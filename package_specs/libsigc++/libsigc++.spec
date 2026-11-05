@@ -1,8 +1,8 @@
 Name:       libsigc++
 Version:    2.12.1
-Release:    1
+Release:    2
 Summary:    libsigc++ provides a typesafe (at compile time) callback system for standard C++.
-License:    LGPL
+License:    LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -67,6 +67,10 @@ popd
 /usr/lib64/sigc++-2.0/include/sigc++config.h
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.12.1-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): COPYING, plus sigc++/*.h "version 2.1 ... or any later version" (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.12.1-1
 - Sync with BLFS r13.1
 

@@ -1,8 +1,8 @@
 Name:       libxklavier
 Version:    5.4
-Release:    4
+Release:    5
 Summary:    High-level API for X Keyboard Extension
-License:    LGPL
+License:    LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -29,7 +29,7 @@ rm -rf %{buildroot}
 
 %package gir
 Summary:    GObject Introspection data for libxklavier
-License:    LGPL
+License:    LGPL-2.0-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -42,6 +42,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/libxklavier-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 5.4-5
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.0-or-later): COPYING.LIB, GNU Library GPL v2, plus libxklavier/xklavier.c (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 5.4-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

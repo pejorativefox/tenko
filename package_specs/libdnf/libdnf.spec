@@ -1,8 +1,8 @@
 Name:       libdnf
 Version:    0.76.0
-Release:    6
+Release:    7
 Summary:    Library providing a simplified C and Python API to libsolv
-License:    LGPL
+License:    LGPL-2.1-or-later AND LGPL-3.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -39,6 +39,10 @@ popd
 
 %files -f %{_sourcedir}/libdnf.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.76.0-7
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later AND LGPL-3.0-or-later): COPYING, plus libdnf/utils/bgettext/bgettext.c, which is LGPLv3+ (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.76.0-6
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

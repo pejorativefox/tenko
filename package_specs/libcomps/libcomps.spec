@@ -1,8 +1,8 @@
 Name:       libcomps
 Version:    0.1.24
-Release:    6
+Release:    7
 Summary:    Comps XML file manipulation library
-License:    GPL
+License:    GPL-2.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -34,6 +34,10 @@ popd
 
 %files -f %{_sourcedir}/libcomps.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.1.24-7
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later): COPYING, plus libcomps/src/*.c "either version 2 ... or any later version" (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.1.24-6
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

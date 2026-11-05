@@ -1,8 +1,8 @@
 Name:       libsolv
 Version:    0.7.41
-Release:    6
+Release:    7
 Summary:    Library for solving packages and reading repositories
-License:    BSD
+License:    BSD-3-Clause
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -56,6 +56,10 @@ install -Dm0644 cmake/modules/FindLibSolv.cmake \
 
 %files -f %{_sourcedir}/libsolv.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.7.41-7
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-3-Clause): LICENSE.BSD, 3 clauses (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.7.41-6
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

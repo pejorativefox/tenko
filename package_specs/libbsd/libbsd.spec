@@ -1,8 +1,8 @@
 Name:       libbsd
 Version:    0.12.2
-Release:    5
+Release:    6
 Summary:    BSD compatibility library
-License:    BSD
+License:    BSD-3-Clause
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -22,6 +22,10 @@ rm -rf %{buildroot}
 
 %files -f %{_sourcedir}/libbsd.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.12.2-6
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-3-Clause): COPYING, whose Files: * stanza is BSD-3-clause (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.12.2-5
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

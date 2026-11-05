@@ -1,8 +1,8 @@
 Name:       libksba
 Version:    1.8.1
-Release:    1
+Release:    2
 Summary:    X.509 certificate library
-License:    GPL
+License:    (LGPL-3.0-or-later OR GPL-2.0-or-later) AND GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -31,6 +31,10 @@ rm -rf %{buildroot}/usr/share/info/dir
 /usr/share/info/ksba.info.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.8.1-2
+- Replace the legacy short licence name with the verified SPDX expression
+  ((LGPL-3.0-or-later OR GPL-2.0-or-later) AND GPL-3.0-or-later): AUTHORS, src/asn1-func.c and doc/ksba.texi (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.8.1-1
 - Sync with BLFS r13.1
 

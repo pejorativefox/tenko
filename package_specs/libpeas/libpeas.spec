@@ -1,8 +1,8 @@
 Name:       libpeas
 Version:    1.38.1
-Release:    1
+Release:    2
 Summary:    libpeas is a GObject based plugins engine, and is targeted at giving every application the chance to assume its own extensibility. 
-License:    GPL
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -37,6 +37,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libpeas.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.38.1-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): COPYING and meson.build "license: LGPLv2.1+" (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.38.1-1
 - Sync with BLFS r13.1 (libpeas.xml)
 

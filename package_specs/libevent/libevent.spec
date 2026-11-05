@@ -1,8 +1,8 @@
 Name:       libevent
 Version:    2.1.13
-Release:    1
+Release:    2
 Summary:    Provides callback functions for file descriptors.
-License:    BSD
+License:    BSD-3-Clause
 Source0:    %{name}-%{version}-stable.tar.gz
 Prefix:     /usr
 
@@ -26,6 +26,10 @@ rm -rf %{buildroot}
 /usr/bin/event_rpcgen.py
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.1.13-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-3-Clause): LICENSE, 3-clause BSD (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.1.13-1
 - Sync with BLFS r13.1
 

@@ -1,8 +1,8 @@
 Name:       libportal 
 Version:    0.9.1
-Release:    1
+Release:    2
 Summary:    Flatpak portal library 
-License:    GPL
+License:    LGPL-3.0-only
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -77,6 +77,10 @@ popd
 /usr/share/gir-1.0/XdpGtk3-1.0.gir
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.9.1-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-3.0-only): COPYING, LGPL v3, and the SPDX headers in libportal/*.c (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.9.1-1
 - Sync with BLFS r13.1
 

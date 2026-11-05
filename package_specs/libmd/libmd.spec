@@ -1,8 +1,8 @@
 Name:       libmd
 Version:    1.3.0
-Release:    3
+Release:    4
 Summary:    Message digest library
-License:    BSD
+License:    BSD-3-Clause
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -23,6 +23,10 @@ rm -rf %{buildroot}
 %files -f %{_sourcedir}/libmd.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.3.0-4
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-3-Clause): COPYING, whose Files: * stanza is BSD-3-clause (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.3.0-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

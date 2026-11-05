@@ -1,8 +1,8 @@
 Name:       libcanberra
 Version:    0.30
-Release:    3
+Release:    4
 Summary:    libcanberra is an implementation of the XDG Sound Theme and Name Specifications
-License:    GPL
+License:    LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -22,6 +22,10 @@ rm -rf %{buildroot}
 
 %files -f %{_sourcedir}/libcanberra.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.30-4
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): LGPL, plus src/*.c "either version 2.1 ... or any later version" (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.30-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the
