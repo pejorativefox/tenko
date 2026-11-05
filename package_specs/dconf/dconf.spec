@@ -1,21 +1,29 @@
 Name:       dconf
-Version:    0.28.0
+Version:    51.0
 Release:    1
-Summary:    Dconf backend for gsettings.
-License:    GPL
-Source0:    %{name}-%{version}.tar.xz
+Summary:    Dconf backend for gsettings
+License:    LGPL2.1
 Prefix:     /usr
+URL:        https://download.gnome.org/sources/dconf/
+Source0:    %{name}-%{version}.tar.xz
 
 %description
-Dconf backend for gsettings.
+Dconf is a low-level configuration system and settings management
+framework.  It provides the backend for GSettings.
 
 %prep
-%setup
+%setup -q
 
 %build
 mkdir build
 pushd build
-meson --prefix=/usr --sysconfdir=/etc ..
+meson setup ..            \
+      --prefix=/usr       \
+      --buildtype=release \
+      -Dbash_completion=false \
+      -Dgtk_doc=false     \
+      -Dman=false         \
+      -Dvapi=false
 ninja
 popd
 
@@ -24,26 +32,14 @@ rm -rf %{buildroot}
 pushd build
 DESTDIR=%{buildroot} ninja install
 popd
+rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/dconf
-/usr/include/dconf/client/dconf-client.h
-/usr/include/dconf/common/dconf-changeset.h
-/usr/include/dconf/common/dconf-enums.h
-/usr/include/dconf/common/dconf-paths.h
-/usr/include/dconf/dconf.h
-/usr/lib/gio/modules/libdconfsettings.so
-/usr/lib/libdconf.so
-/usr/lib/libdconf.so.1
-/usr/lib/libdconf.so.1.0.0
-/usr/lib/pkgconfig/dconf.pc
-/usr/libexec/dconf-service
-/usr/share/bash-completion/completions/dconf
-/usr/share/dbus-1/services/ca.desrt.dconf.service
-/usr/share/vala/vapi/dconf.deps
-/usr/share/vala/vapi/dconf.vapi
+%files -f %{_sourcedir}/dconf.filelist
 
 %changelog
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 0.28.0
-- Initial RPM
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 51.0-1
+- Update to 51.0 (BLFS r13.1, gnome/platform/dconf.xml).
+- Build only dconf itself; dconf-editor is a separate package and is
+  not built here.
+- Disable bash-completion, gtk-doc, man pages and vala bindings that
+  the base image cannot build.

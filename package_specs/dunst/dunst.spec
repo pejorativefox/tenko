@@ -1,31 +1,49 @@
 Name:       dunst
-Version:    1.4.1
+Version:    1.13.2
 Release:    1
-Summary:    Dunst notification daemon
-License:    GPL
-Source0:    %{name}-%{version}.tar.gz
+Summary:    Lightweight notification daemon for Linux
+License:    BSD
 Prefix:     /usr
+URL:        https://dunst-project.org/
+Source0:    %{name}-%{version}.tar.gz
 
 %description
-Dunst notification daemon
+Dunst is a lightweight replacement for the notification daemons
+provided by most desktop environments.  It is highly configurable and
+works with any X11 or Wayland desktop.
 
 %prep
-%setup
+%setup -q
 
 %build
-%make_build
+mkdir build
+pushd build
+meson setup ..              \
+      --prefix=/usr         \
+      --buildtype=release   \
+      -Dwayland=disabled    \
+      -Dsystemd=disabled    \
+      -Ddunstify=disabled
+ninja
+popd
 
 %install
 rm -rf %{buildroot}
-%make_install PREFIX=/usr
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
+rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/dunst
-/usr/share/dbus-1/services/org.knopwob.dunst.service
-/usr/share/dunst/dunstrc
-/usr/share/man/man1/dunst.1.gz
+%files -f %{_sourcedir}/dunst.filelist
 
 %changelog
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.4.1
-- Initial RPM
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.13.2-1
+- Update to 1.13.2; not in the r13.1 book, latest upstream stable
+  2026-11-05 (tag v1.13.2, released 2026-03-18).
+- Build from the upstream GitHub archive because the release page has
+  no source asset attached; the extracted top directory is dunst-1.13.2.
+- Disable Wayland support (no Wayland client libraries in the base
+  image), systemd user units and the libnotify-based dunstify utility.
+  X11 support and the man pages stay enabled.
+- dunst no longer depends on libxdg-basedir; that dependency was
+  removed upstream before 1.13.2.

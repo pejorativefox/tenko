@@ -1,0 +1,30 @@
+%dir /usr/bin
+/usr/bin/dconf
+%dir /usr/include
+%dir /usr/include/dconf
+%dir /usr/include/dconf/client
+/usr/include/dconf/client/dconf-client.h
+%dir /usr/include/dconf/common
+/usr/include/dconf/common/dconf-changeset.h
+/usr/include/dconf/common/dconf-enums.h
+/usr/include/dconf/common/dconf-paths.h
+/usr/include/dconf/dconf.h
+%dir /usr/lib
+%dir /usr/lib/systemd
+%dir /usr/lib/systemd/user
+/usr/lib/systemd/user/dconf.service
+%dir /usr/lib64
+%dir /usr/lib64/gio
+%dir /usr/lib64/gio/modules
+/usr/lib64/gio/modules/libdconfsettings.so
+/usr/lib64/libdconf.so
+/usr/lib64/libdconf.so.1
+/usr/lib64/libdconf.so.1.0.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/dconf.pc
+%dir /usr/libexec
+/usr/libexec/dconf-service
+%dir /usr/share
+%dir /usr/share/dbus-1
+%dir /usr/share/dbus-1/services
+/usr/share/dbus-1/services/ca.desrt.dconf.service

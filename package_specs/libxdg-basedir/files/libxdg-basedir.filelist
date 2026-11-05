@@ -1,0 +1,10 @@
+%dir /usr/include
+/usr/include/basedir.h
+/usr/include/basedir_fs.h
+%dir /usr/lib64
+/usr/lib64/libxdg-basedir.a
+/usr/lib64/libxdg-basedir.so
+/usr/lib64/libxdg-basedir.so.1
+/usr/lib64/libxdg-basedir.so.1.2.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libxdg-basedir.pc
