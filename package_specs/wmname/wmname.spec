@@ -1,28 +1,34 @@
 Name:       wmname
 Version:    0.1
 Release:    1
-Summary:    wmname prints/sets the window manager name
+Summary:    Prints or sets the window manager name
 License:    MIT
+URL:        https://tools.suckless.org/wmname/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+BuildRequires: gcc, make
+BuildRequires: libX11
+
 %description
-wmname prints/sets the window manager name
+wmname prints or sets the window manager name property of the root
+window, which is useful for working around Java and other toolkits
+that misdetect the running window manager.
 
 %prep
-%setup
+%setup -q
 
 %build
 %make_build
 
 %install
 rm -rf %{buildroot}
-%make_install DESTDIR=%{buildroot} PREFIX=/usr
+make install DESTDIR=%{buildroot} PREFIX=/usr
 
 %files
 /usr/bin/wmname
 
 %changelog
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 0.1
-- Initial RPM
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.1-1
+- Not in the LFS/BLFS r13.1 book; latest upstream stable 2026-11-05
+  (0.1, 2012).  Built with the upstream plain Makefile against libX11.

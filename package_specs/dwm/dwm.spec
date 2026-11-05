@@ -1,35 +1,37 @@
 Name:       dwm
-Version:    6.2
+Version:    6.5
 Release:    1
-Summary:    TODO
-License:    GPL3
-Prefix:     /usr
+Summary:    Dynamic window manager for X
+License:    MIT
+URL:        https://dwm.suckless.org/
 Source0:    %{name}-%{version}.tar.gz
+Prefix:     /usr
 
+BuildRequires: gcc, make
+BuildRequires: libX11, libXinerama, fontconfig, freetype
 
 %description
-TODO
+dwm is a dynamic window manager for X.  It manages windows in tiled,
+monocle and floating layouts, and all of the layouts can be applied
+dynamically.  This package is built with the default upstream config.h.
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
-make config.h
+%make_build
 
-sed -i -e 's/"st"/"xterm"/g' config.h
-sed -i -e 's/#define MODKEY Mod1Mask/#define MODKEY Mod4Mask/g' config.h
-
-make
-
-%install    
+%install
 rm -rf %{buildroot}
-mkdir -pv %{buildroot}/usr/bin
-cp dwm %{buildroot}/usr/bin/
-rm -vf %{buildroot}%{_infodir}/dir*
+make install DESTDIR=%{buildroot} PREFIX=/usr MANPREFIX=/usr/share/man
 
 %files
 /usr/bin/dwm
+/usr/share/man/man1/dwm.1.gz
 
 %changelog
-# let's skip this for now
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 6.5-1
+- Not in the LFS/BLFS r13.1 book; latest upstream stable 2026-11-05
+  (6.5).  Built with the default upstream config.h against libX11,
+  libXinerama, fontconfig and freetype.
+- Update from 6.2 to 6.5; install the dwm(1) man page as well.

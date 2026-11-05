@@ -1,24 +1,28 @@
 Name:       sxhkd
-Version:    0.6.1
+Version:    0.6.3
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Simple X hotkey daemon
+License:    BSD-2-Clause
+URL:        https://github.com/baskerville/sxhkd
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+BuildRequires: gcc, make, pkgconf
+BuildRequires: libxcb, xcb-util-keysyms
+
 %description
-TODO
+sxhkd is a simple X hotkey daemon: it reads a configuration file
+describing key bindings and executes the associated commands.
 
 %prep
-%setup -q -a0
+%setup -q
 
 %build
-%make_build 
+%make_build
 
 %install
-export PREFIX=/usr
 rm -rf %{buildroot}
-%make_install
+make install DESTDIR=%{buildroot} PREFIX=/usr
 
 %files
 /usr/bin/sxhkd
@@ -33,4 +37,8 @@ rm -rf %{buildroot}
 /usr/share/man/man1/sxhkd.1.gz
 
 %changelog
-# let's skip this for now
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.6.3-1
+- Not in the LFS/BLFS r13.1 book; latest upstream stable 2026-11-05
+  (tag 0.6.3).  Built with the upstream plain Makefile against
+  libxcb and xcb-util-keysyms.
+- Update from 0.6.1 to 0.6.3.
