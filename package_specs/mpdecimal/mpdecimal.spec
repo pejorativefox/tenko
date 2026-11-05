@@ -1,8 +1,8 @@
 Name:       mpdecimal
 Version:    4.0.1
-Release:    3
+Release:    4
 Summary:    Decimal floating point library
-License:    BSD
+License:    BSD-2-Clause
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -24,6 +24,10 @@ rm -rf %{buildroot}
 %files -f %{_sourcedir}/mpdecimal.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.0.1-4
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-2-Clause): COPYRIGHT.txt, 2-clause BSD (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 4.0.1-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

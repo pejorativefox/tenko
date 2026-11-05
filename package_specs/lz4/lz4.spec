@@ -1,8 +1,8 @@
 Name:       lz4
 Version:    1.10.0
-Release:    3
+Release:    4
 Summary:    Extremely fast compression algorithm
-License:    BSD
+License:    BSD-2-Clause AND GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -23,6 +23,10 @@ make BUILD_STATIC=no PREFIX=/usr libdir=/usr/lib64 DESTDIR=%{buildroot} install
 %files -f %{_sourcedir}/lz4.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.10.0-4
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-2-Clause AND GPL-2.0-or-later): LICENSE, lib/ is BSD-2-Clause and the programs are GPL-2.0-or-later (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.10.0-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

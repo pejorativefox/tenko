@@ -1,8 +1,8 @@
 Name:       libcap
 Version:    2.78
-Release:    2
+Release:    3
 Summary:    POSIX 1003.1e capabilities
-License:    GPL2
+License:    BSD-3-Clause OR GPL-2.0-only
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -41,6 +41,10 @@ rm -rf %{buildroot}
 /usr/lib64/security/pam_cap.so
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.78-3
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-3-Clause OR GPL-2.0-only): the SPDX header in License (issue #8).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.78-2
 - Ship pam_cap.so: with linux-pam-devel present, libcap's Makefile builds
   the PAM module (LFS builds libcap before linux-pam and so does not).

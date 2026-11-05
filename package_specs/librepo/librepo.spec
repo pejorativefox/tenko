@@ -1,8 +1,8 @@
 Name:       librepo
 Version:    1.21.3
-Release:    6
+Release:    7
 Summary:    Library for downloading and reading RPM repository metadata
-License:    LGPL
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -38,6 +38,10 @@ popd
 
 %files -f %{_sourcedir}/librepo.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.21.3-7
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): COPYING and librepo.spec "License: LGPL-2.1-or-later" (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.21.3-6
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

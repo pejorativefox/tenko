@@ -1,8 +1,8 @@
 Name:       python-packaging
 Version:    26.3
-Release:    2
+Release:    3
 Summary:    Core utilities for Python packages
-License:    GPL
+License:    Apache-2.0 OR BSD-2-Clause
 Source0:    packaging-%{version}.tar.gz
 Prefix:     /usr
 
@@ -26,6 +26,10 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 26.3-3
+- Replace the legacy short licence name with the verified SPDX expression
+  (Apache-2.0 OR BSD-2-Clause): LICENSE (issue #8).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 26.3-2
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
 

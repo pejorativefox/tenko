@@ -1,8 +1,8 @@
 Name:       rxvt-unicode
 Version:    9.31
-Release:    1
+Release:    2
 Summary:    rxvt-unicode is a fork of the well known terminal emulator rxvt.
-License:    GPL
+License:    GPL-3.0-or-later AND (BSD-2-Clause OR GPL-2.0-or-later)
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -85,6 +85,10 @@ rm -rf %{buildroot}
 /usr/share/man/man7/urxvt.7.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 9.31-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-3.0-or-later AND (BSD-2-Clause OR GPL-2.0-or-later)): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 9.31-1
 - Sync with BLFS r13.1
 

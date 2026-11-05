@@ -1,8 +1,8 @@
 Name:       thunar
 Version:    4.20.10
-Release:    4
+Release:    5
 Summary:    Modern file manager for Xfce
-License:    GPL2
+License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -38,7 +38,7 @@ mkdir -p %{buildroot}/etc
 
 %package gir
 Summary:    GObject Introspection data for thunar
-License:    GPL2
+License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -52,6 +52,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/thunar-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.10-5
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later AND LGPL-2.0-or-later): COPYING, COPYING.LIB (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.10-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

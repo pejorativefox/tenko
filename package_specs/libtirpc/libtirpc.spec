@@ -1,8 +1,8 @@
 Name:       libtirpc
 Version:    1.3.8
-Release:    4
+Release:    5
 Summary:    Transport-independent RPC library
-License:    BSD
+License:    BSD-3-Clause
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 
@@ -25,6 +25,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libtirpc.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.3.8-5
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-3-Clause): COPYING, 3-clause BSD (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.3.8-4
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

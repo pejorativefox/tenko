@@ -1,8 +1,8 @@
 Name:       man-pages
 Version:    6.20
-Release:    1
+Release:    2
 Summary:    The Linux man-pages
-License:    Various
+License:    0BSD AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND CC-BY-SA-4.0 AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-3.0-only WITH LGPL-3.0-linking-exception AND Linux-man-pages-1-para AND Linux-man-pages-copyleft AND Linux-man-pages-copyleft-2-para AND Linux-man-pages-copyleft-var AND MIT
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -34,6 +34,10 @@ make -R install DESTDIR=%{buildroot} prefix=/usr GIT=false
 /usr/share/man
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 6.20-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (0BSD AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND CC-BY-SA-4.0 AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-3.0-only WITH LGPL-3.0-linking-exception AND Linux-man-pages-1-para AND Linux-man-pages-copyleft AND Linux-man-pages-copyleft-2-para AND Linux-man-pages-copyleft-var AND MIT): the LICENSES/ directory and the per-page SPDX headers (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 6.20-1
 - Update to 6.20 (current LFS/BLFS r13.1 trunk version).
 

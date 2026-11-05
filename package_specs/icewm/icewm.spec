@@ -1,8 +1,8 @@
 Name:       icewm
 Version:    4.1.0
-Release:    1
+Release:    2
 Summary:    A small win9x like window manager
-License:    GPL2
+License:    LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -716,6 +716,10 @@ popd
 /usr/share/xsessions/icewm.desktop
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.1.0-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.0-or-later): COPYING, GNU Library GPL v2, plus src/MwmUtil.h "or any later version" (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.1.0-1
 - Sync with BLFS r13.1
 

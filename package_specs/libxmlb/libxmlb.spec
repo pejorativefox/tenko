@@ -1,8 +1,8 @@
 Name:       libxmlb
 Version:    0.3.29
-Release:    3
+Release:    4
 Summary:    Library for querying compressed XML metadata
-License:    LGPL
+License:    LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -32,6 +32,10 @@ popd
 %files -f %{_sourcedir}/libxmlb.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.3.29-4
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): LICENSE and the SPDX headers in src/*.c (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.3.29-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

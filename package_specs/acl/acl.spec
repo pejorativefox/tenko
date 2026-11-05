@@ -1,8 +1,8 @@
 Name:       acl
 Version:    2.4.0
-Release:    1
+Release:    2
 Summary:    Linux access control lists.
-License:    LGPL
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -38,6 +38,10 @@ rm -rf %{buildroot}
 /usr/share/man/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.4.0-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later AND LGPL-2.1-or-later): doc/COPYING, doc/COPYING.LGPL and the per-file headers (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.4.0
 - Sync with LFS r13.1
 

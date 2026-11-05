@@ -1,8 +1,8 @@
 Name:       xfconf
 Version:    4.20.0
-Release:    4
+Release:    5
 Summary:    Flexible, easy-to-use configuration management system
-License:    GPL
+License:    GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -37,7 +37,7 @@ mkdir -p %{buildroot}/etc
 
 %package gir
 Summary:    GObject Introspection data for xfconf
-License:    GPL
+License:    GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -51,6 +51,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/xfconf-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.0-5
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.0-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

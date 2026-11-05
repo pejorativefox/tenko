@@ -1,8 +1,8 @@
 Name:       gpgme
 Version:    2.2.0
-Release:    7
+Release:    8
 Summary:    High-level crypto API for GnuPG
-License:    LGPL
+License:    LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT
 Prefix:     /usr
 Recommends: gnupg
 Source0:    %{name}-%{version}.tar.bz2
@@ -25,6 +25,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/gpgme.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.2.0-8
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT): COPYING.LESSER, src/gpgme-tool.c and src/cJSON.c (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.2.0-7
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

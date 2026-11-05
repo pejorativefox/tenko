@@ -1,8 +1,8 @@
 Name:       glib-networking
 Version:    2.90.1
-Release:    1
+Release:    2
 Summary:    Network related gio modules for GLib. 
-License:    GPL
+License:    LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -109,6 +109,10 @@ popd
 /usr/share/locale/zh_TW/LC_MESSAGES/glib-networking.mo
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.90.1-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): COPYING, LICENSE_EXCEPTION and tls/base/gtlslog.c (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.90.1-1
 - Sync with BLFS r13.1
 

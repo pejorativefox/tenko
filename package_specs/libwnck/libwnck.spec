@@ -1,8 +1,8 @@
 Name:       libwnck
 Version:    43.3
-Release:    4
+Release:    5
 Summary:    Library to manage X windows and workspaces (via pagers, tasklists, etc.)
-License:    LGPL
+License:    LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -36,7 +36,7 @@ popd
 
 %package gir
 Summary:    GObject Introspection data for libwnck
-License:    LGPL
+License:    LGPL-2.0-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -49,6 +49,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/libwnck-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 43.3-5
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.0-or-later): COPYING, GNU Library GPL v2, plus libwnck/*.c "or any later version" (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 43.3-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

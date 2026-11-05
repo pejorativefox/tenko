@@ -1,8 +1,8 @@
 Name:       gstreamer
 Version:    1.28.8
-Release:    1
+Release:    2
 Summary:    Streaming multimedia framework
-License:    Various
+License:    LGPL-2.1-or-later AND BSD-3-Clause
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -254,6 +254,10 @@ popd
 /usr/share/man/man1/gst-typefind-1.0.1.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.28.8-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later AND BSD-3-Clause): COPYING, gst/gstplugin.c and gst/gstcpuid.c (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.28.8-1
 - Sync with BLFS r13.1
 

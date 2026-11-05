@@ -1,8 +1,8 @@
 Name:       cairomm
 Version:    1.14.6
-Release:    1
+Release:    2
 Summary:    The Cairomm package provides a C++ interface to Cairo. 
-License:    GPL
+License:    LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -68,6 +68,10 @@ popd
 /usr/lib64/pkgconfig/cairomm-xlib-xrender-1.0.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.14.6-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): COPYING and the cairomm/ headers (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.14.6-1
 - Sync with BLFS r13.1
 

@@ -1,8 +1,8 @@
 Name:       stunnel 
 Version:    5.82
-Release:    1
+Release:    2
 Summary:    TLS proxy daemon.
-License:    GPL
+License:    GPL-2.0-or-later WITH stunnel-exception
 Source0:    %{name}-%{version}.tar.gz
 Source1:    stunnel-service.conf
 Source2:    stunnel.service
@@ -64,6 +64,10 @@ cp %{SOURCE2} %{buildroot}/etc/service.d/
 /usr/share/man/man8/stunnel.pl.8.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 5.82-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later WITH stunnel-exception): COPYING.md (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 5.82-1
 - Sync with BLFS r13.1
 

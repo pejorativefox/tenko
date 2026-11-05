@@ -1,8 +1,8 @@
 Name:       libseccomp
 Version:    2.6.1
-Release:    3
+Release:    4
 Summary:    Seccomp userspace library
-License:    LGPL
+License:    LGPL-2.1-only
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -23,6 +23,10 @@ rm -rf %{buildroot}
 %files -f %{_sourcedir}/libseccomp.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.6.1-4
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-only): LICENSE, plus src/db.c "terms of version 2.1 of the GNU LGPL" (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2.6.1-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

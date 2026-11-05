@@ -1,8 +1,8 @@
 Name:       linux
 Version:    7.3.1
-Release:    2
+Release:    3
 Summary:    Linux kernel
-License:    GPL2
+License:    GPL-2.0-only
 Prefix:     /usr
 Source0:    linux-%{version}.tar.xz
 Source1:    linux-%{version}.config
@@ -125,6 +125,10 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 7.3.1-3
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-only): COPYING, which states GPL version 2 only (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 7.3.1-2
 - Add loader entries for systemd-boot: %post kernel writes
   /boot/loader/entries/browneye-<kver>.conf from /etc/kernel/cmdline when the

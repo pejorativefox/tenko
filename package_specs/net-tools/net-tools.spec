@@ -1,8 +1,8 @@
 Name:       net-tools
 Version:    2.10
-Release:    1
+Release:    2
 Summary:    Various networking tools
-License:    GPL
+License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -42,6 +42,10 @@ rm -rf %{buildroot}/usr/share/man
 /usr/bin/slattach
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.10-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later): COPYING, plus lib/*.c "either version 2 ... or any later version" (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.10-1
 - Sync with BLFS r13.1
 

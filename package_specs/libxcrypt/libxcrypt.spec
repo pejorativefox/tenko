@@ -1,8 +1,8 @@
 Name:       libxcrypt
 Version:    4.5.2
-Release:    1
+Release:    2
 Summary:    Password hashing library
-License:    GPL2
+License:    LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -34,6 +34,10 @@ rm -rf %{buildroot}
 /usr/share/man/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.5.2-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): COPYING.LIB, plus lib/crypt.c "either version 2.1 ... or any later version" (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 4.5.2
 - Sync with LFS r13.1
 

@@ -1,8 +1,8 @@
 Name:       zchunk
 Version:    1.5.5
-Release:    5
+Release:    6
 Summary:    A file format designed for highly efficient deltas while maintaining good compression
-License:    BSD
+License:    BSD-2-Clause AND BSD-3-Clause
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -36,6 +36,10 @@ popd
 
 %files -f %{_sourcedir}/zchunk.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5.5-6
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-2-Clause AND BSD-3-Clause): LICENSE (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5.5-5
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

@@ -1,8 +1,8 @@
 Name:       python-wheel
 Version:    0.48.0
-Release:    2
+Release:    3
 Summary:    The official binary distribution format for Python 
-License:    GPL
+License:    MIT
 Source0:    wheel-%{version}.tar.gz
 Prefix:     /usr
 
@@ -25,6 +25,10 @@ fi
 %files -f %{_sourcedir}/python-wheel.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.48.0-3
+- Replace the legacy short licence name with the verified SPDX expression
+  (MIT): LICENSE.txt (issue #8).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.48.0-2
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 2 paths updated.
 

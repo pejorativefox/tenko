@@ -1,8 +1,8 @@
 Name:       systemd
 Version:    262.1
-Release:    3
+Release:    4
 Summary:    The systemd package contains programs for controlling the startup, running, and shutdown of the system.
-License:    GPL
+License:    LGPL-2.1-or-later AND GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: linux-pam
@@ -93,6 +93,10 @@ test -f %{buildroot}/usr/lib/systemd/boot/efi/systemd-bootx64.efi || {
 %files doc -f %{_sourcedir}/systemd-doc.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 262.1-4
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later AND GPL-2.0-or-later): LICENSES/README.md (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 262.1-3
 - Build the EFI bootloader: -D bootloader=enabled with the new
   python3-pyelftools build dependency.  meson requires the Python elftools

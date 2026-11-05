@@ -1,8 +1,8 @@
 Name:       appstream
 Version:    1.2.2
-Release:    3
+Release:    4
 Summary:    Library and tool for software metadata
-License:    LGPL
+License:    LGPL-2.1-or-later AND FSFAP
 Source0:    AppStream-%{version}.tar.xz
 Prefix:     /usr
 
@@ -36,6 +36,10 @@ popd
 %files -f %{_sourcedir}/appstream.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.2-4
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later AND FSFAP): COPYING, data/update-data.py and data/its/metainfo.its (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.2.2-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

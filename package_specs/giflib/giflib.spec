@@ -1,8 +1,8 @@
 Name:       giflib
 Version:    6.1.3
-Release:    1
+Release:    2
 Summary:    Library for loading and manipulationg GIF images
-License:    GPL
+License:    MIT
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -57,6 +57,10 @@ make install PREFIX=%{buildroot}/usr
 /usr/share/man/man7/giflib.7.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 6.1.3-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (MIT): COPYING and the per-file SPDX headers (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 6.1.3-1
 - Sync with BLFS r13.1
 

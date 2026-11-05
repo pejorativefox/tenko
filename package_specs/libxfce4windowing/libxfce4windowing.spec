@@ -1,8 +1,8 @@
 Name:       libxfce4windowing
 Version:    4.20.7
-Release:    4
+Release:    5
 Summary:    Abstraction library for windowing concepts
-License:    LGPL
+License:    LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -32,7 +32,7 @@ mkdir -p %{buildroot}/etc
 
 %package gir
 Summary:    GObject Introspection data for libxfce4windowing
-License:    LGPL
+License:    LGPL-2.1-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -45,6 +45,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/libxfce4windowing-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.7-5
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): COPYING, LGPL v2.1, plus libxfce4windowing/*.c "or any later version" (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.7-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

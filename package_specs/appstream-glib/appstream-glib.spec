@@ -1,8 +1,8 @@
 Name:       appstream-glib
 Version:    0.8.4
-Release:    1
+Release:    2
 Summary:    Glib AppStream metadata support.
-License:    GPL
+License:    LGPL-2.1-or-later AND GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -115,6 +115,10 @@ popd
 /usr/share/locale/zh_TW/LC_MESSAGES/appstream-glib.mo
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.8.4-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later AND GPL-2.0-or-later): COPYING and the SPDX headers in libappstream-glib/ and client/ (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.8.4-1
 - Sync with BLFS r13.1
 

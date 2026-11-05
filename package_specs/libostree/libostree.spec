@@ -1,8 +1,8 @@
 Name:       libostree
 Version:    2026.6
-Release:    3
+Release:    4
 Summary:    Operating system and container binary deployment and upgrades
-License:    LGPL
+License:    LGPL-2.0-or-later
 Source0:    libostree-%{version}.tar.xz
 Prefix:     /usr
 
@@ -40,6 +40,10 @@ rm -rf %{buildroot}
 %files -f %{_sourcedir}/libostree.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2026.6-4
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.0-or-later): COPYING, GNU Library GPL v2, and README.md "LGPLv2+" (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2026.6-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

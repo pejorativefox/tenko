@@ -1,8 +1,8 @@
 Name:       alsa-utils
 Version:    1.2.16
-Release:    1
+Release:    2
 Summary:    Alsa Utilities
-License:    BSD
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -106,6 +106,10 @@ rm -rf %{buildroot}
 /usr/share/sounds/alsa/Side_Right.wav
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.16-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause): COPYING, alsaucm/usecase.c and topology/nhlt/nhlt.h (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.2.16-1
 - Sync with BLFS r13.1
 

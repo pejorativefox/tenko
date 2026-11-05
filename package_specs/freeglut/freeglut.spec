@@ -1,8 +1,8 @@
 Name:       freeglut
 Version:    3.8.0
-Release:    1
+Release:    2
 Summary:    GLUT is a window system independent toolkit for writing OpenGL programs
-License:    GPL
+License:    X11 AND MIT
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -135,6 +135,10 @@ popd
 /usr/share/man/man3/glutWindowStatusFunc.3.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.8.0-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (X11 AND MIT): COPYING and man/LICENSE (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.8.0-1
 - Sync with BLFS r13.1
 

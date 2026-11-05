@@ -1,8 +1,8 @@
 Name:       acpi
 Version:    1.8
-Release:    1
+Release:    2
 Summary:    Client for battery, power, and thermal readings
-License:    GPL2
+License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -24,6 +24,10 @@ install -Dm644 acpi.1 %{buildroot}%{_mandir}/man1/acpi.1
 %files -f %{_sourcedir}/acpi.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.8-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later): COPYING and the acpi.c/acpi.h headers (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.8-1
 - Not in the r13.1 book; 1.8 is the latest upstream stable (2025).
 - Build 1.8 instead of the earlier 1.7 target.

@@ -1,8 +1,8 @@
 Name:       python-setuptools
 Version:    84.2.1
-Release:    1
+Release:    2
 Summary:    Python setuptools build system.
-License:    LGPL
+License:    MIT AND LGPL-3.0-or-later AND Apache-2.0
 Source0:    setuptools-%{version}.tar.gz
 Prefix:     /usr
 
@@ -26,6 +26,10 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 84.2.1-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (MIT AND LGPL-3.0-or-later AND Apache-2.0): LICENSE (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 84.2.1-1
 - Sync with LFS r13.1
 

@@ -1,8 +1,8 @@
 Name:       createrepo_c
 Version:    1.2.6
-Release:    4
+Release:    5
 Summary:    Creates a common metadata repository
-License:    GPL
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -40,6 +40,10 @@ popd
 %files -f %{_sourcedir}/createrepo_c.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.6-5
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later AND LGPL-2.1-or-later): COPYING, src/createrepo_c.c and src/koji.c (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.2.6-4
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

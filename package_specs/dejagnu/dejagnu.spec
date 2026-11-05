@@ -1,8 +1,8 @@
 Name:       dejagnu
 Version:    1.6.3
-Release:    2
+Release:    3
 Summary:    GNU Test framework
-License:    GPL
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -11,6 +11,7 @@ DejaGnu is a framework for testing other programs.
 
 %package doc
 Summary:    dejagnu documentation
+License:    GFDL-1.3-no-invariants-or-later
 Requires:   dejagnu = %{version}-%{release}
 
 %description doc
@@ -41,6 +42,11 @@ popd
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.6.3-3
+- Replace the legacy short licence name with the verified SPDX expressions
+  (GPL-3.0-or-later for the code, GFDL-1.3-no-invariants-or-later for the
+  docs): COPYING, runtest.exp and doc/dejagnu.texi (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.6.3-2
 - Split doc payload into dejagnu-doc (size audit)
 

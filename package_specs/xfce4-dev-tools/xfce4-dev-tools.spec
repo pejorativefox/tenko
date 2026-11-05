@@ -1,8 +1,8 @@
 Name:       xfce4-dev-tools
 Version:    4.20.0
-Release:    1
+Release:    2
 Summary:    Collection of tools and macros for Xfce developers
-License:    LGPL
+License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -24,6 +24,10 @@ mkdir -p %{buildroot}/etc
 %files -f %{_sourcedir}/xfce4-dev-tools.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.0-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later): COPYING (issue #8).
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0
 - Sync with BLFS r13.1 (4.19.0)
 

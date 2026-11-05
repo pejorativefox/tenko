@@ -1,8 +1,8 @@
 Name:       alsa-plugins
 Version:    1.2.12
-Release:    1
+Release:    2
 Summary:    ALSA sound interface plugins.
-License:    GPL
+License:    LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 Source0:    %{name}-%{version}.tar.bz2
 Source1:    %{name}-%{version}-ffmpeg-9.0.patch
 Prefix:     /usr
@@ -52,6 +52,10 @@ rm -rf %{buildroot}
 /usr/share/alsa/alsa.conf.d/98-usb-stream.conf
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.12-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause): COPYING, COPYING.GPL, usb_stream/usb_stream.h and pph/speex_resampler.h (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.2.12-1
 - Sync with BLFS r13.1
 

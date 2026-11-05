@@ -1,8 +1,8 @@
 Name:       libxfce4ui
 Version:    4.20.2
-Release:    4
+Release:    5
 Summary:    Commonly used Xfce widgets among Xfce applications
-License:    GPL
+License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -39,7 +39,7 @@ mkdir -p %{buildroot}/etc
 
 %package gir
 Summary:    GObject Introspection data for libxfce4ui
-License:    GPL
+License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -53,6 +53,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/libxfce4ui-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.2-5
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later AND LGPL-2.0-or-later): COPYING, GNU Library GPL v2, plus libxfce4ui/*.c and xfce4-about/main.c (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.2-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

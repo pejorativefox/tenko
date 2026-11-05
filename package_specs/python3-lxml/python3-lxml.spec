@@ -1,8 +1,8 @@
 Name:       python3-lxml
 Version:    6.1.3
-Release:    1
+Release:    2
 Summary:    Python bindings for libxml2 and libxslt
-License:    BSD
+License:    BSD-3-Clause AND PSF-2.0 AND MIT
 Source0:    lxml-%{version}.tar.gz
 Prefix:     /usr
 
@@ -27,6 +27,10 @@ fi
 %files -f %{_sourcedir}/python3-lxml.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 6.1.3-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-3-Clause AND PSF-2.0 AND MIT): LICENSE.txt (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 6.1.3-1
 - New package, synced with BLFS r13.1.  itstool needs lxml because libxml2
   no longer ships its Python bindings.
