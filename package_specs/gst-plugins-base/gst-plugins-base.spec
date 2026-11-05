@@ -386,6 +386,8 @@ popd
 /usr/share/man/man1/gst-discoverer-1.0.1.gz
 /usr/share/man/man1/gst-play-1.0.1.gz
 
+/usr/lib64/gstreamer-1.0/libgstxvimagesink.so
+
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.28.8-2
 - Replace the legacy short licence name with the verified SPDX expression

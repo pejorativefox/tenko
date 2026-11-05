@@ -253,6 +253,8 @@ popd
 /usr/share/man/man1/gst-stats-1.0.1.gz
 /usr/share/man/man1/gst-typefind-1.0.1.gz
 
+/usr/libexec/gstreamer-1.0/gst-ptp-helper
+
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.28.8-2
 - Replace the legacy short licence name with the verified SPDX expression

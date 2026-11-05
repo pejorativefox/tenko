@@ -137,6 +137,7 @@ popd
 /usr/share/locale/uk/LC_MESSAGES/xdg-desktop-portal.mo
 /usr/share/locale/zh_CN/LC_MESSAGES/xdg-desktop-portal.mo
 /usr/share/locale/zh_TW/LC_MESSAGES/xdg-desktop-portal.mo
+/usr/share/man/man5/portals.conf.5.gz
 /usr/share/pkgconfig/xdg-desktop-portal.pc
 
 %changelog

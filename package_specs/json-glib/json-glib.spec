@@ -140,6 +140,9 @@ popd
 /usr/share/locale/zh_HK/LC_MESSAGES/json-glib-1.0.mo
 /usr/share/locale/zh_TW/LC_MESSAGES/json-glib-1.0.mo
 
+/usr/lib64/girepository-1.0/Json-1.0.typelib
+/usr/share/gir-1.0/Json-1.0.gir
+
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.10.8-2
 - Replace the legacy short licence name with the verified SPDX expression

@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 /usr/share/sounds/alsa/Side_Left.wav
 /usr/share/sounds/alsa/Side_Right.wav
 
+/usr/share/man/man1/alsatplg.1.gz
+/usr/share/man/man1/alsaucm.1.gz
+
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.16-2
 - Replace the legacy short licence name with the verified SPDX expression
