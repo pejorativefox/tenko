@@ -48,17 +48,38 @@ qemu-system-x86_64 \
 qpid=$!
 trap 'kill $qpid 2>/dev/null || true' EXIT
 
+
+# QEMU monitor helper: talk to the unix socket without socat.
+mon() {
+    python3 - "$MON" "$1" <<'PY' || true
+import socket, sys
+s = socket.socket(socket.AF_UNIX)
+s.connect(sys.argv[1])
+s.sendall((sys.argv[2] + "\n").encode())
+s.settimeout(1)
+try:
+    while s.recv(4096):
+        pass
+except Exception:
+    pass
+PY
+}
+
 echo "qemu pid $qpid; waiting ${WAIT}s for the installer"
 sleep "$WAIT"
 
 if [ -S "$MON" ]; then
-    printf 'screendump %s\n' "$PWD/build/installer-screen.ppm" | socat - "UNIX-CONNECT:$MON" >/dev/null || true
+    mon "screendump $PWD/build/installer-screen.ppm"
     sleep 2
     if [ -s "$PWD/build/installer-screen.ppm" ]; then
-        convert "$PWD/build/installer-screen.ppm" "$SHOT"
-        echo "screenshot: $SHOT"
+        if command -v convert >/dev/null 2>&1; then
+            convert "$PWD/build/installer-screen.ppm" "$SHOT"
+            echo "screenshot: $SHOT"
+        else
+            echo "screenshot: $PWD/build/installer-screen.ppm"
+        fi
     fi
-    printf 'quit\n' | socat - "UNIX-CONNECT:$MON" >/dev/null || true
+    mon quit
 fi
 
 wait $qpid 2>/dev/null || true
