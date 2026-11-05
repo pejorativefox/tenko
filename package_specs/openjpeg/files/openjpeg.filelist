@@ -1,0 +1,28 @@
+%dir /usr/bin
+/usr/bin/opj_compress
+/usr/bin/opj_decompress
+/usr/bin/opj_dump
+%dir /usr/include
+%dir /usr/include/openjpeg-2.5
+/usr/include/openjpeg-2.5/openjpeg.h
+/usr/include/openjpeg-2.5/opj_config.h
+%dir /usr/lib64
+%dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/openjpeg-2.5
+/usr/lib64/cmake/openjpeg-2.5/OpenJPEGConfig.cmake
+/usr/lib64/cmake/openjpeg-2.5/OpenJPEGConfigVersion.cmake
+/usr/lib64/cmake/openjpeg-2.5/OpenJPEGTargets-release.cmake
+/usr/lib64/cmake/openjpeg-2.5/OpenJPEGTargets.cmake
+/usr/lib64/libopenjp2.so
+/usr/lib64/libopenjp2.so.2.5.4
+/usr/lib64/libopenjp2.so.7
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libopenjp2.pc
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/opj_compress.1.gz
+%doc /usr/share/man/man1/opj_decompress.1.gz
+%doc /usr/share/man/man1/opj_dump.1.gz
+%dir /usr/share/man/man3
+%doc /usr/share/man/man3/libopenjp2.3.gz

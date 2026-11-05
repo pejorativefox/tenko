@@ -1,32 +1,40 @@
 Name:       libx264
-Version:    20190815
+Version:    20250815
 Release:    1
-Summary:    TODO
-License:    GPL3
-Source0:    x264-snapshot-20190815-2245-stable.tar.bz2
+Summary:    H.264/MPEG-4 AVC video encoder library
+License:    GPL-2.0-or-later
+Source0:    x264-%{version}.tar.xz
 Prefix:     /usr
 
+BuildRequires: nasm
+
 %description
-TODO
+x264 provides a library for encoding video streams into the
+H.264/MPEG-4 AVC format.
 
 %prep
-%setup -n x264-snapshot-20190815-2245-stable
+%setup -q -n x264-%{version}
 
 %build
-%configure --enable-shared --diasble-cli
+./configure --prefix=/usr      \
+            --libdir=%{_libdir} \
+            --enable-shared    \
+            --disable-cli
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/bin/x264
-/usr/include/x264.h
-/usr/include/x264_config.h
-/usr/lib64/libx264.so
-/usr/lib64/libx264.so.157
-/usr/lib64/pkgconfig/x264.pc
+%files -f %{_sourcedir}/libx264.filelist
 
 %changelog
-# let's skip this for now
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 20250815-1
+- Update to the BLFS r13.1 snapshot 20250815
+  (multimedia/libdriv/x264.xml).
+- Use the book's configure flags (--enable-shared --disable-cli) and
+  pass --libdir=%{_libdir} so the library lands in /usr/lib64.
+- Fix the old spec's "--diasble-cli" typo, which made it build the
+  command-line encoder.
+- nasm is the only assembly dependency (the book recommends it); the
+  spec does not require yasm.

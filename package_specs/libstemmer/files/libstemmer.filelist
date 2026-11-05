@@ -1,0 +1,6 @@
+%dir /usr/include
+/usr/include/libstemmer.h
+%dir /usr/lib64
+/usr/lib64/libstemmer.so
+/usr/lib64/libstemmer.so.0
+/usr/lib64/libstemmer.so.0.0.0

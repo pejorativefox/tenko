@@ -1,39 +1,49 @@
 Name:       libstemmer
-Version:    1.0
+Version:    3.2.0
 Release:    1
-Summary:    Snowball Stemming Algorithms.
-License:    GPL
-Source0:    libstemmer_c.tgz
+Summary:    Snowball stemming algorithms
+License:    BSD-3-Clause
+Source0:    libstemmer_c-%{version}.tar.gz
 Prefix:     /usr
 
 %description
-Snowball Stemming Algorithms.
+libstemmer provides the Snowball stemming algorithms as a C library
+(libstemmer_c).  It is used by text search and indexing software to
+reduce words to a common stem.
 
 %prep
-%setup -n libstemmer_c
+%setup -q -n libstemmer_c-%{version}
 
 %build
-sed -i -r "s|(^libstemmer.o:)|libstemmer.so: \$\(snowball_sources:.c=.o\)\n\
-\t\$\(CC\) \$\(CFLAGS\) -shared \$\(LDFLAGS\) -Wl,-soname,libstemmer.so.0 \
--o \$\@.0.0.0 \$\^\n\1|" Makefile
-make libstemmer.so %{?_smp_mflags} CFLAGS="%{optflags} -fPIC -Iinclude" LDFLAGS="$RPM_LD_FLAGS"
+make libstemmer.a %{?_smp_mflags} \
+     CC="%{__cc}" \
+     CFLAGS="%{optflags} -fPIC" \
+     CPPFLAGS="-Iinclude"
+%{__cc} %{optflags} -shared -Wl,-soname,libstemmer.so.0 \
+    -o libstemmer.so.0.0.0 \
+    src_c/*.o runtime/*.o libstemmer/*.o
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}%{_libdir}
-mkdir -p %{buildroot}%{_includedir}
-install -p -D -m 755	libstemmer.so.0.0.0	%{buildroot}%{_libdir}/
-ln -s libstemmer.so.0.0.0	%{buildroot}%{_libdir}/libstemmer.so.0
-ln -s libstemmer.so.0.0.0	%{buildroot}%{_libdir}/libstemmer.so
-install -p -D -m 644	include/*	%{buildroot}%{_includedir}/
+install -d %{buildroot}%{_libdir}
+install -d %{buildroot}%{_includedir}
+install -p -m 755 libstemmer.so.0.0.0 %{buildroot}%{_libdir}/
+ln -s libstemmer.so.0.0.0 %{buildroot}%{_libdir}/libstemmer.so.0
+ln -s libstemmer.so.0.0.0 %{buildroot}%{_libdir}/libstemmer.so
+install -p -m 644 include/libstemmer.h %{buildroot}%{_includedir}/
 
-%files
-/usr/include/libstemmer.h
-/usr/lib64/libstemmer.so
-/usr/lib64/libstemmer.so.0
-/usr/lib64/libstemmer.so.0.0.0
+%files -f %{_sourcedir}/libstemmer.filelist
 
 %changelog
-* Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.0
-- Initial RPM
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.2.0-1
+- Update to 3.2.0: not in the r13.1 book; latest upstream stable
+  2026-11-05 (https://snowballstem.org/download.html).
+- Adapt to the 3.x libstemmer_c tarball: it extracts to
+  libstemmer_c-3.2.0 and only ships a rule for libstemmer.a, so build
+  its objects with -fPIC and link libstemmer.so.0.0.0 (soname
+  libstemmer.so.0) from them.  The public API lives in
+  libstemmer/libstemmer.c, which is built into the archive and must
+  be linked explicitly (a plain -shared link of the archive would
+  pull in nothing).
+- Install include/libstemmer.h explicitly; the tarball no longer has
+  a bare include/ directory of public headers.

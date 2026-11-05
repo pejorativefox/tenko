@@ -1,42 +1,45 @@
 Name:       libx265
-Version:    3.0
+Version:    4.3
 Release:    1
-Summary:    TODO
-License:    GPL3
-Prefix:     /usr
+Summary:    H.265/HEVC video encoder library
+License:    GPL-2.0-or-later
 Source0:    x265_%{version}.tar.gz
+Prefix:     /usr
 
+BuildRequires: cmake, nasm
 
 %description
-TODO
+x265 provides a library for encoding video streams into the
+H.265/HEVC format.
 
 %prep
-%setup -a 0 -n x265_3.0
+%setup -q -n x265_%{version}
 
 %build
 mkdir build-x265
 pushd build-x265
-cmake -DCMAKE_INSTALL_PREFIX=/usr ../source
+cmake -D CMAKE_INSTALL_PREFIX=/usr \
+      -D LIB_INSTALL_DIR=%{_lib}  \
+      -D GIT_ARCHETYPE=1          \
+      -W no-author                \
+      ../source
 %make_build
 popd
 
-%install    
+%install
 rm -rf %{buildroot}
 pushd build-x265
 %make_install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/x265
-/usr/include/x265.h
-/usr/include/x265_config.h
-/usr/lib/libx265.a
-/usr/lib/libx265.so
-/usr/lib/libx265.so.169
-/usr/lib/pkgconfig/x265.pc
-
+%files -f %{_sourcedir}/libx265.filelist
 
 %changelog
-# let's skip this for now
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.3-1
+- Update to 4.3, the version in the BLFS r13.1 book
+  (multimedia/libdriv/x265.xml).
+- Follow the book's cmake invocation (GIT_ARCHETYPE=1, -W no-author).
+- Set LIB_INSTALL_DIR=lib64: x265 hardcodes a "lib" default for its
+  libraries, pkg-config file and CMake targets.
+- nasm is available and used for assembly; no yasm dependency.

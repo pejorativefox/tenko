@@ -1,0 +1,99 @@
+%dir /usr/include
+%dir /usr/include/theora
+/usr/include/theora/codec.h
+/usr/include/theora/theora.h
+/usr/include/theora/theoradec.h
+/usr/include/theora/theoraenc.h
+%dir /usr/lib64
+/usr/lib64/libtheora.so
+/usr/lib64/libtheora.so.0
+/usr/lib64/libtheora.so.0.3.10
+/usr/lib64/libtheoradec.so
+/usr/lib64/libtheoradec.so.1
+/usr/lib64/libtheoradec.so.1.1.4
+/usr/lib64/libtheoraenc.so
+/usr/lib64/libtheoraenc.so.1
+/usr/lib64/libtheoraenc.so.1.1.2
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/theora.pc
+/usr/lib64/pkgconfig/theoradec.pc
+/usr/lib64/pkgconfig/theoraenc.pc
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/libtheora-1.1.1
+%doc /usr/share/doc/libtheora-1.1.1/color.html
+%doc /usr/share/doc/libtheora-1.1.1/doxygen-build.stamp
+%doc /usr/share/doc/libtheora-1.1.1/draft-ietf-avt-rtp-theora-00.txt
+%doc /usr/share/doc/libtheora-1.1.1/draft-ietf-avt-rtp-theora-00.xml
+%dir /usr/share/doc/libtheora-1.1.1/html
+%doc /usr/share/doc/libtheora-1.1.1/html/annotated.html
+%doc /usr/share/doc/libtheora-1.1.1/html/classes.html
+%doc /usr/share/doc/libtheora-1.1.1/html/codec_8h.html
+%doc /usr/share/doc/libtheora-1.1.1/html/codec_8h_source.html
+%doc /usr/share/doc/libtheora-1.1.1/html/doxygen.css
+%doc /usr/share/doc/libtheora-1.1.1/html/doxygen.png
+%doc /usr/share/doc/libtheora-1.1.1/html/files.html
+%doc /usr/share/doc/libtheora-1.1.1/html/functions.html
+%doc /usr/share/doc/libtheora-1.1.1/html/functions_vars.html
+%doc /usr/share/doc/libtheora-1.1.1/html/globals.html
+%doc /usr/share/doc/libtheora-1.1.1/html/globals_defs.html
+%doc /usr/share/doc/libtheora-1.1.1/html/globals_enum.html
+%doc /usr/share/doc/libtheora-1.1.1/html/globals_eval.html
+%doc /usr/share/doc/libtheora-1.1.1/html/globals_func.html
+%doc /usr/share/doc/libtheora-1.1.1/html/globals_type.html
+%doc /usr/share/doc/libtheora-1.1.1/html/globals_vars.html
+%doc /usr/share/doc/libtheora-1.1.1/html/group__basefuncs.html
+%doc /usr/share/doc/libtheora-1.1.1/html/group__decfuncs.html
+%doc /usr/share/doc/libtheora-1.1.1/html/group__encfuncs.html
+%doc /usr/share/doc/libtheora-1.1.1/html/group__oldfuncs.html
+%doc /usr/share/doc/libtheora-1.1.1/html/index.html
+%doc /usr/share/doc/libtheora-1.1.1/html/modules.html
+%doc /usr/share/doc/libtheora-1.1.1/html/structth__comment.html
+%doc /usr/share/doc/libtheora-1.1.1/html/structth__huff__code.html
+%doc /usr/share/doc/libtheora-1.1.1/html/structth__img__plane.html
+%doc /usr/share/doc/libtheora-1.1.1/html/structth__info.html
+%doc /usr/share/doc/libtheora-1.1.1/html/structth__quant__info.html
+%doc /usr/share/doc/libtheora-1.1.1/html/structth__quant__ranges.html
+%doc /usr/share/doc/libtheora-1.1.1/html/structth__stripe__callback.html
+%doc /usr/share/doc/libtheora-1.1.1/html/structtheora__comment.html
+%doc /usr/share/doc/libtheora-1.1.1/html/structtheora__info.html
+%doc /usr/share/doc/libtheora-1.1.1/html/structtheora__state.html
+%doc /usr/share/doc/libtheora-1.1.1/html/structyuv__buffer.html
+%doc /usr/share/doc/libtheora-1.1.1/html/tab_b.gif
+%doc /usr/share/doc/libtheora-1.1.1/html/tab_l.gif
+%doc /usr/share/doc/libtheora-1.1.1/html/tab_r.gif
+%doc /usr/share/doc/libtheora-1.1.1/html/tabs.css
+%doc /usr/share/doc/libtheora-1.1.1/html/theora_8h.html
+%doc /usr/share/doc/libtheora-1.1.1/html/theora_8h_source.html
+%doc /usr/share/doc/libtheora-1.1.1/html/theoradec_8h.html
+%doc /usr/share/doc/libtheora-1.1.1/html/theoradec_8h_source.html
+%doc /usr/share/doc/libtheora-1.1.1/html/theoraenc_8h.html
+%doc /usr/share/doc/libtheora-1.1.1/html/theoraenc_8h_source.html
+%dir /usr/share/doc/libtheora-1.1.1/latex
+%doc /usr/share/doc/libtheora-1.1.1/latex/Makefile
+%doc /usr/share/doc/libtheora-1.1.1/latex/annotated.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/codec_8h.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/doxygen.sty
+%doc /usr/share/doc/libtheora-1.1.1/latex/files.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/group__basefuncs.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/group__decfuncs.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/group__encfuncs.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/group__oldfuncs.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/index.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/modules.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/refman.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/structth__comment.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/structth__huff__code.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/structth__img__plane.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/structth__info.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/structth__quant__info.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/structth__quant__ranges.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/structth__stripe__callback.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/structtheora__comment.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/structtheora__info.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/structtheora__state.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/structyuv__buffer.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/theora_8h.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/theoradec_8h.tex
+%doc /usr/share/doc/libtheora-1.1.1/latex/theoraenc_8h.tex
+%doc /usr/share/doc/libtheora-1.1.1/vp3-format.txt

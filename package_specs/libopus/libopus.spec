@@ -1,40 +1,44 @@
 Name:       libopus
-Version:    1.3
+Version:    1.6.1
 Release:    1
 Summary:    Audio compression format
-License:    GPL3
+License:    BSD-3-Clause
 Prefix:     /usr
 Source0:    opus-%{version}.tar.gz
 
+BuildRequires: meson, ninja
 
 %description
-Opus is a lossy audio compression format developed by the Internet Engineering Task Force
+Opus is a lossy audio compression format developed by the Internet
+Engineering Task Force (IETF) that is particularly suitable for
+interactive speech and audio transmission over the Internet.  This
+package provides the Opus library and headers.
 
 %prep
 %setup -q -n opus-%{version}
 
 %build
-%configure  --disable-static \
-            --docdir=/usr/share/doc/opus-1.3
-%make_build
+mkdir build
+pushd build
+meson setup --prefix=/usr                                \
+            --buildtype=release                          \
+            -D docdir=/usr/share/doc/opus-%{version}     \
+            ..
+ninja
+popd
 
-%install    
+%install
 rm -rf %{buildroot}
-%make_install
+pushd build
+DESTDIR=%{buildroot} ninja install
+popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/opus/opus.h
-/usr/include/opus/opus_defines.h
-/usr/include/opus/opus_multistream.h
-/usr/include/opus/opus_projection.h
-/usr/include/opus/opus_types.h
-/usr/lib64/libopus.so
-/usr/lib64/libopus.so.0
-/usr/lib64/libopus.so.0.7.0
-/usr/lib64/pkgconfig/opus.pc
-/usr/share/aclocal/opus.m4
+%files -f %{_sourcedir}/libopus.filelist
 
 %changelog
-* Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.3-1
-- Version bump
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.6.1-1
+- Update to 1.6.1, the version in the BLFS r13.1 book
+  (multimedia/libdriv/opus.xml).
+- Build with meson as the book does, with the book's docdir.
+- First Browneye build; replaces the stale 1.3 spec.

@@ -1,0 +1,8 @@
+%dir /usr/include
+/usr/include/x264.h
+/usr/include/x264_config.h
+%dir /usr/lib64
+/usr/lib64/libx264.so
+/usr/lib64/libx264.so.165
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/x264.pc

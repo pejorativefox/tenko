@@ -1,0 +1,11 @@
+%dir /usr/bin
+/usr/bin/x265
+%dir /usr/include
+/usr/include/x265.h
+/usr/include/x265_config.h
+%dir /usr/lib64
+/usr/lib64/libx265.a
+/usr/lib64/libx265.so
+/usr/lib64/libx265.so.217
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/x265.pc

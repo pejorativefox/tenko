@@ -1,66 +1,73 @@
 Name:       libpoppler
-Version:    0.88.0
+Version:    26.10.0
 Release:    1
-Summary:    Poppler is a PDF rendering library based on the xpdf-3.0 code base. 
-License:    NO_IDEA
+Summary:    PDF rendering library based on the xpdf-3.0 code base
+License:    GPL-2.0-or-later
 Source0:    poppler-%{version}.tar.xz
 Prefix:     /usr
 
+BuildRequires: cmake, ninja
 BuildRequires: openjpeg
+BuildRequires: pkgconfig(freetype2)
+BuildRequires: pkgconfig(fontconfig)
+BuildRequires: pkgconfig(harfbuzz)
+BuildRequires: pkgconfig(libjpeg)
+BuildRequires: pkgconfig(libpng)
+BuildRequires: pkgconfig(cairo)
+BuildRequires: pkgconfig(libcurl)
+BuildRequires: pkgconfig(glib-2.0)
+BuildRequires: gobject-introspection
 
 %description
-Poppler is a PDF rendering library based on the xpdf-3.0 code base. 
+Poppler is a PDF rendering library based on the xpdf-3.0 code base.
+It provides the command-line PDF utilities (pdfinfo, pdftotext,
+pdftoppm and others) and the C++, GLib and GObject-Introspection
+bindings.
 
 %prep
-%setup -n poppler-%{version}
+%setup -q -n poppler-%{version}
 
 %build
 mkdir build
 pushd build
-cmake 	-DCMAKE_INSTALL_PREFIX:PATH=/usr \
-        -DENABLE_QT5=OFF \
-	..
-%make_build
+cmake -G Ninja                          \
+      -D CMAKE_BUILD_TYPE=Release       \
+      -D CMAKE_INSTALL_PREFIX=/usr      \
+      -D CMAKE_INSTALL_LIBDIR=lib64     \
+      -D ENABLE_UNSTABLE_API_ABI_HEADERS=ON \
+      -D ENABLE_QT5=OFF                 \
+      -D ENABLE_QT6=OFF                 \
+      -D ENABLE_BOOST=OFF               \
+      -D ENABLE_LCMS=OFF                \
+      -D ENABLE_LIBTIFF=OFF             \
+      -D ENABLE_NSS3=OFF                \
+      -D ENABLE_GPGME=OFF               \
+      -D ENABLE_BROTLI=OFF              \
+      ..
+ninja
 popd
 
 %install
 rm -rf %{buildroot}
 pushd build
-%make_install
+DESTDIR=%{buildroot} ninja install
 popd
+rm -vf %{buildroot}%{_infodir}/dir*
 
-
-%files
-/usr/bin/pdfattach
-/usr/bin/pdfdetach
-/usr/bin/pdffonts
-/usr/bin/pdfimages
-/usr/bin/pdfinfo
-/usr/bin/pdfseparate
-/usr/bin/pdfsig
-/usr/bin/pdftocairo
-/usr/bin/pdftohtml
-/usr/bin/pdftoppm
-/usr/bin/pdftops
-/usr/bin/pdftotext
-/usr/bin/pdfunite
-/usr/include/poppler/cpp/
-/usr/include/poppler/glib/
-/usr/lib64/girepository-1.0/Poppler-0.18.typelib
-/usr/lib64/libpoppler-cpp.so
-/usr/lib64/libpoppler-cpp.so.0
-/usr/lib64/libpoppler-cpp.so.0.8.0
-/usr/lib64/libpoppler-glib.so
-/usr/lib64/libpoppler-glib.so.8
-/usr/lib64/libpoppler-glib.so.8.16.0
-/usr/lib64/libpoppler.so
-/usr/lib64/libpoppler.so.99
-/usr/lib64/libpoppler.so.99.0.0
-/usr/lib64/pkgconfig/
-/usr/share/gir-1.0/Poppler-0.18.gir
-/usr/share/man/man1/
+%files -f %{_sourcedir}/libpoppler.filelist
 
 %changelog
-* Sun May 17 2020 Chris Statzer <chris.statzer@qq.com> 0.88.0
-- Initial RPM
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 26.10.0-1
+- Update to 26.10.0, the version in the BLFS r13.1 book
+  (general/graphlib/poppler.xml).
+- Follow the book's Ninja/CMake build and keep
+  ENABLE_UNSTABLE_API_ABI_HEADERS=ON.
+- Enable the dependencies this repository ships: libjpeg-turbo,
+  libpng, freetype, fontconfig, harfbuzz, openjpeg, curl, cairo,
+  glib and GObject-Introspection (plus zlib and brotli-free streams).
+- Disable what is neither in the book build nor in the repository:
+  lcms2, libtiff, nss, gpgme, boost, qt5 and qt6, and brotli (not
+  installed in the build image; poppler's CMake would otherwise
+  abort).
+- Install to /usr/lib64 explicitly (CMake's /usr-prefix default is
+  lib); no -devel subpackage, as usual.
