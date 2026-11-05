@@ -243,6 +243,10 @@ the SDL1 trio (`sdl`, `sdl-image`, `sdl-ttf`). None was shipped, and no
 remaining spec required any of them. Dropping the Perl modules means
 `syslinux` would need them recreated before it can be packaged.
 
+A third 2026-11-05 cleanup then retired `build-essential`, `autoconf213`
+(unbuildable because its patch 404s), `kubectl`, `kubectx` and `mozjs`.
+None was shipped or required by a remaining spec.
+
 The second wave replaced the old `lua-lgi` spec directory with
 `package_specs/lgi` (same `Name`/version, plus the Lua 5.4 and
 GLib 2.86+ fixes), so `lua-lgi` was removed instead of leaving two specs
