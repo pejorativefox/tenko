@@ -1,0 +1,30 @@
+%dir /usr/bin
+/usr/bin/openvpn
+%dir /usr/include
+/usr/include/openvpn-msg.h
+/usr/include/openvpn-plugin.h
+%dir /usr/lib64
+%dir /usr/lib64/openvpn
+%dir /usr/lib64/openvpn/plugins
+/usr/lib64/openvpn/plugins/openvpn-plugin-auth-pam.so
+/usr/lib64/openvpn/plugins/openvpn-plugin-down-root.so
+%dir /usr/libexec
+%dir /usr/libexec/openvpn
+/usr/libexec/openvpn/dns-updown
+%dir /usr/share
+%dir /usr/share/doc
+%dir /usr/share/doc/openvpn
+%doc /usr/share/doc/openvpn/COPYING
+%doc /usr/share/doc/openvpn/COPYRIGHT.GPL
+%doc /usr/share/doc/openvpn/Changes.rst
+%doc /usr/share/doc/openvpn/README
+%doc /usr/share/doc/openvpn/README.auth-pam
+%doc /usr/share/doc/openvpn/README.down-root
+%doc /usr/share/doc/openvpn/README.mbedtls
+%doc /usr/share/doc/openvpn/gui-notes.txt
+%doc /usr/share/doc/openvpn/management-notes.txt
+%dir /usr/share/man
+%dir /usr/share/man/man5
+%doc /usr/share/man/man5/openvpn-examples.5.gz
+%dir /usr/share/man/man8
+%doc /usr/share/man/man8/openvpn.8.gz

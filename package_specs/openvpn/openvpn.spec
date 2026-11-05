@@ -1,45 +1,43 @@
 Name:       openvpn
-Version:    2.4.9
+Version:    2.7.8
 Release:    1
 Summary:    Open source VPN client
-License:    GPL
+License:    GPL-2.0-only
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+BuildRequires: openssl
+BuildRequires: linux-pam
+BuildRequires: libcap-ng
+
 %description
 Open source VPN client
+OpenVPN is a full-featured SSL VPN which implements OSI layer 2 or 3
+secure network extension using the industry standard SSL/TLS protocol.
 
 %prep
-%setup
+%setup -q
 
 %build
-%configure
+%configure \
+    --disable-lzo \
+    --disable-lz4 \
+    --disable-dco
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/include/openvpn-msg.h
-/usr/include/openvpn-plugin.h
-/usr/lib64/openvpn/plugins/openvpn-plugin-auth-pam.la
-/usr/lib64/openvpn/plugins/openvpn-plugin-auth-pam.so
-/usr/lib64/openvpn/plugins/openvpn-plugin-down-root.la
-/usr/lib64/openvpn/plugins/openvpn-plugin-down-root.so
-/usr/sbin/openvpn
-/usr/share/doc/openvpn/COPYING
-/usr/share/doc/openvpn/COPYRIGHT.GPL
-/usr/share/doc/openvpn/Changes.rst
-/usr/share/doc/openvpn/README
-/usr/share/doc/openvpn/README.IPv6
-/usr/share/doc/openvpn/README.auth-pam
-/usr/share/doc/openvpn/README.down-root
-/usr/share/doc/openvpn/README.mbedtls
-/usr/share/doc/openvpn/management-notes.txt
-/usr/share/man/man8/openvpn.8.gz
+%files -f %{_sourcedir}/openvpn.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.7.8-1
+- Not in the LFS/BLFS r13.1 book: bump to the latest upstream
+  stable release (2.7.8, checked 2026-11-05). Build with LZO, LZ4
+  and DCO disabled because those libraries are not in the repo.
+- Requires libcap-ng, added as a new package because 2.7.8 hard-requires
+  it on Linux; the PAM and down-root plugins build and are packaged.
+
 * Wed Aug 19 2020 Chris Statzer <chris.statzer@qq.com> 2.4.9
 - Initial RPM
-
