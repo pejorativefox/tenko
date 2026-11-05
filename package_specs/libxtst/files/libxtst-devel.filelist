@@ -1,7 +1,0 @@
-%dir /usr/include/X11
-%dir /usr/include/X11/extensions
-/usr/include/X11/extensions/XTest.h
-/usr/include/X11/extensions/record.h
-/usr/lib64/libXtst.so
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/xtst.pc

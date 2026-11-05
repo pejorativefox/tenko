@@ -1,7 +1,0 @@
-%dir /usr/include
-%dir /usr/lib64/pkgconfig
-/usr/include/libdevmapper.h
-/usr/include/lvm2cmd.h
-/usr/lib64/libdevmapper.so
-/usr/lib64/liblvm2cmd.so
-/usr/lib64/pkgconfig/devmapper.pc

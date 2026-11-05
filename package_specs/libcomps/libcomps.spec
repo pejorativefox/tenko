@@ -1,6 +1,6 @@
 Name:       libcomps
 Version:    0.1.24
-Release:    5
+Release:    6
 Summary:    Comps XML file manipulation library
 License:    GPL
 Prefix:     /usr
@@ -10,13 +10,6 @@ Source0:    %{name}-%{version}.tar.gz
 libcomps is a library for structure-like manipulation of the content of
 comps XML files.  It supports reading and writing XML, modifying structures
 and the Python bindings used by dnf.
-
-%package devel
-Summary:    Development files for libcomps
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-pkg-config files for libcomps, used to build software against it.
 
 %prep
 %setup -q
@@ -40,9 +33,12 @@ DESTDIR=%{buildroot} cmake --install .
 popd
 
 %files -f %{_sourcedir}/libcomps.filelist
-%files devel -f %{_sourcedir}/libcomps-devel.filelist
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.1.24-6
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.1.24-5
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

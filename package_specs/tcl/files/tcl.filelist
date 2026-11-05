@@ -1,6 +1,58 @@
+%dir /usr/lib64/lib/tcl8.6/tzdata
+%dir /usr/lib64/lib/tcl8.6/tzdata/Africa
+%dir /usr/lib64/lib/tcl8.6/tzdata/America
+%dir /usr/lib64/lib/tcl8.6/tzdata/America/Argentina
+%dir /usr/lib64/lib/tcl8.6/tzdata/America/Indiana
+%dir /usr/lib64/lib/tcl8.6/tzdata/America/Kentucky
+%dir /usr/lib64/lib/tcl8.6/tzdata/America/North_Dakota
+%dir /usr/lib64/lib/tcl8.6/tzdata/Antarctica
+%dir /usr/lib64/lib/tcl8.6/tzdata/Arctic
+%dir /usr/lib64/lib/tcl8.6/tzdata/Asia
+%dir /usr/lib64/lib/tcl8.6/tzdata/Atlantic
+%dir /usr/lib64/lib/tcl8.6/tzdata/Australia
+%dir /usr/lib64/lib/tcl8.6/tzdata/Brazil
+%dir /usr/lib64/lib/tcl8.6/tzdata/Canada
+%dir /usr/lib64/lib/tcl8.6/tzdata/Chile
+%dir /usr/lib64/lib/tcl8.6/tzdata/Etc
+%dir /usr/lib64/lib/tcl8.6/tzdata/Europe
+%dir /usr/lib64/lib/tcl8.6/tzdata/Indian
+%dir /usr/lib64/lib/tcl8.6/tzdata/Mexico
+%dir /usr/lib64/lib/tcl8.6/tzdata/Pacific
+%dir /usr/lib64/lib/tcl8.6/tzdata/US
 /usr/bin/sqlite3_analyzer
 /usr/bin/tclsh
 /usr/bin/tclsh8.6
+/usr/include/fakemysql.h
+/usr/include/fakepq.h
+/usr/include/fakesql.h
+/usr/include/itcl.h
+/usr/include/itcl2TclOO.h
+/usr/include/itclDecls.h
+/usr/include/itclInt.h
+/usr/include/itclIntDecls.h
+/usr/include/itclMigrate2TclCore.h
+/usr/include/itclTclIntStubsFcn.h
+/usr/include/mysqlStubs.h
+/usr/include/odbcStubs.h
+/usr/include/pqStubs.h
+/usr/include/tcl.h
+/usr/include/tclDecls.h
+/usr/include/tclInt.h
+/usr/include/tclIntDecls.h
+/usr/include/tclIntPlatDecls.h
+/usr/include/tclOO.h
+/usr/include/tclOODecls.h
+/usr/include/tclOOInt.h
+/usr/include/tclOOIntDecls.h
+/usr/include/tclPlatDecls.h
+/usr/include/tclPort.h
+/usr/include/tclThread.h
+/usr/include/tclTomMath.h
+/usr/include/tclTomMathDecls.h
+/usr/include/tclUnixPort.h
+/usr/include/tdbc.h
+/usr/include/tdbcDecls.h
+/usr/include/tdbcInt.h
 /usr/lib/tcl8.6
 /usr/lib64/itcl4.3.7/itcl.tcl
 /usr/lib64/itcl4.3.7/itclConfig.sh
@@ -233,8 +285,6 @@
 /usr/lib64/lib/tcl8.6/tclAppInit.c
 /usr/lib64/lib/tcl8.6/tclIndex
 /usr/lib64/lib/tcl8.6/tm.tcl
-%dir /usr/lib64/lib/tcl8.6/tzdata
-%dir /usr/lib64/lib/tcl8.6/tzdata/Africa
 /usr/lib64/lib/tcl8.6/tzdata/Africa/Abidjan
 /usr/lib64/lib/tcl8.6/tzdata/Africa/Accra
 /usr/lib64/lib/tcl8.6/tzdata/Africa/Addis_Ababa
@@ -289,13 +339,11 @@
 /usr/lib64/lib/tcl8.6/tzdata/Africa/Tripoli
 /usr/lib64/lib/tcl8.6/tzdata/Africa/Tunis
 /usr/lib64/lib/tcl8.6/tzdata/Africa/Windhoek
-%dir /usr/lib64/lib/tcl8.6/tzdata/America
 /usr/lib64/lib/tcl8.6/tzdata/America/Adak
 /usr/lib64/lib/tcl8.6/tzdata/America/Anchorage
 /usr/lib64/lib/tcl8.6/tzdata/America/Anguilla
 /usr/lib64/lib/tcl8.6/tzdata/America/Antigua
 /usr/lib64/lib/tcl8.6/tzdata/America/Araguaina
-%dir /usr/lib64/lib/tcl8.6/tzdata/America/Argentina
 /usr/lib64/lib/tcl8.6/tzdata/America/Argentina/Buenos_Aires
 /usr/lib64/lib/tcl8.6/tzdata/America/Argentina/Catamarca
 /usr/lib64/lib/tcl8.6/tzdata/America/Argentina/ComodRivadavia
@@ -365,7 +413,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/America/Halifax
 /usr/lib64/lib/tcl8.6/tzdata/America/Havana
 /usr/lib64/lib/tcl8.6/tzdata/America/Hermosillo
-%dir /usr/lib64/lib/tcl8.6/tzdata/America/Indiana
 /usr/lib64/lib/tcl8.6/tzdata/America/Indiana/Indianapolis
 /usr/lib64/lib/tcl8.6/tzdata/America/Indiana/Knox
 /usr/lib64/lib/tcl8.6/tzdata/America/Indiana/Marengo
@@ -380,7 +427,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/America/Jamaica
 /usr/lib64/lib/tcl8.6/tzdata/America/Jujuy
 /usr/lib64/lib/tcl8.6/tzdata/America/Juneau
-%dir /usr/lib64/lib/tcl8.6/tzdata/America/Kentucky
 /usr/lib64/lib/tcl8.6/tzdata/America/Kentucky/Louisville
 /usr/lib64/lib/tcl8.6/tzdata/America/Kentucky/Monticello
 /usr/lib64/lib/tcl8.6/tzdata/America/Knox_IN
@@ -413,7 +459,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/America/Nipigon
 /usr/lib64/lib/tcl8.6/tzdata/America/Nome
 /usr/lib64/lib/tcl8.6/tzdata/America/Noronha
-%dir /usr/lib64/lib/tcl8.6/tzdata/America/North_Dakota
 /usr/lib64/lib/tcl8.6/tzdata/America/North_Dakota/Beulah
 /usr/lib64/lib/tcl8.6/tzdata/America/North_Dakota/Center
 /usr/lib64/lib/tcl8.6/tzdata/America/North_Dakota/New_Salem
@@ -463,7 +508,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/America/Winnipeg
 /usr/lib64/lib/tcl8.6/tzdata/America/Yakutat
 /usr/lib64/lib/tcl8.6/tzdata/America/Yellowknife
-%dir /usr/lib64/lib/tcl8.6/tzdata/Antarctica
 /usr/lib64/lib/tcl8.6/tzdata/Antarctica/Casey
 /usr/lib64/lib/tcl8.6/tzdata/Antarctica/Davis
 /usr/lib64/lib/tcl8.6/tzdata/Antarctica/DumontDUrville
@@ -476,9 +520,7 @@
 /usr/lib64/lib/tcl8.6/tzdata/Antarctica/Syowa
 /usr/lib64/lib/tcl8.6/tzdata/Antarctica/Troll
 /usr/lib64/lib/tcl8.6/tzdata/Antarctica/Vostok
-%dir /usr/lib64/lib/tcl8.6/tzdata/Arctic
 /usr/lib64/lib/tcl8.6/tzdata/Arctic/Longyearbyen
-%dir /usr/lib64/lib/tcl8.6/tzdata/Asia
 /usr/lib64/lib/tcl8.6/tzdata/Asia/Aden
 /usr/lib64/lib/tcl8.6/tzdata/Asia/Almaty
 /usr/lib64/lib/tcl8.6/tzdata/Asia/Amman
@@ -578,7 +620,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/Asia/Yangon
 /usr/lib64/lib/tcl8.6/tzdata/Asia/Yekaterinburg
 /usr/lib64/lib/tcl8.6/tzdata/Asia/Yerevan
-%dir /usr/lib64/lib/tcl8.6/tzdata/Atlantic
 /usr/lib64/lib/tcl8.6/tzdata/Atlantic/Azores
 /usr/lib64/lib/tcl8.6/tzdata/Atlantic/Bermuda
 /usr/lib64/lib/tcl8.6/tzdata/Atlantic/Canary
@@ -591,7 +632,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/Atlantic/South_Georgia
 /usr/lib64/lib/tcl8.6/tzdata/Atlantic/St_Helena
 /usr/lib64/lib/tcl8.6/tzdata/Atlantic/Stanley
-%dir /usr/lib64/lib/tcl8.6/tzdata/Australia
 /usr/lib64/lib/tcl8.6/tzdata/Australia/ACT
 /usr/lib64/lib/tcl8.6/tzdata/Australia/Adelaide
 /usr/lib64/lib/tcl8.6/tzdata/Australia/Brisbane
@@ -615,14 +655,12 @@
 /usr/lib64/lib/tcl8.6/tzdata/Australia/Victoria
 /usr/lib64/lib/tcl8.6/tzdata/Australia/West
 /usr/lib64/lib/tcl8.6/tzdata/Australia/Yancowinna
-%dir /usr/lib64/lib/tcl8.6/tzdata/Brazil
 /usr/lib64/lib/tcl8.6/tzdata/Brazil/Acre
 /usr/lib64/lib/tcl8.6/tzdata/Brazil/DeNoronha
 /usr/lib64/lib/tcl8.6/tzdata/Brazil/East
 /usr/lib64/lib/tcl8.6/tzdata/Brazil/West
 /usr/lib64/lib/tcl8.6/tzdata/CET
 /usr/lib64/lib/tcl8.6/tzdata/CST6CDT
-%dir /usr/lib64/lib/tcl8.6/tzdata/Canada
 /usr/lib64/lib/tcl8.6/tzdata/Canada/Atlantic
 /usr/lib64/lib/tcl8.6/tzdata/Canada/Central
 /usr/lib64/lib/tcl8.6/tzdata/Canada/Eastern
@@ -631,7 +669,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/Canada/Pacific
 /usr/lib64/lib/tcl8.6/tzdata/Canada/Saskatchewan
 /usr/lib64/lib/tcl8.6/tzdata/Canada/Yukon
-%dir /usr/lib64/lib/tcl8.6/tzdata/Chile
 /usr/lib64/lib/tcl8.6/tzdata/Chile/Continental
 /usr/lib64/lib/tcl8.6/tzdata/Chile/EasterIsland
 /usr/lib64/lib/tcl8.6/tzdata/Cuba
@@ -640,7 +677,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/EST5EDT
 /usr/lib64/lib/tcl8.6/tzdata/Egypt
 /usr/lib64/lib/tcl8.6/tzdata/Eire
-%dir /usr/lib64/lib/tcl8.6/tzdata/Etc
 /usr/lib64/lib/tcl8.6/tzdata/Etc/GMT
 /usr/lib64/lib/tcl8.6/tzdata/Etc/GMT+0
 /usr/lib64/lib/tcl8.6/tzdata/Etc/GMT+1
@@ -676,7 +712,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/Etc/UTC
 /usr/lib64/lib/tcl8.6/tzdata/Etc/Universal
 /usr/lib64/lib/tcl8.6/tzdata/Etc/Zulu
-%dir /usr/lib64/lib/tcl8.6/tzdata/Europe
 /usr/lib64/lib/tcl8.6/tzdata/Europe/Amsterdam
 /usr/lib64/lib/tcl8.6/tzdata/Europe/Andorra
 /usr/lib64/lib/tcl8.6/tzdata/Europe/Astrakhan
@@ -751,7 +786,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/HST
 /usr/lib64/lib/tcl8.6/tzdata/Hongkong
 /usr/lib64/lib/tcl8.6/tzdata/Iceland
-%dir /usr/lib64/lib/tcl8.6/tzdata/Indian
 /usr/lib64/lib/tcl8.6/tzdata/Indian/Antananarivo
 /usr/lib64/lib/tcl8.6/tzdata/Indian/Chagos
 /usr/lib64/lib/tcl8.6/tzdata/Indian/Christmas
@@ -772,7 +806,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/MET
 /usr/lib64/lib/tcl8.6/tzdata/MST
 /usr/lib64/lib/tcl8.6/tzdata/MST7MDT
-%dir /usr/lib64/lib/tcl8.6/tzdata/Mexico
 /usr/lib64/lib/tcl8.6/tzdata/Mexico/BajaNorte
 /usr/lib64/lib/tcl8.6/tzdata/Mexico/BajaSur
 /usr/lib64/lib/tcl8.6/tzdata/Mexico/General
@@ -781,7 +814,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/Navajo
 /usr/lib64/lib/tcl8.6/tzdata/PRC
 /usr/lib64/lib/tcl8.6/tzdata/PST8PDT
-%dir /usr/lib64/lib/tcl8.6/tzdata/Pacific
 /usr/lib64/lib/tcl8.6/tzdata/Pacific/Apia
 /usr/lib64/lib/tcl8.6/tzdata/Pacific/Auckland
 /usr/lib64/lib/tcl8.6/tzdata/Pacific/Bougainville
@@ -833,7 +865,6 @@
 /usr/lib64/lib/tcl8.6/tzdata/Singapore
 /usr/lib64/lib/tcl8.6/tzdata/Turkey
 /usr/lib64/lib/tcl8.6/tzdata/UCT
-%dir /usr/lib64/lib/tcl8.6/tzdata/US
 /usr/lib64/lib/tcl8.6/tzdata/US/Alaska
 /usr/lib64/lib/tcl8.6/tzdata/US/Aleutian
 /usr/lib64/lib/tcl8.6/tzdata/US/Arizona
@@ -859,6 +890,7 @@
 /usr/lib64/lib/tcl8/8.6/platform/shell-1.1.4.tm
 /usr/lib64/libtcl8.6.so
 /usr/lib64/libtclstub8.6.a
+/usr/lib64/pkgconfig/tcl.pc
 /usr/lib64/sqlite3.53.0/libsqlite3.53.0.so
 /usr/lib64/sqlite3.53.0/pkgIndex.tcl
 /usr/lib64/tcl8/8.6/tdbc/sqlite3-1.1.13.tm

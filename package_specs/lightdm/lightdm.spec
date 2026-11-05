@@ -1,6 +1,6 @@
 Name:       lightdm
 Version:    1.33.1
-Release:    3
+Release:    4
 Summary:    Lightweight cross-desktop display manager
 License:    GPL-3.0-or-later
 Source0:    lightdm-1.33.1.tar.gz
@@ -30,15 +30,6 @@ Requires:   lightdm = %{version}-%{release}
 
 %description lang
 Translations for lightdm.
-
-%package devel
-Summary:    lightdm development files
-Requires:   %{name}-gir = %{version}-%{release}
-Requires:   lightdm = %{version}-%{release}
-
-%description devel
-Headers, GObject introspection data and pkg-config files for
-liblightdm-gobject.
 
 %prep
 %setup -q
@@ -102,7 +93,6 @@ if [ -x /usr/bin/systemctl ]; then
     systemctl preset lightdm.service >/dev/null 2>&1 || :
 fi
 
-
 %package gir
 Summary:    GObject Introspection data for lightdm
 License:    GPL-3.0-or-later
@@ -110,17 +100,21 @@ Requires:   %{name} = %{version}-%{release}
 
 %description gir
 GObject Introspection typelibs for lightdm.  They were installed by the
--devel package, which is where upstream's build puts them; the .gir
+main package, which is where upstream's build puts them; the .gir
 XML needed for building stays there.
 
 %files -f %{_sourcedir}/lightdm.filelist
 
 %files lang -f %{_sourcedir}/lightdm-lang.filelist
 
-%files devel -f %{_sourcedir}/lightdm-devel.filelist
 %files gir -f %{_sourcedir}/lightdm-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.33.1-4
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.33.1-3
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.33.1-2

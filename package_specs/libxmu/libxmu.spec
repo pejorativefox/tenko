@@ -1,6 +1,6 @@
 Name:       libxmu
 Version:    1.3.1
-Release:    2
+Release:    3
 Summary:    Xlib misc utilities
 License:    GPL3
 Prefix:     /usr
@@ -10,13 +10,6 @@ BuildRequires: libxt
 
 %description
 This library contains miscellaneous utilities and is not part of the Xlib standard. 
-
-%package devel
-Summary:    libxmu development files
-Requires:   libxmu = %{version}-%{release}
-
-%description devel
-Development files for libxmu.
 
 %package doc
 Summary:    libxmu documentation
@@ -45,12 +38,15 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxmu.filelist
-%files devel -f %{_sourcedir}/libxmu-devel.filelist
 %files doc -f %{_sourcedir}/libxmu-doc.filelist
 %files static -f %{_sourcedir}/libxmu-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.3.1-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.3.1-2
 - Split devel, doc, static payload into libxmu-devel, libxmu-doc, libxmu-static (size audit)
 

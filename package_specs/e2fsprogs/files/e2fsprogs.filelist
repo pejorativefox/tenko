@@ -1,4 +1,11 @@
 %dir /etc/cron.d
+%dir /usr/libexec/e2fsprogs
+%dir /usr/share/locale
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%dir /usr/share/man/man3
+%dir /usr/share/man/man5
+%dir /usr/share/man/man8
 /etc/cron.d/e2scrub_all
 /usr/bin/chattr
 /usr/bin/compile_et
@@ -6,6 +13,22 @@
 /usr/bin/mk_cmds
 /usr/etc/e2scrub.conf
 /usr/etc/mke2fs.conf
+/usr/include/com_err.h
+/usr/include/e2p/e2p.h
+/usr/include/et/com_err.h
+/usr/include/ext2fs/bitops.h
+/usr/include/ext2fs/ext2_err.h
+/usr/include/ext2fs/ext2_ext_attr.h
+/usr/include/ext2fs/ext2_fs.h
+/usr/include/ext2fs/ext2_io.h
+/usr/include/ext2fs/ext2_types.h
+/usr/include/ext2fs/ext2fs.h
+/usr/include/ext2fs/ext3_extents.h
+/usr/include/ext2fs/hashmap.h
+/usr/include/ext2fs/qcow2.h
+/usr/include/ext2fs/tdb.h
+/usr/include/ss/ss.h
+/usr/include/ss/ss_err.h
 /usr/lib/systemd/system/e2scrub@.service
 /usr/lib/systemd/system/e2scrub_all.service
 /usr/lib/systemd/system/e2scrub_all.timer
@@ -14,15 +37,22 @@
 /usr/lib/udev/rules.d/64-ext4.rules
 /usr/lib/udev/rules.d/96-e2scrub.rules
 /usr/lib64/e2initrd_helper
+/usr/lib64/libcom_err.so
 /usr/lib64/libcom_err.so.2
 /usr/lib64/libcom_err.so.2.1
+/usr/lib64/libe2p.so
 /usr/lib64/libe2p.so.2
 /usr/lib64/libe2p.so.2.3
+/usr/lib64/libext2fs.so
 /usr/lib64/libext2fs.so.2
 /usr/lib64/libext2fs.so.2.4
+/usr/lib64/libss.so
 /usr/lib64/libss.so.2
 /usr/lib64/libss.so.2.0
-%dir /usr/libexec/e2fsprogs
+/usr/lib64/pkgconfig/com_err.pc
+/usr/lib64/pkgconfig/e2p.pc
+/usr/lib64/pkgconfig/ext2fs.pc
+/usr/lib64/pkgconfig/ss.pc
 /usr/libexec/e2fsprogs/e2scrub_all_cron
 /usr/libexec/e2fsprogs/e2scrub_fail
 /usr/sbin/badblocks
@@ -53,22 +83,16 @@
 /usr/share/et/et_c.awk
 /usr/share/et/et_h.awk
 /usr/share/info/libext2fs.info.gz
-%dir /usr/share/locale
-%dir /usr/share/man
-%dir /usr/share/man/man1
 /usr/share/man/man1/chattr.1.gz
 /usr/share/man/man1/compile_et.1.gz
 /usr/share/man/man1/lsattr.1.gz
 /usr/share/man/man1/mk_cmds.1.gz
-%dir /usr/share/man/man3
 /usr/share/man/man3/com_err.3.gz
-%dir /usr/share/man/man5
 /usr/share/man/man5/e2fsck.conf.5.gz
 /usr/share/man/man5/ext2.5.gz
 /usr/share/man/man5/ext3.5.gz
 /usr/share/man/man5/ext4.5.gz
 /usr/share/man/man5/mke2fs.conf.5.gz
-%dir /usr/share/man/man8
 /usr/share/man/man8/badblocks.8.gz
 /usr/share/man/man8/debugfs.8.gz
 /usr/share/man/man8/dumpe2fs.8.gz

@@ -1,6 +1,6 @@
 Name:       nettle
 Version:    4.0
-Release:    2
+Release:    3
 Summary:    A low-level cryptographic library
 License:    GPL-2.0-or-later AND LGPL-3.0-or-later
 URL:        https://www.lysator.liu.se/~nisse/nettle/
@@ -18,13 +18,6 @@ Requires:   nettle = %{version}-%{release}
 
 %description doc
 Documentation for nettle.
-
-%package devel
-Summary:    nettle development files
-Requires:   nettle = %{version}-%{release}
-
-%description devel
-Development files for nettle.
 
 %prep
 %setup -q
@@ -45,10 +38,12 @@ install -m644 nettle.html nettle.pdf \
 
 %files -f %{_sourcedir}/nettle.filelist
 %files doc -f %{_sourcedir}/nettle-doc.filelist
-%files devel -f %{_sourcedir}/nettle-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.0-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.0-2
 - Split doc, devel payload into nettle-doc, nettle-devel (size audit)
 

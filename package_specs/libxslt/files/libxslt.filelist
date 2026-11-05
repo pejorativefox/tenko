@@ -1,7 +1,11 @@
+%dir /usr/include/libexslt
+%dir /usr/include/libxslt
 %dir /usr/lib/python3.15
 %dir /usr/lib/python3.15/site-packages
 %dir /usr/lib/python3.15/site-packages/__pycache__
 %dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/libxslt
+%dir /usr/lib64/pkgconfig
 %dir /usr/lib64/python3.15
 %dir /usr/lib64/python3.15/site-packages
 %dir /usr/share/doc
@@ -9,12 +13,43 @@
 %dir /usr/share/man
 /usr/bin/xslt-config
 /usr/bin/xsltproc
+/usr/include/libexslt/exslt.h
+/usr/include/libexslt/exsltconfig.h
+/usr/include/libexslt/exsltexports.h
+/usr/include/libxslt/attributes.h
+/usr/include/libxslt/documents.h
+/usr/include/libxslt/extensions.h
+/usr/include/libxslt/extra.h
+/usr/include/libxslt/functions.h
+/usr/include/libxslt/imports.h
+/usr/include/libxslt/keys.h
+/usr/include/libxslt/namespaces.h
+/usr/include/libxslt/numbersInternals.h
+/usr/include/libxslt/pattern.h
+/usr/include/libxslt/preproc.h
+/usr/include/libxslt/security.h
+/usr/include/libxslt/templates.h
+/usr/include/libxslt/transform.h
+/usr/include/libxslt/transformInternals.h
+/usr/include/libxslt/variables.h
+/usr/include/libxslt/xslt.h
+/usr/include/libxslt/xsltInternals.h
+/usr/include/libxslt/xsltconfig.h
+/usr/include/libxslt/xsltexports.h
+/usr/include/libxslt/xsltlocale.h
+/usr/include/libxslt/xsltutils.h
 /usr/lib/python3.15/site-packages/__pycache__/libxslt.cpython-315.opt-1.pyc
 /usr/lib/python3.15/site-packages/__pycache__/libxslt.cpython-315.pyc
 /usr/lib/python3.15/site-packages/libxslt.py
+/usr/lib64/cmake/libxslt/FindGcrypt.cmake
+/usr/lib64/cmake/libxslt/libxslt-config.cmake
+/usr/lib64/libexslt.so
 /usr/lib64/libexslt.so.0
 /usr/lib64/libexslt.so.0.8.25
+/usr/lib64/libxslt.so
 /usr/lib64/libxslt.so.1
 /usr/lib64/libxslt.so.1.1.45
+/usr/lib64/pkgconfig/libexslt.pc
+/usr/lib64/pkgconfig/libxslt.pc
 /usr/lib64/python3.15/site-packages/libxsltmod.so
 /usr/lib64/xsltConf.sh

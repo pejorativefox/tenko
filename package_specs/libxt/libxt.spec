@@ -1,6 +1,6 @@
 Name:       libxt
 Version:    1.3.1
-Release:    2
+Release:    3
 Summary:    X Toolkit Intrinsics library
 License:    GPL3
 Prefix:     /usr
@@ -10,13 +10,6 @@ BuildRequires: libsm
 
 %description
 X Toolkit Intrinsics library
-
-%package devel
-Summary:    libxt development files
-Requires:   libxt = %{version}-%{release}
-
-%description devel
-Development files for libxt.
 
 %package doc
 Summary:    libxt documentation
@@ -35,7 +28,6 @@ Static libraries for libxt.
 %prep
 %setup -q -n libXt-%{version}
 
-
 %build
 %configure --with-appdefaultdir=/etc/X11/app-defaults
 %make_build
@@ -46,12 +38,15 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxt.filelist
-%files devel -f %{_sourcedir}/libxt-devel.filelist
 %files doc -f %{_sourcedir}/libxt-doc.filelist
 %files static -f %{_sourcedir}/libxt-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.3.1-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.3.1-2
 - Split devel, doc, static payload into libxt-devel, libxt-doc, libxt-static (size audit)
 

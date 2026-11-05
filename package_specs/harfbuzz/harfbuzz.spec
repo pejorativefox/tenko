@@ -1,22 +1,14 @@
 Name:       harfbuzz
 Version:    15.0.0
-Release:    1
+Release:    2
 Summary:    Text shaping engine
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
+Provides: pkgconfig(harfbuzz)
 %description
 The HarfBuzz package contains an OpenType text shaping engine.
-
-%package devel
-Summary:    harfbuzz development files
-Requires:   %{name}-gir = %{version}-%{release}
-Requires:   harfbuzz = %{version}-%{release}
-Provides: pkgconfig(harfbuzz)
-
-%description devel
-Development files for harfbuzz.
 
 %prep
 %setup -q
@@ -27,6 +19,8 @@ pushd build
 meson setup ..              \
       --prefix=/usr         \
       --buildtype=release   \
+      -D cairo=disabled     \
+      -D icu=disabled       \
       -D graphite2=disabled \
       -D introspection=enabled
 ninja
@@ -39,7 +33,6 @@ DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-
 %package gir
 Summary:    GObject Introspection data for harfbuzz
 License:    GPL3
@@ -48,14 +41,20 @@ Requires:   %{name} = %{version}-%{release}
 %description gir
 GObject Introspection typelibs for harfbuzz, split out of the runtime
 package so a plain install does not carry the introspection data.
-The .gir XML needed for building stays in the -devel package.
+The .gir XML needed for building stays in the main package.
 
 %files -f %{_sourcedir}/harfbuzz.filelist
-%files devel -f %{_sourcedir}/harfbuzz-devel.filelist
 %files gir -f %{_sourcedir}/harfbuzz-gir.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 15.0.0-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+- Disable the Cairo and ICU sub-libraries explicitly.  The build image
+  ships their headers, while the image the published package was built
+  in did not, so autodetection would add harfbuzz-cairo/harfbuzz-icu.
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 15.0.0-1
 - Update to 15.0.0 (current LFS/BLFS r13.1 trunk version).
 

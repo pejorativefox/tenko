@@ -1,6 +1,6 @@
 Name:       libxcb
 Version:    1.17.0
-Release:    2
+Release:    3
 Summary:    X11 client library
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -8,13 +8,6 @@ Prefix:     /usr
 
 %description
 X11 client library
-
-%package devel
-Summary:    libxcb development files
-Requires:   libxcb = %{version}-%{release}
-
-%description devel
-Development files for libxcb.
 
 %package doc
 Summary:    libxcb documentation
@@ -43,12 +36,15 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxcb.filelist
-%files devel -f %{_sourcedir}/libxcb-devel.filelist
 %files doc -f %{_sourcedir}/libxcb-doc.filelist
 %files static -f %{_sourcedir}/libxcb-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.17.0-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.17.0-2
 - Split devel, doc, static payload into libxcb-devel, libxcb-doc, libxcb-static (size audit)
 

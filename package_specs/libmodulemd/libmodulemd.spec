@@ -1,6 +1,6 @@
 Name:       libmodulemd
 Version:    2.15.3
-Release:    5
+Release:    6
 Summary:    C library for manipulating module metadata files
 License:    MIT
 Prefix:     /usr
@@ -9,13 +9,6 @@ Source0:    %{name}-%{version}.tar.gz
 %description
 libmodulemd is a C library for manipulating the module metadata (modulemd)
 files used by dnf and libdnf.
-
-%package devel
-Summary:    Development files for libmodulemd
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-pkg-config files for libmodulemd, used to build software against it.
 
 %prep
 %setup -q -n %{name}-libmodulemd-%{version}
@@ -41,9 +34,12 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/libmodulemd.filelist
-%files devel -f %{_sourcedir}/libmodulemd-devel.filelist
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.15.3-6
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2.15.3-5
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

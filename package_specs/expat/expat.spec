@@ -1,6 +1,6 @@
 Name:       expat
 Version:    2.9.0
-Release:    1
+Release:    2
 Summary:    stream-oriented XML parser
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -8,13 +8,6 @@ Prefix:     /usr
 
 %description
 stream-oriented XML parser
-
-%package devel
-Summary:    expat development files
-Requires:   expat = %{version}-%{release}
-
-%description devel
-Development files for expat.
 
 %prep
 %setup -q
@@ -30,10 +23,12 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/expat.filelist
-%files devel -f %{_sourcedir}/expat-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.9.0-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2.9.0-1
 - Update to 2.9.0 (current LFS/BLFS r13.1 trunk version).
 

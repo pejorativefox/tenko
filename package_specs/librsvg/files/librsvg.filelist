@@ -1,10 +1,21 @@
+%dir /usr/include/librsvg-2.0
+%dir /usr/include/librsvg-2.0/librsvg
 %dir /usr/lib64/gdk-pixbuf-2.0
 %dir /usr/lib64/gdk-pixbuf-2.0/2.10.0
 %dir /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders
+%dir /usr/lib64/pkgconfig
 %dir /usr/share/gir-1.0
 %dir /usr/share/thumbnailers
 /usr/bin/rsvg-convert
+/usr/include/librsvg-2.0/librsvg/rsvg-cairo.h
+/usr/include/librsvg-2.0/librsvg/rsvg-features.h
+/usr/include/librsvg-2.0/librsvg/rsvg-pixbuf.h
+/usr/include/librsvg-2.0/librsvg/rsvg-version.h
+/usr/include/librsvg-2.0/librsvg/rsvg.h
 /usr/lib64/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader_svg.so
+/usr/lib64/librsvg-2.so
 /usr/lib64/librsvg-2.so.2
 /usr/lib64/librsvg-2.so.2.63.4
+/usr/lib64/pkgconfig/librsvg-2.0.pc
+/usr/share/gir-1.0/Rsvg-2.0.gir
 /usr/share/thumbnailers/librsvg.thumbnailer

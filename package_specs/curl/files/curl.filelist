@@ -1,11 +1,28 @@
 %dir /usr/bin
-/usr/bin/curl
-/usr/bin/curl-config
-/usr/bin/wcurl
 %dir /usr/include
+%dir /usr/include/curl
 %dir /usr/lib64
-/usr/lib64/libcurl.so.4
-/usr/lib64/libcurl.so.4.8.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/aclocal
 %dir /usr/share/man
+/usr/bin/curl
+/usr/bin/curl-config
+/usr/bin/wcurl
+/usr/include/curl/curl.h
+/usr/include/curl/curlver.h
+/usr/include/curl/easy.h
+/usr/include/curl/header.h
+/usr/include/curl/mprintf.h
+/usr/include/curl/multi.h
+/usr/include/curl/options.h
+/usr/include/curl/stdcheaders.h
+/usr/include/curl/system.h
+/usr/include/curl/typecheck-gcc.h
+/usr/include/curl/urlapi.h
+/usr/include/curl/websockets.h
+/usr/lib64/libcurl.so
+/usr/lib64/libcurl.so.4
+/usr/lib64/libcurl.so.4.8.0
+/usr/lib64/pkgconfig/libcurl.pc
+/usr/share/aclocal/libcurl.m4

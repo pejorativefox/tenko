@@ -1,6 +1,19 @@
 %dir /usr/include
+%dir /usr/include/gudev-1.0
+%dir /usr/include/gudev-1.0/gudev
 %dir /usr/lib64
-/usr/lib64/libgudev-1.0.so.0
-/usr/lib64/libgudev-1.0.so.0.3.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/gir-1.0
+/usr/include/gudev-1.0/gudev/gudev.h
+/usr/include/gudev-1.0/gudev/gudevclient.h
+/usr/include/gudev-1.0/gudev/gudevdevice.h
+/usr/include/gudev-1.0/gudev/gudevenumerator.h
+/usr/include/gudev-1.0/gudev/gudevenums.h
+/usr/include/gudev-1.0/gudev/gudevenumtypes.h
+/usr/include/gudev-1.0/gudev/gudevtypes.h
+/usr/lib64/libgudev-1.0.so
+/usr/lib64/libgudev-1.0.so.0
+/usr/lib64/libgudev-1.0.so.0.3.0
+/usr/lib64/pkgconfig/gudev-1.0.pc
+/usr/share/gir-1.0/GUdev-1.0.gir

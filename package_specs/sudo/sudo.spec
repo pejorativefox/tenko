@@ -1,6 +1,6 @@
 Name:       sudo
 Version:    1.9.17p2
-Release:    1
+Release:    2
 Summary:    Execute commands as another user
 License:    ISC
 URL:        https://www.sudo.ws/
@@ -9,8 +9,8 @@ Source1:    sudoers
 Source2:    sudo.pam
 Prefix:     /usr
 
-BuildRequires: linux-pam-devel
-BuildRequires: openssl-devel
+BuildRequires: linux-pam
+BuildRequires: openssl
 Requires:   linux-pam
 
 %description
@@ -18,13 +18,6 @@ Sudo (su "do") allows a system administrator to delegate authority to
 give certain users (or groups of users) the ability to run some (or all)
 commands as root or another user while logging the commands and their
 arguments.  This build uses Linux-PAM for authentication.
-
-%package devel
-Summary:    Sudo plugin development files
-Requires:   sudo = %{version}-%{release}
-
-%description devel
-The sudo plugin API header used to build I/O and audit plugins.
 
 %prep
 %setup -q
@@ -76,9 +69,12 @@ fi
 %config(noreplace) /etc/sudo.conf
 %config(noreplace) /etc/sudo_logsrvd.conf
 
-%files devel -f %{_sourcedir}/sudo-devel.filelist
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.9.17p2-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.9.17p2-1
 - Rewrite for BLFS r13.1 sudo 1.9.17p2 (was a stale 1.8.23 template)
 - Build with Linux-PAM; ship the BLFS /etc/pam.d/sudo stack and an

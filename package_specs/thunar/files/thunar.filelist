@@ -1,38 +1,22 @@
 %dir /etc/xdg
 %dir /etc/xdg/Thunar
-/etc/xdg/Thunar/uca.xml
 %dir /usr/bin
-/usr/bin/Thunar
-/usr/bin/thunar
-/usr/bin/thunar-settings
 %dir /usr/include
+%dir /usr/include/thunarx-3
+%dir /usr/include/thunarx-3/thunarx
 %dir /usr/lib64
 %dir /usr/lib64/Thunar
-/usr/lib64/Thunar/thunar-sendto-email
-/usr/lib64/libthunarx-3.so.0
-/usr/lib64/libthunarx-3.so.0.0.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/lib64/thunarx-3
-/usr/lib64/thunarx-3/thunar-apr.so
-/usr/lib64/thunarx-3/thunar-sbr.so
-/usr/lib64/thunarx-3/thunar-uca.so
-/usr/lib64/thunarx-3/thunar-wallpaper-plugin.so
 %dir /usr/lib64/xfce4
 %dir /usr/lib64/xfce4/panel
 %dir /usr/lib64/xfce4/panel/plugins
-/usr/lib64/xfce4/panel/plugins/libthunar-tpa.so
 %dir /usr/share
 %dir /usr/share/Thunar
 %dir /usr/share/Thunar/sendto
-/usr/share/Thunar/sendto/thunar-sendto-email.desktop
 %dir /usr/share/applications
-/usr/share/applications/thunar-bulk-rename.desktop
-/usr/share/applications/thunar-settings.desktop
-/usr/share/applications/thunar.desktop
 %dir /usr/share/dbus-1
 %dir /usr/share/dbus-1/services
-/usr/share/dbus-1/services/org.xfce.FileManager.service
-/usr/share/dbus-1/services/org.xfce.Thunar.FileManager1.service
-/usr/share/dbus-1/services/org.xfce.Thunar.service
 %dir /usr/share/doc
 %dir /usr/share/gir-1.0
 %dir /usr/share/gtk-doc
@@ -40,33 +24,69 @@
 %dir /usr/share/icons/hicolor
 %dir /usr/share/icons/hicolor/128x128
 %dir /usr/share/icons/hicolor/128x128/apps
-/usr/share/icons/hicolor/128x128/apps/org.xfce.thunar.png
 %dir /usr/share/icons/hicolor/16x16
 %dir /usr/share/icons/hicolor/16x16/apps
-/usr/share/icons/hicolor/16x16/apps/org.xfce.thunar.png
 %dir /usr/share/icons/hicolor/16x16/stock
 %dir /usr/share/icons/hicolor/16x16/stock/navigation
-/usr/share/icons/hicolor/16x16/stock/navigation/stock_folder-copy.png
-/usr/share/icons/hicolor/16x16/stock/navigation/stock_folder-move.png
 %dir /usr/share/icons/hicolor/24x24
 %dir /usr/share/icons/hicolor/24x24/stock
 %dir /usr/share/icons/hicolor/24x24/stock/navigation
-/usr/share/icons/hicolor/24x24/stock/navigation/stock_folder-copy.png
-/usr/share/icons/hicolor/24x24/stock/navigation/stock_folder-move.png
 %dir /usr/share/icons/hicolor/48x48
 %dir /usr/share/icons/hicolor/48x48/apps
-/usr/share/icons/hicolor/48x48/apps/org.xfce.thunar.png
 %dir /usr/share/icons/hicolor/scalable
 %dir /usr/share/icons/hicolor/scalable/apps
-/usr/share/icons/hicolor/scalable/apps/org.xfce.thunar.svg
 %dir /usr/share/locale
 %dir /usr/share/man
 %dir /usr/share/metainfo
-/usr/share/metainfo/org.xfce.thunar.appdata.xml
 %dir /usr/share/polkit-1
 %dir /usr/share/polkit-1/actions
-/usr/share/polkit-1/actions/org.xfce.thunar.policy
 %dir /usr/share/xfce4
 %dir /usr/share/xfce4/panel
 %dir /usr/share/xfce4/panel/plugins
+/etc/xdg/Thunar/uca.xml
+/usr/bin/Thunar
+/usr/bin/thunar
+/usr/bin/thunar-settings
+/usr/include/thunarx-3/thunarx/thunarx-config.h
+/usr/include/thunarx-3/thunarx/thunarx-file-info.h
+/usr/include/thunarx-3/thunarx/thunarx-menu-item.h
+/usr/include/thunarx-3/thunarx/thunarx-menu-provider.h
+/usr/include/thunarx-3/thunarx/thunarx-menu.h
+/usr/include/thunarx-3/thunarx/thunarx-preferences-provider.h
+/usr/include/thunarx-3/thunarx/thunarx-property-page-provider.h
+/usr/include/thunarx-3/thunarx/thunarx-property-page.h
+/usr/include/thunarx-3/thunarx/thunarx-provider-factory.h
+/usr/include/thunarx-3/thunarx/thunarx-provider-module.h
+/usr/include/thunarx-3/thunarx/thunarx-provider-plugin.h
+/usr/include/thunarx-3/thunarx/thunarx-renamer-provider.h
+/usr/include/thunarx-3/thunarx/thunarx-renamer.h
+/usr/include/thunarx-3/thunarx/thunarx.h
+/usr/lib64/Thunar/thunar-sendto-email
+/usr/lib64/libthunarx-3.so
+/usr/lib64/libthunarx-3.so.0
+/usr/lib64/libthunarx-3.so.0.0.0
+/usr/lib64/pkgconfig/thunarx-3.pc
+/usr/lib64/thunarx-3/thunar-apr.so
+/usr/lib64/thunarx-3/thunar-sbr.so
+/usr/lib64/thunarx-3/thunar-uca.so
+/usr/lib64/thunarx-3/thunar-wallpaper-plugin.so
+/usr/lib64/xfce4/panel/plugins/libthunar-tpa.so
+/usr/share/Thunar/sendto/thunar-sendto-email.desktop
+/usr/share/applications/thunar-bulk-rename.desktop
+/usr/share/applications/thunar-settings.desktop
+/usr/share/applications/thunar.desktop
+/usr/share/dbus-1/services/org.xfce.FileManager.service
+/usr/share/dbus-1/services/org.xfce.Thunar.FileManager1.service
+/usr/share/dbus-1/services/org.xfce.Thunar.service
+/usr/share/gir-1.0/Thunarx-3.0.gir
+/usr/share/icons/hicolor/128x128/apps/org.xfce.thunar.png
+/usr/share/icons/hicolor/16x16/apps/org.xfce.thunar.png
+/usr/share/icons/hicolor/16x16/stock/navigation/stock_folder-copy.png
+/usr/share/icons/hicolor/16x16/stock/navigation/stock_folder-move.png
+/usr/share/icons/hicolor/24x24/stock/navigation/stock_folder-copy.png
+/usr/share/icons/hicolor/24x24/stock/navigation/stock_folder-move.png
+/usr/share/icons/hicolor/48x48/apps/org.xfce.thunar.png
+/usr/share/icons/hicolor/scalable/apps/org.xfce.thunar.svg
+/usr/share/metainfo/org.xfce.thunar.appdata.xml
+/usr/share/polkit-1/actions/org.xfce.thunar.policy
 /usr/share/xfce4/panel/plugins/thunar-tpa.desktop

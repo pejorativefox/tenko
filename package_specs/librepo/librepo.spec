@@ -1,6 +1,6 @@
 Name:       librepo
 Version:    1.21.3
-Release:    5
+Release:    6
 Summary:    Library for downloading and reading RPM repository metadata
 License:    LGPL
 Prefix:     /usr
@@ -9,13 +9,6 @@ Source0:    %{name}-%{version}.tar.gz
 %description
 librepo is a library providing a C and Python API for downloading and
 reading RPM repository metadata.  It is a core dependency of libdnf.
-
-%package devel
-Summary:    Development files for librepo
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-pkg-config files for librepo, used to build software against it.
 
 %prep
 %setup -q
@@ -44,9 +37,12 @@ DESTDIR=%{buildroot} cmake --install .
 popd
 
 %files -f %{_sourcedir}/librepo.filelist
-%files devel -f %{_sourcedir}/librepo-devel.filelist
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.21.3-6
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.21.3-5
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

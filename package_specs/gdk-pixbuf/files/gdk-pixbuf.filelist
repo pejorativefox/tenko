@@ -1,12 +1,31 @@
 %dir /usr/bin
-/usr/bin/gdk-pixbuf-csource
-/usr/bin/gdk-pixbuf-pixdata
-/usr/bin/gdk-pixbuf-query-loaders
 %dir /usr/include
+%dir /usr/include/gdk-pixbuf-2.0
+%dir /usr/include/gdk-pixbuf-2.0/gdk-pixbuf
 %dir /usr/lib64
-/usr/lib64/libgdk_pixbuf-2.0.so.0
-/usr/lib64/libgdk_pixbuf-2.0.so.0.4400.8
+%dir /usr/lib64/pkgconfig
 %dir /usr/libexec
 %dir /usr/share
 %dir /usr/share/gir-1.0
 %dir /usr/share/locale
+/usr/bin/gdk-pixbuf-csource
+/usr/bin/gdk-pixbuf-pixdata
+/usr/bin/gdk-pixbuf-query-loaders
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-animation.h
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-core.h
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-enum-types.h
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-features.h
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-io.h
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-loader.h
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-macros.h
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-marshal.h
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-simple-anim.h
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-transform.h
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf.h
+/usr/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixdata.h
+/usr/lib64/libgdk_pixbuf-2.0.so
+/usr/lib64/libgdk_pixbuf-2.0.so.0
+/usr/lib64/libgdk_pixbuf-2.0.so.0.4400.8
+/usr/lib64/pkgconfig/gdk-pixbuf-2.0.pc
+/usr/share/gir-1.0/GdkPixbuf-2.0.gir
+/usr/share/gir-1.0/GdkPixdata-2.0.gir

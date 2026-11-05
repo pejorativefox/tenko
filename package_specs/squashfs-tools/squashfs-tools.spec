@@ -1,12 +1,12 @@
 Name:       squashfs-tools
 Version:    4.7.5
-Release:    1
+Release:    2
 Summary:    Tools to create and extract Squashfs filesystems
 License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
-BuildRequires: zlib, lz4, xz-devel, zstd, gcc, make
+BuildRequires: zlib, lz4, xz, zstd, gcc, make
 
 %description
 Squashfs-tools provides mksquashfs, unsquashfs, sqfscat and sqfstar for
@@ -45,6 +45,10 @@ popd
 %files -f %{_sourcedir}/squashfs-tools.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.7.5-2
+- Build against xz instead of xz-devel: the -devel subpackages were
+  removed and the headers/.pc files now ship in xz (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.7.5-1
 - Update to upstream 4.7.5 (approved exception; not in LFS/BLFS), replacing
   the 2019 4.4 template.  Enable gzip/lz4/xz/zstd, disable lzo/lzma because

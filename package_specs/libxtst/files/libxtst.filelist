@@ -1,14 +1,21 @@
 %dir /usr/include
+%dir /usr/include/X11
+%dir /usr/include/X11/extensions
 %dir /usr/lib64
-/usr/lib64/libXtst.so.6
-/usr/lib64/libXtst.so.6.1.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/doc
 %dir /usr/share/doc/libXtst
-/usr/share/doc/libXtst/recordlib.xml
-/usr/share/doc/libXtst/xtestlib.xml
 %dir /usr/share/man
 %dir /usr/share/man/man3
+/usr/include/X11/extensions/XTest.h
+/usr/include/X11/extensions/record.h
+/usr/lib64/libXtst.so
+/usr/lib64/libXtst.so.6
+/usr/lib64/libXtst.so.6.1.0
+/usr/lib64/pkgconfig/xtst.pc
+/usr/share/doc/libXtst/recordlib.xml
+/usr/share/doc/libXtst/xtestlib.xml
 /usr/share/man/man3/XTestCompareCurrentCursorWithWindow.3.gz
 /usr/share/man/man3/XTestCompareCursorWithWindow.3.gz
 /usr/share/man/man3/XTestDiscard.3.gz

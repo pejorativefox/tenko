@@ -1,9 +1,12 @@
 %config(noreplace) /etc/polkit-1/rules.d/40-adm.rules
 %dir /usr/include
+%dir /usr/include/accountsservice-1.0
+%dir /usr/include/accountsservice-1.0/act
 %dir /usr/lib
 %dir /usr/lib/systemd
 %dir /usr/lib/systemd/system
 %dir /usr/lib64
+%dir /usr/lib64/pkgconfig
 %dir /usr/libexec
 %dir /usr/share
 %dir /usr/share/accountsservice
@@ -13,14 +16,21 @@
 %dir /usr/share/dbus-1/interfaces
 %dir /usr/share/dbus-1/system-services
 %dir /usr/share/dbus-1/system.d
+%dir /usr/share/gir-1.0
 %dir /usr/share/polkit-1
 %dir /usr/share/polkit-1/actions
 %dir /var/lib/AccountsService
 %dir /var/lib/AccountsService/icons
 %dir /var/lib/AccountsService/users
+/usr/include/accountsservice-1.0/act/act-user-enum-types.h
+/usr/include/accountsservice-1.0/act/act-user-manager.h
+/usr/include/accountsservice-1.0/act/act-user.h
+/usr/include/accountsservice-1.0/act/act.h
 /usr/lib/systemd/system/accounts-daemon.service
+/usr/lib64/libaccountsservice.so
 /usr/lib64/libaccountsservice.so.1
 /usr/lib64/libaccountsservice.so.1.0.0
+/usr/lib64/pkgconfig/accountsservice.pc
 /usr/libexec/accounts-daemon
 /usr/share/accountsservice/user-templates/administrator
 /usr/share/accountsservice/user-templates/standard
@@ -28,4 +38,5 @@
 /usr/share/dbus-1/interfaces/org.freedesktop.Accounts.xml
 /usr/share/dbus-1/system-services/org.freedesktop.Accounts.service
 /usr/share/dbus-1/system.d/org.freedesktop.Accounts.conf
+/usr/share/gir-1.0/AccountsService-1.0.gir
 /usr/share/polkit-1/actions/org.freedesktop.accounts.policy

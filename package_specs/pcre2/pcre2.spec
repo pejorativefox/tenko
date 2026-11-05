@@ -1,11 +1,10 @@
 Name:       pcre2
 Version:    10.49
-Release:    1
+Release:    2
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
-
 
 %description
 TODO
@@ -16,13 +15,6 @@ Requires:   pcre2 = %{version}-%{release}
 
 %description doc
 Documentation for pcre2.
-
-%package devel
-Summary:    pcre2 development files
-Requires:   pcre2 = %{version}-%{release}
-
-%description devel
-Development files for pcre2.
 
 %prep
 %setup -a 0
@@ -47,10 +39,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/pcre2.filelist
 %files doc -f %{_sourcedir}/pcre2-doc.filelist
-%files devel -f %{_sourcedir}/pcre2-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 10.49-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 10.49-1
 - Update to 10.49 (current LFS/BLFS r13.1 trunk version).
 

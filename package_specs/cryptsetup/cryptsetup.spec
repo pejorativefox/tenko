@@ -1,6 +1,6 @@
 Name:       cryptsetup
 Version:    2.8.8
-Release:    1
+Release:    2
 Summary:    Userspace setup tool for transparent block device encryption
 License:    GPL-2.0-or-later
 URL:        https://gitlab.com/cryptsetup/cryptsetup
@@ -9,9 +9,9 @@ Prefix:     /usr
 
 BuildRequires: json-c
 BuildRequires: popt
-BuildRequires: openssl-devel
-BuildRequires: LVM2-devel
-BuildRequires: util-linux-devel
+BuildRequires: openssl
+BuildRequires: LVM2
+BuildRequires: util-linux
 
 %description
 cryptsetup is used to set up transparent encryption of block devices using
@@ -24,13 +24,6 @@ Requires:   %{name} = %{version}-%{release}
 
 %description lang
 Translations for cryptsetup.
-
-%package devel
-Summary:    Development files for libcryptsetup
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-Headers, pkg-config metadata and linker symlinks for libcryptsetup.
 
 %prep
 %setup -q
@@ -47,9 +40,12 @@ rm -rf %{buildroot}
 
 %files -f %{_sourcedir}/cryptsetup.filelist
 %files lang -f %{_sourcedir}/cryptsetup-lang.filelist
-%files devel -f %{_sourcedir}/cryptsetup-devel.filelist
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.8.8-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.8.8-1
 - New package at the BLFS r13.1 version (2.8.8).
 - Built with the book's configure options: --disable-ssh-token and

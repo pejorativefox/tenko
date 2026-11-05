@@ -1,6 +1,6 @@
 Name:       procps-ng
 Version:    4.0.7
-Release:    2
+Release:    3
 Summary:    Process monitoring utilities
 License:    GPL3
 Source0:    procps-ng-%{version}.tar.xz
@@ -23,13 +23,6 @@ Requires:   procps-ng = %{version}-%{release}
 %description doc
 Documentation for procps-ng.
 
-%package devel
-Summary:    procps-ng development files
-Requires:   procps-ng = %{version}-%{release}
-
-%description devel
-Development files for procps-ng.
-
 %prep
 %setup -q 
 
@@ -48,10 +41,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/procps-ng.filelist
 %files lang -f %{_sourcedir}/procps-ng-lang.filelist
 %files doc -f %{_sourcedir}/procps-ng-doc.filelist
-%files devel -f %{_sourcedir}/procps-ng-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.0.7-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.0.7-2
 - Split lang, doc, devel payload into procps-ng-lang, procps-ng-doc, procps-ng-devel (size audit)
 

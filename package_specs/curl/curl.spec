@@ -1,6 +1,6 @@
 Name:       curl
 Version:    8.23.0
-Release:    1
+Release:    2
 Summary:    TODO
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -16,13 +16,6 @@ Requires:   curl = %{version}-%{release}
 %description doc
 Documentation for curl.
 
-%package devel
-Summary:    curl development files
-Requires:   curl = %{version}-%{release}
-
-%description devel
-Development files for curl.
-
 %prep
 %setup -q -a0
 
@@ -37,10 +30,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/curl.filelist
 %files doc -f %{_sourcedir}/curl-doc.filelist
-%files devel -f %{_sourcedir}/curl-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 8.23.0-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 8.23.0-1
 - Update to 8.23.0 (BLFS r13.1 trunk).
 - Enable Public Suffix List support: libpsl 0.23.3 (with libidn2 2.3.8 and

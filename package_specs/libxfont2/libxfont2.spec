@@ -1,6 +1,6 @@
 Name:       libxfont2
 Version:    2.0.9
-Release:    2
+Release:    3
 Summary:    X font handling library for server & utilities.
 License:    GPL3
 Prefix:     /usr
@@ -10,13 +10,6 @@ BuildRequires: libfontenc
 
 %description
 X font handling library for server & utilities.
-
-%package devel
-Summary:    libxfont2 development files
-Requires:   libxfont2 = %{version}-%{release}
-
-%description devel
-Development files for libxfont2.
 
 %package static
 Summary:    libxfont2 static libraries
@@ -38,11 +31,14 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxfont2.filelist
-%files devel -f %{_sourcedir}/libxfont2-devel.filelist
 %files static -f %{_sourcedir}/libxfont2-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.9-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.0.9-2
 - Split devel, static payload into libxfont2-devel, libxfont2-static (size audit)
 

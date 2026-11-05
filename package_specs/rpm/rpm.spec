@@ -1,6 +1,6 @@
 Name:       rpm
 Version:    4.18.1
-Release:    6
+Release:    7
 Summary:    RPM package manager
 License:    GPL3
 Source0:    %{name}-%{version}.tar.bz2
@@ -17,13 +17,6 @@ Requires:   %{name} = %{version}-%{release}
 %description -n python3-rpm
 The rpm Python module allows Python programs (notably dnf) to query the
 RPM database and run transactions through librpm.
-
-%package devel
-Summary:    rpm development files
-Requires:   rpm = %{version}-%{release}
-
-%description devel
-Development files for rpm.
 
 %prep
 %setup -q
@@ -55,10 +48,12 @@ rmdir %{buildroot}/var 2>/dev/null || true
 # these paths or rpmbuild fails with "File listed twice".
 %files -f %{_sourcedir}/rpm.filelist
 %files -n python3-rpm -f %{_sourcedir}/rpm-python.filelist
-%files devel -f %{_sourcedir}/rpm-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.18.1-7
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.18.1-6
 - Backport upstream d018e756b72c ("Don't muck with per-process global
   sqlite configuration from the db backend"): drop the process-global

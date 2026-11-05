@@ -1,6 +1,6 @@
 Name:       e2fsprogs
 Version:    1.47.4
-Release:    2
+Release:    3
 Summary:    ext filesystem utilities
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
@@ -23,13 +23,6 @@ Requires:   e2fsprogs = %{version}-%{release}
 %description static
 Static libraries for e2fsprogs.
 
-%package devel
-Summary:    e2fsprogs development files
-Requires:   e2fsprogs = %{version}-%{release}
-
-%description devel
-Development files for e2fsprogs.
-
 %prep
 %setup -q
 
@@ -42,7 +35,8 @@ pushd build
              --disable-libblkid      \
              --disable-libuuid       \
              --disable-uuidd         \
-             --disable-fsck
+             --disable-fsck          \
+             --disable-fuse2fs
 %make_build
 popd
 
@@ -59,10 +53,15 @@ chmod +w %{buildroot}/usr/lib64/*.a
 %files -f %{_sourcedir}/e2fsprogs.filelist
 %files lang -f %{_sourcedir}/e2fsprogs-lang.filelist
 %files static -f %{_sourcedir}/e2fsprogs-static.filelist
-%files devel -f %{_sourcedir}/e2fsprogs-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.47.4-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+- Disable fuse2fs explicitly.  The build image ships fuse3 with its
+  headers, while the book's build chroot does not, so autodetection
+  would add /usr/bin/fuse2fs and its man page to the package.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.47.4-2
 - Split lang, static, devel payload into e2fsprogs-lang, e2fsprogs-static, e2fsprogs-devel (size audit)
 

@@ -1,23 +1,15 @@
 Name:       libepoxy
 Version:    1.5.10
-Release:    3
+Release:    4
 Summary:    OpenGL function management
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
-BuildRequires: mesa-devel
+BuildRequires: mesa
 
-
+Provides: pkgconfig(epoxy)
 %description
 libepoxy is a library for handling OpenGL function pointer management. 
-
-%package devel
-Summary:    libepoxy development files
-Requires:   libepoxy = %{version}-%{release}
-Provides: pkgconfig(epoxy)
-
-%description devel
-Development files for libepoxy.
 
 %prep
 %setup -q
@@ -37,10 +29,12 @@ popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libepoxy.filelist
-%files devel -f %{_sourcedir}/libepoxy-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5.10-4
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.5.10-3
 - Declare BuildRequires: mesa-devel.  libepoxy's meson needs the GL/EGL
   headers to enable its GLX/EGL entry points; without the declaration the

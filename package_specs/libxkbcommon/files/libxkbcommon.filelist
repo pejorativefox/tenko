@@ -1,15 +1,35 @@
 %dir /usr/bin
-/usr/bin/xkbcli
 %dir /usr/include
+%dir /usr/include/xkbcommon
 %dir /usr/lib64
-/usr/lib64/libxkbcommon-x11.so.0
-/usr/lib64/libxkbcommon-x11.so.0.13.2
-/usr/lib64/libxkbcommon.so.0
-/usr/lib64/libxkbcommon.so.0.13.2
-/usr/lib64/libxkbregistry.so.0
-/usr/lib64/libxkbregistry.so.0.13.2
+%dir /usr/lib64/pkgconfig
 %dir /usr/libexec
 %dir /usr/libexec/xkbcommon
+%dir /usr/share
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/bin/xkbcli
+/usr/include/xkbcommon/xkbcommon-compat.h
+/usr/include/xkbcommon/xkbcommon-compose.h
+/usr/include/xkbcommon/xkbcommon-keysyms.h
+/usr/include/xkbcommon/xkbcommon-names.h
+/usr/include/xkbcommon/xkbcommon-x11.h
+/usr/include/xkbcommon/xkbcommon.h
+/usr/include/xkbcommon/xkbregistry.h
+/usr/lib64/libxkbcommon-x11.so
+/usr/lib64/libxkbcommon-x11.so.0
+/usr/lib64/libxkbcommon-x11.so.0.13.2
+/usr/lib64/libxkbcommon.so
+/usr/lib64/libxkbcommon.so.0
+/usr/lib64/libxkbcommon.so.0.13.2
+/usr/lib64/libxkbregistry.so
+/usr/lib64/libxkbregistry.so.0
+/usr/lib64/libxkbregistry.so.0.13.2
+/usr/lib64/pkgconfig/xkbcommon-x11.pc
+/usr/lib64/pkgconfig/xkbcommon.pc
+/usr/lib64/pkgconfig/xkbregistry.pc
 /usr/libexec/xkbcommon/xkbcli-compile-compose
 /usr/libexec/xkbcommon/xkbcli-compile-keymap
 /usr/libexec/xkbcommon/xkbcli-dump-keymap
@@ -20,12 +40,7 @@
 /usr/libexec/xkbcommon/xkbcli-interactive-evdev
 /usr/libexec/xkbcommon/xkbcli-interactive-x11
 /usr/libexec/xkbcommon/xkbcli-list
-%dir /usr/share
-%dir /usr/share/bash-completion
-%dir /usr/share/bash-completion/completions
 /usr/share/bash-completion/completions/xkbcli
-%dir /usr/share/man
-%dir /usr/share/man/man1
 /usr/share/man/man1/xkbcli-compile-compose.1.gz
 /usr/share/man/man1/xkbcli-compile-keymap.1.gz
 /usr/share/man/man1/xkbcli-dump-keymap-x11.1.gz

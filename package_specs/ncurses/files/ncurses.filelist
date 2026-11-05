@@ -1,4 +1,54 @@
 %dir /usr/bin
+%dir /usr/include
+%dir /usr/lib
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/tabset
+%dir /usr/share/terminfo
+%dir /usr/share/terminfo/1
+%dir /usr/share/terminfo/2
+%dir /usr/share/terminfo/3
+%dir /usr/share/terminfo/4
+%dir /usr/share/terminfo/5
+%dir /usr/share/terminfo/6
+%dir /usr/share/terminfo/7
+%dir /usr/share/terminfo/8
+%dir /usr/share/terminfo/9
+%dir /usr/share/terminfo/A
+%dir /usr/share/terminfo/E
+%dir /usr/share/terminfo/L
+%dir /usr/share/terminfo/M
+%dir /usr/share/terminfo/N
+%dir /usr/share/terminfo/P
+%dir /usr/share/terminfo/Q
+%dir /usr/share/terminfo/X
+%dir /usr/share/terminfo/a
+%dir /usr/share/terminfo/b
+%dir /usr/share/terminfo/c
+%dir /usr/share/terminfo/d
+%dir /usr/share/terminfo/e
+%dir /usr/share/terminfo/f
+%dir /usr/share/terminfo/g
+%dir /usr/share/terminfo/h
+%dir /usr/share/terminfo/i
+%dir /usr/share/terminfo/j
+%dir /usr/share/terminfo/k
+%dir /usr/share/terminfo/l
+%dir /usr/share/terminfo/m
+%dir /usr/share/terminfo/n
+%dir /usr/share/terminfo/o
+%dir /usr/share/terminfo/p
+%dir /usr/share/terminfo/q
+%dir /usr/share/terminfo/r
+%dir /usr/share/terminfo/s
+%dir /usr/share/terminfo/t
+%dir /usr/share/terminfo/u
+%dir /usr/share/terminfo/v
+%dir /usr/share/terminfo/w
+%dir /usr/share/terminfo/x
+%dir /usr/share/terminfo/z
 /usr/bin/captoinfo
 /usr/bin/clear
 /usr/bin/infocmp
@@ -10,90 +60,107 @@
 /usr/bin/toe
 /usr/bin/tput
 /usr/bin/tset
-%dir /usr/include
-%dir /usr/lib
+/usr/include/curses.h
+/usr/include/cursesapp.h
+/usr/include/cursesf.h
+/usr/include/cursesm.h
+/usr/include/cursesp.h
+/usr/include/cursesw.h
+/usr/include/cursslk.h
+/usr/include/eti.h
+/usr/include/etip.h
+/usr/include/form.h
+/usr/include/menu.h
+/usr/include/ncurses.h
+/usr/include/ncurses_dll.h
+/usr/include/panel.h
+/usr/include/term.h
+/usr/include/term_entry.h
+/usr/include/termcap.h
+/usr/include/unctrl.h
 /usr/lib/terminfo
-%dir /usr/lib64
+/usr/lib64/libcurses.so
+/usr/lib64/libform.so
 /usr/lib64/libform.so.6
+/usr/lib64/libformw.so
 /usr/lib64/libformw.so.6
 /usr/lib64/libformw.so.6.6
+/usr/lib64/libmenu.so
 /usr/lib64/libmenu.so.6
+/usr/lib64/libmenuw.so
 /usr/lib64/libmenuw.so.6
 /usr/lib64/libmenuw.so.6.6
+/usr/lib64/libncurses++w.so
 /usr/lib64/libncurses++w.so.6
 /usr/lib64/libncurses++w.so.6.6
+/usr/lib64/libncurses.so
 /usr/lib64/libncurses.so.6
+/usr/lib64/libncursesw.so
 /usr/lib64/libncursesw.so.6
 /usr/lib64/libncursesw.so.6.6
+/usr/lib64/libpanel.so
 /usr/lib64/libpanel.so.6
+/usr/lib64/libpanelw.so
 /usr/lib64/libpanelw.so.6
 /usr/lib64/libpanelw.so.6.6
+/usr/lib64/libtinfo.so
 /usr/lib64/libtinfo.so.6
-%dir /usr/share
-%dir /usr/share/man
-%dir /usr/share/tabset
+/usr/lib64/pkgconfig/form.pc
+/usr/lib64/pkgconfig/formw.pc
+/usr/lib64/pkgconfig/menu.pc
+/usr/lib64/pkgconfig/menuw.pc
+/usr/lib64/pkgconfig/ncurses++w.pc
+/usr/lib64/pkgconfig/ncurses.pc
+/usr/lib64/pkgconfig/ncursesw.pc
+/usr/lib64/pkgconfig/panel.pc
+/usr/lib64/pkgconfig/panelw.pc
+/usr/lib64/pkgconfig/tinfo.pc
 /usr/share/tabset/std
 /usr/share/tabset/stdcrt
 /usr/share/tabset/vt100
 /usr/share/tabset/vt300
-%dir /usr/share/terminfo
-%dir /usr/share/terminfo/1
 /usr/share/terminfo/1/1178
 /usr/share/terminfo/1/1730-lm
-%dir /usr/share/terminfo/2
 /usr/share/terminfo/2/2621
 /usr/share/terminfo/2/2621-wl
 /usr/share/terminfo/2/2621A
 /usr/share/terminfo/2/2621a
-%dir /usr/share/terminfo/3
 /usr/share/terminfo/3/386at
 /usr/share/terminfo/3/3b1
-%dir /usr/share/terminfo/4
 /usr/share/terminfo/4/4025ex
 /usr/share/terminfo/4/4027ex
 /usr/share/terminfo/4/4410-w
-%dir /usr/share/terminfo/5
 /usr/share/terminfo/5/5051
 /usr/share/terminfo/5/5410-w
 /usr/share/terminfo/5/5620
 /usr/share/terminfo/5/5630-24
 /usr/share/terminfo/5/5630DMD-24
-%dir /usr/share/terminfo/6
 /usr/share/terminfo/6/6053
 /usr/share/terminfo/6/6053-dg
 /usr/share/terminfo/6/605x
 /usr/share/terminfo/6/605x-dg
 /usr/share/terminfo/6/630-lm
 /usr/share/terminfo/6/630MTG-24
-%dir /usr/share/terminfo/7
 /usr/share/terminfo/7/730MTG-24
 /usr/share/terminfo/7/730MTG-41
 /usr/share/terminfo/7/730MTG-41r
 /usr/share/terminfo/7/730MTGr
 /usr/share/terminfo/7/730MTGr-24
-%dir /usr/share/terminfo/8
 /usr/share/terminfo/8/8510
-%dir /usr/share/terminfo/9
 /usr/share/terminfo/9/955-hb
 /usr/share/terminfo/9/955-w
 /usr/share/terminfo/9/9term
-%dir /usr/share/terminfo/A
 /usr/share/terminfo/A/Apple_Terminal
-%dir /usr/share/terminfo/E
 /usr/share/terminfo/E/Eterm
 /usr/share/terminfo/E/Eterm-256color
 /usr/share/terminfo/E/Eterm-88color
 /usr/share/terminfo/E/Eterm-color
-%dir /usr/share/terminfo/L
 /usr/share/terminfo/L/LFT-PC850
-%dir /usr/share/terminfo/M
 /usr/share/terminfo/M/MtxOrb
 /usr/share/terminfo/M/MtxOrb162
 /usr/share/terminfo/M/MtxOrb204
-%dir /usr/share/terminfo/N
 /usr/share/terminfo/N/NCR260VT300WPP
 /usr/share/terminfo/N/NCRVT100WPP
-%dir /usr/share/terminfo/P
 /usr/share/terminfo/P/P12
 /usr/share/terminfo/P/P12-M
 /usr/share/terminfo/P/P12-M-W
@@ -111,17 +178,14 @@
 /usr/share/terminfo/P/P9-8
 /usr/share/terminfo/P/P9-8-W
 /usr/share/terminfo/P/P9-W
-%dir /usr/share/terminfo/Q
 /usr/share/terminfo/Q/Q306-8-pc
 /usr/share/terminfo/Q/Q310-vip-H
 /usr/share/terminfo/Q/Q310-vip-H-am
 /usr/share/terminfo/Q/Q310-vip-Hw
 /usr/share/terminfo/Q/Q310-vip-w
 /usr/share/terminfo/Q/Q310-vip-w-am
-%dir /usr/share/terminfo/X
 /usr/share/terminfo/X/X-hpterm
 /usr/share/terminfo/X/X-hpterm-color2
-%dir /usr/share/terminfo/a
 /usr/share/terminfo/a/a210
 /usr/share/terminfo/a/a80
 /usr/share/terminfo/a/a980
@@ -457,7 +521,6 @@
 /usr/share/terminfo/a/avt-w-s
 /usr/share/terminfo/a/aws
 /usr/share/terminfo/a/awsc
-%dir /usr/share/terminfo/b
 /usr/share/terminfo/b/b-128
 /usr/share/terminfo/b/bantam
 /usr/share/terminfo/b/basic4
@@ -509,7 +572,6 @@
 /usr/share/terminfo/b/bsdos-ppc
 /usr/share/terminfo/b/bsdos-sparc
 /usr/share/terminfo/b/bterm
-%dir /usr/share/terminfo/c
 /usr/share/terminfo/c/c100
 /usr/share/terminfo/c/c100-1p
 /usr/share/terminfo/c/c100-4p
@@ -638,7 +700,6 @@
 /usr/share/terminfo/c/cygwin
 /usr/share/terminfo/c/cygwinB19
 /usr/share/terminfo/c/cygwinDBG
-%dir /usr/share/terminfo/d
 /usr/share/terminfo/d/d132
 /usr/share/terminfo/d/d2
 /usr/share/terminfo/d/d2-dg
@@ -933,7 +994,6 @@
 /usr/share/terminfo/d/dw4
 /usr/share/terminfo/d/dwk
 /usr/share/terminfo/d/dwk-vt
-%dir /usr/share/terminfo/e
 /usr/share/terminfo/e/ecma+color
 /usr/share/terminfo/e/ecma+index
 /usr/share/terminfo/e/ecma+italics
@@ -968,7 +1028,6 @@
 /usr/share/terminfo/e/excel64-rv
 /usr/share/terminfo/e/excel64-w
 /usr/share/terminfo/e/exec80
-%dir /usr/share/terminfo/f
 /usr/share/terminfo/f/f100
 /usr/share/terminfo/f/f100-rv
 /usr/share/terminfo/f/f110
@@ -998,7 +1057,6 @@
 /usr/share/terminfo/f/freedom100
 /usr/share/terminfo/f/freedom110
 /usr/share/terminfo/f/freedom200
-%dir /usr/share/terminfo/g
 /usr/share/terminfo/g/gator
 /usr/share/terminfo/g/gator-52
 /usr/share/terminfo/g/gator-52t
@@ -1052,7 +1110,6 @@
 /usr/share/terminfo/g/guru-nctxt
 /usr/share/terminfo/g/guru-rv
 /usr/share/terminfo/g/guru-s
-%dir /usr/share/terminfo/h
 /usr/share/terminfo/h/h-100
 /usr/share/terminfo/h/h-100bw
 /usr/share/terminfo/h/h100
@@ -1200,7 +1257,6 @@
 /usr/share/terminfo/h/hz1552
 /usr/share/terminfo/h/hz1552-rv
 /usr/share/terminfo/h/hz2000
-%dir /usr/share/terminfo/i
 /usr/share/terminfo/i/i100
 /usr/share/terminfo/i/i3101
 /usr/share/terminfo/i/i3164
@@ -1288,12 +1344,10 @@
 /usr/share/terminfo/i/iterm
 /usr/share/terminfo/i/iterm2
 /usr/share/terminfo/i/iterm2-direct
-%dir /usr/share/terminfo/j
 /usr/share/terminfo/j/jaixterm
 /usr/share/terminfo/j/jaixterm-m
 /usr/share/terminfo/j/jerq
 /usr/share/terminfo/j/jfbterm
-%dir /usr/share/terminfo/k
 /usr/share/terminfo/k/k45
 /usr/share/terminfo/k/kaypro
 /usr/share/terminfo/k/kaypro2
@@ -1333,7 +1387,6 @@
 /usr/share/terminfo/k/kterm-color
 /usr/share/terminfo/k/ktm
 /usr/share/terminfo/k/kvt
-%dir /usr/share/terminfo/l
 /usr/share/terminfo/l/la120
 /usr/share/terminfo/l/layer
 /usr/share/terminfo/l/lft
@@ -1370,7 +1423,6 @@
 /usr/share/terminfo/l/lpr
 /usr/share/terminfo/l/luna
 /usr/share/terminfo/l/luna68k
-%dir /usr/share/terminfo/m
 /usr/share/terminfo/m/m2-nam
 /usr/share/terminfo/m/mac
 /usr/share/terminfo/m/mac-w
@@ -1473,7 +1525,6 @@
 /usr/share/terminfo/m/mterm
 /usr/share/terminfo/m/mterm-ansi
 /usr/share/terminfo/m/mvterm
-%dir /usr/share/terminfo/n
 /usr/share/terminfo/n/n7900
 /usr/share/terminfo/n/nansi.sys
 /usr/share/terminfo/n/nansi.sysk
@@ -1673,7 +1724,6 @@
 /usr/share/terminfo/n/nwp518-a
 /usr/share/terminfo/n/nwp518-o
 /usr/share/terminfo/n/nxterm
-%dir /usr/share/terminfo/o
 /usr/share/terminfo/o/o31
 /usr/share/terminfo/o/o4112-nd
 /usr/share/terminfo/o/o85h
@@ -1722,7 +1772,6 @@
 /usr/share/terminfo/o/otek4114
 /usr/share/terminfo/o/otek4115
 /usr/share/terminfo/o/owl
-%dir /usr/share/terminfo/p
 /usr/share/terminfo/p/p12
 /usr/share/terminfo/p/p12-m
 /usr/share/terminfo/p/p12-m-w
@@ -1871,7 +1920,6 @@
 /usr/share/terminfo/p/putty-sco
 /usr/share/terminfo/p/putty-screen
 /usr/share/terminfo/p/putty-vt100
-%dir /usr/share/terminfo/q
 /usr/share/terminfo/q/qansi
 /usr/share/terminfo/q/qansi-g
 /usr/share/terminfo/q/qansi-m
@@ -1913,7 +1961,6 @@
 /usr/share/terminfo/q/qvt203-25-w
 /usr/share/terminfo/q/qvt203-w
 /usr/share/terminfo/q/qvt203-w-am
-%dir /usr/share/terminfo/r
 /usr/share/terminfo/r/rbcomm
 /usr/share/terminfo/r/rbcomm-nam
 /usr/share/terminfo/r/rbcomm-w
@@ -1947,7 +1994,6 @@
 /usr/share/terminfo/r/rxvt-cygwin
 /usr/share/terminfo/r/rxvt-cygwin-native
 /usr/share/terminfo/r/rxvt-xpm
-%dir /usr/share/terminfo/s
 /usr/share/terminfo/s/s4
 /usr/share/terminfo/s/sb1
 /usr/share/terminfo/s/sb2
@@ -2082,7 +2128,6 @@
 /usr/share/terminfo/s/synertek
 /usr/share/terminfo/s/synertek380
 /usr/share/terminfo/s/system1
-%dir /usr/share/terminfo/t
 /usr/share/terminfo/t/t10
 /usr/share/terminfo/t/t1061
 /usr/share/terminfo/t/t1061f
@@ -2352,7 +2397,6 @@
 /usr/share/terminfo/t/tws2102-sna
 /usr/share/terminfo/t/tws2103
 /usr/share/terminfo/t/tws2103-sna
-%dir /usr/share/terminfo/u
 /usr/share/terminfo/u/ultima2
 /usr/share/terminfo/u/ultimaII
 /usr/share/terminfo/u/uniterm
@@ -2361,7 +2405,6 @@
 /usr/share/terminfo/u/unknown
 /usr/share/terminfo/u/uts30
 /usr/share/terminfo/u/uwin
-%dir /usr/share/terminfo/v
 /usr/share/terminfo/v/v200-nam
 /usr/share/terminfo/v/v320n
 /usr/share/terminfo/v/v3220
@@ -2528,7 +2571,6 @@
 /usr/share/terminfo/v/vtnt
 /usr/share/terminfo/v/vv100
 /usr/share/terminfo/v/vwmterm
-%dir /usr/share/terminfo/w
 /usr/share/terminfo/w/wezterm
 /usr/share/terminfo/w/winconsole
 /usr/share/terminfo/w/wren
@@ -2770,7 +2812,6 @@
 /usr/share/terminfo/w/wyse99gt-vb
 /usr/share/terminfo/w/wyse99gt-w
 /usr/share/terminfo/w/wyse99gt-wvb
-%dir /usr/share/terminfo/x
 /usr/share/terminfo/x/x10term
 /usr/share/terminfo/x/x10term+sl
 /usr/share/terminfo/x/x1700
@@ -2945,7 +2986,6 @@
 /usr/share/terminfo/x/xterms
 /usr/share/terminfo/x/xterms-sun
 /usr/share/terminfo/x/xwsh
-%dir /usr/share/terminfo/z
 /usr/share/terminfo/z/z-100
 /usr/share/terminfo/z/z-100bw
 /usr/share/terminfo/z/z100

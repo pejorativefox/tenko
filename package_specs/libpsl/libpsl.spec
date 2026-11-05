@@ -1,6 +1,6 @@
 Name:       libpsl
 Version:    0.23.3
-Release:    4
+Release:    5
 Summary:    Public Suffix List library
 License:    MIT
 Prefix:     /usr
@@ -10,13 +10,6 @@ Source0:    %{name}-%{version}.tar.gz
 libpsl provides access to the Public Suffix List (a set of domain names
 beyond the standard suffixes such as .com).  curl uses it to enforce
 cookie and HSTS scoping correctly.
-
-%package devel
-Summary:    Development files for libpsl
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-pkg-config files for libpsl, used to build software against it.
 
 %prep
 %setup -q
@@ -35,10 +28,12 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/libpsl.filelist
-%files devel -f %{_sourcedir}/libpsl-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.23.3-5
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.23.3-4
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

@@ -1,13 +1,24 @@
+%dir /usr/lib64/pkgconfig
 %dir /usr/share/doc
 %dir /usr/share/man
 /usr/bin/pcre2-config
 /usr/bin/pcre2grep
 /usr/bin/pcre2test
+/usr/include/pcre2.h
+/usr/include/pcre2posix.h
+/usr/lib64/libpcre2-16.so
 /usr/lib64/libpcre2-16.so.0
 /usr/lib64/libpcre2-16.so.0.16.1
+/usr/lib64/libpcre2-32.so
 /usr/lib64/libpcre2-32.so.0
 /usr/lib64/libpcre2-32.so.0.16.1
+/usr/lib64/libpcre2-8.so
 /usr/lib64/libpcre2-8.so.0
 /usr/lib64/libpcre2-8.so.0.16.1
+/usr/lib64/libpcre2-posix.so
 /usr/lib64/libpcre2-posix.so.3
 /usr/lib64/libpcre2-posix.so.3.0.9
+/usr/lib64/pkgconfig/libpcre2-16.pc
+/usr/lib64/pkgconfig/libpcre2-32.pc
+/usr/lib64/pkgconfig/libpcre2-8.pc
+/usr/lib64/pkgconfig/libpcre2-posix.pc

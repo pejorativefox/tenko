@@ -1,4 +1,15 @@
 %dir /usr/include
+%dir /usr/include/X11
+%dir /usr/include/X11/extensions
 %dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+/usr/include/X11/extensions/XKBbells.h
+/usr/include/X11/extensions/XKBconfig.h
+/usr/include/X11/extensions/XKBfile.h
+/usr/include/X11/extensions/XKBrules.h
+/usr/include/X11/extensions/XKM.h
+/usr/include/X11/extensions/XKMformat.h
+/usr/lib64/libxkbfile.so
 /usr/lib64/libxkbfile.so.1
 /usr/lib64/libxkbfile.so.1.0.2
+/usr/lib64/pkgconfig/xkbfile.pc

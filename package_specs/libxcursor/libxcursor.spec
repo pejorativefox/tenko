@@ -1,6 +1,6 @@
 Name:       libxcursor
 Version:    1.2.3
-Release:    2
+Release:    3
 Summary:    Xlib-based Cursor management library
 License:    GPL3
 Prefix:     /usr
@@ -9,13 +9,6 @@ BuildRequires: libxrender
 
 %description
 Xlib-based Cursor management library
-
-%package devel
-Summary:    libxcursor development files
-Requires:   libxcursor = %{version}-%{release}
-
-%description devel
-Development files for libxcursor.
 
 %package static
 Summary:    libxcursor static libraries
@@ -37,11 +30,14 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxcursor.filelist
-%files devel -f %{_sourcedir}/libxcursor-devel.filelist
 %files static -f %{_sourcedir}/libxcursor-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.3-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.3-2
 - Split devel, static payload into libxcursor-devel, libxcursor-static (size audit)
 

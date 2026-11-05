@@ -1,5 +1,0 @@
-%dir /usr/include
-%dir /usr/lib64/pkgconfig
-/usr/include/libcryptsetup.h
-/usr/lib64/libcryptsetup.so
-/usr/lib64/pkgconfig/libcryptsetup.pc

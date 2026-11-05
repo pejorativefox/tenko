@@ -1,6 +1,6 @@
 Name:       libarchive
 Version:    3.8.11
-Release:    4
+Release:    5
 Summary:    Library for various archive formats
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -16,13 +16,6 @@ Requires:   libarchive = %{version}-%{release}
 %description static
 Static libraries for libarchive.
 
-%package devel
-Summary:    Development files for libarchive
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-pkg-config files for libarchive, used to build software against it.
-
 %prep
 %setup -q
 
@@ -36,11 +29,14 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libarchive.filelist
-%files devel -f %{_sourcedir}/libarchive-devel.filelist
 %files static -f %{_sourcedir}/libarchive-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.8.11-5
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 3.8.11-4
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

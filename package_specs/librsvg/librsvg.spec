@@ -1,33 +1,25 @@
 Name:       librsvg
 Version:    2.63.4
-Release:    2
+Release:    3
 Summary:    SVG rendering library
 License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 Source1:    %{name}-%{version}-vendor.tar.xz
-BuildRequires: cairo-devel
-BuildRequires: pango-devel
-BuildRequires: gdk-pixbuf-devel
+BuildRequires: cairo
+BuildRequires: pango
+BuildRequires: gdk-pixbuf
 BuildRequires: gobject-introspection
-BuildRequires: libxml2-devel
-BuildRequires: freetype-devel
-BuildRequires: harfbuzz-devel
+BuildRequires: libxml2
+BuildRequires: freetype
+BuildRequires: harfbuzz
 BuildRequires: rust
 BuildRequires: cargo-c
 
+Provides:   pkgconfig(librsvg-2.0)
 %description
 librsvg is a library and tools used to manipulate, convert and view
 Scalable Vector Graphic (SVG) images.
-
-%package devel
-Summary:    librsvg development files
-Requires:   %{name}-gir = %{version}-%{release}
-Requires:   librsvg = %{version}-%{release}
-Provides:   pkgconfig(librsvg-2.0)
-
-%description devel
-Development files for librsvg.
 
 %package gir
 Summary:    GObject Introspection data for librsvg
@@ -37,7 +29,7 @@ Requires:   %{name} = %{version}-%{release}
 %description gir
 GObject Introspection typelibs for librsvg, split out of the runtime
 package so a plain install does not carry the introspection data.
-The .gir XML needed for building stays in the -devel package.
+The .gir XML needed for building stays in the main package.
 
 %prep
 %setup -q
@@ -98,11 +90,14 @@ if [ -x /usr/bin/gdk-pixbuf-query-loaders ]; then
 fi
 
 %files -f %{_sourcedir}/librsvg.filelist
-%files devel -f %{_sourcedir}/librsvg-devel.filelist
 %files gir -f %{_sourcedir}/librsvg-gir.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.63.4-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.63.4-2
 - Split the GObject Introspection typelib into %{name}-gir; the -devel
   package now requires it (last typelib still in a runtime package)

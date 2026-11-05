@@ -1,10 +1,16 @@
 %dir /usr/include
+%dir /usr/include/X11
+%dir /usr/include/X11/extensions
 %dir /usr/lib64
-/usr/lib64/libXxf86vm.so.1
-/usr/lib64/libXxf86vm.so.1.0.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/man
 %dir /usr/share/man/man3
+/usr/include/X11/extensions/xf86vmode.h
+/usr/lib64/libXxf86vm.so
+/usr/lib64/libXxf86vm.so.1
+/usr/lib64/libXxf86vm.so.1.0.0
+/usr/lib64/pkgconfig/xxf86vm.pc
 /usr/share/man/man3/XF86VM.3.gz
 /usr/share/man/man3/XF86VidModeAddModeLine.3.gz
 /usr/share/man/man3/XF86VidModeDeleteModeLine.3.gz

@@ -1,6 +1,6 @@
 Name:       p11-kit
 Version:    0.26.5
-Release:    2
+Release:    3
 Summary:    Load and enumerate PKCS#11 modules
 License:    BSD-3-Clause
 URL:        https://p11-glue.github.io/p11-glue/p11-kit.html
@@ -24,13 +24,6 @@ Requires:   p11-kit = %{version}-%{release}
 
 %description lang
 Translations for p11-kit.
-
-%package devel
-Summary:    p11-kit development files
-Requires:   p11-kit = %{version}-%{release}
-
-%description devel
-Development files for p11-kit.
 
 %prep
 %setup -q
@@ -62,10 +55,12 @@ ln -sf /usr/libexec/p11-kit/trust-extract-compat \
 
 %files -f %{_sourcedir}/p11-kit.filelist
 %files lang -f %{_sourcedir}/p11-kit-lang.filelist
-%files devel -f %{_sourcedir}/p11-kit-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.26.5-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.26.5-2
 - Split lang, devel payload into p11-kit-lang, p11-kit-devel (size audit)
 

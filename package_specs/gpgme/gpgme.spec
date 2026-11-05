@@ -1,6 +1,6 @@
 Name:       gpgme
 Version:    2.2.0
-Release:    6
+Release:    7
 Summary:    High-level crypto API for GnuPG
 License:    LGPL
 Prefix:     /usr
@@ -10,13 +10,6 @@ Source0:    %{name}-%{version}.tar.bz2
 %description
 GPGME is a library that allows applications to access GnuPG functionality
 without requiring knowledge of the GnuPG internals.
-
-%package devel
-Summary:    Development files for gpgme
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-pkg-config files for gpgme, used to build software against it.
 
 %prep
 %setup -q
@@ -31,9 +24,12 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/gpgme.filelist
-%files devel -f %{_sourcedir}/gpgme-devel.filelist
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.2.0-7
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2.2.0-6
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

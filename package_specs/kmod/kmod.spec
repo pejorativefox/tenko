@@ -1,6 +1,6 @@
 Name:       kmod
 Version:    34.3
-Release:    1
+Release:    2
 Summary:    Kernel module utilities
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -8,13 +8,6 @@ Prefix:     /usr
 
 %description
 The Kmod package contains libraries and utilities for loading kernel modules 
-
-%package devel
-Summary:    kmod development files
-Requires:   kmod = %{version}-%{release}
-
-%description devel
-Development files for kmod.
 
 %prep
 %setup -q
@@ -47,10 +40,12 @@ ln -sfv kmod %{buildroot}/usr/bin/lsmod
 ln -sfv kmod %{buildroot}/usr/bin/modprobe
 
 %files -f %{_sourcedir}/kmod.filelist
-%files devel -f %{_sourcedir}/kmod-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 34.3-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 34.3-1
 - Update to 34.3 (current LFS/BLFS r13.1 trunk version).
 

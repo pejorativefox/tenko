@@ -1,6 +1,6 @@
 Name:       libsm
 Version:    1.2.6
-Release:    2
+Release:    3
 Summary:    X Session Management Library
 License:    GPL3
 Prefix:     /usr
@@ -25,13 +25,6 @@ Requires:   libsm = %{version}-%{release}
 %description static
 Static libraries for libsm.
 
-%package devel
-Summary:    libsm development files
-Requires:   libsm = %{version}-%{release}
-
-%description devel
-Development files for libsm.
-
 %prep
 %setup -q -n libSM-%{version}
 
@@ -47,10 +40,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libsm.filelist
 %files doc -f %{_sourcedir}/libsm-doc.filelist
 %files static -f %{_sourcedir}/libsm-static.filelist
-%files devel -f %{_sourcedir}/libsm-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.6-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.6-2
 - Split doc, static, devel payload into libsm-doc, libsm-static, libsm-devel (size audit)
 

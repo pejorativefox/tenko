@@ -1,6 +1,6 @@
 Name:       tcl
 Version:    8.6.18
-Release:    2
+Release:    3
 Summary:    The tcl programming language
 License:    Tcl/Tk
 Source0:    %{name}%{version}-src.tar.gz
@@ -15,13 +15,6 @@ Requires:   tcl = %{version}-%{release}
 
 %description doc
 Documentation for tcl.
-
-%package devel
-Summary:    tcl development files
-Requires:   tcl = %{version}-%{release}
-
-%description devel
-Development files for tcl.
 
 %prep
 %setup -q -n tcl8.6.18
@@ -63,10 +56,12 @@ popd
 
 %files -f %{_sourcedir}/tcl.filelist
 %files doc -f %{_sourcedir}/tcl-doc.filelist
-%files devel -f %{_sourcedir}/tcl-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 8.6.18-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 8.6.18-2
 - Split doc, devel payload into tcl-doc, tcl-devel (size audit)
 

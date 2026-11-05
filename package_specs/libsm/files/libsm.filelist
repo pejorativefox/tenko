@@ -1,6 +1,14 @@
 %dir /usr/include
+%dir /usr/include/X11
+%dir /usr/include/X11/SM
 %dir /usr/lib64
-/usr/lib64/libSM.so.6
-/usr/lib64/libSM.so.6.0.1
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/doc
+/usr/include/X11/SM/SM.h
+/usr/include/X11/SM/SMlib.h
+/usr/include/X11/SM/SMproto.h
+/usr/lib64/libSM.so
+/usr/lib64/libSM.so.6
+/usr/lib64/libSM.so.6.0.1
+/usr/lib64/pkgconfig/sm.pc

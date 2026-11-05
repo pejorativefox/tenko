@@ -1,6 +1,6 @@
 Name:       libxkbfile
 Version:    1.2.0
-Release:    2
+Release:    3
 Summary:    library to parse the XKB configuration data files
 License:    GPL3
 Prefix:     /usr
@@ -8,13 +8,6 @@ Source0:    libxkbfile-1.2.0.tar.xz
 
 %description
 libxkbfile is used by the X servers and utilities to parse the XKB configuration data files
-
-%package devel
-Summary:    libxkbfile development files
-Requires:   libxkbfile = %{version}-%{release}
-
-%description devel
-Development files for libxkbfile.
 
 %prep
 %setup -q
@@ -33,10 +26,12 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/libxkbfile.filelist
-%files devel -f %{_sourcedir}/libxkbfile-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.0-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.0-2
 - Split devel payload into libxkbfile-devel (size audit)
 

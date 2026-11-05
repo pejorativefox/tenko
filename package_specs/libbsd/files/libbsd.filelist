@@ -1,42 +1,11 @@
 %dir /usr/include
 %dir /usr/include/bsd
-/usr/include/bsd/bitstring.h
-/usr/include/bsd/bsd.h
-/usr/include/bsd/err.h
-/usr/include/bsd/getopt.h
-/usr/include/bsd/grp.h
-/usr/include/bsd/inttypes.h
-/usr/include/bsd/libutil.h
-/usr/include/bsd/md5.h
 %dir /usr/include/bsd/netinet
-/usr/include/bsd/netinet/ip_icmp.h
-/usr/include/bsd/nlist.h
-/usr/include/bsd/pwd.h
-/usr/include/bsd/readpassphrase.h
-/usr/include/bsd/stdio.h
-/usr/include/bsd/stdlib.h
-/usr/include/bsd/string.h
-/usr/include/bsd/stringlist.h
 %dir /usr/include/bsd/sys
-/usr/include/bsd/sys/bitstring.h
-/usr/include/bsd/sys/cdefs.h
-/usr/include/bsd/sys/endian.h
-/usr/include/bsd/sys/param.h
-/usr/include/bsd/sys/poll.h
-/usr/include/bsd/sys/queue.h
-/usr/include/bsd/sys/time.h
-/usr/include/bsd/sys/tree.h
-/usr/include/bsd/timeconv.h
-/usr/include/bsd/unistd.h
-/usr/include/bsd/vis.h
-/usr/include/bsd/wchar.h
-/usr/lib64/libbsd-ctor.a
-/usr/lib64/libbsd.so
-/usr/lib64/libbsd.so.0
-/usr/lib64/libbsd.so.0.12.2
 %dir /usr/lib64/pkgconfig
 %dir /usr/share/man
 %dir /usr/share/man/man3
+%dir /usr/share/man/man7
 %doc /usr/share/man/man3/LIST_CLASS_ENTRY.3bsd.gz
 %doc /usr/share/man/man3/LIST_CLASS_HEAD.3bsd.gz
 %doc /usr/share/man/man3/LIST_EMPTY.3bsd.gz
@@ -272,5 +241,39 @@
 %doc /usr/share/man/man3/warnc.3bsd.gz
 %doc /usr/share/man/man3/wcslcat.3bsd.gz
 %doc /usr/share/man/man3/wcslcpy.3bsd.gz
-%dir /usr/share/man/man7
 %doc /usr/share/man/man7/libbsd.7.gz
+/usr/include/bsd/bitstring.h
+/usr/include/bsd/bsd.h
+/usr/include/bsd/err.h
+/usr/include/bsd/getopt.h
+/usr/include/bsd/grp.h
+/usr/include/bsd/inttypes.h
+/usr/include/bsd/libutil.h
+/usr/include/bsd/md5.h
+/usr/include/bsd/netinet/ip_icmp.h
+/usr/include/bsd/nlist.h
+/usr/include/bsd/pwd.h
+/usr/include/bsd/readpassphrase.h
+/usr/include/bsd/stdio.h
+/usr/include/bsd/stdlib.h
+/usr/include/bsd/string.h
+/usr/include/bsd/stringlist.h
+/usr/include/bsd/sys/bitstring.h
+/usr/include/bsd/sys/cdefs.h
+/usr/include/bsd/sys/endian.h
+/usr/include/bsd/sys/param.h
+/usr/include/bsd/sys/poll.h
+/usr/include/bsd/sys/queue.h
+/usr/include/bsd/sys/time.h
+/usr/include/bsd/sys/tree.h
+/usr/include/bsd/timeconv.h
+/usr/include/bsd/unistd.h
+/usr/include/bsd/vis.h
+/usr/include/bsd/wchar.h
+/usr/lib64/libbsd-ctor.a
+/usr/lib64/libbsd.so
+/usr/lib64/libbsd.so.0
+/usr/lib64/libbsd.so.0.12.2
+/usr/lib64/pkgconfig/libbsd-ctor.pc
+/usr/lib64/pkgconfig/libbsd-overlay.pc
+/usr/lib64/pkgconfig/libbsd.pc

@@ -1,11 +1,10 @@
 Name:       libxslt
 Version:    1.1.45
-Release:    3
+Release:    4
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
 Source0:    libxslt-1.1.45.tar.xz
-
 
 %description
 TODO
@@ -16,13 +15,6 @@ Requires:   libxslt = %{version}-%{release}
 
 %description doc
 Documentation for libxslt.
-
-%package devel
-Summary:    libxslt development files
-Requires:   libxslt = %{version}-%{release}
-
-%description devel
-Development files for libxslt.
 
 %prep
 %setup -a 0
@@ -39,10 +31,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxslt.filelist
 %files doc -f %{_sourcedir}/libxslt-doc.filelist
-%files devel -f %{_sourcedir}/libxslt-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.45-4
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.1.45-3
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 0 paths updated.
 

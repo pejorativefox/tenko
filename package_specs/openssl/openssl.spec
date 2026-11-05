@@ -1,6 +1,6 @@
 Name:       openssl
 Version:    4.1.0
-Release:    1
+Release:    2
 Summary:    OpenSSL software library
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
@@ -26,15 +26,6 @@ The OpenSSL runtime libraries (libssl and libcrypto), the legacy provider
 module and the default OpenSSL configuration under /etc/ssl.  Runtime-only
 installs need this package; it does not require the openssl command-line
 tool or Perl.
-
-%package devel
-Summary:    OpenSSL development headers and libraries
-License:    GPL3
-Requires:   openssl-libs = %{version}-%{release}
-
-%description devel
-Headers, pkg-config metadata, CMake config files and the unversioned linker
-symlinks needed to build software against OpenSSL.
 
 %package perl
 Summary:    OpenSSL Perl helper scripts
@@ -67,10 +58,14 @@ rm -rf %{buildroot}/usr/share/man
 
 %files -f %{_sourcedir}/openssl.filelist
 %files libs -f %{_sourcedir}/openssl-libs.filelist
-%files devel -f %{_sourcedir}/openssl-devel.filelist
 %files perl -f %{_sourcedir}/openssl-perl.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.1.0-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 4.1.0-1
 - Update to 4.1.0 (current LFS/BLFS r13.1 trunk version).
 

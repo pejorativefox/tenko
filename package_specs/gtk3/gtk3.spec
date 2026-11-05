@@ -1,11 +1,12 @@
 Name:       gtk+
 Version:    3.24.52
-Release:    4
+Release:    5
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
 Source0:    gtk-%{version}.tar.xz
 
+Provides: pkgconfig(gdk-3.0), pkgconfig(gtk+-3.0)
 %description
 TODO
 
@@ -15,15 +16,6 @@ Requires:   gtk+ = %{version}-%{release}
 
 %description lang
 Translations for gtk+.
-
-%package devel
-Summary:    gtk+ development files
-Requires:   %{name}-gir = %{version}-%{release}
-Requires:   gtk+ = %{version}-%{release}
-Provides: pkgconfig(gdk-3.0), pkgconfig(gtk+-3.0)
-
-%description devel
-Development files for gtk+.
 
 %prep
 %setup -q -n gtk-%{version}
@@ -49,7 +41,6 @@ popd
 glib-compile-schemas %{buildroot}/usr/share/glib-2.0/schemas || true
 rm -vf %{buildroot}%{_infodir}/dir*
 
-
 %package gir
 Summary:    GObject Introspection data for gtk+
 License:    GPL3
@@ -58,15 +49,18 @@ Requires:   %{name} = %{version}-%{release}
 %description gir
 GObject Introspection typelibs for gtk+, split out of the runtime
 package so a plain install does not carry the introspection data.
-The .gir XML needed for building stays in the -devel package.
+The .gir XML needed for building stays in the main package.
 
 %files -f %{_sourcedir}/gtk3.filelist
 %files lang -f %{_sourcedir}/gtk3-lang.filelist
-%files devel -f %{_sourcedir}/gtk3-devel.filelist
 %files gir -f %{_sourcedir}/gtk3-gir.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.24.52-5
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 3.24.52-4
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.24.52-3

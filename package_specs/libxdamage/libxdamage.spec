@@ -1,19 +1,12 @@
 Name:       libxdamage
 Version:    1.1.7
-Release:    2
+Release:    3
 Summary:    X Damage Extension library
 License:    GPL3
 Prefix:     /usr
 Source0:    libXdamage-%{version}.tar.xz
 %description
 X Damage Extension library
-
-%package devel
-Summary:    libxdamage development files
-Requires:   libxdamage = %{version}-%{release}
-
-%description devel
-Development files for libxdamage.
 
 %package static
 Summary:    libxdamage static libraries
@@ -25,7 +18,6 @@ Static libraries for libxdamage.
 %prep
 %setup -q -n libXdamage-%{version}
 
-
 %build
 %configure 
 %make_build
@@ -36,11 +28,14 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxdamage.filelist
-%files devel -f %{_sourcedir}/libxdamage-devel.filelist
 %files static -f %{_sourcedir}/libxdamage-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.7-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.1.7-2
 - Split devel, static payload into libxdamage-devel, libxdamage-static (size audit)
 

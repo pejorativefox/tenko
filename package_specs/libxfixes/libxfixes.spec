@@ -1,19 +1,12 @@
 Name:       libxfixes
 Version:    6.0.2
-Release:    2
+Release:    3
 Summary:    Xlib-based library for the XFIXES Extension.
 License:    GPL3
 Prefix:     /usr
 Source0:    libXfixes-%{version}.tar.xz
 %description
 Xlib-based library for the XFIXES Extension.
-
-%package devel
-Summary:    libxfixes development files
-Requires:   libxfixes = %{version}-%{release}
-
-%description devel
-Development files for libxfixes.
 
 %package static
 Summary:    libxfixes static libraries
@@ -35,11 +28,14 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxfixes.filelist
-%files devel -f %{_sourcedir}/libxfixes-devel.filelist
 %files static -f %{_sourcedir}/libxfixes-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 6.0.2-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 6.0.2-2
 - Split devel, static payload into libxfixes-devel, libxfixes-static (size audit)
 

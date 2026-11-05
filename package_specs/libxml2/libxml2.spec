@@ -1,19 +1,12 @@
 Name:       libxml2
 Version:    2.15.4
-Release:    2
+Release:    3
 Summary:    XML parsing library
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 %description
 The libxml2 package contains libraries and utilities used for parsing XML files. 
-
-%package devel
-Summary:    libxml2 development files
-Requires:   libxml2 = %{version}-%{release}
-
-%description devel
-Development files for libxml2.
 
 %prep
 %setup -q
@@ -38,10 +31,12 @@ popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxml2.filelist
-%files devel -f %{_sourcedir}/libxml2-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.15.4-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.15.4-2
 - Split devel payload into libxml2-devel (size audit)
 

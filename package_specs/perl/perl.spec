@@ -1,6 +1,6 @@
 Name:       perl
 Version:    5.44.0
-Release:    4
+Release:    5
 Summary:    Perl programming language
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -16,7 +16,6 @@ Provides: perl(File::HomeDir)
 
 Requires: libc.so.6()(64bit), libcrypt.so.2()(64bit), libdl.so.2()(64bit), libgdbm.so.6()(64bit), libgdbm_compat.so.4()(64bit)
 Requires: libm.so.6()(64bit), libpthread.so.0()(64bit), librt.so.1()(64bit), libutil.so.1()(64bit)
-
 
 %description
 Perl programming language
@@ -50,17 +49,6 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 rm -f %{buildroot}/usr/share/man/man3/Thread.3
 
-%package devel
-Summary:    Perl development files (CORE headers and linker files)
-License:    GPL3
-Requires:   perl = %{version}-%{release}
-
-%description devel
-The Perl CORE headers and configuration headers needed to build and embed XS
-extensions.  The shared libperl.so is part of the runtime package (perl is
-itself linked against it).  ExtUtils::MakeMaker and the rest of the module
-toolchain also remain in the perl runtime package.
-
 %package doc
 Summary:    Perl documentation
 License:    GPL3
@@ -69,10 +57,14 @@ License:    GPL3
 Perl man pages and the core Perl POD documentation.
 
 %files -f %{_sourcedir}/perl.filelist
-%files devel -f %{_sourcedir}/perl-devel.filelist
 %files doc -f %{_sourcedir}/perl-doc.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 5.44.0-5
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 5.44.0-4
 - Rebuild with a working perl on the build host.  The 5.44.0-3 build ran in
   an image whose perl could not start (no libperl.so), so rpm's perl.prov

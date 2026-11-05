@@ -1,13 +1,13 @@
 Name:       qemu
 Version:    11.1.3
-Release:    2
+Release:    3
 Summary:    Open source machine emulator and virtualizer
 License:    GPL-2.0-only AND LGPL-2.1-only
 URL:        https://www.qemu.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
-BuildRequires: glib-devel
+BuildRequires: glib
 BuildRequires: pixman
 BuildRequires: libpng
 BuildRequires: alsa-lib
@@ -42,6 +42,8 @@ pushd build
              --audio-drv-list=alsa        \
              --disable-download           \
              --disable-pa                 \
+             --disable-xkbcommon          \
+             --disable-gettext            \
              --enable-slirp               \
              --docdir=/usr/share/doc/qemu-%{version}
 %make_build
@@ -56,6 +58,13 @@ popd
 %files -f %{_sourcedir}/qemu.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 11.1.3-3
+- Build against glib instead of glib-devel: the -devel subpackages were
+  removed and the headers/.pc files now ship in glib (issue #4).
+- Disable xkbcommon and gettext explicitly.  The build image now ships
+  their headers, while the image the published package was built in did
+  not, so autodetection added qemu-keymap and the .mo translations.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 11.1.3-2
 - Build against pixman and libpng (pixman is a required BLFS dependency).
   The first build image lacked both, so qemu was silently built without

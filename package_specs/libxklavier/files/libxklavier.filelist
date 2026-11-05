@@ -1,12 +1,24 @@
 %dir /usr/include
+%dir /usr/include/libxklavier
 %dir /usr/lib64
-/usr/lib64/libxklavier.so.16
-/usr/lib64/libxklavier.so.16.4.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/gir-1.0
 %dir /usr/share/gtk-doc
 %dir /usr/share/gtk-doc/html
 %dir /usr/share/gtk-doc/html/libxklavier
+/usr/include/libxklavier/xkl-enum-types.h
+/usr/include/libxklavier/xkl_config_item.h
+/usr/include/libxklavier/xkl_config_rec.h
+/usr/include/libxklavier/xkl_config_registry.h
+/usr/include/libxklavier/xkl_engine.h
+/usr/include/libxklavier/xkl_engine_marshal.h
+/usr/include/libxklavier/xklavier.h
+/usr/lib64/libxklavier.so
+/usr/lib64/libxklavier.so.16
+/usr/lib64/libxklavier.so.16.4.0
+/usr/lib64/pkgconfig/libxklavier.pc
+/usr/share/gir-1.0/Xkl-1.0.gir
 /usr/share/gtk-doc/html/libxklavier/XklConfigItem.html
 /usr/share/gtk-doc/html/libxklavier/XklConfigRec.html
 /usr/share/gtk-doc/html/libxklavier/XklConfigRegistry.html

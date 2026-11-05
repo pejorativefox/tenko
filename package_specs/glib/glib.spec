@@ -1,6 +1,6 @@
 Name:       glib
 Version:    2.90.1
-Release:    1
+Release:    2
 Summary:    Glib low level system libraries
 License:    GPL3
 Prefix:     /usr
@@ -8,6 +8,13 @@ Prefix:     /usr
 %{!?glib_introspection:%global glib_introspection enabled}
 Source0:    %{name}-%{version}.tar.xz
 
+Provides:   pkgconfig(glib-2.0)
+Provides:   pkgconfig(gobject-2.0)
+Provides:   pkgconfig(gmodule-2.0)
+Provides:   pkgconfig(gmodule-no-export-2.0)
+Provides:   pkgconfig(gio-unix-2.0)
+Provides:   pkgconfig(gio-2.0)
+Provides:   pkgconfig(gthread-2.0)
 %description
 GLib is a bundle of three low-level system libraries written in C and developed mainly by GNOME.
 
@@ -17,21 +24,6 @@ Requires:   glib = %{version}-%{release}
 
 %description lang
 Translations for glib.
-
-%package devel
-Summary:    glib development files
-Requires:   %{name}-gir = %{version}-%{release}
-Requires:   glib = %{version}-%{release}
-Provides:   pkgconfig(glib-2.0)
-Provides:   pkgconfig(gobject-2.0)
-Provides:   pkgconfig(gmodule-2.0)
-Provides:   pkgconfig(gmodule-no-export-2.0)
-Provides:   pkgconfig(gio-unix-2.0)
-Provides:   pkgconfig(gio-2.0)
-Provides:   pkgconfig(gthread-2.0)
-
-%description devel
-Development files for glib.
 
 %prep
 %setup -a 0
@@ -58,7 +50,6 @@ DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-
 %package gir
 Summary:    GObject Introspection data for glib
 License:    GPL3
@@ -67,15 +58,18 @@ Requires:   %{name} = %{version}-%{release}
 %description gir
 GObject Introspection typelibs for glib, split out of the runtime
 package so a plain install does not carry the introspection data.
-The .gir XML needed for building stays in the -devel package.
+The .gir XML needed for building stays in the main package.
 
 %files -f %{_sourcedir}/glib.filelist
 %files lang -f %{_sourcedir}/glib-lang.filelist
-%files devel -f %{_sourcedir}/glib-devel.filelist
 %files gir -f %{_sourcedir}/glib-gir.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.90.1-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.90.1-1
 - Update to 2.90.1 (current BLFS r13.1 trunk version).
 

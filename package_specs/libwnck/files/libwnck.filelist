@@ -1,10 +1,33 @@
 %dir /usr/bin
-/usr/bin/wnck-urgency-monitor
-/usr/bin/wnckprop
 %dir /usr/include
+%dir /usr/include/libwnck-3.0
+%dir /usr/include/libwnck-3.0/libwnck
 %dir /usr/lib64
-/usr/lib64/libwnck-3.so.0
-/usr/lib64/libwnck-3.so.0.3.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/gir-1.0
 %dir /usr/share/locale
+/usr/bin/wnck-urgency-monitor
+/usr/bin/wnckprop
+/usr/include/libwnck-3.0/libwnck/application.h
+/usr/include/libwnck-3.0/libwnck/class-group.h
+/usr/include/libwnck-3.0/libwnck/icons.h
+/usr/include/libwnck-3.0/libwnck/libwnck.h
+/usr/include/libwnck-3.0/libwnck/misc.h
+/usr/include/libwnck-3.0/libwnck/pager.h
+/usr/include/libwnck-3.0/libwnck/resource.h
+/usr/include/libwnck-3.0/libwnck/screen.h
+/usr/include/libwnck-3.0/libwnck/selector.h
+/usr/include/libwnck-3.0/libwnck/tasklist.h
+/usr/include/libwnck-3.0/libwnck/util.h
+/usr/include/libwnck-3.0/libwnck/version.h
+/usr/include/libwnck-3.0/libwnck/window-action-menu.h
+/usr/include/libwnck-3.0/libwnck/window.h
+/usr/include/libwnck-3.0/libwnck/wnck-enum-types.h
+/usr/include/libwnck-3.0/libwnck/wnck-handle.h
+/usr/include/libwnck-3.0/libwnck/workspace.h
+/usr/lib64/libwnck-3.so
+/usr/lib64/libwnck-3.so.0
+/usr/lib64/libwnck-3.so.0.3.0
+/usr/lib64/pkgconfig/libwnck-3.0.pc
+/usr/share/gir-1.0/Wnck-3.0.gir

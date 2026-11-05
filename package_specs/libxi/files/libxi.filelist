@@ -1,7 +1,14 @@
 %dir /usr/include
+%dir /usr/include/X11
+%dir /usr/include/X11/extensions
 %dir /usr/lib64
-/usr/lib64/libXi.so.6
-/usr/lib64/libXi.so.6.1.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/doc
 %dir /usr/share/man
+/usr/include/X11/extensions/XInput.h
+/usr/include/X11/extensions/XInput2.h
+/usr/lib64/libXi.so
+/usr/lib64/libXi.so.6
+/usr/lib64/libXi.so.6.1.0
+/usr/lib64/pkgconfig/xi.pc

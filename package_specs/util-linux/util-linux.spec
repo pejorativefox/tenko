@@ -1,6 +1,6 @@
 Name:       util-linux
 Version:    2.42.4
-Release:    1
+Release:    2
 Summary:    util-linux is a random collection of Linux utilities
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -15,13 +15,6 @@ Requires:   util-linux = %{version}-%{release}
 
 %description lang
 Translations for util-linux.
-
-%package devel
-Summary:    util-linux development files
-Requires:   util-linux = %{version}-%{release}
-
-%description devel
-Development files for util-linux.
 
 %prep
 %setup -q
@@ -58,10 +51,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/util-linux.filelist
 %files lang -f %{_sourcedir}/util-linux-lang.filelist
-%files devel -f %{_sourcedir}/util-linux-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.42.4-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2.42.4-1
 - Update to 2.42.4 (current LFS/BLFS r13.1 trunk version).
 

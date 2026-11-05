@@ -1,6 +1,6 @@
 Name:       upower
 Version:    1.91.5
-Release:    1
+Release:    2
 Summary:    Abstraction for enumerating power devices, listening to device events and querying history and statistics
 License:    GPL
 Source0:    upower-v%{version}.tar.bz2
@@ -12,14 +12,6 @@ BuildRequires: udev
 
 %description
 Abstraction for enumerating power devices, listening to device events and querying history and statistics
-
-%package devel
-Summary:    upower development files
-Requires:   %{name}-gir = %{version}-%{release}
-Requires:   upower = %{version}-%{release}
-
-%description devel
-Development files for upower.
 
 %prep
 %setup -q -n upower-v%{version}
@@ -37,7 +29,6 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-
 %package gir
 Summary:    GObject Introspection data for upower
 License:    GPL
@@ -46,14 +37,17 @@ Requires:   %{name} = %{version}-%{release}
 %description gir
 GObject Introspection typelibs for upower, split out of the runtime
 package so a plain install does not carry the introspection data.
-The .gir XML needed for building stays in the -devel package.
+The .gir XML needed for building stays in the main package.
 
 %files -f %{_sourcedir}/upower.filelist
-%files devel -f %{_sourcedir}/upower-devel.filelist
 %files gir -f %{_sourcedir}/upower-gir.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.91.5-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.91.5-1
 - Update to 1.91.5 (BLFS r13.1 trunk, D9 parity)
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it

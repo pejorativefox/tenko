@@ -1,6 +1,6 @@
 Name:       gnutls
 Version:    3.8.13
-Release:    2
+Release:    3
 Summary:    A TLS protocol implementation
 License:    LGPL-2.1-or-later AND GPL-3.0-or-later
 URL:        https://www.gnutls.org/
@@ -39,13 +39,6 @@ Requires:   gnutls = %{version}-%{release}
 %description lang
 Translations for gnutls.
 
-%package devel
-Summary:    gnutls development files
-Requires:   gnutls = %{version}-%{release}
-
-%description devel
-Development files for gnutls.
-
 %prep
 %setup -q
 
@@ -65,10 +58,12 @@ rm -rf %{buildroot}%{_infodir}/dir
 %files -f %{_sourcedir}/gnutls.filelist
 %files doc -f %{_sourcedir}/gnutls-doc.filelist
 %files lang -f %{_sourcedir}/gnutls-lang.filelist
-%files devel -f %{_sourcedir}/gnutls-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.8.13-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.13-2
 - Split doc, lang, devel payload into gnutls-doc, gnutls-lang, gnutls-devel (size audit)
 

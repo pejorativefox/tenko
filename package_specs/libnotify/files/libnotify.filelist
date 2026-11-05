@@ -1,8 +1,18 @@
 %dir /usr/bin
-/usr/bin/notify-send
 %dir /usr/include
+%dir /usr/include/libnotify
 %dir /usr/lib64
-/usr/lib64/libnotify.so.4
-/usr/lib64/libnotify.so.4.0.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/gir-1.0
+/usr/bin/notify-send
+/usr/include/libnotify/notification-hints.h
+/usr/include/libnotify/notification.h
+/usr/include/libnotify/notify-enum-types.h
+/usr/include/libnotify/notify-features.h
+/usr/include/libnotify/notify.h
+/usr/lib64/libnotify.so
+/usr/lib64/libnotify.so.4
+/usr/lib64/libnotify.so.4.0.0
+/usr/lib64/pkgconfig/libnotify.pc
+/usr/share/gir-1.0/Notify-0.7.gir

@@ -26,3 +26,4 @@
 /usr/include/librepo/yum.h
 /usr/lib64/librepo.so
 /usr/lib64/librepo.so.0
+/usr/lib64/pkgconfig/librepo.pc

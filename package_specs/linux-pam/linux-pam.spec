@@ -1,6 +1,6 @@
 Name:       linux-pam
 Version:    1.7.3
-Release:    3
+Release:    4
 Summary:    PAM (Pluggable Authentication Modules) library
 License:    BSD-3-Clause OR GPL-2.0-or-later
 URL:        https://github.com/linux-pam/linux-pam
@@ -29,13 +29,6 @@ Requires:   linux-pam = %{version}-%{release}
 
 %description doc
 Documentation for linux-pam.
-
-%package devel
-Summary:    linux-pam development files
-Requires:   linux-pam = %{version}-%{release}
-
-%description devel
-Development files for linux-pam.
 
 %prep
 %setup -n Linux-PAM-%{version}
@@ -177,10 +170,12 @@ done
 %files -f %{_sourcedir}/linux-pam.filelist
 %files lang -f %{_sourcedir}/linux-pam-lang.filelist
 %files doc -f %{_sourcedir}/linux-pam-doc.filelist
-%files devel -f %{_sourcedir}/linux-pam-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.7.3-4
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.7.3-3
 - Ship PAM service files for the shadow utilities: login, su, passwd,
   chpasswd and newusers.  Without them the PAM-enabled login/su/passwd/

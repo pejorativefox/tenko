@@ -1,4 +1,15 @@
 %dir /usr/include
+%dir /usr/include/epoxy
 %dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+/usr/include/epoxy/common.h
+/usr/include/epoxy/egl.h
+/usr/include/epoxy/egl_generated.h
+/usr/include/epoxy/gl.h
+/usr/include/epoxy/gl_generated.h
+/usr/include/epoxy/glx.h
+/usr/include/epoxy/glx_generated.h
+/usr/lib64/libepoxy.so
 /usr/lib64/libepoxy.so.0
 /usr/lib64/libepoxy.so.0.0.0
+/usr/lib64/pkgconfig/epoxy.pc

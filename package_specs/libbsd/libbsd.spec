@@ -1,6 +1,6 @@
 Name:       libbsd
 Version:    0.12.2
-Release:    4
+Release:    5
 Summary:    BSD compatibility library
 License:    BSD
 Source0:    %{name}-%{version}.tar.xz
@@ -8,13 +8,6 @@ Prefix:     /usr
 
 %description
 BSD compatibility library used by shadow (readpassphrase).
-
-%package devel
-Summary:    Development files for libbsd
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-pkg-config files for libbsd, used to build software against it.
 
 %prep
 %setup -q
@@ -28,9 +21,12 @@ rm -rf %{buildroot}
 %make_install
 
 %files -f %{_sourcedir}/libbsd.filelist
-%files devel -f %{_sourcedir}/libbsd-devel.filelist
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.12.2-5
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.12.2-4
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

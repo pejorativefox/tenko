@@ -1,6 +1,6 @@
 Name:       libxtst
 Version:    1.2.6
-Release:    1
+Release:    2
 Summary:    Xlib-based library for XTEST & RECORD
 License:    GPL3
 Prefix:     /usr
@@ -10,13 +10,6 @@ BuildRequires: libxi
 
 %description
 Xlib-based library for XTEST & RECORD
-
-%package devel
-Summary:    libxtst development files
-Requires:   libxtst = %{version}-%{release}
-
-%description devel
-Development files for libxtst.
 
 %package static
 Summary:    libxtst static libraries
@@ -38,11 +31,14 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxtst.filelist
-%files devel -f %{_sourcedir}/libxtst-devel.filelist
 %files static -f %{_sourcedir}/libxtst-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.6-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.2.6-1
 - Update to 1.2.6 (current BLFS r13.1 trunk version).
 

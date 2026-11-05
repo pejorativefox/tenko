@@ -45,8 +45,9 @@ Requires:   xwininfo
 Requires:   xwd
 Requires:   hicolor-icon-theme
 # shared-mime-info used to be pulled in by gdk-pixbuf's .pc Requires.
-# The pkgconfig dependency moved to gdk-pixbuf-devel, but Thunar/GIO need
-# the MIME database at runtime, so require the data package explicitly.
+# The .pc ships in the gdk-pixbuf runtime package again after the -devel
+# subpackages were removed, but Thunar/GIO need the MIME database at
+# runtime, so require the data package explicitly.
 Requires:   shared-mime-info
 Requires:   browneye-desktop-config
 Requires:   linux-firmware-base

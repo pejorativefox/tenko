@@ -1,6 +1,6 @@
 Name:       libassuan
 Version:    3.0.2
-Release:    5
+Release:    6
 Summary:    IPC library used by GnuPG and related components
 License:    LGPL-2.1-or-later
 Prefix:     /usr
@@ -9,13 +9,6 @@ Source0:    %{name}-%{version}.tar.bz2
 %description
 libassuan is the IPC library used by GnuPG, gpgme and the dnf/librepo
 dependency chain.  It depends on libgpg-error.
-
-%package devel
-Summary:    Development files for libassuan
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-pkg-config files for libassuan, used to build software against it.
 
 %prep
 %setup -q
@@ -30,9 +23,12 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libassuan.filelist
-%files devel -f %{_sourcedir}/libassuan-devel.filelist
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.0.2-6
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 3.0.2-5
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

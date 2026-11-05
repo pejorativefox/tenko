@@ -1,6 +1,6 @@
 Name:       ncurses
 Version:    6.6
-Release:    2
+Release:    3
 Summary:    Text based user interface library
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
@@ -21,13 +21,6 @@ Requires:   ncurses = %{version}-%{release}
 
 %description doc
 Documentation for ncurses.
-
-%package devel
-Summary:    ncurses development files
-Requires:   ncurses = %{version}-%{release}
-
-%description devel
-Development files for ncurses.
 
 %prep
 %setup
@@ -79,10 +72,12 @@ EOF
 
 %files -f %{_sourcedir}/ncurses.filelist
 %files doc -f %{_sourcedir}/ncurses-doc.filelist
-%files devel -f %{_sourcedir}/ncurses-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 6.6-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 6.6-2
 - Split doc, devel payload into ncurses-doc, ncurses-devel (size audit)
 

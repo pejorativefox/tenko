@@ -1,5 +1,6 @@
 %dir /etc/pam.d
 %dir /usr/bin
+%dir /usr/include
 %dir /usr/lib
 %dir /usr/lib/sudo
 %dir /usr/lib/tmpfiles.d
@@ -103,6 +104,7 @@
 /usr/bin/sudoedit
 /usr/bin/sudoreplay
 /usr/bin/visudo
+/usr/include/sudo_plugin.h
 /usr/lib/sudo/audit_json.so
 /usr/lib/sudo/group_file.so
 /usr/lib/sudo/libsudo_util.so

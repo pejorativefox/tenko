@@ -1,6 +1,6 @@
 Name:       libxres
 Version:    1.2.3
-Release:    2
+Release:    3
 Summary:    X-Resource extension client library
 License:    GPL3
 Prefix:     /usr
@@ -8,13 +8,6 @@ Source0:    libXres-1.2.3.tar.xz
 
 %description
 X-Resource extension client library
-
-%package devel
-Summary:    libxres development files
-Requires:   libxres = %{version}-%{release}
-
-%description devel
-Development files for libxres.
 
 %package static
 Summary:    libxres static libraries
@@ -26,7 +19,6 @@ Static libraries for libxres.
 %prep
 %setup -q -n libXres-%{version}
 
-
 %build
 %configure 
 %make_build
@@ -37,11 +29,14 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxres.filelist
-%files devel -f %{_sourcedir}/libxres-devel.filelist
 %files static -f %{_sourcedir}/libxres-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.3-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.3-2
 - Split devel, static payload into libxres-devel, libxres-static (size audit)
 

@@ -1,6 +1,23 @@
 %dir /etc
 %dir /etc/fonts
 %dir /etc/fonts/conf.d
+%dir /usr/bin
+%dir /usr/include
+%dir /usr/include/fontconfig
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+%dir /usr/share
+%dir /usr/share/fontconfig
+%dir /usr/share/fontconfig/conf.avail
+%dir /usr/share/gettext
+%dir /usr/share/gettext/its
+%dir /usr/share/locale
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+%dir /usr/share/xml
+%dir /usr/share/xml/fontconfig
 /etc/fonts/conf.d/10-hinting-slight.conf
 /etc/fonts/conf.d/10-scale-bitmap-fonts.conf
 /etc/fonts/conf.d/10-sub-pixel-none.conf
@@ -26,7 +43,6 @@
 /etc/fonts/conf.d/90-synthetic.conf
 /etc/fonts/conf.d/README
 /etc/fonts/fonts.conf
-%dir /usr/bin
 /usr/bin/fc-cache
 /usr/bin/fc-cat
 /usr/bin/fc-conflist
@@ -36,13 +52,13 @@
 /usr/bin/fc-query
 /usr/bin/fc-scan
 /usr/bin/fc-validate
-%dir /usr/include
-%dir /usr/lib64
+/usr/include/fontconfig/fcfreetype.h
+/usr/include/fontconfig/fcprivate.h
+/usr/include/fontconfig/fontconfig.h
+/usr/lib64/libfontconfig.so
 /usr/lib64/libfontconfig.so.1
 /usr/lib64/libfontconfig.so.1.16.1
-%dir /usr/share
-%dir /usr/share/fontconfig
-%dir /usr/share/fontconfig/conf.avail
+/usr/lib64/pkgconfig/fontconfig.pc
 /usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf
 /usr/share/fontconfig/conf.avail/09-autohint-if-no-hinting.conf
 /usr/share/fontconfig/conf.avail/10-autohint.conf
@@ -87,19 +103,10 @@
 /usr/share/fontconfig/conf.avail/70-yes-bitmaps.conf
 /usr/share/fontconfig/conf.avail/80-delicious.conf
 /usr/share/fontconfig/conf.avail/90-synthetic.conf
-%dir /usr/share/gettext
-%dir /usr/share/gettext/its
 /usr/share/gettext/its/fontconfig.its
 /usr/share/gettext/its/fontconfig.loc
-%dir /usr/share/locale
-%dir /usr/share/locale/ka
-%dir /usr/share/locale/ka/LC_MESSAGES
 /usr/share/locale/ka/LC_MESSAGES/fontconfig-conf.mo
 /usr/share/locale/ka/LC_MESSAGES/fontconfig.mo
-%dir /usr/share/locale/zh_CN
-%dir /usr/share/locale/zh_CN/LC_MESSAGES
 /usr/share/locale/zh_CN/LC_MESSAGES/fontconfig-conf.mo
 /usr/share/locale/zh_CN/LC_MESSAGES/fontconfig.mo
-%dir /usr/share/xml
-%dir /usr/share/xml/fontconfig
 /usr/share/xml/fontconfig/fonts.dtd

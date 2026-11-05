@@ -1,16 +1,168 @@
 %dir /etc/xdg
 %dir /etc/xdg/tumbler
-/etc/xdg/tumbler/tumbler.rc
 %dir /usr/include
+%dir /usr/include/tumbler-1
+%dir /usr/include/tumbler-1/tumbler
 %dir /usr/lib
 %dir /usr/lib/systemd
 %dir /usr/lib/systemd/user
 %dir /usr/lib64
-/usr/lib64/libtumbler-1.so.0
-/usr/lib64/libtumbler-1.so.0.0.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/lib64/tumbler-1
 %dir /usr/lib64/tumbler-1/plugins
 %dir /usr/lib64/tumbler-1/plugins/cache
+%dir /usr/share
+%dir /usr/share/dbus-1
+%dir /usr/share/dbus-1/services
+%dir /usr/share/gtk-doc
+%dir /usr/share/gtk-doc/html
+%dir /usr/share/gtk-doc/html/tumbler
+%dir /usr/share/icons
+%dir /usr/share/icons/hicolor
+%dir /usr/share/icons/hicolor/32x32
+%dir /usr/share/icons/hicolor/32x32/apps
+%dir /usr/share/icons/hicolor/64x64
+%dir /usr/share/icons/hicolor/64x64/apps
+%dir /usr/share/locale
+%dir /usr/share/locale/ar
+%dir /usr/share/locale/ar/LC_MESSAGES
+%dir /usr/share/locale/ast
+%dir /usr/share/locale/ast/LC_MESSAGES
+%dir /usr/share/locale/be
+%dir /usr/share/locale/be/LC_MESSAGES
+%dir /usr/share/locale/bg
+%dir /usr/share/locale/bg/LC_MESSAGES
+%dir /usr/share/locale/bn
+%dir /usr/share/locale/bn/LC_MESSAGES
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+%dir /usr/share/locale/el
+%dir /usr/share/locale/el/LC_MESSAGES
+%dir /usr/share/locale/en_AU
+%dir /usr/share/locale/en_AU/LC_MESSAGES
+%dir /usr/share/locale/en_CA
+%dir /usr/share/locale/en_CA/LC_MESSAGES
+%dir /usr/share/locale/en_GB
+%dir /usr/share/locale/en_GB/LC_MESSAGES
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+%dir /usr/share/locale/et
+%dir /usr/share/locale/et/LC_MESSAGES
+%dir /usr/share/locale/eu
+%dir /usr/share/locale/eu/LC_MESSAGES
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+%dir /usr/share/locale/gl
+%dir /usr/share/locale/gl/LC_MESSAGES
+%dir /usr/share/locale/he
+%dir /usr/share/locale/he/LC_MESSAGES
+%dir /usr/share/locale/hi
+%dir /usr/share/locale/hi/LC_MESSAGES
+%dir /usr/share/locale/hr
+%dir /usr/share/locale/hr/LC_MESSAGES
+%dir /usr/share/locale/hu
+%dir /usr/share/locale/hu/LC_MESSAGES
+%dir /usr/share/locale/hy_AM
+%dir /usr/share/locale/hy_AM/LC_MESSAGES
+%dir /usr/share/locale/hye
+%dir /usr/share/locale/hye/LC_MESSAGES
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+%dir /usr/share/locale/is
+%dir /usr/share/locale/is/LC_MESSAGES
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+%dir /usr/share/locale/kab
+%dir /usr/share/locale/kab/LC_MESSAGES
+%dir /usr/share/locale/kk
+%dir /usr/share/locale/kk/LC_MESSAGES
+%dir /usr/share/locale/ko
+%dir /usr/share/locale/ko/LC_MESSAGES
+%dir /usr/share/locale/lt
+%dir /usr/share/locale/lt/LC_MESSAGES
+%dir /usr/share/locale/lv
+%dir /usr/share/locale/lv/LC_MESSAGES
+%dir /usr/share/locale/ms
+%dir /usr/share/locale/ms/LC_MESSAGES
+%dir /usr/share/locale/nb
+%dir /usr/share/locale/nb/LC_MESSAGES
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+%dir /usr/share/locale/nn
+%dir /usr/share/locale/nn/LC_MESSAGES
+%dir /usr/share/locale/oc
+%dir /usr/share/locale/oc/LC_MESSAGES
+%dir /usr/share/locale/pa
+%dir /usr/share/locale/pa/LC_MESSAGES
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+%dir /usr/share/locale/pt
+%dir /usr/share/locale/pt/LC_MESSAGES
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+%dir /usr/share/locale/ro
+%dir /usr/share/locale/ro/LC_MESSAGES
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+%dir /usr/share/locale/si
+%dir /usr/share/locale/si/LC_MESSAGES
+%dir /usr/share/locale/sk
+%dir /usr/share/locale/sk/LC_MESSAGES
+%dir /usr/share/locale/sl
+%dir /usr/share/locale/sl/LC_MESSAGES
+%dir /usr/share/locale/sq
+%dir /usr/share/locale/sq/LC_MESSAGES
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+%dir /usr/share/locale/te
+%dir /usr/share/locale/te/LC_MESSAGES
+%dir /usr/share/locale/th
+%dir /usr/share/locale/th/LC_MESSAGES
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+%dir /usr/share/locale/ug
+%dir /usr/share/locale/ug/LC_MESSAGES
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+%dir /usr/share/locale/zh_HK
+%dir /usr/share/locale/zh_HK/LC_MESSAGES
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+/etc/xdg/tumbler/tumbler.rc
+/usr/include/tumbler-1/tumbler/tumbler-abstract-thumbnailer.h
+/usr/include/tumbler-1/tumbler/tumbler-cache-plugin.h
+/usr/include/tumbler-1/tumbler/tumbler-cache.h
+/usr/include/tumbler-1/tumbler/tumbler-config.h
+/usr/include/tumbler-1/tumbler/tumbler-enum-types.h
+/usr/include/tumbler-1/tumbler/tumbler-error.h
+/usr/include/tumbler-1/tumbler/tumbler-file-info.h
+/usr/include/tumbler-1/tumbler/tumbler-marshal.h
+/usr/include/tumbler-1/tumbler/tumbler-provider-factory.h
+/usr/include/tumbler-1/tumbler/tumbler-provider-plugin.h
+/usr/include/tumbler-1/tumbler/tumbler-thumbnail-flavor.h
+/usr/include/tumbler-1/tumbler/tumbler-thumbnail.h
+/usr/include/tumbler-1/tumbler/tumbler-thumbnailer-provider.h
+/usr/include/tumbler-1/tumbler/tumbler-thumbnailer.h
+/usr/include/tumbler-1/tumbler/tumbler-util.h
+/usr/include/tumbler-1/tumbler/tumbler.h
+/usr/lib64/libtumbler-1.so
+/usr/lib64/libtumbler-1.so.0
+/usr/lib64/libtumbler-1.so.0.0.0
+/usr/lib64/pkgconfig/tumbler-1.pc
 /usr/lib64/tumbler-1/plugins/cache/tumbler-cache-plugin.so
 /usr/lib64/tumbler-1/plugins/cache/tumbler-xdg-cache.so
 /usr/lib64/tumbler-1/plugins/tumbler-cover-thumbnailer.so
@@ -19,15 +171,9 @@
 /usr/lib64/tumbler-1/plugins/tumbler-jpeg-thumbnailer.so
 /usr/lib64/tumbler-1/plugins/tumbler-pixbuf-thumbnailer.so
 /usr/lib64/tumbler-1/tumblerd
-%dir /usr/share
-%dir /usr/share/dbus-1
-%dir /usr/share/dbus-1/services
 /usr/share/dbus-1/services/org.xfce.Tumbler.Cache1.service
 /usr/share/dbus-1/services/org.xfce.Tumbler.Manager1.service
 /usr/share/dbus-1/services/org.xfce.Tumbler.Thumbnailer1.service
-%dir /usr/share/gtk-doc
-%dir /usr/share/gtk-doc/html
-%dir /usr/share/gtk-doc/html/tumbler
 /usr/share/gtk-doc/html/tumbler/TumblerAbstractThumbnailer.html
 /usr/share/gtk-doc/html/tumbler/TumblerCache.html
 /usr/share/gtk-doc/html/tumbler/TumblerCachePlugin.html
@@ -60,189 +206,64 @@
 /usr/share/gtk-doc/html/tumbler/tumbler.devhelp2
 /usr/share/gtk-doc/html/tumbler/up-insensitive.png
 /usr/share/gtk-doc/html/tumbler/up.png
-%dir /usr/share/icons
-%dir /usr/share/icons/hicolor
-%dir /usr/share/icons/hicolor/32x32
-%dir /usr/share/icons/hicolor/32x32/apps
 /usr/share/icons/hicolor/32x32/apps/org.xfce.tumbler.png
-%dir /usr/share/icons/hicolor/64x64
-%dir /usr/share/icons/hicolor/64x64/apps
 /usr/share/icons/hicolor/64x64/apps/org.xfce.tumbler.png
-%dir /usr/share/locale
-%dir /usr/share/locale/ar
-%dir /usr/share/locale/ar/LC_MESSAGES
 /usr/share/locale/ar/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/ast
-%dir /usr/share/locale/ast/LC_MESSAGES
 /usr/share/locale/ast/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/be
-%dir /usr/share/locale/be/LC_MESSAGES
 /usr/share/locale/be/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/bg
-%dir /usr/share/locale/bg/LC_MESSAGES
 /usr/share/locale/bg/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/bn
-%dir /usr/share/locale/bn/LC_MESSAGES
 /usr/share/locale/bn/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/ca
-%dir /usr/share/locale/ca/LC_MESSAGES
 /usr/share/locale/ca/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/cs
-%dir /usr/share/locale/cs/LC_MESSAGES
 /usr/share/locale/cs/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/da
-%dir /usr/share/locale/da/LC_MESSAGES
 /usr/share/locale/da/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/de
-%dir /usr/share/locale/de/LC_MESSAGES
 /usr/share/locale/de/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/el
-%dir /usr/share/locale/el/LC_MESSAGES
 /usr/share/locale/el/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/en_AU
-%dir /usr/share/locale/en_AU/LC_MESSAGES
 /usr/share/locale/en_AU/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/en_CA
-%dir /usr/share/locale/en_CA/LC_MESSAGES
 /usr/share/locale/en_CA/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/en_GB
-%dir /usr/share/locale/en_GB/LC_MESSAGES
 /usr/share/locale/en_GB/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/es
-%dir /usr/share/locale/es/LC_MESSAGES
 /usr/share/locale/es/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/et
-%dir /usr/share/locale/et/LC_MESSAGES
 /usr/share/locale/et/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/eu
-%dir /usr/share/locale/eu/LC_MESSAGES
 /usr/share/locale/eu/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/fi
-%dir /usr/share/locale/fi/LC_MESSAGES
 /usr/share/locale/fi/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/fr
-%dir /usr/share/locale/fr/LC_MESSAGES
 /usr/share/locale/fr/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/gl
-%dir /usr/share/locale/gl/LC_MESSAGES
 /usr/share/locale/gl/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/he
-%dir /usr/share/locale/he/LC_MESSAGES
 /usr/share/locale/he/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/hi
-%dir /usr/share/locale/hi/LC_MESSAGES
 /usr/share/locale/hi/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/hr
-%dir /usr/share/locale/hr/LC_MESSAGES
 /usr/share/locale/hr/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/hu
-%dir /usr/share/locale/hu/LC_MESSAGES
 /usr/share/locale/hu/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/hy_AM
-%dir /usr/share/locale/hy_AM/LC_MESSAGES
 /usr/share/locale/hy_AM/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/hye
-%dir /usr/share/locale/hye/LC_MESSAGES
 /usr/share/locale/hye/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/id
-%dir /usr/share/locale/id/LC_MESSAGES
 /usr/share/locale/id/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/is
-%dir /usr/share/locale/is/LC_MESSAGES
 /usr/share/locale/is/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/it
-%dir /usr/share/locale/it/LC_MESSAGES
 /usr/share/locale/it/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/ja
-%dir /usr/share/locale/ja/LC_MESSAGES
 /usr/share/locale/ja/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/kab
-%dir /usr/share/locale/kab/LC_MESSAGES
 /usr/share/locale/kab/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/kk
-%dir /usr/share/locale/kk/LC_MESSAGES
 /usr/share/locale/kk/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/ko
-%dir /usr/share/locale/ko/LC_MESSAGES
 /usr/share/locale/ko/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/lt
-%dir /usr/share/locale/lt/LC_MESSAGES
 /usr/share/locale/lt/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/lv
-%dir /usr/share/locale/lv/LC_MESSAGES
 /usr/share/locale/lv/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/ms
-%dir /usr/share/locale/ms/LC_MESSAGES
 /usr/share/locale/ms/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/nb
-%dir /usr/share/locale/nb/LC_MESSAGES
 /usr/share/locale/nb/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/nl
-%dir /usr/share/locale/nl/LC_MESSAGES
 /usr/share/locale/nl/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/nn
-%dir /usr/share/locale/nn/LC_MESSAGES
 /usr/share/locale/nn/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/oc
-%dir /usr/share/locale/oc/LC_MESSAGES
 /usr/share/locale/oc/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/pa
-%dir /usr/share/locale/pa/LC_MESSAGES
 /usr/share/locale/pa/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/pl
-%dir /usr/share/locale/pl/LC_MESSAGES
 /usr/share/locale/pl/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/pt
-%dir /usr/share/locale/pt/LC_MESSAGES
 /usr/share/locale/pt/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/pt_BR
-%dir /usr/share/locale/pt_BR/LC_MESSAGES
 /usr/share/locale/pt_BR/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/ro
-%dir /usr/share/locale/ro/LC_MESSAGES
 /usr/share/locale/ro/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/ru
-%dir /usr/share/locale/ru/LC_MESSAGES
 /usr/share/locale/ru/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/si
-%dir /usr/share/locale/si/LC_MESSAGES
 /usr/share/locale/si/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/sk
-%dir /usr/share/locale/sk/LC_MESSAGES
 /usr/share/locale/sk/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/sl
-%dir /usr/share/locale/sl/LC_MESSAGES
 /usr/share/locale/sl/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/sq
-%dir /usr/share/locale/sq/LC_MESSAGES
 /usr/share/locale/sq/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/sr
-%dir /usr/share/locale/sr/LC_MESSAGES
 /usr/share/locale/sr/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/sv
-%dir /usr/share/locale/sv/LC_MESSAGES
 /usr/share/locale/sv/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/te
-%dir /usr/share/locale/te/LC_MESSAGES
 /usr/share/locale/te/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/th
-%dir /usr/share/locale/th/LC_MESSAGES
 /usr/share/locale/th/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/tr
-%dir /usr/share/locale/tr/LC_MESSAGES
 /usr/share/locale/tr/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/ug
-%dir /usr/share/locale/ug/LC_MESSAGES
 /usr/share/locale/ug/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/uk
-%dir /usr/share/locale/uk/LC_MESSAGES
 /usr/share/locale/uk/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/zh_CN
-%dir /usr/share/locale/zh_CN/LC_MESSAGES
 /usr/share/locale/zh_CN/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/zh_HK
-%dir /usr/share/locale/zh_HK/LC_MESSAGES
 /usr/share/locale/zh_HK/LC_MESSAGES/tumbler.mo
-%dir /usr/share/locale/zh_TW
-%dir /usr/share/locale/zh_TW/LC_MESSAGES
 /usr/share/locale/zh_TW/LC_MESSAGES/tumbler.mo

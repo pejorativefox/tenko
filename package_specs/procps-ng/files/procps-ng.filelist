@@ -1,3 +1,6 @@
+%dir /usr/share/doc
+%dir /usr/share/locale
+%dir /usr/share/man
 /usr/bin/free
 /usr/bin/hugetop
 /usr/bin/pgrep
@@ -15,8 +18,15 @@
 /usr/bin/vmstat
 /usr/bin/w
 /usr/bin/watch
+/usr/include/libproc2/diskstats.h
+/usr/include/libproc2/meminfo.h
+/usr/include/libproc2/misc.h
+/usr/include/libproc2/pids.h
+/usr/include/libproc2/slabinfo.h
+/usr/include/libproc2/stat.h
+/usr/include/libproc2/vmstat.h
+/usr/include/libproc2/xtra-procps-debug.h
+/usr/lib64/libproc2.so
 /usr/lib64/libproc2.so.1
 /usr/lib64/libproc2.so.1.0.2
-%dir /usr/share/doc
-%dir /usr/share/locale
-%dir /usr/share/man
+/usr/lib64/pkgconfig/libproc2.pc

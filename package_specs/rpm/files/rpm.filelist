@@ -1,3 +1,4 @@
+%dir /usr/include/rpm
 %dir /usr/lib/rpm
 %dir /usr/lib/rpm/fileattrs
 %dir /usr/lib/rpm/lua
@@ -70,6 +71,7 @@
 %dir /usr/lib/rpm/platform/sparcv9-linux
 %dir /usr/lib/rpm/platform/sparcv9v-linux
 %dir /usr/lib/rpm/platform/x86_64-linux
+%dir /usr/lib64/pkgconfig
 /usr/bin/gendiff
 /usr/bin/rpm
 /usr/bin/rpm2archive
@@ -83,6 +85,43 @@
 /usr/bin/rpmsign
 /usr/bin/rpmspec
 /usr/bin/rpmverify
+/usr/include/rpm/argv.h
+/usr/include/rpm/header.h
+/usr/include/rpm/rpmarchive.h
+/usr/include/rpm/rpmbase64.h
+/usr/include/rpm/rpmbuild.h
+/usr/include/rpm/rpmcallback.h
+/usr/include/rpm/rpmcli.h
+/usr/include/rpm/rpmcrypto.h
+/usr/include/rpm/rpmdb.h
+/usr/include/rpm/rpmds.h
+/usr/include/rpm/rpmfc.h
+/usr/include/rpm/rpmfi.h
+/usr/include/rpm/rpmfiles.h
+/usr/include/rpm/rpmfileutil.h
+/usr/include/rpm/rpmio.h
+/usr/include/rpm/rpmkeyring.h
+/usr/include/rpm/rpmlib.h
+/usr/include/rpm/rpmlog.h
+/usr/include/rpm/rpmmacro.h
+/usr/include/rpm/rpmpgp.h
+/usr/include/rpm/rpmpol.h
+/usr/include/rpm/rpmprob.h
+/usr/include/rpm/rpmps.h
+/usr/include/rpm/rpmsign.h
+/usr/include/rpm/rpmspec.h
+/usr/include/rpm/rpmsq.h
+/usr/include/rpm/rpmstring.h
+/usr/include/rpm/rpmstrpool.h
+/usr/include/rpm/rpmsw.h
+/usr/include/rpm/rpmtag.h
+/usr/include/rpm/rpmtd.h
+/usr/include/rpm/rpmte.h
+/usr/include/rpm/rpmts.h
+/usr/include/rpm/rpmtypes.h
+/usr/include/rpm/rpmurl.h
+/usr/include/rpm/rpmutil.h
+/usr/include/rpm/rpmver.h
 /usr/lib/rpm/brp-compress
 /usr/lib/rpm/brp-elfperms
 /usr/lib/rpm/brp-remove-la-files
@@ -196,11 +235,16 @@
 /usr/lib/rpm/rpmuncompress
 /usr/lib/rpm/script.req
 /usr/lib/rpm/tgpg
+/usr/lib64/librpm.so
 /usr/lib64/librpm.so.9
 /usr/lib64/librpm.so.9.4.0
+/usr/lib64/librpmbuild.so
 /usr/lib64/librpmbuild.so.9
 /usr/lib64/librpmbuild.so.9.4.0
+/usr/lib64/librpmio.so
 /usr/lib64/librpmio.so.9
 /usr/lib64/librpmio.so.9.4.0
+/usr/lib64/librpmsign.so
 /usr/lib64/librpmsign.so.9
 /usr/lib64/librpmsign.so.9.4.0
+/usr/lib64/pkgconfig/rpm.pc

@@ -1,19 +1,12 @@
 Name:       libxi
 Version:    1.8.4
-Release:    1
+Release:    2
 Summary:    Library for the X Input Extension.
 License:    GPL3
 Prefix:     /usr
 Source0:    libXi-%{version}.tar.xz
 %description
 Library for the X Input Extension.
-
-%package devel
-Summary:    libxi development files
-Requires:   libxi = %{version}-%{release}
-
-%description devel
-Development files for libxi.
 
 %package doc
 Summary:    libxi documentation
@@ -42,12 +35,15 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxi.filelist
-%files devel -f %{_sourcedir}/libxi-devel.filelist
 %files doc -f %{_sourcedir}/libxi-doc.filelist
 %files static -f %{_sourcedir}/libxi-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.8.4-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.8.4-1
 - Update to 1.8.4 (current BLFS r13.1 trunk version).
 

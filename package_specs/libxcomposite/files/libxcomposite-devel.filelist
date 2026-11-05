@@ -1,6 +1,0 @@
-%dir /usr/include/X11
-%dir /usr/include/X11/extensions
-/usr/include/X11/extensions/Xcomposite.h
-/usr/lib64/libXcomposite.so
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/xcomposite.pc

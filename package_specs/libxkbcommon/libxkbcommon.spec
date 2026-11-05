@@ -1,19 +1,12 @@
 Name:       libxkbcommon
 Version:    1.13.2
-Release:    2
+Release:    3
 Summary:    library for handling of keyboard descriptions
 License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 %description
 library for handling of keyboard descriptions
-
-%package devel
-Summary:    libxkbcommon development files
-Requires:   libxkbcommon = %{version}-%{release}
-
-%description devel
-Development files for libxkbcommon.
 
 %prep
 %setup -q
@@ -30,8 +23,6 @@ meson setup ..            \
       -Denable-docs=false 
 ninja
 
-
-
 %install    
 rm -rf %{buildroot}
 pushd build
@@ -40,10 +31,12 @@ popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxkbcommon.filelist
-%files devel -f %{_sourcedir}/libxkbcommon-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.13.2-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.13.2-2
 - Split devel payload into libxkbcommon-devel (size audit)
 

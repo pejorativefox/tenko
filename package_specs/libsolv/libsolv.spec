@@ -1,6 +1,6 @@
 Name:       libsolv
 Version:    0.7.41
-Release:    5
+Release:    6
 Summary:    Library for solving packages and reading repositories
 License:    BSD
 Prefix:     /usr
@@ -10,13 +10,6 @@ Source0:    %{name}-%{version}.tar.gz
 libsolv is a dependency solver and repository reader used by libdnf and
 dnf.  This build includes the RPM database (via librpm), rpmmd and RPM
 package readers required by libdnf.
-
-%package devel
-Summary:    Development files for libsolv
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-pkg-config files for libsolv, used to build software against it.
 
 %prep
 %setup -q
@@ -62,9 +55,12 @@ install -Dm0644 cmake/modules/FindLibSolv.cmake \
     "%{buildroot}${cmake_root}/Modules/FindLibSolv.cmake"
 
 %files -f %{_sourcedir}/libsolv.filelist
-%files devel -f %{_sourcedir}/libsolv-devel.filelist
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.7.41-6
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.7.41-5
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

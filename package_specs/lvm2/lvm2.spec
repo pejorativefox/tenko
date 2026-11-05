@@ -1,6 +1,6 @@
 Name:       LVM2
 Version:    2.03.44
-Release:    2
+Release:    3
 Summary:    LVM2 logical volume management tools and device-mapper library
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:        https://sourceware.org/lvm2/
@@ -10,7 +10,7 @@ Prefix:     /usr
 BuildRequires: libaio
 BuildRequires: readline
 BuildRequires: systemd
-BuildRequires: util-linux-devel
+BuildRequires: util-linux
 
 %description
 The LVM2 package is a set of tools that manage logical partitions. It
@@ -19,14 +19,6 @@ partitions and provides for dynamic growing or shrinking of logical
 partitions, mirroring and low storage footprint snapshots.
 
 This package also provides the device-mapper library (libdevmapper).
-
-%package devel
-Summary:    Development files for LVM2 and libdevmapper
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-Headers, pkg-config metadata and linker symlinks for libdevmapper and
-liblvm2cmd.
 
 %prep
 %setup -q -n LVM2.%{version}
@@ -58,9 +50,12 @@ sed -i 's|^ExecStart=/usr/sbin/vgimportdevices|ExecStart=%{_bindir}/vgimportdevi
     %{buildroot}%{_unitdir}/lvm-devices-import.service
 
 %files -f %{_sourcedir}/lvm2.filelist
-%files devel -f %{_sourcedir}/lvm2-devel.filelist
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.03.44-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Tue Nov  3 2026 browneye <build@browneye.invalid> 2.03.44-2
 - Fix lvm-devices-import.service: it hardcodes /usr/sbin/vgimportdevices,
   but the distro maps sbindir to /usr/bin, so the unit failed on every

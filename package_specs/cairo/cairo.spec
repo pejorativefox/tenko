@@ -1,6 +1,6 @@
 Name:       cairo
 Version:    1.18.6
-Release:    2
+Release:    3
 Summary:    2D graphics library
 License:    GPL3
 Prefix:     /usr
@@ -12,13 +12,6 @@ BuildRequires: pkgconfig(xrender)
 
 %description
 Cairo is a 2D graphics library with support for multiple output devices.
-
-%package devel
-Summary:    cairo development files
-Requires:   cairo = %{version}-%{release}
-
-%description devel
-Development files for cairo.
 
 %prep
 %setup -q
@@ -38,10 +31,12 @@ popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/cairo.filelist
-%files devel -f %{_sourcedir}/cairo-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.18.6-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.18.6-2
 - Split devel payload into cairo-devel (size audit)
 

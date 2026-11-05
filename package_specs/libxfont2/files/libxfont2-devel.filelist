@@ -1,6 +1,0 @@
-%dir /usr/include/X11
-%dir /usr/include/X11/fonts
-/usr/include/X11/fonts/libxfont2.h
-/usr/lib64/libXfont2.so
-%dir /usr/lib64/pkgconfig
-/usr/lib64/pkgconfig/xfont2.pc

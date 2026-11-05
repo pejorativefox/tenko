@@ -1,6 +1,6 @@
 Name:       tumbler
 Version:    4.20.2
-Release:    2
+Release:    3
 Summary:    D-Bus service for applications to request thumbnails
 License:    GPL2
 Source0:    %{name}-%{version}.tar.bz2
@@ -9,18 +9,11 @@ Prefix:     /usr
 %description
 D-Bus service for applications to request thumbnails
 
-%package devel
-Summary:    tumbler development files
-Requires:   tumbler = %{version}-%{release}
-
-%description devel
-Development files for tumbler.
-
 %prep
 %setup
 
 %build
-%configure
+%configure --disable-gstreamer-thumbnailer
 %make_build
 
 %install
@@ -30,10 +23,15 @@ mkdir -p %{buildroot}/etc
 rm -f %{buildroot}/usr/lib/systemd/user/tumblerd.service
 
 %files -f %{_sourcedir}/tumbler.filelist
-%files devel -f %{_sourcedir}/tumbler-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.2-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+- Disable the GStreamer thumbnailer explicitly.  The build image ships
+  the GStreamer headers, while the image the published package was built
+  in did not, so autodetection added tumbler-gst-thumbnailer.so.
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.2-2
 - Split devel payload into tumbler-devel (size audit)
 

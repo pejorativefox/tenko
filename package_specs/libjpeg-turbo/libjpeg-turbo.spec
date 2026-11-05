@@ -1,6 +1,6 @@
 Name:       libjpeg-turbo
 Version:    3.2.1
-Release:    1
+Release:    2
 Summary:    JPEG library
 License:    GPL3
 Prefix:     /usr
@@ -15,18 +15,10 @@ Requires:   libjpeg-turbo = %{version}-%{release}
 %description doc
 Documentation for libjpeg-turbo.
 
-%package devel
-Summary:    libjpeg-turbo development files
-Requires:   libjpeg-turbo = %{version}-%{release}
-
-%description devel
-Development files for libjpeg-turbo.
-
 %prep
 %setup -q
 
 %build
-
 
 mkdir build
 pushd build
@@ -50,10 +42,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libjpeg-turbo.filelist
 %files doc -f %{_sourcedir}/libjpeg-turbo-doc.filelist
-%files devel -f %{_sourcedir}/libjpeg-turbo-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.2.1-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 3.2.1-1
 - Update to 3.2.1 (current BLFS r13.1 trunk version).
 

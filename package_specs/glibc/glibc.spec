@@ -1,6 +1,6 @@
 Name:       glibc
 Version:    2.44
-Release:    3
+Release:    4
 Summary:    Provides the GNU glibc library
 License:    GPL3
 Source0:    %{name}-%{version}.tar.xz
@@ -11,15 +11,6 @@ Provides: rtld(GNU_HASH)
 %description
 TODO
 kluged to work around: https://www.linuxquestions.org/questions/slackware-14/bug-while-building-glibc-2-27-with-new-gcc-8-1-1-and-perl-5-28-0-a-4175632782/
-
-%package devel
-Summary:    Development files for glibc
-Requires:   glibc = %{version}-%{release}
-
-%description devel
-Headers, startup objects (crt*.o), static libraries and the unversioned
-linker scripts needed to compile and link programs against glibc.  Runtime
-installs do not need this package.
 
 %package i18n
 Summary:    Locale source definitions for glibc
@@ -66,7 +57,6 @@ locale coverage of the former 222 MB archive.
 This package is additive: it does not replace /usr/lib/locale/locale-archive
 and can be erased at any time without leaving a broken system (the curated
 archive and everything browneye-base depends on stays installed).
-
 
 %prep
 %setup -q
@@ -198,7 +188,6 @@ touch %{buildroot}/etc/ld.so.conf.d/.keep
 
 %files -f %{_sourcedir}/glibc.filelist
 %exclude /usr/lib/locale/
-%files devel -f %{_sourcedir}/glibc-devel.filelist
 %files i18n -f %{_sourcedir}/glibc-i18n.filelist
 %files doc -f %{_sourcedir}/glibc-doc.filelist
 
@@ -209,6 +198,11 @@ touch %{buildroot}/etc/ld.so.conf.d/.keep
 %files locales-extra -f %{_sourcedir}/glibc-locales-extra.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.44-4
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.44-3
 - Split locale data (2026-10 size audit): glibc-locales now ships a curated
   locale-archive (C, POSIX, C.UTF-8 and the UTF-8 variants of en_US,

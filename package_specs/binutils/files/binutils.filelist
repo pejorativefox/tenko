@@ -1,4 +1,5 @@
 %dir /usr/bin
+%dir /usr/include
 %dir /usr/lib
 %dir /usr/lib/ldscripts
 %dir /usr/lib64
@@ -20,6 +21,17 @@
 /usr/bin/size
 /usr/bin/strings
 /usr/bin/strip
+/usr/include/ansidecl.h
+/usr/include/bfd.h
+/usr/include/bfdlink.h
+/usr/include/ctf-api.h
+/usr/include/ctf.h
+/usr/include/diagnostics.h
+/usr/include/dis-asm.h
+/usr/include/plugin-api.h
+/usr/include/sframe-api.h
+/usr/include/sframe.h
+/usr/include/symcat.h
 /usr/lib/ldscripts/elf32_x86_64.x
 /usr/lib/ldscripts/elf32_x86_64.xbn
 /usr/lib/ldscripts/elf32_x86_64.xc
@@ -116,10 +128,20 @@
 /usr/lib/ldscripts/stamp
 /usr/lib64/bfd-plugins/libdep.so
 /usr/lib64/libbfd-2.47.20260726.so
+/usr/lib64/libbfd.a
+/usr/lib64/libbfd.so
+/usr/lib64/libctf-nobfd.a
+/usr/lib64/libctf-nobfd.so
 /usr/lib64/libctf-nobfd.so.0
 /usr/lib64/libctf-nobfd.so.0.0.0
+/usr/lib64/libctf.a
+/usr/lib64/libctf.so
 /usr/lib64/libctf.so.0
 /usr/lib64/libctf.so.0.0.0
 /usr/lib64/libopcodes-2.47.20260726.so
+/usr/lib64/libopcodes.a
+/usr/lib64/libopcodes.so
+/usr/lib64/libsframe.a
+/usr/lib64/libsframe.so
 /usr/lib64/libsframe.so.3
 /usr/lib64/libsframe.so.3.0.0

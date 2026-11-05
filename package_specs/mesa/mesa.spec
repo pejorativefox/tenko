@@ -1,6 +1,6 @@
 Name:       mesa
 Version:    26.2.3
-Release:    4
+Release:    5
 Summary:    Mesa 3D Graphics Library
 License:    MIT
 Prefix:     /usr
@@ -50,19 +50,12 @@ popd
 
 %files -f %{_sourcedir}/mesa.filelist
 
-%package devel
-Summary:    Development files for Mesa
-Requires:   mesa = %{version}-%{release}
-
-%description devel
-Headers, pkg-config files and unversioned linker symlinks for building
-against Mesa's EGL/OpenGL/GLES/GBM libraries.  Keeping them out of the
-runtime package stops mesa's pkgconfig() requires from dragging the X11
--devel packages into every desktop install.
-
-%files devel -f %{_sourcedir}/mesa-devel.filelist
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 26.2.3-5
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 26.2.3-4
 - Split mesa-devel (headers, pkgconfig files and unversioned .so
   symlinks).  mesa's pkgconfig() requires were pulling libdrm/x11/xcb/

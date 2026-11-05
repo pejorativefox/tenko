@@ -1,19 +1,12 @@
 Name:       libxrender
 Version:    0.9.13
-Release:    1
+Release:    2
 Summary:    Render Extension to the X11 protocol.
 License:    GPL3
 Prefix:     /usr
 Source0:    libXrender-%{version}.tar.xz
 %description
 Render Extension to the X11 protocol.
-
-%package devel
-Summary:    libxrender development files
-Requires:   libxrender = %{version}-%{release}
-
-%description devel
-Development files for libxrender.
 
 %package static
 Summary:    libxrender static libraries
@@ -35,11 +28,14 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxrender.filelist
-%files devel -f %{_sourcedir}/libxrender-devel.filelist
 %files static -f %{_sourcedir}/libxrender-static.filelist
 
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.9.13-2
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.9.13-1
 - Update to 0.9.13 (current BLFS r13.1 trunk version).
 

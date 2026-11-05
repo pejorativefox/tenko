@@ -1,17 +1,38 @@
 %dir /usr/include
+%dir /usr/include/X11
+%dir /usr/include/X11/extensions
 %dir /usr/lib64
-/usr/lib64/libXext.so.6
-/usr/lib64/libXext.so.6.4.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/doc
 %dir /usr/share/doc/libXext
+%dir /usr/share/man
+%dir /usr/share/man/man3
+/usr/include/X11/extensions/MITMisc.h
+/usr/include/X11/extensions/XEVI.h
+/usr/include/X11/extensions/XLbx.h
+/usr/include/X11/extensions/XShm.h
+/usr/include/X11/extensions/Xag.h
+/usr/include/X11/extensions/Xcup.h
+/usr/include/X11/extensions/Xdbe.h
+/usr/include/X11/extensions/Xext.h
+/usr/include/X11/extensions/Xge.h
+/usr/include/X11/extensions/dpms.h
+/usr/include/X11/extensions/extutil.h
+/usr/include/X11/extensions/multibuf.h
+/usr/include/X11/extensions/security.h
+/usr/include/X11/extensions/shape.h
+/usr/include/X11/extensions/sync.h
+/usr/include/X11/extensions/xtestext1.h
+/usr/lib64/libXext.so
+/usr/lib64/libXext.so.6
+/usr/lib64/libXext.so.6.4.0
+/usr/lib64/pkgconfig/xext.pc
 /usr/share/doc/libXext/dbelib.xml
 /usr/share/doc/libXext/dpmslib.xml
 /usr/share/doc/libXext/shapelib.xml
 /usr/share/doc/libXext/synclib.xml
 /usr/share/doc/libXext/xtest1.xml
-%dir /usr/share/man
-%dir /usr/share/man/man3
 /usr/share/man/man3/DBE.3.gz
 /usr/share/man/man3/DPMSCapable.3.gz
 /usr/share/man/man3/DPMSDisable.3.gz

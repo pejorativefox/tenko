@@ -1,6 +1,6 @@
 Name:       readline
 Version:    8.3
-Release:    2
+Release:    3
 Summary:    Library for command line editing
 License:    GPL3
 Source0:    %{name}-%{version}.tar.gz
@@ -16,20 +16,12 @@ Requires:   readline = %{version}-%{release}
 %description doc
 Documentation for readline.
 
-%package devel
-Summary:    readline development files
-Requires:   readline = %{version}-%{release}
-
-%description devel
-Development files for readline.
-
 %prep
 %setup -q 
 
 %build
 sed -i '/MV.*old/d' Makefile.in
 sed -i '/{OLDSUFF}/c:' support/shlib-install
-
 
 %configure --prefix=/usr    \
             --disable-static \
@@ -46,10 +38,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/readline.filelist
 %files doc -f %{_sourcedir}/readline-doc.filelist
-%files devel -f %{_sourcedir}/readline-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 8.3-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 8.3-2
 - Split doc, devel payload into readline-doc, readline-devel (size audit)
 

@@ -1,6 +1,6 @@
 Name:       exo
 Version:    4.20.0
-Release:    2
+Release:    3
 Summary:    Application library for Xfce
 License:    GPL
 Source0:    %{name}-%{version}.tar.bz2
@@ -23,13 +23,6 @@ Requires:   exo = %{version}-%{release}
 %description doc
 Documentation for exo.
 
-%package devel
-Summary:    exo development files
-Requires:   exo = %{version}-%{release}
-
-%description devel
-Development files for exo.
-
 %prep
 %setup
 
@@ -45,10 +38,12 @@ mkdir -p %{buildroot}/etc
 %files -f %{_sourcedir}/exo.filelist
 %files lang -f %{_sourcedir}/exo-lang.filelist
 %files doc -f %{_sourcedir}/exo-doc.filelist
-%files devel -f %{_sourcedir}/exo-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.0-3
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.0-2
 - Split lang, doc, devel payload into exo-lang, exo-doc, exo-devel (size audit)
 

@@ -2,36 +2,67 @@
 %dir /etc/xdg/xfce4
 %dir /etc/xdg/xfce4/xfconf
 %dir /etc/xdg/xfce4/xfconf/xfce-perchannel-xml
-/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
 %dir /usr/bin
-/usr/bin/xfce4-about
 %dir /usr/include
+%dir /usr/include/xfce4
+%dir /usr/include/xfce4/libxfce4kbd-private-3
+%dir /usr/include/xfce4/libxfce4kbd-private-3/libxfce4kbd-private
+%dir /usr/include/xfce4/libxfce4ui-2
+%dir /usr/include/xfce4/libxfce4ui-2/libxfce4ui
 %dir /usr/lib64
-/usr/lib64/libxfce4kbd-private-3.so.0
-/usr/lib64/libxfce4kbd-private-3.so.0.0.0
-/usr/lib64/libxfce4ui-2.so.0
-/usr/lib64/libxfce4ui-2.so.0.0.0
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/applications
-/usr/share/applications/xfce4-about.desktop
 %dir /usr/share/gir-1.0
 %dir /usr/share/gtk-doc
 %dir /usr/share/icons
 %dir /usr/share/icons/hicolor
 %dir /usr/share/icons/hicolor/128x128
 %dir /usr/share/icons/hicolor/128x128/apps
-/usr/share/icons/hicolor/128x128/apps/org.xfce.about.png
-/usr/share/icons/hicolor/128x128/apps/xfce4-logo.png
 %dir /usr/share/icons/hicolor/16x16
 %dir /usr/share/icons/hicolor/16x16/apps
-/usr/share/icons/hicolor/16x16/apps/org.xfce.about.png
-/usr/share/icons/hicolor/16x16/apps/xfce4-logo.png
 %dir /usr/share/icons/hicolor/48x48
 %dir /usr/share/icons/hicolor/48x48/apps
-/usr/share/icons/hicolor/48x48/apps/org.xfce.about.png
-/usr/share/icons/hicolor/48x48/apps/xfce4-logo.png
 %dir /usr/share/icons/hicolor/scalable
 %dir /usr/share/icons/hicolor/scalable/apps
+%dir /usr/share/locale
+/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
+/usr/bin/xfce4-about
+/usr/include/xfce4/libxfce4kbd-private-3/libxfce4kbd-private/xfce-shortcut-dialog.h
+/usr/include/xfce4/libxfce4kbd-private-3/libxfce4kbd-private/xfce-shortcuts-editor-dialog.h
+/usr/include/xfce4/libxfce4kbd-private-3/libxfce4kbd-private/xfce-shortcuts-editor.h
+/usr/include/xfce4/libxfce4kbd-private-3/libxfce4kbd-private/xfce-shortcuts-grabber.h
+/usr/include/xfce4/libxfce4kbd-private-3/libxfce4kbd-private/xfce-shortcuts-provider.h
+/usr/include/xfce4/libxfce4kbd-private-3/libxfce4kbd-private/xfce-shortcuts-xfwm4.h
+/usr/include/xfce4/libxfce4kbd-private-3/libxfce4kbd-private/xfce-shortcuts.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/libxfce4ui-config.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/libxfce4ui-enum-types.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/libxfce4ui-enums.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/libxfce4ui.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/xfce-clipboard-manager.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/xfce-dialogs.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/xfce-filename-input.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/xfce-gdk-extensions.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/xfce-gtk-extensions.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/xfce-screensaver.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/xfce-sm-client.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/xfce-spawn.h
+/usr/include/xfce4/libxfce4ui-2/libxfce4ui/xfce-titled-dialog.h
+/usr/lib64/libxfce4kbd-private-3.so
+/usr/lib64/libxfce4kbd-private-3.so.0
+/usr/lib64/libxfce4kbd-private-3.so.0.0.0
+/usr/lib64/libxfce4ui-2.so
+/usr/lib64/libxfce4ui-2.so.0
+/usr/lib64/libxfce4ui-2.so.0.0.0
+/usr/lib64/pkgconfig/libxfce4kbd-private-3.pc
+/usr/lib64/pkgconfig/libxfce4ui-2.pc
+/usr/share/applications/xfce4-about.desktop
+/usr/share/gir-1.0/Libxfce4ui-2.0.gir
+/usr/share/icons/hicolor/128x128/apps/org.xfce.about.png
+/usr/share/icons/hicolor/128x128/apps/xfce4-logo.png
+/usr/share/icons/hicolor/16x16/apps/org.xfce.about.png
+/usr/share/icons/hicolor/16x16/apps/xfce4-logo.png
+/usr/share/icons/hicolor/48x48/apps/org.xfce.about.png
+/usr/share/icons/hicolor/48x48/apps/xfce4-logo.png
 /usr/share/icons/hicolor/scalable/apps/org.xfce.about.svg
 /usr/share/icons/hicolor/scalable/apps/xfce4-logo.svg
-%dir /usr/share/locale

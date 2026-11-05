@@ -1,7 +1,9 @@
 %dir /usr/bin
-/usr/bin/xkbcomp
 %dir /usr/lib64
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/man
 %dir /usr/share/man/man1
+/usr/bin/xkbcomp
+/usr/lib64/pkgconfig/xkbcomp.pc
 /usr/share/man/man1/xkbcomp.1.gz

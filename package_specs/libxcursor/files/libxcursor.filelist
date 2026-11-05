@@ -1,10 +1,16 @@
 %dir /usr/include
+%dir /usr/include/X11
+%dir /usr/include/X11/Xcursor
 %dir /usr/lib64
-/usr/lib64/libXcursor.so.1
-/usr/lib64/libXcursor.so.1.0.2
+%dir /usr/lib64/pkgconfig
 %dir /usr/share
 %dir /usr/share/man
 %dir /usr/share/man/man3
+/usr/include/X11/Xcursor/Xcursor.h
+/usr/lib64/libXcursor.so
+/usr/lib64/libXcursor.so.1
+/usr/lib64/libXcursor.so.1.0.2
+/usr/lib64/pkgconfig/xcursor.pc
 /usr/share/man/man3/Xcursor.3.gz
 /usr/share/man/man3/XcursorAnimateCreate.3.gz
 /usr/share/man/man3/XcursorAnimateDestroy.3.gz

@@ -1,14 +1,14 @@
 Name:       lightdm-gtk-greeter
 Version:    2.0.9
-Release:    1
+Release:    2
 Summary:    GTK+ greeter for LightDM
 License:    GPL-3.0-or-later
 Source0:    lightdm-gtk-greeter-2.0.9.tar.gz
 Prefix:     /usr
 
 BuildRequires: gtk+, libxklavier, gettext
-# liblightdm-gobject-1.pc, the GIR and the headers come from lightdm-devel.
-BuildRequires: lightdm-devel
+# liblightdm-gobject-1.pc, the GIR and the headers come from lightdm.
+BuildRequires: lightdm
 
 Requires: lightdm >= 1.19.2
 
@@ -61,5 +61,9 @@ mv -v %{buildroot}%{_docdir}/lightdm-gtk-greeter \
 %files doc -f %{_sourcedir}/lightdm-gtk-greeter-doc.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.9-2
+- Build against lightdm instead of lightdm-devel: the -devel subpackages
+  were removed and the .pc/GIR/headers now ship in lightdm (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.0.9-1
 - Initial package (BLFS r13.1 lightdm-gtk-greeter 2.0.9)

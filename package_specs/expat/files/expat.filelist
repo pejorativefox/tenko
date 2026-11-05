@@ -1,12 +1,22 @@
 %dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/expat-2.9.0
 %dir /usr/lib64/pkgconfig
 %dir /usr/share/doc
 %dir /usr/share/doc/expat-2.9.0
 %dir /usr/share/man
 %dir /usr/share/man/man1
 /usr/bin/xmlwf
+/usr/include/expat.h
+/usr/include/expat_config.h
+/usr/include/expat_external.h
+/usr/lib64/cmake/expat-2.9.0/expat-config-version.cmake
+/usr/lib64/cmake/expat-2.9.0/expat-config.cmake
+/usr/lib64/cmake/expat-2.9.0/expat-noconfig.cmake
+/usr/lib64/cmake/expat-2.9.0/expat.cmake
+/usr/lib64/libexpat.so
 /usr/lib64/libexpat.so.1
 /usr/lib64/libexpat.so.1.13.0
+/usr/lib64/pkgconfig/expat.pc
 /usr/share/doc/expat-2.9.0/AUTHORS
 /usr/share/doc/expat-2.9.0/changelog
 /usr/share/man/man1/xmlwf.1.gz

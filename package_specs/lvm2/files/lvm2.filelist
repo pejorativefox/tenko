@@ -1,12 +1,14 @@
 %dir /etc/lvm
 %dir /etc/lvm/profile
 %dir /usr/bin
+%dir /usr/include
 %dir /usr/lib
 %dir /usr/lib/systemd
 %dir /usr/lib/systemd/system
 %dir /usr/lib/udev
 %dir /usr/lib/udev/rules.d
 %dir /usr/lib64
+%dir /usr/lib64/pkgconfig
 %dir /usr/libexec
 %dir /usr/share
 %dir /usr/share/man
@@ -77,6 +79,8 @@
 /usr/bin/vgs
 /usr/bin/vgscan
 /usr/bin/vgsplit
+/usr/include/libdevmapper.h
+/usr/include/lvm2cmd.h
 /usr/lib/systemd/system/blk-availability.service
 /usr/lib/systemd/system/lvm-devices-import.path
 /usr/lib/systemd/system/lvm-devices-import.service
@@ -85,8 +89,11 @@
 /usr/lib/udev/rules.d/13-dm-disk.rules
 /usr/lib/udev/rules.d/69-dm-lvm.rules
 /usr/lib/udev/rules.d/95-dm-notify.rules
+/usr/lib64/libdevmapper.so
 /usr/lib64/libdevmapper.so.1.02
+/usr/lib64/liblvm2cmd.so
 /usr/lib64/liblvm2cmd.so.2.03
+/usr/lib64/pkgconfig/devmapper.pc
 /usr/libexec/lvresize_fs_helper
 /usr/share/man/man5/lvm.conf.5.gz
 /usr/share/man/man7/lvm-args.7.gz

@@ -1,6 +1,6 @@
 Name:       vte
 Version:    0.84.1
-Release:    3
+Release:    4
 Summary:    Virtual Terminal Emulator library
 License:    LGPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
@@ -28,13 +28,6 @@ BuildRequires: lz4
 
 %description
 Virtual Terminal Emulator library.
-
-%package devel
-Summary:    vte development files
-Requires:   vte = %{version}-%{release}
-
-%description devel
-Development files for vte.
 
 %prep
 %setup -q
@@ -83,10 +76,12 @@ rmdir %{buildroot}/etc/profile.d 2>/dev/null || true
 rmdir %{buildroot}/etc 2>/dev/null || true
 
 %files -f %{_sourcedir}/vte.filelist
-%files devel -f %{_sourcedir}/vte-devel.filelist
-
-
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.84.1-4
+- Remove the -devel subpackage: fold its headers, include
+  directories, unversioned .so symlinks and .pc files into the
+  main package (issue #4).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.84.1-3
 - Split devel payload into vte-devel (size audit)
 
