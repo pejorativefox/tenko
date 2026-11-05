@@ -365,18 +365,20 @@ Artifacts from the run are under `build/` (`browneye-installer-systemd.iso`,
 
 ### Published images
 
-Rebuilt from this branch (rebased onto `main` at `21a3abc`) and published to
-the public site and the LAN mirror on 2026-11-04:
+Rebuilt from `main` at `2b90526` (the `-devel` removal, `browneye-base-13.1-10`)
+and published to the public site and the LAN mirror on 2026-11-05:
 
 | Artifact | Size | SHA-256 |
 |---|---|---|
-| `iso/browneye-installer.iso` | 421 MiB | `a14721870445b87ae19b0844e51d1c61d9fd50764a4f56792a000ed6ee3c9fcf` |
-| `rootfs/browneye-rootfs.tar.gz` | 245 MiB | `f3d5cf379ad154608133a2659e882d4800f42d68324e2ad022587beb00a608d3` |
+| `iso/browneye-installer.iso` | 427 MiB | `d7ff737812e9b72b02404e0662b4522bf6460a9acf81c71c1e3a1b154262b273` |
+| `rootfs/browneye-rootfs.tar.gz` | 245 MiB | `f57c049b2699799db8a85633e296ca682ec6ff91a086df9a983bca4264656c93` |
 
-The rootfs is the build rootfs: it now carries `systemd-262.1-3` (sd-boot)
-and `python3-pyelftools`, so a base image rebuilt from it can rebuild systemd
-with `-D bootloader=enabled`.  Verified by rebuilding `systemd-262.1-3` inside
-the new `localhost/browneye/base:r13.1` image.
+The rootfs is the build rootfs: 127 packages, including
+`browneye-base-13.1-10`, rpm 4.18.1-7, the gcc/build toolchain and
+`python3-pyelftools`.  It contains no `-devel` packages; the distro ships
+only the intentional `llvm-devel`/`clang-devel` split.  The ISO live root is
+the `browneye-live` closure (101 packages, also no `-devel`); the image was
+booted in OVMF/QEMU to multi-user and the `Browneye Linux installer` unit.
 
 ## Risks
 

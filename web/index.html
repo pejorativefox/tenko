@@ -122,7 +122,7 @@
     <p>Packages for the Browneye base system, built from Linux From Scratch r13.1 with the self-hosted Browneye container toolchain.</p>
     <div class="actions">
       <a class="btn primary" href="packages/13.1/">Browse packages</a>
-      <a class="btn" href="iso/browneye-installer.iso">Installer ISO (642 MiB)</a>
+      <a class="btn" href="iso/browneye-installer.iso">Installer ISO (427 MiB)</a>
       <a class="btn" href="packages/13.1/browneye-13.1.repo">browneye-13.1.repo</a>
       <a class="btn" href="https://pjfox.xyz/git/daspork/browneye">Source</a>
     </div>
@@ -159,7 +159,7 @@ sha256sum -c browneye-installer.iso.sha256
 
 <span class="c"># write it to a USB stick</span>
 sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</code></pre>
-    <p class="muted">323 MiB · kernel 7.3.1 · installs the runtime base and
+    <p class="muted">427 MiB · kernel 7.3.1 · installs the runtime base and
        the XFCE desktop from this repository; install the build toolchain
        afterwards with <code>dnf install browneye-base</code>.</p>
 
@@ -170,7 +170,7 @@ sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</
 curl -LO https://tomfool.8bit.ca/browneye/rootfs/browneye-rootfs.tar.gz.sha256
 sha256sum -c browneye-rootfs.tar.gz.sha256
 podman import browneye-rootfs.tar.gz localhost/browneye/rootfs:13.1</code></pre>
-    <p class="muted">244 MiB gzip · 160 packages · regenerated from the
+    <p class="muted">245 MiB gzip · 127 packages · regenerated from the
        repository with <code>scripts/make_base_image.sh</code>.</p>
   </section>
 
@@ -205,9 +205,9 @@ podman import browneye-rootfs.tar.gz localhost/browneye/rootfs:13.1</code></pre>
         <tr><td><code>packages/13.1/browneye-13.1.repo</code></td><td>dnf repository definition</td></tr>
         <tr><td><code>packages/13.1/</code> (xfce-desktop)</td><td>XFCE 4.20 desktop meta-package and dependencies, same repo</td></tr>
         <tr><td><code>packages/13.1/README.txt</code></td><td>Short install notes</td></tr>
-        <tr><td><code>iso/browneye-installer.iso</code></td><td>UEFI installer ISO, 323 MiB, network install (no packages on the media)</td></tr>
+        <tr><td><code>iso/browneye-installer.iso</code></td><td>UEFI installer ISO, 427 MiB, network install (no packages on the media)</td></tr>
         <tr><td><code>iso/browneye-installer.iso.sha256</code></td><td>SHA-256 checksum for the ISO</td></tr>
-        <tr><td><code>rootfs/browneye-rootfs.tar.gz</code></td><td>container build rootfs, 244 MiB gzip, 160 packages</td></tr>
+        <tr><td><code>rootfs/browneye-rootfs.tar.gz</code></td><td>container build rootfs, 245 MiB gzip, 127 packages</td></tr>
         <tr><td><code>rootfs/browneye-rootfs.tar.gz.sha256</code></td><td>SHA-256 checksum for the rootfs tarball</td></tr>
       </tbody>
     </table>
