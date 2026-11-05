@@ -1,6 +1,6 @@
 Name:       browneye-base
 Version:    13.1
-Release:    7
+Release:    8
 Summary:    Browneye Linux base system (LFS r13.1)
 License:    MIT
 Prefix:     /usr
@@ -92,11 +92,8 @@ Requires:   browneye-basefs
 Requires:   browneye-sysconfig
 Requires:   browneye-release
 Requires:   browneye-firstboot
-Requires:   glibc-devel
 Requires:   glibc-locales
-Requires:   gcc-devel
 Requires:   gcc-lto
-Requires:   openssl-devel
 Requires:   linux-api-headers
 Requires:   linux-pam
 Requires:   make-ca
@@ -122,6 +119,11 @@ Meta-package pulling in the LFS r13.1 base system.
 %files
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 13.1-8
+- Drop the glibc-devel, gcc-devel and openssl-devel requirements: those
+  subpackages are gone and their headers, linker scripts and .pc files
+  now ship in glibc, gcc and openssl (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-7
 - Require make-ca so installed systems and derived images get a CA trust
   store automatically.  This pulls p11-kit and libtasn1 and provides

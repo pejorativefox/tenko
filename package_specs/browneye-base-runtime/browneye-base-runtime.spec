@@ -1,6 +1,6 @@
 Name:       browneye-base-runtime
 Version:    13.1
-Release:    2
+Release:    3
 Summary:    Browneye Linux runtime base (no build toolchain)
 License:    MIT
 Prefix:     /usr
@@ -81,14 +81,16 @@ runtime libraries, the shell and core utilities, systemd/udev, D-Bus,
 the RPM runtime, Python and Perl runtimes, and the Browneye system
 configuration packages.
 
-This profile deliberately omits gcc/gcc-devel/gcc-lto, binutils and
-binutils-devel, glibc-devel, linux-api-headers, openssl-devel, the
-autotools (m4, autoconf, automake, libtool, bison, flex, gperf),
-gettext-tools, texinfo, meson/ninja/pkgconf, Python build backends
-(setuptools, wheel, flit-core, packaging, jinja, markupsafe), man-db,
-man-pages, groff and the documentation/translation subpackages.  It is
-the base for a runtime container, appliance or a desktop installed over
-browneye-base-runtime instead of browneye-base.
+This profile deliberately omits gcc/gcc-lto, binutils,
+linux-api-headers, the autotools (m4, autoconf, automake, libtool,
+bison, flex, gperf), gettext-tools, texinfo, meson/ninja/pkgconf,
+Python build backends (setuptools, wheel, flit-core, packaging, jinja,
+markupsafe), man-db, man-pages, groff and the documentation/translation
+subpackages.  Development headers and .pc files ship in the runtime
+packages themselves, so installing a library also provides what is
+needed to compile against it.  It is the base for a runtime container,
+appliance or a desktop installed over browneye-base-runtime instead of
+browneye-base.
 
 Installing browneye-base is still the supported way to get an LFS
 build-capable system.
@@ -105,6 +107,10 @@ touch %{buildroot}/usr/share/browneye/base-runtime
 /usr/share/browneye/base-runtime
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 13.1-3
+- Note that development headers and .pc files now ship in the runtime
+  packages, after the -devel subpackages were removed (issue #4).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 13.1-2
 - Require make-ca.  browneye-base had it, but the runtime meta (used by the
   live installer and by network installs) did not, so neither the live

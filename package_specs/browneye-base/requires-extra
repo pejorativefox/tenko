@@ -2,8 +2,7 @@
 #
 # - browneye-*: distro glue (filesystem layout, sysconfig, release file,
 #   first-boot policy, RPM macros)
-# - glibc-devel/glibc-locales, gcc-devel/gcc-lto, openssl-devel: payload
-#   split out of the toolchain, needed to build the base set
+# - glibc-locales, gcc-lto: payload split out of the toolchain
 # - linux-api-headers, linux-pam, libtirpc: headers/runtime the base needs
 # - make-ca: CA trust store (/etc/pki/tls/certs/ca-bundle.crt and the
 #   /etc/ssl/certs links) used by curl, git, OpenSSL and derived images
@@ -13,11 +12,8 @@ browneye-basefs
 browneye-sysconfig
 browneye-release
 browneye-firstboot
-glibc-devel
 glibc-locales
-gcc-devel
 gcc-lto
-openssl-devel
 linux-api-headers
 linux-pam
 make-ca

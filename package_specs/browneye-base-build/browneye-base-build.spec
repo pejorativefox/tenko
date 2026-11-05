@@ -1,6 +1,6 @@
 Name:       browneye-base-build
 Version:    13.1
-Release:    1
+Release:    2
 Summary:    Browneye Linux build environment (runtime base + toolchain)
 License:    MIT
 Prefix:     /usr
@@ -11,10 +11,8 @@ Prefix:     /usr
 # browneye-base.
 Requires:   browneye-base-runtime
 Requires:   gcc
-Requires:   gcc-devel
 Requires:   gcc-lto
 Requires:   binutils
-Requires:   binutils-devel
 Requires:   make
 Requires:   patch
 Requires:   pkgconf
@@ -34,10 +32,7 @@ Requires:   ninja
 Requires:   meson
 Requires:   cmake
 Requires:   linux-api-headers
-Requires:   glibc-devel
 Requires:   glibc-i18n
-Requires:   openssl-devel
-Requires:   perl-devel
 Requires:   python-setuptools
 Requires:   python-wheel
 Requires:   python-flit-core
@@ -51,10 +46,11 @@ Requires:   man-pages
 
 %description
 The Browneye LFS r13.1 build environment: browneye-base-runtime plus the
-GCC toolchain (including the LTO parts and headers/static libraries),
-binutils, the autotools, gettext tools, texinfo, tcl/expect/dejagnu,
+GCC toolchain (including the LTO parts and static libraries), binutils,
+the autotools, gettext tools, texinfo, tcl/expect/dejagnu,
 meson/ninja/cmake, kernel headers, glibc locale sources for localedef,
-the Python build backends and the RPM packaging macros.
+the Python build backends and the RPM packaging macros.  Development
+headers and .pc files ship in the runtime packages themselves.
 
 Use this profile for a build container or CI image.  browneye-base stays
 available unchanged for existing installs.
@@ -71,6 +67,11 @@ touch %{buildroot}/usr/share/browneye/base-build
 /usr/share/browneye/base-build
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 13.1-2
+- Drop the gcc-devel, binutils-devel, glibc-devel, openssl-devel and
+  perl-devel requirements: the -devel subpackages are gone and their
+  payload now ships in the runtime packages (issue #4).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-1
 - New build profile: browneye-base-runtime + GCC/binutils toolchain,
   autotools, gettext/texinfo, meson/ninja/cmake, devel and static

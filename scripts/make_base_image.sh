@@ -21,9 +21,10 @@
 #   IMAGE      image tag (default: localhost/browneye/base:r13.1-YYYYMMDD)
 #   PACKAGES   packages to install (default: browneye-base browneye-build
 #              plus DEVEL_PACKAGES)
-#   DEVEL_PACKAGES  build-time packages needed to rebuild the base set inside
-#              the image (default: -devel headers plus python3-pyelftools,
-#              which systemd requires for -D bootloader=enabled)
+#   DEVEL_PACKAGES  extra build-time packages.  Headers and .pc files ship
+#              in the runtime packages after the -devel subpackages were
+#              removed, so only python3-pyelftools is needed (systemd
+#              requires it for -D bootloader=enabled)
 #   TAG_STABLE set to 0 to keep the dated tag only (e.g. for a lean E2 image
 #              that must not replace the dnf-capable base:r13.1)
 #   ROOTFS     staging rootfs directory (default: build/base-rootfs)
@@ -38,12 +39,7 @@ DATE=${DATE:-$(date +%Y%m%d)}
 REPO_URL=${REPO_URL:-https://tomfool.8bit.ca/browneye/packages/13.1/}
 IMAGE=${IMAGE:-localhost/browneye/base:r13.1-$DATE}
 TAG_STABLE=${TAG_STABLE:-1}
-DEVEL_PACKAGES=${DEVEL_PACKAGES:-ncurses-devel readline-devel xz-devel \
-    linux-pam-devel elfutils-devel perl-devel tcl-devel e2fsprogs-devel \
-    kmod-devel expat-devel sqlite-devel util-linux-devel pcre2-devel \
-    efivar-devel gpgme-devel libarchive-devel libassuan-devel libbsd-devel \
-    libcomps-devel libdnf-devel libmodulemd-devel libpsl-devel \
-    librepo-devel libsolv-devel zchunk-devel python3-pyelftools}
+DEVEL_PACKAGES=${DEVEL_PACKAGES:-python3-pyelftools}
 PACKAGES=${PACKAGES:-browneye-base browneye-build $DEVEL_PACKAGES}
 ROOTFS=${ROOTFS:-build/base-rootfs}
 TARBALL=${TARBALL:-build/base-rootfs.tar.gz}
