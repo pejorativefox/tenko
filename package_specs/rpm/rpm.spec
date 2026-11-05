@@ -1,8 +1,8 @@
 Name:       rpm
 Version:    4.18.1
-Release:    7
+Release:    8
 Summary:    RPM package manager
-License:    GPL3
+License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     rpm-4.18.1-sqlite-global-log.patch
 Prefix:     /usr
@@ -49,6 +49,9 @@ rmdir %{buildroot}/var 2>/dev/null || true
 %files -f %{_sourcedir}/rpm.filelist
 %files -n python3-rpm -f %{_sourcedir}/rpm-python.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.18.1-8
+- Record the verified license (GPL-2.0-or-later AND LGPL-2.0-or-later): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.18.1-7
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

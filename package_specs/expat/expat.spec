@@ -1,8 +1,8 @@
 Name:       expat
 Version:    2.9.0
-Release:    2
+Release:    3
 Summary:    stream-oriented XML parser
-License:    GPL3
+License:    MIT
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -24,6 +24,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/expat.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.9.0-3
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.9.0-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

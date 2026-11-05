@@ -1,8 +1,8 @@
 Name:       lua
 Version:    5.4.8
-Release:    2
+Release:    3
 Summary:    Lua High-level programming language
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -70,5 +70,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/pkgconfig/lua.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 5.4.8-3
+- Record the verified license (MIT): doc/readme.html (issue #8).
+
 * Sun Jun 18 2023 Chris Statzer <chris.statzer@gmail.com> 5.3.5-2
 - Fixed executable bit on the main lua exe

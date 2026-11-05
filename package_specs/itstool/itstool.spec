@@ -1,8 +1,8 @@
 Name:       itstool
 Version:    2.0.7
-Release:    1
+Release:    2
 Summary:    Translate XML documents with PO files
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Patch0:     %{name}-%{version}-lxml-1.patch
 BuildArch:  noarch
@@ -29,6 +29,9 @@ make install DESTDIR=%{buildroot}
 %files -f %{_sourcedir}/itstool.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.7-2
+- Record the verified license (GPL-3.0-or-later): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2.0.7-1
 - New package, synced with BLFS r13.1, including the BLFS lxml patch
   (itstool-2.0.7-lxml-1.patch).  Required by AppStream.

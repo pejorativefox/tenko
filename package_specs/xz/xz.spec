@@ -1,8 +1,8 @@
 Name:       xz
 Version:    5.8.4
-Release:    3
+Release:    4
 Summary:    Free general-purpose data compression software
-License:    GPL3
+License:    0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -42,6 +42,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files lang -f %{_sourcedir}/xz-lang.filelist
 %files doc -f %{_sourcedir}/xz-doc.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 5.8.4-4
+- Record the verified license (0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 5.8.4-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

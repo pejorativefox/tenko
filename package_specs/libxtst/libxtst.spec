@@ -1,8 +1,8 @@
 Name:       libxtst
 Version:    1.2.6
-Release:    2
+Release:    3
 Summary:    Xlib-based library for XTEST & RECORD
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    libXtst-%{version}.tar.xz
 
@@ -34,6 +34,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libxtst-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.6-3
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.6-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

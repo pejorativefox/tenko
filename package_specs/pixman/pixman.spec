@@ -1,8 +1,8 @@
 Name:       pixman
 Version:    0.46.4
-Release:    3
+Release:    4
 Summary:    Low-level image libraary
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 %description
@@ -28,6 +28,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/pixman.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.46.4-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.46.4-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

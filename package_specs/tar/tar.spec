@@ -1,8 +1,8 @@
 Name:       tar
 Version:    1.35
-Release:    2
+Release:    3
 Summary:    GNU tar utility
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -35,6 +35,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.35-3
+- Record the verified license (GPL-3.0-or-later): src/tar.c (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.35-2
 - Split lang payload into tar-lang (size audit)
 

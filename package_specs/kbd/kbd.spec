@@ -1,8 +1,8 @@
 Name:       kbd
 Version:    2.10.0
-Release:    2
+Release:    3
 Summary:    Utilities for managing Linux console
-License:    GPL3
+License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Patch:      kbd-2.10.0-backspace-1.patch
 Prefix:     /usr
@@ -38,6 +38,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.10.0-3
+- Record the verified license (GPL-2.0-or-later AND LGPL-2.0-or-later): README and src/include/keymap.h (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.10.0-2
 - Split lang payload into kbd-lang (size audit)
 

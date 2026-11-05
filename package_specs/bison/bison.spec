@@ -1,8 +1,8 @@
 Name:       bison
 Version:    3.8.2
-Release:    2
+Release:    3
 Summary:    GNU parser generator
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -44,6 +44,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.8.2-3
+- Record the verified license (GPL-3.0-or-later): src/main.c (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.2-2
 - Split lang, doc payload into bison-lang, bison-doc (size audit)
 

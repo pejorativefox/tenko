@@ -1,8 +1,8 @@
 Name:       libpipeline
 Version:    1.5.8
-Release:    1
+Release:    2
 Summary:    Subprocess manipulation library
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -30,6 +30,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5.8-2
+- Record the verified license (GPL-3.0-or-later): README.md (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.5.8
 - Sync with LFS r13.1
 

@@ -1,8 +1,8 @@
 Name:       libxau
 Version:    1.0.12
-Release:    3
+Release:    4
 Summary:    X11 authorisation library
-License:    GPL3
+License:    MIT-open-group
 Source0:    libXau-%{version}.tar.xz
 Prefix:     /usr
 
@@ -24,6 +24,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libxau.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.12-4
+- Record the verified license (MIT-open-group): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.0.12-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

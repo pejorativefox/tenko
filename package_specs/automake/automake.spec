@@ -1,8 +1,8 @@
 Name:       automake
 Version:    1.19
-Release:    1
+Release:    2
 Summary:    Tool for producing inputs for autoconf
-License:    GPL3
+License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -37,6 +37,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.19-2
+- Record the verified license (GPL-2.0-or-later): configure.ac and README (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.19.1
 - Sync with LFS r13.1
 

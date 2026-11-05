@@ -1,8 +1,8 @@
 Name:       harfbuzz
 Version:    15.0.0
-Release:    2
+Release:    3
 Summary:    Text shaping engine
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -35,7 +35,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %package gir
 Summary:    GObject Introspection data for harfbuzz
-License:    GPL3
+License:    MIT
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -47,6 +47,9 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/harfbuzz-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 15.0.0-3
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 15.0.0-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

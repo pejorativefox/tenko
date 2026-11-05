@@ -1,8 +1,8 @@
 Name:       libice
 Version:    1.1.2
-Release:    3
+Release:    4
 Summary:    Inter-Client Exchange Library.
-License:    GPL3
+License:    MIT-open-group
 Prefix:     /usr
 Source0:    libICE-1.1.2.tar.xz
 
@@ -24,6 +24,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libice.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.2-4
+- Record the verified license (MIT-open-group): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.1.2-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

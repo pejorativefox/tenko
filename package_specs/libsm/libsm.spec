@@ -1,8 +1,8 @@
 Name:       libsm
 Version:    1.2.6
-Release:    3
+Release:    4
 Summary:    X Session Management Library
-License:    GPL3
+License:    MIT AND MIT-open-group
 Prefix:     /usr
 Source0:    libSM-1.2.6.tar.xz
 
@@ -41,6 +41,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files doc -f %{_sourcedir}/libsm-doc.filelist
 %files static -f %{_sourcedir}/libsm-static.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.6-4
+- Record the verified license (MIT AND MIT-open-group): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.6-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

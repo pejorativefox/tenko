@@ -1,8 +1,8 @@
 Name:       fontconfig
 Version:    2.18.3
-Release:    3
+Release:    4
 Summary:    Font access library
-License:    GPL3
+License:    HPND
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: freetype >= 2.13.1
@@ -28,6 +28,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/fontconfig.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.18.3-4
+- Record the verified license (HPND): COPYING and src/fcxml.c (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.18.3-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

@@ -1,8 +1,8 @@
 Name:       bzip2
 Version:    1.0.8
-Release:    1
+Release:    2
 Summary:    bzip2 is a free and open-source file compression program
-License:    GPL3
+License:    bzip2-1.0.6
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 Provides:   libbz2.so.1()(64bit)
@@ -52,5 +52,8 @@ rm -rf %{buildroot}/usr/lib
 /usr/share/man
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.8-2
+- Record the verified license (bzip2-1.0.6): LICENSE (issue #8).
+
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 1.0.8
 - Version bump

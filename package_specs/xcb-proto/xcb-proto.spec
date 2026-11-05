@@ -1,8 +1,8 @@
 Name:       xcb-proto
 Version:    1.17.0
-Release:    2
+Release:    3
 Summary:    XML-XCB protocol library
-License:    GPL3
+License:    MIT
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -33,6 +33,9 @@ fi
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.17.0-3
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.17.0-2
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
 

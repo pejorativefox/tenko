@@ -1,8 +1,8 @@
 Name:       libjpeg-turbo
 Version:    3.2.1
-Release:    2
+Release:    3
 Summary:    JPEG library
-License:    GPL3
+License:    IJG AND BSD-3-Clause AND Zlib
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 %description
@@ -43,6 +43,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libjpeg-turbo.filelist
 %files doc -f %{_sourcedir}/libjpeg-turbo-doc.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.2.1-3
+- Record the verified license (IJG AND BSD-3-Clause AND Zlib): LICENSE.md (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.2.1-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

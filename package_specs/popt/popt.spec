@@ -1,8 +1,8 @@
 Name:       popt
 Version:    1.19
-Release:    1
+Release:    2
 Summary:    popt command line option parsing library.
-License:    GPL3
+License:    MIT
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -30,5 +30,8 @@ rm -rf %{buildroot}
 /usr/share/man/man3/popt.3.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.19-2
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.19-1
 - Version bump

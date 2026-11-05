@@ -1,8 +1,8 @@
 Name:       libxkbfile
 Version:    1.2.0
-Release:    3
+Release:    4
 Summary:    library to parse the XKB configuration data files
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    libxkbfile-1.2.0.tar.xz
 
@@ -27,6 +27,9 @@ popd
 
 %files -f %{_sourcedir}/libxkbfile.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.0-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.0-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

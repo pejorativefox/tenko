@@ -1,8 +1,8 @@
 Name:       xcb-util
 Version:    0.4.1
-Release:    3
+Release:    4
 Summary:    XCB utilities
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -24,6 +24,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/xcb-util.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.4.1-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.4.1-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

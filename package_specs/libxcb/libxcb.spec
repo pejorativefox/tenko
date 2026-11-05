@@ -1,8 +1,8 @@
 Name:       libxcb
 Version:    1.17.0
-Release:    3
+Release:    4
 Summary:    X11 client library
-License:    GPL3
+License:    MIT
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -40,6 +40,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libxcb-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.17.0-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.17.0-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

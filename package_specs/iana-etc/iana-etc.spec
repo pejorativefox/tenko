@@ -1,8 +1,8 @@
 Name:       iana-etc
 Version:    20261015
-Release:    1
+Release:    2
 Summary:    Authoritative list of internet protocals
-License:    GPL3
+License:    MIT
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -24,6 +24,9 @@ cp services protocols %{buildroot}/etc
 /etc/services
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 20261015-2
+- Record the verified license (MIT): upstream repository LICENSE (tarball ships no license file) (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 20261015-1
 - Update to 20261015 (current LFS/BLFS r13.1 trunk version).
 

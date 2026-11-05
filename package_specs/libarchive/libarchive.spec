@@ -1,8 +1,8 @@
 Name:       libarchive
 Version:    3.8.11
-Release:    5
+Release:    6
 Summary:    Library for various archive formats
-License:    GPL3
+License:    BSD-2-Clause AND BSD-3-Clause AND 0BSD AND (CC0-1.0 OR OpenSSL OR Apache-2.0)
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -32,6 +32,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libarchive-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.8.11-6
+- Record the verified license (BSD-2-Clause AND BSD-3-Clause AND 0BSD AND (CC0-1.0 OR OpenSSL OR Apache-2.0)): COPYING, per-file SPDX headers (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.8.11-5
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

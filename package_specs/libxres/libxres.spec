@@ -1,8 +1,8 @@
 Name:       libxres
 Version:    1.2.3
-Release:    3
+Release:    4
 Summary:    X-Resource extension client library
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    libXres-1.2.3.tar.xz
 
@@ -32,6 +32,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libxres-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.3-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.3-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

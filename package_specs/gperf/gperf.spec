@@ -1,8 +1,8 @@
 Name:       gperf
 Version:    3.3
-Release:    1
+Release:    2
 Summary:    GNU hash function generator
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -28,6 +28,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/gperf.1.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.3-2
+- Record the verified license (GPL-3.0-or-later): src/main.cc (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 3.3
 - Sync with LFS r13.1
 

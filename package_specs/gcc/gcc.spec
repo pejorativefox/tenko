@@ -1,8 +1,8 @@
 Name:       gcc
 Version:    16.2.0
-Release:    5
+Release:    6
 Summary:    The GNU Compiler Collection
-License:    GPL3
+License:    GPL-3.0-or-later WITH GCC-exception-3.1
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 Requires:   gcc-libs = %{version}-%{release}
@@ -55,7 +55,7 @@ ln -sfv gcc %{buildroot}/usr/bin/cc
 
 %package libs
 Summary:    GCC runtime libraries
-License:    GPL3
+License:    GPL-3.0-or-later WITH GCC-exception-3.1
 
 %description libs
 The GCC runtime support libraries: libgcc_s, libstdc++, libatomic, libgomp,
@@ -65,7 +65,7 @@ can use it without pulling the compiler.
 
 %package lto
 Summary:    GCC link-time optimization support
-License:    GPL3
+License:    GPL-3.0-or-later
 Requires:   gcc = %{version}-%{release}
 
 %description lto
@@ -76,7 +76,7 @@ package because gcc-ar, gcc-nm and gcc-ranlib pass it for ordinary
 
 %package lang
 Summary:    GCC translations
-License:    GPL3
+License:    GPL-3.0-or-later
 Supplements: gcc = %{version}-%{release}
 
 %description lang
@@ -84,7 +84,7 @@ Translations for the GCC driver, cpplib and libstdc++ messages.
 
 %package doc
 Summary:    GCC documentation
-License:    GPL3
+License:    GFDL-1.3-or-later
 Supplements: gcc = %{version}-%{release}
 
 %description doc
@@ -97,6 +97,9 @@ Info and man pages for GCC, cpp, gcov, libgomp, libitm and libquadmath.
 %files doc -f %{_sourcedir}/gcc-doc.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 16.2.0-6
+- Record the verified license (GPL-3.0-or-later WITH GCC-exception-3.1): COPYING3, COPYING.RUNTIME and gcc/doc/cpp.texi (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 16.2.0-5
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

@@ -1,8 +1,8 @@
 Name:       xcb-util-cursor
 Version:    0.1.6
-Release:    3
+Release:    4
 Summary:    XCB cursor utilities
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -30,6 +30,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/pkgconfig/xcb-cursor.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.1.6-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.1.6-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

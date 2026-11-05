@@ -1,8 +1,8 @@
 Name:       libxcursor
 Version:    1.2.3
-Release:    3
+Release:    4
 Summary:    Xlib-based Cursor management library
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    libXcursor-%{version}.tar.xz
 BuildRequires: libxrender
@@ -33,6 +33,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libxcursor-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.3-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.3-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

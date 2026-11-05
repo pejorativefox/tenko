@@ -1,8 +1,8 @@
 Name:       patch
 Version:    2.8.1
-Release:    1
+Release:    2
 Summary:    GNU patch utility
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -26,6 +26,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/patch.1.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.8.1-2
+- Record the verified license (GPL-3.0-or-later): src/patch.c (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2.8.1-1
 - Update to 2.8.1 (current LFS/BLFS r13.1 trunk version).
 

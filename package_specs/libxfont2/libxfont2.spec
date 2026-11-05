@@ -1,8 +1,8 @@
 Name:       libxfont2
 Version:    2.0.9
-Release:    3
+Release:    4
 Summary:    X font handling library for server & utilities.
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    libXfont2-%{version}.tar.xz
 
@@ -34,6 +34,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libxfont2-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.9-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.9-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

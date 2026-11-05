@@ -1,8 +1,8 @@
 Name:       libxinerama
 Version:    1.1.6
-Release:    3
+Release:    4
 Summary:    Xlib API for Xinerama extension to X11 Protocol
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    libXinerama-%{version}.tar.xz
 %description
@@ -31,6 +31,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libxinerama-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.6-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.6-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

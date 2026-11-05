@@ -1,8 +1,8 @@
 Name:       procps-ng
 Version:    4.0.7
-Release:    3
+Release:    4
 Summary:    Process monitoring utilities
-License:    GPL3
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0:    procps-ng-%{version}.tar.xz
 Prefix:     /usr
 
@@ -42,6 +42,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files lang -f %{_sourcedir}/procps-ng-lang.filelist
 %files doc -f %{_sourcedir}/procps-ng-doc.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.0.7-4
+- Record the verified license (GPL-2.0-or-later AND LGPL-2.1-or-later): src/vmstat.c (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.0.7-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

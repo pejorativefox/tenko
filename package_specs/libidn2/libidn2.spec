@@ -1,8 +1,8 @@
 Name:       libidn2
 Version:    2.3.8
-Release:    3
+Release:    4
 Summary:    Internationalized domain name library
-License:    GPL3
+License:    GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later)
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -26,6 +26,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libidn2.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.3.8-4
+- Record the verified license (GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later)): README (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2.3.8-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

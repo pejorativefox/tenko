@@ -1,8 +1,8 @@
 Name:       screen
 Version:    5.0.2
-Release:    1
+Release:    2
 Summary:    Screen is a full-screen window manager that multiplexes a physical terminal between several processes
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -46,6 +46,9 @@ rm -rf %{buildroot}/usr/share/info/dir
 /usr/share/screen/utf8encodings/d6
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 5.0.2-2
+- Record the verified license (GPL-3.0-or-later): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 5.0.2-1
 - Sync with BLFS r13.1
 

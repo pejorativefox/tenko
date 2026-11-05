@@ -1,8 +1,8 @@
 Name:       autoconf
 Version:    2.73
-Release:    2
+Release:    3
 Summary:    Tool for producing configure scripts
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -37,6 +37,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.73-3
+- Record the verified license (GPL-3.0-or-later): README (GPLv3+) and COPYINGv3 (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.73-2
 - Split doc payload into autoconf-doc (size audit)
 

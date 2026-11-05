@@ -1,8 +1,8 @@
 Name:       e2fsprogs
 Version:    1.47.4
-Release:    3
+Release:    4
 Summary:    ext filesystem utilities
-License:    GPL3
+License:    GPL-2.0-only AND LGPL-2.0-only AND BSD-3-Clause AND MIT
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -54,6 +54,9 @@ chmod +w %{buildroot}/usr/lib64/*.a
 %files lang -f %{_sourcedir}/e2fsprogs-lang.filelist
 %files static -f %{_sourcedir}/e2fsprogs-static.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.47.4-4
+- Record the verified license (GPL-2.0-only AND LGPL-2.0-only AND BSD-3-Clause AND MIT): NOTICE and lib/uuid/COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.47.4-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

@@ -1,8 +1,8 @@
 Name:       util-linux
 Version:    2.42.4
-Release:    2
+Release:    3
 Summary:    util-linux is a random collection of Linux utilities
-License:    GPL3
+License:    GPL-2.0-or-later AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND EUPL-1.2 AND ISC AND 0BSD
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -52,6 +52,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/util-linux.filelist
 %files lang -f %{_sourcedir}/util-linux-lang.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.42.4-3
+- Record the verified license (GPL-2.0-or-later AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND EUPL-1.2 AND ISC AND 0BSD): README.licensing (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.42.4-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

@@ -1,8 +1,8 @@
 Name:       libxi
 Version:    1.8.4
-Release:    2
+Release:    3
 Summary:    Library for the X Input Extension.
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    libXi-%{version}.tar.xz
 %description
@@ -39,6 +39,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libxi-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.8.4-3
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.8.4-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

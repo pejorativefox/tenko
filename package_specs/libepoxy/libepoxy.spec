@@ -1,8 +1,8 @@
 Name:       libepoxy
 Version:    1.5.10
-Release:    5
+Release:    6
 Summary:    OpenGL function management
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: mesa
@@ -30,6 +30,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libepoxy.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5.10-6
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5.10-5
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

@@ -1,8 +1,8 @@
 Name:       psmisc
 Version:    23.7
-Release:    2
+Release:    3
 Summary:    procfs tools
-License:    GPL3
+License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -34,6 +34,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 23.7-3
+- Record the verified license (GPL-2.0-or-later): src/fuser.c (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 23.7-2
 - Split lang payload into psmisc-lang (size audit)
 

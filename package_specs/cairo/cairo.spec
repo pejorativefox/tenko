@@ -1,8 +1,8 @@
 Name:       cairo
 Version:    1.18.6
-Release:    3
+Release:    4
 Summary:    2D graphics library
-License:    GPL3
+License:    LGPL-2.1-only OR MPL-1.1
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: pkgconfig(freetype2)
@@ -32,6 +32,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/cairo.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.18.6-4
+- Record the verified license (LGPL-2.1-only OR MPL-1.1): COPYING and src/cairo.c (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.18.6-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

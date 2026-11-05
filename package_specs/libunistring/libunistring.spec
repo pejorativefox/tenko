@@ -1,8 +1,8 @@
 Name:       libunistring
 Version:    1.5
-Release:    3
+Release:    4
 Summary:    GNU Unicode string library
-License:    GPL3
+License:    LGPL-3.0-or-later OR GPL-2.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -26,6 +26,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libunistring.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5-4
+- Record the verified license (LGPL-3.0-or-later OR GPL-2.0-or-later): README (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.5-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

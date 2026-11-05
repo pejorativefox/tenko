@@ -1,8 +1,8 @@
 Name:       kmod
 Version:    34.3
-Release:    2
+Release:    3
 Summary:    Kernel module utilities
-License:    GPL3
+License:    LGPL-2.1-or-later AND GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -41,6 +41,9 @@ ln -sfv kmod %{buildroot}/usr/bin/modprobe
 
 %files -f %{_sourcedir}/kmod.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 34.3-3
+- Record the verified license (LGPL-2.1-or-later AND GPL-2.0-or-later): README.md and libkmod/libkmod.c (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 34.3-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

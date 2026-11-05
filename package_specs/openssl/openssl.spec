@@ -1,8 +1,8 @@
 Name:       openssl
 Version:    4.1.0
-Release:    2
+Release:    3
 Summary:    OpenSSL software library
-License:    GPL3
+License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -18,7 +18,7 @@ OpenSSL is a software library for applications that provide secure communication
 
 %package libs
 Summary:    OpenSSL runtime libraries and configuration
-License:    GPL3
+License:    Apache-2.0
 Requires:   libc.so.6()(64bit)
 
 %description libs
@@ -29,7 +29,7 @@ tool or Perl.
 
 %package perl
 Summary:    OpenSSL Perl helper scripts
-License:    GPL3
+License:    Apache-2.0
 Requires:   openssl = %{version}-%{release}
 Requires:   perl
 
@@ -61,6 +61,9 @@ rm -rf %{buildroot}/usr/share/man
 %files perl -f %{_sourcedir}/openssl-perl.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.1.0-3
+- Record the verified license (Apache-2.0): LICENSE.txt (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.1.0-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

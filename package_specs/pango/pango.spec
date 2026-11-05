@@ -1,8 +1,8 @@
 Name:       pango
 Version:    1.58.2
-Release:    4
+Release:    5
 Summary:    text layout library
-License:    GPL3
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: fontconfig >= 2.13.1
@@ -37,7 +37,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %package gir
 Summary:    GObject Introspection data for pango
-License:    GPL3
+License:    LGPL-2.1-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -49,6 +49,9 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/pango-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.58.2-5
+- Record the verified license (LGPL-2.1-or-later): meson.build (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.58.2-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

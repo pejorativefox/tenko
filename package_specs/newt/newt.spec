@@ -1,8 +1,8 @@
 Name:       newt
 Version:    0.52.25
-Release:    1
+Release:    2
 Summary:    Newt is a programming library for color text mode
-License:    GPL3
+License:    LGPL-2.0-only
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -113,6 +113,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/whiptail.1.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.52.25-2
+- Record the verified license (LGPL-2.0-only): README (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.52.25-1
 - Sync with BLFS r13.1
 
