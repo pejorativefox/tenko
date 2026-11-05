@@ -1,8 +1,8 @@
 Name:       vim
 Version:    9.2.1225
-Release:    2
+Release:    3
 Summary:    vi Improved Text editor
-License:    GPL3
+License:    Vim
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -59,6 +59,9 @@ than netrw, and the localised man pages.
 %files runtime-extra -f %{_sourcedir}/vim-runtime-extra.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 9.2.1225-3
+- Record the verified license (Vim): LICENSE (issue #8).
+
 * Tue Nov  3 2026 browneye <build@browneye.invalid> 9.2.1225-2
 - Move the netrw package (pack/dist/opt/netrw) from vim-runtime-extra to
   vim-minimal: plugin/netrwPlugin.vim ships in vim-minimal and runs

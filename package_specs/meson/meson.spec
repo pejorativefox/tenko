@@ -1,8 +1,8 @@
 Name:       meson
 Version:    1.12.1
-Release:    1
+Release:    2
 Summary:    Meson build system
-License:    GPL3
+License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -29,6 +29,9 @@ mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
 /usr/share/polkit-1/actions/com.mesonbuild.install.policy
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.12.1-2
+- Record the verified license (Apache-2.0): COPYING (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.12.1-1
 - Update to 1.12.1 (current LFS/BLFS r13.1 trunk version).
 

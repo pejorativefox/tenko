@@ -1,8 +1,8 @@
 Name:       perl
 Version:    5.44.0
-Release:    5
+Release:    6
 Summary:    Perl programming language
-License:    GPL3
+License:    Artistic-1.0-Perl OR GPL-1.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -51,7 +51,7 @@ rm -f %{buildroot}/usr/share/man/man3/Thread.3
 
 %package doc
 Summary:    Perl documentation
-License:    GPL3
+License:    Artistic-1.0-Perl OR GPL-1.0-or-later
 
 %description doc
 Perl man pages and the core Perl POD documentation.
@@ -60,6 +60,9 @@ Perl man pages and the core Perl POD documentation.
 %files doc -f %{_sourcedir}/perl-doc.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 5.44.0-6
+- Record the verified license (Artistic-1.0-Perl OR GPL-1.0-or-later): README (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 5.44.0-5
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

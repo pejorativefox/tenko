@@ -1,8 +1,8 @@
 Name:       shadow
 Version:    4.20.3
-Release:    3
+Release:    4
 Summary:    Shadow password format tools
-License:    GPL3
+License:    BSD-3-Clause AND BSD-2-Clause AND 0BSD AND Unlicense AND GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -47,6 +47,9 @@ grpconv
 %files lang -f %{_sourcedir}/shadow-lang.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.3-4
+- Record the verified license (BSD-3-Clause AND BSD-2-Clause AND 0BSD AND Unlicense AND GPL-2.0-or-later): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 4.20.3-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

@@ -1,8 +1,8 @@
 Name:       ncurses
 Version:    6.6
-Release:    3
+Release:    4
 Summary:    Text based user interface library
-License:    GPL3
+License:    X11
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 Provides:   libtinfo.so.6()(64bit)
@@ -73,6 +73,9 @@ EOF
 %files -f %{_sourcedir}/ncurses.filelist
 %files doc -f %{_sourcedir}/ncurses-doc.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 6.6-4
+- Record the verified license (X11): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 6.6-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

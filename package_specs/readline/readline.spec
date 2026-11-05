@@ -1,8 +1,8 @@
 Name:       readline
 Version:    8.3
-Release:    3
+Release:    4
 Summary:    Library for command line editing
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -39,6 +39,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/readline.filelist
 %files doc -f %{_sourcedir}/readline-doc.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 8.3-4
+- Record the verified license (GPL-3.0-or-later): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 8.3-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

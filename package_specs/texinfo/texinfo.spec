@@ -1,8 +1,8 @@
 Name:       texinfo
 Version:    7.3
-Release:    2
+Release:    3
 Summary:    GNU texinfo utility
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -45,6 +45,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 7.3-3
+- Record the verified license (GPL-3.0-or-later): install-info/install-info.c (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 7.3-2
 - Split lang, doc payload into texinfo-lang, texinfo-doc (size audit)
 

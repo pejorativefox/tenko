@@ -1,8 +1,8 @@
 Name:       xtrans
 Version:    1.6.0
-Release:    1
+Release:    2
 Summary:    X Window System Protocols Transport layer
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 %description
@@ -24,6 +24,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.6.0-2
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.6.0
 - Sync with BLFS r13.1 (1.5.0)
 

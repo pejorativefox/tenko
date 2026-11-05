@@ -1,8 +1,8 @@
 Name:       ninja
 Version:    1.13.2
-Release:    1
+Release:    2
 Summary:    Ninja is a small build system with a focus on speed
-License:    GPL3
+License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -38,6 +38,9 @@ install -vDm644 misc/zsh-completion  %{buildroot}/usr/share/zsh/site-functions/_
 /usr/share/zsh/site-functions/_ninja
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.13.2-2
+- Record the verified license (Apache-2.0): COPYING (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.13.2
 - Sync with LFS r13.1
 

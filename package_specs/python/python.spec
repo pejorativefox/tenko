@@ -2,9 +2,9 @@
 
 Name:       python
 Version:    3.15.2
-Release:    1
+Release:    2
 Summary:    The Python programming language
-License:    GPL3
+License:    PSF-2.0
 Source0:    Python-%{version}.tar.xz
 Prefix:     /usr
 
@@ -109,6 +109,9 @@ find %{buildroot}/usr/lib64/python3.15 \
 %files tkinter -f %{_sourcedir}/python-tkinter.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.15.2-2
+- Record the verified license (PSF-2.0): LICENSE (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 3.15.2-1
 - Update to 3.15.2 (current LFS/BLFS r13.1 trunk version).
 

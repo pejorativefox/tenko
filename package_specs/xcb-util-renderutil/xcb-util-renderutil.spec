@@ -1,8 +1,8 @@
 Name:       xcb-util-renderutil
 Version:    0.3.10
-Release:    3
+Release:    4
 Summary:    XCB render utilities
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -30,6 +30,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/pkgconfig/xcb-renderutil.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.3.10-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.3.10-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

@@ -1,8 +1,8 @@
 Name:       NetworkManager
 Version:    1.58.1
-Release:    1
+Release:    2
 Summary:    Network configuration tool suite.
-License:    GPL3
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    NetworkManager-%{version}.tar.xz
 Source1:    NetworkManager.conf
@@ -372,6 +372,9 @@ groupadd -fg 86 netdev
 /usr/share/polkit-1/rules.d/org.freedesktop.NetworkManager.rules
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.58.1-2
+- Record the verified license (GPL-2.0-or-later AND LGPL-2.1-or-later): RELICENSE.md (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.58.1-1
 - Sync with BLFS r13.1
 

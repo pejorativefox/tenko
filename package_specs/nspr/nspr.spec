@@ -1,8 +1,8 @@
 Name:       nspr
 Version:    4.40
-Release:    1
+Release:    2
 Summary:    Netscape Portable Runtime
-License:    GPL3
+License:    MPL-2.0
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -104,6 +104,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/aclocal/nspr.m4
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.40-2
+- Record the verified license (MPL-2.0): LICENSE (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.40-1
 - Sync with BLFS r13.1
 

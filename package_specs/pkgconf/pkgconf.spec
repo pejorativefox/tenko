@@ -1,8 +1,8 @@
 Name:       pkgconf
 Version:    3.0.10
-Release:    1
+Release:    2
 Summary:    Successor to pkg-config
-License:    GPL3
+License:    ISC
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -44,6 +44,9 @@ ln -sv pkgconf.1 %{buildroot}/usr/share/man/man1/pkg-config.1
 /usr/share/man/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.0.10-2
+- Record the verified license (ISC): COPYING (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 3.0.10-1
 - Update to 3.0.10 (current LFS/BLFS r13.1 trunk version).
 

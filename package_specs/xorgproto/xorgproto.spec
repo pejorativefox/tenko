@@ -1,8 +1,8 @@
 Name:       xorgproto
 Version:    2026.1
-Release:    1
+Release:    2
 Summary:    Xorg Protocols
-License:    GPL3
+License:    MIT
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -33,6 +33,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2026.1-2
+- Record the verified license (MIT): COPYING-x11proto (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2026.1-1
 - Update to 2026.1 (current LFS/BLFS r13.1 trunk version).
 

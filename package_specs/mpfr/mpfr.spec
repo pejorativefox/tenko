@@ -1,8 +1,8 @@
 Name:       mpfr
 Version:    4.2.2
-Release:    1
+Release:    2
 Summary:    Library for multiple-precision floating-point computation
-License:    GPL3
+License:    LGPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -32,6 +32,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/info/mpfr.info.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.2.2-2
+- Record the verified license (LGPL-3.0-or-later): src/mpfr.h (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 4.2.2
 - Sync with LFS r13.1
 

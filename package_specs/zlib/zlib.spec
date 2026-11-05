@@ -1,8 +1,8 @@
 Name:       zlib
 Version:    1.3.2
-Release:    1
+Release:    2
 Summary:    zlib compression library
-License:    GPL3
+License:    Zlib
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -32,6 +32,9 @@ rm -fv %{buildroot}/usr/lib64/libz.a
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.3.2-2
+- Record the verified license (Zlib): LICENSE (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.3.2
 - Sync with LFS r13.1
 
