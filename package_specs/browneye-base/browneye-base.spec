@@ -1,9 +1,11 @@
 Name:       browneye-base
 Version:    13.1
-Release:    8
+Release:    9
 Summary:    Browneye Linux base system (LFS r13.1)
 License:    MIT
 Prefix:     /usr
+
+%include %{_sourcedir}/devel-obsoletes.inc
 
 # BEGIN GENERATED REQUIRES: generated from lfs.lock + requires-extra
 # Run scripts/gen_base_requires.py after changing either file.
@@ -119,6 +121,13 @@ Meta-package pulling in the LFS r13.1 base system.
 %files
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 13.1-9
+- Obsolete the 99 -devel packages that were folded into their runtime
+  packages.  Without the Obsoletes an installed glib-devel (for example)
+  requires glib = <old release> and blocks upgrading glib, so a build
+  system cannot move to the new layout.  The version bound keeps a newer
+  third-party -devel package from being removed (issue #4).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 13.1-8
 - Drop the glibc-devel, gcc-devel and openssl-devel requirements: those
   subpackages are gone and their headers, linker scripts and .pc files

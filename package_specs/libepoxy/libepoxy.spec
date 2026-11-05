@@ -1,6 +1,6 @@
 Name:       libepoxy
 Version:    1.5.10
-Release:    4
+Release:    5
 Summary:    OpenGL function management
 License:    GPL3
 Prefix:     /usr
@@ -30,10 +30,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libepoxy.filelist
 %changelog
-* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5.10-4
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5.10-5
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the
   main package (issue #4).
+- Rebuild with the .pc Requires exclusion so epoxy.pc does not pull
+  mesa into a runtime install.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.5.10-3
 - Declare BuildRequires: mesa-devel.  libepoxy's meson needs the GL/EGL

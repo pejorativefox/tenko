@@ -1,6 +1,6 @@
 Name:       gdk-pixbuf
 Version:    2.44.8
-Release:    4
+Release:    5
 Summary:    Image loading library
 License:    GPL3
 Prefix:     /usr
@@ -67,10 +67,12 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/gdk-pixbuf-gir.filelist
 
 %changelog
-* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.44.8-4
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.44.8-5
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the
   main package (issue #4).
+- Rebuild with the .pc Requires exclusion so gdk-pixbuf-2.0.pc does not
+  pull shared-mime-info/libxml2 into a runtime install.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.44.8-3
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it

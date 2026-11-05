@@ -1,6 +1,6 @@
 Name:       at-spi2-core
 Version:    2.62.1
-Release:    3
+Release:    4
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
@@ -52,10 +52,12 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/at-spi2-core-gir.filelist
 
 %changelog
-* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.62.1-3
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.62.1-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the
   main package (issue #4).
+- Rebuild with the .pc Requires exclusion so atspi-2.pc does not pull
+  dbus-daemon into a runtime install.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.62.1-2
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 0 paths updated.
