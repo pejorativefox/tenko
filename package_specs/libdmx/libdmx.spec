@@ -1,8 +1,8 @@
 Name:       libdmx
 Version:    1.1.5
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    X11 Distributed Multihead extension library
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

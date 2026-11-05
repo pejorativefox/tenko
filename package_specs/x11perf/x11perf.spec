@@ -1,8 +1,8 @@
 Name:       x11perf
 Version:    1.6.1
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    X11 server performance test program
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 

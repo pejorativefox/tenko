@@ -2,7 +2,7 @@ Name:       xf86-input-synaptics
 Version:    1.10.0
 Release:    1
 Summary:    Synaptics touchpad driver
-License:    Xorg
+License:    MIT
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
