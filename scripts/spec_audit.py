@@ -36,7 +36,9 @@ H = os.path.expanduser("~")
 # book entities that are known under a different name than our spec
 ALIASES = {"gnupg": "gnupg2", "freetype": "freetype2", "icu4c": "icu",
            "libglu": "glu", "python-setuptools": "setuptools",
-           "gtkmm": "gtkmm3", "gtk+": "gtk3", "webp": "libwebp"}
+           "gtkmm": "gtkmm3", "gtk+": "gtk3", "webp": "libwebp",
+           "libpoppler": "poppler", "libopus": "opus",
+           "libx264": "x264", "libx265": "x265", "openjpeg": "openjpeg2"}
 
 
 def repo_data(path):

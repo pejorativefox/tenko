@@ -3,13 +3,14 @@
 Audit of `package_specs/` against the LFS and BLFS checkouts and the
 **published** repository, 2026-11-05.
 
-- Repo snapshot: `repodata/primary.xml.zst` of
+- Repo snapshot: `repodata/22a5418…-primary.xml.zst` of
   <https://tomfool.8bit.ca/browneye/packages/13.1/> —
-  **648 RPM names** from **456 source packages**.
+  **669 RPM names** from **477 source packages**.
 - Books: `~/repos/lfs` branch `trunk` (`1493db7`) and `~/repos/blfs`
   branch `trunk` (`60fb6e5`).
-- Spec tree after the 2026-11-05 Python 2 / Docker removals and the
-  11-package version wave (see §1.2 and §2.1).
+- Spec tree after the two 2026-11-05 package waves (the 11-package
+  version sync and the 21-package library/desktop wave), the Python 2 /
+  Docker removals and the `lua-lgi` → `lgi` consolidation.
 - Regenerate with `python3 scripts/spec_audit.py --primary primary.xml.zst`
   (see §5).
 
@@ -17,49 +18,48 @@ Book versions are read from every `*-version` entity in the two books
 (all BLFS `*.ent` chapter files included), LFS first so a name collision
 resolves to the LFS chapter-8 version (`xml-parser` is 2.57 in LFS, 2.59
 as a BLFS perl module). Known renames are aliased (`gtkmm`→`gtkmm3`,
-`gtk+`→`gtk3`, `webp`→`libwebp`, `libglu`→`glu`, …). A package whose
-book page hard-codes its version instead of using an entity — `htop`,
-`gstreamer`, `vte`, `libyaml`, several binary bundles — cannot be
-compared this way and is reported as **NO-BOOK** ("not comparable"), not
-as "not in the books".
+`gtk+`→`gtk3`, `webp`→`libwebp`, `libopus`→`opus`,
+`libpoppler`→`poppler`, `libx264`→`x264`, `libx265`→`x265`,
+`openjpeg`→`openjpeg2`, …). A package whose book page hard-codes its
+version instead of using an entity — `htop`, `gstreamer`, `vte`,
+`libyaml`, several binary bundles — cannot be compared this way and is
+reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 
 ## Executive summary
 
 | measure | count |
 |---|---:|
 | spec files / spec directories | 555 / 553 |
-| shipped spec files (live source package in the repo) | 456 |
-| source packages in the published repo | 456 |
-| RPM names in the published repo | 648 |
+| shipped spec files (live source package in the repo) | 477 |
+| source packages in the published repo | 477 |
+| RPM names in the published repo | 669 |
 | **shipped packages below the book** | **0** |
-| shipped packages at the book | 372 |
+| shipped packages at the book | 380 |
 | shipped packages above the book | 1 (`xml-parser`, approved) |
-| shipped packages with no comparable book entity | 83 |
-| unbuilt spec files | 99 |
-| unbuilt specs below the book | 1 (`dconf`) |
-| unbuilt specs at the book | 5 |
+| shipped packages with no comparable book entity | 96 |
+| unbuilt spec files | 78 |
+| unbuilt specs below the book | 0 |
+| unbuilt specs at the book | 3 |
 | unbuilt specs above the book | 1 (`db`) |
-| unbuilt specs with no comparable book entity | 92 |
-| specs with `Summary: TODO` | 72 |
-| specs with `TODO` in `%description` | 85 |
+| unbuilt specs with no comparable book entity | 74 |
+| specs with `Summary: TODO` | 62 |
+| specs with `TODO` in `%description` | 76 |
 | shipped specs with a missing referenced patch | 0 |
-| shipped specs with a sources/version mismatch | 0 (10 audit false positives, §1.3) |
+| shipped specs with a sources/version mismatch | 0 (9 audit false positives, §1.3) |
 | specs with neither `sources` nor `nosources` | 0 |
 
 **Bottom line.** Version parity for everything the distro ships still
 holds: no shipped package is below LFS/BLFS trunk, and the only shipped
 package above it (`xml-parser` 2.59 vs 2.57) is allowed by the "at least
-the book version" rule. The remaining debt is metadata (72/85 TODO
-entries) and the unbuilt part of the tree, where `dconf` is now known to
-be below the book.
+the book version" rule. The unbuilt remainder is now 78 specs, none of
+them below the book.
 
 ## 1. Shipped packages
 
-372 shipped source packages match the book exactly and one
-(`xml-parser`) is newer. The 83 without a comparable entity fall into
+380 shipped source packages match the book exactly and one
+(`xml-parser`) is newer. The 96 without a comparable entity fall into
 five groups; the version-bearing packages added on 2026-11-05 were
-checked against upstream (see §1.2), and the older entries in the groups
-below have no known stale version:
+checked against upstream (see §1.2):
 
 - **Distro-specific metas and config** (13): the `browneye-*` packages
   (`base`, `base-build`, `base-runtime`, `basefs`, `build`,
@@ -78,14 +78,17 @@ below have no known stale version:
   `squashfs-tools` 4.7.5, `mtools` 4.0.50, `privoxy` 4.2.0,
   `dracut` 112, `cairomm` 1.14.6, `glib` 2.90.1, the four
   `xfce-desktop*` metas.
-- **Other distro additions** (32): `bash-completion`, `bwm-ng`,
+- **Other book-less packages** (45): `bash-completion`, `bwm-ng`,
   `docbook-xml`, `docbook-xsl-nons`, `libbsd`, `libcap-ng`, `libmd`,
   `linux-api-headers`, `linux-firmware`, `openvpn`, `proxychains-ng`,
   `pulsemixer`, `pyenv`, `python-flit-core`, `python-jinja`,
   `python-markupsafe`, `python-packaging`, `python-pyparsing`,
   `python-wheel`, `python3-docutils`, `python3-lxml`,
   `python3-pyelftools`, `rofi`, `tmux`, `xbacklight`, `xcb-util-xrm`,
-  `xf86-input-libinput`, and the five `xf86-video-*` drivers.
+  `xf86-input-libinput`, the five `xf86-video-*` drivers, and the 13
+  packages added by the second wave (`acpi`, `awesome`, `bspwm`,
+  `dunst`, `dwm`, `lgi`, `libstemmer`, `libxdg-basedir`, `ncdu`,
+  `sdl2-image`, `sdl2-ttf`, `sxhkd`, `wmname`).
 
 Known deviations and exceptions are recorded in issue #7.
 
@@ -110,11 +113,10 @@ together with the scratch-bootstrap scripts. The published repo is the
 checkpoint: package-level rebuilds run in a base image built from it, and
 the stack build now expects `glib` in that image.
 
-### 1.2 Package wave published 2026-11-05
+### 1.2 Package waves published 2026-11-05
 
-Eleven packages moved from unbuilt to shipped. Book versions were used
-where the r13.1 books have a page; the rest are approved latest-stable
-deviations (issue #7):
+**First wave, 11 packages** (book versions where the r13.1 books have a
+page; the rest approved latest-stable deviations, issue #7):
 
 | package | version | basis |
 |---|---|---|
@@ -130,12 +132,39 @@ deviations (issue #7):
 | `xbacklight` | 1.2.4 | latest upstream stable, no book page |
 | `libcap-ng` | 0.9.6 | new dependency of OpenVPN 2.7.8, no book page |
 
-All 11 were verified on both the public site and the LAN mirror and
-install together into a clean dnf installroot (97 packages).
+**Second wave, 21 packages** (codec/PDF, desktop and utility set):
+
+| package | version | basis |
+|---|---|---|
+| `openjpeg` | 2.5.4 | BLFS r13.1 `general/graphlib/openjpeg2.xml` |
+| `libtheora` | 1.1.1 | BLFS book version (page is archive-only; still latest) |
+| `libopus` | 1.6.1 | BLFS r13.1 `multimedia/libdriv/opus.xml` |
+| `libstemmer` | 3.2.0 | no book page; latest upstream stable |
+| `libx264` | 20250815 | BLFS r13.1 `multimedia/libdriv/x264.xml` |
+| `libx265` | 4.3 | BLFS r13.1 `multimedia/libdriv/x265.xml` |
+| `libpoppler` | 26.10.0 | BLFS r13.1 `general/graphlib/poppler.xml` |
+| `dconf` | 51.0 | BLFS r13.1 `gnome/platform/dconf.xml` |
+| `libxdg-basedir` | 1.2.3 | no book page; latest upstream tag |
+| `dunst` | 1.13.2 | no book page; latest upstream stable |
+| `lgi` | 0.9.2 | no book page; latest upstream tag, Lua 5.4/GLib 2.86 patches |
+| `awesome` | 4.3 | no book page; latest tagged release |
+| `bspwm` | 0.9.12 | no book page; latest upstream tag |
+| `sxhkd` | 0.6.3 | no book page; latest upstream tag |
+| `dwm` | 6.5 | no book page; latest upstream stable |
+| `wmname` | 0.1 | no book page; latest upstream stable |
+| `yasm` | 1.3.0 | BLFS r13.1 `general/prog/yasm.xml` |
+| `acpi` | 1.8 | no book page; latest upstream stable (2025) |
+| `ncdu` | 1.22 | no book page; latest C-series (2.x requires Zig) |
+| `sdl2-image` | 2.8.12 | no book page; latest SDL2-series release |
+| `sdl2-ttf` | 2.24.0 | no book page; latest SDL2-series release |
+
+All 32 wave RPMs were verified on both the public site and the LAN
+mirror, and the 21 second-wave packages install together into a clean
+dnf installroot (102 packages).
 
 ### 1.3 Sources/version mismatches that remain
 
-The ten rows the script prints are all expected:
+The nine rows the script prints are all expected:
 
 - Date/commit-named archives: `font-siji`, `passt`.
 - Binary bundles: `herdr`, `opencode-bin`, `podman-bin`.
@@ -143,45 +172,44 @@ The ten rows the script prints are all expected:
 - `sqlite`: the book/spec version 3.54.1 is the autoconf number 3540100.
 - `autoconf213`: the shared `sources` file lists the 2.73 tarball first;
   the 2.13 patch 404s upstream (issue #8).
-- `fuse` and `libstemmer`: shared-directory layout. `fuse/sources`
-  lists `fuse-2.9.7` (for `fuse2`) before `fuse-3.2.5`; `libstemmer_c.tgz`
-  has no version in its upstream filename.
+- `fuse`: shared-directory layout. `fuse/sources` lists `fuse-2.9.7`
+  (for `fuse2`) before `fuse-3.2.5`.
 
 ### 1.4 Open shipped-package debt
 
-- **`Summary: TODO` / `TODO` descriptions** in 72 and 85 specs — issue #8.
-- **`zip`** is shipped (`zip-3.0-1`), so archives can be created as well
-  as extracted; that decision in issue #7 is done.
+- **`Summary: TODO` / `TODO` descriptions** in 62 and 76 specs — issue #8.
 - **Images lag the repo**: the published installer ISO and rootfs were
-  built before the 11-package wave and do not contain it. They are only
-  rebuilt on request (AGENTS.md).
+  built before both 2026-11-05 waves and do not contain them. They are
+  only rebuilt on request (AGENTS.md).
+- **`imagemagick` 7.1.2-2 has no PNG coder** (`convert` reports "no
+  decode delegate … png"). Found while deriving a desktop build image;
+  the spec/RPM were not changed. Needs a fix before the next image
+  rebuild (issue #8).
 
-## 2. Unbuilt specs (99)
+## 2. Unbuilt specs (78)
 
-99 spec files have no matching source package in the published repo: 92
-have no comparable book entity, 5 are at the book, 1 is above it (`db`
-6.2.32 vs 5.3.28), and 1 is below it (`dconf` 0.28.0 vs 51.0).
+78 spec files have no matching source package in the published repo: 74
+have no comparable book entity, 3 are at the book, 1 is above it (`db`
+6.2.32 vs 5.3.28), and none is below it.
 
 They cost nothing while they stay unbuilt, but the parity rule in
-`AGENTS.md` applies the moment someone builds one. `dconf` must be
-bumped to the book's 51.0 before it is built. Grouped by intent:
+`AGENTS.md` applies the moment someone builds one. Grouped by intent:
 
 | group | count | examples |
 |---|---:|---|
-| Python 3 modules | 29 | `python3-requests`, the sphinx stack |
-| Libraries and tools | 33 | `pcre`, `libsoup`, `libtheora`, `openjpeg`, `fuse2` |
-| Desktop / window managers | 9 | `awesome`, `bspwm`, `dwm`, `dunst`, `lgi` |
-| Perl modules | 7 | `perl-dbi`, `perl-ssleay`, `perl-digest-sha1` |
-| SDL stack | 5 | `sdl`, `sdl2-image`, `sdl2-ttf` |
-| Container / k8s tools | 5 | `kubectl`, `kubectx`, `dive`, `drpm` |
-| Boot / init | 5 | `syslinux`, `eudev`, `finit`, `busybox`, `tzdb` |
-| X11 tools and drivers | 5 | `x11perf`, `libdmx`, `xf86-input-synaptics` |
-| Fonts | 1 | `font-noto-cjk` |
+| Python 3 / Perl modules | 36 | `python3-requests`, the sphinx stack, `perl-dbi` |
+| Media / system libraries | 10 | `libsoup`, `pcre`, `fuse`, `db`, `cppunit` |
+| Container / k8s / packaging | 8 | `kubectl`, `kubectx`, `dive`, `rpmlint` |
+| CLI / dev tools | 7 | `cdrkit`, `go-bin`, `gotop`, `help2man` |
+| Boot / init | 6 | `syslinux`, `eudev`, `finit`, `busybox`, `tzdb` |
+| X11 tools | 5 | `x11perf`, `libdmx`, `xf86-input-synaptics` |
+| SDL1 add-ons | 3 | `sdl`, `sdl-image`, `sdl-ttf` |
+| Fonts | 2 | `font-noto-cjk`, `woff2` |
+| Window managers / desktop | 1 | `polybar` |
 
-The five unbuilt specs that are at the book are `autoconf213` (2.13),
-`libtheora` (1.1.1), `pm-utils` (1.4.1), `woff2` (1.0.2) and `yasm`
-(1.3.0). `db` 6.2.32 is above the book's 5.3.28, which the parity rule
-allows.
+The three unbuilt specs at the book version are `autoconf213` (2.13),
+`pm-utils` (1.4.1) and `woff2` (1.0.2). `db` 6.2.32 is above the book's
+5.3.28, which the parity rule allows.
 
 A handful of names in this bucket may be mismatches rather than truly
 unbuilt (a spec whose `Name:` differs from the source package actually
@@ -204,17 +232,23 @@ The 2026-11-05 container cleanup retired the `docker` 18.06.3 and
 spec stays because it inspects OCI images and does not need the Docker
 daemon.
 
+The second wave replaced the old `lua-lgi` spec directory with
+`package_specs/lgi` (same `Name`/version, plus the Lua 5.4 and
+GLib 2.86+ fixes), so `lua-lgi` was removed instead of leaving two specs
+for one package.
+
 ### 2.2 Deliberately skipped
 
-- **`sdl` and its add-ons**: SDL2 2.32.74 and SDL3 3.4.18 are already
-  shipped at the book versions. The unbuilt items are SDL1 (archive-only)
-  and the `sdl-image`/`sdl-ttf`/`sdl2-image`/`sdl2-ttf` add-on libraries.
-  Deferred, not version-skewed.
+- **SDL1**: `sdl`, `sdl-image` and `sdl-ttf` are archive-only/deferred.
+  SDL2 2.32.74 and SDL3 3.4.18 are already shipped at the book versions,
+  and `sdl2-image`/`sdl2-ttf` are shipped from the second wave.
 - **`syslinux`**: builds as 6.04-pre1 with a modern-toolchain patch, but
   `sha1pass`/`md5pass` require `perl(Crypt::PasswdMD5)` and
   `perl(Digest::SHA1)`, neither in LFS/BLFS. Not published; work is kept
   on branch `pkg-syslinux` (`1a67ba5`). The specs for both Perl modules
-  are among the seven unbuilt Perl specs above.
+  are among the unbuilt Perl specs above.
+- **`polybar`**: removed from the 2026-11-05 desktop wave by request.
+  Its spec is untouched and still unbuilt.
 - **`autoconf213`**: unbuildable — its consolidated-fixes patch 404s and
   is not vendored (issue #8).
 
@@ -224,7 +258,6 @@ daemon.
 |---|---|---|---|
 | `xml-parser` | 2.59 | 2.57 | shipped; allowed ("at least the book") |
 | `db` | 6.2.32 | 5.3.28 | unbuilt stub; allowed |
-| `dconf` | 0.28.0 | 51.0 | unbuilt; **below the book**, must bump before building |
 
 `sqlite` 3.54.1 is **not** newer: the book entity `sqlite-version` is the
 autoconf build number `3540100`, which equals 3.54.1. The script converts
@@ -235,7 +268,7 @@ it; other tools report it as a false mismatch.
 - Cross-compilation and non-x86_64: the repo is x86_64 only.
 - Optional BLFS features with no spec (Wayland, PipeWire, printing, …);
   those are product decisions rather than version skew.
-- The 92 unbuilt no-entity specs are not individually version-checked;
+- The 74 unbuilt no-entity specs are not individually version-checked;
   `scripts/spec_audit.py` prints the list and compares whatever the books
   expose as entities.
 
