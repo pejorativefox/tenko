@@ -365,19 +365,19 @@ Artifacts from the run are under `build/` (`browneye-installer-systemd.iso`,
 
 ### Published images
 
-Rebuilt from `main` at `2b90526` (the `-devel` removal, `browneye-base-13.1-10`)
+Rebuilt from `main` at `6aadd20` (after the metadata and licence waves)
 and published to the public site and the LAN mirror on 2026-11-05:
 
 | Artifact | Size | SHA-256 |
 |---|---|---|
-| `iso/browneye-installer.iso` | 427 MiB | `d7ff737812e9b72b02404e0662b4522bf6460a9acf81c71c1e3a1b154262b273` |
-| `rootfs/browneye-rootfs.tar.gz` | 245 MiB | `f57c049b2699799db8a85633e296ca682ec6ff91a086df9a983bca4264656c93` |
+| `iso/browneye-installer.iso` | 427 MiB | `c60d299fe683945b18c4ef8aa25585beb3252c8681c21074d2c37a65eab6abca` |
+| `rootfs/browneye-rootfs.tar.gz` | 244 MiB | `dda9e357c04f43ed043a82a42c3e19866c90f32cb65f4fe9743421e55bd20237` |
 
 The rootfs is the build rootfs: 127 packages, including
-`browneye-base-13.1-10`, rpm 4.18.1-7, the gcc/build toolchain and
+`browneye-base-13.1-10`, rpm 4.18.1-8, the gcc/build toolchain and
 `python3-pyelftools`.  It contains no `-devel` packages; the distro ships
 only the intentional `llvm-devel`/`clang-devel` split.  The ISO live root is
-the `browneye-live` closure (101 packages, also no `-devel`); the image was
+the `browneye-live` closure (102 packages, also no `-devel`); the image was
 booted in OVMF/QEMU to multi-user and the `Browneye Linux installer` unit.
 
 ## Risks
