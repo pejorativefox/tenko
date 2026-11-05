@@ -1,0 +1,118 @@
+# Building and publishing packages
+
+All package sources live in `package_specs/<name>/`:
+
+```
+package_specs/curl/
+├── curl.spec          # the RPM spec
+├── sources            # <md5> <url> [local-filename]
+└── files/             # patches, unit files, static filelists;
+                       # copied into ~/rpmbuild/SOURCES by the driver
+```
+
+`build_specs.sh` builds RPMs inside a container image; the host only needs
+podman and `~/rpmbuild/SOURCES` for the tarballs.
+
+## One package
+
+```sh
+IMAGE=localhost/browneye/base:r13.1 \
+OUT=build/my-wave \
+JOBS=2 MAKE_JOBS=4 \
+scripts/build_specs.sh curl/curl.spec
+```
+
+- Paths are relative to `package_specs/`.
+- `IMAGE` is the build environment.  `localhost/browneye/base:r13.1` is the
+  usual one; packages with extra requirements are built in derived images (see
+  `scripts/make_base_image.sh`).
+- `OUT` must be a relative path.  Results are in `$OUT/build/<pkg>/RPMS/` and
+  logs in `$OUT/logs/`.
+- `--from-file list.txt` builds a list instead of arguments.
+- Builds are incremental: a package whose status file says `ok` is skipped, so
+  re-running the same `OUT` retries only failures.
+
+`rpmbuild` runs with `--network=none`.  Put tarballs in `~/rpmbuild/SOURCES`
+first (the `sources` file gives the URL and md5), or pre-populate them with
+`bbuild`.  `bbuild build <name>` is a host-side convenience for one-off builds
+and source staging — **it is not the release path**; release builds go through
+the container scripts.
+
+## Static filelists
+
+`%files` is a generated, static list:
+
+```spec
+%files -f %{_sourcedir}/curl.filelist
+```
+
+The list lives in `files/<spec>.filelist`.  It is static so package contents
+cannot silently change when upstream installs a new file; a build that installs
+an unlisted file fails with "Installed (but unpackaged) file(s) found".
+
+Regenerate after a version bump or when adding/removing packages:
+
+```sh
+# from an existing RPM
+scripts/gen_filelist.py --rpm path/to/pkg.rpm \
+    --output package_specs/pkg/files/pkg.filelist
+
+# or from a built BUILDROOT tree (single-%files specs only; --write edits
+# the spec in place, otherwise the new list is printed)
+scripts/regen_files.py --spec package_specs/pkg/pkg.spec \
+    --buildroot build/wave/build/pkg/BUILDROOT/pkg-<ver>-<rel>.x86_64
+```
+
+Adding a subpackage means adding both the `%package` section and its filelist
+(and the `%files -f` reference).  There are no `-devel` subpackages in this
+distro: headers, `.pc` files and unversioned `.so` links stay in the runtime
+package.  The only intentional split is `llvm-devel`/`clang-devel`.
+
+## Version bumps
+
+Every package must be at least the LFS/BLFS r13.1 version; see
+[`docs/versions.md`](versions.md) and [`AGENTS.md`](../AGENTS.md).  When you
+bump a package:
+
+1. update `Version:` (and `Release:` back to 1, or bump the release for a
+   rebuild),
+2. update the matching line in `sources` (md5 + URL),
+3. add a `%changelog` entry that states the basis (book page, or "not in the
+   r13.1 books; latest upstream stable <date>"),
+4. rebuild and publish before building packages that depend on it.
+
+## Publishing
+
+`publish_rpm.sh` merges new RPMs into the published metadata with
+`mergerepo_c --method nvr`, uploads them, regenerates the package index, and
+refreshes the LAN mirror.  It refuses a repeated NEVRA with different content,
+so bump `Release` when rebuilding the same version.
+
+```sh
+PRUNE=1 scripts/publish_rpm.sh build/wave/*.rpm   # also delete superseded RPMs
+DRY_RUN=1 scripts/publish_rpm.sh build/wave/*.rpm # stage/merge, upload nothing
+MIRROR=0 scripts/publish_rpm.sh ...               # public only (not for releases)
+```
+
+- `REMOTE`/`PORT` default to `tomfool8@tomfool.8bit.ca:53211`.  The hostname is
+  deliberate: `~/.ssh/config` routes it through the local proxy.  Do not
+  replace it with the raw IP.
+- Everything is published twice: the public site and the LAN mirror
+  (`daspork@192.168.31.9`).  Do not publish to only one.
+
+Other publishers:
+
+- `scripts/publish_repo.sh` — whole repository + overview page.
+- `scripts/publish_iso.sh` — installer ISO (427 MiB) + fresh `.sha256`.
+- `scripts/publish_rootfs.sh` — container rootfs (244 MiB) + fresh `.sha256`.
+
+## Images
+
+- ISO: `scripts/build_iso_uefi.sh` (live root from the repo, systemd-boot ESP,
+  zstd squashfs).  `ISO_AUTO=1` plus `ISO_ANSWER=tests/installer-answer.json`
+  makes it unattended.
+- Rootfs: `scripts/make_base_image.sh` with
+  `PACKAGES="browneye-base browneye-build python3-pyelftools"
+  TARBALL=build/browneye-rootfs.tar.gz`.
+
+Images are rebuilt only on request (see [`AGENTS.md`](../AGENTS.md)).
