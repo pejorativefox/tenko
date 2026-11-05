@@ -5,7 +5,7 @@ Audit of `package_specs/` against the LFS and BLFS checkouts and the
 
 - Repo snapshot: `repodata/870aadc…-primary.xml.zst` of
   <https://tomfool.8bit.ca/browneye/packages/13.1/> —
-  **687 RPM names** from **495 source packages**.
+  **690 RPM names** from **497 source packages**.
 - Books: `~/repos/lfs` branch `trunk` (`1493db7`) and `~/repos/blfs`
   branch `trunk` (`60fb6e5`).
 - Spec tree after the three 2026-11-05 package waves, the Python 2/3 and
@@ -28,14 +28,14 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 
 | measure | count |
 |---|---:|
-| spec files / spec directories | 495 / 495 |
-| shipped spec files (live source package in the repo) | 495 |
-| source packages in the published repo | 495 |
-| RPM names in the published repo | 688 |
+| spec files / spec directories | 497 / 497 |
+| shipped spec files (live source package in the repo) | 497 |
+| source packages in the published repo | 497 |
+| RPM names in the published repo | 690 |
 | **shipped packages below the book** | **0** |
 | shipped packages at the book | 382 |
 | shipped packages above the book | 2 (`db`, `xml-parser`) |
-| shipped packages with no comparable book entity | 111 |
+| shipped packages with no comparable book entity | 113 |
 | unbuilt spec files | 0 |
 | unbuilt specs below the book | 0 |
 | specs with `Summary: TODO` | 0 |
@@ -80,12 +80,12 @@ against upstream (§1.2):
   `pulsemixer`, `pyenv`, the nine shipped `python-*`/`python3-*` helper
   modules, `rofi`, `tmux`, `xbacklight`, `xcb-util-xrm`,
   `xf86-input-libinput`, the five `xf86-video-*` drivers, plus the
-  packages added by the second and third waves (`acpi`, `awesome`,
+  packages added by the second and third waves (`acpi`, `acpica`, `awesome`,
   `bspwm`, `cdrkit`, `drpm`, `dunst`, `dwm`, `fakeroot-ng`, `go-bin`,
   `gotop`, `help2man`, `lgi`, `libdmx`, `liblzo2`, `libsoup`,
   `libstemmer`, `libuev`, `libxdg-basedir`, `ncdu`, `numactl`, `pcre`,
   `sdl2-image`, `sdl2-ttf`, `sxhkd`, `tzdb`, `wmname`, `x11perf`,
-  `xf86-input-synaptics`).
+  `xf86-input-synaptics`, `edk2-ovmf`).
 
 Known deviations and exceptions are recorded in issue #7.
 
