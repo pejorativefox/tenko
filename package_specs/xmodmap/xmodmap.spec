@@ -1,15 +1,17 @@
 Name:       xmodmap
 Version:    1.0.12
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    X keymap and pointer button mapping utility
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 
 
 %description
-TODO
+The xmodmap program is used to edit and display the keyboard modifier map
+and keymap table that client applications use to convert event keycodes into
+keysyms.
 
 %prep
 %setup -a 0
@@ -27,5 +29,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/xmodmap.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.12-2
+- Replace the TODO summary/description and record the verified license
+  (MIT): COPYING (issue #8).
+
 # let's skip this for now
 

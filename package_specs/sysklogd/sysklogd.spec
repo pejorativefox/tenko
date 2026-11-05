@@ -1,13 +1,16 @@
 Name:       sysklogd
 Version:    2.8.0
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    System and kernel logging daemons
+License:    BSD-3-Clause
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 %description
-TODO
+This is the continuation of the original Debian/Ubuntu syslog daemon,
+updated with full RFC 3164 and RFC 5424 support from NetBSD and FreeBSD. The
+package includes the libsyslog library with a syslog.h header replacement,
+the syslogd daemon and the logger command line tool.
 
 %prep
 %setup -q
@@ -63,6 +66,10 @@ EOF
 /usr/share/man/man8/syslogd.8.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.8.0-2
+- Replace the TODO summary/description and record the verified license
+  (BSD-3-Clause): LICENSE (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.8.0-1
 - Sync with LFS r13.1
 

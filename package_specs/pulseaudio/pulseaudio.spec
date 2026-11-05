@@ -1,15 +1,17 @@
 Name:       pulseaudio
 Version:    17.0
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Networked low-latency sound server
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 BuildRequires: libsndfile
 
 %description
-TODO
+PulseAudio is a networked low-latency sound server for Linux, POSIX and
+Windows systems. It provides audio playback, recording, mixing and network
+streaming for desktop applications.
 
 %prep
 %setup 
@@ -341,6 +343,10 @@ rm -f %{buildroot}/usr/share/dbus-1/system.d/pulseaudio-system.conf
 /usr/share/zsh/site-functions/_pulseaudio
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 17.0-2
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.1-or-later): LICENSE (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 17.0-1
 - Sync with BLFS r13.1
 

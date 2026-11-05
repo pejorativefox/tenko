@@ -1,14 +1,16 @@
 Name:       wpa-supplicant
 Version:    2.12
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    WPA/WPA2 supplicant for wireless networks
+License:    BSD-3-Clause
 Prefix:     /usr
 Source0:    wpa_supplicant-%{version}.tar.gz
 
 
 %description
-TODO
+wpa_supplicant is a WPA Supplicant for Linux, BSD, Mac OS X and Windows with
+support for WPA and WPA2 (IEEE 802.11i/RSN). It supports WPA-PSK and WPA
+with EAP, including an integrated IEEE 802.1X supplicant.
 
 %prep
 %setup -a 0 -n wpa_supplicant-%{version}
@@ -70,6 +72,10 @@ popd
 /usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.12-2
+- Replace the TODO summary/description and record the verified license
+  (BSD-3-Clause): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.12-1
 - Sync with BLFS r13.1
 

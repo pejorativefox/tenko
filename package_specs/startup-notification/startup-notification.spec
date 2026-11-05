@@ -1,13 +1,15 @@
 Name:       startup-notification
 Version:    0.12
-Release:    3
-Summary:    TODO
-License:    GPL3
+Release:    4
+Summary:    Application startup notification library
+License:    LGPL-2.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
 %description
-TODO
+The startup notification protocol allows a desktop environment to track
+application startup, to provide user feedback and other features. The
+startup-notification library implements that protocol for X applications.
 
 %package static
 Summary:    startup-notification static libraries
@@ -32,6 +34,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/startup-notification-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.12-4
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.0-or-later): libsn/sn-util.c (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.12-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

@@ -1,12 +1,15 @@
 Name:       shared-mime-info
 Version:    2.5.1
-Release:    2
-Summary:    TODO
-License:    GPL3
+Release:    3
+Summary:    Shared MIME database and update tool
+License:    GPL-2.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 %description
-TODO
+The shared-mime-info package contains the core database of common MIME
+types, their file extensions and icon names. It also provides the
+update-mime-database command used to extend the database and install new
+MIME data.
 
 %package lang
 Summary:    shared-mime-info translations
@@ -42,6 +45,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.5.1-3
+- Replace the TODO summary/description and record the verified license
+  (GPL-2.0-or-later): data/freedesktop.org.xml.in (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.5.1-2
 - Split lang payload into shared-mime-info-lang (size audit)
 

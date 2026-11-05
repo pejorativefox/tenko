@@ -1,13 +1,16 @@
 Name:       libusb
 Version:    1.0.30
-Release:    3
-Summary:    TODO
-License:    GPL3
+Release:    4
+Summary:    Cross-platform USB device access library
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    libusb-1.0.30.tar.bz2
 
 %description
-TODO
+libusb is a library for USB device access from Linux, macOS, Windows,
+OpenBSD/NetBSD, Haiku, Solaris userspace and WebAssembly via WebUSB. It is
+written in C and provides a portable API for applications that communicate
+with USB hardware.
 
 %prep
 %setup -a 0
@@ -22,6 +25,10 @@ TODO
 %files -f %{_sourcedir}/libusb.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.30-4
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.1-or-later): libusb/core.c (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.0.30-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

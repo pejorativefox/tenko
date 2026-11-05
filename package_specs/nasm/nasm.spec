@@ -1,14 +1,15 @@
 Name:       nasm
 Version:    3.02
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Netwide Assembler for x86 and x86-64
+License:    BSD-2-Clause
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 
 %description
-TODO
+NASM is the Netwide Assembler, a portable assembler for x86 and x86-64. It
+supports many output formats, including ELF, Mach-O, COFF and raw binary.
 
 %prep
 %setup -a 0
@@ -29,6 +30,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/ndisasm.1.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.02-2
+- Replace the TODO summary/description and record the verified license
+  (BSD-2-Clause): LICENSE (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.02-1
 - Sync with BLFS r13.1
 
