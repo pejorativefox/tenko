@@ -7,10 +7,10 @@ Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 %description
-Client for battery, power, and thermal readings
+Client for battery, power, and thermal readings.
 
 %prep
-%setup
+%setup -q -n %{name}-%{version}
 
 %build
 %configure
@@ -18,13 +18,16 @@ Client for battery, power, and thermal readings
 
 %install
 rm -rf %{buildroot}
-%make_install
+install -Dm755 acpi %{buildroot}%{_bindir}/acpi
+install -Dm644 acpi.1 %{buildroot}%{_mandir}/man1/acpi.1
 
-%files
-/usr/bin/acpi
-/usr/share/man/man1/acpi.1.gz
+%files -f %{_sourcedir}/acpi.filelist
 
 %changelog
-* Sun May 17 2020 Chris Statzer <chris.statzer@qq.com> 1.7-1
-- Initial RPM
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.7-1
+- Not in the r13.1 book; latest upstream stable per the 2026-11-05
+  wave target (1.7, 2013). Upstream also publishes 1.8 (2025); that
+  version still needs approval, so this build stays at the requested
+  1.7.
+- Install the binary and man page manually; refresh %files from the
+  build.

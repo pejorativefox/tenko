@@ -1,0 +1,11 @@
+%dir /usr/include/SDL2
+/usr/include/SDL2/SDL_ttf.h
+%dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/SDL2_ttf
+/usr/lib64/cmake/SDL2_ttf/sdl2_ttf-config-version.cmake
+/usr/lib64/cmake/SDL2_ttf/sdl2_ttf-config.cmake
+/usr/lib64/libSDL2_ttf-2.0.so.0
+/usr/lib64/libSDL2_ttf-2.0.so.0.2400.0
+/usr/lib64/libSDL2_ttf.so
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/SDL2_ttf.pc

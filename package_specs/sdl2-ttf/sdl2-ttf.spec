@@ -1,5 +1,5 @@
 Name:       sdl2-ttf
-Version:    2.0.15
+Version:    2.24.0
 Release:    1
 Summary:    SDL2 True type font library
 License:    zlib
@@ -8,30 +8,33 @@ Prefix:     /usr
 
 BuildRequires: sdl2
 BuildRequires: freetype
+BuildRequires: harfbuzz
 
 %description
-This is a sample library which allows you to use TrueType fonts in your SDL applications.
+This is a sample library which allows you to use TrueType fonts in
+your SDL applications.
 
 %prep
-%setup -n SDL2_ttf-%{version}
+%setup -q -n SDL2_ttf-%{version}
 
 %build
-%configure
+%configure \
+    --disable-static \
+    --disable-freetype-builtin \
+    --disable-harfbuzz-builtin \
+    --enable-harfbuzz
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/include/SDL2/SDL_ttf.h
-/usr/lib64/libSDL2_ttf-2.0.so.0
-/usr/lib64/libSDL2_ttf-2.0.so.0.14.1
-/usr/lib64/libSDL2_ttf.a
-/usr/lib64/libSDL2_ttf.so
-/usr/lib64/pkgconfig/SDL2_ttf.pc
+%files -f %{_sourcedir}/sdl2-ttf.filelist
 
 %changelog
-* Sun May 17 2020 Chris Statzer <chris.statzer@qq.com> 2.0.15-1
-- Initial RPM
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.24.0-1
+- Not in the r13.1 book; latest SDL2-series upstream release
+  (2026-11-05).
+- Build shared only against the published SDL2 2.32.74, freetype
+  2.15.0 and harfbuzz 15.0.0.
+- Refresh %files from the build (no -devel split).

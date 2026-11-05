@@ -1,36 +1,52 @@
 Name:       sdl2-image
-Version:    2.0.5
+Version:    2.8.12
 Release:    1
-Summary:    SDL_image is an image file loading library.
+Summary:    SDL_image is an image file loading library
 License:    zlib
 Source0:    SDL2_image-%{version}.tar.gz
 Prefix:     /usr
 
 BuildRequires: sdl2
+BuildRequires: libpng
+BuildRequires: libjpeg-turbo
+BuildRequires: webp
+
+# The codec libraries are loaded with dlopen() at runtime, so rpm cannot
+# discover them from the ELF headers.
+Requires: libpng
+Requires: libjpeg-turbo
+Requires: webp
 
 %description
-SDL_image is an image file loading library.
+SDL_image is an image file loading library that supports BMP, GIF,
+JPEG, LBM, PCX, PNG, PNM, SVG, TGA, WEBP, XCF, XPM and XV images.
 
 %prep
-%setup -n SDL2_image-%{version}
+%setup -q -n SDL2_image-%{version}
 
 %build
-%configure
+%configure \
+    --disable-static \
+    --disable-stb-image \
+    --disable-tif \
+    --disable-avif \
+    --disable-jxl
 %make_build
 
 %install
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/include/SDL2/SDL_image.h
-/usr/lib64/libSDL2_image-2.0.so.0
-/usr/lib64/libSDL2_image-2.0.so.0.2.3
-/usr/lib64/libSDL2_image.a
-/usr/lib64/libSDL2_image.so
-/usr/lib64/pkgconfig/SDL2_image.pc
+%files -f %{_sourcedir}/sdl2-image.filelist
 
 %changelog
-* Sun May 17 2020 Chris Statzer <chris.statzer@qq.com> 2.0.5-1
-- Initial RPM
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.8.12-1
+- Not in the r13.1 book; latest SDL2-series upstream release
+  (2026-11-05).
+- Build shared only against the published SDL2 2.32.74, libpng
+  1.6.59, libjpeg-turbo 3.2.1 and webp 1.6.0.
+- Disable libtiff, libavif and libjxl support (not in the distro) and
+  the bundled stb_image backend, so the system libraries are used.
+- Refresh %files from the build (no -devel split).
+- Require libpng, libjpeg-turbo and webp at runtime, because SDL_image
+  loads those codecs with dlopen().
