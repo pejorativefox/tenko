@@ -3,14 +3,13 @@
 Audit of `package_specs/` against the LFS and BLFS checkouts and the
 **published** repository, 2026-11-05.
 
-- Repo snapshot: `repodata/22a5418…-primary.xml.zst` of
+- Repo snapshot: `repodata/870aadc…-primary.xml.zst` of
   <https://tomfool.8bit.ca/browneye/packages/13.1/> —
-  **669 RPM names** from **477 source packages**.
+  **687 RPM names** from **495 source packages**.
 - Books: `~/repos/lfs` branch `trunk` (`1493db7`) and `~/repos/blfs`
   branch `trunk` (`60fb6e5`).
-- Spec tree after the two 2026-11-05 package waves (the 11-package
-  version sync and the 21-package library/desktop wave), the Python 2 /
-  Docker removals and the `lua-lgi` → `lgi` consolidation.
+- Spec tree after the three 2026-11-05 package waves, the Python 2/3 and
+  Docker removals, and the `lua-lgi` → `lgi` consolidation.
 - Regenerate with `python3 scripts/spec_audit.py --primary primary.xml.zst`
   (see §5).
 
@@ -29,37 +28,34 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 
 | measure | count |
 |---|---:|
-| spec files / spec directories | 497 / 497 |
-| shipped spec files (live source package in the repo) | 477 |
-| source packages in the published repo | 477 |
-| RPM names in the published repo | 669 |
+| spec files / spec directories | 496 / 496 |
+| shipped spec files (live source package in the repo) | 495 |
+| source packages in the published repo | 495 |
+| RPM names in the published repo | 687 |
 | **shipped packages below the book** | **0** |
-| shipped packages at the book | 380 |
-| shipped packages above the book | 1 (`xml-parser`, approved) |
-| shipped packages with no comparable book entity | 96 |
-| unbuilt spec files | 20 |
+| shipped packages at the book | 382 |
+| shipped packages above the book | 2 (`db`, `xml-parser`) |
+| shipped packages with no comparable book entity | 111 |
+| unbuilt spec files | 1 (`rpmlint`) |
 | unbuilt specs below the book | 0 |
-| unbuilt specs at the book | 2 |
-| unbuilt specs above the book | 1 (`db`) |
-| unbuilt specs with no comparable book entity | 17 |
-| specs with `Summary: TODO` | 54 |
-| specs with `TODO` in `%description` | 68 |
+| specs with `Summary: TODO` | 48 |
+| specs with `TODO` in `%description` | 64 |
 | shipped specs with a missing referenced patch | 0 |
 | shipped specs with a sources/version mismatch | 0 (7 audit false positives, §1.3) |
 | specs with neither `sources` nor `nosources` | 0 |
 
-**Bottom line.** Version parity for everything the distro ships still
-holds: no shipped package is below LFS/BLFS trunk, and the only shipped
-package above it (`xml-parser` 2.59 vs 2.57) is allowed by the "at least
-the book version" rule. The unbuilt remainder is now 34 specs, none of
-them below the book.
+**Bottom line.** Version parity holds: no shipped package is below
+LFS/BLFS trunk. The two packages above it (`db` 6.2.32 vs the archived
+5.3.28 and `xml-parser` 2.59 vs 2.57) are allowed by the "at least the
+book version" rule. Only one spec is still unbuilt: `rpmlint`, which has
+six Python runtime dependencies that are not in the books or the repo.
 
 ## 1. Shipped packages
 
-380 shipped source packages match the book exactly and one
-(`xml-parser`) is newer. The 96 without a comparable entity fall into
-five groups; the version-bearing packages added on 2026-11-05 were
-checked against upstream (see §1.2):
+382 shipped source packages match the book exactly and two are newer.
+The 111 without a comparable entity fall into five groups; the
+version-bearing packages added in the 2026-11-05 waves were checked
+against upstream (§1.2):
 
 - **Distro-specific metas and config** (13): the `browneye-*` packages
   (`base`, `base-build`, `base-runtime`, `basefs`, `build`,
@@ -78,17 +74,18 @@ checked against upstream (see §1.2):
   `squashfs-tools` 4.7.5, `mtools` 4.0.50, `privoxy` 4.2.0,
   `dracut` 112, `cairomm` 1.14.6, `glib` 2.90.1, the four
   `xfce-desktop*` metas.
-- **Other book-less packages** (45): `bash-completion`, `bwm-ng`,
+- **Other book-less packages** (60): `bash-completion`, `bwm-ng`,
   `docbook-xml`, `docbook-xsl-nons`, `libbsd`, `libcap-ng`, `libmd`,
   `linux-api-headers`, `linux-firmware`, `openvpn`, `proxychains-ng`,
-  `pulsemixer`, `pyenv`, `python-flit-core`, `python-jinja`,
-  `python-markupsafe`, `python-packaging`, `python-pyparsing`,
-  `python-wheel`, `python3-docutils`, `python3-lxml`,
-  `python3-pyelftools`, `rofi`, `tmux`, `xbacklight`, `xcb-util-xrm`,
-  `xf86-input-libinput`, the five `xf86-video-*` drivers, and the 13
-  packages added by the second wave (`acpi`, `awesome`, `bspwm`,
-  `dunst`, `dwm`, `lgi`, `libstemmer`, `libxdg-basedir`, `ncdu`,
-  `sdl2-image`, `sdl2-ttf`, `sxhkd`, `wmname`).
+  `pulsemixer`, `pyenv`, the nine shipped `python-*`/`python3-*` helper
+  modules, `rofi`, `tmux`, `xbacklight`, `xcb-util-xrm`,
+  `xf86-input-libinput`, the five `xf86-video-*` drivers, plus the
+  packages added by the second and third waves (`acpi`, `awesome`,
+  `bspwm`, `cdrkit`, `drpm`, `dunst`, `dwm`, `fakeroot-ng`, `go-bin`,
+  `gotop`, `help2man`, `lgi`, `libdmx`, `liblzo2`, `libsoup`,
+  `libstemmer`, `libuev`, `libxdg-basedir`, `ncdu`, `numactl`, `pcre`,
+  `sdl2-image`, `sdl2-ttf`, `sxhkd`, `tzdb`, `wmname`, `x11perf`,
+  `xf86-input-synaptics`).
 
 Known deviations and exceptions are recorded in issue #7.
 
@@ -158,9 +155,36 @@ page; the rest approved latest-stable deviations, issue #7):
 | `sdl2-image` | 2.8.12 | no book page; latest SDL2-series release |
 | `sdl2-ttf` | 2.24.0 | no book page; latest SDL2-series release |
 
-All 32 wave RPMs were verified on both the public site and the LAN
-mirror, and the 21 second-wave packages install together into a clean
-dnf installroot (102 packages).
+**Third wave, 18 packages** (the remaining system/tooling/X11 set):
+
+| package | version | basis |
+|---|---|---|
+| `db` | 6.2.32 | above the archived book 5.3.28; current 6.x |
+| `liblzo2` | 2.10 | BLFS r13.1 `general/genlib/lzo.xml` |
+| `libsoup` | 2.74.3 | archived 2.x page (active book page is `libsoup3`) |
+| `libuev` | 2.4.1 | no book page; latest upstream stable |
+| `pcre` | 8.45 | archived PCRE1 page; final PCRE1 release |
+| `woff2` | 1.0.2 | BLFS r13.1 `general/graphlib/woff2.xml` |
+| `drpm` | 0.5.3 | no book page; latest upstream release |
+| `fakeroot-ng` | 0.18 | no book page; latest upstream release |
+| `cdrkit` | 1.1.11 | no book page; latest upstream release |
+| `help2man` | 1.49.3 | no book page; latest GNU release |
+| `numactl` | 2.0.19 | no book page; latest upstream release |
+| `go-bin` | 1.27.3 | no book page; latest stable Go |
+| `gotop` | 4.2.0 | no book page; latest maintained release |
+| `pm-utils` | 1.4.1 | BLFS r13.1 `general/sysutils/pm-utils.xml` |
+| `tzdb` | 2026f | book `tzdata` entity / current upstream; ships data only |
+| `libdmx` | 1.1.5 | no book page; latest x.org release |
+| `x11perf` | 1.6.1 | no book page; latest x.org release |
+| `xf86-input-synaptics` | 1.10.0 | no book page; latest x.org release |
+
+`mkfontdir` was retired rather than built: its only files are already
+shipped by `mkfontscale` and the two packages conflict. `rpmlint` built
+but is not published (see §2).
+
+All published RPMs were verified on both the public site and the LAN
+mirror. The 18 third-wave packages install together into a clean dnf
+installroot (79 packages total).
 
 ### 1.3 Sources/version mismatches that remain
 
@@ -173,39 +197,25 @@ The seven rows the script prints are all expected:
 
 ### 1.4 Open shipped-package debt
 
-- **`Summary: TODO` / `TODO` descriptions** in 54 and 68 specs — issue #8.
+- **`Summary: TODO` / `TODO` descriptions** in 48 and 64 specs — issue #8.
 - **Images lag the repo**: the published installer ISO and rootfs were
-  built before both 2026-11-05 waves and do not contain them. They are
-  only rebuilt on request (AGENTS.md).
+  built before all three 2026-11-05 waves and do not contain them. They
+  are only rebuilt on request (AGENTS.md).
 - **`imagemagick` 7.1.2-2 has no PNG coder** (`convert` reports "no
   decode delegate … png"). Found while deriving a desktop build image;
   the spec/RPM were not changed. Needs a fix before the next image
   rebuild (issue #8).
 
-## 2. Unbuilt specs (20)
+## 2. Unbuilt specs (1)
 
-20 spec files have no matching source package in the published repo: 17
-have no comparable book entity, 2 are at the book, 1 is above it (`db`
-6.2.32 vs 5.3.28), and none is below it.
+Only `rpmlint` 2.10.0 remains unbuilt.
 
-They cost nothing while they stay unbuilt, but the parity rule in
-`AGENTS.md` applies the moment someone builds one. Grouped by intent:
-
-| group | count | examples |
-|---|---:|---|
-| Media / system libraries | 5 | `libsoup`, `pcre`, `db`, `liblzo2`, `libuev` |
-| Container / k8s / packaging | 3 | `drpm`, `fakeroot-ng`, `rpmlint` |
-| CLI / dev tools | 5 | `cdrkit`, `go-bin`, `gotop`, `help2man` |
-| Boot / init | 2 | `pm-utils`, `tzdb` |
-| X11 tools | 4 | `x11perf`, `libdmx`, `xf86-input-synaptics` |
-| Fonts | 1 | `woff2` |
-
-The two unbuilt specs at the book version are `pm-utils` (1.4.1) and
-`woff2` (1.0.2). `db` 6.2.32 is above the book's
-5.3.28, which the parity rule allows.
-
-A handful of names in this bucket may be mismatches rather than truly
-unbuilt; check before deleting anything.
+It compiles and packages, but cannot run: importing it fails on six
+Python runtime dependencies that are in neither LFS/BLFS nor the
+Browneye repo — `tomli-w`, `pyxdg`, `pybeam`, `zstandard`, `pyenchant`
+and `python-magic`. No RPM was published. The options are to add those
+modules in a follow-up wave or retire the spec like the other unused
+Python packages.
 
 ### 2.1 Py2/Python3/Docker/other retirements
 
@@ -214,15 +224,14 @@ RPM in the repository were deleted in the 2026-11-03 pass: `atk`,
 `at-spi2-atk`, `check`, `dhcp`, `gtk-xfce-engine`, `libcroco`, `mandoc`,
 `python2`, `udev`, `xfce4-xkb-plugin`.
 
-The 2026-11-05 Python 2 cleanup retired the remaining six `python2-*`
-packages (`pip`, `psutil`, `pycairo`, `pycurl`, `pygobject`,
-`setuptools`) and the Python 2-only `terminator` 1.91 spec. The distro
-ships no Python 2 interpreter, so none of them could be built.
+The 2026-11-05 Python 2 cleanup retired the six `python2-*` packages
+(`pip`, `psutil`, `pycairo`, `pycurl`, `pygobject`, `setuptools`) and
+the Python 2-only `terminator` 1.91 spec. The distro ships no Python 2
+interpreter, so none of them could be built.
 
 The 2026-11-05 container cleanup retired the `docker` 18.06.3 and
 `docker-compose` 1.27.0-rc1 specs. The distro uses podman; the `dive`
-spec stays because it inspects OCI images and does not need the Docker
-daemon.
+spec stayed until the second cleanup below removed it.
 
 The 2026-11-05 Python 3 cleanup retired 29 unbuilt specs: the Sphinx
 documentation stack (`python-sphinx` plus 18 dependencies) and ten
@@ -232,21 +241,18 @@ Nothing shipped required any of them, `pip` is already provided by
 ensurepip in the Python package, and the Sphinx stack only served
 `dnf-plugins-core`'s man pages — that spec now builds without it.
 
-A second 2026-11-05 cleanup retired 19 more unused specs: `polybar`,
+A second cleanup retired 19 more unused specs: `polybar`,
 `font-noto-cjk`, `busybox`, `eudev`, `finit`, `kdevelop-bin`,
 `dnf-plugins-core`, `dive`, the seven Perl modules (`perl-cgi`,
 `perl-crypt-password-md5`, `perl-dbi`, `perl-digest-sha1`,
 `perl-io-sockets-ssl`, `perl-ssleay`, `perl-uri`), `transgui-bin`, and
-the SDL1 trio (`sdl`, `sdl-image`, `sdl-ttf`). None was shipped, and no
-remaining spec required any of them. The Perl modules' only consumer,
-`syslinux`, was retired in the fourth cleanup below.
+the SDL1 trio (`sdl`, `sdl-image`, `sdl-ttf`).
 
-A third 2026-11-05 cleanup then retired `build-essential`, `autoconf213`
-(unbuildable because its patch 404s), `kubectl`, `kubectx` and `mozjs`.
-None was shipped or required by a remaining spec. A fourth cleanup
-retired `syslinux` (its work remains on branch `pkg-syslinux`),
-`cppunit`, `libite`, and both fuse specs (`fuse`/`fuse2`); none was
-shipped.
+A third cleanup retired `build-essential`, `autoconf213` (unbuildable
+because its patch 404s), `kubectl`, `kubectx` and `mozjs`. A fourth
+retired `syslinux` (work remains on branch `pkg-syslinux`), `cppunit`,
+`libite`, and both fuse specs. The X11 wave then retired `mkfontdir`
+because `mkfontscale` already owns its files.
 
 The second wave replaced the old `lua-lgi` spec directory with
 `package_specs/lgi` (same `Name`/version, plus the Lua 5.4 and
@@ -259,13 +265,17 @@ for one package.
   2026-11-05. SDL2 2.32.74 and SDL3 3.4.18 are shipped at the book
   versions, and `sdl2-image`/`sdl2-ttf` are shipped from the second
   wave.
+- **`mkfontdir`**: retired because `mkfontscale` already provides
+  `/usr/bin/mkfontdir` and its man page.
+- **`rpmlint`**: built but not published because of the six missing
+  Python dependencies above.
 
 ## 3. Newer or older than the book
 
 | package | local | book | status |
 |---|---|---|---|
+| `db` | 6.2.32 | 5.3.28 | shipped; allowed ("at least the book") |
 | `xml-parser` | 2.59 | 2.57 | shipped; allowed ("at least the book") |
-| `db` | 6.2.32 | 5.3.28 | unbuilt stub; allowed |
 
 `sqlite` 3.54.1 is **not** newer: the book entity `sqlite-version` is the
 autoconf build number `3540100`, which equals 3.54.1. The script converts
@@ -276,9 +286,10 @@ it; other tools report it as a false mismatch.
 - Cross-compilation and non-x86_64: the repo is x86_64 only.
 - Optional BLFS features with no spec (Wayland, PipeWire, printing, …);
   those are product decisions rather than version skew.
-- The 17 unbuilt no-entity specs are not individually version-checked;
-  `scripts/spec_audit.py` prints the list and compares whatever the books
-  expose as entities.
+- The 111 shipped no-entity packages are not individually
+  version-checked beyond the wave-specific checks above;
+  `scripts/spec_audit.py` compares whatever the books expose as
+  entities.
 
 ## 5. Reproduction
 
