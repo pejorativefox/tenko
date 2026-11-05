@@ -198,14 +198,18 @@ The seven rows the script prints are all expected:
 
 ### 1.4 Open shipped-package debt
 
-- **`Summary: TODO` / `TODO` descriptions** in 48 and 64 specs — issue #8.
+- **`Summary: TODO` / `TODO` descriptions** in 48 and 64 specs — PR #18
+  fills these in (plus 11 description-only specs) with verified licences;
+  the specs are not rebuilt/published yet, so the repo still advertises
+  the TODO text until that follow-up.
 - **Images lag the repo**: the published installer ISO and rootfs were
   built before all three 2026-11-05 waves and do not contain them. They
   are only rebuilt on request (AGENTS.md).
-- **`imagemagick` 7.1.2-2 has no PNG coder** (`convert` reports "no
-  decode delegate … png"). Found while deriving a desktop build image;
-  the spec/RPM were not changed. Needs a fix before the next image
-  rebuild (issue #8).
+- **`imagemagick` PNG support** — fixed in 7.1.2-3 (`54cc843`). The
+  package had been built with `--with-modules`, so coders were loaded
+  through libltdl; `brp-remove-la-files` strips the companion `.la`
+  files, leaving no coder loadable. The coders are now built into
+  `libMagickCore`.
 
 ## 2. Unbuilt specs (0)
 
