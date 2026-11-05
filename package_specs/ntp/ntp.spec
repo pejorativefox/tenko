@@ -1,8 +1,8 @@
 Name:       ntp
 Version:    4.2.8p18
-Release:    2
+Release:    3
 Summary:    NTP time sync daemon
-License:    NO_IDEA
+License:    NTP
 Source0:    %{name}-%{version}.tar.gz
 Source1:    ntp.conf
 Source2:    ntpd.conf
@@ -326,6 +326,9 @@ install -v -o ntp -g ntp -d /var/lib/ntp
 /usr/share/ntp/lib/NTP/Util.pm
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.2.8p18-3
+- Replace NO_IDEA with the verified license (NTP): COPYRIGHT (NTP copyright notice) (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.2.8p18-2
 - Drop the ntp-leap subpackage (update-leap).  It needs the CPAN modules
   IO::Socket::SSL and Net::SSLeay, which are not in LFS/BLFS, so the

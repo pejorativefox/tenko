@@ -1,8 +1,8 @@
 Name:       usbutils
 Version:    020
-Release:    1
+Release:    2
 Summary:    Utilities for Linux USB devices
-License:    NO_IDEA
+License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -36,6 +36,9 @@ popd
 /usr/share/man/man8/usbhid-dump.8.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 020-2
+- Replace NO_IDEA with the verified license (GPL-2.0-or-later): README.md SPDX header (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 020-1
 - Sync with BLFS r13.1
 

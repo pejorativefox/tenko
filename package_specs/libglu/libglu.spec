@@ -1,8 +1,8 @@
 Name:       libglu
 Version:    9.0.3
-Release:    1
+Release:    2
 Summary:    This package provides the Mesa OpenGL Utility library. 
-License:    NO_IDEA
+License:    SGI-B-1.1 AND SGI-B-2.0 AND MIT
 Source0:    glu-%{version}.tar.xz
 Prefix:     /usr
 
@@ -37,6 +37,9 @@ popd
 /usr/lib64/pkgconfig/glu.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 9.0.3-2
+- Replace NO_IDEA with the verified license (SGI-B-1.1 AND SGI-B-2.0 AND MIT): meson.build license: field (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 9.0.3-1
 - Sync with BLFS r13.1
 

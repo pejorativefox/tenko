@@ -1,8 +1,8 @@
 Name:       acpid
 Version:    2.0.34
-Release:    1
+Release:    2
 Summary:    The acpid (Advanced Configuration and Power Interface event daemon)
-License:    NO_IDEA
+License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Source1:    lidclose
 Source2:    brightnessup
@@ -50,6 +50,9 @@ cp %{SOURCE4} %{buildroot}/etc/finit.d/available/
 /usr/share/man/man8/kacpimon.8.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.34-2
+- Replace NO_IDEA with the verified license (GPL-2.0-or-later): COPYING + acpid.c "either version 2 ... or any later version" (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.0.34-1
 - Sync with BLFS r13.1
 
