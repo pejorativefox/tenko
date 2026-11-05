@@ -6,7 +6,7 @@ License:    GPL
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
-BuildRequires: dnf, python-sphinx
+BuildRequires: dnf
 
 %description
 Core DNF pluigins providing additional dnf functionality.
@@ -15,14 +15,11 @@ Core DNF pluigins providing additional dnf functionality.
 %setup
 
 %build
-sed -i 's/sphinx-build-3/sphinx-build/g' doc/CMakeLists.txt
 mkdir build
 pushd build
 cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
-         -DPYTHON_DESIRED=3 \
-         -DSPHINX_BUILD_NAME=sphinx-build
+         -DPYTHON_DESIRED=3
 %make_build
-make doc-man
 popd
 
 %install
@@ -41,6 +38,10 @@ rm %{buildroot}/etc/dnf/plugins/local.conf
 /usr/share/man/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.4.2-1
+- Build without the Sphinx documentation stack, which was retired from
+  the distro; the man pages are no longer generated.
+
 * Sun May 24 2020 Chris Statzer <chris.statzer@qq.com> 4.0.15-1
 - Initial RPM
 

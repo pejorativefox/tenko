@@ -29,7 +29,7 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 
 | measure | count |
 |---|---:|
-| spec files / spec directories | 555 / 553 |
+| spec files / spec directories | 526 / 524 |
 | shipped spec files (live source package in the repo) | 477 |
 | source packages in the published repo | 477 |
 | RPM names in the published repo | 669 |
@@ -37,11 +37,11 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 | shipped packages at the book | 380 |
 | shipped packages above the book | 1 (`xml-parser`, approved) |
 | shipped packages with no comparable book entity | 96 |
-| unbuilt spec files | 78 |
+| unbuilt spec files | 49 |
 | unbuilt specs below the book | 0 |
 | unbuilt specs at the book | 3 |
 | unbuilt specs above the book | 1 (`db`) |
-| unbuilt specs with no comparable book entity | 74 |
+| unbuilt specs with no comparable book entity | 45 |
 | specs with `Summary: TODO` | 62 |
 | specs with `TODO` in `%description` | 76 |
 | shipped specs with a missing referenced patch | 0 |
@@ -51,7 +51,7 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 **Bottom line.** Version parity for everything the distro ships still
 holds: no shipped package is below LFS/BLFS trunk, and the only shipped
 package above it (`xml-parser` 2.59 vs 2.57) is allowed by the "at least
-the book version" rule. The unbuilt remainder is now 78 specs, none of
+the book version" rule. The unbuilt remainder is now 49 specs, none of
 them below the book.
 
 ## 1. Shipped packages
@@ -186,9 +186,9 @@ The nine rows the script prints are all expected:
   the spec/RPM were not changed. Needs a fix before the next image
   rebuild (issue #8).
 
-## 2. Unbuilt specs (78)
+## 2. Unbuilt specs (49)
 
-78 spec files have no matching source package in the published repo: 74
+49 spec files have no matching source package in the published repo: 45
 have no comparable book entity, 3 are at the book, 1 is above it (`db`
 6.2.32 vs 5.3.28), and none is below it.
 
@@ -197,7 +197,7 @@ They cost nothing while they stay unbuilt, but the parity rule in
 
 | group | count | examples |
 |---|---:|---|
-| Python 3 / Perl modules | 36 | `python3-requests`, the sphinx stack, `perl-dbi` |
+| Perl modules | 7 | `perl-dbi`, `perl-ssleay`, `perl-digest-sha1` |
 | Media / system libraries | 10 | `libsoup`, `pcre`, `fuse`, `db`, `cppunit` |
 | Container / k8s / packaging | 8 | `kubectl`, `kubectx`, `dive`, `rpmlint` |
 | CLI / dev tools | 7 | `cdrkit`, `go-bin`, `gotop`, `help2man` |
@@ -212,10 +212,9 @@ The three unbuilt specs at the book version are `autoconf213` (2.13),
 5.3.28, which the parity rule allows.
 
 A handful of names in this bucket may be mismatches rather than truly
-unbuilt (a spec whose `Name:` differs from the source package actually
-built, e.g. `libx264`); check before deleting anything.
+unbuilt; check before deleting anything.
 
-### 2.1 Py2/Docker/other retirements
+### 2.1 Py2/Python3/Docker/other retirements
 
 Ten specs whose BLFS pages live only in `book/archive/` and which had no
 RPM in the repository were deleted in the 2026-11-03 pass: `atk`,
@@ -231,6 +230,14 @@ The 2026-11-05 container cleanup retired the `docker` 18.06.3 and
 `docker-compose` 1.27.0-rc1 specs. The distro uses podman; the `dive`
 spec stays because it inspects OCI images and does not need the Docker
 daemon.
+
+The 2026-11-05 Python 3 cleanup retired 29 unbuilt specs: the Sphinx
+documentation stack (`python-sphinx` plus 18 dependencies) and ten
+standalone modules (`pip`, `six`, `mako`, `distro`, `scikit-build`,
+`pycairo`, `pygobject`, `pygpgme`, `importlib_metadata`, `zipp`).
+Nothing shipped required any of them, `pip` is already provided by
+ensurepip in the Python package, and the Sphinx stack only served
+`dnf-plugins-core`'s man pages — that spec now builds without it.
 
 The second wave replaced the old `lua-lgi` spec directory with
 `package_specs/lgi` (same `Name`/version, plus the Lua 5.4 and
@@ -268,7 +275,7 @@ it; other tools report it as a false mismatch.
 - Cross-compilation and non-x86_64: the repo is x86_64 only.
 - Optional BLFS features with no spec (Wayland, PipeWire, printing, …);
   those are product decisions rather than version skew.
-- The 74 unbuilt no-entity specs are not individually version-checked;
+- The 45 unbuilt no-entity specs are not individually version-checked;
   `scripts/spec_audit.py` prints the list and compares whatever the books
   expose as entities.
 
