@@ -2,7 +2,7 @@ Name:       pcre
 Version:    8.45
 Release:    1
 Summary:    Perl-compatible regular expression library (PCRE1)
-License:    GPL3
+License:    BSD-3-Clause
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 

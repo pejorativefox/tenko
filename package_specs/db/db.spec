@@ -2,7 +2,7 @@ Name:       db
 Version:    6.2.32
 Release:    1
 Summary:    Berkeley DB embedded database library
-License:    GPL3
+License:    AGPL-3.0-only
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

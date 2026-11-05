@@ -10,6 +10,10 @@ Prefix:     /usr
 # Leave the toolchain payload exactly as upstream publishes it.
 %global __strip /bin/true
 
+# The toolchain is self-contained; some testdata fixtures are shared
+# libraries that would otherwise add bogus runtime requires (libtiff).
+AutoReqProv: no
+
 %description
 Go is a statically typed, compiled high-level programming language.
 

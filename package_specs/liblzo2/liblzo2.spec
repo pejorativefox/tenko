@@ -2,7 +2,7 @@ Name:       liblzo2
 Version:    2.10
 Release:    1
 Summary:    LZO is a portable lossless data compression library written in ANSI C.
-License:    GPL
+License:    GPL-2.0-or-later
 Source0:    lzo-%{version}.tar.gz
 Prefix:     /usr
 

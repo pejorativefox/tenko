@@ -2,7 +2,7 @@ Name:       libuev
 Version:    2.4.1
 Release:    1
 Summary:    Simple event loop for Linux
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
