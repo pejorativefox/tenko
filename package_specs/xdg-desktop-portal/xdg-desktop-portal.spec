@@ -1,8 +1,8 @@
 Name:       xdg-desktop-portal
 Version:    1.22.1
-Release:    1
+Release:    2
 Summary:    Desktop integration portal 
-License:    LGPL
+License:    LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -140,6 +140,10 @@ popd
 /usr/share/pkgconfig/xdg-desktop-portal.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.22.1-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-2.0-or-later): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.22.1-1
 - Sync with BLFS r13.1
 

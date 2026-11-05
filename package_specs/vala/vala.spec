@@ -1,8 +1,8 @@
 Name:       vala
 Version:    0.56.19
-Release:    1
+Release:    2
 Summary:    Vala programming language.
-License:    GPL
+License:    LGPL-2.1-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2)
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -393,6 +393,10 @@ rm -rf %{buildroot}
 /usr/share/vala/vapi/libvala-0.56.vapi
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.56.19-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2)): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.56.19-1
 - Sync with BLFS r13.1
 

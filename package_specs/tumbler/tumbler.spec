@@ -1,8 +1,8 @@
 Name:       tumbler
 Version:    4.20.2
-Release:    3
+Release:    4
 Summary:    D-Bus service for applications to request thumbnails
-License:    GPL2
+License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -24,6 +24,10 @@ rm -f %{buildroot}/usr/lib/systemd/user/tumblerd.service
 
 %files -f %{_sourcedir}/tumbler.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.2-4
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later AND LGPL-2.0-or-later): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.2-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

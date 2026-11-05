@@ -1,8 +1,8 @@
 Name:       swig
 Version:    4.5.1
-Release:    1
+Release:    2
 Summary:    Simplified Wrapper and Interface Generator
-License:    BSD
+License:    GPL-3.0-or-later AND BSD-3-Clause
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -25,6 +25,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/swig.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.5.1-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-3.0-or-later AND BSD-3-Clause): LICENSE (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.5.1-1
 - Update to the BLFS r13.1 version (4.5.1, was 4.0.1) for the E1
   dnf/libdnf dependency chain (libdnf Python bindings).

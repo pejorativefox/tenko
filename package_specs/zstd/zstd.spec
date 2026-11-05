@@ -1,8 +1,8 @@
 Name:       zstd
 Version:    1.5.7
-Release:    1
+Release:    2
 Summary:    Fast real-time compression algorith
-License:    BSD
+License:    BSD-3-Clause OR GPL-2.0-only
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -37,6 +37,10 @@ rm -v %{buildroot}/usr/lib64/libzstd.a
 /usr/share/man/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5.7-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-3-Clause OR GPL-2.0-only): LICENSE (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.5.7
 - Sync with LFS r13.1
 

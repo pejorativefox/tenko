@@ -1,8 +1,8 @@
 Name:       python-flit-core
 Version:    4.2.0
-Release:    1
+Release:    2
 Summary:    Python packaging utility (core)
-License:    BSD
+License:    BSD-3-Clause AND MIT
 Source0:    flit_core-%{version}.tar.gz
 Prefix:     /usr
 
@@ -26,6 +26,10 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.2.0-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-3-Clause AND MIT): LICENSE (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.2.0-1
 - Sync with LFS r13.1
 

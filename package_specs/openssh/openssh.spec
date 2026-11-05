@@ -1,8 +1,8 @@
 Name:       openssh
 Version:    10.6p1
-Release:    1
+Release:    2
 Summary:    OpenSSH connectivity tools and server
-License:    BSD
+License:    SSH-OpenSSH AND BSD-2-Clause AND BSD-3-Clause AND (MIT OR Apache-2.0)
 URL:        https://www.openssh.com/
 Source0:    openssh-%{version}.tar.gz
 Source1:    sshd_config
@@ -95,6 +95,10 @@ install -d -m 0700 -o root -g sshd /var/lib/sshd 2>/dev/null || :
 %attr(0700,root,sshd) %dir /var/lib/sshd
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 10.6p1-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (SSH-OpenSSH AND BSD-2-Clause AND BSD-3-Clause AND (MIT OR Apache-2.0)): LICENCE (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 10.6p1-1
 - Update to 10.6p1 (current LFS/BLFS r13.1 trunk version).
 

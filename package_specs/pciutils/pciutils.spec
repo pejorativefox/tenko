@@ -1,8 +1,8 @@
 Name:       pciutils
 Version:    3.15.0
-Release:    1
+Release:    2
 Summary:    The PCI Utilities
-License:    GPL
+License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -33,6 +33,10 @@ rm -rf %{buildroot}
 /usr/share/pci.ids.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.15.0-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later): README (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.15.0-1
 - Sync with BLFS r13.1
 

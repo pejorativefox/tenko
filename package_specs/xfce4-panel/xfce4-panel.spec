@@ -1,8 +1,8 @@
 Name:       xfce4-panel
 Version:    4.20.8
-Release:    4
+Release:    5
 Summary:    Panel for the Xfce desktop environment
-License:    GPL2
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -42,7 +42,7 @@ mkdir -p %{buildroot}/etc
 
 %package gir
 Summary:    GObject Introspection data for xfce4-panel
-License:    GPL2
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -56,6 +56,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/xfce4-panel-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.8-5
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later AND LGPL-2.1-or-later): COPYING, COPYING.LIB (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.8-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

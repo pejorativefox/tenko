@@ -1,8 +1,8 @@
 Name:       upower
 Version:    1.91.5
-Release:    2
+Release:    3
 Summary:    Abstraction for enumerating power devices, listening to device events and querying history and statistics
-License:    GPL
+License:    GPL-2.0-or-later
 Source0:    upower-v%{version}.tar.bz2
 Prefix:     /usr
 
@@ -31,7 +31,7 @@ popd
 
 %package gir
 Summary:    GObject Introspection data for upower
-License:    GPL
+License:    GPL-2.0-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -43,6 +43,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/upower-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.91.5-3
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.91.5-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the
