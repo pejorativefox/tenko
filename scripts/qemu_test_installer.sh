@@ -15,11 +15,13 @@ SHOT=${SHOT:-$PWD/build/installer-screen.png}
 WAIT=${WAIT:-90}
 MEM=${MEM:-4096}
 VNC=${VNC:-127.0.0.1:2}
-OVMF_CODE=${OVMF_CODE:-/usr/share/OVMF/OVMF_CODE.fd}
-OVMF_VARS_SRC=${OVMF_VARS_SRC:-/usr/share/OVMF/OVMF_VARS.fd}
+OVMF_CODE=${OVMF_CODE:-/usr/share/edk2/ovmf/OVMF_CODE.fd}
+OVMF_VARS_SRC=${OVMF_VARS_SRC:-/usr/share/edk2/ovmf/OVMF_VARS.fd}
 OVMF_VARS=${OVMF_VARS:-$PWD/build/OVMF_VARS-installer.fd}
 
 [ -f "$ISO" ] || { echo "missing ISO: $ISO" >&2; exit 1; }
+[ -f "$OVMF_CODE" ] || { echo "missing $OVMF_CODE: install edk2-ovmf" >&2; exit 1; }
+[ -f "$OVMF_VARS_SRC" ] || { echo "missing $OVMF_VARS_SRC: install edk2-ovmf" >&2; exit 1; }
 
 if [ ! -f "$DISK" ]; then
     echo "creating a blank ${DISKSIZE} disk at $DISK"
