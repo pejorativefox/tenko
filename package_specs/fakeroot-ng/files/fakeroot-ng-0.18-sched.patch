@@ -1,0 +1,15 @@
+glibc 2.44 no longer pulls the CLONE_* constants in through the headers
+that process.cpp includes; they live in <sched.h>, which this old code
+never included directly.  Older glibc releases made them visible by
+accident.
+
+--- a/process.cpp
++++ b/process.cpp
+@@ -22,6 +22,7 @@
+ #include <sys/types.h>
+ #include <sys/wait.h>
+ #include <sys/stat.h>
++#include <sched.h>
+ 
+ #include <errno.h>
+ #include <limits.h>

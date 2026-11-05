@@ -1,0 +1,29 @@
+%dir /usr/bin
+/usr/bin/memhog
+/usr/bin/migratepages
+/usr/bin/migspeed
+/usr/bin/numactl
+/usr/bin/numademo
+/usr/bin/numastat
+%dir /usr/include
+/usr/include/numa.h
+/usr/include/numacompat1.h
+/usr/include/numaif.h
+%dir /usr/lib64
+/usr/lib64/libnuma.so
+/usr/lib64/libnuma.so.1
+/usr/lib64/libnuma.so.1.0.0
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/numa.pc
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man2
+%doc /usr/share/man/man2/move_pages.2.gz
+%dir /usr/share/man/man3
+%doc /usr/share/man/man3/numa.3.gz
+%dir /usr/share/man/man8
+%doc /usr/share/man/man8/memhog.8.gz
+%doc /usr/share/man/man8/migratepages.8.gz
+%doc /usr/share/man/man8/migspeed.8.gz
+%doc /usr/share/man/man8/numactl.8.gz
+%doc /usr/share/man/man8/numastat.8.gz

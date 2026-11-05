@@ -1,49 +1,33 @@
 Name:       numactl
-Version:    2.0.12
+Version:    2.0.19
 Release:    1
-Summary:    TODO
-License:    GPL3
+Summary:    Library and tools for NUMA policy control
+License:    GPL-2.0-only AND LGPL-2.1-only
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
-
 %description
-TODO
+numactl provides libnuma plus the numactl, numastat, numademo,
+migratepages, migspeed and memhog tools for querying and setting the
+NUMA policy of processes and shared memory.
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
 %configure --disable-static
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
 %make_install
-rm -vf %{buildroot}%{_infodir}/dir*
+rm -vf %{buildroot}%{_infodir}/dir* %{buildroot}%{_libdir}/libnuma.la
 
-%files
-/usr/bin/memhog
-/usr/bin/migratepages
-/usr/bin/migspeed
-/usr/bin/numactl
-/usr/bin/numademo
-/usr/bin/numastat
-/usr/include/numa.h
-/usr/include/numacompat1.h
-/usr/include/numaif.h
-/usr/lib64/libnuma.la
-/usr/lib64/libnuma.so
-/usr/lib64/libnuma.so.1
-/usr/lib64/libnuma.so.1.0.0
-/usr/lib64/pkgconfig/numa.pc
-/usr/share/man/man2/move_pages.2.gz
-/usr/share/man/man3/numa.3.gz
-/usr/share/man/man8/migratepages.8.gz
-/usr/share/man/man8/migspeed.8.gz
-/usr/share/man/man8/numactl.8.gz
-/usr/share/man/man8/numastat.8.gz
+%files -f %{_sourcedir}/numactl.filelist
 
 %changelog
-# let's skip this for now
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.19-1
+- Update 2.0.12 -> 2.0.19: not in the r13.1 book; latest upstream
+  stable 2026-11-05 (https://github.com/numactl/numactl/releases).
+- Build with --disable-static (as before) and drop the libtool
+  libnuma.la archive from the package.

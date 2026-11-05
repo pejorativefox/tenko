@@ -1,0 +1,8 @@
+%dir /usr/bin
+/usr/bin/help2man
+%dir /usr/share
+%dir /usr/share/info
+%doc /usr/share/info/help2man.info.gz
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/help2man.1.gz
