@@ -48,4 +48,6 @@ fi
 echo
 echo "published:"
 echo "  https://tomfool.8bit.ca/browneye/rootfs/$name"
-[ "$MIRROR" != "0" ] && echo "  http://192.168.31.9/~daspork/browneye/rootfs/$name"
+if [ "$MIRROR" != "0" ]; then
+    echo "  http://192.168.31.9/~daspork/browneye/rootfs/$name"
+fi
