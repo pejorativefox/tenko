@@ -1,6 +1,6 @@
 Name:       libXdmcp
 Version:    1.1.5
-Release:    2
+Release:    3
 Summary:    X Display Manager Control Protocol library
 License:    MIT
 Source0:    %{name}-%{version}.tar.xz
@@ -26,6 +26,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.5-3
+- Bump the release so the rebuilt licence metadata supersedes the
+  previously published 1.1.5-2 RPM (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.5-2
 - Replace the TODO summary/description and record the verified license
   (MIT): COPYING (issue #8).

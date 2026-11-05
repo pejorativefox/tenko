@@ -1,6 +1,6 @@
 Name:       m4
 Version:    1.4.21
-Release:    3
+Release:    4
 Summary:    M4 macro processor
 License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
@@ -35,6 +35,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.4.21-4
+- Bump the release so the rebuilt licence metadata supersedes the
+  previously published 1.4.21-3 RPM (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.4.21-3
 - Replace the TODO summary/description and record the verified license
   (GPL-3.0-or-later): src/m4.c (issue #8).
