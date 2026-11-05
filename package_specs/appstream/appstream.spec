@@ -11,15 +11,6 @@ AppStream provides a library and tool for retrieving software metadata.
 Flatpak requires libappstream for application metadata and catalogue
 handling.
 
-%package devel
-Summary:    Development files for appstream
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in appstream; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q -n AppStream-%{version}
 
@@ -43,7 +34,6 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/appstream.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.2.2-3

@@ -8,15 +8,6 @@ Source0:    %{name}-%{version}.tar.gz
 %description
 The Pixman package contains a library that provides low-level pixel manipulation features such as image compositing and trapezoid rasterization. 
 
-%package devel
-Summary:    Development files for pixman
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in pixman; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -a 0
 
@@ -35,8 +26,6 @@ popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/pixman.filelist
-%files devel
-
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.46.4-3

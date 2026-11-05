@@ -9,15 +9,6 @@ Source0:    libICE-1.1.2.tar.xz
 %description
 Inter-Client Exchange Library.
 
-%package devel
-Summary:    Development files for libice
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libice; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q -n libICE-%{version}
 
@@ -31,7 +22,6 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libice.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.1.2-3

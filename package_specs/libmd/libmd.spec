@@ -9,15 +9,6 @@ Prefix:     /usr
 %description
 Message digest library used by libbsd.
 
-%package devel
-Summary:    Development files for libmd
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libmd; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -30,7 +21,6 @@ rm -rf %{buildroot}
 %make_install
 
 %files -f %{_sourcedir}/libmd.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.3.0-3

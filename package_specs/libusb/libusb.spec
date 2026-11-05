@@ -9,15 +9,6 @@ Source0:    libusb-1.0.30.tar.bz2
 %description
 TODO
 
-%package devel
-Summary:    Development files for libusb
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libusb; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -a 0
 
@@ -29,7 +20,6 @@ conflict.
 %make_install
 
 %files -f %{_sourcedir}/libusb.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.0.30-3

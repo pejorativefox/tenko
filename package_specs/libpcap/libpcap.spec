@@ -11,15 +11,6 @@ Prefix:     /usr
 libpcap provides functions for user-level packet capture, used in low-level
 network monitoring.  Nmap links against it for its packet-capture engine.
 
-%package devel
-Summary:    Development files for libpcap
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libpcap; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -33,7 +24,6 @@ rm -rf %{buildroot}
 rm -rf %{buildroot}%{_docdir}/%{name}-%{version}/html
 
 %files -f %{_sourcedir}/libpcap.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.10.7-3

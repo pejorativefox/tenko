@@ -10,15 +10,6 @@ Prefix:     /usr
 libxmlb provides a compressed XML metadata store with fast XPath-like
 queries.  AppStream requires it for its metadata cache.
 
-%package devel
-Summary:    Development files for libxmlb
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libxmlb; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -39,7 +30,6 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/libxmlb.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.3.29-3

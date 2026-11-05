@@ -13,15 +13,6 @@ Provides: pkgconfig(libpng)
 %description
 TODO
 
-%package devel
-Summary:    Development files for libpng
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libpng; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -36,8 +27,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 rm -vf %{buildroot}/usr/lib64/libpng.la
 
 %files -f %{_sourcedir}/libpng.filelist
-%files devel
-
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.6.59-3

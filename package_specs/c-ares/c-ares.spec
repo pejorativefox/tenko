@@ -11,15 +11,6 @@ Prefix:     /usr
 c-ares is a C library for asynchronous DNS requests, including name
 resolves.  It is used by Node.js for its DNS implementation.
 
-%package devel
-Summary:    Development files for c-ares
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in c-ares; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -38,7 +29,6 @@ DESTDIR=%{buildroot} make install
 popd
 
 %files -f %{_sourcedir}/c-ares.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.34.9-3

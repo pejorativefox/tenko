@@ -9,15 +9,6 @@ Source0:    %{name}-%{version}.tar.xz
 %description
 libevdev wraps the Linux evdev interface for input device handling.
 
-%package devel
-Summary:    Development files for libevdev
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libevdev; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -32,7 +23,6 @@ mkdir -p %{buildroot}/etc
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libevdev.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.14.0-3

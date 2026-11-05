@@ -9,15 +9,6 @@ Source0:    %{name}-%{version}.tar.xz
 %description
 Duktape is an embeddable JavaScript engine with a compact footprint.
 
-%package devel
-Summary:    Development files for duktape
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in duktape; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -30,7 +21,6 @@ rm -rf %{buildroot}
 make -f Makefile.sharedlibrary INSTALL_PREFIX=%{buildroot}/usr install
 
 %files -f %{_sourcedir}/duktape.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2.7.0-3

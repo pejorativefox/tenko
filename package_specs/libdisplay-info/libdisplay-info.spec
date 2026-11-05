@@ -9,15 +9,6 @@ Source0:    %{name}-%{version}.tar.xz
 %description
 libdisplay-info parses EDID and DisplayID metadata for displays.
 
-%package devel
-Summary:    Development files for libdisplay-info
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libdisplay-info; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -35,7 +26,6 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/libdisplay-info.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.4.0-3

@@ -6,18 +6,8 @@ License:    GPL3
 Prefix:     /usr
 Source0:    libogg-1.3.6.tar.xz
 
-
 %description
 TODO
-
-%package devel
-Summary:    Development files for libogg
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libogg; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
 
 %prep
 %setup -q
@@ -33,7 +23,6 @@ rm -rf %{buildroot}
 %make_install
 
 %files -f %{_sourcedir}/libogg.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.3.6-3

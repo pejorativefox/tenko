@@ -11,15 +11,6 @@ BuildRequires: libxmu, libxpm
 %description
 Xaw is a widget set based on the X Toolkit Intrinsics (Xt) Library.
 
-%package devel
-Summary:    Development files for libxaw
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libxaw; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q -n libXaw-%{version}
 
@@ -33,7 +24,6 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxaw.filelist
-%files devel
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.0.16-3
 - Revert the -devel split (issue #4): the headers, include

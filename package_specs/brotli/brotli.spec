@@ -13,15 +13,6 @@ data using a combination of a modern variant of the LZ77 algorithm, Huffman
 coding and second order context modeling.  This package provides the
 libbrotli libraries and the brotli command.
 
-%package devel
-Summary:    Development files for brotli
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in brotli; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -42,7 +33,6 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/brotli.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.2.1-3

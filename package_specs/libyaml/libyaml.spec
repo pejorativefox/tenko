@@ -9,15 +9,6 @@ Source0:    yaml-%{version}.tar.gz
 %description
 LibYAML is a YAML 1.1 parser and emitter written in C.
 
-%package devel
-Summary:    Development files for libyaml
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libyaml; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q -n yaml-%{version}
 
@@ -31,7 +22,6 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libyaml.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.2.5-3

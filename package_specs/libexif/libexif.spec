@@ -16,15 +16,6 @@ Requires:   libexif = %{version}-%{release}
 %description lang
 Translations for libexif.
 
-%package devel
-Summary:    Development files for libexif
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libexif; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -37,9 +28,7 @@ rm -rf %{buildroot}
 %make_install
 
 %files -f %{_sourcedir}/libexif.filelist
-%files devel
 %files lang -f %{_sourcedir}/libexif-lang.filelist
-
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.6.26-4

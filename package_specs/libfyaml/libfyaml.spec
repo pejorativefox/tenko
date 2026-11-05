@@ -10,15 +10,6 @@ Prefix:     /usr
 libfyaml is a YAML 1.2 parser and emitter library.  AppStream requires it to
 read its YAML metadata catalogues.
 
-%package devel
-Summary:    Development files for libfyaml
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libfyaml; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -31,7 +22,6 @@ rm -rf %{buildroot}
 %make_install
 
 %files -f %{_sourcedir}/libfyaml.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.9.6-3

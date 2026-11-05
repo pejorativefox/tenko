@@ -16,15 +16,6 @@ Requires:   shadow = %{version}-%{release}
 %description lang
 Translations for shadow.
 
-%package devel
-Summary:    Development files for shadow
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in shadow; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q -a0
 
@@ -53,9 +44,7 @@ pwconv
 grpconv
 
 %files -f %{_sourcedir}/shadow.filelist
-%files devel
 %files lang -f %{_sourcedir}/shadow-lang.filelist
-
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 4.20.3-3

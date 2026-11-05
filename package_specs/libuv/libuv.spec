@@ -6,23 +6,11 @@ License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-v%{version}.tar.gz
 
-
-
 %description
 TODO
 
-%package devel
-Summary:    Development files for libuv
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libuv; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q -n libuv-v%{version}
-
 
 %build
 sh autogen.sh
@@ -35,8 +23,6 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libuv.filelist
-%files devel
-
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.53.0-3

@@ -12,15 +12,6 @@ The ALSA Library package contains the ALSA library used by programs
 It provides libasound.so.2, which GTK3-based browsers such as Firefox load
 at startup even when no output device is used.
 
-%package devel
-Summary:    Development files for alsa-lib
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in alsa-lib; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -33,7 +24,6 @@ rm -rf %{buildroot}
 %make_install
 
 %files -f %{_sourcedir}/alsa-lib.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.2.16.1-3

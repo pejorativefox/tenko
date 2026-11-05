@@ -9,15 +9,6 @@ Source0:    %{name}-%{version}.tar.bz2
 %description
 libtirpc is the transport-independent Sun RPC implementation used by Xorg.
 
-%package devel
-Summary:    Development files for libtirpc
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libtirpc; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -32,7 +23,6 @@ mkdir -p %{buildroot}/etc
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libtirpc.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.3.8-4

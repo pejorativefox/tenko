@@ -12,15 +12,6 @@ easily construct JSON objects in C, output them as JSON formatted strings
 and parse JSON formatted strings back into the C representation of JSON
 objects.
 
-%package devel
-Summary:    Development files for json-c
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in json-c; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -44,7 +35,6 @@ DESTDIR=%{buildroot} cmake --install .
 popd
 
 %files -f %{_sourcedir}/json-c.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.19-3

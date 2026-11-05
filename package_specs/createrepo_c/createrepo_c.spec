@@ -11,15 +11,6 @@ createrepo_c is a C implementation of createrepo.  It generates the
 repodata (primary, filelists, other, and the repomd indexes) needed by dnf
 to consume a local or remote RPM repository.
 
-%package devel
-Summary:    Development files for createrepo_c
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in createrepo_c; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -47,7 +38,6 @@ DESTDIR=%{buildroot} cmake --install .
 popd
 
 %files -f %{_sourcedir}/createrepo_c.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.2.6-4

@@ -9,18 +9,8 @@ Source0:    %{name}-%{version}.tar.xz
 %description
 XCB key symbols
 
-%package devel
-Summary:    Development files for xcb-util-keysyms
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in xcb-util-keysyms; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
-
 
 %build
 %configure 
@@ -38,7 +28,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/libxcb-keysyms.so.1
 /usr/lib64/libxcb-keysyms.so.1.0.0
 /usr/lib64/pkgconfig/xcb-keysyms.pc
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.4.1-3

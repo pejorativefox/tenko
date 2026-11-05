@@ -11,15 +11,6 @@ libidn2 implements the IDNA2008, TR46 and IDNA2003 standards for
 internationalized domain names (punycode conversion, validation and
 lookup).  curl and rsync use it for IDN support.
 
-%package devel
-Summary:    Development files for libidn2
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libidn2; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -33,8 +24,6 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libidn2.filelist
-%files devel
-
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2.3.8-3

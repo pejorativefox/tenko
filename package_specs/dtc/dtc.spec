@@ -15,15 +15,6 @@ library for reading and manipulating flat device trees at runtime.
 
 dtc-1.8.1 is the version in BLFS r13.1 (general/prog/dtc).
 
-%package devel
-Summary:    Development files for dtc
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in dtc; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -42,7 +33,6 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/dtc.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.8.1-3

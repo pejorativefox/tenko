@@ -11,15 +11,6 @@ libunistring provides functions for manipulating Unicode strings and for
 manipulating C strings according to the Unicode standard.  It is a build
 dependency of libidn2 (and through it libpsl and curl/rsync IDN support).
 
-%package devel
-Summary:    Development files for libunistring
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libunistring; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -33,8 +24,6 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libunistring.filelist
-%files devel
-
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.5-3

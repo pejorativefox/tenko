@@ -10,15 +10,6 @@ Provides: pkgconfig(fribidi)
 %description
 The Free Implementation of the Unicode Bidirectional Algorithm.
 
-%package devel
-Summary:    Development files for fribidi
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in fribidi; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -38,8 +29,6 @@ popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/fribidi.filelist
-%files devel
-
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.0.18-3

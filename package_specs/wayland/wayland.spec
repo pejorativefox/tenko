@@ -11,15 +11,6 @@ Wayland is a protocol for a compositor to talk to its clients, together with
 a C library implementation of that protocol.  AppStream's display-detection
 backend needs the wayland-client headers at build time.
 
-%package devel
-Summary:    Development files for wayland
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in wayland; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -40,7 +31,6 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %files -f %{_sourcedir}/wayland.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.26.0-3

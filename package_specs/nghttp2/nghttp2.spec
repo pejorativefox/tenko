@@ -12,15 +12,6 @@ nghttp2 is an implementation of HTTP/2 and its header compression algorithm
 HPACK.  This package builds the library only (BLFS --enable-lib-only), which
 is what Node.js links against with --shared-nghttp2.
 
-%package devel
-Summary:    Development files for nghttp2
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in nghttp2; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -36,7 +27,6 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/nghttp2.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.70.0-3

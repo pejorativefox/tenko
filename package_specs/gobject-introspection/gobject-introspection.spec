@@ -6,18 +6,8 @@ License:    GPL3
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
-
 %description
 TODO
-
-%package devel
-Summary:    Development files for gobject-introspection
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in gobject-introspection; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
 
 %prep
 %setup -q
@@ -36,7 +26,6 @@ DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-
 %package gir
 Summary:    GObject Introspection data for gobject-introspection
 License:    GPL3
@@ -48,9 +37,7 @@ without this package (it reads the .gir XML); g-ir-inspect and
 language bindings need it.
 
 %files -f %{_sourcedir}/gobject-introspection.filelist
-%files devel
 %files gir -f %{_sourcedir}/gobject-introspection-gir.filelist
-
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.86.0-5

@@ -9,15 +9,6 @@ Prefix:     /usr
 %description
 X11 authorisation library
 
-%package devel
-Summary:    Development files for libxau
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libxau; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q -n libXau-%{version}
 
@@ -31,8 +22,6 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxau.filelist
-%files devel
-
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.0.12-3

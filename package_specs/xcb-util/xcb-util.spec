@@ -9,15 +9,6 @@ Source0:    %{name}-%{version}.tar.xz
 %description
 XCB utilities
 
-%package devel
-Summary:    Development files for xcb-util
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in xcb-util; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -31,7 +22,6 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/xcb-util.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.4.1-3

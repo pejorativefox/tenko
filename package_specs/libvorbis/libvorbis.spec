@@ -6,18 +6,8 @@ License:    GPL3
 Prefix:     /usr
 Source0:    libvorbis-1.3.7.tar.xz
 
-
 %description
 TODO
-
-%package devel
-Summary:    Development files for libvorbis
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libvorbis; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
 
 %prep
 %setup -q
@@ -32,7 +22,6 @@ rm -rf %{buildroot}
 rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libvorbis.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.3.7-3

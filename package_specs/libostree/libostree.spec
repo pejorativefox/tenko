@@ -14,15 +14,6 @@ store.
 libostree (ostree) is not in the BLFS r13.1 book, but Flatpak cannot be built
 without it.  This spec tracks the current upstream release.
 
-%package devel
-Summary:    Development files for libostree
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in libostree; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -47,7 +38,6 @@ rm -rf %{buildroot}
 %make_install
 
 %files -f %{_sourcedir}/libostree.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2026.6-3

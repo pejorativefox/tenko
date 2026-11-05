@@ -9,22 +9,12 @@ Source0:    %{name}-%{version}.tar.bz2
 %description
 TODO
 
-%package devel
-Summary:    Development files for xcb-util-xrm
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in xcb-util-xrm; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
 %build
 %configure
 %make_build
-
 
 %install    
 rm -rf %{buildroot}
@@ -38,7 +28,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/libxcb-xrm.so.0
 /usr/lib64/libxcb-xrm.so.0.0.0
 /usr/lib64/pkgconfig/xcb-xrm.pc
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.3-3

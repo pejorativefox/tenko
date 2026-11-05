@@ -19,15 +19,6 @@ Flatpak is not in the BLFS r13.1 book.  This spec tracks the current upstream
 stable release; the dependency chain comes from BLFS where the book has a
 page, and from upstream for libostree.
 
-%package devel
-Summary:    Development files for flatpak
-Requires:   %{name} = %{version}-%{release}
-
-%description devel
-The development files are back in flatpak; this empty package only
-exists so upgrades from the split layout resolve without a file
-conflict.
-
 %prep
 %setup -q
 
@@ -72,7 +63,6 @@ if [ -x /usr/bin/systemd-sysusers ]; then
 fi
 
 %files -f %{_sourcedir}/flatpak.filelist
-%files devel
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.18.4-5
