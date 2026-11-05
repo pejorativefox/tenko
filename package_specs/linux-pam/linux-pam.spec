@@ -1,6 +1,6 @@
 Name:       linux-pam
 Version:    1.7.3
-Release:    4
+Release:    5
 Summary:    PAM (Pluggable Authentication Modules) library
 License:    BSD-3-Clause OR GPL-2.0-or-later
 URL:        https://github.com/linux-pam/linux-pam
@@ -88,6 +88,11 @@ cat > %{buildroot}/etc/pam.d/system-session <<'EOF'
 
 session   required    pam_unix.so
 
+# Begin Systemd addition
+session   required    pam_loginuid.so
+session   optional    pam_systemd.so
+# End Systemd addition
+
 # End /etc/pam.d/system-session
 EOF
 
@@ -171,6 +176,12 @@ done
 %files lang -f %{_sourcedir}/linux-pam-lang.filelist
 %files doc -f %{_sourcedir}/linux-pam-doc.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.7.3-5
+- Add the BLFS systemd lines to system-session: pam_loginuid and
+  pam_systemd.  Without pam_systemd, console/tty logins (login, su)
+  did not register a logind session even though GUI logins through
+  LightDM did (issue #7).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.7.3-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the
