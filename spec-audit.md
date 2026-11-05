@@ -28,7 +28,7 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 
 | measure | count |
 |---|---:|
-| spec files / spec directories | 496 / 496 |
+| spec files / spec directories | 495 / 495 |
 | shipped spec files (live source package in the repo) | 495 |
 | source packages in the published repo | 495 |
 | RPM names in the published repo | 687 |
@@ -36,7 +36,7 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 | shipped packages at the book | 382 |
 | shipped packages above the book | 2 (`db`, `xml-parser`) |
 | shipped packages with no comparable book entity | 111 |
-| unbuilt spec files | 1 (`rpmlint`) |
+| unbuilt spec files | 0 |
 | unbuilt specs below the book | 0 |
 | specs with `Summary: TODO` | 48 |
 | specs with `TODO` in `%description` | 64 |
@@ -47,8 +47,8 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 **Bottom line.** Version parity holds: no shipped package is below
 LFS/BLFS trunk. The two packages above it (`db` 6.2.32 vs the archived
 5.3.28 and `xml-parser` 2.59 vs 2.57) are allowed by the "at least the
-book version" rule. Only one spec is still unbuilt: `rpmlint`, which has
-six Python runtime dependencies that are not in the books or the repo.
+book version" rule. Every spec in the tree now has a matching source
+package in the published repository.
 
 ## 1. Shipped packages
 
@@ -179,8 +179,9 @@ page; the rest approved latest-stable deviations, issue #7):
 | `xf86-input-synaptics` | 1.10.0 | no book page; latest x.org release |
 
 `mkfontdir` was retired rather than built: its only files are already
-shipped by `mkfontscale` and the two packages conflict. `rpmlint` built
-but is not published (see §2).
+shipped by `mkfontscale` and the two packages conflict. `rpmlint` was
+retired because its six Python runtime dependencies are not in the
+books or the repo (§2.1).
 
 All published RPMs were verified on both the public site and the LAN
 mirror. The 18 third-wave packages install together into a clean dnf
@@ -206,16 +207,10 @@ The seven rows the script prints are all expected:
   the spec/RPM were not changed. Needs a fix before the next image
   rebuild (issue #8).
 
-## 2. Unbuilt specs (1)
+## 2. Unbuilt specs (0)
 
-Only `rpmlint` 2.10.0 remains unbuilt.
-
-It compiles and packages, but cannot run: importing it fails on six
-Python runtime dependencies that are in neither LFS/BLFS nor the
-Browneye repo — `tomli-w`, `pyxdg`, `pybeam`, `zstandard`, `pyenchant`
-and `python-magic`. No RPM was published. The options are to add those
-modules in a follow-up wave or retire the spec like the other unused
-Python packages.
+None. Every spec in `package_specs/` now has a matching source package in
+the published repository.
 
 ### 2.1 Py2/Python3/Docker/other retirements
 
@@ -252,7 +247,9 @@ A third cleanup retired `build-essential`, `autoconf213` (unbuildable
 because its patch 404s), `kubectl`, `kubectx` and `mozjs`. A fourth
 retired `syslinux` (work remains on branch `pkg-syslinux`), `cppunit`,
 `libite`, and both fuse specs. The X11 wave then retired `mkfontdir`
-because `mkfontscale` already owns its files.
+because `mkfontscale` already owns its files, and the final cleanup
+retired `rpmlint` (its six Python runtime dependencies are not in the
+books or the repo).
 
 The second wave replaced the old `lua-lgi` spec directory with
 `package_specs/lgi` (same `Name`/version, plus the Lua 5.4 and
@@ -267,8 +264,6 @@ for one package.
   wave.
 - **`mkfontdir`**: retired because `mkfontscale` already provides
   `/usr/bin/mkfontdir` and its man page.
-- **`rpmlint`**: built but not published because of the six missing
-  Python dependencies above.
 
 ## 3. Newer or older than the book
 
