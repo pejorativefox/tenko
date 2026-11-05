@@ -2,7 +2,7 @@ Name:       pm-utils
 Version:    1.4.1
 Release:    1
 Summary:    Power Management Utilities
-License:    GPL2
+License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Source1:    %{name}-%{version}-bugfixes-1.patch
 Prefix:     /usr

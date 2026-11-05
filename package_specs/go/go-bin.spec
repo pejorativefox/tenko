@@ -2,7 +2,7 @@ Name:       go-bin
 Version:    1.27.3
 Release:    1
 Summary:    The go programming language (golang)
-License:    GPL3
+License:    BSD-3-Clause
 Source0:    go%{version}.linux-amd64.tar.gz
 Prefix:     /usr
 

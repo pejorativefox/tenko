@@ -2,7 +2,7 @@ Name:       gotop
 Version:    4.2.0
 Release:    1
 Summary:    A terminal based graphical activity monitor inspired by gtop and vtop
-License:    AGPL3
+License:    AGPL-3.0-only
 Source0:    %{name}_v%{version}_linux_amd64.tgz
 Prefix:     /usr
 
