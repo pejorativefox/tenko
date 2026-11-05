@@ -2,7 +2,7 @@ Name:       awesome
 Version:    4.3
 Release:    1
 Summary:    Highly configurable X11 window manager
-License:    GPL3
+License:    GPL-2.0-or-later
 Prefix:     /usr
 URL:        https://awesomewm.org/
 Source0:    %{name}-%{version}.tar.xz

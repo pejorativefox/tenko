@@ -2,7 +2,7 @@ Name:       libxdg-basedir
 Version:    1.2.3
 Release:    1
 Summary:    Implementation of the XDG Base Directory specification
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 URL:        https://github.com/devnev/libxdg-basedir
 Source0:    %{name}-%{version}.tar.gz

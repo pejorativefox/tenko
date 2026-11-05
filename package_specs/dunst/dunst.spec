@@ -2,7 +2,7 @@ Name:       dunst
 Version:    1.13.2
 Release:    1
 Summary:    Lightweight notification daemon for Linux
-License:    BSD
+License:    BSD-3-Clause
 Prefix:     /usr
 URL:        https://dunst-project.org/
 Source0:    %{name}-%{version}.tar.gz

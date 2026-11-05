@@ -2,7 +2,7 @@ Name:       dconf
 Version:    51.0
 Release:    1
 Summary:    Dconf backend for gsettings
-License:    LGPL2.1
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 URL:        https://download.gnome.org/sources/dconf/
 Source0:    %{name}-%{version}.tar.xz
