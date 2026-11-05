@@ -1,5 +1,5 @@
 Name:       x11perf
-Version:    1.6.0
+Version:    1.6.1
 Release:    1
 Summary:    TODO
 License:    GPL3
@@ -12,28 +12,21 @@ Source0:    %{name}-%{version}.tar.bz2
 TODO
 
 %prep
-%setup -a 0
+%setup -q
 
 %build
-%configure 
+%configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/x11perf
-/usr/bin/x11perfcomp
-/usr/lib64/X11/x11perfcomp/Xmark
-/usr/lib64/X11/x11perfcomp/fillblnk
-/usr/lib64/X11/x11perfcomp/perfboth
-/usr/lib64/X11/x11perfcomp/perfratio
-/usr/share/man/man1/Xmark.1.gz
-/usr/share/man/man1/x11perf.1.gz
-/usr/share/man/man1/x11perfcomp.1.gz
+%files -f %{_sourcedir}/x11perf.filelist
 
 %changelog
-# let's skip this for now
-
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.6.1-1
+- Update to x11perf 1.6.1, the latest published x.org release
+  (1.6.2 does not exist). Not in the r13.1 book (x.org archive-era
+  tool); latest upstream stable 2026-11-05.

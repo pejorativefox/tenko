@@ -1,16 +1,16 @@
 Name:       xf86-input-synaptics
-Version:    1.9.1
+Version:    1.10.0
 Release:    1
 Summary:    Synaptics touchpad driver
 License:    Xorg
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 %description
 Synaptics touchpad driver
 
 %prep
-%setup
+%setup -q
 
 %build
 %configure
@@ -20,19 +20,11 @@ Synaptics touchpad driver
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/bin/synclient
-/usr/bin/syndaemon
-/usr/include/xorg/synaptics-properties.h
-/usr/lib64/pkgconfig/xorg-synaptics.pc
-/usr/lib64/xorg/modules/input/synaptics_drv.la
-/usr/lib64/xorg/modules/input/synaptics_drv.so
-/usr/share/X11/xorg.conf.d/70-synaptics.conf
-/usr/share/man/man1/synclient.1.gz
-/usr/share/man/man1/syndaemon.1.gz
-/usr/share/man/man4/synaptics.4.gz
+%files -f %{_sourcedir}/xf86-input-synaptics.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.10.0-1
+- Update to xf86-input-synaptics 1.10.0. Not in the r13.1 book
+  (x.org archive-era tool); latest upstream stable 2026-11-05.
 * Mon May 18 2020 Chris Statzer <chris.statzer@qq.com> 1.9.1
 - Initial RPM
-

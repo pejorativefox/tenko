@@ -1,10 +1,10 @@
 Name:       libdmx
-Version:    1.1.4
+Version:    1.1.5
 Release:    1
 Summary:    TODO
 License:    GPL3
 Prefix:     /usr
-Source0:    %{name}-%{version}.tar.bz2
+Source0:    %{name}-%{version}.tar.xz
 
 
 
@@ -12,27 +12,23 @@ Source0:    %{name}-%{version}.tar.bz2
 TODO
 
 %prep
-%setup -a 0
+%setup -q
 
 
 %build
-%configure 
+%configure
 %make_build
 
-%install    
+%install
 rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/extensions/dmxext.h
-/usr/lib64/libdmx.a
-/usr/lib64/libdmx.so
-/usr/lib64/libdmx.so.1
-/usr/lib64/libdmx.so.1.0.0
-/usr/lib64/pkgconfig/dmx.pc
-/usr/share/man/
+%files -f %{_sourcedir}/libdmx.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.5-1
+- Update to libdmx 1.1.5. Not in the r13.1 book (x.org
+  archive-era tool); latest upstream stable 2026-11-05.
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.1.4-1
 - Version bump
