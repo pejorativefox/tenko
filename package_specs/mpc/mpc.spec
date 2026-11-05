@@ -1,13 +1,15 @@
 Name:       mpc
 Version:    1.4.1
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Complex floating-point library with exact rounding
+License:    LGPL-3.0-or-later
 Source0:    mpc-1.4.1.tar.xz
 Prefix:     /usr
 
 %description
-TODO
+GNU MPC is a complex floating-point library with exact rounding. It is based
+on the GNU MPFR floating-point library, which is itself based on the GNU MP
+library.
 
 %prep
 %setup -q
@@ -30,6 +32,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/info/mpc.info.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.4.1-2
+- Replace the TODO summary/description and record the verified license
+  (LGPL-3.0-or-later): src/abs.c (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.4.1
 - Sync with LFS r13.1
 

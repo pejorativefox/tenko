@@ -1,13 +1,14 @@
 Name:       libXdmcp
 Version:    1.1.5
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    X Display Manager Control Protocol library
+License:    MIT
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 %description
-TODO
+libXdmcp is the X Display Manager Control Protocol library. It is used by X
+display managers and X servers to manage remote login sessions.
 
 %prep
 %setup -q -a0
@@ -25,6 +26,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.5-2
+- Replace the TODO summary/description and record the verified license
+  (MIT): COPYING (issue #8).
+
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.1.5
 - Sync with BLFS r13.1 (1.1.2)
 

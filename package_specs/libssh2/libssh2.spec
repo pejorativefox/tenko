@@ -1,14 +1,15 @@
 Name:       libssh2
 Version:    1.11.1
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    SSH2 protocol library
+License:    BSD-3-Clause
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
 
 %description
-TODO
+libssh2 is a library implementing the SSH2 protocol. It provides SSH
+session, channel, SFTP and SCP functions for client applications.
 
 %prep
 %setup -a 0
@@ -218,6 +219,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libssh2_version.3.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.11.1-2
+- Replace the TODO summary/description and record the verified license
+  (BSD-3-Clause): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.11.1-1
 - Sync with BLFS r13.1
 

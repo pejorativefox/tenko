@@ -1,15 +1,17 @@
 Name:       xhost
 Version:    1.0.10
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    X server access control program
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 
 
 %description
-TODO
+The xhost program is used to add and delete host names or user names to the
+list allowed to make connections to the X server. It provides a rudimentary
+form of privacy control and security for single-user workstations.
 
 %prep
 %setup -a 0
@@ -27,5 +29,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/xhost.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.10-2
+- Replace the TODO summary/description and record the verified license
+  (MIT): COPYING (issue #8).
+
 # let's skip this for now
 

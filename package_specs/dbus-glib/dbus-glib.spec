@@ -1,14 +1,16 @@
 Name:       dbus-glib
 Version:    0.116
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    D-Bus bindings for GLib
+License:    AFL-2.1 OR GPL-2.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
 
 %description
-TODO
+dbus-glib is a deprecated D-Bus binding for GLib. It receives minimal
+maintenance and security fixes for projects such as Telepathy and
+NetworkManager that still rely on it; new projects should use GDBus.
 
 %prep
 %setup -a 0
@@ -59,6 +61,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/dbus-binding-tool.1.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.116-2
+- Replace the TODO summary/description and record the verified license
+  (AFL-2.1 OR GPL-2.0-or-later): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.116-1
 - Sync with BLFS r13.1
 

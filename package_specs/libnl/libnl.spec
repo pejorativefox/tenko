@@ -1,14 +1,17 @@
 Name:       libnl
 Version:    3.12.0
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Netlink socket libraries for Linux
+License:    LGPL-2.1-only
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
 
 %description
-TODO
+libnl is a collection of libraries for applications that communicate with
+the Linux kernel using the netlink protocol. It includes core, route,
+generic netlink, netfilter, XFRM and diagnostic libraries together with
+command line utilities.
 
 %prep
 %setup -a 0
@@ -254,6 +257,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man8/nl-qdisc-list.8.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.12.0-2
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.1-only): lib/nl.c (SPDX header) (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.12.0-1
 - Sync with BLFS r13.1
 

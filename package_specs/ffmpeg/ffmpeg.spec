@@ -1,8 +1,8 @@
 Name:       ffmpeg
 Version:    9.0.2
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Multimedia framework for audio and video processing
+License:    GPL-3.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 Source1:    %{name}-%{version}-chromium_method-1.patch
@@ -11,7 +11,11 @@ BuildRequires: libtheora
 BuildRequires: libvorbis
 
 %description
-TODO
+FFmpeg is a collection of libraries and tools to process multimedia content
+such as audio, video, subtitles and related metadata. It provides the
+libavcodec, libavformat, libavutil, libavfilter, libavdevice, libswresample
+and libswscale libraries, together with the ffmpeg, ffplay and ffprobe
+tools.
 
 %prep
 %setup -q
@@ -306,6 +310,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libswscale.3.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 9.0.2-2
+- Replace the TODO summary/description and record the verified license
+  (GPL-3.0-or-later): LICENSE.md (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 9.0.2-1
 - Sync with BLFS r13.1
 

@@ -1,13 +1,15 @@
 Name:       m4
 Version:    1.4.21
-Release:    2
+Release:    3
 Summary:    M4 macro processor
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 %description
-TODO
+GNU m4 is an implementation of the traditional Unix macro processor. It is
+mostly SVR4 compatible and includes built-in functions for including files,
+running shell commands and doing arithmetic.
 
 %package lang
 Summary:    m4 translations
@@ -33,6 +35,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.4.21-3
+- Replace the TODO summary/description and record the verified license
+  (GPL-3.0-or-later): src/m4.c (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.4.21-2
 - Split lang payload into m4-lang (size audit)
 

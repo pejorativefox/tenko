@@ -1,13 +1,15 @@
 Name:       wget
 Version:    1.25.0
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Non-interactive network downloader
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 %description
-TODO
+GNU Wget is a free utility for non-interactive download of files from the
+Web. It supports HTTP, HTTPS and FTP protocols, as well as retrieval through
+HTTP proxies.
 
 %prep
 %setup -q -a0
@@ -114,6 +116,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/wget.1.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.25.0-2
+- Replace the TODO summary/description and record the verified license
+  (GPL-3.0-or-later): src/main.c (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.25.0-1
 - Sync with BLFS r13.1
 

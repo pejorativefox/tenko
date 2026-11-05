@@ -1,13 +1,16 @@
 Name:       pcre2
 Version:    10.49
-Release:    2
-Summary:    TODO
-License:    GPL3
+Release:    3
+Summary:    Perl-compatible regular expression library
+License:    BSD-3-Clause WITH PCRE2-exception
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 
 %description
-TODO
+PCRE2 is a library of functions to support regular expressions whose syntax
+and semantics are as close as possible to those of the Perl 5 language. It
+is a re-working of the original PCRE library with a new API and additional
+features.
 
 %package doc
 Summary:    pcre2 documentation
@@ -40,6 +43,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/pcre2.filelist
 %files doc -f %{_sourcedir}/pcre2-doc.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 10.49-3
+- Replace the TODO summary/description and record the verified license
+  (BSD-3-Clause WITH PCRE2-exception): LICENCE.md (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 10.49-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

@@ -1,15 +1,17 @@
 Name:       font-ibm-type1
 Version:    1.0.4
-Release:    1
+Release:    2
 Summary:    IBM Type1 fonts for X11
-License:    GPL3
+License:    IBM/MIT X Consortium Courier Typefont agreement
 Prefix:     /usr
 Source0:    font-ibm-type1-1.0.4.tar.xz
 
 
 
 %description
-TODO
+This package contains the IBM Courier Type 1 fonts for use in the X Window
+System, distributed under the IBM/MIT X Consortium Courier Typefont
+agreement.
 
 %prep
 %setup -a 0
@@ -27,5 +29,9 @@ rm -rf %{buildroot}/usr/share/fonts/X11/Type1/fonts.scale
 
 %files -f %{_sourcedir}/font-ibm-type1.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.4-2
+- Replace the TODO summary/description and record the verified license
+  (IBM/MIT X Consortium Courier Typefont agreement, no SPDX identifier): COPYING (issue #8).
+
 # let's skip this for now
 

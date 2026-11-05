@@ -1,13 +1,16 @@
 Name:       iso-codes
 Version:    4.20.1
-Release:    2
-Summary:    TODO
-License:    GPL3
+Release:    3
+Summary:    ISO standards code lists and translations
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    iso-codes-v4.20.1.tar.gz
 
 %description
-TODO
+iso-codes provides lists of various ISO standards, such as country,
+language, language script and currency names, in one place rather than
+repeated in many programs throughout the system. The data is available
+through gettext domains so programs can reuse the translations.
 
 %package lang
 Summary:    iso-codes translations
@@ -37,6 +40,10 @@ popd
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.1-3
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.1-or-later): REUSE.toml (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.1-2
 - Split lang payload into iso-codes-lang (size audit)
 

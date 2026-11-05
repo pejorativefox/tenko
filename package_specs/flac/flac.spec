@@ -1,14 +1,17 @@
 Name:       flac
 Version:    1.5.0
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Free Lossless Audio Codec
+License:    BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 
 %description
-TODO
+FLAC is open source software that can reduce the amount of storage space
+needed to store digital audio signals without needing to remove information
+in doing so. It includes the libFLAC and libFLAC++ libraries, the flac and
+metaflac command line tools, and documentation.
 
 %prep
 %setup -a 0 
@@ -55,6 +58,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/metaflac.1.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5.0-2
+- Replace the TODO summary/description and record the verified license
+  (BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later): README.md (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.5.0-1
 - Sync with BLFS r13.1
 

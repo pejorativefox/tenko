@@ -1,13 +1,14 @@
 Name:       libgudev
 Version:    238
-Release:    4
-Summary:    TODO
-License:    GPL3
+Release:    5
+Summary:    GObject bindings for libudev
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    libgudev-238.tar.xz
 
 %description
-TODO
+libgudev is a library providing GObject bindings for libudev. It used to
+be part of udev and then systemd, and is now a project on its own.
 
 %prep
 %setup -a 0
@@ -27,7 +28,7 @@ popd
 
 %package gir
 Summary:    GObject Introspection data for libgudev
-License:    GPL3
+License:    LGPL-2.1-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -39,6 +40,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/libgudev-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 238-5
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.1-or-later): meson.build (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 238-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

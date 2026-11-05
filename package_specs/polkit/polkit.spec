@@ -1,13 +1,14 @@
 Name:       polkit
 Version:    128
-Release:    2
-Summary:    TODO
-License:    GPL3
+Release:    3
+Summary:    Authorization toolkit for unprivileged processes
+License:    LGPL-2.0-or-later
 Prefix:     /usr
 Source0:    polkit-128.tar.gz
 
 %description
-TODO
+polkit is a toolkit for defining and handling authorizations. It allows
+unprivileged processes to speak to privileged processes.
 
 Requires: shadow >= 4.6
 
@@ -34,7 +35,7 @@ popd
 
 %package gir
 Summary:    GObject Introspection data for polkit
-License:    GPL3
+License:    LGPL-2.0-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -46,6 +47,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/polkit-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 128-3
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.0-or-later): meson.build (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 128-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

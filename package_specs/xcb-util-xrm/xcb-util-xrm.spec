@@ -1,13 +1,15 @@
 Name:       xcb-util-xrm
 Version:    1.3
-Release:    3
-Summary:    TODO
-License:    GPL3
+Release:    4
+Summary:    XCB utility functions for the X resource manager
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 
 %description
-TODO
+The XCB util-xrm module provides utility functions for the X resource
+manager. It sits on top of libxcb and makes the raw X protocol more
+convenient to use.
 
 %prep
 %setup -q
@@ -30,6 +32,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/pkgconfig/xcb-xrm.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.3-4
+- Replace the TODO summary/description and record the verified license
+  (MIT): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.3-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

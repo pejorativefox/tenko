@@ -1,15 +1,16 @@
 Name:       libvpx
 Version:    1.17.0
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    VP8/VP9 video codec library
+License:    BSD-3-Clause
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
 BuildRequires: nasm
 
 %description
-TODO
+libvpx is the WebM project's VP8/VP9 codec SDK. It provides the vpxenc and
+vpxdec tools and a library for encoding and decoding VP8 and VP9 video.
 
 %prep
 %setup -q
@@ -55,6 +56,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/pkgconfig/vpx.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.17.0-2
+- Replace the TODO summary/description and record the verified license
+  (BSD-3-Clause): LICENSE (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.17.0-1
 - Sync with BLFS r13.1
 

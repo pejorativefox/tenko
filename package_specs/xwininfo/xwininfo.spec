@@ -1,15 +1,16 @@
 Name:       xwininfo
 Version:    1.1.7
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    X window information utility
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 
 
 %description
-TODO
+xwininfo is a utility for displaying information about windows. The target
+window can be selected with the mouse or specified by window id or name.
 
 %prep
 %setup -a 0
@@ -26,5 +27,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/xwininfo.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.7-2
+- Replace the TODO summary/description and record the verified license
+  (MIT): COPYING (issue #8).
+
 # let's skip this for now
 

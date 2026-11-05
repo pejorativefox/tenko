@@ -1,8 +1,8 @@
 Name:       nss
 Version:    3.132
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Network Security Services libraries
+License:    MPL-2.0
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -10,7 +10,10 @@ BuildRequires: nspr
 Source1:    nss-standalone-1.patch
 
 %description
-TODO
+Network Security Services (NSS) is a set of libraries designed to support
+cross-platform development of security-enabled client and server
+applications. NSS supports TLS 1.2, TLS 1.3, PKCS #5, PKCS #7, PKCS #11,
+PKCS #12, S/MIME and X.509 v3 certificates.
 
 %prep
 %setup -q
@@ -324,6 +327,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/pkgconfig/nss.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.132-2
+- Replace the TODO summary/description and record the verified license
+  (MPL-2.0): nss/COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.132-1
 - Sync with BLFS r13.1 (standalone patch is now unversioned)
 

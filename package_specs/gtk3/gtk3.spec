@@ -1,14 +1,16 @@
 Name:       gtk+
 Version:    3.24.52
-Release:    5
-Summary:    TODO
-License:    GPL3
+Release:    6
+Summary:    Multi-platform toolkit for creating graphical user interfaces
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    gtk-%{version}.tar.xz
 
 Provides: pkgconfig(gdk-3.0), pkgconfig(gtk+-3.0)
 %description
-TODO
+GTK is a multi-platform toolkit for creating graphical user interfaces. It
+offers a complete set of widgets and is suitable for projects ranging from
+small one-off projects to complete application suites.
 
 %package lang
 Summary:    gtk+ translations
@@ -43,7 +45,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %package gir
 Summary:    GObject Introspection data for gtk+
-License:    GPL3
+License:    LGPL-2.1-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -56,6 +58,10 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/gtk3-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.24.52-6
+- Replace the TODO summary/description and record the verified license
+  (LGPL-2.1-or-later): meson.build, gdk/COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.24.52-5
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

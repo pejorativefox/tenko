@@ -1,15 +1,17 @@
 Name:       cmake
 Version:    4.4.5
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    Cross-platform build system generator
+License:    BSD-3-Clause
 Prefix:     /usr
 Source0:    cmake-%{version}.tar.gz
 
 
 
 %description
-TODO
+CMake is a cross-platform, open-source build system generator. It generates
+native build files for a wide range of platforms and toolchains from a
+single set of configuration files.
 
 %prep
 %setup
@@ -36,6 +38,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.4.5-2
+- Replace the TODO summary/description and record the verified license
+  (BSD-3-Clause): LICENSE.rst (issue #8).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.4.5-1
 - Update to 4.4.5 (current LFS/BLFS r13.1 trunk version).
 

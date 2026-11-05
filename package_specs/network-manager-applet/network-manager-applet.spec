@@ -1,13 +1,15 @@
 Name:       network-manager-applet
 Version:    1.34.0
-Release:    1
-Summary:    TODO
-License:    GPL3
+Release:    2
+Summary:    NetworkManager GUI applet and connection editor
+License:    GPL-2.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 %description
-TODO
+nm-applet is a GTK-based GUI applet to monitor network status and devices
+and to start and stop network connections managed by NetworkManager. The
+package also includes the nm-connection-editor connection editor.
 
 %prep
 %setup -a 0
@@ -243,6 +245,10 @@ rm -vf %{buildroot}%{_infodir}/dir
 /usr/share/metainfo/nm-connection-editor.appdata.xml
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.34.0-2
+- Replace the TODO summary/description and record the verified license
+  (GPL-2.0-or-later): src/main.c (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.34.0-1
 - Sync with BLFS r13.1
 

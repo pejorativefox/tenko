@@ -1,13 +1,15 @@
 Name:       libxslt
 Version:    1.1.45
-Release:    4
-Summary:    TODO
-License:    GPL3
+Release:    5
+Summary:    XSLT processor based on libxml2
+License:    MIT
 Prefix:     /usr
 Source0:    libxslt-1.1.45.tar.xz
 
 %description
-TODO
+libxslt is an XSLT processor based on libxml2. It provides the xsltproc
+command line tool and a library for applying XSLT stylesheets to XML
+documents.
 
 %package doc
 Summary:    libxslt documentation
@@ -32,6 +34,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libxslt.filelist
 %files doc -f %{_sourcedir}/libxslt-doc.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.45-5
+- Replace the TODO summary/description and record the verified license
+  (MIT): Copyright (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.45-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the
