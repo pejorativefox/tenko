@@ -119,7 +119,7 @@ They cost nothing while they stay unbuilt, but the parity rule in
 
 | group | count | examples |
 |---|---:|---|
-| Python 2/3 modules | 36 | `python2-pip`, `python3-requests`, the sphinx stack |
+| Python 3 modules | 36 | `python3-requests`, the sphinx stack |
 | Desktop / miscellaneous | 48 | `gtkmm`, `libpeas`, `tmux`, `openvpn`, `rofi`, `sdl`, `webp`, `syslinux` |
 | Container / k8s tools | 10 | `docker`, `kubectl`, `dive`, `flatpak` |
 | Perl modules | 7 | `perl-dbi`, `perl-ssleay` |
@@ -138,6 +138,12 @@ no RPM in the repository were deleted: `atk`, `at-spi2-atk`, `check`,
 `dhcp`, `gtk-xfce-engine`, `libcroco`, `mandoc`, `python2`, `udev`,
 `xfce4-xkb-plugin`. Nothing in the tree depended on them (the remaining
 mentions are comments, filename fragments and `Provides:` strings).
+
+The 2026-11-05 Python 2 cleanup retired the remaining six `python2-*`
+packages (`pip`, `psutil`, `pycairo`, `pycurl`, `pygobject`, `setuptools`)
+and the Python 2-only `terminator` 1.91 spec. The distro ships no Python 2
+interpreter, so none of them could be built; nothing in the tree depended
+on them.
 
 ## 3. Newer than book
 
