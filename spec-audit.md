@@ -29,7 +29,7 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 
 | measure | count |
 |---|---:|
-| spec files / spec directories | 511 / 509 |
+| spec files / spec directories | 507 / 505 |
 | shipped spec files (live source package in the repo) | 477 |
 | source packages in the published repo | 477 |
 | RPM names in the published repo | 669 |
@@ -37,11 +37,11 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 | shipped packages at the book | 380 |
 | shipped packages above the book | 1 (`xml-parser`, approved) |
 | shipped packages with no comparable book entity | 96 |
-| unbuilt spec files | 34 |
+| unbuilt spec files | 30 |
 | unbuilt specs below the book | 0 |
 | unbuilt specs at the book | 3 |
 | unbuilt specs above the book | 1 (`db`) |
-| unbuilt specs with no comparable book entity | 30 |
+| unbuilt specs with no comparable book entity | 26 |
 | specs with `Summary: TODO` | 59 |
 | specs with `TODO` in `%description` | 73 |
 | shipped specs with a missing referenced patch | 0 |
@@ -186,9 +186,9 @@ The nine rows the script prints are all expected:
   the spec/RPM were not changed. Needs a fix before the next image
   rebuild (issue #8).
 
-## 2. Unbuilt specs (34)
+## 2. Unbuilt specs (30)
 
-34 spec files have no matching source package in the published repo: 30
+30 spec files have no matching source package in the published repo: 26
 have no comparable book entity, 3 are at the book, 1 is above it (`db`
 6.2.32 vs 5.3.28), and none is below it.
 
@@ -201,8 +201,7 @@ They cost nothing while they stay unbuilt, but the parity rule in
 | Container / k8s / packaging | 6 | `kubectl`, `kubectx`, `drpm`, `rpmlint` |
 | CLI / dev tools | 6 | `cdrkit`, `go-bin`, `gotop`, `help2man` |
 | Boot / init | 3 | `syslinux`, `pm-utils`, `tzdb` |
-| X11 tools | 5 | `x11perf`, `libdmx`, `xf86-input-synaptics` |
-| SDL1 add-ons | 3 | `sdl`, `sdl-image`, `sdl-ttf` |
+| X11 tools | 4 | `x11perf`, `libdmx`, `xf86-input-synaptics` |
 | Fonts | 1 | `woff2` |
 
 The three unbuilt specs at the book version are `autoconf213` (2.13),
@@ -237,13 +236,14 @@ Nothing shipped required any of them, `pip` is already provided by
 ensurepip in the Python package, and the Sphinx stack only served
 `dnf-plugins-core`'s man pages — that spec now builds without it.
 
-A second 2026-11-05 cleanup retired 15 more unused specs: `polybar`,
+A second 2026-11-05 cleanup retired 19 more unused specs: `polybar`,
 `font-noto-cjk`, `busybox`, `eudev`, `finit`, `kdevelop-bin`,
-`dnf-plugins-core`, `dive`, and the seven Perl modules (`perl-cgi`,
+`dnf-plugins-core`, `dive`, the seven Perl modules (`perl-cgi`,
 `perl-crypt-password-md5`, `perl-dbi`, `perl-digest-sha1`,
-`perl-io-sockets-ssl`, `perl-ssleay`, `perl-uri`). None was shipped,
-and no remaining spec required any of them. Dropping the Perl modules
-means `syslinux` would need them recreated before it can be packaged.
+`perl-io-sockets-ssl`, `perl-ssleay`, `perl-uri`), `transgui-bin`, and
+the SDL1 trio (`sdl`, `sdl-image`, `sdl-ttf`). None was shipped, and no
+remaining spec required any of them. Dropping the Perl modules means
+`syslinux` would need them recreated before it can be packaged.
 
 The second wave replaced the old `lua-lgi` spec directory with
 `package_specs/lgi` (same `Name`/version, plus the Lua 5.4 and
@@ -252,17 +252,16 @@ for one package.
 
 ### 2.2 Deliberately skipped
 
-- **SDL1**: `sdl`, `sdl-image` and `sdl-ttf` are archive-only/deferred.
-  SDL2 2.32.74 and SDL3 3.4.18 are already shipped at the book versions,
-  and `sdl2-image`/`sdl2-ttf` are shipped from the second wave.
+- **SDL1**: the `sdl`/`sdl-image`/`sdl-ttf` specs were retired on
+  2026-11-05. SDL2 2.32.74 and SDL3 3.4.18 are shipped at the book
+  versions, and `sdl2-image`/`sdl2-ttf` are shipped from the second
+  wave.
 - **`syslinux`**: builds as 6.04-pre1 with a modern-toolchain patch, but
   `sha1pass`/`md5pass` require `perl(Crypt::PasswdMD5)` and
   `perl(Digest::SHA1)`, neither in LFS/BLFS. Not published; work is kept
   on branch `pkg-syslinux` (`1a67ba5`). Those two module specs were also
   dropped in the 2026-11-05 cleanup, so completing `syslinux` would mean
   recreating them.
-- **`polybar`**: removed from the 2026-11-05 desktop wave by request.
-  Its spec is untouched and still unbuilt.
 - **`autoconf213`**: unbuildable — its consolidated-fixes patch 404s and
   is not vendored (issue #8).
 
@@ -282,7 +281,7 @@ it; other tools report it as a false mismatch.
 - Cross-compilation and non-x86_64: the repo is x86_64 only.
 - Optional BLFS features with no spec (Wayland, PipeWire, printing, …);
   those are product decisions rather than version skew.
-- The 30 unbuilt no-entity specs are not individually version-checked;
+- The 26 unbuilt no-entity specs are not individually version-checked;
   `scripts/spec_audit.py` prints the list and compares whatever the books
   expose as entities.
 
