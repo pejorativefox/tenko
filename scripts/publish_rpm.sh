@@ -25,7 +25,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 VERSION=${VERSION:-13.1}
-REMOTE=${REMOTE:-tomfool8@192.200.112.194}
+REMOTE=${REMOTE:-tomfool8@tomfool.8bit.ca}
 PORT=${PORT:-53211}
 PUBLIC=${PUBLIC:-public_html/browneye}
 DEST=${DEST:-$PUBLIC/packages/$VERSION/}

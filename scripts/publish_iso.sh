@@ -12,7 +12,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 ISO=${ISO:-$PWD/build/browneye-installer.iso}
-REMOTE=${REMOTE:-tomfool8@192.200.112.194}
+REMOTE=${REMOTE:-tomfool8@tomfool.8bit.ca}
 PORT=${PORT:-53211}
 PUBLIC=${PUBLIC:-public_html/browneye}
 MIRROR=${MIRROR:-daspork@192.168.31.9}
