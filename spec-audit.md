@@ -221,9 +221,12 @@ The seven rows the script prints are all expected:
   not provided by any package. The previous published RPM had the same
   require, so the rebuild does not regress it, but it needs a separate
   look.
-- **Images lag the repo**: the published installer ISO and rootfs were
-  built before all 2026-11-05 waves and do not contain them. They are
-  only rebuilt on request (AGENTS.md).
+- **Images are current** as of 2026-11-05: the installer ISO
+  (427 MiB, `c60d299f…`) and the 127-package rootfs (244 MiB,
+  `dda9e357…`) were rebuilt from the updated repository, carry the
+  metadata/licence waves, the `linux-pam` login fix and
+  `imagemagick-7.1.2-3`, and were published to both sites. They are
+  rebuilt only on request (AGENTS.md).
 - **`imagemagick` PNG support** — fixed in 7.1.2-3 (`54cc843`). The
   package had been built with `--with-modules`, so coders were loaded
   through libltdl; `brp-remove-la-files` strips the companion `.la`
