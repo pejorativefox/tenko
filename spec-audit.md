@@ -121,7 +121,7 @@ They cost nothing while they stay unbuilt, but the parity rule in
 |---|---:|---|
 | Python 3 modules | 36 | `python3-requests`, the sphinx stack |
 | Desktop / miscellaneous | 48 | `gtkmm`, `libpeas`, `tmux`, `openvpn`, `rofi`, `sdl`, `webp`, `syslinux` |
-| Container / k8s tools | 10 | `docker`, `kubectl`, `dive`, `flatpak` |
+| Container / k8s tools | 10 | `kubectl`, `dive`, `flatpak` |
 | Perl modules | 7 | `perl-dbi`, `perl-ssleay` |
 | X11 drivers and tools | 7 | `xf86-video-{fbdev,intel,vmware}`, `xbacklight` |
 | Window managers | 6 | `awesome`, `bspwm`, `dwm`, `polybar`, `sxhkd` |
@@ -144,6 +144,11 @@ packages (`pip`, `psutil`, `pycairo`, `pycurl`, `pygobject`, `setuptools`)
 and the Python 2-only `terminator` 1.91 spec. The distro ships no Python 2
 interpreter, so none of them could be built; nothing in the tree depended
 on them.
+
+The 2026-11-05 container cleanup retired the `docker` 18.06.3 and
+`docker-compose` 1.27.0-rc1 specs. The distro uses podman for containers;
+the `dive` spec stays because it inspects OCI images and does not need the
+Docker daemon.
 
 ## 3. Newer than book
 
