@@ -1,8 +1,8 @@
 Name:       lame
 Version:    3.100
-Release:    1
+Release:    2
 Summary:    mp3 encoder
-License:    GPL3
+License:    LGPL-2.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -60,5 +60,8 @@ EOF
 /usr/share/man/man1/lame.1.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.100-2
+- Record the verified license (LGPL-2.0-or-later): COPYING and frontend/main.c (issue #8).
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 3.100
 - Version bump

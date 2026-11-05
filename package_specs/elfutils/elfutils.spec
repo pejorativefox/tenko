@@ -1,8 +1,8 @@
 Name:       elfutils
 Version:    0.197
-Release:    2
+Release:    3
 Summary:    ELF file handling library
-License:    GPL3
+License:    GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later)
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -27,6 +27,9 @@ rm %{buildroot}/usr/lib64/libelf.a
 
 %files -f %{_sourcedir}/elfutils.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.197-3
+- Record the verified license (GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later)): config/version.h.in and libdw/libdw.h (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.197-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

@@ -1,8 +1,8 @@
 Name:       iproute2
 Version:    7.3.0
-Release:    1
+Release:    2
 Summary:    kernel networking tool
-License:    GPL3
+License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -57,6 +57,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 7.3.0-2
+- Record the verified license (GPL-2.0-or-later): ip/ip.c (SPDX header) and COPYING (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 7.3.0-1
 - Update to 7.3.0 (current LFS/BLFS r13.1 trunk version).
 

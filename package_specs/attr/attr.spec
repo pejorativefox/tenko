@@ -1,8 +1,8 @@
 Name:       attr
 Version:    2.6.0
-Release:    1
+Release:    2
 Summary:    Commands for Manipulating Filesystem Extended Attributes
-License:    GPL3
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -40,6 +40,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.6.0-2
+- Record the verified license (GPL-2.0-or-later AND LGPL-2.1-or-later): doc/COPYING and configure.ac (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.6.0
 - Sync with LFS r13.1
 

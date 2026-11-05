@@ -1,8 +1,8 @@
 Name:       less
 Version:    710
-Release:    1
+Release:    2
 Summary:    open-source file pager. 
-License:    GPL3
+License:    GPL-3.0-or-later OR BSD-2-Clause
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -31,6 +31,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man5/lesskey.5.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 710-2
+- Record the verified license (GPL-3.0-or-later OR BSD-2-Clause): README and LICENSE (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 710-1
 - Update to 710 (current LFS/BLFS r13.1 trunk version).
 

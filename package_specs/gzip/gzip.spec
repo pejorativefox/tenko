@@ -1,8 +1,8 @@
 Name:       gzip
 Version:    1.15
-Release:    1
+Release:    2
 Summary:    GNU data compression program
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -41,6 +41,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.15-2
+- Record the verified license (GPL-3.0-or-later): gzip.c (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.15-1
 - Update to 1.15 (current LFS/BLFS r13.1 trunk version).
 

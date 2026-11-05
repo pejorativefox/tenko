@@ -1,8 +1,8 @@
 Name:       grep
 Version:    3.12
-Release:    2
+Release:    3
 Summary:    Text searching cli tool
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -33,6 +33,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.12-3
+- Record the verified license (GPL-3.0-or-later): src/grep.c (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.12-2
 - Split lang payload into grep-lang (size audit)
 

@@ -1,8 +1,8 @@
 Name:       groff
 Version:    1.24.2
-Release:    1
+Release:    2
 Summary:    GNU typesetting system
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 Recommends: groff-perl = %{version}-%{release}
@@ -30,7 +30,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %package perl
 Summary:    groff Perl helper scripts
-License:    GPL3
+License:    GPL-3.0-or-later
 Requires:   groff = %{version}-%{release}
 Requires:   perl
 
@@ -43,7 +43,7 @@ rendering fully functional, but these optional front ends are absent.
 
 %package doc
 Summary:    groff documentation and examples
-License:    GPL3
+License:    GFDL-1.3-or-later OR GPL-3.0-or-later
 
 %description doc
 The groff HTML manual, info files and example documents.
@@ -53,6 +53,9 @@ The groff HTML manual, info files and example documents.
 %files doc -f %{_sourcedir}/groff-doc.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.24.2-2
+- Record the verified license (GPL-3.0-or-later): LICENSES, FDL and doc/groff.texi (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.24.2-1
 - Update to 1.24.2 (current LFS/BLFS r13.1 trunk version).
 

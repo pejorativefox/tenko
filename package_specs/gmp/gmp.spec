@@ -1,8 +1,8 @@
 Name:       gmp
 Version:    6.3.0
-Release:    1
+Release:    2
 Summary:    The GMP math libraries
-License:    GPL3
+License:    LGPL-3.0-or-later OR GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -39,5 +39,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/info/gmp.info.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 6.3.0-2
+- Record the verified license (LGPL-3.0-or-later OR GPL-2.0-or-later): README and COPYING (issue #8).
+
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 6.3.0
 - Version bump

@@ -1,8 +1,8 @@
 Name:       freetype
 Version:    2.15.0
-Release:    2
+Release:    3
 Summary:    TrueType font library
-License:    GPL3
+License:    FTL OR GPL-2.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: harfbuzz >= 8.1.1
@@ -29,6 +29,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/freetype.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.15.0-3
+- Record the verified license (FTL OR GPL-2.0-or-later): LICENSE.TXT (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.15.0-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

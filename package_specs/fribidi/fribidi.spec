@@ -1,8 +1,8 @@
 Name:       fribidi
 Version:    1.0.18
-Release:    3
+Release:    4
 Summary:    GNU FriBidi 
-License:    GPL3
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 Provides: pkgconfig(fribidi)
@@ -31,6 +31,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/fribidi.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.18-4
+- Record the verified license (LGPL-2.1-or-later): COPYING (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.0.18-3
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

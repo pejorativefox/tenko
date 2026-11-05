@@ -2,9 +2,9 @@
 
 Name:       dbus
 Version:    1.16.2
-Release:    1
+Release:    2
 Summary:    D-BUS message bus
-License:    GPL3
+License:    AFL-2.1 OR GPL-2.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -89,6 +89,9 @@ This package contains libraries for accessing D-BUS.
 /usr/lib64/libdbus-1.so.3.38.3
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.16.2-2
+- Record the verified license (AFL-2.1 OR GPL-2.0-or-later): COPYING (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.16.2
 - Sync with LFS r13.1
 

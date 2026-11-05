@@ -1,8 +1,8 @@
 Name:       glib
 Version:    2.90.1
-Release:    2
+Release:    3
 Summary:    Glib low level system libraries
-License:    GPL3
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 
 %{!?glib_introspection:%global glib_introspection enabled}
@@ -52,7 +52,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %package gir
 Summary:    GObject Introspection data for glib
-License:    GPL3
+License:    LGPL-2.1-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -65,6 +65,9 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/glib-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.90.1-3
+- Record the verified license (LGPL-2.1-or-later): COPYING and LICENSES/ (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.90.1-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

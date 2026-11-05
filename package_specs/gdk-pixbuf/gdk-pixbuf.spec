@@ -1,8 +1,8 @@
 Name:       gdk-pixbuf
 Version:    2.44.8
-Release:    5
+Release:    6
 Summary:    Image loading library
-License:    GPL3
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -53,7 +53,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %package gir
 Summary:    GObject Introspection data for gdk-pixbuf
-License:    GPL3
+License:    LGPL-2.1-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -67,6 +67,9 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/gdk-pixbuf-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.44.8-6
+- Record the verified license (LGPL-2.1-or-later): COPYING and meson.build (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.44.8-5
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

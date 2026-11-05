@@ -3,9 +3,9 @@
 
 Name:       grub
 Version:    2.16
-Release:    1
+Release:    2
 Summary:    GNU GRUB is a Multiboot boot loader.
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -47,6 +47,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.16-2
+- Record the verified license (GPL-3.0-or-later): COPYING and grub-core/kern/main.c (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2.16-1
 - Update to 2.16 (current LFS/BLFS r13.1 trunk version).
 

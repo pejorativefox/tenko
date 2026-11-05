@@ -1,8 +1,8 @@
 Name:       inetutils
 Version:    2.8
-Release:    1
+Release:    2
 Summary:    Collection of common network programs.
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    inetutils-2.8.tar.gz
 Prefix:     /usr
 
@@ -46,6 +46,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.8-2
+- Record the verified license (GPL-3.0-or-later): src/inetd.c (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.8
 - Sync with LFS r13.1
 

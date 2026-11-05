@@ -1,8 +1,8 @@
 Name:       file
 Version:    5.48
-Release:    1
+Release:    2
 Summary:    A file type guesser
-License:    GPL3
+License:    BSD-2-Clause
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -31,6 +31,9 @@ rm -rf %{buildroot}
 /usr/share/misc/magic.mgc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 5.48-2
+- Record the verified license (BSD-2-Clause): COPYING (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 5.48
 - Sync with LFS r13.1
 

@@ -1,8 +1,8 @@
 Name:       gettext
 Version:    1.0
-Release:    2
+Release:    3
 Summary:    GNU Internationalization utilities
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -15,7 +15,7 @@ pulls in the runtime libraries and the build tools.
 
 %package libs
 Summary:    GNU gettext runtime libraries
-License:    GPL3
+License:    LGPL-2.1-or-later
 
 %description libs
 The GNU gettext runtime libraries: libintl (preloadable_libintl), libasprintf,
@@ -25,7 +25,7 @@ package, not the gettext build tools.
 
 %package tools
 Summary:    GNU gettext build tools
-License:    GPL3
+License:    GPL-3.0-or-later
 Requires:   gettext-libs = %{version}-%{release}
 
 %description tools
@@ -35,7 +35,7 @@ autopoint/gettextize data and libtool/autoconf macros.
 
 %package lang
 Summary:    Translations for GNU gettext
-License:    GPL3
+License:    GPL-3.0-or-later
 Requires:   gettext-libs = %{version}-%{release}
 
 %description lang
@@ -43,7 +43,7 @@ Translated messages for the gettext tools and runtime.
 
 %package doc
 Summary:    Documentation for GNU gettext
-License:    GPL3
+License:    GFDL-1.2-or-later OR GPL-2.0-or-later
 
 %description doc
 Info, man and HTML documentation for GNU gettext.
@@ -71,6 +71,9 @@ rm -rf %{buildroot}/usr/share/doc/gettext-%{version}/examples
 %files doc -f %{_sourcedir}/gettext-doc.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0-3
+- Record the verified license (GPL-3.0-or-later): gettext-runtime/COPYING, gettext-runtime/intl/gettext.c and gettext-tools/doc/gettext.texi (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.0-2
 - Split runtime libraries, build tools, translations and documentation;
   gettext is now a meta-package requiring gettext-libs and gettext-tools
