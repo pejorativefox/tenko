@@ -259,6 +259,21 @@ if [ "$MIRROR" != "0" ]; then
     echo "mirroring to $MIRROR:$MIRROR_PUBLIC/packages/$VERSION/"
     ssh "$MIRROR" "mkdir -p $MIRROR_PUBLIC/packages/$VERSION/repodata"
     rsync -av -e "ssh" "${rpms[@]}" "$MIRROR:$MIRROR_PUBLIC/packages/$VERSION/"
+    if [ "$PRUNE" = 1 ] && [ -s "$STAGE/keep.txt" ]; then
+        echo "pruning mirror RPMs the merged metadata does not reference"
+        ssh "$MIRROR" "cd $MIRROR_PUBLIC/packages/$VERSION && ls *.rpm" |
+            while read -r name; do
+                grep -qxF "$name" "$STAGE/keep.txt" || echo "$name"
+            done > "$STAGE/mirror-drop.txt"
+        if [ -s "$STAGE/mirror-drop.txt" ]; then
+            sed 's/^/  drop /' "$STAGE/mirror-drop.txt"
+            ssh "$MIRROR" \
+                "cd $MIRROR_PUBLIC/packages/$VERSION && xargs rm -f" \
+                < "$STAGE/mirror-drop.txt"
+        else
+            echo "  nothing to prune"
+        fi
+    fi
     rsync -av --delete -e "ssh" "$STAGE/merged/repodata/" \
         "$MIRROR:$MIRROR_PUBLIC/packages/$VERSION/repodata/"
     rsync -av -e "ssh" "$STAGE/index.html" \

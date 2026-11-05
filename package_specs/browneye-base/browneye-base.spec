@@ -1,6 +1,6 @@
 Name:       browneye-base
 Version:    13.1
-Release:    9
+Release:    10
 Summary:    Browneye Linux base system (LFS r13.1)
 License:    MIT
 Prefix:     /usr
@@ -121,6 +121,14 @@ Meta-package pulling in the LFS r13.1 base system.
 %files
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 13.1-10
+- Expand the Obsoletes list to all 147 -devel packages the distro has
+  ever shipped, not just the 99 left in the 2026-11-05 repository.
+  Installed systems can still carry older versions: the build host had
+  libgpg-error-devel, libidn2-devel and libxau-devel from earlier
+  snapshots, and the unversioned Obsoletes makes their upgrade resolve
+  cleanly too (issue #4).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 13.1-9
 - Obsolete the 99 -devel packages that were folded into their runtime
   packages.  Without the Obsoletes an installed glib-devel (for example)
