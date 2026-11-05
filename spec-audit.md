@@ -29,7 +29,7 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 
 | measure | count |
 |---|---:|
-| spec files / spec directories | 502 / 501 |
+| spec files / spec directories | 497 / 497 |
 | shipped spec files (live source package in the repo) | 477 |
 | source packages in the published repo | 477 |
 | RPM names in the published repo | 669 |
@@ -37,15 +37,15 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 | shipped packages at the book | 380 |
 | shipped packages above the book | 1 (`xml-parser`, approved) |
 | shipped packages with no comparable book entity | 96 |
-| unbuilt spec files | 25 |
+| unbuilt spec files | 20 |
 | unbuilt specs below the book | 0 |
 | unbuilt specs at the book | 2 |
 | unbuilt specs above the book | 1 (`db`) |
-| unbuilt specs with no comparable book entity | 22 |
-| specs with `Summary: TODO` | 55 |
-| specs with `TODO` in `%description` | 69 |
+| unbuilt specs with no comparable book entity | 17 |
+| specs with `Summary: TODO` | 54 |
+| specs with `TODO` in `%description` | 68 |
 | shipped specs with a missing referenced patch | 0 |
-| shipped specs with a sources/version mismatch | 0 (8 audit false positives, §1.3) |
+| shipped specs with a sources/version mismatch | 0 (7 audit false positives, §1.3) |
 | specs with neither `sources` nor `nosources` | 0 |
 
 **Bottom line.** Version parity for everything the distro ships still
@@ -164,18 +164,16 @@ dnf installroot (102 packages).
 
 ### 1.3 Sources/version mismatches that remain
 
-The eight rows the script prints are all expected:
+The seven rows the script prints are all expected:
 
 - Date/commit-named archives: `font-siji`, `passt`.
 - Binary bundles: `herdr`, `opencode-bin`, `podman-bin`.
 - SF "download" aliases: `font-terminus`.
 - `sqlite`: the book/spec version 3.54.1 is the autoconf number 3540100.
-- `fuse`: shared-directory layout. `fuse/sources` lists `fuse-2.9.7`
-  (for `fuse2`) before `fuse-3.2.5`.
 
 ### 1.4 Open shipped-package debt
 
-- **`Summary: TODO` / `TODO` descriptions** in 55 and 69 specs — issue #8.
+- **`Summary: TODO` / `TODO` descriptions** in 54 and 68 specs — issue #8.
 - **Images lag the repo**: the published installer ISO and rootfs were
   built before both 2026-11-05 waves and do not contain them. They are
   only rebuilt on request (AGENTS.md).
@@ -184,9 +182,9 @@ The eight rows the script prints are all expected:
   the spec/RPM were not changed. Needs a fix before the next image
   rebuild (issue #8).
 
-## 2. Unbuilt specs (25)
+## 2. Unbuilt specs (20)
 
-25 spec files have no matching source package in the published repo: 22
+20 spec files have no matching source package in the published repo: 17
 have no comparable book entity, 2 are at the book, 1 is above it (`db`
 6.2.32 vs 5.3.28), and none is below it.
 
@@ -195,10 +193,10 @@ They cost nothing while they stay unbuilt, but the parity rule in
 
 | group | count | examples |
 |---|---:|---|
-| Media / system libraries | 9 | `libsoup`, `pcre`, `fuse`, `db`, `cppunit` |
+| Media / system libraries | 5 | `libsoup`, `pcre`, `db`, `liblzo2`, `libuev` |
 | Container / k8s / packaging | 3 | `drpm`, `fakeroot-ng`, `rpmlint` |
 | CLI / dev tools | 5 | `cdrkit`, `go-bin`, `gotop`, `help2man` |
-| Boot / init | 3 | `syslinux`, `pm-utils`, `tzdb` |
+| Boot / init | 2 | `pm-utils`, `tzdb` |
 | X11 tools | 4 | `x11perf`, `libdmx`, `xf86-input-synaptics` |
 | Fonts | 1 | `woff2` |
 
@@ -240,12 +238,15 @@ A second 2026-11-05 cleanup retired 19 more unused specs: `polybar`,
 `perl-crypt-password-md5`, `perl-dbi`, `perl-digest-sha1`,
 `perl-io-sockets-ssl`, `perl-ssleay`, `perl-uri`), `transgui-bin`, and
 the SDL1 trio (`sdl`, `sdl-image`, `sdl-ttf`). None was shipped, and no
-remaining spec required any of them. Dropping the Perl modules means
-`syslinux` would need them recreated before it can be packaged.
+remaining spec required any of them. The Perl modules' only consumer,
+`syslinux`, was retired in the fourth cleanup below.
 
 A third 2026-11-05 cleanup then retired `build-essential`, `autoconf213`
 (unbuildable because its patch 404s), `kubectl`, `kubectx` and `mozjs`.
-None was shipped or required by a remaining spec.
+None was shipped or required by a remaining spec. A fourth cleanup
+retired `syslinux` (its work remains on branch `pkg-syslinux`),
+`cppunit`, `libite`, and both fuse specs (`fuse`/`fuse2`); none was
+shipped.
 
 The second wave replaced the old `lua-lgi` spec directory with
 `package_specs/lgi` (same `Name`/version, plus the Lua 5.4 and
@@ -258,12 +259,6 @@ for one package.
   2026-11-05. SDL2 2.32.74 and SDL3 3.4.18 are shipped at the book
   versions, and `sdl2-image`/`sdl2-ttf` are shipped from the second
   wave.
-- **`syslinux`**: builds as 6.04-pre1 with a modern-toolchain patch, but
-  `sha1pass`/`md5pass` require `perl(Crypt::PasswdMD5)` and
-  `perl(Digest::SHA1)`, neither in LFS/BLFS. Not published; work is kept
-  on branch `pkg-syslinux` (`1a67ba5`). Those two module specs were also
-  dropped in the 2026-11-05 cleanup, so completing `syslinux` would mean
-  recreating them.
 
 ## 3. Newer or older than the book
 
@@ -281,7 +276,7 @@ it; other tools report it as a false mismatch.
 - Cross-compilation and non-x86_64: the repo is x86_64 only.
 - Optional BLFS features with no spec (Wayland, PipeWire, printing, …);
   those are product decisions rather than version skew.
-- The 22 unbuilt no-entity specs are not individually version-checked;
+- The 17 unbuilt no-entity specs are not individually version-checked;
   `scripts/spec_audit.py` prints the list and compares whatever the books
   expose as entities.
 
