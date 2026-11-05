@@ -1,8 +1,8 @@
 Name:       flatpak
 Version:    1.18.4
-Release:    5
+Release:    6
 Summary:    Application sandboxing and distribution framework
-License:    LGPL
+License:    LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.xz
 Requires:   bubblewrap
 Requires:   xdg-dbus-proxy
@@ -65,6 +65,10 @@ fi
 %files -f %{_sourcedir}/flatpak.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.18.4-6
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): COPYING and the per-file SPDX headers (issue #8).
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.18.4-5
 - Revert the -devel split (issue #4): the headers, include
   directories, unversioned .so symlinks and pkg-config files return

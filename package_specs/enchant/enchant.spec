@@ -1,8 +1,8 @@
 Name:       enchant
 Version:    2.8.21
-Release:    1
+Release:    2
 Summary:    Spell check library
-License:    LGPL
+License:    LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -40,6 +40,10 @@ rm -rf %{buildroot}
 /usr/share/man/man5/enchant.5.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.8.21-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): COPYING.LIB and src/enchant.c (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.8.21-1
 - Sync with BLFS r13.1
 

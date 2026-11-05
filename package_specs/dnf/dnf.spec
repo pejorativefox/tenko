@@ -1,8 +1,8 @@
 Name:       dnf
 Version:    4.24.0
-Release:    3
+Release:    4
 Summary:    Package manager for RPM based distributions
-License:    GPL
+License:    GPL-2.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
@@ -56,6 +56,10 @@ ln -sfv dnf-automatic-3 %{buildroot}%{_bindir}/dnf-automatic
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.24.0-4
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later): COPYING and dnf/__init__.py (issue #8).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.24.0-3
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 2 paths updated.
 

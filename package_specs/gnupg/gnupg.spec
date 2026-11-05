@@ -1,8 +1,8 @@
 Name:       gnupg
 Version:    2.5.24
-Release:    1
+Release:    2
 Summary:    GNU's tool for secure communication and data storage.
-License:    GPL
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -158,6 +158,10 @@ rm -rf %{buildroot}/usr/share/info/dir
 /usr/share/man/man8/dirmngr.8.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.5.24-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-3.0-or-later): COPYING and the per-file SPDX headers (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.5.24-1
 - Sync with BLFS r13.1
 

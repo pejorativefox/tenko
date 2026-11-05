@@ -1,8 +1,8 @@
 Name:       adwaita-icon-theme
 Version:    51.0
-Release:    1
+Release:    2
 Summary:    Gnome standard icon set.
-License:    LGPL
+License:    LGPL-3.0-only OR CC-BY-SA-3.0
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -865,6 +865,10 @@ popd
 /usr/share/pkgconfig/adwaita-icon-theme.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 51.0-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-3.0-only OR CC-BY-SA-3.0): COPYING, COPYING_LGPL and COPYING_CCBYSA3 (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 51.0-1
 - Sync with BLFS r13.1
 

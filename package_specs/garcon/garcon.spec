@@ -1,8 +1,8 @@
 Name:       garcon
 Version:    4.20.0
-Release:    4
+Release:    5
 Summary:    Implementation of the freedesktop.org menu specification
-License:    LGPL
+License:    LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
@@ -13,6 +13,7 @@ Implementation of the freedesktop.org menu specification
 
 %package doc
 Summary:    garcon documentation
+License:    GFDL-1.1-no-invariants-only
 Requires:   garcon = %{version}-%{release}
 
 %description doc
@@ -32,7 +33,7 @@ mkdir -p %{buildroot}/etc
 
 %package gir
 Summary:    GObject Introspection data for garcon
-License:    LGPL
+License:    LGPL-2.0-or-later
 Requires:   %{name} = %{version}-%{release}
 
 %description gir
@@ -45,6 +46,11 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/garcon-gir.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.0-5
+- Replace the legacy short licence name with the verified SPDX expressions
+  (LGPL-2.0-or-later for the code and GIR, GFDL-1.1-no-invariants-only for the docs):
+  COPYING and the garcon/ headers (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.0-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

@@ -6,9 +6,9 @@
 
 Name:       font-siji
 Version:    2019.02.18
-Release:    1
+Release:    2
 Summary:    Iconic bitmap font for use as a terminal/status-line font
-License:    GPL
+License:    GPL-2.0-only
 Prefix:     /usr
 Source0:    siji-master.tar.gz
 
@@ -51,6 +51,10 @@ rm -rf $tmp
 %files -f %{_sourcedir}/font-siji.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2019.02.18-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-only): LICENSE and Readme.md (issue #8).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2019.02.18
 - Repackage the upstream master snapshot (last content-bearing commit
   2019-02-18): siji.pcf + siji.bdf + LICENSE pinned by checksum

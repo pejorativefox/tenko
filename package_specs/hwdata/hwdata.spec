@@ -1,8 +1,8 @@
 Name:       hwdata
 Version:    0.412
-Release:    1
+Release:    2
 Summary:    Hardware identification and configuration data
-License:    GPL2
+License:    GPL-2.0-or-later
 Prefix:     /usr
 Source0:    hwdata-%{version}.tar.gz
 
@@ -23,6 +23,10 @@ rm -rf %{buildroot}
 %files -f %{_sourcedir}/hwdata.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.412-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (GPL-2.0-or-later): LICENSE, COPYING and pci.ids (issue #8).
+
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 0.412-1
 - Update to 0.412 (current LFS/BLFS r13.1 trunk version).
 

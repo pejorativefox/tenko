@@ -1,8 +1,8 @@
 Name:       glew
 Version:    2.3.1
-Release:    1
+Release:    2
 Summary:    GLEW is the OpenGL Extension Wrangler Library. 
-License:    GPL
+License:    BSD-3-Clause AND MIT
 Source0:    %{name}-%{version}.tgz
 Prefix:     /usr
 
@@ -31,6 +31,10 @@ rm -rf %{buildroot}
 /usr/local/lib64/libGLEW.so.2.3.1
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.3.1-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (BSD-3-Clause AND MIT): LICENSE.txt (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.3.1-1
 - Sync with BLFS r13.1
 

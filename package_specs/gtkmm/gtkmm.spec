@@ -1,8 +1,8 @@
 Name:       gtkmm
 Version:    3.24.11
-Release:    1
+Release:    2
 Summary:    gtkmm is the official C++ interface for the popular GUI library GTK+.
-License:    LGPL
+License:    LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -33,6 +33,10 @@ popd
 %files -f %{_sourcedir}/gtkmm.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.24.11-2
+- Replace the legacy short licence name with the verified SPDX expression
+  (LGPL-2.1-or-later): COPYING and the gtk/ and gdk/ headers (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.24.11-1
 - Sync with BLFS r13.1 (gtkmm3.xml)
 
