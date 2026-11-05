@@ -206,8 +206,10 @@ daemon.
 
 ### 2.2 Deliberately skipped
 
-- **`sdl`** (and the SDL1 add-ons): SDL1 is archive-only; the current
-  book has SDL2 2.32.74 and SDL3 3.4.18. Deferred, not version-skewed.
+- **`sdl` and its add-ons**: SDL2 2.32.74 and SDL3 3.4.18 are already
+  shipped at the book versions. The unbuilt items are SDL1 (archive-only)
+  and the `sdl-image`/`sdl-ttf`/`sdl2-image`/`sdl2-ttf` add-on libraries.
+  Deferred, not version-skewed.
 - **`syslinux`**: builds as 6.04-pre1 with a modern-toolchain patch, but
   `sha1pass`/`md5pass` require `perl(Crypt::PasswdMD5)` and
   `perl(Digest::SHA1)`, neither in LFS/BLFS. Not published; work is kept
