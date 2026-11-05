@@ -1,0 +1,72 @@
+%dir /usr/bin
+/usr/bin/rofi
+/usr/bin/rofi-sensible-terminal
+/usr/bin/rofi-theme-selector
+%dir /usr/include
+%dir /usr/include/rofi
+/usr/include/rofi/helper.h
+/usr/include/rofi/mode-private.h
+/usr/include/rofi/mode.h
+/usr/include/rofi/rofi-icon-fetcher.h
+/usr/include/rofi/rofi-types.h
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/rofi.pc
+%dir /usr/share
+%dir /usr/share/applications
+/usr/share/applications/rofi-theme-selector.desktop
+/usr/share/applications/rofi.desktop
+%dir /usr/share/icons
+%dir /usr/share/icons/hicolor
+%dir /usr/share/icons/hicolor/scalable
+%dir /usr/share/icons/hicolor/scalable/apps
+/usr/share/icons/hicolor/scalable/apps/rofi.svg
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/rofi-sensible-terminal.1.gz
+%doc /usr/share/man/man1/rofi-theme-selector.1.gz
+%doc /usr/share/man/man1/rofi.1.gz
+%dir /usr/share/man/man5
+%doc /usr/share/man/man5/rofi-actions.5.gz
+%doc /usr/share/man/man5/rofi-debugging.5.gz
+%doc /usr/share/man/man5/rofi-dmenu.5.gz
+%doc /usr/share/man/man5/rofi-keys.5.gz
+%doc /usr/share/man/man5/rofi-script.5.gz
+%doc /usr/share/man/man5/rofi-theme.5.gz
+%doc /usr/share/man/man5/rofi-thumbnails.5.gz
+%dir /usr/share/rofi
+%dir /usr/share/rofi/themes
+/usr/share/rofi/themes/Adapta-Nokto.rasi
+/usr/share/rofi/themes/Arc-Dark.rasi
+/usr/share/rofi/themes/Arc.rasi
+/usr/share/rofi/themes/DarkBlue.rasi
+/usr/share/rofi/themes/Indego.rasi
+/usr/share/rofi/themes/Monokai.rasi
+/usr/share/rofi/themes/Paper.rasi
+/usr/share/rofi/themes/android_notification.rasi
+/usr/share/rofi/themes/arthur.rasi
+/usr/share/rofi/themes/blue.rasi
+/usr/share/rofi/themes/c64.rasi
+/usr/share/rofi/themes/dmenu.rasi
+/usr/share/rofi/themes/docu.rasi
+/usr/share/rofi/themes/fancy.rasi
+/usr/share/rofi/themes/fancy2.rasi
+/usr/share/rofi/themes/fullscreen-preview.rasi
+/usr/share/rofi/themes/glue_pro_blue.rasi
+/usr/share/rofi/themes/gruvbox-common.rasinc
+/usr/share/rofi/themes/gruvbox-dark-hard.rasi
+/usr/share/rofi/themes/gruvbox-dark-soft.rasi
+/usr/share/rofi/themes/gruvbox-dark.rasi
+/usr/share/rofi/themes/gruvbox-light-hard.rasi
+/usr/share/rofi/themes/gruvbox-light-soft.rasi
+/usr/share/rofi/themes/gruvbox-light.rasi
+/usr/share/rofi/themes/iggy.jpg
+/usr/share/rofi/themes/iggy.rasi
+/usr/share/rofi/themes/lb.rasi
+/usr/share/rofi/themes/material.rasi
+/usr/share/rofi/themes/paper-float.rasi
+/usr/share/rofi/themes/purple.rasi
+/usr/share/rofi/themes/sidebar-v2.rasi
+/usr/share/rofi/themes/sidebar.rasi
+/usr/share/rofi/themes/solarized.rasi
+/usr/share/rofi/themes/solarized_alternate.rasi

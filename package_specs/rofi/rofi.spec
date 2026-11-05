@@ -1,45 +1,58 @@
 Name:       rofi
-Version:    1.5.4
+Version:    2.0.0
 Release:    1
 Summary:    Rofi application launcher.
-License:    GPL
+License:    MIT
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
-Buildrequires: libxkbcommon
+BuildRequires: meson
+BuildRequires: ninja
+BuildRequires: pkgconf
+BuildRequires: glib
+BuildRequires: pango
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: libxkbcommon
+BuildRequires: libxcb
+BuildRequires: xcb-util
+BuildRequires: xcb-util-image
+BuildRequires: xcb-util-keysyms
+BuildRequires: xcb-util-renderutil
+BuildRequires: xcb-util-wm
+BuildRequires: xcb-util-cursor
 BuildRequires: xcb-util-xrm
+BuildRequires: startup-notification
 
 %description
 Rofi application launcher
+Rofi is a window switcher, application launcher and dmenu replacement.
 
 %prep
-%setup
+%setup -q
 
 %build
-%configure
-%make_build
+meson setup build \
+    --prefix=%{_prefix} \
+    --libdir=%{_libdir} \
+    --buildtype=release \
+    -Dwayland=disabled \
+    -Dxcb=enabled \
+    -Dimdkit=false \
+    -Dcheck=disabled
+ninja -C build
 
 %install
 rm -rf %{buildroot}
-%make_install
+DESTDIR=%{buildroot} ninja -C build install
 
-%files
-/usr/bin/rofi
-/usr/bin/rofi-sensible-terminal
-/usr/bin/rofi-theme-selector
-/usr/include/rofi/helper.h
-/usr/include/rofi/mode-private.h
-/usr/include/rofi/mode.h
-/usr/include/rofi/rofi-icon-fetcher.h
-/usr/include/rofi/rofi-types.h
-/usr/lib64/pkgconfig/rofi.pc
-/usr/share/man/man1/rofi-sensible-terminal.1.gz
-/usr/share/man/man1/rofi-theme-selector.1.gz
-/usr/share/man/man1/rofi.1.gz
-/usr/share/man/man5/rofi-theme.5.gz
-/usr/share/rofi/*
+%files -f %{_sourcedir}/rofi.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.0-1
+- Not in the LFS/BLFS r13.1 book: bump to the latest upstream
+  stable release (2.0.0, checked 2026-11-05). The 2.0 rewrite uses
+  meson; build the XCB backend only (no Wayland stack in the repo).
+
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.5.4
 - Initial RPM
-

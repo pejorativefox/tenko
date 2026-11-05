@@ -1,0 +1,6 @@
+%dir /usr/bin
+/usr/bin/tmux
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/tmux.1.gz
