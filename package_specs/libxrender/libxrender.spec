@@ -1,8 +1,8 @@
 Name:       libxrender
 Version:    0.9.13
-Release:    2
+Release:    3
 Summary:    Render Extension to the X11 protocol.
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    libXrender-%{version}.tar.xz
 %description
@@ -31,6 +31,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libxrender-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.9.13-3
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.9.13-2
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

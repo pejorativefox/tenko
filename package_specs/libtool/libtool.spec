@@ -1,8 +1,8 @@
 Name:       libtool
 Version:    2.6.2
-Release:    1
+Release:    2
 Summary:    Generic library support script
-License:    GPL3
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
@@ -92,6 +92,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/libtoolize.1.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.6.2-2
+- Record the verified license (GPL-2.0-or-later AND LGPL-2.1-or-later): COPYING, libltdl/COPYING.LIB (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.6.2
 - Sync with LFS r13.1
 

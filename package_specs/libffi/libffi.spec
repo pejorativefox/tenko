@@ -1,8 +1,8 @@
 Name:       libffi
 Version:    3.8.0
-Release:    1
+Release:    2
 Summary:    Foreign Function Interface library
-License:    GPL3
+License:    MIT
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -36,6 +36,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.8.0-2
+- Record the verified license (MIT): LICENSE (issue #8).
+
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 3.8.0
 - Sync with LFS r13.1
 

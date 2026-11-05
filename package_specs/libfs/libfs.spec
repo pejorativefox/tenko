@@ -1,8 +1,8 @@
 Name:       libfs
 Version:    1.0.10
-Release:    1
+Release:    2
 Summary:    X Font Service client library
-License:    GPL3
+License:    MIT-open-group
 Prefix:     /usr
 Source0:    libFS-%{version}.tar.xz
 
@@ -32,6 +32,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/doc/libFS/FSlib.txt
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.10-2
+- Record the verified license (MIT-open-group): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.0.10-1
 - Sync with BLFS r13.1
 

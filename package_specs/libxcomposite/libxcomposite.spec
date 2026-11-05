@@ -1,8 +1,8 @@
 Name:       libxcomposite
 Version:    0.4.7
-Release:    3
+Release:    4
 Summary:    Xorg composite ext library
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    libXcomposite-%{version}.tar.xz
 BuildRequires: libxfixes
@@ -33,6 +33,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libxcomposite-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.4.7-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.4.7-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

@@ -1,8 +1,8 @@
 Name:       libxscrnsaver
 Version:    1.2.5
-Release:    1
+Release:    2
 Summary:    X11 screensaver library
-License:    GPL3
+License:    X11
 Prefix:     /usr
 Source0:    libXScrnSaver-%{version}.tar.xz
 
@@ -43,6 +43,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/Xss.3.gz
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.5-2
+- Record the verified license (X11): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.2.5-1
 - Sync with BLFS r13.1
 

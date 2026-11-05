@@ -1,8 +1,8 @@
 Name:       make
 Version:    4.4.1
-Release:    2
+Release:    3
 Summary:    GNU make
-License:    GPL3
+License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
@@ -33,6 +33,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 4.4.1-3
+- Record the verified license (GPL-3.0-or-later): README (issue #8).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.4.1-2
 - Split lang payload into make-lang (size audit)
 

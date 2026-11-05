@@ -1,8 +1,8 @@
 Name:       libxdamage
 Version:    1.1.7
-Release:    3
+Release:    4
 Summary:    X Damage Extension library
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    libXdamage-%{version}.tar.xz
 %description
@@ -31,6 +31,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libxdamage-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.7-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.7-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

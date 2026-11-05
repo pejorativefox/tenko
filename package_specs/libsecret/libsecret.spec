@@ -1,8 +1,8 @@
 Name:       libsecret
 Version:    0.21.8.2
-Release:    1
+Release:    2
 Summary:    GObject secret service library
-License:    GPL3
+License:    LGPL-2.1-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -127,6 +127,9 @@ rm -vf %{buildroot}%{_infodir}/dir
 /usr/share/locale/zh_TW/LC_MESSAGES/libsecret.mo
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 0.21.8.2-2
+- Record the verified license (LGPL-2.1-or-later): COPYING (issue #8).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.21.8.2-1
 - Sync with BLFS r13.1
 

@@ -1,8 +1,8 @@
 Name:       libxft
 Version:    2.3.9
-Release:    3
+Release:    4
 Summary:    Xorg font rendering library
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    libXft-%{version}.tar.xz
 %description
@@ -31,6 +31,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files static -f %{_sourcedir}/libxft-static.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.3.9-4
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.3.9-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

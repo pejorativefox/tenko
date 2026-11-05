@@ -1,8 +1,8 @@
 Name:       libxml2
 Version:    2.15.4
-Release:    3
+Release:    4
 Summary:    XML parsing library
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 %description
@@ -32,6 +32,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files -f %{_sourcedir}/libxml2.filelist
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2.15.4-4
+- Record the verified license (MIT): Copyright (issue #8).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.15.4-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

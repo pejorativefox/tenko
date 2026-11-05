@@ -1,8 +1,8 @@
 Name:       libxshmfence
 Version:    1.3.3
-Release:    1
+Release:    2
 Summary:    X SyncFence library
-License:    GPL3
+License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
@@ -30,5 +30,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/pkgconfig/xshmfence.pc
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.3.3-2
+- Record the verified license (MIT): COPYING (issue #8).
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.3-1
 - Version bump
