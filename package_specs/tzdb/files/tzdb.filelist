@@ -1,11 +1,8 @@
 /etc/localtime
-/usr/bin/tzselect
-/usr/bin/zdump
 /usr/lib/libtz.a
 /usr/share/man/man3/*
 /usr/share/man/man5/*
 /usr/share/man/man8/*
-/usr/sbin/zic
 /usr/share/zoneinfo/Africa/Abidjan
 /usr/share/zoneinfo/Africa/Accra
 /usr/share/zoneinfo/Africa/Addis_Ababa

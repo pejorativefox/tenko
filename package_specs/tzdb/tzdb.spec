@@ -1,6 +1,6 @@
 Name:       tzdb
 Version:    2026f
-Release:    1
+Release:    2
 Summary:    The Time Zone Database
 License:    Public Domain
 Source0:    tzcode%{version}.tar.gz
@@ -22,9 +22,21 @@ locations around the globe.
 rm -rf %{buildroot}
 %make_install CC=%{__cc}
 
+# glibc already ships the timezone tools; shipping them here makes the
+# package uninstallable next to a base system.
+rm -f %{buildroot}%{_bindir}/tzselect \
+      %{buildroot}%{_bindir}/zdump \
+      %{buildroot}/usr/sbin/zic
+
 %files -f %{_sourcedir}/tzdb.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 2026f-2
+- Do not package tzselect, zdump or zic: glibc 2.44 already owns those
+  paths, so tzdb 2026f-1 could not be installed next to the base system.
+  The package now provides the zoneinfo data, libtz.a, man pages and
+  /etc/localtime only.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2026f-1
 - Not shipped as a package in the r13.1 book; 2026f matches the book's
   tzdata entity and is the current upstream release (2026-11-05).
