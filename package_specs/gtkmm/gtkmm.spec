@@ -1,5 +1,5 @@
 Name:       gtkmm
-Version:    3.24.8
+Version:    3.24.11
 Release:    1
 Summary:    gtkmm is the official C++ interface for the popular GUI library GTK+.
 License:    LGPL
@@ -20,8 +20,8 @@ gtkmm is the official C++ interface for the popular GUI library GTK+.
 %build
 mkdir gtk-build
 pushd gtk-build
-meson --prefix=/usr --buildtype=release ..
-ninja 
+meson setup --prefix=/usr --buildtype=release ..
+ninja
 popd
 
 %install
@@ -30,21 +30,12 @@ pushd gtk-build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/include/gdkmm-3.0/
-/usr/include/gtkmm-3.0/
-/usr/lib64/gtkmm-3.0/
-/usr/lib64/libgdkmm-3.0.so
-/usr/lib64/libgdkmm-3.0.so.1
-/usr/lib64/libgdkmm-3.0.so.1.1.0
-/usr/lib64/libgtkmm-3.0.so
-/usr/lib64/libgtkmm-3.0.so.1
-/usr/lib64/libgtkmm-3.0.so.1.1.0
-/usr/lib64/pkgconfig/gdkmm-3.0.pc
-/usr/lib64/pkgconfig/gtkmm-3.0.pc
-/usr/lib64/gdkmm-3.0/include/gdkmmconfig.h
+%files -f %{_sourcedir}/gtkmm.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 3.24.11-1
+- Sync with BLFS r13.1 (gtkmm3.xml)
+
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 3.24.8-1
 - Version bump
 

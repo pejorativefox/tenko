@@ -1,0 +1,281 @@
+%dir /usr/bin
+/usr/bin/peas-demo
+%dir /usr/include
+%dir /usr/include/libpeas-1.0
+%dir /usr/include/libpeas-1.0/libpeas
+%dir /usr/include/libpeas-1.0/libpeas-gtk
+/usr/include/libpeas-1.0/libpeas-gtk/peas-gtk-autocleanups.h
+/usr/include/libpeas-1.0/libpeas-gtk/peas-gtk-configurable.h
+/usr/include/libpeas-1.0/libpeas-gtk/peas-gtk-plugin-manager-view.h
+/usr/include/libpeas-1.0/libpeas-gtk/peas-gtk-plugin-manager.h
+/usr/include/libpeas-1.0/libpeas-gtk/peas-gtk.h
+/usr/include/libpeas-1.0/libpeas/peas-activatable.h
+/usr/include/libpeas-1.0/libpeas/peas-autocleanups.h
+/usr/include/libpeas-1.0/libpeas/peas-engine.h
+/usr/include/libpeas-1.0/libpeas/peas-extension-base.h
+/usr/include/libpeas-1.0/libpeas/peas-extension-set.h
+/usr/include/libpeas-1.0/libpeas/peas-extension.h
+/usr/include/libpeas-1.0/libpeas/peas-object-module.h
+/usr/include/libpeas-1.0/libpeas/peas-plugin-info.h
+/usr/include/libpeas-1.0/libpeas/peas-version-macros.h
+/usr/include/libpeas-1.0/libpeas/peas-version.h
+/usr/include/libpeas-1.0/libpeas/peas.h
+%dir /usr/lib64
+%dir /usr/lib64/girepository-1.0
+/usr/lib64/girepository-1.0/Peas-1.0.typelib
+/usr/lib64/girepository-1.0/PeasGtk-1.0.typelib
+/usr/lib64/libpeas-1.0.so
+/usr/lib64/libpeas-1.0.so.1
+/usr/lib64/libpeas-1.0.so.1.3800.1
+/usr/lib64/libpeas-gtk-1.0.so
+/usr/lib64/libpeas-gtk-1.0.so.1
+/usr/lib64/libpeas-gtk-1.0.so.1.3800.1
+%dir /usr/lib64/peas-demo
+%dir /usr/lib64/peas-demo/plugins
+%dir /usr/lib64/peas-demo/plugins/helloworld
+/usr/lib64/peas-demo/plugins/helloworld/helloworld.plugin
+/usr/lib64/peas-demo/plugins/helloworld/libhelloworld.so
+%dir /usr/lib64/peas-demo/plugins/secondtime
+/usr/lib64/peas-demo/plugins/secondtime/libsecondtime.so
+/usr/lib64/peas-demo/plugins/secondtime/secondtime.plugin
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libpeas-1.0.pc
+/usr/lib64/pkgconfig/libpeas-gtk-1.0.pc
+%dir /usr/share
+%dir /usr/share/gir-1.0
+/usr/share/gir-1.0/Peas-1.0.gir
+/usr/share/gir-1.0/PeasGtk-1.0.gir
+%dir /usr/share/icons
+%dir /usr/share/icons/hicolor
+%dir /usr/share/icons/hicolor/16x16
+%dir /usr/share/icons/hicolor/16x16/actions
+/usr/share/icons/hicolor/16x16/actions/libpeas-plugin.png
+%dir /usr/share/icons/hicolor/22x22
+%dir /usr/share/icons/hicolor/22x22/actions
+/usr/share/icons/hicolor/22x22/actions/libpeas-plugin.png
+%dir /usr/share/icons/hicolor/32x32
+%dir /usr/share/icons/hicolor/32x32/actions
+/usr/share/icons/hicolor/32x32/actions/libpeas-plugin.png
+%dir /usr/share/icons/hicolor/scalable
+%dir /usr/share/icons/hicolor/scalable/actions
+/usr/share/icons/hicolor/scalable/actions/libpeas-plugin.svg
+%dir /usr/share/locale
+%dir /usr/share/locale/ab
+%dir /usr/share/locale/ab/LC_MESSAGES
+/usr/share/locale/ab/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/an
+%dir /usr/share/locale/an/LC_MESSAGES
+/usr/share/locale/an/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ar
+%dir /usr/share/locale/ar/LC_MESSAGES
+/usr/share/locale/ar/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/as
+%dir /usr/share/locale/as/LC_MESSAGES
+/usr/share/locale/as/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ast
+%dir /usr/share/locale/ast/LC_MESSAGES
+/usr/share/locale/ast/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/be
+%dir /usr/share/locale/be/LC_MESSAGES
+/usr/share/locale/be/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/bg
+%dir /usr/share/locale/bg/LC_MESSAGES
+/usr/share/locale/bg/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/bn_IN
+%dir /usr/share/locale/bn_IN/LC_MESSAGES
+/usr/share/locale/bn_IN/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/bs
+%dir /usr/share/locale/bs/LC_MESSAGES
+/usr/share/locale/bs/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+/usr/share/locale/ca/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ca@valencia
+%dir /usr/share/locale/ca@valencia/LC_MESSAGES
+/usr/share/locale/ca@valencia/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+/usr/share/locale/cs/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+/usr/share/locale/da/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+/usr/share/locale/de/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/el
+%dir /usr/share/locale/el/LC_MESSAGES
+/usr/share/locale/el/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/en_GB
+%dir /usr/share/locale/en_GB/LC_MESSAGES
+/usr/share/locale/en_GB/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/eo
+%dir /usr/share/locale/eo/LC_MESSAGES
+/usr/share/locale/eo/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+/usr/share/locale/es/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/et
+%dir /usr/share/locale/et/LC_MESSAGES
+/usr/share/locale/et/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/eu
+%dir /usr/share/locale/eu/LC_MESSAGES
+/usr/share/locale/eu/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/fa
+%dir /usr/share/locale/fa/LC_MESSAGES
+/usr/share/locale/fa/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+/usr/share/locale/fi/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+/usr/share/locale/fr/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/fur
+%dir /usr/share/locale/fur/LC_MESSAGES
+/usr/share/locale/fur/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/gl
+%dir /usr/share/locale/gl/LC_MESSAGES
+/usr/share/locale/gl/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/gu
+%dir /usr/share/locale/gu/LC_MESSAGES
+/usr/share/locale/gu/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/he
+%dir /usr/share/locale/he/LC_MESSAGES
+/usr/share/locale/he/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/hi
+%dir /usr/share/locale/hi/LC_MESSAGES
+/usr/share/locale/hi/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/hr
+%dir /usr/share/locale/hr/LC_MESSAGES
+/usr/share/locale/hr/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/hu
+%dir /usr/share/locale/hu/LC_MESSAGES
+/usr/share/locale/hu/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+/usr/share/locale/id/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ie
+%dir /usr/share/locale/ie/LC_MESSAGES
+/usr/share/locale/ie/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/is
+%dir /usr/share/locale/is/LC_MESSAGES
+/usr/share/locale/is/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+/usr/share/locale/it/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+/usr/share/locale/ja/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+/usr/share/locale/ka/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/kab
+%dir /usr/share/locale/kab/LC_MESSAGES
+/usr/share/locale/kab/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/kk
+%dir /usr/share/locale/kk/LC_MESSAGES
+/usr/share/locale/kk/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/kn
+%dir /usr/share/locale/kn/LC_MESSAGES
+/usr/share/locale/kn/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ko
+%dir /usr/share/locale/ko/LC_MESSAGES
+/usr/share/locale/ko/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/lt
+%dir /usr/share/locale/lt/LC_MESSAGES
+/usr/share/locale/lt/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/lv
+%dir /usr/share/locale/lv/LC_MESSAGES
+/usr/share/locale/lv/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ml
+%dir /usr/share/locale/ml/LC_MESSAGES
+/usr/share/locale/ml/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/mr
+%dir /usr/share/locale/mr/LC_MESSAGES
+/usr/share/locale/mr/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ms
+%dir /usr/share/locale/ms/LC_MESSAGES
+/usr/share/locale/ms/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/nb
+%dir /usr/share/locale/nb/LC_MESSAGES
+/usr/share/locale/nb/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/nds
+%dir /usr/share/locale/nds/LC_MESSAGES
+/usr/share/locale/nds/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ne
+%dir /usr/share/locale/ne/LC_MESSAGES
+/usr/share/locale/ne/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+/usr/share/locale/nl/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/oc
+%dir /usr/share/locale/oc/LC_MESSAGES
+/usr/share/locale/oc/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/or
+%dir /usr/share/locale/or/LC_MESSAGES
+/usr/share/locale/or/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/pa
+%dir /usr/share/locale/pa/LC_MESSAGES
+/usr/share/locale/pa/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+/usr/share/locale/pl/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/pt
+%dir /usr/share/locale/pt/LC_MESSAGES
+/usr/share/locale/pt/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+/usr/share/locale/pt_BR/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ro
+%dir /usr/share/locale/ro/LC_MESSAGES
+/usr/share/locale/ro/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+/usr/share/locale/ru/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/sk
+%dir /usr/share/locale/sk/LC_MESSAGES
+/usr/share/locale/sk/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/sl
+%dir /usr/share/locale/sl/LC_MESSAGES
+/usr/share/locale/sl/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+/usr/share/locale/sr/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/sr@latin
+%dir /usr/share/locale/sr@latin/LC_MESSAGES
+/usr/share/locale/sr@latin/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+/usr/share/locale/sv/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ta
+%dir /usr/share/locale/ta/LC_MESSAGES
+/usr/share/locale/ta/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/te
+%dir /usr/share/locale/te/LC_MESSAGES
+/usr/share/locale/te/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/tg
+%dir /usr/share/locale/tg/LC_MESSAGES
+/usr/share/locale/tg/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/th
+%dir /usr/share/locale/th/LC_MESSAGES
+/usr/share/locale/th/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+/usr/share/locale/tr/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/ug
+%dir /usr/share/locale/ug/LC_MESSAGES
+/usr/share/locale/ug/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+/usr/share/locale/uk/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/vi
+%dir /usr/share/locale/vi/LC_MESSAGES
+/usr/share/locale/vi/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+/usr/share/locale/zh_CN/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/zh_HK
+%dir /usr/share/locale/zh_HK/LC_MESSAGES
+/usr/share/locale/zh_HK/LC_MESSAGES/libpeas-1.0.mo
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+/usr/share/locale/zh_TW/LC_MESSAGES/libpeas-1.0.mo

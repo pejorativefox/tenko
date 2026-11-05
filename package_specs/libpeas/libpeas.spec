@@ -1,5 +1,5 @@
 Name:       libpeas
-Version:    1.26.0
+Version:    1.38.1
 Release:    1
 Summary:    libpeas is a GObject based plugins engine, and is targeted at giving every application the chance to assume its own extensibility. 
 License:    GPL
@@ -19,7 +19,11 @@ libpeas is a GObject based plugins engine, and is targeted at giving every appli
 mkdir build
 pushd build
 
-meson --prefix=/usr ..
+meson setup --prefix=/usr          \
+            --buildtype=release    \
+            --wrap-mode=nofallback \
+            -D python3=false       \
+            ..
 ninja
 popd
 
@@ -30,27 +34,11 @@ DESTDIR=%{buildroot} ninja install
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/peas-demo
-/usr/include/libpeas-1.0/*
-/usr/lib64/girepository-1.0/Peas-1.0.typelib
-/usr/lib64/girepository-1.0/PeasGtk-1.0.typelib
-/usr/lib64/libpeas-1.0.so
-/usr/lib64/libpeas-1.0.so.0
-/usr/lib64/libpeas-1.0.so.0.2600.0
-/usr/lib64/libpeas-1.0/loaders/libpython3loader.so
-/usr/lib64/libpeas-gtk-1.0.so
-/usr/lib64/libpeas-gtk-1.0.so.0
-/usr/lib64/libpeas-gtk-1.0.so.0.2600.0
-/usr/lib64/peas-demo/*
-/usr/lib64/pkgconfig/libpeas-1.0.pc
-/usr/lib64/pkgconfig/libpeas-gtk-1.0.pc
-/usr/share/gir-1.0/Peas-1.0.gir
-/usr/share/gir-1.0/PeasGtk-1.0.gir
-/usr/share/icons/hicolor/*
-/usr/share/locale/*
+%files -f %{_sourcedir}/libpeas.filelist
 
 %changelog
+* Thu Nov 05 2026 browneye <build@browneye.invalid> 1.38.1-1
+- Sync with BLFS r13.1 (libpeas.xml)
+
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.26.0
 - Initial RPM release
-

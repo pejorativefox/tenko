@@ -1,0 +1,51 @@
+%dir /usr/bin
+/usr/bin/cwebp
+/usr/bin/dwebp
+/usr/bin/gif2webp
+/usr/bin/img2webp
+/usr/bin/vwebp
+/usr/bin/webpinfo
+/usr/bin/webpmux
+%dir /usr/include
+%dir /usr/include/webp
+/usr/include/webp/decode.h
+/usr/include/webp/demux.h
+/usr/include/webp/encode.h
+/usr/include/webp/mux.h
+/usr/include/webp/mux_types.h
+%dir /usr/include/webp/sharpyuv
+/usr/include/webp/sharpyuv/sharpyuv.h
+/usr/include/webp/sharpyuv/sharpyuv_csp.h
+/usr/include/webp/types.h
+%dir /usr/lib64
+/usr/lib64/libsharpyuv.so
+/usr/lib64/libsharpyuv.so.0
+/usr/lib64/libsharpyuv.so.0.1.2
+/usr/lib64/libwebp.so
+/usr/lib64/libwebp.so.7
+/usr/lib64/libwebp.so.7.2.0
+/usr/lib64/libwebpdecoder.so
+/usr/lib64/libwebpdecoder.so.3
+/usr/lib64/libwebpdecoder.so.3.2.0
+/usr/lib64/libwebpdemux.so
+/usr/lib64/libwebpdemux.so.2
+/usr/lib64/libwebpdemux.so.2.0.17
+/usr/lib64/libwebpmux.so
+/usr/lib64/libwebpmux.so.3
+/usr/lib64/libwebpmux.so.3.1.2
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/libsharpyuv.pc
+/usr/lib64/pkgconfig/libwebp.pc
+/usr/lib64/pkgconfig/libwebpdecoder.pc
+/usr/lib64/pkgconfig/libwebpdemux.pc
+/usr/lib64/pkgconfig/libwebpmux.pc
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/cwebp.1.gz
+%doc /usr/share/man/man1/dwebp.1.gz
+%doc /usr/share/man/man1/gif2webp.1.gz
+%doc /usr/share/man/man1/img2webp.1.gz
+%doc /usr/share/man/man1/vwebp.1.gz
+%doc /usr/share/man/man1/webpinfo.1.gz
+%doc /usr/share/man/man1/webpmux.1.gz
