@@ -10,7 +10,7 @@ import re
 import subprocess
 import sys
 import time
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from typing import Any, Sequence
 
 import curses
@@ -876,6 +876,44 @@ def _size_columns(disk_obj: Disk) -> str:
     return disk.human_size(disk_obj.size_bytes)
 
 
+def _parse_size_mib(value: str, *, what: str = "size") -> int | None:
+    """Parse ``20``, ``20G``, ``20GiB`` or ``512M`` into MiB.
+
+    A bare number is GiB, matching the label shown by the forms.  The
+    planner still works in MiB internally.
+    """
+
+    text = value.strip().lower().replace(" ", "")
+    if not text:
+        return None
+    match = re.fullmatch(r"(\d+(?:\.\d+)?)([kmgt]i?b?)?", text)
+    if match is None:
+        raise ValueError(
+            "{} must be a number, optionally followed by M, G, MiB or GiB".format(
+                what
+            )
+        )
+    number = float(match.group(1))
+    suffix = (match.group(2) or "g").rstrip("b")
+    factor = {
+        "": 1024,
+        "k": 1 / 1024,
+        "ki": 1 / 1024,
+        "m": 1,
+        "mi": 1,
+        "g": 1024,
+        "gi": 1024,
+        "t": 1024 * 1024,
+        "ti": 1024 * 1024,
+    }.get(suffix)
+    if factor is None:
+        raise ValueError("{} has an unknown unit".format(what))
+    mib = int(round(number * factor))
+    if mib <= 0:
+        raise ValueError("{} must be positive".format(what))
+    return mib
+
+
 def _table_label(probed: ProbedDisk) -> str:
     if probed.live:
         return "live"
@@ -945,13 +983,6 @@ def _default_disk_spec(item: ProbedDisk, *, root_disk: bool) -> DiskSpec:
         )
     specs.append(
         PartitionSpec(
-            role="swap",
-            fstype="swap",
-            size_mib=layout_module.SWAP_MIB,
-        )
-    )
-    specs.append(
-        PartitionSpec(
             role="root",
             fstype="ext4",
             mountpoint="/",
@@ -960,14 +991,88 @@ def _default_disk_spec(item: ProbedDisk, *, root_disk: bool) -> DiskSpec:
     return DiskSpec(partitions=tuple(specs), **base)
 
 
+def _partition_label(part: disk.Partition) -> str:
+    fstype = (part.fstype or "").lower()
+    if (part.type or "").upper() == disk.ESP_TYPE:
+        return "ESP"
+    if fstype in ("ntfs", "fat", "fat32", "msdos"):
+        return "Windows"
+    if fstype == "swap":
+        return "swap"
+    if part.name:
+        return part.name
+    if fstype:
+        return fstype
+    return disk.type_name(part.type, False)
+
+
+def _disk_map_lines(
+    table: PartitionTable,
+    width: int,
+    *,
+    delete_numbers: Sequence[int] = (),
+) -> list[str]:
+    """Render a proportional one-line map plus a size legend."""
+
+    width = max(24, width)
+    total = table.total_sectors or 1
+    unit = table.unit or 512
+    parts = sorted(table.partitions, key=lambda part: part.number)
+    segments: list[tuple[int, str]] = []
+    used = 0
+    for part in parts:
+        used += part.size
+        label = _partition_label(part)
+        if part.number in delete_numbers:
+            label = "delete " + label
+        segments.append((part.size, label))
+    free = max(0, total - used)
+    if free:
+        segments.append((free, "free"))
+    if not segments:
+        return []
+
+    inner = max(10, width - len(segments) - 1)
+    widths = [
+        max(3, int(round(inner * size / total)))
+        for size, _label in segments
+    ]
+    while sum(widths) > inner:
+        index = max(range(len(widths)), key=lambda item: widths[item])
+        if widths[index] <= 3:
+            break
+        widths[index] -= 1
+    while sum(widths) < inner:
+        index = max(range(len(widths)), key=lambda item: widths[item])
+        widths[index] += 1
+
+    cells = []
+    for cell_width, (_size, label) in zip(widths, segments):
+        if len(label) > cell_width:
+            label = label[: max(1, cell_width - 1)] + "~"
+        cells.append(label.center(cell_width))
+    bar = "|" + "|".join(cells) + "|"
+    legend = "  ".join(
+        "{} {}".format(
+            label, disk.human_size(size * unit)
+        )
+        for size, label in segments
+    )
+    return [bar[:width], legend[:width]]
+
+
 def _select_disks(
     ui: CursesUI, probed: Sequence[ProbedDisk]
 ) -> list[ProbedDisk] | None:
-    selected: set[str] = set()
+    selected: list[str] = []
     while True:
         rows: list[Row] = []
         for item in probed:
             status = "selectable" if item.selectable else "; ".join(item.reasons)
+            note = status
+            if item.disk.path in selected:
+                root = selected.index(item.disk.path) == 0
+                note = "root disk" if root else "additional disk"
             rows.append(
                 Row(
                     "{:<12} {:>8}  {:<8} {:<28} {}".format(
@@ -979,16 +1084,27 @@ def _select_disks(
                     ),
                     enabled=item.selectable,
                     marker="[x]" if item.disk.path in selected else "[ ]",
+                    note=note,
                 )
             )
         rows.append(Row("Continue with these disks"))
+
+        def detail(index: int) -> Sequence[str]:
+            if 0 <= index < len(probed):
+                table = probed[index].table
+                if table is not None:
+                    return _disk_map_lines(table, ui.cols - 8)
+            return []
+
         choice = ui.menu(
             "Select installation disks",
-            "The topmost selected disk becomes the root disk. Press Enter "
+            "The first disk you select becomes the root disk. Press Enter "
             "to toggle a disk or to continue.",
             rows,
             footer="Up/Down select   Enter toggle/continue   r rescan   q quit",
             allow_back=True,
+            detail=detail,
+            detail_height=2,
         )
         if choice in (QUIT, BACK):
             return None
@@ -998,6 +1114,7 @@ def _select_disks(
             chosen = [
                 item for item in probed if item.disk.path in selected
             ]
+            chosen.sort(key=lambda item: selected.index(item.disk.path))
             if not chosen:
                 ui.message(
                     "No disk selected",
@@ -1012,14 +1129,14 @@ def _select_disks(
         if item.disk.path in selected:
             selected.remove(item.disk.path)
         else:
-            selected.add(item.disk.path)
+            selected.append(item.disk.path)
 
 
 def _existing_row(part: disk.Partition, table: PartitionTable) -> str:
-    text = "{}  start {} MiB  size {} MiB  {}".format(
+    text = "{}  start {}  size {}  {}".format(
         part.number,
-        (part.start * table.unit) // MIB,
-        (part.size * table.unit) // MIB,
+        disk.human_size(part.start * table.unit),
+        disk.human_size(part.size * table.unit),
         disk.type_name(part.type, table.is_mbr),
     )
     if part.fstype:
@@ -1030,144 +1147,319 @@ def _existing_row(part: disk.Partition, table: PartitionTable) -> str:
 
 
 def _add_partition_form(ui: CursesUI) -> PartitionSpec | None:
-    values = ui.form(
-        "New partition",
-        [
-            Field("Mount point (blank = swap)", ""),
-            Field("Filesystem (ext4/btrfs/vfat/swap)", "ext4"),
-            Field("Size MiB (blank = fill region)", ""),
-            Field("Region start MiB (blank = auto)", ""),
-            Field("Name (optional)", ""),
-        ],
-        subtitle="A mount point of / makes the partition root; /boot makes it the ESP.",
-        footer="Tab next   Enter continue   Esc back",
-    )
-    if values is None:
-        return None
-    mount, fstype, size_text, region_text, name = [
-        value.strip() for value in values
-    ]
-    if not mount and fstype != "swap":
-        ui.message(
-            "Mount point required",
-            ["A mount point is required unless the filesystem is swap."],
-            footer="Press any key to retry",
+    mount_value = ""
+    fstype_value = "ext4"
+    size_value = ""
+    region_value = ""
+    name_value = ""
+    while True:
+        values = ui.form(
+            "New partition",
+            [
+                Field("Mount point (blank = swap)", mount_value),
+                Field("Filesystem (ext4/btrfs/vfat/swap)", fstype_value),
+                Field("Size (GiB, blank = fill region)", size_value),
+                Field("Region start (GiB, blank = auto)", region_value),
+                Field("Name (optional)", name_value),
+            ],
+            subtitle="A mount point of / makes the partition root; /boot makes it the ESP.",
+            footer="Tab next   Enter continue   Esc back",
         )
-        return None
-    role = _role_for(mount, fstype)
-    if role == "esp":
-        fstype = "vfat"
-        mount = "/boot"
-    elif role == "swap":
-        fstype = "swap"
-        mount = ""
-    try:
-        spec = PartitionSpec(
-            role=role,
-            fstype=fstype,
-            mountpoint=mount or None,
-            size_mib=int(size_text) if size_text else None,
-            region_start_mib=int(region_text) if region_text else None,
-            name=name or None,
-        )
-    except ValueError:
-        ui.message(
-            "Invalid partition",
-            ["Sizes and region starts must be integers."],
-            footer="Press any key to retry",
-        )
-        return None
-    issues = spec.validate()
-    if issues:
-        ui.message("Invalid partition", issues, footer="Press any key to retry")
-        return None
-    return spec
+        if values is None:
+            return None
+        mount, fstype, size_text, region_text, name = [
+            value.strip() for value in values
+        ]
+        mount_value, fstype_value = mount, fstype
+        size_value, region_value, name_value = size_text, region_text, name
+        if not mount and fstype != "swap":
+            ui.message(
+                "Mount point required",
+                ["A mount point is required unless the filesystem is swap."],
+                footer="Press any key to retry",
+            )
+            continue
+        role = _role_for(mount, fstype)
+        if role == "esp":
+            fstype = "vfat"
+            mount = "/boot"
+        elif role == "swap":
+            fstype = "swap"
+            mount = ""
+        try:
+            size_mib = _parse_size_mib(size_text, what="size")
+            region_start = _parse_size_mib(
+                region_text, what="region start"
+            )
+        except ValueError as exc:
+            ui.message(
+                "Invalid partition",
+                [str(exc)],
+                footer="Press any key to retry",
+            )
+            continue
+        try:
+            spec = PartitionSpec(
+                role=role,
+                fstype=fstype,
+                mountpoint=mount or None,
+                size_mib=size_mib,
+                region_start_mib=region_start,
+                name=name or None,
+            )
+        except ValueError:
+            ui.message(
+                "Invalid partition",
+                ["Sizes and region starts must be numbers."],
+                footer="Press any key to retry",
+            )
+            continue
+        issues = spec.validate()
+        if issues:
+            ui.message("Invalid partition", issues, footer="Press any key to retry")
+            continue
+        return spec
 
 
 def _assign_existing_form(
-    ui: CursesUI, table: PartitionTable
+    ui: CursesUI, table: PartitionTable, *, number: int | None = None
 ) -> PartitionSpec | None:
-    values = ui.form(
-        "Assign an existing partition",
-        [
-            Field("Partition number", ""),
-            Field("Mount point (blank = use as swap)", ""),
-            Field("Format it? (y/N)", "n"),
-            Field("Filesystem when formatting (blank = keep)", ""),
-        ],
-        subtitle="Leave format off to keep the existing data and filesystem.",
-        footer="Tab next   Enter continue   Esc back",
-    )
-    if values is None:
-        return None
-    number_text, mountpoint, format_text, fstype_text = [
-        value.strip() for value in values
-    ]
-    try:
-        number = int(number_text)
-    except ValueError:
-        ui.message(
-            "Invalid number",
-            ["The partition number must be an integer."],
-            footer="Press any key to retry",
+    number_value = "" if number is None else str(number)
+    mount_value = ""
+    format_value = "n"
+    fstype_value = ""
+    while True:
+        fields = [
+            Field("Mount point (blank = use as swap)", mount_value),
+            Field("Format it? (y/N)", format_value),
+            Field("Filesystem when formatting (blank = keep)", fstype_value),
+        ]
+        if number is None:
+            fields.insert(0, Field("Partition number", number_value))
+        values = ui.form(
+            "Assign an existing partition",
+            fields,
+            subtitle="Leave format off to keep the existing data and filesystem.",
+            footer="Tab next   Enter continue   Esc back",
         )
-        return None
-    part = table.find_number(number)
-    if part is None:
-        ui.message(
-            "No such partition",
-            ["Partition {} does not exist.".format(number)],
-            footer="Press any key to retry",
+        if values is None:
+            return None
+        if number is None:
+            number_text, mountpoint, format_text, fstype_text = [
+                value.strip() for value in values
+            ]
+            number_value = number_text
+        else:
+            mountpoint, format_text, fstype_text = [
+                value.strip() for value in values
+            ]
+        mount_value, format_value, fstype_value = (
+            mountpoint,
+            format_text,
+            fstype_text,
         )
-        return None
-    format_existing = format_text.lower() in ("y", "yes")
-    detected = _fs_for_existing(part)
-    fstype = fstype_text.lower() or detected
-    if not format_existing:
-        if not detected:
+        try:
+            selected = int(number_text) if number is None else number
+        except ValueError:
             ui.message(
-                "Unknown filesystem",
+                "Invalid number",
+                ["The partition number must be an integer."],
+                footer="Press any key to retry",
+            )
+            continue
+        part = table.find_number(int(selected or 0))
+        if part is None:
+            ui.message(
+                "No such partition",
+                ["Partition {} does not exist.".format(selected)],
+                footer="Press any key to retry",
+            )
+            continue
+        format_existing = format_text.lower() in ("y", "yes")
+        detected = _fs_for_existing(part)
+        fstype = fstype_text.lower() or detected
+        if not format_existing:
+            if not detected:
+                ui.message(
+                    "Unknown filesystem",
+                    [
+                        "Partition {} has no readable filesystem.".format(
+                            selected
+                        ),
+                        "Enable formatting or create a new partition instead.",
+                    ],
+                    footer="Press any key to retry",
+                )
+                continue
+            fstype = detected
+        if not mountpoint and fstype != "swap":
+            ui.message(
+                "Mount point required",
                 [
-                    "Partition {} has no readable filesystem.".format(number),
-                    "Enable formatting or create a new partition instead.",
+                    "Partition {} is not swap; enter a mount point.".format(
+                        selected
+                    )
                 ],
                 footer="Press any key to retry",
             )
-            return None
-        fstype = detected
-    if not mountpoint and fstype != "swap":
+            continue
+        role = _role_for(mountpoint, fstype)
+        if role == "esp":
+            fstype = "vfat"
+        if role == "swap":
+            fstype = "swap"
+        elif fstype not in layout_module.DATA_FSTYPES:
+            ui.message(
+                "Invalid filesystem",
+                ["Choose ext4, btrfs or vfat (or swap for no mount point)."],
+                footer="Press any key to retry",
+            )
+            continue
+        spec = PartitionSpec(
+            role=role,
+            fstype=fstype,
+            mountpoint=mountpoint or None,
+            existing_number=int(selected or 0),
+            format=format_existing,
+        )
+        issues = spec.validate()
+        if issues:
+            ui.message(
+                "Invalid assignment", issues, footer="Press any key to retry"
+            )
+            continue
+        return spec
+
+
+def _pick_existing_partition(
+    ui: CursesUI,
+    table: PartitionTable,
+    title: str,
+    subtitle: str,
+) -> disk.Partition | None:
+    parts = sorted(table.partitions, key=lambda part: part.number)
+    if not parts:
         ui.message(
-            "Mount point required",
-            [
-                "Partition {} is not swap; enter a mount point.".format(number)
-            ],
-            footer="Press any key to retry",
+            "No partitions",
+            ["This disk has no existing partitions."],
+            footer="Press any key to continue",
         )
         return None
-    role = _role_for(mountpoint, fstype)
-    if role == "esp":
-        fstype = "vfat"
-    if role == "swap":
-        fstype = "swap"
-    elif fstype not in layout_module.DATA_FSTYPES:
-        ui.message(
-            "Invalid filesystem",
-            ["Choose ext4, btrfs or vfat (or swap for no mount point)."],
-            footer="Press any key to retry",
-        )
-        return None
-    spec = PartitionSpec(
-        role=role,
-        fstype=fstype,
-        mountpoint=mountpoint or None,
-        existing_number=number,
-        format=format_existing,
+    rows = [Row(_existing_row(part, table)) for part in parts]
+    rows.append(Row("Cancel"))
+    choice = ui.menu(
+        title,
+        subtitle,
+        rows,
+        footer="Up/Down select   Enter continue   Esc back",
+        allow_back=True,
     )
-    issues = spec.validate()
-    if issues:
-        ui.message("Invalid assignment", issues, footer="Press any key to retry")
+    if choice in (BACK, QUIT) or choice == len(rows) - 1:
         return None
-    return spec
+    return parts[choice]
+
+
+def _partition_actions(
+    ui: CursesUI,
+    table: PartitionTable,
+    part: disk.Partition,
+    specs: list[PartitionSpec],
+    delete_set: set[int],
+) -> None:
+    """Act on the partition the user selected, without typing its number."""
+
+    while True:
+        assigned = next(
+            (
+                spec
+                for spec in specs
+                if spec.existing_number == part.number
+            ),
+            None,
+        )
+        rows: list[Row] = []
+        if part.number in delete_set:
+            rows.append(
+                Row("Keep this partition", note="cancel the deletion")
+            )
+        else:
+            rows.append(
+                Row(
+                    "Assign or edit this partition",
+                    note=(
+                        "{} {}".format(
+                            assigned.role, assigned.mountpoint or "swap"
+                        )
+                        if assigned is not None
+                        else "not used by Browneye"
+                    ),
+                )
+            )
+            rows.append(
+                Row("Delete this partition", note="entry is removed when applied")
+            )
+        rows.append(Row("Back"))
+        choice = ui.menu(
+            "Partition {} on {}".format(part.number, table.device),
+            "{}  {}".format(
+                _existing_row(part, table),
+                "marked for deletion" if part.number in delete_set else "",
+            ),
+            rows,
+            footer="Up/Down select   Enter act   Esc back",
+            allow_back=True,
+        )
+        if choice in (BACK, QUIT):
+            return
+        if choice == len(rows) - 1:
+            return
+        if part.number in delete_set:
+            delete_set.discard(part.number)
+            return
+        if choice == 0:
+            spec = _assign_existing_form(
+                ui, table, number=part.number
+            )
+            if spec is None:
+                continue
+            if spec.role in ("root", "esp") and any(
+                existing.role == spec.role
+                and existing.existing_number != spec.existing_number
+                for existing in specs
+            ):
+                ui.message(
+                    "Role already assigned",
+                    [
+                        "This disk already has a {} partition.".format(
+                            spec.role
+                        )
+                    ],
+                    footer="Press any key to retry",
+                )
+                continue
+            specs[:] = [
+                existing
+                for existing in specs
+                if existing.existing_number != part.number
+            ]
+            specs.append(spec)
+            return
+        confirm = ui.menu(
+            "Delete partition {}?".format(part.number),
+            "The partition entry is removed when the plan is applied. "
+            "Its data is not recoverable afterwards.",
+            [Row("Yes, delete it"), Row("No, keep it")],
+            footer="Up/Down select   Enter confirm   Esc cancel",
+            allow_back=True,
+        )
+        if confirm == 0:
+            specs[:] = [
+                existing
+                for existing in specs
+                if existing.existing_number != part.number
+            ]
+            delete_set.add(part.number)
+            return
 
 
 def _edit_disk(
@@ -1189,7 +1481,10 @@ def _edit_disk(
 
     while True:
         rows: list[Row] = []
-        for part in sorted(table.partitions, key=lambda value: value.number):
+        existing_parts = sorted(
+            table.partitions, key=lambda value: value.number
+        )
+        for part in existing_parts:
             assigned = adopted(part.number)
             if part.number in delete_set:
                 marker, note = "[x]", "delete"
@@ -1205,14 +1500,19 @@ def _edit_disk(
             rows.append(
                 Row(_existing_row(part, table), marker=marker, note=note)
             )
-        for spec in specs:
-            if spec.existing_number is not None:
-                continue
+        new_specs = [
+            spec for spec in specs if spec.existing_number is None
+        ]
+        for spec in new_specs:
             rows.append(
                 Row(
-                    "NEW {}  {} MiB".format(
+                    "NEW {}  {}".format(
                         spec.role,
-                        spec.size_mib if spec.size_mib is not None else "fill",
+                        disk.human_size(
+                            (spec.size_mib or 0) * MIB
+                        )
+                        if spec.size_mib is not None
+                        else "fill remaining space",
                     ),
                     marker="[+]",
                     note="{} {}".format(
@@ -1225,7 +1525,7 @@ def _edit_disk(
             [
                 Row("Add a new partition"),
                 Row("Assign an existing partition"),
-                Row("Toggle delete for an existing partition"),
+                Row("Mark a partition for deletion"),
                 Row("Remove a planned or assigned partition"),
                 Row("Done with this disk"),
             ]
@@ -1238,7 +1538,7 @@ def _edit_disk(
             align=max(1, MIB // (table.unit or 512)),
         )
         free_text = ", ".join(
-            "{}..{}".format(region.start_mib, region.end_mib)
+            "{}".format(disk.human_size(region.size_mib * MIB))
             for region in regions
         )
         subtitle = "{}  {}  {}{}  free: {}".format(
@@ -1254,6 +1554,10 @@ def _edit_disk(
             rows,
             footer="Up/Down select   Enter act/continue   r rescan   Esc back",
             allow_back=True,
+            detail=lambda _index: _disk_map_lines(
+                table, ui.cols - 8, delete_numbers=tuple(sorted(delete_set))
+            ),
+            detail_height=2,
         )
         if choice in (BACK, QUIT):
             return None
@@ -1261,6 +1565,31 @@ def _edit_disk(
             refreshed = probe.find_disk(item.disk.path, refresh=True) or item
             item = refreshed
             table = refreshed.table or probe.read_table(refreshed.disk)
+            continue
+        if choice < actions:
+            if choice < len(existing_parts):
+                _partition_actions(
+                    ui,
+                    table,
+                    existing_parts[choice],
+                    specs,
+                    delete_set,
+                )
+            else:
+                spec = new_specs[choice - len(existing_parts)]
+                picked = ui.menu(
+                    "Planned partition",
+                    "{}  {}  {}".format(
+                        spec.role,
+                        spec.fstype,
+                        spec.mountpoint or "swap",
+                    ),
+                    [Row("Remove this planned partition"), Row("Back")],
+                    footer="Up/Down select   Enter act   Esc back",
+                    allow_back=True,
+                )
+                if picked == 0:
+                    specs.remove(spec)
             continue
         action = choice - actions
         if action == 0:
@@ -1281,7 +1610,17 @@ def _edit_disk(
                     continue
                 specs.append(spec)
         elif action == 1:
-            spec = _assign_existing_form(ui, table)
+            part = _pick_existing_partition(
+                ui,
+                table,
+                "Assign an existing partition",
+                "Choose the partition to use, then set its mount point.",
+            )
+            if part is None:
+                continue
+            spec = _assign_existing_form(
+                ui, table, number=part.number
+            )
             if spec is not None:
                 if spec.role in ("root", "esp") and any(
                     existing.role == spec.role
@@ -1307,26 +1646,15 @@ def _edit_disk(
                 ]
                 specs.append(spec)
         elif action == 2:
-            values = ui.form(
-                "Delete an existing partition",
-                [Field("Partition number", "")],
-                subtitle="The partition entry is removed when the plan is applied.",
-                footer="Tab next   Enter continue   Esc back",
+            part = _pick_existing_partition(
+                ui,
+                table,
+                "Mark a partition for deletion",
+                "The partition entry is removed when the plan is applied.",
             )
-            if values is None:
-                continue
-            try:
-                number = int(values[0].strip())
-            except ValueError:
-                continue
-            part = table.find_number(number)
             if part is None:
-                ui.message(
-                    "No such partition",
-                    ["Partition {} does not exist.".format(number)],
-                    footer="Press any key to retry",
-                )
                 continue
+            number = part.number
             specs = [
                 spec
                 for spec in specs
@@ -1353,9 +1681,9 @@ def _edit_disk(
                         "existing " + str(spec.existing_number)
                         if spec.existing_number is not None
                         else (
-                            str(spec.size_mib) + " MiB"
+                            disk.human_size(spec.size_mib * MIB)
                             if spec.size_mib is not None
-                            else "fill"
+                            else "fill remaining space"
                         ),
                     )
                 )
@@ -1410,11 +1738,26 @@ def _confirm_lines(plan: InstallLayout, config: InstallConfig) -> list[str]:
         "Root on: {}".format(config.root_disk_path),
     ]
     for item in plan.disks:
+        status = "modified" if item.changed else "not modified"
+        if item.delete_numbers:
+            status += ", {} deletion(s)".format(len(item.delete_numbers))
+        lines.append("  {} ({})".format(item.disk_path, status))
+        for part in item.table.partitions:
+            if part.number in item.delete_numbers:
+                lines.append(
+                    "    delete {:>3}  {}".format(
+                        part.number,
+                        "{}  {}".format(
+                            disk.human_size(part.size * item.unit),
+                            disk.type_name(part.type, item.table.is_mbr),
+                        ),
+                    )
+                )
         for part in item.partitions:
             label = part.mountpoint or "swap"
             lines.append(
-                "  {} {:>4}  {}".format(
-                    item.disk_path,
+                "    {} {:>4}  {}".format(
+                    "keep" if part.existing and not part.format else "new ",
                     str(part.number),
                     "{}  {}  {}".format(
                         disk.human_size(part.size * item.unit),
@@ -1423,68 +1766,311 @@ def _confirm_lines(plan: InstallLayout, config: InstallConfig) -> list[str]:
                     ),
                 )
             )
+    swaps = [
+        part for item in plan.disks for part in item.swaps
+    ]
+    if swaps:
+        swap_text = "{} partition(s)".format(len(swaps))
+    elif config.swap_mode == "swapfile":
+        swap_text = "{} swapfile".format(
+            disk.human_size(config.swap_mib * MIB)
+        )
+    else:
+        swap_text = "none"
+    lines.append("Swap: {}".format(swap_text))
+    lines.append(
+        "Account: {} on {}".format(config.admin_user, config.hostname)
+    )
+    lines.append("Boot: systemd-boot on the ESP")
     lines.extend(
         [
             "Install: {}".format(", ".join(config.packages)),
             "",
-            "This ERASES the selected partitions on every listed disk.",
-            "Other partitions are preserved. There is no undo after formatting.",
         ]
+    )
+    deletions = sum(
+        len(item.delete_numbers) for item in plan.disks
+    )
+    if deletions:
+        lines.append(
+            "This ERASES {} existing partition{}.".format(
+                deletions, "" if deletions == 1 else "s"
+            )
+        )
+    else:
+        lines.append("No existing partition is deleted.")
+    lines.append(
+        "Other partitions are preserved. There is no undo after formatting."
     )
     for warning in config.warnings:
         lines.append("Warning: " + warning)
     return lines
 
 
-def _interactive(
-    stdscr,
-    args: argparse.Namespace,
-    logger: Logger,
-    runner: CommandRunner,
-    probe: Probe,
-) -> int:
-    ui = CursesUI(stdscr)
-    config = _initial_config(args)
-    checks, ok = run_preflight(probe, config, logger)
-    lines = [
-        "This will install Browneye Linux 13.1 on one or more local GPT disks.",
-        "",
-    ]
-    for check in checks:
-        lines.append(
-            "[{}] {}: {}".format("x" if check.ok else "!", check.label, check.detail)
-        )
-    lines.extend(
-        [
-            "",
-            "UEFI only. You can create partitions, assign mount points and use",
-            "several disks (for example /home on a second disk). Existing",
-            "partitions are preserved unless you mark them for deletion.",
-            "There is no undo after formatting begins.",
-        ]
-    )
-    if getattr(probe, "simulated", False):
-        lines.extend(
-            [
-                "",
-                "SIMULATION MODE: synthetic disks; no real device is touched.",
-                "Mutating commands are written to {}.".format(
-                    os.path.join(LOG_DIR, "plan.sh")
-                ),
-            ]
-        )
-    if not ok:
-        ui.message("Preflight failed", lines, footer="Press any key to exit")
-        return 2
-    key = ui.message(
-        "Browneye Linux 13.1 - Installer"
-        + (" (simulation)" if getattr(probe, "simulated", False) else ""),
-        lines,
-        footer="Enter continue   q quit",
-    )
-    if key in (ord("q"), 27):
-        return 0
+def _free_space_text(table: PartitionTable) -> str:
+    regions = layout_module.free_regions(table)
+    if not regions:
+        return "no free space"
+    total = sum(region.size_mib for region in regions)
+    return "{} free".format(disk.human_size(total * MIB))
 
+
+def _install_mode(ui: CursesUI, simulated: bool) -> str | None:
+    """Choose the guided or advanced flow."""
+
+    rows = [
+        Row(
+            "Install Browneye Linux 13.1 (recommended)",
+            note="guided: one disk, sensible defaults",
+        ),
+        Row(
+            "Advanced installation",
+            note="choose disks, partitions and mount points",
+        ),
+    ]
+    choice = ui.menu(
+        "Installation type"
+        + (" (simulation)" if simulated else ""),
+        "The guided install handles the common case. Use the advanced "
+        "install to dual-boot, reuse partitions or spread the system "
+        "across several disks.",
+        rows,
+        footer="Up/Down select   Enter continue   q quit",
+        allow_back=False,
+    )
+    if choice in (QUIT, BACK):
+        return None
+    return "guided" if choice == 0 else "advanced"
+
+
+def _guided_select_disk(
+    ui: CursesUI, probe: Probe
+) -> ProbedDisk | None:
+    probed = probe.probe_disks(refresh=True)
+    rows: list[Row] = []
+    candidates: list[ProbedDisk] = []
+    for item in probed:
+        if not item.selectable:
+            continue
+        table = item.table or probe.read_table(item.disk)
+        count = len(table.partitions)
+        rows.append(
+            Row(
+                "{:<12} {:>9}  {:<24}".format(
+                    item.disk.path,
+                    disk.human_size(item.disk.size_bytes),
+                    (item.disk.model or "")[:24],
+                ),
+                note="{} partition{}; {}".format(
+                    count, "" if count == 1 else "s", _free_space_text(table)
+                ),
+            )
+        )
+        candidates.append(item)
+    if not candidates:
+        ui.message(
+            "No selectable disk",
+            [
+                "No disk can be installed to.",
+                "The live media, mounted disks, MBR disks and disks with",
+                "holders or whole-disk filesystems are excluded.",
+            ],
+            footer="Press any key to exit",
+        )
+        return None
+    rows.append(Row("Cancel"))
+
+    def detail(index: int) -> Sequence[str]:
+        if 0 <= index < len(candidates):
+            table = candidates[index].table
+            if table is not None:
+                return _disk_map_lines(table, ui.cols - 8)
+        return []
+
+    choice = ui.menu(
+        "Where to install",
+        "Choose the disk that should receive Browneye Linux. "
+        "Other disks are not touched.",
+        rows,
+        footer="Up/Down select   Enter continue   Esc back",
+        allow_back=True,
+        detail=detail,
+        detail_height=2,
+    )
+    if choice in (BACK, QUIT) or choice == len(rows) - 1:
+        return None
+    return candidates[choice]
+
+
+def _guided_mode(
+    ui: CursesUI, table: PartitionTable
+) -> str | None:
+    regions = layout_module.free_regions(table)
+    free_mib = sum(region.size_mib for region in regions)
+    esp = layout_module.find_existing_esp(table)
+    required = layout_module.ROOT_MIN_MIB
+    if esp is None:
+        required += layout_module.ESP_MIB
+    can_use_free = free_mib >= required
+    rows = [
+        Row(
+            "Erase the disk and install Browneye",
+            note=(
+                "deletes {} existing partition{}".format(
+                    len(table.partitions),
+                    "" if len(table.partitions) == 1 else "s",
+                )
+                if table.partitions
+                else "blank disk"
+            ),
+        ),
+        Row(
+            "Use the free space (keep existing partitions)",
+            enabled=can_use_free,
+            note=(
+                "{} free".format(disk.human_size(free_mib * MIB))
+                if can_use_free
+                else "needs at least {}".format(
+                    disk.human_size(required * MIB)
+                )
+            ),
+        ),
+        Row(
+            "Custom partitioning...",
+            note="opens the advanced editor",
+        ),
+    ]
+    choice = ui.menu(
+        "Installation method",
+        "Existing partitions are preserved unless you choose to erase the "
+        "disk. Nothing is written until the review screen is confirmed.",
+        rows,
+        footer="Up/Down select   Enter continue   Esc back",
+        allow_back=True,
+        detail=lambda _index: _disk_map_lines(table, ui.cols - 8),
+        detail_height=2,
+    )
+    if choice in (BACK, QUIT):
+        return None
+    return ("erase", "free", "custom")[choice]
+
+
+def _guided_options(ui: CursesUI) -> tuple[str, str] | None:
+    filesystem = ui.menu(
+        "Filesystem",
+        "ext4 is the safe default. btrfs adds subvolumes and is a good "
+        "choice for advanced users.",
+        [
+            Row("ext4", note="recommended"),
+            Row("btrfs", note="advanced"),
+        ],
+        footer="Up/Down select   Enter continue   Esc back",
+        allow_back=True,
+    )
+    if filesystem in (BACK, QUIT):
+        return None
+    swap_size = disk.human_size(layout_module.SWAP_MIB * MIB)
+    swap = ui.menu(
+        "Swap",
+        "A swapfile is easy to resize and needs no partition. A swap "
+        "partition is useful for hibernation.",
+        [
+            Row(
+                "Swapfile (recommended)",
+                note="{} on the root filesystem".format(swap_size),
+            ),
+            Row(
+                "Swap partition ({})".format(swap_size),
+                note="traditional layout",
+            ),
+            Row("No swap", note="not recommended for a desktop"),
+        ],
+        footer="Up/Down select   Enter continue   Esc back",
+        allow_back=True,
+    )
+    if swap in (BACK, QUIT):
+        return None
+    return (
+        "ext4" if filesystem == 0 else "btrfs",
+        ("swapfile", "partition", "none")[swap],
+    )
+
+
+def _guided_layout_flow(
+    ui: CursesUI, probe: Probe, args: argparse.Namespace
+) -> tuple[InstallConfig, InstallLayout, list[ProbedDisk], bool] | None:
+    while True:
+        item = _guided_select_disk(ui, probe)
+        if item is None:
+            return None
+        table = item.table or probe.read_table(item.disk)
+        mode = _guided_mode(ui, table)
+        if mode is None:
+            return None
+        if mode == "custom":
+            advanced = _advanced_layout_flow(ui, probe, args)
+            if advanced is None:
+                return None
+            return (*advanced, False)
+        options = _guided_options(ui)
+        if options is None:
+            return None
+        fstype, swap = options
+        layout_swap = "partition" if swap == "partition" else "none"
+        try:
+            if mode == "erase":
+                spec = layout_module.plan_erase_disk(
+                    table, fstype=fstype, swap=layout_swap
+                )
+            else:
+                spec = layout_module.plan_free_space(
+                    table, fstype=fstype, swap=layout_swap
+                )
+        except (ValueError, disk.PlanError) as exc:
+            ui.message(
+                "Cannot plan this install",
+                [str(exc)],
+                footer="Press any key to retry",
+            )
+            continue
+        spec = replace(
+            spec,
+            path=item.disk.path,
+            serial=item.disk.serial,
+            size_bytes=item.disk.size_bytes,
+            model=item.disk.model,
+        )
+        config = InstallConfig(
+            layout=InstallSpec(disks=(spec,)),
+            confirm_disk=item.disk.path,
+            confirm_phrase="ERASE",
+            repo=args.repo,
+            target=args.target,
+            dry_run=args.dry_run,
+            swap_mode=swap,
+            swap_mib=layout_module.SWAP_MIB,
+        )
+        issues = config.layout.validate()
+        if issues:
+            ui.message(
+                "Invalid layout", issues, footer="Press any key to retry"
+            )
+            continue
+        try:
+            plan, probed_used, _regions = build_layout(probe, config)
+        except (ConfigError, disk.PlanError) as exc:
+            ui.message(
+                "Cannot plan the layout",
+                [str(exc)],
+                footer="Press any key to retry",
+            )
+            continue
+        return config, plan, probed_used, True
+
+
+def _advanced_layout_flow(
+    ui: CursesUI, probe: Probe, args: argparse.Namespace
+) -> tuple[InstallConfig, InstallLayout, list[ProbedDisk]] | None:
     while True:
         probed = probe.probe_disks(refresh=True)
         if not any(item.selectable for item in probed):
@@ -1497,10 +2083,10 @@ def _interactive(
                 ],
                 footer="Press any key to exit",
             )
-            return 2
+            return None
         selected = _select_disks(ui, probed)
         if selected is None:
-            return 0
+            return None
         if selected == []:
             continue
 
@@ -1533,11 +2119,16 @@ def _interactive(
             repo=args.repo,
             target=args.target,
             dry_run=args.dry_run,
+            swap_mode=(
+                "partition"
+                if any(
+                    part.role == "swap"
+                    for spec in disk_specs
+                    for part in spec.partitions
+                )
+                else "swapfile"
+            ),
         )
-        # Validate only the layout here.  The admin account and password are
-        # entered on the next screen, so a full config.validate() would always
-        # fail with "admin password must not be empty" and bounce the user
-        # back to disk selection before they ever see the form.
         issues = config.layout.validate()
         if issues:
             ui.message(
@@ -1553,30 +2144,36 @@ def _interactive(
                 footer="Press any key to retry",
             )
             continue
+        return config, plan, probed_used
 
-        # Package set ------------------------------------------------
+
+def _account_and_packages(
+    ui: CursesUI, config: InstallConfig
+) -> bool:
+    hostname_value = "browneye"
+    admin_value = "admin"
+    while True:
+        package_rows = [
+            Row("Desktop (browneye-base + xfce-desktop)"),
+            Row("Base only (no desktop)"),
+        ]
+        package_choice = ui.menu(
+            "Package set",
+            "The target always includes the kernel, modules, systemd-boot, "
+            "dracut, efibootmgr, dosfstools and dnf.",
+            package_rows,
+            footer="Up/Down select   Enter continue   Esc back",
+            allow_back=True,
+        )
+        if package_choice in (BACK, QUIT):
+            return False
+        config.package_set = "desktop" if package_choice == 0 else "base"
         while True:
-            package_rows = [
-                Row("Desktop (browneye-base + xfce-desktop)"),
-                Row("Base only (no desktop)"),
-            ]
-            package_choice = ui.menu(
-                "Package set",
-                "The target always includes the kernel, modules, systemd-boot, "
-                "dracut, efibootmgr, dosfstools and dnf.",
-                package_rows,
-                footer="Up/Down select   Enter continue   Esc back",
-                allow_back=True,
-            )
-            if package_choice in (BACK, QUIT):
-                aborted = True
-                break
-            config.package_set = "desktop" if package_choice == 0 else "base"
             values = ui.form(
                 "System options",
                 [
-                    Field("Hostname", "browneye"),
-                    Field("Admin user", "admin"),
+                    Field("Hostname", hostname_value),
+                    Field("Admin user", admin_value),
                     Field("Password", "", secret=True),
                     Field("Confirm password", "", secret=True),
                 ],
@@ -1587,9 +2184,9 @@ def _interactive(
                 ],
             )
             if values is None:
-                aborted = True
                 break
             hostname, admin, password, confirm_password = values
+            hostname_value, admin_value = hostname, admin
             if password != confirm_password:
                 ui.message(
                     "Passwords do not match",
@@ -1606,31 +2203,58 @@ def _interactive(
                     "Invalid options", issues, footer="Press any key to retry"
                 )
                 continue
-            break
-        if aborted:
-            continue
-        write_probe_snapshot(probe, probed_used, logger)
-        break
+            return True
 
-    # Confirm -------------------------------------------------------
+
+def _confirm_and_install(
+    ui: CursesUI,
+    config: InstallConfig,
+    plan: InstallLayout,
+    probe: Probe,
+    logger: Logger,
+    runner: CommandRunner,
+    args: argparse.Namespace,
+    *,
+    guided: bool,
+) -> int | None:
     confirm_lines = _confirm_lines(plan, config)
-    typed = ui.confirm_typed(
-        "Confirm installation",
-        confirm_lines,
-        ["Type the root disk path", "Type ERASE"],
-        footer="Tab next   Enter confirm   Esc back",
-    )
-    if typed is None:
-        return _interactive(stdscr, args, logger, runner, probe)
-    if typed[0].strip() != config.root_disk_path or typed[1].strip() != "ERASE":
-        ui.message(
-            "Confirmation did not match",
-            ["The disk path or ERASE phrase was incorrect.", "Nothing was changed."],
-            footer="Press any key to exit",
+    destructive = any(item.delete_numbers for item in plan.disks)
+    if guided and not destructive:
+        key = ui.message(
+            "Confirm installation",
+            confirm_lines
+            + [
+                "",
+                "Press Enter to install, or q to go back.",
+            ],
+            footer="Enter install   q cancel",
         )
-        return 2
-    config.confirm_disk = typed[0].strip()
-    config.confirm_phrase = typed[1].strip()
+        if key in (ord("q"), 27):
+            return None
+    else:
+        typed = ui.confirm_typed(
+            "Confirm installation",
+            confirm_lines,
+            ["Type the root disk path", "Type ERASE"],
+            footer="Tab next   Enter confirm   Esc back",
+        )
+        if typed is None:
+            return None
+        if (
+            typed[0].strip() != config.root_disk_path
+            or typed[1].strip() != "ERASE"
+        ):
+            ui.message(
+                "Confirmation did not match",
+                [
+                    "The disk path or ERASE phrase was incorrect.",
+                    "Nothing was changed.",
+                ],
+                footer="Press any key to exit",
+            )
+            return None
+        config.confirm_disk = typed[0].strip()
+        config.confirm_phrase = typed[1].strip()
 
     progress = ui.progress("Installing Browneye Linux", 9)
     logger.console = progress.line
@@ -1665,7 +2289,10 @@ def _interactive(
         logger.console = None
         ui.message(
             "Installation failed",
-            ["Unexpected error: {}".format(exc), "Log: " + (logger.human_path or LOG_JSONL)],
+            [
+                "Unexpected error: {}".format(exc),
+                "Log: " + (logger.human_path or LOG_JSONL),
+            ],
             footer="Press any key to exit",
         )
         return 1
@@ -1674,7 +2301,8 @@ def _interactive(
 
     text = [
         "Browneye Linux 13.1 {} on {}.".format(
-            "simulation finished" if getattr(probe, "simulated", False)
+            "simulation finished"
+            if getattr(probe, "simulated", False)
             else "was installed",
             ", ".join(config.disk_paths),
         ),
@@ -1686,7 +2314,9 @@ def _interactive(
             [
                 "",
                 "{}: no disk was modified.".format(
-                    "SIMULATION" if getattr(probe, "simulated", False) else "DRY RUN"
+                    "SIMULATION"
+                    if getattr(probe, "simulated", False)
+                    else "DRY RUN"
                 ),
                 "The exact mutating commands are in {}.".format(
                     os.path.join(LOG_DIR, "plan.sh")
@@ -1701,14 +2331,102 @@ def _interactive(
             "Remove the installation media, then press Enter to reboot.",
         ]
     )
-    key = ui.message("Installation complete", text, footer="Enter reboot   q exit")
+    key = ui.message(
+        "Installation complete", text, footer="Enter reboot   q exit"
+    )
     if args.no_reboot or key in (ord("q"), 27):
         return 0
     try:
-        runner.run(("reboot",), step="finish", description="reboot after install")
+        runner.run(
+            ("reboot",), step="finish", description="reboot after install"
+        )
     except (CommandError, OSError):
         pass
     return 0
+
+
+def _interactive(
+    stdscr,
+    args: argparse.Namespace,
+    logger: Logger,
+    runner: CommandRunner,
+    probe: Probe,
+) -> int:
+    ui = CursesUI(stdscr)
+    config = _initial_config(args)
+    checks, ok = run_preflight(probe, config, logger)
+    lines = [
+        "This will install Browneye Linux 13.1 on a local GPT disk.",
+        "",
+    ]
+    for check in checks:
+        lines.append(
+            "[{}] {}: {}".format(
+                "x" if check.ok else "!", check.label, check.detail
+            )
+        )
+    lines.extend(
+        [
+            "",
+            "The guided install erases one disk and sets up a working "
+            "desktop.",
+            "The advanced install lets you choose disks, partitions and "
+            "mount points,",
+            "including /home on a second disk. Existing partitions are "
+            "preserved",
+            "unless you mark them for deletion. There is no undo after "
+            "formatting.",
+        ]
+    )
+    if getattr(probe, "simulated", False):
+        lines.extend(
+            [
+                "",
+                "SIMULATION MODE: synthetic disks; no real device is touched.",
+                "Mutating commands are written to {}.".format(
+                    os.path.join(LOG_DIR, "plan.sh")
+                ),
+            ]
+        )
+    if not ok:
+        ui.message("Preflight failed", lines, footer="Press any key to exit")
+        return 2
+    key = ui.message(
+        "Browneye Linux 13.1 - Installer"
+        + (" (simulation)" if getattr(probe, "simulated", False) else ""),
+        lines,
+        footer="Enter continue   q quit",
+    )
+    if key in (ord("q"), 27):
+        return 0
+
+    while True:
+        mode = _install_mode(ui, getattr(probe, "simulated", False))
+        if mode is None:
+            return 0
+        if mode == "guided":
+            result = _guided_layout_flow(ui, probe, args)
+        else:
+            advanced = _advanced_layout_flow(ui, probe, args)
+            result = (*advanced, False) if advanced is not None else None
+        if result is None:
+            continue
+        config, plan, probed_used, guided = result
+        if not _account_and_packages(ui, config):
+            continue
+        write_probe_snapshot(probe, probed_used, logger)
+        outcome = _confirm_and_install(
+            ui,
+            config,
+            plan,
+            probe,
+            logger,
+            runner,
+            args,
+            guided=guided,
+        )
+        if outcome is not None:
+            return outcome
 
 
 def run_curses(

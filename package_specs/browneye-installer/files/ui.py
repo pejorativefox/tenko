@@ -3,17 +3,19 @@
 The toolkit is intentionally limited: menus, text, forms, a typed
 confirmation, and a progress/log pane.  It uses only the Python standard
 library and works on a VGA console (``TERM=linux``), serial/vt100 and
-xterm-like terminals.  The installer never depends on mouse input or colour.
+xterm-like terminals.  The installer never depends on mouse input; colour
+is an optional enhancement (``NO_COLOR`` disables it).
 """
 
 from __future__ import annotations
 
 import curses
+import os
 import textwrap
 import time
 from collections import deque
-from dataclasses import dataclass, field
-from typing import Iterable, Sequence
+from dataclasses import dataclass
+from typing import Callable, Sequence
 
 MIN_ROWS = 24
 MIN_COLS = 80
@@ -54,6 +56,37 @@ class CursesUI:
             curses.use_default_colors()
         except curses.error:
             pass
+        self.colors = self._init_colors()
+
+    def _init_colors(self) -> dict[str, int]:
+        """Set up optional colour pairs; every screen still works in mono."""
+
+        if os.environ.get("NO_COLOR") is not None:
+            return {}
+        try:
+            if not curses.has_colors():
+                return {}
+            curses.start_color()
+        except curses.error:
+            return {}
+        pairs = {
+            "header": (curses.COLOR_WHITE, curses.COLOR_BLUE),
+            "selected": (curses.COLOR_BLACK, curses.COLOR_CYAN),
+            "ok": (curses.COLOR_GREEN, -1),
+            "warning": (curses.COLOR_YELLOW, -1),
+            "error": (curses.COLOR_RED, -1),
+            "accent": (curses.COLOR_CYAN, -1),
+        }
+        result: dict[str, int] = {}
+        for index, (name, (foreground, background)) in enumerate(
+            pairs.items(), 1
+        ):
+            try:
+                curses.init_pair(index, foreground, background)
+            except curses.error:
+                continue
+            result[name] = curses.color_pair(index)
+        return result
 
     # ------------------------------------------------------------------
     # Drawing helpers
@@ -92,16 +125,19 @@ class CursesUI:
 
     def _frame(self, title: str, subtitle: str = "", footer: str = "") -> None:
         self.screen.erase()
-        self._safe_add(0, 0, " " * (self.cols - 1), curses.A_REVERSE)
-        self._safe_add(0, 2, title[: self.cols - 4], curses.A_REVERSE | curses.A_BOLD)
+        header = self.colors.get("header", curses.A_REVERSE)
+        self._safe_add(0, 0, " " * (self.cols - 1), header)
+        self._safe_add(
+            0, 2, title[: self.cols - 4], header | curses.A_BOLD
+        )
         if subtitle:
             self._safe_add(1, 2, subtitle[: self.cols - 4], curses.A_BOLD)
         if footer:
             self._safe_add(
-                self.rows - 1, 0, " " * (self.cols - 1), curses.A_REVERSE
+                self.rows - 1, 0, " " * (self.cols - 1), header
             )
             self._safe_add(
-                self.rows - 1, 2, footer[: self.cols - 4], curses.A_REVERSE
+                self.rows - 1, 2, footer[: self.cols - 4], header
             )
 
     def _wait(self) -> int:
@@ -119,15 +155,26 @@ class CursesUI:
         footer: str = "Up/Down move   Enter select   r rescan   q quit",
         allow_rescan: bool = True,
         allow_back: bool = False,
+        detail: Callable[[int], Sequence[str]] | None = None,
+        detail_height: int = 0,
     ) -> int:
         index = next((i for i, row in enumerate(rows) if row.enabled), 0)
         offset = 0
+        wanted_detail = detail_height
         while True:
             if not self._ensure_size():
                 return QUIT
             self._frame(title, subtitle, footer)
             body_top = 3
-            body_height = max(1, self.rows - body_top - 2)
+            if detail is not None and wanted_detail > 0:
+                detail_height = min(
+                    wanted_detail, max(0, self.rows - body_top - 4)
+                )
+                detail_top = self.rows - 2 - detail_height
+                body_height = max(1, detail_top - 1 - body_top)
+            else:
+                detail_top = 0
+                body_height = max(1, self.rows - body_top - 2)
             if index < offset:
                 offset = index
             if index >= offset + body_height:
@@ -141,12 +188,36 @@ class CursesUI:
                 text = "{} {} {}".format(marker, row.marker, row.text)
                 if row.note:
                     text += "  " + row.note
-                attr = curses.A_BOLD if row_index == index else 0
+                attr = (
+                    self.colors.get("selected", curses.A_BOLD)
+                    if row_index == index
+                    else 0
+                )
+                if row_index == index and "selected" not in self.colors:
+                    attr |= curses.A_BOLD
                 if not row.enabled:
                     attr |= curses.A_DIM
                 self._safe_add(y, 2, text[: self.cols - 4], attr)
             if not rows:
                 self._safe_add(body_top, 2, "(nothing found)")
+            if detail is not None and detail_height > 0:
+                self._safe_add(
+                    detail_top - 1,
+                    2,
+                    "-" * (self.cols - 4),
+                    curses.A_DIM,
+                )
+                lines = list(detail(min(index, max(0, len(rows) - 1))))
+                detail_attr = self.colors.get("accent", curses.A_BOLD)
+                for line_no, line in enumerate(
+                    lines[:detail_height]
+                ):
+                    self._safe_add(
+                        detail_top + line_no,
+                        2,
+                        line[: self.cols - 4],
+                        detail_attr,
+                    )
             self.screen.refresh()
             key = self._wait()
             if key in (ord("q"), 27) and not allow_back:

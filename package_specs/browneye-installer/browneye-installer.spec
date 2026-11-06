@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    22
+Release:    23
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -24,13 +24,15 @@ Requires:   systemd
 %description
 A Python 3 / ncurses installer for Browneye Linux 13.1.
 
-It is UEFI-only and GPT-only.  A multi-disk layout editor creates and
-deletes partitions on any number of GPT disks, assigns mount points (for
-example /home on a second disk), and adopts existing partitions without
-formatting them.  One root and one ESP are required; any number of data
-partitions can be mounted at absolute paths.  Filesystems are ext4, btrfs,
-vfat and swap.  The ESP is mounted at /boot and carries systemd-boot, the
-kernel and the initramfs.  The target is browneye-base + xfce-desktop +
+It is UEFI-only and GPT-only.  The default guided install erases one disk
+(or uses its free space), creates a 1 GiB ESP and a root filesystem with a
+swapfile, and optionally uses btrfs.  The advanced multi-disk layout editor
+creates and deletes partitions on any number of GPT disks, assigns mount
+points (for example /home on a second disk), and adopts existing partitions
+without formatting them.  One root and one ESP are required; any number of
+data partitions can be mounted at absolute paths.  Filesystems are ext4,
+btrfs, vfat and swap.  The ESP is mounted at /boot and carries systemd-boot,
+the kernel and the initramfs.  The target is browneye-base + xfce-desktop +
 kernel/modules + dracut/efibootmgr/dosfstools/btrfs-progs/dnf, installed
 with dnf --installroot after browneye-basefs.
 
@@ -87,6 +89,24 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-23
+- Add a guided install path: choose one disk, erase it or use its free
+  space, pick ext4/btrfs and swapfile/swap-partition/no-swap, then review
+  and install.  The advanced multi-disk editor remains available.
+- Add plan_erase_disk() and plan_free_space() to the pure layout planner.
+- Make the advanced partition editor act on the selected row: Enter opens
+  assign/edit, delete and keep actions, and the assign/delete menus no
+  longer require typing a partition number.
+- Accept GiB sizes in the new-partition form (20, 20G, 20GiB, 512M) and
+  keep form input after validation errors.
+- Default to a 2 GiB swapfile instead of a swap partition; add swap_mode /
+  swap_mib to InstallConfig and the answer file.  A swap partition is still
+  accepted (and is required for the partition mode).
+- Add a proportional disk map to the disk picker, guided method screen and
+  layout editor, with ESP/Windows/Linux/free labels.
+- Add optional colour to the ncurses UI; NO_COLOR keeps the mono output.
+- Fix the root-disk wording and make selection order explicit.
+
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-22
 - Do not offer floppy (fd*), optical (sr*), loop, ram and zram devices as
   installation targets, and reject disks smaller than 1 GiB.  A QEMU boot

@@ -39,12 +39,13 @@ sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync
 
 ### 4. Install
 
-Boot the stick and follow the installer.  It opens a multi-disk layout
-editor: create and delete partitions, assign mount points, and optionally put
-a data filesystem such as `/home` on a second disk.  The default root layout
-is a 1 GiB ESP, 2 GiB swap and the rest for `/` (ext4 or btrfs).  It then asks
-for the package set (`desktop` installs XFCE) and an admin account.
-Installation is performed entirely from the network repository.
+Boot the stick and follow the installer.  The recommended path is the guided
+install: choose one disk, erase it or use its free space, pick ext4 or btrfs,
+and the installer creates a 1 GiB ESP, a 2 GiB swapfile and the rest for `/`.
+The advanced path opens a multi-disk layout editor for custom partition
+layouts, adopting existing partitions, or putting `/home` on a second disk.
+Both paths then ask for the package set (`desktop` installs XFCE) and an admin
+account.  Installation is performed entirely from the network repository.
 
 Requirements: x86_64 UEFI machine, a network connection during install, and
 roughly 20 GiB of disk.

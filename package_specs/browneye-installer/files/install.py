@@ -73,6 +73,8 @@ _TOP_KEYS = {
     "hostname",
     "admin",
     "confirm",
+    "swap_mode",
+    "swap_mib",
 }
 
 
@@ -108,6 +110,8 @@ class InstallConfig:
     repo: str = DEFAULT_REPO
     target: str = "/mnt/browneye"
     dry_run: bool = False
+    swap_mode: str = "partition"
+    swap_mib: int = 2048
     warnings: list[str] = field(default_factory=list)
 
     @property
@@ -154,6 +158,18 @@ class InstallConfig:
             issues.append("hostname is not a valid DNS label")
         if self.package_set not in PACKAGE_SETS:
             issues.append("package_set must be 'desktop' or 'base'")
+        if self.swap_mode not in ("partition", "swapfile", "none"):
+            issues.append("swap_mode must be 'partition', 'swapfile' or 'none'")
+        elif self.swap_mode != "none" and self.swap_mib <= 0:
+            issues.append("swap_mib must be positive")
+        if self.swap_mode == "swapfile" and any(
+            part.role == "swap"
+            for item in self.layout.disks
+            for part in item.partitions
+        ):
+            issues.append(
+                "swap_mode 'swapfile' cannot be combined with a swap partition"
+            )
         if "://" not in self.repo and not os.path.isabs(self.repo):
             issues.append("repo must be an http(s)/ftp URL or an absolute path")
         if not os.path.isabs(self.target):
@@ -170,6 +186,8 @@ class InstallConfig:
             "repo": self.repo,
             "target": self.target,
             "dry_run": self.dry_run,
+            "swap_mode": self.swap_mode,
+            "swap_mib": self.swap_mib,
             "warnings": list(self.warnings),
         }
 
@@ -216,6 +234,10 @@ class InstallConfig:
             raise ConfigError(
                 "unknown confirm keys: " + ", ".join(sorted(unknown_confirm))
             )
+        swap_mode = str(data.get("swap_mode", "partition"))
+        swap_mib = data.get("swap_mib", 2048)
+        if isinstance(swap_mib, bool) or not isinstance(swap_mib, int):
+            raise ConfigError("swap_mib must be an integer")
         config = cls(
             layout=spec,
             package_set=str(data.get("package_set", "desktop")),
@@ -227,6 +249,8 @@ class InstallConfig:
             repo=repo,
             target=target,
             dry_run=dry_run or bool(data.get("dry_run", False)),
+            swap_mode=swap_mode,
+            swap_mib=swap_mib,
         )
         return config
 
@@ -262,6 +286,7 @@ class Installer:
         self.esp_mounted = False
         self.bind_mounted = False
         self.swap_on: list[disk.PlannedPartition] = []
+        self.swapfile_path: str | None = None
         self.destructive_started = False
         self.backup_dir = "/run/browneye/backup"
         self.dnf_cache = "/run/browneye/dnf-cache"
@@ -523,6 +548,54 @@ class Installer:
                     ),
                 )
 
+    def _create_swapfile(self) -> None:
+        """Create and enable /swapfile after the root filesystem is mounted."""
+
+        path = os.path.join(self.target, "swapfile")
+        root = self.layout.root
+        if root is not None and root.fstype == "btrfs":
+            # A btrfs swapfile must not be COW.  chattr +C only affects
+            # newly written data, so set it on the empty file first.
+            self.runner.run(
+                ("touch", path),
+                step="mount",
+                description="create the empty swapfile",
+            )
+            self.runner.run(
+                ("chattr", "+C", path),
+                step="mount",
+                description="disable copy-on-write for the btrfs swapfile",
+                allow_failure=True,
+            )
+        self.runner.run(
+            (
+                "fallocate",
+                "-l",
+                "{}M".format(self.config.swap_mib),
+                path,
+            ),
+            step="mount",
+            description="allocate the {} MiB swapfile".format(
+                self.config.swap_mib
+            ),
+        )
+        self.runner.run(
+            ("chmod", "600", path),
+            step="mount",
+            description="restrict the swapfile",
+        )
+        self.runner.run(
+            ("mkswap", "-L", "browneye-swap", path),
+            step="mount",
+            description="create the swap signature",
+        )
+        self.runner.run(
+            ("swapon", path),
+            step="mount",
+            description="enable the swapfile",
+        )
+        self.swapfile_path = path
+
     def step_mount(self) -> None:
         root = self.layout.root
         esp = self.layout.esp
@@ -587,6 +660,8 @@ class Installer:
                 description="enable swap on partition {}".format(part.number),
             )
             self.swap_on.append(part)
+        if self.config.swap_mode == "swapfile":
+            self._create_swapfile()
         for name in ("dev", "proc", "sys", "run"):
             self.runner.makedirs(os.path.join(self.target, name), step="mount")
         for name in ("dev", "proc", "sys", "run"):
@@ -808,6 +883,8 @@ class Installer:
             lines.append(self._fstab_entry(part))
         for part in self.layout.swaps:
             lines.append(self._fstab_entry(part))
+        if self.config.swap_mode == "swapfile":
+            lines.append("/swapfile none swap sw 0 0")
         lines.append("tmpfs /tmp tmpfs defaults 0 0")
         text = "\n".join(lines) + "\n"
         self.runner.write_file(
@@ -1272,6 +1349,15 @@ class Installer:
             )
 
     def _cleanup_mounts(self, *, required: bool = False) -> None:
+        swapfile = self.swapfile_path
+        self.swapfile_path = None
+        if swapfile:
+            self.runner.run(
+                ("swapoff", swapfile),
+                step="finish",
+                description="disable the swapfile",
+                allow_failure=True,
+            )
         swap_on = list(self.swap_on)
         self.swap_on = []
         for part in swap_on:

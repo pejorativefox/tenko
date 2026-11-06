@@ -408,6 +408,82 @@ class SpecMappingTest(unittest.TestCase):
             )
 
 
+class GuidedLayoutTest(unittest.TestCase):
+    def test_erase_disk_deletes_every_existing_entry(self):
+        table = windows_table()
+        spec = layout.plan_erase_disk(table, fstype="ext4", swap="none")
+        self.assertEqual(spec.delete_partitions, (1, 2, 3))
+        self.assertEqual(
+            [(part.role, part.mountpoint) for part in spec.partitions],
+            [("esp", "/boot"), ("root", "/")],
+        )
+        plan = layout.plan_disk(table, spec, disk_path="/dev/vda")
+        self.assertEqual(layout.validate_layout(
+            layout.InstallLayout((plan,))
+        ), [])
+        self.assertFalse(plan.esp.existing)
+        self.assertEqual(plan.esp.number, 1)
+        self.assertEqual(plan.root.number, 2)
+        self.assertGreater(
+            (plan.root.size * plan.unit) // MIB, 15 * 1024
+        )
+
+    def test_erase_disk_can_keep_a_swap_partition(self):
+        table = blank_table()
+        spec = layout.plan_erase_disk(table, fstype="btrfs", swap="partition")
+        self.assertEqual(
+            [part.role for part in spec.partitions],
+            ["esp", "swap", "root"],
+        )
+        plan = layout.plan_disk(table, spec, disk_path="/dev/vda")
+        self.assertEqual(plan.root.fstype, "btrfs")
+        self.assertEqual((plan.swap.size * plan.unit) // MIB, 2048)
+
+    def test_free_space_reuses_the_existing_esp_and_keeps_data(self):
+        table = windows_table()
+        spec = layout.plan_free_space(table, fstype="ext4", swap="none")
+        self.assertEqual(spec.delete_partitions, ())
+        self.assertEqual(
+            [part.role for part in spec.partitions], ["esp", "root"]
+        )
+        self.assertEqual(spec.partitions[0].existing_number, 1)
+        self.assertFalse(spec.partitions[0].format)
+        plan = layout.plan_disk(table, spec, disk_path="/dev/vda")
+        self.assertTrue(plan.esp.existing)
+        self.assertFalse(plan.root.existing)
+        self.assertGreaterEqual(plan.root.start, table.partitions[-1].end)
+        self.assertEqual(layout.validate_layout(
+            layout.InstallLayout((plan,))
+        ), [])
+        self.assertEqual(plan.delete_numbers, ())
+        self.assertEqual(
+            {part.number for part in plan.table.partitions}, {1, 2, 3}
+        )
+
+    def test_free_space_on_a_blank_disk_creates_an_esp(self):
+        table = blank_table()
+        spec = layout.plan_free_space(table, fstype="ext4", swap="none")
+        self.assertEqual(
+            [part.role for part in spec.partitions], ["esp", "root"]
+        )
+        self.assertIsNone(spec.partitions[0].existing_number)
+        plan = layout.plan_disk(table, spec, disk_path="/dev/vda")
+        self.assertEqual(layout.validate_layout(
+            layout.InstallLayout((plan,))
+        ), [])
+
+    def test_free_space_without_enough_room_is_refused(self):
+        table = windows_table()
+        last = table.partitions[-1]
+        filled = dataclasses.replace(last, size=table.lastlba - last.start)
+        table = dataclasses.replace(
+            table,
+            partitions=(table.partitions[0], table.partitions[1], filled),
+        )
+        with self.assertRaises(PlanError):
+            layout.plan_free_space(table, fstype="ext4", swap="none")
+
+
 class ValidateLayoutTest(unittest.TestCase):
     def _plan(self):
         table = blank_table()

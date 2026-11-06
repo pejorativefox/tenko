@@ -132,6 +132,53 @@ class DryRunPipelineTest(unittest.TestCase):
             self.assertIn('"event": "install-complete"', log_text)
             self.assertNotIn("super-secret", log_text)
 
+    def test_swapfile_is_created_without_a_swap_partition(self):
+        with tempfile.TemporaryDirectory() as temp:
+            spec = layout.InstallSpec(
+                disks=(
+                    layout.DiskSpec(
+                        path="/dev/vda",
+                        partitions=(
+                            layout.PartitionSpec(
+                                "esp", "vfat", "/boot", size_mib=1024
+                            ),
+                            layout.PartitionSpec("root", "ext4", "/"),
+                        ),
+                    ),
+                )
+            )
+            plan = layout.plan_install(_tables(), spec)
+            self.assertEqual(plan.swaps, ())
+
+            plan_path = pathlib.Path(temp) / "plan.sh"
+            logger = Logger(str(pathlib.Path(temp) / "install.jsonl"))
+            self.addCleanup(logger.close)
+            runner = CommandRunner(
+                logger, dry_run=True, plan_path=str(plan_path)
+            )
+            config = InstallConfig(
+                layout=spec,
+                admin_password="secret",
+                confirm_disk="/dev/vda",
+                confirm_phrase="ERASE",
+                dry_run=True,
+                swap_mode="swapfile",
+                swap_mib=1024,
+            )
+            self.assertEqual(config.validate(), [])
+            Installer(config, runner, logger, FakeProbe(plan), plan).run()
+
+            text = plan_path.read_text(encoding="utf-8")
+            self.assertIn(
+                "fallocate -l 1024M /mnt/browneye/swapfile", text
+            )
+            self.assertIn(
+                "mkswap -L browneye-swap /mnt/browneye/swapfile", text
+            )
+            self.assertIn("swapon /mnt/browneye/swapfile", text)
+            self.assertIn("/swapfile none swap sw 0 0", text)
+            self.assertNotIn("mkswap -L browneye-swap -U", text)
+
 
 if __name__ == "__main__":
     unittest.main()

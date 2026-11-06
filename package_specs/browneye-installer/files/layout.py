@@ -916,6 +916,137 @@ def plan_disk(
     )
 
 
+def find_existing_esp(
+    table: disk.PartitionTable,
+) -> disk.Partition | None:
+    """Return the table's EFI System Partition, if it has one."""
+
+    for part in table.partitions:
+        if (part.type or "").upper() == disk.ESP_TYPE:
+            return part
+    return None
+
+
+def free_regions(table: disk.PartitionTable) -> tuple[disk.Region, ...]:
+    """Return the usable free regions of one table, in table order."""
+
+    unit = table.unit or 512
+    return tuple(
+        disk.find_free_regions(
+            table,
+            total_sectors=table.total_sectors,
+            unit=unit,
+            align=max(1, MIB // unit),
+        )
+    )
+
+
+def plan_erase_disk(
+    table: disk.PartitionTable,
+    *,
+    fstype: str = "ext4",
+    swap: str = "partition",
+    swap_mib: int = SWAP_MIB,
+    esp_mib: int = ESP_MIB,
+) -> DiskSpec:
+    """Describe a guided "erase the whole disk" layout.
+
+    The returned spec deletes every existing entry explicitly, so the normal
+    planner and its preservation checks still apply.  ``swap`` is ``none`` or
+    ``partition``; a swapfile is an install-time option and creates no
+    partition.
+    """
+
+    if fstype not in ("ext4", "btrfs"):
+        raise ValueError("guided root filesystem must be ext4 or btrfs")
+    if swap not in ("none", "partition"):
+        raise ValueError("guided swap mode must be 'none' or 'partition'")
+    if not table.device:
+        raise PlanError("cannot plan a disk without a device path")
+
+    partitions: list[PartitionSpec] = [
+        PartitionSpec("esp", "vfat", "/boot", size_mib=esp_mib)
+    ]
+    if swap == "partition":
+        partitions.append(
+            PartitionSpec("swap", "swap", None, size_mib=swap_mib)
+        )
+    partitions.append(PartitionSpec("root", fstype, "/"))
+
+    return DiskSpec(
+        path=table.device,
+        delete_partitions=tuple(
+            sorted(part.number for part in table.partitions)
+        ),
+        partitions=tuple(partitions),
+    )
+
+
+def plan_free_space(
+    table: disk.PartitionTable,
+    *,
+    fstype: str = "ext4",
+    swap: str = "partition",
+    swap_mib: int = SWAP_MIB,
+    esp_mib: int = ESP_MIB,
+    root_min_mib: int = ROOT_MIN_MIB,
+) -> DiskSpec:
+    """Describe a guided "install into the existing free space" layout.
+
+    No existing partition is deleted.  An existing ESP is adopted without
+    formatting; otherwise a new one is created in the selected free region.
+    The root partition fills the remaining space of the largest suitable
+    region.
+    """
+
+    if fstype not in ("ext4", "btrfs"):
+        raise ValueError("guided root filesystem must be ext4 or btrfs")
+    if swap not in ("none", "partition"):
+        raise ValueError("guided swap mode must be 'none' or 'partition'")
+    if not table.device:
+        raise PlanError("cannot plan a disk without a device path")
+
+    esp = find_existing_esp(table)
+    required = root_min_mib
+    if esp is None:
+        required += esp_mib
+    if swap == "partition":
+        required += swap_mib
+
+    regions = free_regions(table)
+    if not any(region.size_mib >= required for region in regions):
+        raise PlanError(
+            "{} has no free region large enough for a guided install "
+            "({} MiB needed)".format(table.device, required)
+        )
+
+    partitions: list[PartitionSpec] = []
+    if esp is not None:
+        partitions.append(
+            PartitionSpec(
+                "esp",
+                "vfat",
+                "/boot",
+                existing_number=esp.number,
+                format=False,
+            )
+        )
+    else:
+        partitions.append(
+            PartitionSpec("esp", "vfat", "/boot", size_mib=esp_mib)
+        )
+    if swap == "partition":
+        partitions.append(
+            PartitionSpec("swap", "swap", None, size_mib=swap_mib)
+        )
+    partitions.append(PartitionSpec("root", fstype, "/"))
+
+    return DiskSpec(
+        path=table.device,
+        partitions=tuple(partitions),
+    )
+
+
 def plan_install(
     tables: dict[str, disk.PartitionTable],
     spec: InstallSpec,

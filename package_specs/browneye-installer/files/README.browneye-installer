@@ -2,10 +2,14 @@ Browneye Linux installer
 =======================
 
 browneye-installer is a Python 3 / ncurses installer for Browneye Linux
-13.1.  It is UEFI-only and GPT-only.  It can install across several GPT
-disks: on each selected disk you can delete partitions, create new ones,
-and assign mount points to new or existing partitions.  Existing entries
-are preserved unless you mark them for deletion.
+13.1.  It is UEFI-only and GPT-only.
+
+The default path is a guided install: choose one disk, erase it or use its
+free space, pick ext4 or btrfs, and the installer creates a working desktop
+with a swapfile.  The advanced path is a multi-disk layout editor: on each
+selected disk you can delete partitions, create new ones, and assign mount
+points to new or existing partitions.  Existing entries are preserved unless
+you mark them for deletion.
 
 The application and its tests use the Python standard library only.  The
 live image needs the packages listed by the browneye-live meta-package.
@@ -42,6 +46,33 @@ The kernel command line can supply:
   browneye.console=serial            same as --plain
   browneye.dry_run=1                 same as --dry-run
 
+Guided install
+--------------
+
+After the preflight screen the installer offers two paths:
+
+  Install Browneye Linux 13.1 (recommended)
+  Advanced installation
+
+The guided path asks for:
+
+  1. the target disk (one disk; other disks are not touched)
+  2. erase the disk or use its existing free space
+  3. ext4 or btrfs, and swapfile / swap partition / no swap
+  4. the account, hostname and package set
+
+It then shows a review page with every deletion and creation and installs
+after one confirmation.  A guided erase marks every existing partition on
+the selected disk for deletion; the review page lists them.  "Use the free
+space" never deletes an existing partition and adopts an existing ESP
+without formatting it.
+
+The advanced path keeps the full multi-disk editor.  Selecting a partition
+row now opens that partition's actions directly (assign/edit, delete, keep);
+there is no need to type a partition number.  Sizes in the new-partition
+form are entered in GiB (a bare number is GiB; `512M`, `20G` and `20GiB` are
+also accepted).
+
 Answer file
 -----------
 
@@ -74,6 +105,13 @@ example is:
     "admin": {"username": "admin", "password": "change-me"},
     "confirm": {"disk": "/dev/vda", "phrase": "ERASE"}
   }
+
+Optional top-level keys are `swap_mode` (`partition`, `swapfile` or `none`,
+default `partition`) and `swap_mib` (default 2048).  A `swapfile` layout
+must not contain a swap partition:
+
+  "swap_mode": "swapfile",
+  "swap_mib": 2048
 
 ``size_mib`` may be omitted to fill the remaining free region.  A partition
 that is mounted at an arbitrary absolute path has role ``data``; this is
@@ -124,7 +162,9 @@ Layout policy
     Otherwise a 1 GiB FAT32 ESP is created.
   * Root is ext4 or btrfs, at least 8 GiB when newly created, and fills the
     remaining region unless a size is given.
-  * Swap is optional.
+  * Swap is optional.  The guided install defaults to a 2 GiB swapfile on
+    the root filesystem; the advanced default is also a swapfile.  A swap
+    partition can still be requested for hibernation.
   * Data partitions can use ext4, btrfs or vfat and may be mounted at any
     absolute path except the system-owned /boot, /proc, /sys, /dev, /run
     and /tmp trees.  /home on a second disk is the common case.
@@ -144,7 +184,9 @@ Safety features
   * After writing, every untouched partition is compared by number, start,
     size, type, partition UUID, name and attributes.  A mismatch restores
     the saved table automatically before the first mkfs.
-  * The confirmation screen requires the disk path and the word ERASE.
+  * A plan that deletes existing partitions, or a custom layout, requires
+    typing the root disk path and the word ERASE.  A guided plan that only
+    creates partitions uses the review screen and a single confirmation.
   * --dry-run executes only read-only probes and writes plan.sh; no
     mutating command and no target file write is performed.
 
@@ -157,7 +199,8 @@ Install flow
   2. mkfs.fat, mke2fs/ext4, mkfs.btrfs or mkswap for every partition that
      needs a filesystem; blkid verifies the type and UUID
   3. mount root, the ESP at /boot, every data partition at its mount point,
-     enable swap, bind /dev /proc /sys /run, efivarfs
+     create and enable a swapfile when selected, enable swap partitions,
+     bind /dev /proc /sys /run, efivarfs
   4. dnf --installroot: browneye-basefs in its own first transaction
   5. dnf --installroot: browneye-base + xfce-desktop + kernel/modules +
      dracut + efibootmgr + dosfstools + btrfs-progs + sudo + dnf
