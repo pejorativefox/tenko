@@ -2,7 +2,7 @@
 # Boot the prepared XFCE/lightdm test image interactively.
 #
 # The image boots to the LightDM greeter (the real first-boot flow).  Images
-# built by qemu_boot_login.sh have root set to TEST_PASSWORD (browneye1); a
+# built by qemu_boot_login.sh have root set to TEST_PASSWORD (tenko1); a
 # freshly built image prompts for a new root password on tty1 first.
 # Choose how to see it:
 #
@@ -13,7 +13,7 @@
 #
 # VNC:   connect to 127.0.0.1:5901 (display :1)
 # Serial: socat -,raw,echo=0 UNIX-CONNECT:build/xfce-serial.sock
-#         (log in as root; test images use root/browneye1)
+#         (log in as root; test images use root/tenko1)
 # Stop:  Ctrl-C
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -123,7 +123,7 @@ if [ "${USE_INITRD:-1}" = 1 ] && [ -f "$ROOTFS/boot/initramfs-$KVER.img" ]; then
 fi
 
 cat <<EOF
-Browneye XFCE test boot
+Tenko XFCE test boot
   image:   $IMG (snapshot=$SNAPSHOT)
   login:   root / root (tty1 is occupied by the X session)
   display: $DISPLAY_MODE${DISPLAY_MODE:+ }

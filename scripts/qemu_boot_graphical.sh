@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Boot a graphical XFCE session in QEMU and capture a screenshot.
 #
-# Installs browneye-base + xfce-desktop from the single repo into
+# Installs tenko-base + xfce-desktop from the single repo into
 # build/rootfs-desktop, starts X on
 # tty1 through a one-shot systemd unit, and uses the QEMU monitor to take a
 # screendump of the VGA output.
@@ -13,7 +13,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 KVER=${KVER:-7.3.1}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-desktop}
-REPO=${REPO:-https://repo.pjfox.xyz/packages/13.1/}
+REPO=${REPO:-https://repo.pjfox.xyz/tenko/packages/13.1/}
 case "$REPO" in
     http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
     *) REPOPATH="file://$REPO" ;;
@@ -43,7 +43,7 @@ if [ "$SKIP_INSTALL" != "1" ]; then
         --installroot "$ROOTFS" --releasever=13.1 \
         --disablerepo='*' --repofrompath=desktop,$REPOPATH \
         --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
-        install browneye-base xfce-desktop linux-kernel linux-modules \
+        install tenko-base xfce-desktop linux-kernel linux-modules \
         ${EXTRA_PACKAGES}
 
     if [ -x "$ROOTFS/usr/bin/systemd-sysusers" ]; then

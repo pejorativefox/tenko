@@ -49,8 +49,8 @@ class FetchSourcesTest(unittest.TestCase):
 
     def test_download_and_cached(self):
         source = os.path.join(self.tmp.name, "source-file")
-        pathlib.Path(source).write_bytes(b"hello browneye\n")
-        md5 = hashlib.md5(b"hello browneye\n").hexdigest()
+        pathlib.Path(source).write_bytes(b"hello tenko\n")
+        md5 = hashlib.md5(b"hello tenko\n").hexdigest()
         item = [md5, pathlib.Path(source).as_uri(), "cached.tar.gz"]
         self.assertTrue(sources._fetch_one(item))
         target = os.path.join(self.tmp.name, "cached.tar.gz")

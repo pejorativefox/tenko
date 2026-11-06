@@ -14,7 +14,7 @@
     ]
   },
   "package_set": "desktop",
-  "hostname": "browneye-test",
+  "hostname": "tenko-test",
   "admin": {"username": "admin", "password": "test-only"},
   "confirm": {"disk": "/dev/vda", "phrase": "ERASE"}
 }

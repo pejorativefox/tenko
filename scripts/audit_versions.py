@@ -195,9 +195,9 @@ def main():
             for alias in {
                 "linux-api-headers": "linux",
                 "glibc-locales": "glibc",
-                "browneye-base": "",
-                "browneye-sysconfig": "",
-                "browneye-desktop-config": "",
+                "tenko-base": "",
+                "tenko-sysconfig": "",
+                "tenko-desktop-config": "",
                 "xfce-desktop": "",
             }.get(name, "").split():
                 hit = book.get(norm(alias))

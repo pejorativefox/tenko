@@ -9,7 +9,7 @@ cp ./iso/core.repo $ROOT/etc/yum.repos.d/
 cp /etc/resolv.conf $ROOT/etc/
 
 dnf-3 --installroot $ROOT --releasever=1 -y -x busybox install \
-        browneye-release browneye-sysconfig dnf dnf-plugins-core make-ca
+        tenko-release tenko-sysconfig dnf dnf-plugins-core make-ca
 #./scripts/chroot.sh $ROOT "ln -s /etc/finit.d/available/networkmanager.conf /etc/finit.d/"
 
 ./scripts/chroot.sh $ROOT "/bin/dnf-3 -y install \
@@ -18,7 +18,7 @@ dnf-3 --installroot $ROOT --releasever=1 -y -x busybox install \
 	tar gzip gcc binutils findutils"
 
 pushd $ROOT
-tar cf ../browneye-rootfs.tar *
+tar cf ../tenko-rootfs.tar *
 popd
 
-gzip build/browneye-rootfs.tar
+gzip build/tenko-rootfs.tar

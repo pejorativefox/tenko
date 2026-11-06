@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publish one or more already-built RPMs to the Browneye repository without
+# Publish one or more already-built RPMs to the Tenko repository without
 # mirroring the whole repository first.
 #
 # The published repodata is the source of truth: this script downloads only
@@ -26,14 +26,14 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 VERSION=${VERSION:-13.1}
-# Cloudflare R2 (S3) target for the public tree; the LAN mirror stays on rsync.
+# Cloudflare R2 (S3) target; the bucket stays r2:browneye during the rename.
 R2=${R2:-r2:browneye}
-R2_PATH=${R2_PATH:-packages/$VERSION}
+R2_PATH=${R2_PATH:-tenko/packages/$VERSION}
 # LAN mirror (also refreshed by publish_repo.sh); set MIRROR=0 to skip.
 MIRROR=${MIRROR:-daspork@192.168.31.9}
-MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/browneye}
-URL=${URL:-https://repo.pjfox.xyz/packages/$VERSION/}
-REPO_ID=browneye-$VERSION
+MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/tenko}
+URL=${URL:-https://repo.pjfox.xyz/tenko/packages/$VERSION/}
+REPO_ID=tenko-$VERSION
 STAGE=${STAGE:-build/publish-rpm}
 PRUNE=${PRUNE:-0}
 DRY_RUN=${DRY_RUN:-0}

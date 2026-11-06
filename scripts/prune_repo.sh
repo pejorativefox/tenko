@@ -2,7 +2,7 @@
 # Keep only the newest version of each package in an RPM repository.
 #
 # Uses rpm's own version comparison (python3-rpm) instead of the optional
-# rpmdev-vercmp tool, which is not installed on the Browneye host.  The old
+# rpmdev-vercmp tool, which is not installed on the Tenko host.  The old
 # rpmdev fallback silently deleted every newer package when the tool was
 # missing.
 set -euo pipefail

@@ -32,7 +32,7 @@ for dev in null zero random urandom; do
 done
 
 echo "generating $OUT for kernel $KVER in $ROOTFS"
-# hostonly=no is also set in /etc/dracut.conf.d/10-browneye.conf; pass it
+# hostonly=no is also set in /etc/dracut.conf.d/10-tenko.conf; pass it
 # explicitly so staged rootfs images without the current sysconfig still get
 # a generic initramfs.  dracut warns about a missing /proc in the chroot but
 # does not need it for a non-hostonly image.

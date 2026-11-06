@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Build the X11 client utilities wave: 31 spec dirs updated to BLFS r13.1,
-# built inside Browneye base containers without network access.
+# built inside Tenko base containers without network access.
 #
-# Toolchain: localhost/browneye/build-htop:13.1 (browneye-base + gcc/rpm).
+# Toolchain: localhost/tenko/build-htop:13.1 (tenko-base + gcc/rpm).
 # Build dependencies (published X11 libs) are staged from the public repo in
 # ~/rpmbuild/SOURCES/x11deps and baked into a deps image that every worker
 # slot shares.  Tarballs are staged with scripts/sync_blfs_spec.py --stage
@@ -18,11 +18,12 @@
 #   FORCE=1 WORKERS=1 scripts/build_x11_utils.sh xev     # rebuild one
 set -uo pipefail
 cd "$(dirname "$0")/.."
+. scripts/repo_tools.sh
 
-IMG=${IMG:-localhost/browneye/build-htop:13.1}
+IMG=${IMG:-$(pick_image localhost/tenko/build-htop:13.1 localhost/browneye/build-htop:13.1)}
 OUT=${OUT:-$PWD/build/x11-wave/out}
-CTR=${CTR:-browneye-x11}
-DEPS_IMAGE=${DEPS_IMAGE:-localhost/browneye/x11-deps:latest}
+CTR=${CTR:-tenko-x11}
+DEPS_IMAGE=${DEPS_IMAGE:-$(pick_image localhost/tenko/x11-deps:latest localhost/browneye/x11-deps:latest)}
 JOBS=${JOBS:-8}
 WORKERS=${WORKERS:-1}
 FORCE=${FORCE:-0}

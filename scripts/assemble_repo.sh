@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Assemble the single Browneye repository: the base repo, every RPM produced
+# Assemble the single Tenko repository: the base repo, every RPM produced
 # by the BLFS/XFCE/desktop build runs, and every RPM staged by the package
 # split waves.  There is no separate desktop repository.
 #

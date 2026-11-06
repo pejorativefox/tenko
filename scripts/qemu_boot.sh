@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Boot the installed Browneye rootfs under QEMU.
+# Boot the installed Tenko rootfs under QEMU.
 #
 # Prerequisites:
-#   - build/rootfs exists and was installed with browneye-base
+#   - build/rootfs exists and was installed with tenko-base
 #   - kernel RPMs for $KVER are in ~/rpmbuild/RPMS/x86_64
 #
 # The script installs linux + linux-modules (and dracut/cpio) into the rootfs,
@@ -16,7 +16,7 @@ IMG="${IMG:-$PWD/build/rootfs.img}"
 LOG="${LOG:-$PWD/build/qemu-boot.log}"
 # Prefer the single base+desktop repo: the kernel now requires dracut, which
 # only exists in repo-all.  build/repo is the historical bootstrap repo.
-REPO="${REPO:-https://repo.pjfox.xyz/packages/13.1/}"
+REPO="${REPO:-https://repo.pjfox.xyz/tenko/packages/13.1/}"
 case "$REPO" in
     http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
     *) REPOPATH="file://$REPO" ;;
@@ -33,7 +33,7 @@ createrepo_c --quiet --update "$REPO"
 
 unshare -r dnf -y --nogpgcheck \
   --installroot "$ROOTFS" --releasever=13.1 \
-  --disablerepo='*' --repofrompath=browneye,$REPOPATH \
+  --disablerepo='*' --repofrompath=tenko,$REPOPATH \
   --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
   install linux-kernel linux-modules
 
@@ -48,7 +48,7 @@ if [ -x "$ROOTFS/usr/bin/systemctl" ]; then
     unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ preset-all || true
 fi
 
-# /etc/machine-id is shipped empty by browneye-sysconfig; systemd generates a
+# /etc/machine-id is shipped empty by tenko-sysconfig; systemd generates a
 # persistent id on first boot and commits it to the writable root filesystem.
 
 unshare -r chroot "$ROOTFS" /sbin/ldconfig || true

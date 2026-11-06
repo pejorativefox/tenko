@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the package index.html for the Browneye RPM repository.
+"""Render the package index.html for the Tenko RPM repository.
 
 Usage:
     gen_repo_index.py LISTING OUTPUT VERSION URL REPO_ID
@@ -22,7 +22,7 @@ PAGE = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Browneye Linux {version} — packages</title>
+<title>Tenko Linux {version} — packages</title>
 <style>
  body {{ margin:0; background:#faf7f2; color:#2a211a;
         font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }}
@@ -42,11 +42,11 @@ PAGE = """<!DOCTYPE html>
 </style>
 </head>
 <body><div class="wrap">
-<h1>Browneye Linux {version} — packages</h1>
+<h1>Tenko Linux {version} — packages</h1>
 <p><a href="../../">&larr; repository overview</a> · {count} RPMs ·
    <a href="{repo_id}.repo">{repo_id}.repo</a> ·
-   <a href="../../iso/browneye-installer.iso">installer ISO</a> ·
-   <a href="../../rootfs/browneye-rootfs.tar.gz">container rootfs</a></p>
+   <a href="../../iso/tenko-installer.iso">installer ISO</a> ·
+   <a href="../../rootfs/tenko-rootfs.tar.gz">container rootfs</a></p>
 <table>
   <thead><tr><th>Package</th><th>Size</th></tr></thead>
   <tbody>

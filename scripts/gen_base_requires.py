@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Regenerate the browneye-base Requires block from lfs.lock.
+"""Regenerate the tenko-base Requires block from lfs.lock.
 
 The base meta used to carry ~100 hand-written Requires lines that had to be
 updated by hand whenever the LFS base list or a version changed.  This script
 expands lfs.lock's chapter-8 package list (mapped through its aliases) plus
-the explicit extras in package_specs/browneye-base/requires-extra, and
+the explicit extras in package_specs/tenko-base/requires-extra, and
 rewrites the block between the GENERATED REQUIRES markers in the spec.
 
 Usage:
@@ -19,8 +19,8 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOCK = os.path.join(ROOT, "lfs.lock")
-SPEC = os.path.join(ROOT, "package_specs", "browneye-base", "browneye-base.spec")
-EXTRA = os.path.join(ROOT, "package_specs", "browneye-base", "requires-extra")
+SPEC = os.path.join(ROOT, "package_specs", "tenko-base", "tenko-base.spec")
+EXTRA = os.path.join(ROOT, "package_specs", "tenko-base", "requires-extra")
 
 BEGIN = "# BEGIN GENERATED REQUIRES"
 END = "# END GENERATED REQUIRES"
@@ -87,10 +87,10 @@ def main():
 
     if args.check:
         if new_text != text:
-            print("browneye-base requires are stale; run scripts/gen_base_requires.py",
+            print("tenko-base requires are stale; run scripts/gen_base_requires.py",
                   file=sys.stderr)
             sys.exit(1)
-        print("browneye-base requires are up to date (%d)" % len(requires()))
+        print("tenko-base requires are up to date (%d)" % len(requires()))
         return
 
     with open(SPEC, "w", encoding="utf-8") as handle:

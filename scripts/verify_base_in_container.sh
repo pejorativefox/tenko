@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
-# Rebuild the whole Browneye base package set inside the base container.
+# Rebuild the whole Tenko base package set inside the base container.
 #
 # This is the self-hosting check: the host only prepares the package list and
 # bind mounts specs/sources/output.  Every rpmbuild invocation, including the
 # compiler, make, Python, meson, systemd, and the RPM toolchain, runs inside
-# localhost/browneye/base:r13.1.
+# localhost/tenko/base:r13.1.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+. scripts/repo_tools.sh
 
-IMAGE=${IMAGE:-localhost/browneye/base:r13.1}
+IMAGE=${IMAGE:-$(pick_image localhost/tenko/base:r13.1 localhost/browneye/base:r13.1)}
 OUT=${OUT:-build/container-rebuild-$(date +%Y%m%d-%H%M%S)}
 JOBS=${JOBS:-4}
 MAKE_JOBS=${MAKE_JOBS:-4}
@@ -30,9 +31,9 @@ aliases = lock.get("aliases", {})
 with open("package_specs/ORDER", encoding="utf-8") as handle:
     names = [line.split("#", 1)[0].strip() for line in handle]
 names = [name for name in names if name]
-# browneye-base pulls these in, but ORDER does not list them.
+# tenko-base pulls these in, but ORDER does not list them.
 names += ["libbsd", "libmd", "libseccomp", "libunistring", "libtasn1",
-              "p11-kit", "make-ca", "browneye-base"]
+              "p11-kit", "make-ca", "tenko-base"]
 
 seen = set()
 rows = []

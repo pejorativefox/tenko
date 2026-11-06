@@ -24,7 +24,7 @@ from build import PackageBuilder
 
 
 def parse_args(argv=None):
-    parser = argparse.ArgumentParser(description="Browneye host build helper")
+    parser = argparse.ArgumentParser(description="Tenko host build helper")
     command_parsers = parser.add_subparsers(dest="command")
 
     build_parser = command_parsers.add_parser(

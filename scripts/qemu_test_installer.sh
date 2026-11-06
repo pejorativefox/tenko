@@ -6,7 +6,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-ISO=${ISO:-$PWD/build/browneye-installer.iso}
+ISO=${ISO:-$PWD/build/tenko-installer.iso}
 DISK=${DISK:-$PWD/build/installer-test.img}
 DISKSIZE=${DISKSIZE:-20G}
 SERIAL=${SERIAL:-$PWD/build/installer-serial.log}

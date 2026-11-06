@@ -255,7 +255,7 @@ def main():
         text = re.sub(r"^Version:\s*\S+", "Version:    " + bver, text, count=1, flags=re.M)
         if rel is not None:
             text = re.sub(r"^Release:\s*\S+", "Release:    1", text, count=1, flags=re.M)
-        entry = "* %s browneye <build@browneye.invalid> %s-1\n- Sync with %s r13.1\n\n" % (
+        entry = "* %s tenko <build@tenko.invalid> %s-1\n- Sync with %s r13.1\n\n" % (
             day, bver, src.upper())
         text = text.replace("%changelog\n", "%changelog\n" + entry, 1)
         open(spec, "w").write(text)

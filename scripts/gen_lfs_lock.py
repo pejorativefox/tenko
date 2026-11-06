@@ -7,7 +7,7 @@ with --release for the patch URLs) and extracts:
   * the package versions from packages.ent
   * the base package list from chapter08/chapter08.xml (systemd variant)
   * the patch list (file name, md5, size, download URL) from patches.ent
-  * the LFS <-> browneye spec aliases
+  * the LFS <-> tenko spec aliases
 
 The output is deterministic JSON: no timestamps are written, so re-running for
 the same tag produces byte-identical output.
@@ -56,7 +56,7 @@ PATCH_BASE_OVERRIDES = {
     "glibc-upstream-patch": "https://www.linuxfromscratch.org/patches/downloads/glibc/",
 }
 
-# browneye spec directory for LFS package names that do not match 1:1.
+# tenko spec directory for LFS package names that do not match 1:1.
 DEFAULT_ALIASES = {
     "pcre": "pcre2",
     "procps": "procps-ng",

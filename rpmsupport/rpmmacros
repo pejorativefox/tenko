@@ -1,7 +1,7 @@
-# browneye RPM macros.
+# tenko RPM macros.
 #
-# Installed as ~/.rpmmacros (host builds) or shipped by browneye-rpm-config
-# (build container). Keep %_libdir at /usr/lib64: browneye follows the
+# Installed as ~/.rpmmacros (host builds) or shipped by tenko-rpm-config
+# (build container). Keep %_libdir at /usr/lib64: tenko follows the
 # Fedora-style layout, not LFS's /usr/lib.
 
 %_prefix            /usr
@@ -10,7 +10,7 @@
 %_unitdir           /usr/lib/systemd/system
 %_udevrulesdir      /usr/lib/udev/rules.d
 
-# Standard runpaths (e.g. /usr/lib64) are acceptable for browneye.
+# Standard runpaths (e.g. /usr/lib64) are acceptable for tenko.
 %__brp_check_rpaths %{nil}
 
 # .pc files are development metadata.  Keep their pkgconfig(...) Requires out
@@ -18,7 +18,7 @@
 # dependencies, and a runtime install must not pull development packages.
 %__requires_exclude_from ^%{_libdir}/pkgconfig/.*\.pc$
 
-# browneye does not ship debuginfo packages.
+# tenko does not ship debuginfo packages.
 %_enable_debug_packages 0
 %_build_id_links        none
 
