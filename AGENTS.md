@@ -21,6 +21,18 @@ After updating a spec, rebuild and republish it before building packages
 that depend on it, then record the version and the reason in the commit
 message (and in the Gitea issue if the change belongs to one).
 
+## Distro release vs package versions
+
+The distribution release is **Tenko 6 (Workstation)**; `tenko-release-6-1`
+carries the release identity.  Package versions roll independently and keep
+their own upstream or book versions — do not set every package to version 6.
+
+The distro repository is `tenko-6`: `/etc/yum.repos.d/tenko-6.repo`, id
+`tenko-6`, at <https://repo.pjfox.xyz/tenko/packages/6/>.  The old
+`/etc/yum.repos.d/browneye-13.1.repo` is only the compatibility cleanup
+target for upgrades, not the new repo.  See
+[`docs/versions.md`](docs/versions.md) for the `/etc/os-release` identity.
+
 ## Issue tracking (Gitea)
 
 Use the `tea` CLI to read, comment on and close issues on the project's

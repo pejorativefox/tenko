@@ -3,6 +3,10 @@
 Audit of `package_specs/` against the LFS and BLFS checkouts and the
 **published** repository, 2026-11-05.
 
+This snapshot predates the Tenko 6 release and the repository cutover.
+Package versions, EVRs and the `/packages/13.1/` URL below are the values
+captured on 2026-11-05; the current distro repo is `tenko-6`.
+
 - Repo snapshot: `repodata/870aadc…-primary.xml.zst` of
   <https://repo.pjfox.xyz/packages/13.1/> —
   **691 RPM names** from **498 source packages**.

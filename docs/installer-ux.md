@@ -248,7 +248,7 @@ Five screens, of which only three require input:
 ```
 1. Welcome / preflight
    - UEFI, GPT-capable disks, network, repository
-   - [ Install Tenko 13.1 ]   [ Advanced installation ]
+   - [ Install Tenko 6 ]   [ Advanced installation ]
 
 2. Where to install
    - disk list (model, size, current contents, free space)
@@ -274,7 +274,7 @@ Five screens, of which only three require input:
 #### Screen 2 mock-up
 
 ```
- Install Tenko 13.1
+ Install Tenko 6
  ┌──────────────────────────────────────────────────────────────────┐
  │ Where should Tenko be installed?                                 │
  │                                                                  │

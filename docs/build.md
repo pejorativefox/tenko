@@ -85,6 +85,10 @@ bump a package:
 
 ## Publishing
 
+The distro repository is `tenko-6` (`/etc/yum.repos.d/tenko-6.repo`,
+<https://repo.pjfox.xyz/tenko/packages/6/>); package versions are independent
+of the distro release.
+
 `publish_rpm.sh` merges new RPMs into the published metadata with
 `mergerepo_c --method nvr`, uploads them, regenerates the package index, and
 refreshes the LAN mirror.  It refuses a repeated NEVRA with different content,
@@ -116,5 +120,10 @@ Other publishers:
 - Rootfs: `scripts/make_base_image.sh` with
   `PACKAGES="tenko-base tenko-build python3-pyelftools"
   TARBALL=build/tenko-rootfs.tar.gz`.
+
+The image artifacts keep the unversioned `tenko-installer.iso` and
+`tenko-rootfs.tar.gz` names for now.  A future image rebuild may also publish
+`tenko-installer-6.iso` and `tenko-rootfs-6.tar.gz`, with the unversioned
+names kept as aliases.
 
 Images are rebuilt only on request (see [`AGENTS.md`](../AGENTS.md)).

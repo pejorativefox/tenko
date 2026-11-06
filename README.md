@@ -1,13 +1,15 @@
 # Tenko Linux
 
-Tenko is a small x86_64 Linux distribution built from the LFS/BLFS r13.1
-books.  It uses systemd, a merged `/usr`, XFCE and a UEFI-only, network-install
-ISO.  Packages are shipped as RPMs from a self-hosted dnf repository; the
-installer downloads them while installing, so the ISO carries no packages.
+Tenko Linux 6 (Workstation) is a small x86_64 Linux distribution built from
+the LFS/BLFS r13.1 books.  It uses systemd, a merged `/usr`, XFCE and a
+UEFI-only, network-install ISO.  Packages are shipped as RPMs from a
+self-hosted dnf repository; the installer downloads them while installing, so
+the ISO carries no packages.  The distro release is 6; package versions roll
+independently and keep their own versions.
 
-- Public repository: <https://repo.pjfox.xyz/packages/13.1/> (the canonical
-  `/tenko/packages/13.1/` path takes over at the repository cutover; the
-  current path stays valid during the transition)
+- Public repository: <https://repo.pjfox.xyz/tenko/packages/6/> (the Tenko 6
+  repository; until the cutover completes, the current `/packages/13.1/` path
+  remains the live source and stays valid as a compatibility alias)
 - LAN mirror: <http://192.168.31.9/~daspork/tenko/> (the old
   `http://192.168.31.9/~daspork/browneye/` path is a symlink during the
   transition)
@@ -25,8 +27,10 @@ sha256sum -c tenko-installer.iso.sha256
 
 The ISO is 434 MiB.  On the LAN the mirror carries the same bytes:
 `http://192.168.31.9/~daspork/tenko/iso/`.  The current published images
-predate the rename, so they are republished under these Tenko names at the
-next image rebuild.
+predate the rename and the Tenko 6 release, so they are republished under
+these Tenko names at the next image rebuild.  A future rebuild may also
+publish versioned `tenko-installer-6.iso` and `tenko-rootfs-6.tar.gz`
+artifacts, with the unversioned names kept as aliases.
 
 ### 2. Write it to a USB stick
 
@@ -60,7 +64,7 @@ roughly 20 GiB of disk.
 
 The installed system boots with systemd-boot into XFCE.  Log in with the admin
 account created by the installer.  `dnf` is already configured
-(`/etc/yum.repos.d/tenko-13.1.repo`) against the repository that was used
+(`/etc/yum.repos.d/tenko-6.repo`) against the repository that was used
 for the install, so:
 
 ```sh
@@ -77,7 +81,7 @@ container/build image:
 curl -LO https://repo.pjfox.xyz/rootfs/tenko-rootfs.tar.gz
 curl -LO https://repo.pjfox.xyz/rootfs/tenko-rootfs.tar.gz.sha256
 sha256sum -c tenko-rootfs.tar.gz.sha256
-podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:13.1
+podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6
 ```
 
 The pre-rename container tags stay valid until the image rebuild; see

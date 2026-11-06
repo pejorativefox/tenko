@@ -139,7 +139,7 @@ editor no
 Entry (paths are relative to `$BOOT`, i.e. `/boot`):
 
 ```
-title Tenko Linux 13.1 (7.3.1)
+title Tenko Linux 6 (Workstation)
 linux /vmlinuz-7.3.1
 initrd /initramfs-7.3.1.img
 options root=UUID=<root fs uuid> ro rootwait quiet splash
