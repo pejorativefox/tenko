@@ -184,6 +184,7 @@ During the window the following stay available:
 |---|---|
 | `daspork/tenko` (Gitea) | Rename at checkpoint 8; update remotes and links then. |
 | `pejorativefox/browneye` (GitHub mirror) | Rename if applicable at checkpoint 8. |
+| `tenko` org/handle | Gitea/GitHub org `tenko` appears free but is not needed; the repo stays under `daspork`. GitHub user `tenko` is taken; no action. |
 | LAN mirror | `public_html/tenko`, with a `public_html/browneye` symlink. |
 | R2 | Keep the `r2:browneye` bucket; use `tenko/` keys. |
 | `tenko.org` | Registered and parked; confirm the registrar/owner before committing to a public domain. |
