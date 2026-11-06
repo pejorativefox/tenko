@@ -5,3 +5,4 @@ browneye.iso
 build/
 .build/
 __pycache__
+.worktrees/

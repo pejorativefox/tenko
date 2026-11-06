@@ -66,6 +66,11 @@ This tree involves long downloads, uploads, compiles, and checks. Use
 subagents to run that work in parallel whenever the tasks are independent:
 
 - Give each subagent its own git worktree and branch off the current commit.
+- Create worktrees under `.worktrees/` in this repository (for example
+  `.worktrees/<task-name>`), never inside the main checkout and never in an
+  ad-hoc location such as `/tmp`. The directory is git-ignored, so it stays
+  out of `git status`; remove each worktree with `git worktree remove` when
+  the subagent's work is merged or discarded.
 - Keep file ownership disjoint: a subagent must not edit files the main
   session is changing.
 - Let the main session own integration: review, merge, rebuild the repo,
