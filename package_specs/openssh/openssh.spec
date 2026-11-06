@@ -1,6 +1,6 @@
 Name:       openssh
 Version:    10.6p1
-Release:    2
+Release:    3
 Summary:    OpenSSH connectivity tools and server
 License:    SSH-OpenSSH AND BSD-2-Clause AND BSD-3-Clause AND (MIT OR Apache-2.0)
 URL:        https://www.openssh.com/
@@ -95,6 +95,11 @@ install -d -m 0700 -o root -g sshd /var/lib/sshd 2>/dev/null || :
 %attr(0700,root,sshd) %dir /var/lib/sshd
 
 %changelog
+* Fri Nov 06 2026 tenko <build@tenko.invalid> 10.6p1-3
+- Regenerate a missing or zero-length host key instead of letting ssh-keygen
+  prompt for overwrite; found by the Tenko 6 installed-disk boot test, where
+  sshd-keygen.service failed and left the system degraded.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 10.6p1-2
 - Replace the legacy short licence name with the verified SPDX expression
   (SSH-OpenSSH AND BSD-2-Clause AND BSD-3-Clause AND (MIT OR Apache-2.0)): LICENCE (issue #8).

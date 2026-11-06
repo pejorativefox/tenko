@@ -71,6 +71,44 @@ the serial console.  `tests/serial_login.py [user] [password]` can drive that
 login over a `-serial unix:...` socket and checks for the login prompt,
 password prompt, shell prompt and requested commands.
 
+## Tenko 6 ISO verification (2026-11-06)
+
+Artifact: published `tenko-installer.iso`, 520,159,232 B, SHA-256
+`f69c0be0efdd68377b5bcd5e2491fa91ed2d2b9d3cb4e9799955155d93766931`.
+Environment: QEMU 11.1.3 with KVM and OVMF, 8 GiB guest RAM, a blank 20 GiB
+virtio disk and a fresh OVMF variable store.
+
+| check | result | evidence |
+|---|---|---|
+| stock ISO boots under OVMF | **PASS** | systemd-boot entry, `Tenko Linux 6 (Workstation)`, kernel 7.3.1, `Started Tenko Linux installer` |
+| unattended desktop install | **PASS** | all 9 steps, `TENKO-INSTALL: OK`; 1 GiB ESP + 2 GiB swap + ext4 root on `/dev/vda` |
+| installed disk boots with fresh NVRAM | **PASS** | systemd-boot menu, kernel 7.3.1, `tenko-test login:` |
+| login and system state | **PASS** | admin login; `systemctl is-system-running` = `running`; `systemctl --failed` empty |
+| graphical target | **PASS** | `graphical.target` and `lightdm` active; greeter captured in `build/installed-screen.png` |
+| storage and swap | **PASS** | `/dev/vda3` ext4 on `/`, `/dev/vda1` vfat on `/boot`, `/dev/vda2` 2 GiB swap active |
+| public package repository | **PASS** | installed `tenko-6.repo` points at `https://tenko.pjfox.xyz/packages/6/`; `dnf makecache` and `repolist` succeed |
+
+The unattended install used a local remaster of the published ISO that only
+adds `/answer.json` and the `tenko.auto=1` kernel option; the live squashfs,
+kernel and initrd are unchanged.  The 8 GiB auto run was stopped after the
+public mirror proved too slow, and the same installer was then run
+non-interactively on the serial console with `--repo` set to the LAN mirror.
+After installation the target repository file was switched to the public URL
+and verified.  The auto path was also exercised directly: with only 4 GiB
+guest RAM the package step failed with `curl` error 23 as the live overlay and
+DNF cache exhausted tmpfs.  Desktop install tests should use at least 8 GiB.
+
+`sshd-keygen.service` initially failed on first boot because a zero-length
+host key made `ssh-keygen` prompt for overwrite.  This is fixed in
+`openssh-10.6p1-3` (published); the reinstalled system reports no failed
+units.
+
+Not covered by this run: USB/`dd` boot and reuse of an existing small ESP
+(issue #14), and Secure Boot (out of scope).  Local evidence:
+`build/installer-serial.log`, `build/manual-install.log`,
+`build/installed-serial.log`, `build/installed-screen.png`, plus the 4 GiB
+failure log `build/auto-serial-fail-4g.log`.
+
 ## Graphical tests
 
 ```sh

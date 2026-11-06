@@ -10,9 +10,16 @@ install -d -m 0755 /etc/ssh
 
 for type in rsa ecdsa ed25519; do
     key="/etc/ssh/ssh_host_${type}_key"
-    if [ ! -s "$key" ]; then
-        /usr/bin/ssh-keygen -q -t "$type" -N '' -f "$key"
+    if [ -s "$key" ]; then
+        chmod 600 "$key"
+        [ -f "${key}.pub" ] && chmod 644 "${key}.pub"
+        continue
     fi
+    # A zero-length file (for example from an interrupted first boot) makes
+    # ssh-keygen prompt "Overwrite (y/n)?" and fail under systemd.  Remove
+    # the incomplete key pair before generating a replacement.
+    rm -f "$key" "$key.pub"
+    /usr/bin/ssh-keygen -q -t "$type" -N '' -f "$key"
     chmod 600 "$key"
     [ -f "${key}.pub" ] && chmod 644 "${key}.pub"
 done
