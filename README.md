@@ -25,7 +25,7 @@ curl -LO https://tenko.pjfox.xyz/iso/tenko-installer.iso.sha256
 sha256sum -c tenko-installer.iso.sha256
 ```
 
-The ISO is 434 MiB.  On the LAN the mirror carries the same bytes:
+The ISO is 496 MiB.  On the LAN the mirror carries the same bytes:
 `http://192.168.31.9/~daspork/tenko/iso/`.  The current published images
 predate the rename and the Tenko 6 release, so they are republished under
 these Tenko names at the next image rebuild.  A future rebuild may also
@@ -74,7 +74,7 @@ sudo dnf upgrade
 
 ## Container rootfs
 
-A 244 MiB rootfs tarball with the build toolchain is published for use as a
+A 312 MiB rootfs tarball with the build toolchain is published for use as a
 container/build image:
 
 ```sh
