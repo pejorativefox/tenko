@@ -51,7 +51,7 @@ additionally needs the usual Python build environment (gcc, make and the
 -devel libraries), which pyenv reports as missing when a build fails.
 
 pyenv is not part of LFS or BLFS r13.1.  The user approved upstream 2.8.14
-as an explicit exception to the Browneye version-parity rule.
+as an explicit exception to the Tenko version-parity rule.
 
 %prep
 %setup -q

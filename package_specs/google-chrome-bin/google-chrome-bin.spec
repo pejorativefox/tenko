@@ -9,7 +9,7 @@
 #
 # The upstream Google yum/zypper repository setup, signing-key import, daily
 # cron job, update-alternatives registration and AppArmor profile are
-# intentionally not shipped.  Browneye owns updates and installs the hicolor
+# intentionally not shipped.  Tenko owns updates and installs the hicolor
 # icons directly instead of running xdg-icon-resource from %post.
 %global __strip /bin/true
 %global __spec_install_post %{nil}
@@ -36,7 +36,7 @@ ExclusiveArch: x86_64
 Source0:    google-chrome-stable-%{version}-1.x86_64.rpm
 
 # Prebuilt payload: do not let rpm guess dependencies from /opt.  The explicit
-# list below is what the chrome binary actually needs on browneye.
+# list below is what the chrome binary actually needs on tenko.
 AutoProv: no
 AutoReq: no
 
@@ -44,7 +44,7 @@ Provides:   google-chrome = %{version}-%{release}
 Provides:   google-chrome-stable = %{version}-%{release}
 Provides:   web_browser
 
-# ca-certificates is provided by make-ca in browneye.
+# ca-certificates is provided by make-ca in tenko.
 Requires:   ca-certificates
 Requires:   desktop-file-utils
 Requires:   hicolor-icon-theme
@@ -100,7 +100,7 @@ tarball, so the upstream RPM payload is the only binary distribution.
 
 The Google yum/zypper repository setup, signing-key import, cron job and
 update-alternatives registration from the upstream RPM are intentionally
-not shipped; browneye owns updates.  The hicolor icons are installed by
+not shipped; tenko owns updates.  The hicolor icons are installed by
 the package instead of at post-install time.
 
 Chrome is not in LFS/BLFS.  The user explicitly approved this package as an

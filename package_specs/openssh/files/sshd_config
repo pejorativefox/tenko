@@ -1,6 +1,6 @@
-# Browneye Linux default sshd configuration (BLFS r13.1 / OpenSSH 10.5p1)
+# Tenko Linux default sshd configuration (BLFS r13.1 / OpenSSH 10.5p1)
 #
-# Password authentication is enabled deliberately: Browneye ships Linux-PAM
+# Password authentication is enabled deliberately: Tenko ships Linux-PAM
 # and expects remote administration to work after the first-boot root
 # password is set.  Drop-in overrides belong in /etc/ssh/sshd_config.d/.
 

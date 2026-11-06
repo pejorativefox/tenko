@@ -35,7 +35,7 @@ artwork (TerminusTTF 4.49.3) for fontconfig-based applications that expect
 bold/italic faces and per-pixel rendering tags.
 
 Neither terminus-font nor TerminusTTF is in the current LFS/BLFS books.
-The user explicitly requested packaging them as exceptions to the Browneye
+The user explicitly requested packaging them as exceptions to the Tenko
 version-parity rule.
 
 Terminus switched to the SIL Open Font License at version 4.40; the

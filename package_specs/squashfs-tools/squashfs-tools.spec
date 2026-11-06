@@ -10,7 +10,7 @@ BuildRequires: zlib, lz4, xz, zstd, gcc, make
 
 %description
 Squashfs-tools provides mksquashfs, unsquashfs, sqfscat and sqfstar for
-creating and extracting Squashfs filesystems.  The Browneye live/installer
+creating and extracting Squashfs filesystems.  The Tenko live/installer
 image uses mksquashfs to build the compressed root filesystem that the
 installer unpacks and writes.
 

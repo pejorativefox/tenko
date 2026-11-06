@@ -17,7 +17,7 @@ ExclusiveArch: x86_64
 AutoProv: no
 AutoReq: no
 
-# make-ca is the CA trust package Browneye ships (it owns /etc/ssl/certs);
+# make-ca is the CA trust package Tenko ships (it owns /etc/ssl/certs);
 # tea talks HTTPS to the Gitea server from its own Go TLS stack.
 Requires: make-ca
 
@@ -28,7 +28,7 @@ This package installs the official linux-amd64 release binary, which is
 statically linked and therefore has no glibc runtime requirement.
 
 tea is not part of LFS/BLFS.  The user explicitly requested packaging the
-official prebuilt binary as an exception to the Browneye version-parity
+official prebuilt binary as an exception to the Tenko version-parity
 rule.
 
 The upstream release contains only the executable and no license file; the

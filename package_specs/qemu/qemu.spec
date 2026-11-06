@@ -23,7 +23,7 @@ BuildRequires: libslirp
 %description
 QEMU is a generic and open source machine emulator and virtualizer.  This
 build targets x86_64 system emulation (hardware KVM acceleration, or TCG
-when /dev/kvm is unavailable) and is what Browneye uses to boot and test
+when /dev/kvm is unavailable) and is what Tenko uses to boot and test
 its images.  User-mode networking comes from libslirp, audio from ALSA,
 and device trees from libfdt (dtc).
 

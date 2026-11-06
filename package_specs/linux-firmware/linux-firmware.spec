@@ -32,7 +32,7 @@ Requires:   linux-firmware-other = %{version}-%{release}
 
 %description
 Curated subset of the Linux firmware repository for the hardware enabled by
-the Browneye kernel: AMD, Intel and NVIDIA GPUs; Intel, MediaTek, Atheros,
+the Tenko kernel: AMD, Intel and NVIDIA GPUs; Intel, MediaTek, Atheros,
 Realtek, Broadcom, Cypress, Marvell and TI wireless; Bluetooth; Realtek
 wired Ethernet; AMD CPU microcode; and the wireless regulatory database.
 

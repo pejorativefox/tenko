@@ -14,7 +14,7 @@ Requires:   /usr/bin/python3
 Requires:   coreutils
 
 %description
-dnf is the package manager used to install the Browneye repository.  This
+dnf is the package manager used to install the Tenko repository.  This
 is the current release of the dnf 4 branch (Python based), which supports
 the rpm 4.18.1 shipped in the base system.
 

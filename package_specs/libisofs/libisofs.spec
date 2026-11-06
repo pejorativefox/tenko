@@ -8,7 +8,7 @@ Prefix:     /usr
 
 %description
 libisofs is a library to create an ISO-9660 filesystem with extensions like
-RockRidge or Joliet.  It is used by libisoburn (xorriso), which the Browneye
+RockRidge or Joliet.  It is used by libisoburn (xorriso), which the Tenko
 installer uses to build and expand installation ISOs.
 
 %prep

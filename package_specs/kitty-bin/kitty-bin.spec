@@ -61,7 +61,7 @@ font libraries it needs, the generated shaders, shell integration and a
 static Go kitten binary.
 
 kitty is not part of LFS/BLFS.  The user explicitly approved packaging the
-official prebuilt bundle as an exception to the Browneye version-parity
+official prebuilt bundle as an exception to the Tenko version-parity
 rule.
 
 %prep

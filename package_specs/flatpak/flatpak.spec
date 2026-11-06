@@ -53,7 +53,7 @@ DESTDIR=%{buildroot} ninja install
 popd
 
 %post
-# Make the system-helper user available immediately.  The Browneye systemd
+# Make the system-helper user available immediately.  The Tenko systemd
 # package does not ship a sysusers.d file trigger, so packages that own a
 # sysusers file must materialise it themselves (same pattern as openssh and
 # privoxy).  Without this, revokefs fails with "User flatpak does not exist

@@ -1,7 +1,7 @@
 Name:       xfce-desktop
 Version:    4.20
 Release:    9
-Summary:    Browneye XFCE 4.20 desktop meta-package
+Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
 
@@ -49,7 +49,7 @@ Requires:   hicolor-icon-theme
 # subpackages were removed, but Thunar/GIO need the MIME database at
 # runtime, so require the data package explicitly.
 Requires:   shared-mime-info
-Requires:   browneye-desktop-config
+Requires:   tenko-desktop-config
 Requires:   linux-firmware-base
 # udev's hardware database is what maps PCI/USB/input IDs to device
 # properties.  It is a Recommends of systemd so containers can omit it, but
@@ -69,7 +69,7 @@ Recommends: linux-firmware-nic
 Recommends: linux-firmware-other
 
 %description
-The Browneye XFCE 4.20 desktop: X11 only, no Wayland.
+The Tenko XFCE 4.20 desktop: X11 only, no Wayland.
 
 %prep
 
@@ -77,13 +77,17 @@ The Browneye XFCE 4.20 desktop: X11 only, no Wayland.
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/browneye
-touch %{buildroot}/usr/share/browneye/xfce-desktop
+mkdir -p %{buildroot}/usr/share/tenko
+touch %{buildroot}/usr/share/tenko/xfce-desktop
 
 %files
-/usr/share/browneye/xfce-desktop
+/usr/share/tenko/xfce-desktop
 
 %post
+# Remove the old marker directory left by browneye-xfce-desktop.
+rm -f /usr/share/browneye/xfce-desktop
+rmdir /usr/share/browneye 2>/dev/null || true
+
 # The base system boots to multi-user.target.  A desktop profile should come
 # up in the graphical target so lightdm (required above) starts the greeter.
 if [ -x /usr/bin/systemctl ]; then

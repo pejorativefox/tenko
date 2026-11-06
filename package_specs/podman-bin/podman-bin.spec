@@ -46,7 +46,7 @@ Requires:   kmod
 # /run/user/$UID and cgroup delegation for the rootless session
 Requires:   systemd
 # /etc/subuid and /etc/subgid, which this package no longer ships
-Requires:   browneye-sysconfig
+Requires:   tenko-sysconfig
 
 %description
 Podman is a daemonless container engine for developing, managing, and
@@ -66,7 +66,7 @@ them); use podman from the command line or from the build scripts.
 
 Neither podman nor its dependency chain is part of LFS/BLFS.  The user
 explicitly approved packaging this static upstream bundle as an exception
-to the Browneye version-parity rule.
+to the Tenko version-parity rule.
 
 %prep
 %setup -q -n podman-linux-amd64
@@ -90,7 +90,7 @@ ln -s podman-%{version} %{buildroot}/opt/podman
 install -d %{buildroot}%{_bindir}
 ln -s /opt/podman/bin/podman %{buildroot}%{_bindir}/podman
 
-# Runtime configuration.  containers.conf and storage.conf are Browneye
+# Runtime configuration.  containers.conf and storage.conf are Tenko
 # specific (bundle conmon has no journald; native overlay without
 # mount_program).  policy.json, registries.conf and seccomp.json are taken
 # from the bundle unchanged; none of them hardcodes /usr/local.
@@ -104,10 +104,10 @@ install -m644 etc/containers/registries.conf \
 install -m644 etc/containers/seccomp.json \
     %{buildroot}/etc/containers/seccomp.json
 
-# /etc/subuid and /etc/subgid are owned by browneye-sysconfig: shipping them
+# /etc/subuid and /etc/subgid are owned by tenko-sysconfig: shipping them
 # here as well made the two packages collide on those paths and blocked the
 # install.  login.defs already points at them, and the installer fills in the
-# admin user's subordinate range.  Required: browneye-sysconfig (see above).
+# admin user's subordinate range.  Required: tenko-sysconfig (see above).
 
 install -d %{buildroot}%{_docdir}/%{name}-%{version}
 install -m644 README.md %{buildroot}%{_docdir}/%{name}-%{version}/README.md

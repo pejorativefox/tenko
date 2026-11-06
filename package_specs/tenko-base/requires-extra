@@ -1,0 +1,30 @@
+# Extra requirements of tenko-base that are not LFS chapter-8 packages.
+#
+# - tenko-*: distro glue (filesystem layout, sysconfig, release file,
+#   first-boot policy, RPM macros)
+# - glibc-locales, gcc-lto: payload split out of the toolchain
+# - linux-api-headers, linux-pam, libtirpc: headers/runtime the base needs
+# - make-ca: CA trust store (/etc/pki/tls/certs/ca-bundle.crt and the
+#   /etc/ssl/certs links) used by curl, git, OpenSSL and derived images
+# - openssh, git: SSH client/server and version control in the base install
+# - libseccomp/libbsd/libmd, rpm/popt/libarchive/lua: RPM toolchain
+tenko-rpm-config
+tenko-basefs
+tenko-sysconfig
+tenko-release
+tenko-firstboot
+glibc-locales
+gcc-lto
+linux-api-headers
+linux-pam
+make-ca
+libtirpc
+libseccomp
+libbsd
+libmd
+rpm
+popt
+libarchive
+lua
+openssh
+git

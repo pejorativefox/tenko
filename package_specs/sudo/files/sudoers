@@ -1,4 +1,4 @@
-# Browneye sudoers
+# Tenko sudoers
 #
 # Members of the wheel group may run any command as any user after
 # authenticating with their own password.  Add users to the wheel group

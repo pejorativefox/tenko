@@ -41,7 +41,7 @@ rm -rf %{buildroot}
 make install DESTDIR=%{buildroot} \
      install_uid=0 install_gid=0 sudoers_uid=0 sudoers_gid=0
 
-# Ship the Browneye sudoers policy instead of the upstream sample.
+# Ship the Tenko sudoers policy instead of the upstream sample.
 install -vdm755 %{buildroot}/etc/sudoers.d
 install -vm0440 %{SOURCE1} %{buildroot}/etc/sudoers
 chmod 0750 %{buildroot}/etc/sudoers.d

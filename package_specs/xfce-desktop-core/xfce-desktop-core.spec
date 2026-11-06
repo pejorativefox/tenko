@@ -1,14 +1,14 @@
 Name:       xfce-desktop-core
 Version:    4.20
 Release:    2
-Summary:    Browneye XFCE 4.20 core desktop (VM/headless, no vendor firmware)
+Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
 
 # Self-contained runtime desktop: runtime base, kernel, X11 server and the
 # XFCE session.  No GPU firmware/vendor packs and no hwdb, so this is the
 # profile for QEMU/VMs and headless boxes.
-Requires:   browneye-base-runtime
+Requires:   tenko-base-runtime
 Requires:   linux-kernel
 Requires:   dbus-daemon
 Requires:   dbus-x11
@@ -43,11 +43,11 @@ Requires:   thunar
 Requires:   xfce4-appfinder
 Requires:   xfce4-terminal
 Requires:   xfdesktop
-Requires:   browneye-desktop-config
+Requires:   tenko-desktop-config
 
 %description
 A lean, self-contained XFCE 4.20 desktop for virtual machines and
-headless/embedded systems: browneye-base-runtime plus the kernel, X11
+headless/embedded systems: tenko-base-runtime plus the kernel, X11
 server (modesetting/vesa), input driver, fonts, D-Bus and the XFCE
 session.
 
@@ -62,11 +62,16 @@ xfce-desktop-full for the complete hardware desktop.
 %build
 
 %install
-mkdir -p %{buildroot}/usr/share/browneye
-touch %{buildroot}/usr/share/browneye/xfce-desktop-core
+mkdir -p %{buildroot}/usr/share/tenko
+touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 
 %files
-/usr/share/browneye/xfce-desktop-core
+/usr/share/tenko/xfce-desktop-core
+
+%post
+# Remove the old marker directory left by browneye-xfce-desktop-core.
+rm -f /usr/share/browneye/xfce-desktop-core
+rmdir /usr/share/browneye 2>/dev/null || true
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-2
