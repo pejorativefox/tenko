@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    14
+Release:    15
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -85,6 +85,10 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-15
+- Point the default repository at https://repo.pjfox.xyz/packages/13.1/
+  after moving the public tree to Cloudflare R2.
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 13.1-14
 - Replace GRUB with systemd-boot: mount the ESP at /boot instead of
   /boot/efi, run `bootctl --esp-path=/boot --no-variables install`, write
