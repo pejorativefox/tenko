@@ -26,15 +26,15 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 TENKO_RELEASE=${TENKO_RELEASE:-6}
-# Cloudflare R2 (S3) target; the bucket stays r2:browneye during the rename.
-# Keep packages/13.1 in the bucket as the external compatibility alias.
-R2=${R2:-r2:browneye}
-R2_PATH=${R2_PATH:-tenko/packages/$TENKO_RELEASE}
+# Cloudflare R2 (S3) target; the new Tenko bucket is r2_tenko:tenko; r2:browneye remains the compatibility alias.
+# The old r2:browneye/packages/13.1 tree remains the external compatibility alias.
+R2=${R2:-r2_tenko:tenko}
+R2_PATH=${R2_PATH:-packages/$TENKO_RELEASE}
 # LAN mirror (also refreshed by publish_repo.sh); set MIRROR=0 to skip.
 # The old public_html/browneye symlink remains the external alias.
 MIRROR=${MIRROR:-daspork@192.168.31.9}
 MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/tenko}
-URL=${URL:-https://repo.pjfox.xyz/tenko/packages/$TENKO_RELEASE/}
+URL=${URL:-https://tenko.pjfox.xyz/packages/$TENKO_RELEASE/}
 REPO_ID=tenko-$TENKO_RELEASE
 STAGE=${STAGE:-build/publish-rpm}
 PRUNE=${PRUNE:-0}

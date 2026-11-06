@@ -109,7 +109,7 @@ fi
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.
 - Clean up old browneye paths, units, presets and configuration.
 - Use the Tenko 6 (Workstation) distro identity and repository
-  (tenko-6.repo, /tenko/packages/6/) for fresh installs.
+  (tenko-6.repo, https://tenko.pjfox.xyz/packages/6/) for fresh installs.
 
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-24
 - Install OpenSSH and git in every target (desktop and base-only).  They

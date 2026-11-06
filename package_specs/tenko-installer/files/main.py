@@ -38,7 +38,7 @@ from runner import CommandError, CommandRunner
 from ui import BACK, QUIT, RESCAN, CursesUI, Field, Row
 
 VERSION = "6"
-DEFAULT_REPO = "https://repo.pjfox.xyz/tenko/packages/6/"
+DEFAULT_REPO = "https://tenko.pjfox.xyz/packages/6/"
 DEFAULT_TARGET = "/mnt/tenko"
 LOG_DIR = "/run/tenko"
 LOG_JSONL = os.path.join(LOG_DIR, "install.jsonl")

@@ -7,9 +7,9 @@ self-hosted dnf repository; the installer downloads them while installing, so
 the ISO carries no packages.  The distro release is 6; package versions roll
 independently and keep their own versions.
 
-- Public repository: <https://repo.pjfox.xyz/tenko/packages/6/> (the Tenko 6
-  repository; until the cutover completes, the current `/packages/13.1/` path
-  remains the live source and stays valid as a compatibility alias)
+- Public repository: <https://tenko.pjfox.xyz/packages/6/> (the Tenko 6
+  repository; the old <https://repo.pjfox.xyz/packages/13.1/> path remains a
+  compatibility alias)
 - LAN mirror: <http://192.168.31.9/~daspork/tenko/> (the old
   `http://192.168.31.9/~daspork/browneye/` path is a symlink during the
   transition)
@@ -20,8 +20,8 @@ independently and keep their own versions.
 ### 1. Download and verify the installer
 
 ```sh
-curl -LO https://repo.pjfox.xyz/iso/tenko-installer.iso
-curl -LO https://repo.pjfox.xyz/iso/tenko-installer.iso.sha256
+curl -LO https://tenko.pjfox.xyz/iso/tenko-installer.iso
+curl -LO https://tenko.pjfox.xyz/iso/tenko-installer.iso.sha256
 sha256sum -c tenko-installer.iso.sha256
 ```
 
@@ -78,8 +78,8 @@ A 244 MiB rootfs tarball with the build toolchain is published for use as a
 container/build image:
 
 ```sh
-curl -LO https://repo.pjfox.xyz/rootfs/tenko-rootfs.tar.gz
-curl -LO https://repo.pjfox.xyz/rootfs/tenko-rootfs.tar.gz.sha256
+curl -LO https://tenko.pjfox.xyz/rootfs/tenko-rootfs.tar.gz
+curl -LO https://tenko.pjfox.xyz/rootfs/tenko-rootfs.tar.gz.sha256
 sha256sum -c tenko-rootfs.tar.gz.sha256
 podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6
 ```

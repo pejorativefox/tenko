@@ -15,9 +15,9 @@ M13	browneye-* systemd units/presets	tenko-* systemd units/presets	rename+cleanu
 M14	10-browneye.conf, 20-browneye-live.conf	10-tenko.conf, 20-tenko-live.conf	rename+cleanup	Rename dracut/journald configs; remove old config files in %post.
 M15	browneye-13.1 repo id/file	tenko-13.1 repo id/file	rename+alias	New repo file tenko-13.1.repo; remove/disable the old browneye-13.1.repo.
 M16	--repofrompath=browneye	--repofrompath=tenko	rename	dnf repo id used by scripts and installer.
-M17	r2:browneye bucket	r2:browneye bucket	keep-compat	Bucket remains r2:browneye by decision; only the key prefix changes.
-M18	packages/13.1 R2 key	tenko/packages/13.1 R2 key	rename+alias	Publish under tenko/; keep packages/13.1 as a compatibility alias.
-M19	https://repo.pjfox.xyz/packages/13.1/	https://repo.pjfox.xyz/tenko/packages/13.1/	rename+alias	New public URL; old URL keeps serving the compatibility repo.
+M17	r2:browneye bucket	r2_tenko:tenko bucket	rename+compat	New Tenko bucket; old r2:browneye remains the 13.1 compatibility tree.
+M18	packages/13.1 R2 key	packages/6 R2 key	rename+alias	New r2_tenko:tenko/packages/6; old r2:browneye/packages/13.1 remains a compatibility alias.
+M19	https://repo.pjfox.xyz/packages/13.1/	https://tenko.pjfox.xyz/packages/6/	rename+alias	New public URL; old URL keeps serving the compatibility repo.
 M20	public_html/browneye	public_html/tenko	rename+alias	New LAN mirror root; leave a symlink at public_html/browneye.
 M21	http://192.168.31.9/~daspork/browneye/	http://192.168.31.9/~daspork/tenko/	rename+alias	New LAN URL; old URL resolves through the symlink.
 M22	browneye-installer.iso	tenko-installer.iso	rename+alias	New ISO artifact; keep the old ISO published during the window.

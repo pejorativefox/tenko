@@ -2,7 +2,7 @@
 # Publish the container rootfs tarball to the primary site and the LAN mirror.
 #
 # Writes a fresh <tarball>.sha256 next to it and rsyncs both files to
-# repo.pjfox.xyz (R2) and to the local-network mirror, so the two always
+# tenko.pjfox.xyz (R2) and to the local-network mirror, so the two always
 # carry the same bytes.  Set MIRROR=0 to skip the LAN copy.
 #
 # The tarball is produced by scripts/make_base_image.sh from the published
@@ -17,8 +17,8 @@ cd "$(dirname "$0")/.."
 # Keep the unversioned name until the image is rebuilt; a later build can
 # publish tenko-rootfs-6.tar.gz and keep tenko-rootfs.tar.gz as an alias.
 TARBALL=${TARBALL:-$PWD/build/tenko-rootfs.tar.gz}
-# Cloudflare R2 (S3) target; the bucket stays r2:browneye during the rename.
-R2=${R2:-r2:browneye}
+# Cloudflare R2 (S3) target; the new Tenko bucket is r2_tenko:tenko; r2:browneye remains the compatibility alias.
+R2=${R2:-r2_tenko:tenko}
 R2_DIR=${R2_DIR:-rootfs}
 MIRROR=${MIRROR:-daspork@192.168.31.9}
 MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/tenko}
@@ -49,7 +49,7 @@ fi
 
 echo
 echo "published:"
-echo "  https://repo.pjfox.xyz/rootfs/$name"
+echo "  https://tenko.pjfox.xyz/rootfs/$name"
 if [ "$MIRROR" != "0" ]; then
     echo "  http://192.168.31.9/~daspork/tenko/rootfs/$name"
 fi

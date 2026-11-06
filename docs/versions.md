@@ -33,7 +33,7 @@ RELEASE_TYPE=stable
 
 The distro repository is `tenko-6`:
 `/etc/yum.repos.d/tenko-6.repo`, id `tenko-6`, at
-<https://repo.pjfox.xyz/tenko/packages/6/>.  Existing Browneye installs still
+<https://tenko.pjfox.xyz/packages/6/>.  Existing Browneye installs still
 have `/etc/yum.repos.d/browneye-13.1.repo`; `tenko-release` removes or
 disables that file during the upgrade.  It is the compatibility cleanup
 target only — never reuse its name for the Tenko repo.

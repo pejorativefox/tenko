@@ -121,9 +121,9 @@
     <h1>Tenko Linux <span>6</span></h1>
     <p>Packages for the Tenko 6 (Workstation) base system, built from Linux From Scratch r13.1 with the self-hosted Tenko container toolchain.  Package versions roll independently of the distro release.</p>
     <div class="actions">
-      <a class="btn primary" href="https://repo.pjfox.xyz/tenko/packages/6/">Browse packages</a>
+      <a class="btn primary" href="https://tenko.pjfox.xyz/packages/6/">Browse packages</a>
       <a class="btn" href="iso/tenko-installer.iso">Installer ISO (430 MiB)</a>
-      <a class="btn" href="https://repo.pjfox.xyz/tenko/packages/6/tenko-6.repo">tenko-6.repo</a>
+      <a class="btn" href="https://tenko.pjfox.xyz/packages/6/tenko-6.repo">tenko-6.repo</a>
       <a class="btn" href="https://pjfox.xyz/git/daspork/browneye">Source</a>
     </div>
   </div>
@@ -135,13 +135,13 @@
     <p>Add the repository definition and install the base meta-package:</p>
 <pre><code><span class="c"># add the repo</span>
 sudo curl -o /etc/yum.repos.d/tenko-6.repo \
-  https://repo.pjfox.xyz/tenko/packages/6/tenko-6.repo
+  https://tenko.pjfox.xyz/packages/6/tenko-6.repo
 
 <span class="c"># install the base system</span>
 sudo dnf install tenko-base</code></pre>
-    <p class="muted">The Tenko 6 repository will live at <code>/tenko/packages/6/</code>.  Until the cutover completes, the previous <code>/packages/13.1/</code> path remains the live source and stays valid as a compatibility alias afterwards.</p>
+    <p class="muted">The Tenko 6 repository lives at <code>https://tenko.pjfox.xyz/packages/6/</code>.  The previous <code>https://repo.pjfox.xyz/packages/13.1/</code> path remains valid as a compatibility alias.</p>
     <p>Or use it directly, without installing a repo file:</p>
-<pre><code>sudo dnf --repofrompath=tenko-6,https://repo.pjfox.xyz/tenko/packages/6/ \
+<pre><code>sudo dnf --repofrompath=tenko-6,https://tenko.pjfox.xyz/packages/6/ \
   --disablerepo='*' install tenko-base</code></pre>
     <p>The XFCE 4.20 desktop (X11 only, no Wayland) is in the same repository:</p>
 <pre><code>sudo dnf install xfce-desktop</code></pre>
@@ -154,8 +154,8 @@ sudo dnf install tenko-base</code></pre>
        packages from this repository, so the machine needs network access
        while installing (the ISO itself carries no RPMs):</p>
 <pre><code><span class="c"># download and verify</span>
-curl -LO https://repo.pjfox.xyz/iso/tenko-installer.iso
-curl -LO https://repo.pjfox.xyz/iso/tenko-installer.iso.sha256
+curl -LO https://tenko.pjfox.xyz/iso/tenko-installer.iso
+curl -LO https://tenko.pjfox.xyz/iso/tenko-installer.iso.sha256
 sha256sum -c tenko-installer.iso.sha256
 
 <span class="c"># write it to a USB stick</span>
@@ -173,8 +173,8 @@ sudo dd if=tenko-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</cod
     <p>A container rootfs built from this repository is published too.
        It is the build image (gcc, make, Python 3.15, Perl, CMake/meson,
        rpm/dnf, createrepo_c) and can be imported directly:</p>
-<pre><code>curl -LO https://repo.pjfox.xyz/rootfs/tenko-rootfs.tar.gz
-curl -LO https://repo.pjfox.xyz/rootfs/tenko-rootfs.tar.gz.sha256
+<pre><code>curl -LO https://tenko.pjfox.xyz/rootfs/tenko-rootfs.tar.gz
+curl -LO https://tenko.pjfox.xyz/rootfs/tenko-rootfs.tar.gz.sha256
 sha256sum -c tenko-rootfs.tar.gz.sha256
 podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6</code></pre>
     <p class="muted">244 MiB gzip · 127 packages · regenerated from the
@@ -208,10 +208,10 @@ podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6</code></pre>
     <table class="files">
       <thead><tr><th>Path</th><th>Description</th></tr></thead>
       <tbody>
-        <tr><td><code>tenko/packages/6/</code></td><td>RPMs and <code>repodata/</code> (createrepo_c, x86_64)</td></tr>
-        <tr><td><code>tenko/packages/6/tenko-6.repo</code></td><td>dnf repository definition</td></tr>
-        <tr><td><code>tenko/packages/6/</code> (xfce-desktop)</td><td>XFCE 4.20 desktop meta-package and dependencies, same repo</td></tr>
-        <tr><td><code>tenko/packages/6/README.txt</code></td><td>Short install notes</td></tr>
+        <tr><td><code>packages/6/</code></td><td>RPMs and <code>repodata/</code> (createrepo_c, x86_64)</td></tr>
+        <tr><td><code>packages/6/tenko-6.repo</code></td><td>dnf repository definition</td></tr>
+        <tr><td><code>packages/6/</code> (xfce-desktop)</td><td>XFCE 4.20 desktop meta-package and dependencies, same repo</td></tr>
+        <tr><td><code>packages/6/README.txt</code></td><td>Short install notes</td></tr>
         <tr><td><code>iso/tenko-installer.iso</code></td><td>UEFI installer ISO, 430 MiB, network install (no packages on the media)</td></tr>
         <tr><td><code>iso/tenko-installer.iso.sha256</code></td><td>SHA-256 checksum for the ISO</td></tr>
         <tr><td><code>rootfs/tenko-rootfs.tar.gz</code></td><td>container build rootfs, 244 MiB gzip, 127 packages</td></tr>
@@ -239,7 +239,7 @@ podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6</code></pre>
 
 <footer>
   <div class="wrap">
-    Tenko Linux 6 (Workstation) · <a href="https://repo.pjfox.xyz/tenko/packages/6/">packages</a> · <a href="https://pjfox.xyz/git/daspork/browneye">source</a>
+    Tenko Linux 6 (Workstation) · <a href="https://tenko.pjfox.xyz/packages/6/">packages</a> · <a href="https://pjfox.xyz/git/daspork/browneye">source</a>
   </div>
 </footer>
 </body>

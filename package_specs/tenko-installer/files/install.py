@@ -31,7 +31,7 @@ GIB = 1024 * MIB
 ESP_MIN_FREE_MIB = 256
 
 RELEASEVER = "6"
-DEFAULT_REPO = "https://repo.pjfox.xyz/tenko/packages/6/"
+DEFAULT_REPO = "https://tenko.pjfox.xyz/packages/6/"
 FALLBACK_KVER = "7.3.1"
 
 TENKO_BASE_PACKAGES = ("tenko-basefs",)

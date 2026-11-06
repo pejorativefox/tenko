@@ -41,7 +41,7 @@ mkdir -p %{buildroot}/etc/yum.repos.d
 cat > %{buildroot}/etc/yum.repos.d/tenko-6.repo <<'REPO'
 [tenko-6]
 name=Tenko Linux 6 (Workstation)
-baseurl=https://repo.pjfox.xyz/tenko/packages/6/
+baseurl=https://tenko.pjfox.xyz/packages/6/
 enabled=1
 gpgcheck=0
 repo_gpgcheck=0

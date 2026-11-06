@@ -36,7 +36,7 @@ cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
 DATE=${DATE:-$(date +%Y%m%d)}
-REPO_URL=${REPO_URL:-https://repo.pjfox.xyz/tenko/packages/6/}
+REPO_URL=${REPO_URL:-https://tenko.pjfox.xyz/packages/6/}
 IMAGE=${IMAGE:-localhost/tenko/base:r13.1-$DATE}
 TAG_STABLE=${TAG_STABLE:-1}
 DEVEL_PACKAGES=${DEVEL_PACKAGES:-"python3-pyelftools liblzo2"}

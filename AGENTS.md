@@ -28,7 +28,7 @@ carries the release identity.  Package versions roll independently and keep
 their own upstream or book versions — do not set every package to version 6.
 
 The distro repository is `tenko-6`: `/etc/yum.repos.d/tenko-6.repo`, id
-`tenko-6`, at <https://repo.pjfox.xyz/tenko/packages/6/>.  The old
+`tenko-6`, at <https://tenko.pjfox.xyz/packages/6/>.  The old
 `/etc/yum.repos.d/browneye-13.1.repo` is only the compatibility cleanup
 target for upgrades, not the new repo.  See
 [`docs/versions.md`](docs/versions.md) for the `/etc/os-release` identity.
@@ -56,10 +56,12 @@ site.  The publish scripts already do it (`MIRROR`, default
   page.
 - `scripts/publish_iso.sh` uploads an ISO plus a fresh `.sha256` to both.
 
-The mirror is served at <http://192.168.31.9/~daspork/tenko/>.  During the
-compatibility window the old `public_html/browneye` path is a symlink to
-`public_html/tenko`, so old URLs keep working.  Never publish to only one of
-the two.
+The public bucket is `r2_tenko:tenko` (served at <https://tenko.pjfox.xyz/>); the
+old `r2:browneye` bucket remains the 13.1 compatibility tree and keeps serving
+old artifacts.  The mirror is served at
+<http://192.168.31.9/~daspork/tenko/>.  During the compatibility window the
+old `public_html/browneye` path is a symlink to `public_html/tenko`, so old
+URLs keep working.  Never publish to only one of the two.
 
 ## Images are rebuilt only on request
 

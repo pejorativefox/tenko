@@ -15,14 +15,14 @@
 # efibootmgr/dosfstools/LVM2/kernel/python + tenko-installer).  dracut's
 # dmsquash-live mounts the squashfs with an overlayfs upper in tmpfs; the
 # installer then installs the target packages from the network repository
-# (https://repo.pjfox.xyz/tenko/packages/6/ by default), so the media
+# (https://tenko.pjfox.xyz/packages/6/ by default), so the media
 # itself carries no RPMs.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
 IMG=${IMG:-$(pick_image localhost/tenko/base:r13.1 localhost/browneye/base:r13.1)}
-REPO=${REPO:-https://repo.pjfox.xyz/tenko/packages/6/}
+REPO=${REPO:-https://tenko.pjfox.xyz/packages/6/}
 KVER=${KVER:-7.3.1}
 LIVE=${LIVE:-$PWD/build/live-root}
 STAGE=${STAGE:-$PWD/build/iso-stage}

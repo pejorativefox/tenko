@@ -570,7 +570,7 @@ Content-only changes that do not rename the file:
 ```ini
 [tenko-6]
 name=Tenko Linux 6 (Workstation)
-baseurl=https://repo.pjfox.xyz/tenko/packages/6/
+baseurl=https://tenko.pjfox.xyz/packages/6/
 enabled=1
 gpgcheck=0
 repo_gpgcheck=0
@@ -612,26 +612,25 @@ rename is reversible.
 
 | Alias | Old value | New value | Action during the window |
 |---|---|---|---|
-| R2 bucket | `r2:browneye` | unchanged | Keep the bucket; only keys move under `tenko/`. |
-| R2 key prefix | `r2:browneye/packages/13.1/` | `r2:browneye/tenko/packages/6` | Keep the old key as an alias. |
-
-**Bucket verification (2026-11-06):** the configured `r2:` remote can read and
-write `r2:browneye`. A test object written to
-`r2:browneye/tenko/packages/6/README.txt` was served at
-`https://repo.pjfox.xyz/tenko/packages/6/README.txt` (HTTP 200), confirming the
-custom-domain mapping. A new `r2:tenko` bucket exists, but the current rclone
-token receives HTTP 403 when listing it, and `repo.pjfox.xyz` still serves
-`r2:browneye`. The rename therefore publishes to
-`r2:browneye/tenko/packages/6` by default. To adopt the tenko bucket later:
-grant the token access to it, point the custom domain/Worker at it, and copy
-the tree server-side before switching the URLs.
-| Public repo URL | `https://repo.pjfox.xyz/packages/13.1/` | `https://repo.pjfox.xyz/tenko/packages/6/` | Old URL keeps serving the compatibility repo. |
+| R2 bucket | `r2:browneye` | `r2_tenko:tenko` | New Tenko bucket; the old bucket remains the 13.1 compatibility tree and old artifacts. |
+| R2 key prefix | `r2:browneye/packages/13.1/` | `r2_tenko:tenko/packages/6` | Keep the old key as an alias. |
+| Public repo URL | `https://repo.pjfox.xyz/packages/13.1/` | `https://tenko.pjfox.xyz/packages/6/` | Old URL keeps serving the compatibility repo. |
 | LAN mirror root | `public_html/browneye` | `public_html/tenko` | Move the tree; leave `browneye` as a symlink. |
 | LAN repo path | `public_html/browneye/packages/13.1` | `public_html/tenko/packages/6` | Keep the old path as an alias. |
 | LAN URL | `http://192.168.31.9/~daspork/browneye/` | `http://192.168.31.9/~daspork/tenko/packages/6/` | Old URL resolves through the symlink. |
 | Installer ISO | `browneye-installer.iso` | `tenko-installer.iso` | Keep the old artifact. At the deferred rebuild, `tenko-installer-6.iso` can be added; the unsuffixed and old names stay aliases. |
 | Container rootfs | `browneye-rootfs.tar.gz` | `tenko-rootfs.tar.gz` | Keep the old artifact. At the deferred rebuild, `tenko-rootfs-6.tar.gz` can be added; the unsuffixed and old names stay aliases. |
 | Container image | `localhost/browneye/base:r13.1` | `localhost/tenko/base:r6` (proposed; not locked) | Keep the old tag until checkpoint 7; the Tenko tag is an open question for the rebuild. |
+
+**Bucket verification (2026-11-06):** `tenko.pjfox.xyz` is the new custom
+domain for the `tenko` bucket. The working rclone target is `r2_tenko:tenko`
+(the older `r2:` remote is scoped to the `browneye` bucket). A test object
+written to `r2_tenko:tenko/test-mapping.txt` was served at
+`https://tenko.pjfox.xyz/test-mapping.txt` (HTTP 200). The publish scripts now
+target `r2_tenko:tenko/packages/6` and
+`https://tenko.pjfox.xyz/packages/6/`. The old
+`r2:browneye/packages/13.1/` tree is not the new target; it stays as the
+compatibility alias for old clients and artifacts.
 
 The old RPMs in the repository are not pruned. `PRUNE=1` on the whole
 repository would remove superseded packages the compatibility story wants to
@@ -646,7 +645,7 @@ This checkpoint does not publish anything. The order is:
 1. Checkpoint 3 applies the rename to the tree.
 2. Checkpoint 4 builds the RPMs and repeats the upgrade test with the full
    package set and `tenko-release-6-1`.
-3. Checkpoint 5 publishes to the staging `tenko/packages/6` prefix and
+3. Checkpoint 5 publishes to the staging `r2_tenko:tenko/packages/6` prefix and
    `public_html/tenko/packages/6`, and exercises a clean client.
 4. Checkpoint 6 cuts production over and confirms the old `packages/13.1`
    and `browneye` aliases resolve.
@@ -934,7 +933,7 @@ RELEASE_TYPE=stable
 /etc/yum.repos.d/tenko-6.repo
   [tenko-6]
   name=Tenko Linux 6 (Workstation)
-  baseurl=https://repo.pjfox.xyz/tenko/packages/6/
+  baseurl=https://tenko.pjfox.xyz/packages/6/
 ```
 
 The test also verified:

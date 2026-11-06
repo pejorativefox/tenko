@@ -122,7 +122,7 @@ class DryRunPipelineTest(unittest.TestCase):
             self.assertIn("tenko-6.repo", text)
             self.assertIn("[tenko-6]", text)
             self.assertIn("name=Tenko Linux 6 (Workstation)", text)
-            self.assertIn("https://repo.pjfox.xyz/tenko/packages/6/", text)
+            self.assertIn("https://tenko.pjfox.xyz/packages/6/", text)
             self.assertIn("chpasswd", text)
             self.assertIn("passwd -l root", text)
             self.assertIn("firstboot-root-password.done", text)

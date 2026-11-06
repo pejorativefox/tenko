@@ -86,7 +86,7 @@ bump a package:
 ## Publishing
 
 The distro repository is `tenko-6` (`/etc/yum.repos.d/tenko-6.repo`,
-<https://repo.pjfox.xyz/tenko/packages/6/>); package versions are independent
+<https://tenko.pjfox.xyz/packages/6/>); package versions are independent
 of the distro release.
 
 `publish_rpm.sh` merges new RPMs into the published metadata with

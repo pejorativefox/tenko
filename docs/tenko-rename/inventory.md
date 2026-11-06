@@ -8,6 +8,9 @@
 - **Distro release (updated 2026-11-06):** Tenko 6 (Workstation, stable);
   package versions roll independently, with `tenko-release-6-1` carrying the
   release identity. See `docs/tenko-rename/migration.md`.
+- **R2/domain (updated 2026-11-06):** final target is the `r2_tenko:tenko` bucket at
+  `https://tenko.pjfox.xyz/packages/6/`; the old `r2:browneye` bucket and
+  `https://repo.pjfox.xyz/packages/13.1/` tree remain compatibility aliases.
 - **Date:** 2026-11-06
 - **Scope:** checkpoint 0 (baseline) and checkpoint 1 (inventory and impact
   map). No source or package was changed at the baseline commit.
@@ -38,14 +41,14 @@ machine-readable appendices are in the same directory:
 | Short name | Tenko |
 | Package prefix | `tenko-` |
 | Runtime paths | `/usr/share/tenko`, `/run/tenko` |
-| Repo file | `/etc/yum.repos.d/tenko-13.1.repo` |
+| Repo file | `/etc/yum.repos.d/tenko-6.repo` |
 | Artifacts | `tenko-installer.iso`, `tenko-rootfs.tar.gz` |
-| Container image | `localhost/tenko/base:r13.1` (deferred until the image/rootfs is rebuilt) |
-| R2 storage | Keep the `r2:browneye` bucket; use a `tenko/` key prefix |
+| Container image | `localhost/tenko/base:r13.1` (build image; distro rootfs tag `:6`) |
+| R2 storage | New `r2_tenko:tenko` bucket with `packages/6`; old `r2:browneye` remains compatibility |
 | LAN mirror | Move to `public_html/tenko`; leave a symlink at `public_html/browneye` |
-| Images | Deferred; no ISO/rootfs rebuild in this issue |
+| Images | Deferred at baseline; rebuilt on request for the Tenko 6 fresh install |
 | Git repo | `daspork/tenko` |
-| Version | Stays 13.1 |
+| Version | Distro release 6 (Workstation); package versions roll independently |
 
 ### 0.2 Source baseline
 
@@ -80,8 +83,8 @@ The full 692-package list with SHA-256 checksums is
 
 | Artifact | Public URL | Size | SHA-256 | LAN mirror |
 |---|---|---|---|---|
-| Installer ISO | <https://repo.pjfox.xyz/iso/browneye-installer.iso> | 454,758,400 B (434 MiB) | `06cf19e6c76f8277af614ca8d11f7b4e5b009c0eac08834812b6cb034f4c6a66` | matches |
-| Container rootfs | <https://repo.pjfox.xyz/rootfs/browneye-rootfs.tar.gz> | 256,307,011 B (244 MiB) | `870b4dcddd46457263240b89a3946bfca747e96a655fa1bbe68f13b56c233fbf` | matches |
+| Installer ISO | <https://tenko.pjfox.xyz/iso/browneye-installer.iso> | 454,758,400 B (434 MiB) | `06cf19e6c76f8277af614ca8d11f7b4e5b009c0eac08834812b6cb034f4c6a66` | matches |
+| Container rootfs | <https://tenko.pjfox.xyz/rootfs/browneye-rootfs.tar.gz> | 256,307,011 B (244 MiB) | `870b4dcddd46457263240b89a3946bfca747e96a655fa1bbe68f13b56c233fbf` | matches |
 
 The old artifact names stay published during the compatibility window. The
 renamed artifacts will be `tenko-installer.iso` and `tenko-rootfs.tar.gz` when
@@ -174,7 +177,7 @@ During the window the following stay available:
 - The old `browneye-13.1.repo` file path on existing installations, cleaned up
   or disabled by the new `tenko-release` `%post`.
 - The old R2 key prefix `r2:browneye/packages/13.1/` and the old public/LAN
-  URLs as aliases of the new tree.
+  URLs as aliases of the new `r2_tenko:tenko/packages/6` tree.
 - The old LAN mirror directory `public_html/browneye` as a symlink to
   `public_html/tenko`.
 - The old artifacts `browneye-installer.iso` and `browneye-rootfs.tar.gz`.
@@ -189,7 +192,7 @@ During the window the following stay available:
 | `pejorativefox/browneye` (GitHub mirror) | Rename if applicable at checkpoint 8. |
 | `tenko` org/handle | Gitea/GitHub org `tenko` appears free but is not needed; the repo stays under `daspork`. GitHub user `tenko` is taken; no action. |
 | LAN mirror | `public_html/tenko`, with a `public_html/browneye` symlink. |
-| R2 | Keep the `r2:browneye` bucket; use `tenko/` keys. |
+| R2 | New `r2_tenko:tenko` bucket, `packages/6` prefix; old `r2:browneye` remains the 13.1 compatibility tree. |
 | `tenko.org` | Registered and parked; confirm the registrar/owner before committing to a public domain. |
 | `tenko.dev`, `tenko.io`, `tenko.net` | Did not resolve in the 2026-11-06 quick check; confirm at a registrar. |
 | npm `tenko` | Taken (ES2021 parser); no action for this project. |
@@ -413,9 +416,9 @@ The same table is in [`mapping.tsv`](mapping.tsv).
 | M14 | 10-browneye.conf, 20-browneye-live.conf | 10-tenko.conf, 20-tenko-live.conf | rename+cleanup | Rename dracut/journald configs; remove old config files in %post. |
 | M15 | browneye-13.1 repo id/file | tenko-13.1 repo id/file | rename+alias | New repo file tenko-13.1.repo; remove/disable the old browneye-13.1.repo. |
 | M16 | --repofrompath=browneye | --repofrompath=tenko | rename | dnf repo id used by scripts and installer. |
-| M17 | r2:browneye bucket | r2:browneye bucket | keep-compat | Bucket remains r2:browneye by decision; only the key prefix changes. |
-| M18 | packages/13.1 R2 key | tenko/packages/13.1 R2 key | rename+alias | Publish under tenko/; keep packages/13.1 as a compatibility alias. |
-| M19 | https://repo.pjfox.xyz/packages/13.1/ | https://repo.pjfox.xyz/tenko/packages/13.1/ | rename+alias | New public URL; old URL keeps serving the compatibility repo. |
+| M17 | r2:browneye bucket | r2_tenko:tenko bucket | rename+compat | New Tenko bucket; old r2:browneye remains the 13.1 compatibility tree. |
+| M18 | packages/13.1 R2 key | packages/6 R2 key | rename+alias | New r2_tenko:tenko/packages/6; old r2:browneye/packages/13.1 remains a compatibility alias. |
+| M19 | https://repo.pjfox.xyz/packages/13.1/ | https://tenko.pjfox.xyz/packages/6/ | rename+alias | New public URL; old URL keeps serving the compatibility repo. |
 | M20 | public_html/browneye | public_html/tenko | rename+alias | New LAN mirror root; leave a symlink at public_html/browneye. |
 | M21 | http://192.168.31.9/~daspork/browneye/ | http://192.168.31.9/~daspork/tenko/ | rename+alias | New LAN URL; old URL resolves through the symlink. |
 | M22 | browneye-installer.iso | tenko-installer.iso | rename+alias | New ISO artifact; keep the old ISO published during the window. |
@@ -457,8 +460,8 @@ vocabulary.
 
 | Reference | Why it stays | Where it is recorded |
 |---|---|---|
-| `r2:browneye` bucket | Locked decision; only keys move under `tenko/`. | M17 |
-| `r2:browneye/packages/13.1/` | Compatibility alias during the window. | M18 |
+| `r2_tenko:tenko` bucket | New Tenko bucket, served at `tenko.pjfox.xyz`. | M17 |
+| `r2:browneye/packages/13.1/` | Old bucket/key tree remains the compatibility alias. | M18 |
 | `https://repo.pjfox.xyz/packages/13.1/` and the LAN `/browneye/` URL | Old clients and old repo files still resolve. | M19, M21 |
 | `public_html/browneye` | Symlink to `public_html/tenko`. | M20 |
 | `browneye-installer.iso`, `browneye-rootfs.tar.gz` | Old artifacts remain published. | M22, M23 |
@@ -476,16 +479,16 @@ These need the same treatment but do not contain the literal string
 
 | Item | Current value | New value |
 |---|---|---|
-| R2 key prefix | `R2_PATH=${R2_PATH:-packages/$VERSION}` | `${R2_PATH:-tenko/packages/$VERSION}` |
-| Public repo URL variable | `URL=${URL:-https://repo.pjfox.xyz/packages/$VERSION/}` | `https://repo.pjfox.xyz/tenko/packages/$VERSION/` |
-| Installer default repo | `DEFAULT_REPO = "https://repo.pjfox.xyz/packages/13.1/"` | new `/tenko/packages/13.1/` URL |
-| `build_iso_uefi.sh`, `make_base_image.sh`, `qemu_boot*.sh` repo defaults | `https://repo.pjfox.xyz/packages/13.1/` | new URL |
-| `browneye-release` `baseurl=` | `https://repo.pjfox.xyz/packages/13.1/` | new URL |
-| `README.md` public repository link | `https://repo.pjfox.xyz/packages/13.1/` | new URL |
-| `web/index.html` package links | `packages/13.1/` | `tenko/packages/13.1/` |
-| `spec-audit.md` curl commands | `https://repo.pjfox.xyz/packages/13.1/...` | new URL |
-| `publish_repo.sh` / `publish_rpm.sh` mirror paths | `$MIRROR_PUBLIC/packages/$VERSION` | with `MIRROR_PUBLIC=public_html/tenko`, becomes `public_html/tenko/packages/13.1` |
-| ISO/rootfs R2 directories | `iso/`, `rootfs/` | unchanged directories; new file names only |
+| R2 key prefix | `R2_PATH=${R2_PATH:-packages/$VERSION}` | `${R2_PATH:-packages/$VERSION}` in `r2_tenko:tenko` |
+| Public repo URL variable | `URL=${URL:-https://repo.pjfox.xyz/packages/$VERSION/}` | `https://tenko.pjfox.xyz/packages/$VERSION/` |
+| Installer default repo | `DEFAULT_REPO = "https://repo.pjfox.xyz/packages/13.1/"` | `https://tenko.pjfox.xyz/packages/6/` |
+| `build_iso_uefi.sh`, `make_base_image.sh`, `qemu_boot*.sh` repo defaults | `https://repo.pjfox.xyz/packages/13.1/` | `https://tenko.pjfox.xyz/packages/6/` |
+| `tenko-release` `baseurl=` | `https://repo.pjfox.xyz/packages/13.1/` | `https://tenko.pjfox.xyz/packages/6/` |
+| `README.md` public repository link | `https://repo.pjfox.xyz/packages/13.1/` | `https://tenko.pjfox.xyz/packages/6/` |
+| `web/index.html` package links | `packages/13.1/` | `packages/6/` on `tenko.pjfox.xyz` |
+| `spec-audit.md` curl commands | `https://repo.pjfox.xyz/packages/13.1/...` | new URL for current audits; historical snapshot kept |
+| `publish_repo.sh` / `publish_rpm.sh` mirror paths | `$MIRROR_PUBLIC/packages/$VERSION` | with `MIRROR_PUBLIC=public_html/tenko`, becomes `public_html/tenko/packages/6` |
+| ISO/rootfs R2 directories | `iso/`, `rootfs/` in `r2:browneye` | `iso/`, `rootfs/` in `r2_tenko:tenko`; old artifacts remain in the old bucket |
 
 ### 1.10 Findings and decisions for checkpoint 2
 
