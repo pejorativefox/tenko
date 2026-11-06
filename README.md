@@ -1,12 +1,18 @@
-# Browneye Linux
+# Tenko Linux
 
-Browneye is a small x86_64 Linux distribution built from the LFS/BLFS r13.1
-books.  It uses systemd, a merged `/usr`, XFCE and a UEFI-only, network-install
-ISO.  Packages are shipped as RPMs from a self-hosted dnf repository; the
-installer downloads them while installing, so the ISO carries no packages.
+Tenko Linux 6 (Workstation) is a small x86_64 Linux distribution built from
+the LFS/BLFS r13.1 books.  It uses systemd, a merged `/usr`, XFCE and a
+UEFI-only, network-install ISO.  Packages are shipped as RPMs from a
+self-hosted dnf repository; the installer downloads them while installing, so
+the ISO carries no packages.  The distro release is 6; package versions roll
+independently and keep their own versions.
 
-- Public repository: <https://repo.pjfox.xyz/packages/13.1/>
-- LAN mirror: <http://192.168.31.9/~daspork/browneye/packages/13.1/>
+- Public repository: <https://repo.pjfox.xyz/tenko/packages/6/> (the Tenko 6
+  repository; until the cutover completes, the current `/packages/13.1/` path
+  remains the live source and stays valid as a compatibility alias)
+- LAN mirror: <http://192.168.31.9/~daspork/tenko/> (the old
+  `http://192.168.31.9/~daspork/browneye/` path is a symlink during the
+  transition)
 - Issue tracker: <https://pjfox.xyz/git/daspork/browneye/issues>
 
 ## Quick start
@@ -14,18 +20,22 @@ installer downloads them while installing, so the ISO carries no packages.
 ### 1. Download and verify the installer
 
 ```sh
-curl -LO https://repo.pjfox.xyz/iso/browneye-installer.iso
-curl -LO https://repo.pjfox.xyz/iso/browneye-installer.iso.sha256
-sha256sum -c browneye-installer.iso.sha256
+curl -LO https://repo.pjfox.xyz/iso/tenko-installer.iso
+curl -LO https://repo.pjfox.xyz/iso/tenko-installer.iso.sha256
+sha256sum -c tenko-installer.iso.sha256
 ```
 
 The ISO is 434 MiB.  On the LAN the mirror carries the same bytes:
-`http://192.168.31.9/~daspork/browneye/iso/`.
+`http://192.168.31.9/~daspork/tenko/iso/`.  The current published images
+predate the rename and the Tenko 6 release, so they are republished under
+these Tenko names at the next image rebuild.  A future rebuild may also
+publish versioned `tenko-installer-6.iso` and `tenko-rootfs-6.tar.gz`
+artifacts, with the unversioned names kept as aliases.
 
 ### 2. Write it to a USB stick
 
 ```sh
-sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync
+sudo dd if=tenko-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync
 ```
 
 (Replace `/dev/sdX` with the stick — this erases it.)
@@ -54,11 +64,11 @@ roughly 20 GiB of disk.
 
 The installed system boots with systemd-boot into XFCE.  Log in with the admin
 account created by the installer.  `dnf` is already configured
-(`/etc/yum.repos.d/browneye-13.1.repo`) against the repository that was used
+(`/etc/yum.repos.d/tenko-6.repo`) against the repository that was used
 for the install, so:
 
 ```sh
-sudo dnf install browneye-base      # build toolchain
+sudo dnf install tenko-base      # build toolchain
 sudo dnf upgrade
 ```
 
@@ -68,13 +78,16 @@ A 244 MiB rootfs tarball with the build toolchain is published for use as a
 container/build image:
 
 ```sh
-curl -LO https://repo.pjfox.xyz/rootfs/browneye-rootfs.tar.gz
-curl -LO https://repo.pjfox.xyz/rootfs/browneye-rootfs.tar.gz.sha256
-sha256sum -c browneye-rootfs.tar.gz.sha256
-podman import browneye-rootfs.tar.gz localhost/browneye/rootfs:13.1
+curl -LO https://repo.pjfox.xyz/rootfs/tenko-rootfs.tar.gz
+curl -LO https://repo.pjfox.xyz/rootfs/tenko-rootfs.tar.gz.sha256
+sha256sum -c tenko-rootfs.tar.gz.sha256
+podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6
 ```
 
-## Working on Browneye
+The pre-rename container tags stay valid until the image rebuild; see
+[`docs/build.md`](docs/build.md) for the build-image tag.
+
+## Working on Tenko
 
 Everything is driven from this checkout:
 

@@ -20,8 +20,8 @@ refuses to proceed when Secure Boot is enabled.
 
 | what | script | pass means |
 |---|---|---|
-| installer media | `scripts/qemu_test_installer.sh` | systemd-boot menu, kernel + initrd boot, `Started Browneye Linux installer`, multi-user and a console login prompt |
-| unattended install | `ISO_AUTO=1 ISO_ANSWER=tests/installer-answer.json scripts/build_iso_uefi.sh` then boot the ISO | installer reports steps 1–9 and `OK`, `bootctl install` succeeds, disk boots to `browneye-test login:` |
+| installer media | `scripts/qemu_test_installer.sh` | systemd-boot menu, kernel + initrd boot, `Started Tenko Linux installer`, multi-user and a console login prompt |
+| unattended install | `ISO_AUTO=1 ISO_ANSWER=tests/installer-answer.json scripts/build_iso_uefi.sh` then boot the ISO | installer reports steps 1–9 and `OK`, `bootctl install` succeeds, disk boots to `tenko-test login:` |
 | installed disk | QEMU with `-drive file=build/installer-test.img,if=virtio` and a fresh OVMF NVRAM | systemd-boot menu → kernel → login prompt |
 | graphical session | `scripts/qemu_boot_graphical.sh` | X starts on tty1, screenshot captured in `build/xfce-screenshot.png` |
 | first boot + greeter | `scripts/qemu_boot_login.sh` | first-boot password flow, LightDM greeter captured (guest `xwd` or screendump fallback) |
@@ -52,14 +52,14 @@ Interactive UI without an ISO: `scripts/run_installer_sim.sh` runs the real
 curses installer against synthetic in-memory disks, forces dry-run, and
 needs no root, UEFI firmware, network or block device.  Use
 `--simulate-scenario mixed` to test adopting an existing ESP/data partition.
-Every mutating command is written to `/tmp/browneye-installer-sim/plan.sh`
-(override with `BROWNEYE_SIM_DIR`).  This is the fast loop for installer UI
+Every mutating command is written to `/tmp/tenko-installer-sim/plan.sh`
+(override with `TENKO_SIM_DIR`).  This is the fast loop for installer UI
 changes; boot the ISO only after the flow is correct.
 
 Unattended install: build the ISO with `ISO_AUTO=1` and
 `ISO_ANSWER=tests/installer-answer.json`.  The version 2 answer file writes a
 layout on `/dev/vda` with a 1 GiB ESP + 2 GiB swap + ext4 root, installs the
-`desktop` set, sets hostname `browneye-test` and admin `admin` (test-only
+`desktop` set, sets hostname `tenko-test` and admin `admin` (test-only
 password).  Add another entry to `layout.disks` for a second disk, for
 example a btrfs or ext4 data partition mounted at `/home`.
 That image is a test artifact — do not use it on real hardware.
@@ -97,7 +97,7 @@ index generation; they do not need QEMU.
 
 ## Notes
 
-- The live root is the `browneye-live` closure; the installer downloads the
+- The live root is the `tenko-live` closure; the installer downloads the
   target packages from `REPO`, so a working network is part of the test.
 - OVMF firmware comes from the `edk2-ovmf` package.  Passing a different
   firmware is possible via `OVMF_CODE`/`OVMF_VARS_SRC`.

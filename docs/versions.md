@@ -1,6 +1,6 @@
 # Version policy and book synchronisation
 
-Browneye tracks the LFS and BLFS r13.1 books (the `trunk` branches of
+Tenko tracks the LFS and BLFS r13.1 books (the `trunk` branches of
 `~/repos/lfs` and `~/repos/blfs`).  The rule, including how to handle packages
 that are not in the books, is in [`AGENTS.md`](../AGENTS.md) — this page only
 describes the tooling.
@@ -10,6 +10,33 @@ describes the tooling.
 Every package we build or install must be **at least** the current book
 version, including its dependency chain.  If a package is not in LFS/BLFS,
 stop and ask before choosing a version or substitute.
+
+## Distro release and package versions
+
+The distribution release is **Tenko 6 (Workstation)**.  Packages roll
+independently and keep their own versions, so the distro release is not the
+version of every package.  `tenko-release` carries the release identity and is
+versioned `6-1`; other packages keep their own upstream or book versions.
+
+`/etc/os-release`:
+
+```ini
+NAME="Tenko Linux"
+ID=tenko
+VERSION="6 (Workstation)"
+VERSION_ID="6"
+PRETTY_NAME="Tenko Linux 6 (Workstation)"
+VARIANT="Workstation"
+VARIANT_ID=workstation
+RELEASE_TYPE=stable
+```
+
+The distro repository is `tenko-6`:
+`/etc/yum.repos.d/tenko-6.repo`, id `tenko-6`, at
+<https://repo.pjfox.xyz/tenko/packages/6/>.  Existing Browneye installs still
+have `/etc/yum.repos.d/browneye-13.1.repo`; `tenko-release` removes or
+disables that file during the upgrade.  It is the compatibility cleanup
+target only — never reuse its name for the Tenko repo.
 
 ## `lfs.lock`
 

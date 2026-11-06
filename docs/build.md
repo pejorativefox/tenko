@@ -16,16 +16,18 @@ podman and `~/rpmbuild/SOURCES` for the tarballs.
 ## One package
 
 ```sh
-IMAGE=localhost/browneye/base:r13.1 \
+IMAGE=localhost/tenko/base:r13.1 \
 OUT=build/my-wave \
 JOBS=2 MAKE_JOBS=4 \
 scripts/build_specs.sh curl/curl.spec
 ```
 
 - Paths are relative to `package_specs/`.
-- `IMAGE` is the build environment.  `localhost/browneye/base:r13.1` is the
+- `IMAGE` is the build environment.  `localhost/tenko/base:r13.1` is the
   usual one; packages with extra requirements are built in derived images (see
-  `scripts/make_base_image.sh`).
+  `scripts/make_base_image.sh`).  Until the image rebuild (checkpoint 7), the
+  pre-rename `localhost/browneye/base:r13.1` tag remains available as the
+  fallback.
 - `OUT` must be a relative path.  Results are in `$OUT/build/<pkg>/RPMS/` and
   logs in `$OUT/logs/`.
 - `--from-file list.txt` builds a list instead of arguments.
@@ -83,6 +85,10 @@ bump a package:
 
 ## Publishing
 
+The distro repository is `tenko-6` (`/etc/yum.repos.d/tenko-6.repo`,
+<https://repo.pjfox.xyz/tenko/packages/6/>); package versions are independent
+of the distro release.
+
 `publish_rpm.sh` merges new RPMs into the published metadata with
 `mergerepo_c --method nvr`, uploads them, regenerates the package index, and
 refreshes the LAN mirror.  It refuses a repeated NEVRA with different content,
@@ -112,7 +118,12 @@ Other publishers:
   zstd squashfs).  `ISO_AUTO=1` plus `ISO_ANSWER=tests/installer-answer.json`
   makes it unattended.
 - Rootfs: `scripts/make_base_image.sh` with
-  `PACKAGES="browneye-base browneye-build python3-pyelftools"
-  TARBALL=build/browneye-rootfs.tar.gz`.
+  `PACKAGES="tenko-base tenko-build python3-pyelftools"
+  TARBALL=build/tenko-rootfs.tar.gz`.
+
+The image artifacts keep the unversioned `tenko-installer.iso` and
+`tenko-rootfs.tar.gz` names for now.  A future image rebuild may also publish
+`tenko-installer-6.iso` and `tenko-rootfs-6.tar.gz`, with the unversioned
+names kept as aliases.
 
 Images are rebuilt only on request (see [`AGENTS.md`](../AGENTS.md)).
