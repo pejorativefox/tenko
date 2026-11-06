@@ -5,7 +5,7 @@ Audit of `package_specs/` against the LFS and BLFS checkouts and the
 
 - Repo snapshot: `repodata/870aadc…-primary.xml.zst` of
   <https://repo.pjfox.xyz/packages/13.1/> —
-  **690 RPM names** from **497 source packages**.
+  **691 RPM names** from **498 source packages**.
 - Books: `~/repos/lfs` branch `trunk` (`1493db7`) and `~/repos/blfs`
   branch `trunk` (`60fb6e5`).
 - Spec tree after the three 2026-11-05 package waves, the Python 2/3 and
@@ -28,14 +28,14 @@ reported as **NO-BOOK** ("not comparable"), not as "not in the books".
 
 | measure | count |
 |---|---:|
-| spec files / spec directories | 497 / 497 |
-| shipped spec files (live source package in the repo) | 497 |
-| source packages in the published repo | 497 |
-| RPM names in the published repo | 690 |
+| spec files / spec directories | 498 / 498 |
+| shipped spec files (live source package in the repo) | 498 |
+| source packages in the published repo | 498 |
+| RPM names in the published repo | 691 |
 | **shipped packages below the book** | **0** |
 | shipped packages at the book | 382 |
 | shipped packages above the book | 2 (`db`, `xml-parser`) |
-| shipped packages with no comparable book entity | 113 |
+| shipped packages with no comparable book entity | 114 |
 | unbuilt spec files | 0 |
 | unbuilt specs below the book | 0 |
 | specs with `Summary: TODO` | 0 |
@@ -85,7 +85,7 @@ against upstream (§1.2):
   `gotop`, `help2man`, `lgi`, `libdmx`, `liblzo2`, `libsoup`,
   `libstemmer`, `libuev`, `libxdg-basedir`, `ncdu`, `numactl`, `pcre`,
   `sdl2-image`, `sdl2-ttf`, `sxhkd`, `tzdb`, `wmname`, `x11perf`,
-  `xf86-input-synaptics`, `edk2-ovmf`).
+  `xf86-input-synaptics`, `edk2-ovmf`, `rclone`).
 
 Known deviations and exceptions are recorded in issue #7.
 
