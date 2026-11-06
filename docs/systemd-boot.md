@@ -372,20 +372,20 @@ Artifacts from the run are under `build/` (`browneye-installer-systemd.iso`,
 
 ### Published images
 
-The installer ISO was rebuilt from `main` after the multi-disk layout
-editor, btrfs support, btrfs-progs/liblzo2 packages and the repository
-preflight fix, and published to the public site and the LAN mirror on
-2026-11-06.  The rootfs row is unchanged
-from the 2026-11-05 build.
+The installer ISO and container rootfs were rebuilt from `main` after the
+multi-disk layout editor, btrfs support, btrfs-progs/liblzo2 packages and
+the repository preflight fix, and published to the public site and the LAN
+mirror on 2026-11-06.
 
 | Artifact | Size | SHA-256 |
 |---|---|---|
 | `iso/browneye-installer.iso` | 434 MiB | `7f3f64f21dc2433c7ca45be2996dcd68cd1ce8ba76629bb0d2501bac59961310` |
-| `rootfs/browneye-rootfs.tar.gz` | 244 MiB | `dda9e357c04f43ed043a82a42c3e19866c90f32cb65f4fe9743421e55bd20237` |
+| `rootfs/browneye-rootfs.tar.gz` | 244 MiB | `870b4dcddd46457263240b89a3946bfca747e96a655fa1bbe68f13b56c233fbf` |
 
-The rootfs is the build rootfs: 127 packages, including
-`browneye-base-13.1-10`, rpm 4.18.1-8, the gcc/build toolchain and
-`python3-pyelftools`.  It contains no `-devel` packages; the distro ships
+The rootfs is the build rootfs: 128 packages, including
+`browneye-base-13.1-10`, rpm 4.18.1-8, the gcc/build toolchain,
+`python3-pyelftools` and the liblzo2 headers needed to build
+`btrfs-progs`.  It contains no `-devel` packages; the distro ships
 only the intentional `llvm-devel`/`clang-devel` split.  The ISO live root is
 the `browneye-live` closure (102 packages, also no `-devel`); the image was
 booted in OVMF/QEMU to multi-user and the `Browneye Linux installer` unit.
