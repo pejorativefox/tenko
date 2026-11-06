@@ -33,8 +33,8 @@ if [ "$DRY_RUN" = 1 ]; then
 fi
 
 echo "uploading to $R2/$R2_DIR/"
-rclone copyto "$ISO" "$R2/$R2_DIR/$(basename "$ISO")"
-rclone copyto "$sum" "$R2/$R2_DIR/$(basename "$sum")"
+rclone copyto "$ISO" "$R2/$R2_DIR/$(basename "$ISO")" --s3-no-check-bucket
+rclone copyto "$sum" "$R2/$R2_DIR/$(basename "$sum")" --s3-no-check-bucket
 
 if [ "$MIRROR" != "0" ]; then
     echo "mirroring to $MIRROR:$MIRROR_PUBLIC/iso/"

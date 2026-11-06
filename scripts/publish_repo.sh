@@ -135,9 +135,9 @@ if [ "$DRY_RUN" = 1 ]; then
     exit 0
 fi
 
-rclone sync "$STAGE/" "$R2/$R2_PATH" --transfers 8
+rclone sync "$STAGE/" "$R2/$R2_PATH" --transfers 8 --s3-no-check-bucket
 if [ -f "$INDEX" ]; then
-    rclone copyto "$INDEX" "$R2/index.html"
+    rclone copyto "$INDEX" "$R2/index.html" --s3-no-check-bucket
 fi
 
 if [ "$MIRROR" != "0" ]; then

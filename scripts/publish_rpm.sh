@@ -225,10 +225,10 @@ if [ "$DRY_RUN" = 1 ]; then
 fi
 
 echo "uploading RPMs"
-rclone copy "${rpms[@]}" "$R2/$R2_PATH/" --transfers 8
+rclone copy "${rpms[@]}" "$R2/$R2_PATH/" --transfers 8 --s3-no-check-bucket
 
 echo "uploading merged metadata"
-rclone sync "$STAGE/merged/repodata" "$R2/$R2_PATH/repodata"
+rclone sync "$STAGE/merged/repodata" "$R2/$R2_PATH/repodata" --s3-no-check-bucket
 
 if [ "$PRUNE" = 1 ]; then
     echo "pruning RPMs the merged metadata does not reference"
@@ -251,7 +251,7 @@ rclone lsf "$R2/$R2_PATH" --files-only --format "ps" --separator " " |
     grep '\.rpm ' > "$STAGE/files.txt"
 python3 scripts/gen_repo_index.py "$STAGE/files.txt" "$STAGE/index.html" \
     "$VERSION" "$URL" "$REPO_ID"
-rclone copyto "$STAGE/index.html" "$R2/$R2_PATH/index.html"
+rclone copyto "$STAGE/index.html" "$R2/$R2_PATH/index.html" --s3-no-check-bucket
 
 if [ "$MIRROR" != "0" ]; then
     echo "mirroring to $MIRROR:$MIRROR_PUBLIC/packages/$VERSION/"
