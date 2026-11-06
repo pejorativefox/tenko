@@ -103,7 +103,7 @@ MIRROR=0 scripts/publish_rpm.sh ...               # public only (not for release
 Other publishers:
 
 - `scripts/publish_repo.sh` — whole repository + overview page.
-- `scripts/publish_iso.sh` — installer ISO (427 MiB) + fresh `.sha256`.
+- `scripts/publish_iso.sh` — installer ISO (434 MiB) + fresh `.sha256`.
 - `scripts/publish_rootfs.sh` — container rootfs (244 MiB) + fresh `.sha256`.
 
 ## Images

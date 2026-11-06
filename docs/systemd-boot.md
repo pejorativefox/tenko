@@ -372,12 +372,15 @@ Artifacts from the run are under `build/` (`browneye-installer-systemd.iso`,
 
 ### Published images
 
-Rebuilt from `main` at `cc2a1c8` (metadata/licence waves and the R2 move)
-and published to the public site and the LAN mirror on 2026-11-05:
+The installer ISO was rebuilt from `main` after the multi-disk layout
+editor, btrfs support, btrfs-progs/liblzo2 packages and the repository
+preflight fix, and published to the public site and the LAN mirror on
+2026-11-06.  The rootfs row is unchanged
+from the 2026-11-05 build.
 
 | Artifact | Size | SHA-256 |
 |---|---|---|
-| `iso/browneye-installer.iso` | 430 MiB | `5f80a59156b7a6e233892f1acef11e9baea925f852af6b0da851ea3de98e5984` |
+| `iso/browneye-installer.iso` | 434 MiB | `7f3f64f21dc2433c7ca45be2996dcd68cd1ce8ba76629bb0d2501bac59961310` |
 | `rootfs/browneye-rootfs.tar.gz` | 244 MiB | `dda9e357c04f43ed043a82a42c3e19866c90f32cb65f4fe9743421e55bd20237` |
 
 The rootfs is the build rootfs: 127 packages, including

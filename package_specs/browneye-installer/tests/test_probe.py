@@ -2,6 +2,7 @@ import os
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 FILES = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "files")
@@ -38,6 +39,32 @@ class ReadTextTest(unittest.TestCase):
         os.symlink("/dev/null", link)
         self.assertTrue(os.path.islink(link))
         self.assertEqual(os.path.realpath(link), "/dev/null")
+
+
+class RepositoryProbeTest(unittest.TestCase):
+    def test_uses_a_product_user_agent(self):
+        seen = {}
+
+        class Response:
+            status = 200
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *exc):
+                return False
+
+        def fake_urlopen(request, timeout=0):
+            seen["user_agent"] = request.get_header("User-agent")
+            return Response()
+
+        with mock.patch("probe.urllib.request.urlopen", fake_urlopen):
+            ok, detail = probe._repository_reachable(
+                "https://example.invalid/repodata/repomd.xml"
+            )
+        self.assertTrue(ok)
+        self.assertEqual(detail, "https://example.invalid/repodata/repomd.xml")
+        self.assertEqual(seen["user_agent"], "Browneye-Installer/13.1")
 
 
 if __name__ == "__main__":

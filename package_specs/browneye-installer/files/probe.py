@@ -76,16 +76,27 @@ def _repository_reachable(repodata: str) -> tuple[bool, str]:
     A network repository is retried for a while: the installer starts as
     soon as the live system reaches multi-user, which can be before DHCP
     has finished, and a URL is not a path that os.path.isfile() can see.
+
+    The public repository sits behind Cloudflare, which returns HTTP 403 to
+    the default ``Python-urllib`` User-Agent while dnf's UA is allowed.  Send
+    a product UA so the preflight probes the same bytes dnf will fetch.
     """
     if "://" not in repodata:
         return os.path.isfile(repodata), repodata
     last = "not fetched"
+    request_headers = {
+        "User-Agent": "Browneye-Installer/13.1",
+        "Accept": "*/*",
+    }
     for _ in range(6):
         try:
-            with urllib.request.urlopen(repodata, timeout=15) as response:
+            request = urllib.request.Request(repodata, headers=request_headers)
+            with urllib.request.urlopen(request, timeout=15) as response:
                 if response.status == 200:
                     return True, repodata
                 last = "HTTP %s" % response.status
+        except urllib.error.HTTPError as exc:
+            last = "HTTP %s %s" % (exc.code, exc.reason)
         except (urllib.error.URLError, OSError) as exc:
             last = str(exc)
         time.sleep(5)

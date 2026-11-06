@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    18
+Release:    19
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -87,6 +87,12 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-19
+- Repository preflight: send a "Browneye-Installer/13.1" User-Agent.
+  Cloudflare/R2 returns HTTP 403 to urllib's default Python-urllib UA,
+  which made every install fail at preflight even though dnf could fetch
+  the same metadata.
+
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-18
 - Validate data mount points to a safe absolute-path character set before
   they reach fstab, and require the v2 "format" field to be a JSON boolean.
