@@ -131,8 +131,10 @@ Its new package is `tenko-basefs-1.0-2`, and its Obsoletes must be
 
 ### 0.6 LAN mirror baseline
 
-The LAN mirror is the same bytes as the public tree for every package the
-published metadata references.
+The LAN mirror has every package the published metadata references, with
+matching filenames and sizes. SHA-256 was verified for all 13 `browneye-*`
+RPMs and both artifacts; the other 679 packages were compared by filename and
+size.
 
 | Item | Value |
 |---|---|
