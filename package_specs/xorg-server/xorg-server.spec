@@ -53,11 +53,11 @@ rm -f %{buildroot}/var/lib/xkb/README.compiled
   main package (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 21.1.25-1
-- Update to 21.1.25 (BLFS trunk).
+- Update to 21.1.25.
 - Drop the -Wl,-rpath-link,/usr/lib workaround: llvm-libs 23.1.0-3 installs
   into /usr/lib64, so libgallium's libLLVM dependency resolves normally.
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 21.1.24-2
 - Split devel payload into xorg-server-devel (size audit)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 21.1.24-1
-- Sync with BLFS r13.1 (meson build)
+- Sync with the meson build

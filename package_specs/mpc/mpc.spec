@@ -37,7 +37,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (LGPL-3.0-or-later): src/abs.c (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.4.1
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 1.3.1
 - Version bump

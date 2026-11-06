@@ -45,7 +45,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (GPL-3.0-or-later): src/ls.c (issue #8).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 9.12-1
-- Update to 9.12 (current LFS/BLFS r13.1 trunk version).
+- Update to 9.12 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 9.11-2
 - Split lang payload into coreutils-lang (size audit)
@@ -54,7 +54,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Replace directory globs with a generated static filelist
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 9.11
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 9.3-1
 - Version bump

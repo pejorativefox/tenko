@@ -61,7 +61,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   main package (issue #4).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2.42.4-1
-- Update to 2.42.4 (current LFS/BLFS r13.1 trunk version).
+- Update to 2.42.4 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.42.2-2
 - Split lang, devel payload into util-linux-lang, util-linux-devel (size audit)
@@ -69,7 +69,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.42.2
 - Replace directory globs with a generated static filelist
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.42.2
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 4.0.3-1
 - Version bump

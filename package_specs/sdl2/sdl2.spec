@@ -149,7 +149,7 @@ popd
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.32.74-1
-- Track BLFS r13.1: sdl2 is now sdl2-compat (a shim over sdl3)
+- Track upstream: sdl2 is now sdl2-compat (a shim over sdl3)
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 2.0.8
 - Initial RPM

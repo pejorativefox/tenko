@@ -43,7 +43,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   main package (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.2.6-1
-- Update to 1.2.6 (current BLFS r13.1 trunk version).
+- Update to 1.2.6 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.5-2
 - Split devel, static payload into libxtst-devel, libxtst-static (size audit)

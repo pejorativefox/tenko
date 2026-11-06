@@ -46,4 +46,4 @@ popd
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.19-1
 - New package for the self-hosted dnf/libdnf toolchain (E1).
-- BLFS r13.1 version (json-c 0.19). Built with shared libraries only.
+- Pinned version (json-c 0.19).  Built with shared libraries only.

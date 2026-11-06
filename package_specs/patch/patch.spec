@@ -30,10 +30,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (GPL-3.0-or-later): src/patch.c (issue #8).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2.8.1-1
-- Update to 2.8.1 (current LFS/BLFS r13.1 trunk version).
+- Update to 2.8.1 (current upstream version).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.8
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.7.6-1
 - Version bump

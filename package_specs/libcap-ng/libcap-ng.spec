@@ -41,7 +41,7 @@ rm -f %{buildroot}%{_libdir}/*.a
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.9.6-1
-- Not in the LFS/BLFS r13.1 book: added as OpenVPN 2.7.8's hard
+- Not in the base set: added as OpenVPN 2.7.8's hard
   dependency, at the latest upstream stable release (v0.9.6,
   2026-09-09).  The library is LGPL-2.1-or-later; the bundled
   pscap/netcap/filecap tools are GPL-2.0-or-later.

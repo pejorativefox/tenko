@@ -23,7 +23,7 @@ install -Dm755 gotop %{buildroot}%{_bindir}/gotop
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.2.0-1
-- Not in the r13.1 book; 4.2.0 is the latest maintained release
+- Not in the base set; 4.2.0 is the latest maintained release
   (2026-11-05). The previous cjbassi/cdown repository is archived; the
   maintained fork is xxxserxxx/gotop.
 - Follow the release asset naming (gotop_v4.2.0_linux_amd64.tgz) and

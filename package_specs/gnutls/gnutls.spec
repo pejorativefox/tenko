@@ -68,7 +68,7 @@ rm -rf %{buildroot}%{_infodir}/dir
 - Split doc, lang, devel payload into gnutls-doc, gnutls-lang, gnutls-devel (size audit)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.13
-- Update to 3.8.13 (BLFS r13.1)
+- Update to 3.8.13
 - Build against nettle 4.0, libtasn1 4.21.0 and p11-kit 0.26.5
 - Use the PKCS#11 trust store and the bundled libunistring
 - Replace the hand-written file list with a generated static filelist

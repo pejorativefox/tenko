@@ -74,7 +74,7 @@ The .gir XML needed for building stays in the main package.
   main package (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.90.1-1
-- Update to 2.90.1 (current BLFS r13.1 trunk version).
+- Update to 2.90.1 (current upstream version).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.90.0-3
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
@@ -82,7 +82,7 @@ The .gir XML needed for building stays in the main package.
 - Split lang, devel payload into glib-lang, glib-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.88.3
-- Sync with BLFS r13.1 (2.77.2)
+- Sync with 2.77.2
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 2.77.2
 - Version bump 

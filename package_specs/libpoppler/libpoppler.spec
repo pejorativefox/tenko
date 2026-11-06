@@ -58,14 +58,14 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 26.10.0-1
-- Update to 26.10.0, the version in the BLFS r13.1 book
+- Update to 26.10.0, the pinned version
   (general/graphlib/poppler.xml).
-- Follow the book's Ninja/CMake build and keep
+- Follow the documented Ninja/CMake build and keep
   ENABLE_UNSTABLE_API_ABI_HEADERS=ON.
 - Enable the dependencies this repository ships: libjpeg-turbo,
   libpng, freetype, fontconfig, harfbuzz, openjpeg, curl, cairo,
   glib and GObject-Introspection (plus zlib and brotli-free streams).
-- Disable what is neither in the book build nor in the repository:
+- Disable what is neither in the base set build nor in the repository:
   lcms2, libtiff, nss, gpgme, boost, qt5 and qt6, and brotli (not
   installed in the build image; poppler's CMake would otherwise
   abort).

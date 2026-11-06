@@ -60,7 +60,7 @@ autoreconf -fiv
 rm -rf %{buildroot}
 %make_install
 
-# BLFS: the session wrapper is part of tests/ and is not installed upstream.
+# the session wrapper is part of tests/ and is not installed upstream.
 install -Dpm0755 tests/src/lightdm-session %{buildroot}%{_bindir}/lightdm-session
 sed -i '1 s/sh/bash --login/' %{buildroot}%{_bindir}/lightdm-session
 
@@ -123,9 +123,9 @@ XML needed for building stays there.
   when groupadd reported the existing group (exit 9)
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.33.1-1
-- Package BLFS r13.1 lightdm 1.33.1, replacing the stale 1.24.0 template
+- Package lightdm 1.33.1, replacing the stale 1.24.0 template
 - Install a systemd unit and preset (lightdm.service, aliased to
-  display-manager.service), the BLFS lightdm-session wrapper, and the
+  display-manager.service), lightdm-session wrapper, and the
   lightdm user/group via scriptlets
 - Skip the yelp help build (no yelp-tools/itstool), the Upstart job, the
   AppArmor profiles and the dangling AccountsService interface symlink

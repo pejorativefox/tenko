@@ -27,7 +27,7 @@ when /dev/kvm is unavailable) and is what Tenko uses to boot and test
 its images.  User-mode networking comes from libslirp, audio from ALSA,
 and device trees from libfdt (dtc).
 
-qemu-11.1.3 is the version in BLFS r13.1 (postlfs/virtualization/qemu).
+qemu-11.1.3 is the pinned version.
 
 %prep
 %setup -q
@@ -66,21 +66,21 @@ popd
   not, so autodetection added qemu-keymap and the .mo translations.
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 11.1.3-2
-- Build against pixman and libpng (pixman is a required BLFS dependency).
+- Build against pixman and libpng (pixman is a required dependency).
   The first build image lacked both, so qemu was silently built without
   VNC or PNG screendump support (`-vnc: invalid option`), which broke the
   graphical test scripts.  Add the BuildRequires and use the
   base:qemu-deps image that now carries them.
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 11.1.3-1
-- Update from the 8.1.0 stub to 11.1.3, the version in BLFS r13.1.
+- Update from the 8.1.0 stub to 11.1.3, the pinned version.
 - Source: https://download.qemu.org/qemu-11.1.3.tar.xz
   md5 fc206ce1fca9cbd4f7493c81a2f2d2fb
-- Build only the x86_64 system emulator with the book's options
+- Build only the x86_64 system emulator with the documented options
   (--disable-download, --disable-pa, --audio-drv-list=alsa,
   --enable-slirp); qemu-img, qemu-io, qemu-nbd, qemu-storage-daemon and
   the guest tools are still installed.
-- New dependency chain from the book: dtc 1.8.1 (libfdt) and libslirp
+- New dependency chain from the base set: dtc 1.8.1 (libfdt) and libslirp
   4.9.7, both built and published for this.
-- The bridge helper is installed setuid root with group kvm, as the book
+- The bridge helper is installed setuid root with group kvm, as the base build
   does, so unprivileged users in the kvm group can use -netdev bridge.

@@ -39,8 +39,8 @@ make prefix=%{buildroot}/usr MANDIR=%{buildroot}/usr/share/man/man1 \
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 6.0-1
-- Fix the unbuildable stub.  The consolidated patch is no longer served
-  under patches/blfs/13.1, and the BLFS archive page now also requires
+- Fix the unbuildable stub.  The consolidated patch is no longer
+  separately served, and the archive package page now also requires
   unzip-6.0-gcc14-1.patch for GCC 14 and later; both are vendored in
   package_specs/unzip/files.  %setup no longer re-extracts the tarball
   with -a0, the build uses the "generic" target (generic_gcc is gone), and

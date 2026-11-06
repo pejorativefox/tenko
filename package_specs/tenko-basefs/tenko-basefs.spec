@@ -73,4 +73,4 @@ ln -sf usr/sbin %{buildroot}/sbin
 - Clean up old browneye paths, units, presets and configuration.
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.0
-- LFS r13.1 merged-/usr layout
+- Merged-/usr layout

@@ -149,7 +149,7 @@ fi
   directory and are unaffected.
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 7.3.1-1
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 7.2.6-5
 - Set CONFIG_DRM_PANIC_SCREEN="user": the sanitized config selected the
@@ -178,4 +178,4 @@ fi
 - Keep virtio-blk, ext4, 9p and virtio-gpu built in for the QEMU test image
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 7.1.8
-- Sync with LFS r13.1; QEMU/virtio boot configuration
+- Sync with the base set; QEMU/virtio boot configuration

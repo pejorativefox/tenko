@@ -43,5 +43,5 @@ rm -vf %{buildroot}%{_infodir}/dir*
   re-publishing the same NEVRA would leave the repo metadata stale.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 3.0.2-1
-- New package (BLFS r13.1): required by gpgme, which librepo uses for
+- New package (base set): required by gpgme, which librepo uses for
   repository signature handling.

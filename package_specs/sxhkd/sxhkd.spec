@@ -38,7 +38,7 @@ make install DESTDIR=%{buildroot} PREFIX=/usr
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.6.3-1
-- Not in the LFS/BLFS r13.1 book; latest upstream stable 2026-11-05
+- Not in the base set; latest upstream stable 2026-11-05
   (tag 0.6.3).  Built with the upstream plain Makefile against
   libxcb and xcb-util-keysyms.
 - Update from 0.6.1 to 0.6.3.

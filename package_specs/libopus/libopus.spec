@@ -38,7 +38,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.6.1-1
-- Update to 1.6.1, the version in the BLFS r13.1 book
+- Update to 1.6.1, the pinned version
   (multimedia/libdriv/opus.xml).
-- Build with meson as the book does, with the book's docdir.
+- Build with meson as the base build does, with the documented docdir.
 - First Browneye build; replaces the stale 1.3 spec.

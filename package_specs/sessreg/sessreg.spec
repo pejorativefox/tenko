@@ -11,7 +11,7 @@ Source0:    sessreg-1.1.4.tar.xz
 %description
 Register user sessions in utmp/wtmp.
 
-sessreg is maintained at its BLFS r13.1 version and is built
+sessreg is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

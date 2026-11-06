@@ -51,8 +51,8 @@ rm -rf %{buildroot}
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2026_10_02.cba3570-1
 - New package: upstream passt tag 2026_10_02.cba3570 (commit cba3570).
   This is the same passt/pasta release bundled by podman-bin 6.1.4 and the
-  version Fedora 44 ships.  passt/pasta are not in LFS or BLFS r13.1; the
-  user approved this upstream source as the version-parity exception.
+  version Fedora 44 ships.  passt/pasta are not in the base set; the
+  user approved this upstream source as the version-policy exception.
 - Source: https://passt.top/passt/snapshot/passt-cba357068dc586e7540971eb40bb56c5e62c4de1.tar.xz
   md5 61101a96a411d3451d770786baa6e99e
   sha256 2bd6f52562a201e8960c17d6ae459a10bb18dc7ef2e7fa617ec82a872db9e403

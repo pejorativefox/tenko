@@ -202,7 +202,7 @@ rm -rf %{buildroot}
   (GPL-2.0-or-later): COPYING, plus iptables/iptables.c "either version 2 ... or any later version" (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.8.13-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.8.0
 - Initial RPM

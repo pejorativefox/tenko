@@ -58,7 +58,7 @@ grpconv
   split layout resolves without a file conflict.
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 4.20.3-1
-- Update to 4.20.3 (current LFS/BLFS r13.1 trunk version).
+- Update to 4.20.3 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.20.2-2
 - Split lang payload into shadow-lang (size audit)
@@ -67,7 +67,7 @@ grpconv
 - Replace directory globs with a generated static filelist
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 4.20.2
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 4.13-1
 - Version bump

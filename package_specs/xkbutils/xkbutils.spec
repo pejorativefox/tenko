@@ -11,7 +11,7 @@ Source0:    xkbutils-1.0.7.tar.xz
 %description
 X11 keyboard utility programs.
 
-xkbutils is maintained at its BLFS r13.1 version and is built
+xkbutils is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

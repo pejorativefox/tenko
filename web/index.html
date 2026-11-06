@@ -119,7 +119,7 @@
   <div class="wrap">
     <div class="eyebrow">RPM repository</div>
     <h1>Tenko Linux <span>6</span></h1>
-    <p>Packages for the Tenko 6 (Workstation) base system, built from Linux From Scratch r13.1 with the self-hosted Tenko container toolchain.  Package versions roll independently of the distro release.</p>
+    <p>Packages for the Tenko 6 (Workstation) base system, built with the self-hosted Tenko container toolchain.  Package versions roll independently of the distro release.</p>
     <div class="actions">
       <a class="btn primary" href="https://tenko.pjfox.xyz/packages/6/">Browse packages</a>
       <a class="btn" href="iso/tenko-installer.iso">Installer ISO (496 MiB)</a>
@@ -186,7 +186,7 @@ podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6</code></pre>
     <div class="grid">
       <div class="card">
         <h3>Base system</h3>
-        <p><span class="v">94 packages</span> — LFS 13.1 chapter 8 plus <code>tenko-basefs</code>, <code>sysconfig</code>, <code>release</code>, and the RPM toolchain.</p>
+        <p><span class="v">94 packages</span> — the base package set plus <code>tenko-basefs</code>, <code>sysconfig</code>, <code>release</code>, and the RPM toolchain.</p>
       </div>
       <div class="card">
         <h3>Toolchain</h3>
@@ -229,7 +229,7 @@ podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6</code></pre>
       The pre-rename image tag remains valid until the image rebuild.
     </div>
     <ul style="margin-top:14px">
-      <li>Built: <span class="muted">2026-11-03</span> · LFS pin: <code>r13.1</code> (<code>71ef60ba</code>)</li>
+      <li>Built: <span class="muted">2026-11-03</span> · Base manifest: <code>tenko.lock</code></li>
       <li>Sources and build notes: <a href="https://pjfox.xyz/git/daspork/browneye">pjfox.xyz/git/daspork/browneye</a></li>
       <li>Mirror: <a href="https://github.com/pejorativefox/browneye">github.com/pejorativefox/browneye</a></li>
       <li>LAN mirror: <a href="http://192.168.31.9/~daspork/tenko/">192.168.31.9/~daspork/tenko/</a></li>

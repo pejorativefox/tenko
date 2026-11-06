@@ -37,9 +37,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.3-1
-- Update to 4.3, the version in the BLFS r13.1 book
+- Update to 4.3, the pinned version
   (multimedia/libdriv/x265.xml).
-- Follow the book's cmake invocation (GIT_ARCHETYPE=1, -W no-author).
+- Follow the documented cmake invocation (GIT_ARCHETYPE=1, -W no-author).
 - Set LIB_INSTALL_DIR=lib64: x265 hardcodes a "lib" default for its
   libraries, pkg-config file and CMake targets.
 - nasm is available and used for assembly; no yasm dependency.

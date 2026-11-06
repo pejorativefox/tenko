@@ -35,7 +35,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (BSD-2-Clause): LICENSE (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.02-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 # let's skip this for now
 

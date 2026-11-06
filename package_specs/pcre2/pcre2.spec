@@ -53,13 +53,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
   main package (issue #4).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 10.49-1
-- Update to 10.49 (current LFS/BLFS r13.1 trunk version).
+- Update to 10.49 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 10.48-2
 - Split doc, devel payload into pcre2-doc, pcre2-devel (size audit)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 10.47
-- Sync with LFS r13.1
+- Sync with the base set
 
 # let's skip this for now
 

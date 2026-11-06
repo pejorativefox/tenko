@@ -62,13 +62,13 @@ chmod +w %{buildroot}/usr/lib64/*.a
   directories, unversioned .so symlinks and .pc files into the
   main package (issue #4).
 - Disable fuse2fs explicitly.  The build image ships fuse3 with its
-  headers, while the book's build chroot does not, so autodetection
+  headers, while the base build chroot does not, so autodetection
   would add /usr/bin/fuse2fs and its man page to the package.
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.47.4-2
 - Split lang, static, devel payload into e2fsprogs-lang, e2fsprogs-static, e2fsprogs-devel (size audit)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.47.4
-- Sync with LFS r13.1
+- Sync with the base set
 
 # let's skip this for now

@@ -70,7 +70,7 @@ The .gir XML needed for building stays in the main package.
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 0 paths updated.
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2.62.1-1
-- Update to 2.62.1 (current LFS/BLFS r13.1 trunk version).
+- Update to 2.62.1 (current upstream version).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.62.0.1-3
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
@@ -78,7 +78,7 @@ The .gir XML needed for building stays in the main package.
 - Split lang, devel payload into at-spi2-core-lang, at-spi2-core-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.60.6
-- Sync with BLFS r13.1 (2.48.3)
+- Sync with 2.48.3
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 3.30.1
 - Initial RPM

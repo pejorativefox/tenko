@@ -59,5 +59,5 @@ done
   distribution installed under /opt, as requested.
 - /opt/node-v26.13.0-linux-x64 plus /opt/node symlink; node/npm/npx in
   /usr/bin.  Bundled npm is 11.20.0.
-- Node 26.13.0 remains the user-approved LTS exception to the BLFS 26.9.0
+- Node 26.13.0 remains the user-approved LTS exception to 26.9.0
   pin.

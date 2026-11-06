@@ -28,9 +28,9 @@ tabs and panes with persistent sessions.  This package installs the official
 linux-x86_64 release binary, which is statically linked and therefore has no
 glibc runtime requirement.
 
-Neither herdr nor its components are part of LFS/BLFS.  The user explicitly
+Neither herdr nor its components are part of the base set.  The user explicitly
 approved packaging the official prebuilt binary as an exception to the
-Tenko version-parity rule.
+Tenko version-policy rule.
 
 The upstream release contains only the executable and no license file; the
 Apache-2.0 license is recorded in this spec.
@@ -49,4 +49,4 @@ install -D -m 0755 %{SOURCE0} %{buildroot}%{_bindir}/herdr
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.9.5
 - Package the official herdr 0.9.5 linux-x86_64 release binary
-- Binary RPM; herdr is not in LFS/BLFS (user-approved exception)
+- Binary RPM; herdr is not in the base set (user-approved exception)

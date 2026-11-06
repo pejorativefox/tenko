@@ -11,7 +11,7 @@ Source0:    xcursorgen-1.0.9.tar.xz
 %description
 Generate X11 cursor files from PNGs.
 
-xcursorgen is maintained at its BLFS r13.1 version and is built
+xcursorgen is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

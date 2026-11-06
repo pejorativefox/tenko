@@ -24,6 +24,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libxv.filelist
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.0.13
-- Sync with BLFS r13.1 (libxv 1.0.13)
+- Sync with libxv 1.0.13
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.0.12-1
 - Version bump

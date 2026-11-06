@@ -13,17 +13,17 @@ This is efibootmgr, a Linux user-space application to modify the Intel Extensibl
 %setup -q
 
 %build
-make EFIDIR=LFS EFI_LOADER=grubx64.efi
+make EFIDIR=TENKO EFI_LOADER=grubx64.efi
 
 %install
 rm -rf %{buildroot}
-%make_install EFIDIR=LFS
+%make_install EFIDIR=TENKO
 
 %files -f %{_sourcedir}/efibootmgr.filelist
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 18-1
-- Build the current BLFS r13.1 version (18)
-- Install the man pages and binaries as the book does (EFIDIR=LFS)
+- Build the current pinned version (18)
+- Install the man pages and binaries with the Tenko ESP directory (EFIDIR=TENKO)
 - Ship a generated static filelist
 

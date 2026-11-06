@@ -1,5 +1,5 @@
-# Build order: LFS r13.1 chapter 8 (systemd variant), then tenko glue.
-# Generated from lfs.lock; aliases are resolved by builder/package.py.
+# Build order: base system (systemd variant), then tenko glue.
+# Generated from tenko.lock; aliases are resolved by builder/package.py.
 
 man-pages
 iana-etc

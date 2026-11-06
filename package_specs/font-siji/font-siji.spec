@@ -23,8 +23,8 @@ iconic bitmap font containing ~70 monochrome glyphs — battery, network,
 volume, window manager default-ws icons etc. — meant to sit alongside a
 monospace terminal font in panels like swaybar/lemonbar/xfce4-panel.
 
-Siji is not in LFS/BLFS.  The user explicitly requested packaging it as an
-exception to the Tenko version-parity rule.  Upstream is a terminal
+Siji is not in the base set.  The user explicitly requested packaging it as an
+exception to the Tenko version-policy rule.  Upstream is a terminal
 snapshot: the 2019-02-18 master commit is the last content-bearing change
 (the project has been dormant since), so the package is versioned with the
 snapshot date and pinned by the source checksum.

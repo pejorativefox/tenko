@@ -27,7 +27,7 @@ rm -vf %{buildroot}%{_infodir}/dir* %{buildroot}%{_libdir}/libnuma.la
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.19-1
-- Update 2.0.12 -> 2.0.19: not in the r13.1 book; latest upstream
+- Update 2.0.12 -> 2.0.19: not in the base set; latest upstream
   stable 2026-11-05 (https://github.com/numactl/numactl/releases).
 - Build with --disable-static (as before) and drop the libtool
   libnuma.la archive from the package.

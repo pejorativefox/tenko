@@ -191,10 +191,10 @@ class PackageBuilder(object):
         return result
 
     def build_all(self, jobs=0):
-        """Build the ORDER (LFS chapter-8 base) set, skipping built packages.
+        """Build the ORDER (base system) set, skipping built packages.
 
         This deliberately no longer appends every discovered spec: building
-        BLFS packages on the host must be an explicit choice.
+        desktop packages on the host must be an explicit choice.
         """
         order = load_order()
         queue = []

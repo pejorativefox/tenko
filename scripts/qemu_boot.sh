@@ -43,7 +43,7 @@ if [ -x "$ROOTFS/usr/bin/systemd-sysusers" ]; then
     unshare -r chroot "$ROOTFS" /usr/bin/systemd-sysusers || true
 fi
 
-# Apply unit presets offline, as LFS chapter 8 does.
+# Apply unit presets offline during the image build.
 if [ -x "$ROOTFS/usr/bin/systemctl" ]; then
     unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ preset-all || true
 fi

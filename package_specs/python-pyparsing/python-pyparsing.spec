@@ -28,5 +28,5 @@ fi
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 3.3.3-1
-- Update from 2.4.5 to 3.3.3, synced with BLFS r13.1.  Flatpak 1.18.4
+- Update from 2.4.5 to 3.3.3, synced with the base set.  Flatpak 1.18.4
   requires the pyparsing module at build time.

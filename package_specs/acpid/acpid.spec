@@ -54,7 +54,7 @@ cp %{SOURCE4} %{buildroot}/etc/finit.d/available/
 - Replace NO_IDEA with the verified license (GPL-2.0-or-later): COPYING + acpid.c "either version 2 ... or any later version" (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.0.34-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Mon May 18 2020 Chris Statzer <chris.statzer@qq.com> 2.0.28-3
 - Added basic events and finit service

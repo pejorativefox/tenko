@@ -48,7 +48,7 @@ popd
   (LGPL-2.1-or-later): COPYING and the glib/ and gio/ headers (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.66.10-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.66.5-1
 - Version bump

@@ -56,13 +56,13 @@ cp contrib/completion/git-completion.bash %{buildroot}/etc/bash_completion.d/
 
 %changelog
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2.56.0-1
-- Update to 2.56.0 (current LFS/BLFS r13.1 trunk version).
+- Update to 2.56.0 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.55.0-2
 - Split lang payload into git-lang (size audit)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.55.0
-- Update to 2.55.0 (BLFS r13.1)
-- Use the book configure options and skip the Rust components
+- Update to 2.55.0
+- Use the documented configure options and skip the Rust components
 - Install Perl modules under /usr/lib/perl5/5.44.0/site_perl
 - Replace the directory listing with a generated static filelist

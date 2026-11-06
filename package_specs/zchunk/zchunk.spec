@@ -56,7 +56,7 @@ popd
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.5.5-1
 - Update to upstream 1.5.5 (was 1.1.4) for the E1 dnf/libdnf chain.
-  zchunk is not documented in LFS/BLFS; this follows the version required
+  zchunk is not documented in the base set; this follows the version required
   by current librepo/createrepo_c (>= 0.9.11).
 - Built with zstd and OpenSSL; the optional libcurl download backend is
   disabled (librepo does its own downloads).

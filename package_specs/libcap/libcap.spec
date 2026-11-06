@@ -47,10 +47,10 @@ rm -rf %{buildroot}
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.78-2
 - Ship pam_cap.so: with linux-pam-devel present, libcap's Makefile builds
-  the PAM module (LFS builds libcap before linux-pam and so does not).
+  the PAM module (the base build orders linux-pam before libcap).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.78
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump

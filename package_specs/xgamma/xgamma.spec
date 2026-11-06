@@ -11,7 +11,7 @@ Source0:    xgamma-1.0.8.tar.xz
 %description
 Set the X11 gamma correction.
 
-xgamma is maintained at its BLFS r13.1 version and is built
+xgamma is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

@@ -12,8 +12,8 @@ ProxyChains-NG is a preloader which hooks calls to sockets in dynamically
 linked programs and redirects them through one or more SOCKS4a, SOCKS5 or HTTP
 proxies.  It supports TCP only (no UDP or ICMP).
 
-ProxyChains-NG is not part of LFS or BLFS r13.1; the user approved upstream
-4.17 as the version-parity exception.
+ProxyChains-NG is not part of the base set; the user approved upstream
+4.17 as the version-policy exception.
 
 %prep
 %setup -q
@@ -36,8 +36,8 @@ make install-config DESTDIR=%{buildroot}
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.17-1
-- Update to upstream 4.17.  proxychains-ng is not in LFS or BLFS r13.1;
-  the user approved this upstream release as the version-parity exception.
+- Update to upstream 4.17.  proxychains-ng is not in the base set;
+  the user approved this upstream release as the version-policy exception.
 - Source: https://github.com/rofl0r/proxychains-ng/releases/download/v4.17/proxychains-ng-4.17.tar.xz
   md5 16ac3c14ca90d74ea64fa6ec81e70548
   sha256 36ddc7f64cb3df2ca4170627c6e0f0dea33d1a6d0730629dff6f5c633f2006f9

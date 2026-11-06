@@ -37,4 +37,4 @@ rm -vf %{buildroot}%{_infodir}/dir*
   split layout resolves without a file conflict.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.5-1
-- New package (D8): current BLFS trunk version, needed by libidn2.
+- New package (D8): current trunk version, needed by libidn2.

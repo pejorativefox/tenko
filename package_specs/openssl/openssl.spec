@@ -67,7 +67,7 @@ rm -f %{buildroot}/etc/ssl/misc/tsget %{buildroot}/etc/ssl/misc/tsget.pl
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.1.0-4
 - Stop shipping tsget/tsget.pl: OpenSSL 4.1's client requires
-  Net::Curl::Easy, which is not packaged (and not in LFS/BLFS).  The
+  Net::Curl::Easy, which is not packaged (and not in the base set).  The
   auto-generated perl(Net::Curl::Easy) require made openssl-perl
   uninstallable.
 
@@ -80,14 +80,14 @@ rm -f %{buildroot}/etc/ssl/misc/tsget %{buildroot}/etc/ssl/misc/tsget.pl
   main package (issue #4).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 4.1.0-1
-- Update to 4.1.0 (current LFS/BLFS r13.1 trunk version).
+- Update to 4.1.0 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.0.2-2
 - Split runtime libraries, devel files and Perl helpers out of the main
   package so openssl/openssl-libs no longer require Perl (size audit §7)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 4.0.1
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 3.1.2-1
 - Version bump

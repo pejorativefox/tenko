@@ -8,7 +8,7 @@ Source0:    %{name}-%{version}.tar.bz2
 
 %description
 libgpg-error provides the common error codes, messages and helper macros
-shared by GnuPG, libgcrypt, libassuan and gpgme.  BLFS r13.1 version.
+shared by GnuPG, libgcrypt, libassuan and gpgme.  Pinned version.
 
 %prep
 %setup -q
@@ -39,5 +39,5 @@ install -v -m644 -D README \
   re-publishing the same NEVRA would leave the repo metadata stale.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.61-1
-- New package (BLFS r13.1): build dependency of libassuan and gpgme, which
+- New package (base set): build dependency of libassuan and gpgme, which
   are required for the libdnf/librepo dnf stack.

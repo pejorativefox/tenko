@@ -33,7 +33,7 @@ fi
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.23-1
-- Update to the BLFS r13.1 version (0.23, was 0.16) and rebuild with the
+- Update to the pinned version (0.23, was 0.16) and rebuild with the
   current pip/setuptools so it installs into /usr/lib64/python3.15.
 - Build-time dependency of glib 2.90.0 (rst2man generates the GLib man
   pages) for the E1 dnf/libdnf chain.

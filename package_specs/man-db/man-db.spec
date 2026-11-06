@@ -49,7 +49,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split lang payload into man-db-lang (size audit)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.13.1
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.11.12-1
 - Version bump

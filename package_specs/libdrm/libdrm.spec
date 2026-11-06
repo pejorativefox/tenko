@@ -38,4 +38,4 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel payload into libdrm-devel (size audit)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.4.134-1
-- Initial package (BLFS r13.1)
+- Initial package

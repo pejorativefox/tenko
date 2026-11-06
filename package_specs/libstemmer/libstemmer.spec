@@ -36,7 +36,7 @@ install -p -m 644 include/libstemmer.h %{buildroot}%{_includedir}/
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.2.0-1
-- Update to 3.2.0: not in the r13.1 book; latest upstream stable
+- Update to 3.2.0: not in the base set; latest upstream stable
   2026-11-05 (https://snowballstem.org/download.html).
 - Adapt to the 3.x libstemmer_c tarball: it extracts to
   libstemmer_c-3.2.0 and only ships a rule for libstemmer.a, so build

@@ -8,8 +8,8 @@ escape sequence. Obsoletes the /etc/kbd/bs-sends-del file for i386.
 
 Original patch for 1.12 by Alexander Patrakov.
 Updated for 1.13 (drop ru.map, the change is upstream, and add ru_win.map,
-ru-cp1251.map) by Ken Moffat <ken at linuxfromscratch dot org>.
-Re-diffed against 1.15 by Matt Burgess <matthew at linuxfromscratch.org>.
+ru-cp1251.map) by Ken Moffat.
+Re-diffed against 1.15 by Matt Burgess.
 
 diff -Naur kbd-1.15.orig/data/keymaps/i386/dvorak/dvorak-l.map kbd-1.15/data/keymaps/i386/dvorak/dvorak-l.map
 --- kbd-1.15.orig/data/keymaps/i386/dvorak/dvorak-l.map	2008-06-20 12:36:01.000000000 +0100

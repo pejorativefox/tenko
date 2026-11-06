@@ -721,7 +721,7 @@ popd
   (LGPL-2.0-or-later): COPYING, GNU Library GPL v2, plus src/MwmUtil.h "or any later version" (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.1.0-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 3.4.1
 - Version bump

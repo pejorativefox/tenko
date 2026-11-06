@@ -1,4 +1,4 @@
-// Treat the adm group as polkit administrators (BLFS AccountsService setup).
+// Treat the adm group as polkit administrators (AccountsService setup).
 polkit.addAdminRule(function(action, subject) {
    return ["unix-group:adm"];
 });

@@ -30,5 +30,5 @@ make install DESTDIR=%{buildroot} PREFIX=/usr
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.1-1
-- Not in the LFS/BLFS r13.1 book; latest upstream stable 2026-11-05
+- Not in the base set; latest upstream stable 2026-11-05
   (0.1, 2012).  Built with the upstream plain Makefile against libX11.

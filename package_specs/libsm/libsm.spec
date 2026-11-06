@@ -53,7 +53,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split doc, static, devel payload into libsm-doc, libsm-static, libsm-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.2.6
-- Sync with BLFS r13.1 (1.2.4)
+- Sync with 1.2.4
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.2.4-1
 - Version bump

@@ -44,7 +44,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split doc payload into autoconf-doc (size audit)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.73
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.71-1
 - Version bump

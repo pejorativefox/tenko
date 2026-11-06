@@ -90,7 +90,7 @@ rm -rf %{buildroot}
   (GPL-3.0-or-later AND (BSD-2-Clause OR GPL-2.0-or-later)): COPYING (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 9.31-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Sun May 17 2020 Chris Statzer <chris.statzer@qq.com> 9.22-1
 - Initial RPM

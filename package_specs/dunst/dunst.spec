@@ -38,7 +38,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.13.2-1
-- Update to 1.13.2; not in the r13.1 book, latest upstream stable
+- Update to 1.13.2; not in the base set, latest upstream stable
   2026-11-05 (tag v1.13.2, released 2026-03-18).
 - Build from the upstream GitHub archive because the release page has
   no source asset attached; the extracted top directory is dunst-1.13.2.

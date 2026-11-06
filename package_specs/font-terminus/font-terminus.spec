@@ -34,9 +34,9 @@ bitmaps for direct X/core-protocol use, and the TrueType port of the same
 artwork (TerminusTTF 4.49.3) for fontconfig-based applications that expect
 bold/italic faces and per-pixel rendering tags.
 
-Neither terminus-font nor TerminusTTF is in the current LFS/BLFS books.
+Neither terminus-font nor TerminusTTF is in the current base set.
 The user explicitly requested packaging them as exceptions to the Tenko
-version-parity rule.
+version-policy rule.
 
 Terminus switched to the SIL Open Font License at version 4.40; the
 COPYING/OFL.TXT files ship in the payload's doc directory and are the

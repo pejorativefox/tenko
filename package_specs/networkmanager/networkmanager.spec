@@ -376,7 +376,7 @@ groupadd -fg 86 netdev
 - Record the verified license (GPL-2.0-or-later AND LGPL-2.1-or-later): RELICENSE.md (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.58.1-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Fri Jun 16 2023 Chris Statzer <chris.statzer@gmail.com> 1.42.4
 - Changed the name of the finit service file.

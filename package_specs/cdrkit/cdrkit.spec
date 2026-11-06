@@ -35,7 +35,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.11-1
-- Rebuild 1.1.11: not in the r13.1 book; latest upstream stable
+- Rebuild 1.1.11: not in the base set; latest upstream stable
   2026-11-05 (https://deb.debian.org/debian/pool/main/c/cdrkit/).
 - Keep the existing -fno-common fix for `outfile` and add the minimal
   modern-toolchain patch: cmake_minimum_required (CMake 4 refuses the

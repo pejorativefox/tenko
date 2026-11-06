@@ -42,7 +42,7 @@ rm -v %{buildroot}/usr/lib64/libzstd.a
   (BSD-3-Clause OR GPL-2.0-only): LICENSE (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.5.7
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 1.5.5
 - Version bump

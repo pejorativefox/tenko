@@ -11,7 +11,7 @@ Source0:    xterm-412.tgz
 %description
 X11 terminal emulator.
 
-xterm is maintained at its BLFS r13.1 version and is built
+xterm is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

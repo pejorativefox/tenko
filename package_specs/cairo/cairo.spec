@@ -44,7 +44,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel payload into cairo-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.18.4
-- Sync with BLFS r13.1 (1.17.6)
+- Sync with 1.17.6
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.17.6-1
 - Version bump

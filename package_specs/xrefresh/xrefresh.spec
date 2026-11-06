@@ -11,7 +11,7 @@ Source0:    xrefresh-1.1.1.tar.xz
 %description
 Refresh the X11 screen.
 
-xrefresh is maintained at its BLFS r13.1 version and is built
+xrefresh is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

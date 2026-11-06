@@ -48,7 +48,7 @@ popd
 - Split lang payload into iso-codes-lang (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.1
-- Sync with BLFS r13.1 (4.3)
+- Sync with 4.3
 
 # let's skip this for now
 

@@ -1916,7 +1916,7 @@ fi
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.79.2-2
 - Install the XML catalog rewrites (cdn.docbook.org and
-  docbook.sourceforge.net) that the BLFS page wires up, so xsltproc --nonet
+  docbook.sourceforge.net) that the package page wires up, so xsltproc --nonet
   can find docbook.xsl.  This is what xfce4-terminal's man page needs (D8).
 # let's skip this for now
 

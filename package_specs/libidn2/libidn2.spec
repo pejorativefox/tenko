@@ -37,5 +37,5 @@ rm -vf %{buildroot}%{_infodir}/dir*
   split layout resolves without a file conflict.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.3.8-1
-- New package (D8): current BLFS trunk version, enables IDN in rsync and
+- New package (D8): current trunk version, enables IDN in rsync and
   PSL support in libpsl/curl.

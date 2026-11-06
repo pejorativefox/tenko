@@ -653,7 +653,7 @@ tools; there is no Xorg, no Wayland compositor and no browser.
 | Option | What it takes | Pros | Cons |
 | --- | --- | --- | --- |
 | A. Modernized TUI (recommended) | Extend `ui.py`; no new packages | Small, fast, serial-friendly, matches the existing backend; can look good with color/layout/mouse | Not a "graphical installer"; some users equate TUI with old |
-| B. GTK3 on Xorg | Add `gtk3`, `xorg-server`, `xorg` drivers, fonts, `lightdm`/kiosk setup to the live image; write a GTK front end | Native desktop look; GTK3 is in BLFS | Live image and ISO grow substantially; driver/GPU risk; a second UI to maintain; no serial fallback |
+| B. GTK3 on Xorg | Add `gtk3`, `xorg-server`, `xorg` drivers, fonts, `lightdm`/kiosk setup to the live image; write a GTK front end | Native desktop look; GTK3 is packaged | Live image and ISO grow substantially; driver/GPU risk; a second UI to maintain; no serial fallback |
 | C. Web UI kiosk (Anaconda/Agama style) | Local HTTP API + HTML/JS + a browser + a display server | Modern look; remote install possible | Largest dependency and attack surface; browser kiosk setup; still needs a display server |
 | D. Remote web UI (no local browser) | HTTP server + HTML/JS; user opens it from another machine; console keeps the TUI | Modern UI without shipping a browser; good for servers/headless | Requires network; not useful for the common single-machine desktop install; security/authentication work |
 

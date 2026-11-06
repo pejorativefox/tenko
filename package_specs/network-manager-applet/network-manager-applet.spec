@@ -250,7 +250,7 @@ rm -vf %{buildroot}%{_infodir}/dir
   (GPL-2.0-or-later): src/main.c (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.34.0-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 # let's skip this for now
 

@@ -57,7 +57,7 @@ rm -rf %{buildroot}
   (LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause): COPYING, COPYING.GPL, usb_stream/usb_stream.h and pph/speex_resampler.h (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.2.12-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.1.6
 - Initial RPM

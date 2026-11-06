@@ -42,7 +42,7 @@ install -vDm644 misc/zsh-completion  %{buildroot}/usr/share/zsh/site-functions/_
 - Record the verified license (Apache-2.0): COPYING (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.13.2
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 1.11.1
 - Version bump

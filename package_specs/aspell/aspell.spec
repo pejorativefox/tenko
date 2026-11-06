@@ -282,4 +282,4 @@ rm -f %{buildroot}/usr/lib64/*.la %{buildroot}/%{_infodir}/dir
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.60.8.3-1
-- New package: BLFS r13.1 build, required by enchant
+- New package, required by enchant

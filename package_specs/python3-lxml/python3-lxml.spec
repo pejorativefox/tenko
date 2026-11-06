@@ -32,5 +32,5 @@ fi
   (BSD-3-Clause AND PSF-2.0 AND MIT): LICENSE.txt (issue #8).
 
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 6.1.3-1
-- New package, synced with BLFS r13.1.  itstool needs lxml because libxml2
+- New package, synced with the base set.  itstool needs lxml because libxml2
   no longer ships its Python bindings.

@@ -62,7 +62,7 @@ The .gir XML needed for building stays in the main package.
 - Split doc, devel payload into garcon-doc, garcon-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0
-- Sync with BLFS r13.1 (4.19.0)
+- Sync with 4.19.0
 
 * Wed Aug 30 2023  Chris Statzer <chris.statzer@gmail.com> 4.19.0
 

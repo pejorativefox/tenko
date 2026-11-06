@@ -57,13 +57,13 @@ The .gir XML needed for building stays in the main package.
   main package (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 128-1
-- Update to 128 (BLFS r13.1 trunk, D9 parity)
+- Update to 128 (current upstream, D9 parity)
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 127-3
 - Split devel payload into polkit-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 127
-- Sync with BLFS r13.1 (0.115)
+- Sync with 0.115
 
 * Sun May 10 2020 Chris Statzer <chris.statzer@qq.com> 0.115
 - Updated post install to create proper polkitd user

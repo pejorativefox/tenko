@@ -50,7 +50,7 @@ Sample greeter stylesheet.
 rm -rf %{buildroot}
 %make_install
 
-# BLFS: version the documentation directory.
+# Version the documentation directory.
 mv -v %{buildroot}%{_docdir}/lightdm-gtk-greeter \
       %{buildroot}%{_docdir}/lightdm-gtk-greeter-%{version}
 
@@ -66,4 +66,4 @@ mv -v %{buildroot}%{_docdir}/lightdm-gtk-greeter \
   were removed and the .pc/GIR/headers now ship in lightdm (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.0.9-1
-- Initial package (BLFS r13.1 lightdm-gtk-greeter 2.0.9)
+- Initial package (lightdm-gtk-greeter 2.0.9)

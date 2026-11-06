@@ -36,13 +36,13 @@ rm %{buildroot}/usr/lib64/libelf.a
   main package (issue #4).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 0.197-1
-- Update to 0.197 (current LFS/BLFS r13.1 trunk version).
+- Update to 0.197 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.196-2
 - Split devel payload into elfutils-devel (size audit)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 0.195
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 0.189-1
 - Version bump

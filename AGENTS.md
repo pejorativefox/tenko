@@ -1,21 +1,20 @@
 # Agent rules for Tenko
 
-## Version parity with LFS/BLFS
+## Base package versions
 
-Every package we build or install **must be at least the version in the
-current LFS and BLFS books**:
+The base package set is pinned in `tenko.lock`: package names, versions,
+hashes, build order and aliases for packages whose spec name differs
+(`pcre` → `pcre2`, `libelf` → `elfutils`, …).
 
-- LFS: `~/repos/lfs` (branch `trunk`, the r13.1 book)
-- BLFS: `~/repos/blfs` (branch `trunk`, the r13.1 book)
+Every base package we build or install **must be at least the version pinned
+in `tenko.lock`**. This applies to the package being built **and its dependency
+chain**. Before starting a build (especially a new package such as Mesa), check
+`tenko.lock` and update any outdated specs/RPMs first. Never build an older
+version just because an old spec exists.
 
-This applies to the package being built **and its dependency chain**. Before
-starting a build (especially a new package such as Mesa), audit the package
-and its dependencies against the books and update any outdated specs/RPMs
-first. Never build an older version just because an old spec exists.
-
-If a package (or a required dependency/component) is **not available in
-LFS/BLFS**, stop and ask the user how to proceed. Do not choose a version or
-substitute a different project on your own.
+If a package (or a required dependency/component) is **not in `tenko.lock`**,
+stop and ask the user how to proceed. Do not choose a version or substitute a
+different project on your own.
 
 After updating a spec, rebuild and republish it before building packages
 that depend on it, then record the version and the reason in the commit
@@ -25,7 +24,7 @@ message (and in the Gitea issue if the change belongs to one).
 
 The distribution release is **Tenko 6 (Workstation)**; `tenko-release-6-1`
 carries the release identity.  Package versions roll independently and keep
-their own upstream or book versions — do not set every package to version 6.
+their own upstream versions — do not set every package to version 6.
 
 The distro repository is `tenko-6`: `/etc/yum.repos.d/tenko-6.repo`, id
 `tenko-6`, at <https://tenko.pjfox.xyz/packages/6/>.  The old

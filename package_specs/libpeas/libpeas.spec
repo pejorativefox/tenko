@@ -42,7 +42,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (LGPL-2.1-or-later): COPYING and meson.build "license: LGPLv2.1+" (issue #8).
 
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.38.1-1
-- Sync with BLFS r13.1 (libpeas.xml)
+- Sync with upstream
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.26.0
 - Initial RPM release

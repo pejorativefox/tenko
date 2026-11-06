@@ -26,6 +26,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.5.1-1
 - Update to 0.5.1 (latest upstream release)
-- Not in the BLFS r13.1 book; only the archive copy exists there, and it
+- Not in the base set; only the archive copy exists there, and it
   still lists 0.5.0, so the version was taken from upstream x.org
 - Fix man page path in %files (/usr/share/man, not /usr/man)

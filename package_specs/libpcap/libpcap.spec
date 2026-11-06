@@ -34,9 +34,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}-%{version}/html
   split layout resolves without a file conflict.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.10.7-1
-- New package (BLFS r13.1 libpcap 1.10.7, the version Nmap 7.991 uses).
+- New package (libpcap 1.10.7, the version Nmap 7.991 uses).
 - Source: https://www.tcpdump.org/release/libpcap-1.10.7.tar.gz
   md5 95cf0ff1fb0328e309d5e0d8d589c558
   sha256 0b394ac90dbc0a9838ff97468e05c9c9a3e873dec2514cd58db65d859d296e31
-- Build per BLFS: ./configure --prefix=/usr && make && make install.
+- Build with ./configure --prefix=/usr && make && make install.
   The HTML API docs are not shipped.

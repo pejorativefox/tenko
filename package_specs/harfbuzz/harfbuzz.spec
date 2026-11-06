@@ -59,7 +59,7 @@ The .gir XML needed for building stays in the main package.
   in did not, so autodetection would add harfbuzz-cairo/harfbuzz-icu.
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 15.0.0-1
-- Update to 15.0.0 (current LFS/BLFS r13.1 trunk version).
+- Update to 15.0.0 (current upstream version).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 14.5.0-3
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
@@ -67,7 +67,7 @@ The .gir XML needed for building stays in the main package.
 - Split devel payload into harfbuzz-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 14.3.1
-- Sync with BLFS r13.1 (8.1.1)
+- Sync with 8.1.1
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 8.1.1-1
 - Version bump

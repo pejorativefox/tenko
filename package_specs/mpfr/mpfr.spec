@@ -36,7 +36,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (LGPL-3.0-or-later): src/mpfr.h (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 4.2.2
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.2.1
 - Version bump

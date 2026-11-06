@@ -23,7 +23,7 @@ mkdir -p %{buildroot}/etc/dracut.conf.d
 ln -sf /usr/lib/systemd/system/multi-user.target %{buildroot}/etc/systemd/system/default.target
 ln -sf /usr/lib/systemd/system/serial-getty@ttyS0.service %{buildroot}/etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
 
-# Locale and console defaults (LFS chapter 9).
+# Locale and console defaults.
 cat > %{buildroot}/etc/locale.conf <<'EOF2'
 LANG=C.UTF-8
 EOF2
@@ -155,4 +155,4 @@ done
 - Add locale/vconsole, journald, networkd, resolv.conf, and machine-id defaults
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 13.1
-- Base configuration for LFS r13.1
+- Base configuration for Tenko 13.1

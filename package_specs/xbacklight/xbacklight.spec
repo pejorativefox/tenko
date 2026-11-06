@@ -27,6 +27,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.4-1
 - Update to 1.2.4 (latest upstream release)
-- Not in the BLFS r13.1 book (nor in archive/); version taken from
+- Not in the base set; version taken from
   upstream x.org
 - Fix man page path in %files (/usr/share/man, not /usr/man)

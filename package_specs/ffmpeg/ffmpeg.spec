@@ -315,7 +315,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (GPL-3.0-or-later): LICENSE.md (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 9.0.2-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 4.1.1
 - Initial RPM

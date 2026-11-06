@@ -57,14 +57,14 @@ The groff HTML manual, info files and example documents.
 - Record the verified license (GPL-3.0-or-later): LICENSES, FDL and doc/groff.texi (issue #8).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.24.2-1
-- Update to 1.24.2 (current LFS/BLFS r13.1 trunk version).
+- Update to 1.24.2 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.24.1-2
 - Split the Perl helper scripts and documentation out of groff; perl is no
   longer a hard runtime requirement (packaging only; versions unchanged)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.24.1
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump

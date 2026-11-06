@@ -11,7 +11,7 @@ Source0:    smproxy-1.0.8.tar.xz
 %description
 X11 session manager proxy.
 
-smproxy is maintained at its BLFS r13.1 version and is built
+smproxy is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

@@ -31,7 +31,7 @@ rm -rf %{buildroot}
 %make_install
 rm -rf %{buildroot}%{_infodir}/dir
 
-# BLFS installs the pre-built manual alongside the info file.
+# installs the pre-built manual alongside the info file.
 install -d %{buildroot}%{_docdir}/%{name}-%{version}
 install -m644 nettle.html nettle.pdf \
         %{buildroot}%{_docdir}/%{name}-%{version}
@@ -48,8 +48,8 @@ install -m644 nettle.html nettle.pdf \
 - Split doc, devel payload into nettle-doc, nettle-devel (size audit)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.0
-- Update to 4.0 (BLFS r13.1)
-- Install the BLFS manual copy under /usr/share/doc/nettle-4.0
+- Update to 4.0
+- Install manual copy under /usr/share/doc/nettle-4.0
 - Replace the hand-written file list with a generated static filelist
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 3.4

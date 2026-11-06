@@ -11,7 +11,7 @@ Source0:    xrandr-1.5.4.tar.xz
 %description
 Command line interface to the X11 RandR extension.
 
-xrandr is maintained at its BLFS r13.1 version and is built
+xrandr is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

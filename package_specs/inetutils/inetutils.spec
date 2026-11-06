@@ -50,7 +50,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (GPL-3.0-or-later): src/inetd.c (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.8
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.4-1
 - Version bump

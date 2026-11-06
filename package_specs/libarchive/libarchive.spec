@@ -50,7 +50,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   package no longer drags pkgconfig(...) consumers into every install.
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 3.8.11-1
-- Update to 3.8.11 (current LFS/BLFS r13.1 trunk version).
+- Update to 3.8.11 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.8.9-3
 - Split static payload into libarchive-static (size audit)

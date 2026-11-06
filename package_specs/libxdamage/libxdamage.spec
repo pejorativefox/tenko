@@ -43,7 +43,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel, static payload into libxdamage-devel, libxdamage-static (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.1.7
-- Sync with BLFS r13.1 (1.1.6)
+- Sync with 1.1.6
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.1.6-1
 - Version bump

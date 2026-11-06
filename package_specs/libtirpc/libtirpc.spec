@@ -40,4 +40,4 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Rebuild for the base repo; required by iproute2 (size audit P0)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.3.7-1
-- Initial package (BLFS r13.1)
+- Initial package

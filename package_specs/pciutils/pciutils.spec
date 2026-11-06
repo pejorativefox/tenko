@@ -38,7 +38,7 @@ rm -rf %{buildroot}
   (GPL-2.0-or-later): README (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.15.0-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Mon May 18 2020 Chris Statzer <chris.statzer@qq.com> 3.6.4
 - Initial RPM

@@ -34,7 +34,7 @@ fi
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 26.3
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Tue Dec 11 2019 Chris Statzer <chris.statzer@qq.com> 19.2
 - Initial rpm package

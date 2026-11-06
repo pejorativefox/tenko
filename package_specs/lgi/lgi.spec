@@ -30,9 +30,9 @@ make install PREFIX=/usr LUA_VERSION=5.4 DESTDIR=%{buildroot}
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.9.2-1
-- Update to 0.9.2; not in the r13.1 book, latest upstream
+- Update to 0.9.2; not in the base set, latest upstream
   stable 2026-11-05 (latest tag 0.9.2).
-- Build for the book's Lua 5.4 (LUA_VERSION=5.4); the upstream
+- Build for the documented Lua 5.4 (LUA_VERSION=5.4); the upstream
   Makefile still defaults to 5.1.
 - Add the upstream Lua 5.4 build fix (lgi-devs/lgi commit
   5cfd42c386d3), which is not part of the 0.9.2 tag: lua_resume()

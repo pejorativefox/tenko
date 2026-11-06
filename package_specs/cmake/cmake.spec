@@ -43,7 +43,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (BSD-3-Clause): LICENSE.rst (issue #8).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.4.5-1
-- Update to 4.4.5 (current LFS/BLFS r13.1 trunk version).
+- Update to 4.4.5 (current upstream version).
 
 * Wed May 13 2020 Chris Statzer <chris.statzer@qq.com> 3.17.2
 - Upgrade to fix missing policys in newer version

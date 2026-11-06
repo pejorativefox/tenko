@@ -113,7 +113,7 @@ find %{buildroot}/usr/lib64/python3.15 \
 - Record the verified license (PSF-2.0): LICENSE (issue #8).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 3.15.2-1
-- Update to 3.15.2 (current LFS/BLFS r13.1 trunk version).
+- Update to 3.15.2 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 3.14.7-2
 - Drop duplicate .opt-1/.opt-2 bytecode (~106 MB apparent)
@@ -125,7 +125,7 @@ find %{buildroot}/usr/lib64/python3.15 \
 - Replace directory globs with a generated static filelist
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 3.14.7
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Tue May 19 2020 Chris Statzer <chris.statzer@qq.com> 3.7.2-2
 - Removed left over tests folder.

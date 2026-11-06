@@ -29,7 +29,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.3-1
-- Update to 1.2.3; not in the r13.1 book, latest upstream
+- Update to 1.2.3; not in the base set, latest upstream
   stable 2026-11-05 (tag libxdg-basedir-1.2.3).
 - Build from the upstream GitHub archive; the extracted top
   directory is libxdg-basedir-libxdg-basedir-1.2.3.

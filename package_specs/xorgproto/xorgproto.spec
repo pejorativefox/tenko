@@ -37,13 +37,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (MIT): COPYING-x11proto (issue #8).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2026.1-1
-- Update to 2026.1 (current LFS/BLFS r13.1 trunk version).
+- Update to 2026.1 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2025.1-2
 - Split doc payload into xorgproto-doc (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2025.1
-- Sync with BLFS r13.1 (2023.2)
+- Sync with 2023.2
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2023.2
 - Version bump

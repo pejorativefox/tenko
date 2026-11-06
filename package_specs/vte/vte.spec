@@ -90,7 +90,7 @@ rmdir %{buildroot}/etc 2>/dev/null || true
   warns that data will be written to disk unencrypted
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.84.1
-- Update to BLFS r13.1 VTE 0.84.1
+- Update to VTE 0.84.1
 - Build GTK3/X11 only; bundle simdutf 8.2.0, fmt 12.1.0 and
   fast_float 8.1.0 from VTE's subproject wraps for offline builds
 

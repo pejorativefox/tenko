@@ -36,7 +36,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (MIT): COPYING (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.1.7-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.1.6-1
 - Version bump

@@ -80,7 +80,7 @@ install -Dm0644 cmake/modules/FindLibSolv.cmake \
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.7.41-1
 - Update to upstream 0.7.41 (was 0.7.24) for the E1 dnf/libdnf chain.
-  libsolv is not in LFS/BLFS; current libdnf requires >= 0.7.21.
+  libsolv is not in the base set; current libdnf requires >= 0.7.21.
 - Enable the RPM database/rpmmd/rpmpkg readers (librpm based) that
   libdnf uses, plus lzma/bzip2/zstd/zchunk compression.
 - Do not build the perl/python/ruby/tcl/lua language bindings.

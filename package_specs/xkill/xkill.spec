@@ -11,7 +11,7 @@ Source0:    xkill-1.0.7.tar.xz
 %description
 Ask an X server to terminate a client.
 
-xkill is maintained at its BLFS r13.1 version and is built
+xkill is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

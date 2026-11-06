@@ -25,7 +25,7 @@ CPPFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1 \
 LDFLAGS="${LDFLAGS:-} -Wl,-soname,libsqlite3.so.0" \
 ./configure --prefix=/usr --libdir=%{_libdir} --disable-static \
     --enable-fts4 --enable-fts5
-# LFS clears LDFLAGS.rpath: a standard-location install needs no runpath.
+# Clear LDFLAGS.rpath: a standard-location install needs no runpath.
 %make_build LDFLAGS.rpath=""
 
 %install
@@ -45,13 +45,13 @@ rm -rf %{buildroot}
   to the runtime package.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 3.54.1-1
-- Update to 3.54.1 (autoconf 3540100), the current LFS trunk version.
+- Update to 3.54.1 (autoconf 3540100), the current upstream version.
 - Add the missing SONAME: libsqlite3.so.<version> now carries
   libsqlite3.so.0, so consumers link against a versioned ABI instead of the
   unversioned file name.  The runtime package keeps the unversioned
   libsqlite3.so symlink and the explicit `Provides: libsqlite3.so()(64bit)`
   so already-built consumers keep working until they are rebuilt.
-- Clear LDFLAGS.rpath as the book does; the library had a /usr/lib64
+- Clear LDFLAGS.rpath as the base build does; the library had a /usr/lib64
   RUNPATH baked in.
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 3.53.4-3
 - Keep /usr/lib64/libsqlite3.so in the runtime package.  This build has no
@@ -63,4 +63,4 @@ rm -rf %{buildroot}
 - Split devel payload into sqlite-devel (size audit)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 3.53.4
-- Renamed from sqlite3 and synced with LFS r13.1
+- Renamed from sqlite3 and synced with the base set

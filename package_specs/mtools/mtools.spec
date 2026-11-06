@@ -11,8 +11,8 @@ Mtools is a collection of utilities to access MS-DOS disks (FAT filesystems)
 from GNU and Unix without mounting them.  The Tenko UEFI installer uses
 mcopy/mmd to populate the FAT EFI system partition of the hybrid ISO.
 
-This package is a user-approved exception to the LFS/BLFS version-parity
-rule: mtools is not in either book, so it tracks current upstream.
+This package is a user-approved exception to the base-set version policy
+rule: mtools is not in the base set, so it tracks current upstream.
 Source: https://ftp.gnu.org/gnu/mtools/mtools-4.0.50.tar.gz
 sha256: 7f078accae7551c6b3a316ccd8296357329f7bbbc09583dcd1a2bbaeb081a7a4
 
@@ -32,7 +32,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.0.50-1
-- Update to upstream 4.0.50 (approved exception; not in LFS/BLFS), replacing
+- Update to upstream 4.0.50 (approved exception; not in the base set), replacing
   the 4.0.43 template.  Recorded source sha256:
   7f078accae7551c6b3a316ccd8296357329f7bbbc09583dcd1a2bbaeb081a7a4
 

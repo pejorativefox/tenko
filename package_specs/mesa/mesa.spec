@@ -66,7 +66,7 @@ popd
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 26.2.3-3
 - Add the virgl gallium driver (-Dgallium-drivers=llvmpipe,virgl) so a
   guest booted with QEMU -device virtio-vga-gl can use host-gl accelerated
-  GL instead of falling back to llvmpipe.  BLFS lists virgl as a supported
+  GL instead of falling back to llvmpipe.  Upstream lists virgl as a supported
   gallium driver for virglrender-enabled QEMU virtual GPUs.
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 26.2.3-2
@@ -74,4 +74,4 @@ popd
   monolithic llvm package no longer carries headers/CMake/llvm-config
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 26.2.3-1
-- Sync with BLFS r13.1: X11-only, llvmpipe, no Wayland/Vulkan.
+- Sync with the base set: X11-only, llvmpipe, no Wayland/Vulkan.

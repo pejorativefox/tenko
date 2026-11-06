@@ -11,7 +11,7 @@ Source0:    xlsclients-1.1.6.tar.xz
 %description
 List the clients connected to an X server.
 
-xlsclients is maintained at its BLFS r13.1 version and is built
+xlsclients is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

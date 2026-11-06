@@ -394,7 +394,7 @@ popd
   (LGPL-2.1-or-later AND BSD-3-Clause): COPYING and gst-libs/gst/fft/kiss_fft_f32.c (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.28.8-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Thu Sep 10 2020 Chris Statzer <chris.statzer@qq.com> 1.16.2
 - Initial RPM

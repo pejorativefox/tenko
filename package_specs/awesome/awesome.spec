@@ -43,9 +43,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.3-1
-- Update to 4.3; not in the r13.1 book, latest upstream stable
+- Update to 4.3; not in the base set, latest upstream stable
   2026-11-05 (4.3 is the latest tagged release).
-- Build with the book's Lua 5.4 and the upstream Lua 5.4 lgi build
+- Build with the documented Lua 5.4 and the upstream Lua 5.4 lgi build
   fix; the Lua 5.3 paths and bz2 source of the old spec are gone.
 - Disable API documentation and man pages; DBus support stays on.
 - CMAKE_POLICY_VERSION_MINIMUM=3.5 is needed because awesome 4.3

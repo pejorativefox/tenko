@@ -528,4 +528,4 @@ popd
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.6.11-1
-- New package: BLFS r13.1 build, required by xdg-desktop-portal
+- New package, required by xdg-desktop-portal

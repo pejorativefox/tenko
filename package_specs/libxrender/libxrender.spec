@@ -40,13 +40,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
   main package (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.9.13-1
-- Update to 0.9.13 (current BLFS r13.1 trunk version).
+- Update to 0.9.13 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.9.12-2
 - Split devel, static payload into libxrender-devel, libxrender-static (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 0.9.12
-- Sync with BLFS r13.1 (0.9.11)
+- Sync with 0.9.11
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 0.9.11-1
 - Version bump

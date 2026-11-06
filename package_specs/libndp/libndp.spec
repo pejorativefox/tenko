@@ -40,7 +40,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (LGPL-2.1-or-later): COPYING (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.9-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.7-1
 - Version bump

@@ -28,5 +28,5 @@ rm -vf %{buildroot}%{_infodir}/dir* %{buildroot}%{_libdir}/libisofs.la
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.5.8.pl02-1
-- Initial package (BLFS r13.1 multimedia/cdwriteutils/libisofs.xml)
-- Build with --disable-static as the book specifies; drop the libtool archive
+- Initial package
+- Build with --disable-static as the base build specifies; drop the libtool archive

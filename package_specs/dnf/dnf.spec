@@ -68,7 +68,7 @@ ln -sfv dnf-automatic-3 %{buildroot}%{_bindir}/dnf-automatic
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.24.0-1
 - Update to 4.24.0 (was 4.16.2) for the E1 self-hosted repo/rootfs
-  assembly work.  dnf is not in LFS/BLFS.  dnf 5 requires rpm >= 4.19, so
+  assembly work.  dnf is not in the base set.  dnf 5 requires rpm >= 4.19, so
   the dnf 4 branch is used with the rpm 4.18.1 base.
 - Installs dnf, dnf-automatic, the Python modules, config, systemd units
   and bash completion in one package (no yum-compat subpackages).

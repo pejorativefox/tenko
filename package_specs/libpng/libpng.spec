@@ -43,10 +43,10 @@ rm -vf %{buildroot}/usr/lib64/libpng.la
   split layout resolves without a file conflict.
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.6.59-1
-- Update to 1.6.59 (current LFS/BLFS r13.1 trunk version).
+- Update to 1.6.59 (current upstream version).
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.6.58
-- Sync with BLFS r13.1 (1.6.36)
+- Sync with 1.6.36
 
 # let's skip this for now
 

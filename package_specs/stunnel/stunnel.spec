@@ -69,7 +69,7 @@ cp %{SOURCE2} %{buildroot}/etc/service.d/
   (GPL-2.0-or-later WITH stunnel-exception): COPYING.md (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 5.82-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Mon Jun 12 2023 Chris Statzer <chris.statzer@gmail.com> 5.69
 - Version bump

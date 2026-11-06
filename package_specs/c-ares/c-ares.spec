@@ -39,14 +39,14 @@ popd
   split layout resolves without a file conflict.
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.34.9-1
-- Update to 1.34.9 (current LFS/BLFS r13.1 trunk version).
+- Update to 1.34.9 (current upstream version).
 
 * Sun Nov 01 2026 Browneye Node.js wave <daspork@browneye.invalid> 1.34.8-1
-- New package (BLFS r13.1 packages.ent c-ares-version 1.34.8).
+- New package (tenko.lock c-ares-version 1.34.8).
 - Source: https://github.com/c-ares/c-ares/releases/download/v1.34.8/c-ares-1.34.8.tar.gz
   md5 a0568780ffe1476160a6bbb4b6737261
   sha256 c222b6d681096f9444d2c4863d2c1174019e27cacca0a4a5c114d36dd7d7bf78
 - Configure: cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib64
-  (BLFS r13.1 command plus the distro's /usr/lib64 layout; the cmake
+  (the documented build command plus the distro's /usr/lib64 layout; the cmake
   4.4.3 RPM patches GNUInstallDirs to default to lib).
 - Static filelist generated from the install tree.

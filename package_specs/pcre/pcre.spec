@@ -36,7 +36,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 8.45-1
 - Update 8.42 -> 8.45, the final PCRE1 release.
-- Basis: the PCRE1 line is archive-only in the r13.1 book;
+- Basis: the PCRE1 line is archive-only in the base set;
   8.45 is its final upstream release.  This spec stays on PCRE1;
   pcre2 is a separate package.
 - Source: https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.bz2

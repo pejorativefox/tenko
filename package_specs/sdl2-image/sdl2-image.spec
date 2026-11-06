@@ -41,7 +41,7 @@ rm -rf %{buildroot}
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.8.12-1
-- Not in the r13.1 book; latest SDL2-series upstream release
+- Not in the base set; latest SDL2-series upstream release
   (2026-11-05).
 - Build shared only against the published SDL2 2.32.74, libpng
   1.6.59, libjpeg-turbo 3.2.1 and webp 1.6.0.

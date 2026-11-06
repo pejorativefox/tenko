@@ -38,4 +38,4 @@ popd
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.0-1
-- New package: BLFS r13.1 build, required by rxvt-unicode 9.31
+- New package, required by rxvt-unicode 9.31

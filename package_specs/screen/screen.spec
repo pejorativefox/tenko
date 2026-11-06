@@ -50,7 +50,7 @@ rm -rf %{buildroot}/usr/share/info/dir
 - Record the verified license (GPL-3.0-or-later): COPYING (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 5.0.2-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 4.8.0
 - Initial RPM

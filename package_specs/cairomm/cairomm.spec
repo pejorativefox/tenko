@@ -73,7 +73,7 @@ popd
   (LGPL-2.1-or-later): COPYING and the cairomm/ headers (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.14.6-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Sun May 17 2020 Chris Statzer <chris.statzer@qq.com> 1.12.2
 - Initial RPM

@@ -21,7 +21,7 @@ to monitor MD external metadata arrays.
 %install
 rm -rf %{buildroot}
 make install BINDIR=/usr/sbin DESTDIR=%{buildroot}
-# The book's plain `make install` leaves the systemd units out; install
+# A plain `make install` leaves the systemd units out; install
 # them for the systemd-based Tenko system.
 make install-systemd BINDIR=/usr/sbin SYSTEMD_DIR=%{_unitdir} \
      DESTDIR=%{buildroot}
@@ -30,6 +30,6 @@ make install-systemd BINDIR=/usr/sbin SYSTEMD_DIR=%{_unitdir} \
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.6-1
-- New package at the BLFS r13.1 version (4.6).
-- Built with the book's `make` / `make BINDIR=/usr/sbin install`
+- New package at the pinned version (4.6).
+- Built with the documented `make` / `make BINDIR=/usr/sbin install`
   procedure; the mdmon systemd units are installed as well.

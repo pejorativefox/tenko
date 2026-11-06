@@ -41,5 +41,5 @@ popd
   split layout resolves without a file conflict.
 
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.26.0-1
-- New package, synced with BLFS r13.1.  Required by AppStream's
+- New package, synced with the base set.  Required by AppStream's
   display-detection backend.

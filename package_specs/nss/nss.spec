@@ -332,7 +332,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (MPL-2.0): nss/COPYING (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.132-1
-- Sync with BLFS r13.1 (standalone patch is now unversioned)
+- Sync with the standalone patch, now unversioned
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 3.92-1
 - Version bump

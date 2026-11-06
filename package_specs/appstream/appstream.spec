@@ -48,4 +48,4 @@ popd
   split layout resolves without a file conflict.
 
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.2.2-1
-- New package, synced with BLFS r13.1.  Flatpak 1.18 requires libappstream.
+- New package, synced with the base set.  Flatpak 1.18 requires libappstream.

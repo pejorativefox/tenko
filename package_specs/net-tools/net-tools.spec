@@ -47,7 +47,7 @@ rm -rf %{buildroot}/usr/share/man
   (GPL-2.0-or-later): COPYING, plus lib/*.c "either version 2 ... or any later version" (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.10-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Aug 19 2020 Chris Statzer <chris.statzer@qq.com> 1.60
 - Initial RPM

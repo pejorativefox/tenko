@@ -28,7 +28,7 @@ The toolchain lives under /opt/rust-1.99.0-x86_64-unknown-linux-gnu
 (with /opt/rust as a stable symlink).  rustc, cargo, rustdoc, rustfmt,
 clippy, and rust-analyzer are linked into /usr/bin.
 
-BLFS r13.1 pins Rust 1.98.1; this is the newer upstream stable release.
+tenko.lock pins Rust 1.98.1; this is the newer upstream stable release.
 
 %prep
 %setup -q -n rust-%{version}-x86_64-unknown-linux-gnu

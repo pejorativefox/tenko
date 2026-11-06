@@ -132,4 +132,4 @@ popd
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 51.0-1
-- New package: BLFS r13.1 build, required by glib-networking 2.90.1
+- New package, required by glib-networking 2.90.1

@@ -65,6 +65,6 @@ ln -sf /usr/libexec/p11-kit/trust-extract-compat \
 - Split lang, devel payload into p11-kit-lang, p11-kit-devel (size audit)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.26.5
-- Update to 0.26.5 (BLFS r13.1)
+- Update to 0.26.5
 - Switch from autotools to meson with trust_paths=/etc/pki/anchors
 - Replace the directory listing with a generated static filelist

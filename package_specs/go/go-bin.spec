@@ -43,7 +43,7 @@ rm %{buildroot}/opt/go/src/all.rc
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.27.3-1
-- Not in the r13.1 book; 1.27.3 is the latest upstream stable
+- Not in the base set; 1.27.3 is the latest upstream stable
   (2026-11-05).
 - Install the complete Go tree (VERSION, go.env, test, ...) instead of
   the old subset, and refresh %files from the payload.

@@ -27,7 +27,7 @@ install -d -m755 %{buildroot}/etc/xml
 install -d -m755 %{buildroot}/usr/share/xml/docbook/xml-dtd-%{version}
 cp -af catalog.xml docbook.cat *.dtd ent *.mod \
     %{buildroot}/usr/share/xml/docbook/xml-dtd-%{version}/
-# BLFS: resolve the DTD's canonical URLs to the local copy.
+# Resolve the DTD's canonical URLs to the local copy.
 xmlcatalog --noout --add "rewriteSystem" \
     "http://www.oasis-open.org/docbook/xml/%{version}" \
     "file:///usr/share/xml/docbook/xml-dtd-%{version}" \

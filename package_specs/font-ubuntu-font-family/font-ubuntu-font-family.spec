@@ -25,8 +25,8 @@ user-facing artifacts: the named weights of Ubuntu (Light, Regular, Bold,
 Italic…), plus the Ubuntu Mono family, together with the Ubuntu Font
 Licence (UFL) text and README notes.
 
-The Ubuntu Font Family is not in LFS/BLFS.  The user explicitly requested
-packaging it as an exception to the Tenko version-parity rule; the
+The Ubuntu Font Family is not in the base set.  The user explicitly requested
+packaging it as an exception to the Tenko version-policy rule; the
 Debian/Ubuntu packaging source tarball is used verbatim.
 
 Payload = every .ttf inside the tarball + README.txt and LICENCE.txt for

@@ -38,7 +38,7 @@ popd
   (LGPL-2.1-or-later): COPYING and the gtk/ and gdk/ headers (issue #8).
 
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.24.11-1
-- Sync with BLFS r13.1 (gtkmm3.xml)
+- Sync with upstream
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 3.24.8-1
 - Version bump

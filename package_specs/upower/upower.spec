@@ -53,13 +53,13 @@ The .gir XML needed for building stays in the main package.
   main package (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.91.5-1
-- Update to 1.91.5 (BLFS r13.1 trunk, D9 parity)
+- Update to 1.91.5 (current upstream, D9 parity)
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.91.4-2
 - Split devel payload into upower-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.91.3
-- Sync with BLFS r13.1 (0.99.7)
+- Sync with 0.99.7
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 0.99.7
 - Initial RPM

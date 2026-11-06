@@ -123,4 +123,4 @@ fi
   dnf install packages from the published repository
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 13.1
-- LFS r13.1 release
+- Tenko 13.1 release

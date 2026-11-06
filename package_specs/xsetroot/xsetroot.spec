@@ -11,7 +11,7 @@ BuildRequires: xbitmaps
 %description
 Set the X11 root window background and cursor.
 
-xsetroot is maintained at its BLFS r13.1 version and is built
+xsetroot is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

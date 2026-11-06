@@ -15,8 +15,8 @@ them from a full-screen ncurses interface.  It also displays per-core CPU,
 memory and swap meters, a tree view of the process hierarchy and per-process
 open files and environment.
 
-htop is not part of LFS or BLFS r13.1; the user approved upstream 3.5.3 as
-the version-parity exception.
+htop is not part of the base set; the user approved upstream 3.5.3 as
+the version-policy exception.
 
 %prep
 %setup -q
@@ -45,8 +45,8 @@ rm -rf %{buildroot}
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 3.5.3-1
-- Update to upstream 3.5.3.  htop is not in LFS or BLFS r13.1; the user
-  approved this upstream release as the version-parity exception.
+- Update to upstream 3.5.3.  htop is not in the base set; the user
+  approved this upstream release as the version-policy exception.
 - Source: https://github.com/htop-dev/htop/releases/download/3.5.3/htop-3.5.3.tar.xz
   md5 587f0d8ca67592ca199abef235dadb68
   sha256 a8b164386494cb85bb255a415a3f5f80afe7a0c4491da5d113b3a0f951087e65

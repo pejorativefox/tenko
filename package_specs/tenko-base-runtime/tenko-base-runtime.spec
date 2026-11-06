@@ -8,9 +8,9 @@ Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
 Prefix:     /usr
 
-# The LFS r13.1 base system without the compiler/toolchain, development
+# The Tenko base system without the compiler/toolchain, development
 # headers, static libraries, documentation toolchain or Python build
-# backends.  tenko-base itself is unchanged and remains the LFS
+# backends.  tenko-base itself is unchanged and remains the
 # build-capable meta.
 Requires:   iana-etc
 Requires:   glibc
@@ -97,7 +97,7 @@ needed to compile against it.  It is the base for a runtime container,
 appliance or a desktop installed over tenko-base-runtime instead of
 tenko-base.
 
-Installing tenko-base is still the supported way to get an LFS
+Installing tenko-base is still the supported way to get a
 build-capable system.
 
 %prep
@@ -138,7 +138,7 @@ rmdir /usr/share/browneye 2>/dev/null || true
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-4
 - Require openssh and git so every installed base system (desktop or
   base-only) has the SSH client/server and Git.  Both specs are already at
-  the BLFS r13.1 versions (OpenSSH 10.6p1, git 2.56.0).
+  the base-set versions (OpenSSH 10.6p1, git 2.56.0).
 
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 13.1-3
 - Note that development headers and .pc files now ship in the runtime

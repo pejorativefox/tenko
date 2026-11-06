@@ -11,7 +11,7 @@ libostree is a tool and library for deploying and managing bootable,
 immutable filesystem trees.  Flatpak uses it as its content-addressed object
 store.
 
-libostree (ostree) is not in the BLFS r13.1 book, but Flatpak cannot be built
+libostree (ostree) is not in the base set, but Flatpak cannot be built
 without it.  This spec tracks the current upstream release.
 
 %prep
@@ -52,7 +52,7 @@ rm -rf %{buildroot}
   split layout resolves without a file conflict.
 
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2026.6-1
-- Update from 2019.6 to 2026.6.  ostree is not in BLFS r13.1, but Flatpak
+- Update from 2019.6 to 2026.6.  ostree is not in the base set, but Flatpak
   1.18.4 requires a modern libostree (>= 2020.8).  Built with the libcurl
   fetcher and OpenSSL crypto so Flatpak can pull repositories over HTTPS
   and verify signatures.

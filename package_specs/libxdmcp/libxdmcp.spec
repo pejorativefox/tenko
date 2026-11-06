@@ -35,6 +35,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (MIT): COPYING (issue #8).
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.1.5
-- Sync with BLFS r13.1 (1.1.2)
+- Sync with 1.1.2
 
 # let's skip this for now

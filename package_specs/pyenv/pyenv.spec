@@ -50,8 +50,8 @@ matching upstream line to their own startup file, for example
 additionally needs the usual Python build environment (gcc, make and the
 -devel libraries), which pyenv reports as missing when a build fails.
 
-pyenv is not part of LFS or BLFS r13.1.  The user approved upstream 2.8.14
-as an explicit exception to the Tenko version-parity rule.
+pyenv is not part of the base set.  The user approved upstream 2.8.14
+as an explicit exception to the Tenko version-policy rule.
 
 %prep
 %setup -q
@@ -81,7 +81,7 @@ install -m644 LICENSE README.md COMMANDS.md CHANGELOG.md \
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2.8.14-1
 - New package: pyenv 2.8.14 from the upstream release tarball.  pyenv is
-  not in LFS/BLFS r13.1; the user approved it as a version-parity exception.
+  not in the base set; the user approved it as a version-policy exception.
 - Install the full tree under /usr/share/pyenv and link /usr/bin/pyenv, so
   PYENV_ROOT (~/.pyenv) remains a per-user, writable directory.
 - /etc/profile.d/pyenv.sh initialises bash login shells once ~/.pyenv

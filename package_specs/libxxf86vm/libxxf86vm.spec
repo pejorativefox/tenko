@@ -43,6 +43,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel, static payload into libxxf86vm-devel, libxxf86vm-static (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.1.7
-- Sync with BLFS r13.1 (1.1.5)
+- Sync with 1.1.5
 
 # let's skip this for now

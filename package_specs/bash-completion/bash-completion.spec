@@ -17,9 +17,9 @@ completion files and an /etc/profile.d snippet that loads the library for
 interactive shells when bash detects that no completions have been loaded
 yet.
 
-bash-completion is not in LFS or BLFS r13.1 (the books only list it as an
-optional dependency); the user approved upstream 2.18.0 as the
-version-parity exception.
+bash-completion is not in the base set (it is only an optional
+dependency); the user approved upstream 2.18.0 as the version-policy
+exception.
 
 %prep
 %setup -q
@@ -37,8 +37,8 @@ rm -rf %{buildroot}
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.18.0-1
 - Update to upstream 2.18.0 (was a 2.10 stub that was never built).
-  bash-completion is not in LFS or BLFS r13.1; the user approved this
-  upstream release as the version-parity exception.
+  bash-completion is not in the base set; the user approved this
+  upstream release as the version-policy exception.
 - Source: https://github.com/scop/bash-completion/releases/download/2.18.0/bash-completion-2.18.0.tar.xz
   md5 aa401f77054a83bd45171a2d628dccb0
   sha256 88bcf85124f77f74f2f2f8bcd16ac4382d807a827ede742a64940c7116aea33f

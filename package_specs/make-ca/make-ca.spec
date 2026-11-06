@@ -118,7 +118,7 @@ fi
   the directory; make-ca only ships the hashed certs and bundle links
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.16.1-1
-- Update to 1.16.1 (BLFS r13.1)
+- Update to 1.16.1
 - Ship a pinned Mozilla certdata.txt snapshot and generate the trust store
   offline during %install; %post regenerates it without network
 - Provide ca-certificates and the curl/OpenSSL CA bundle paths

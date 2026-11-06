@@ -11,7 +11,7 @@ Source0:    xmessage-1.0.7.tar.xz
 %description
 Display X11 text messages or question dialogs.
 
-xmessage is maintained at its BLFS r13.1 version and is built
+xmessage is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

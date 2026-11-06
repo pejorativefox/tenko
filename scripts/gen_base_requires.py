@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Regenerate the tenko-base Requires block from lfs.lock.
+"""Regenerate the tenko-base Requires block from tenko.lock.
 
 The base meta used to carry ~100 hand-written Requires lines that had to be
-updated by hand whenever the LFS base list or a version changed.  This script
-expands lfs.lock's chapter-8 package list (mapped through its aliases) plus
+updated by hand whenever the base list or a version changed.  This script
+expands tenko.lock's base package list (mapped through its aliases) plus
 the explicit extras in package_specs/tenko-base/requires-extra, and
 rewrites the block between the GENERATED REQUIRES markers in the spec.
 
@@ -18,14 +18,14 @@ import os
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOCK = os.path.join(ROOT, "lfs.lock")
+LOCK = os.path.join(ROOT, "tenko.lock")
 SPEC = os.path.join(ROOT, "package_specs", "tenko-base", "tenko-base.spec")
 EXTRA = os.path.join(ROOT, "package_specs", "tenko-base", "requires-extra")
 
 BEGIN = "# BEGIN GENERATED REQUIRES"
 END = "# END GENERATED REQUIRES"
 
-# LFS package names that the distro deliberately does not require...
+# Base package names that the distro deliberately does not require...
 EXCLUDE = {"grub"}
 # ...and ones that are split into several binary packages.
 SPLIT = {
@@ -63,7 +63,7 @@ def requires():
 
 def block(names):
     lines = [
-        BEGIN + ": generated from lfs.lock + requires-extra",
+        BEGIN + ": generated from tenko.lock + requires-extra",
         "# Run scripts/gen_base_requires.py after changing either file.",
     ]
     lines += ["Requires:   " + name for name in names]

@@ -11,7 +11,7 @@ Source0:    xwud-1.0.8.tar.xz
 %description
 Display an X11 image dumped by xwd.
 
-xwud is maintained at its BLFS r13.1 version and is built
+xwud is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

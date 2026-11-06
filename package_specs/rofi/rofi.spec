@@ -50,7 +50,7 @@ DESTDIR=%{buildroot} ninja -C build install
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.0-1
-- Not in the LFS/BLFS r13.1 book: bump to the latest upstream
+- Not in the base set: bump to the latest upstream
   stable release (2.0.0, checked 2026-11-05). The 2.0 rewrite uses
   meson; build the XCB backend only (no Wayland stack in the repo).
 

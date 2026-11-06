@@ -15,8 +15,8 @@ Flatpak is a system for building, distributing and running sandboxed desktop
 applications.  It provides the flatpak command, the session and system
 helpers, and the bundled bwrap/dbus-proxy launchers.
 
-Flatpak is not in the BLFS r13.1 book.  This spec tracks the current upstream
-stable release; the dependency chain comes from BLFS where the book has a
+Flatpak is not in the base set.  This spec tracks the current upstream
+stable release; the dependency chain comes from the base set where a
 page, and from upstream for libostree.
 
 %prep
@@ -88,7 +88,7 @@ fi
   before it can even set up the remote keyring.
 
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 1.18.4-1
-- Update from 1.5.1 (2019) to 1.18.4.  Flatpak is not in BLFS r13.1;
+- Update from 1.5.1 (2019) to 1.18.4.  Flatpak is not in the base set;
   pinned to the current upstream stable release.  Uses the system bubblewrap
   and xdg-dbus-proxy instead of the offline subproject wraps; Wayland
   security-context support is disabled because the Browneye desktop is X11.

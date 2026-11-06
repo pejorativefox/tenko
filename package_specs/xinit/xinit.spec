@@ -32,4 +32,4 @@ chmod 755 %{buildroot}/etc/X11/xinit/xinitrc
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.4.4-1
-- Initial package (BLFS r13.1)
+- Initial package

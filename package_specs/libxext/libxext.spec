@@ -43,7 +43,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel, static payload into libxext-devel, libxext-static (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.3.7
-- Sync with BLFS r13.1 (1.3.5)
+- Sync with 1.3.5
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.3.5-1
 - Version bump

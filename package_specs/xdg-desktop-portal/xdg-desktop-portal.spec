@@ -146,7 +146,7 @@ popd
   (LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-2.0-or-later): COPYING (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.22.1-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Jan 13 2021 Chris Statzer <chris.statzer@qq.com> 1.8.0
 - Initial RPM

@@ -34,5 +34,5 @@ rm -vf %{buildroot}%{_infodir}/dir
   split layout resolves without a file conflict.
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.21.0
-- Update to 4.21.0 (BLFS r13.1)
+- Update to 4.21.0
 - Replace the directory listing with a generated static filelist

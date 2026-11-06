@@ -11,7 +11,7 @@ Source0:    setxkbmap-1.3.5.tar.xz
 %description
 Set the X11 keyboard layout.
 
-setxkbmap is maintained at its BLFS r13.1 version and is built
+setxkbmap is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

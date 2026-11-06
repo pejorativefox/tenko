@@ -50,7 +50,7 @@ ln -sfv kmod %{buildroot}/usr/bin/modprobe
   main package (issue #4).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 34.3-1
-- Update to 34.3 (current LFS/BLFS r13.1 trunk version).
+- Update to 34.3 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 34.2-3
 - Split devel payload into kmod-devel (size audit)
@@ -61,6 +61,6 @@ ln -sfv kmod %{buildroot}/usr/bin/modprobe
   binfmt_misc), while an explicit "modprobe" still works.
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 34.2
-- Sync with LFS r13.1
+- Sync with the base set
 
 # let's skip this for now

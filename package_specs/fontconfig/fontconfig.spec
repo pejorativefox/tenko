@@ -40,6 +40,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel payload into fontconfig-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.18.3
-- Sync with BLFS r13.1 (2.13.1)
+- Sync with 2.13.1
 
 # let's skip this for now

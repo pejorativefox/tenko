@@ -28,10 +28,10 @@ cp services protocols %{buildroot}/etc
 - Record the verified license (MIT): upstream repository LICENSE (tarball ships no license file) (issue #8).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 20261015-1
-- Update to 20261015 (current LFS/BLFS r13.1 trunk version).
+- Update to 20261015 (current upstream version).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 20260805
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 20230810
 - Version bump

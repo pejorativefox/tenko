@@ -1,22 +1,21 @@
-# Version policy and book synchronisation
+# Version policy and package synchronisation
 
-Tenko tracks the LFS and BLFS r13.1 books (the `trunk` branches of
-`~/repos/lfs` and `~/repos/blfs`).  The rule, including how to handle packages
-that are not in the books, is in [`AGENTS.md`](../AGENTS.md) — this page only
-describes the tooling.
+The base package set is pinned in [`tenko.lock`](../tenko.lock).  The rule,
+including how to handle packages outside the base set, is in
+[`AGENTS.md`](../AGENTS.md) — this page only describes the tooling.
 
 ## The rule in one line
 
-Every package we build or install must be **at least** the current book
-version, including its dependency chain.  If a package is not in LFS/BLFS,
-stop and ask before choosing a version or substitute.
+Every base package we build or install must be **at least** the version pinned
+in `tenko.lock`, including its dependency chain.  If a package is not in
+`tenko.lock`, stop and ask before choosing a version or substitute.
 
 ## Distro release and package versions
 
 The distribution release is **Tenko 6 (Workstation)**.  Packages roll
 independently and keep their own versions, so the distro release is not the
 version of every package.  `tenko-release` carries the release identity and is
-versioned `6-1`; other packages keep their own upstream or book versions.
+versioned `6-1`; other packages keep their own upstream versions.
 
 `/etc/os-release`:
 
@@ -38,58 +37,39 @@ have `/etc/yum.repos.d/browneye-13.1.repo`; `tenko-release` removes or
 disables that file during the upgrade.  It is the compatibility cleanup
 target only — never reuse its name for the Tenko repo.
 
-## `lfs.lock`
+## `tenko.lock`
 
-`lfs.lock` pins the LFS release used for the base set: package names, versions,
-hashes, the build order and aliases for packages whose spec name differs
-(`pcre` → `pcre2`, `libelf` → `elfutils`, …).  Regenerate it when the LFS
-checkout moves:
-
-```sh
-scripts/gen_lfs_lock.py
-```
+`tenko.lock` pins the base package set: package names, versions, hashes, the
+build order and aliases for packages whose spec name differs
+(`pcre` → `pcre2`, `libelf` → `elfutils`, …).
 
 ## Syncing a spec
 
-`sync_lfs_spec.py` reads `lfs.lock`; `sync_blfs_spec.py` reads the BLFS
-entities directly.  Both are **report-only** by default:
+`sync_lock_spec.py` reads `tenko.lock` and is **report-only** by default:
 
 ```sh
-python3 scripts/sync_blfs_spec.py                 # show work
-python3 scripts/sync_blfs_spec.py --write         # apply mechanical parts
-
-python3 scripts/sync_lfs_spec.py                  # show work
-python3 scripts/sync_lfs_spec.py --write
+python3 scripts/sync_lock_spec.py                  # show work
+python3 scripts/sync_lock_spec.py --write          # apply mechanical parts
 ```
 
-With `--write` they bump `Version:`, update the `sources` line (md5 + URL),
-update `Source0`, and prepend a changelog entry.  They deliberately do not
+With `--write` it bumps `Version:`, updates the `sources` line (md5 + URL),
+updates `Source0`, and prepends a changelog entry.  It deliberately does not
 touch configure options, patches or `%files`; anything else is printed for a
-manual pass.  `--convert-files` switches a literal `%files` list to the static
-`%files -f` form used by the base set.
+manual pass.
 
 Always review the report: a version bump often needs a build-option or patch
 change that the script cannot infer.
 
-## Auditing the tree
+## Regenerating the base meta-package
 
-Two complementary tools:
+`tenko-base` requires every package in the pinned base set.  After changing
+`tenko.lock` or `package_specs/tenko-base/requires-extra`, regenerate the
+Requires block:
 
 ```sh
-# every spec against the LFS/BLFS entities (needs both checkouts)
-python3 scripts/spec_audit.py
-
-# or against a published primary.xml snapshot
-python3 scripts/spec_audit.py --primary primary.xml.zst
-
-# flat RPM-name list, counts subpackages separately
-python3 scripts/audit_versions.py --rpm-dir build/devel-removal/repo
+scripts/gen_base_requires.py            # rewrite the spec in place
+scripts/gen_base_requires.py --check    # exit 1 if the block is stale
 ```
-
-`spec_audit.py` reports specs below/at/above the book version, unbuilt specs,
-missing patches, `Summary: TODO` and sources/version mismatches.
-`spec-audit.md` is the checked-in snapshot; refresh it after a wave with the
-new `primary.xml.zst` hash.
 
 ## Rebuild order
 
@@ -100,6 +80,6 @@ When a spec changes:
 3. publish it to both sites (`docs/build.md`; never only one),
 4. rebuild and publish anything that depends on it.
 
-Approved deviations (packages above the book, book-less packages built from
-latest upstream, retired specs) are recorded in the Gitea issues, principally
-#7.  Do not silently add a new one.
+Approved deviations (packages above the pinned version, packages outside the
+base set built from latest upstream, retired specs) are recorded in the Gitea
+issues, principally #7.  Do not silently add a new one.

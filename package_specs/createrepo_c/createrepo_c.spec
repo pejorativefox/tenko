@@ -53,7 +53,7 @@ popd
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.6-1
 - New package for the E1 self-hosted repo assembly work (replaces the host
-  createrepo_c).  createrepo_c is not in LFS/BLFS; this is the current
+  createrepo_c).  createrepo_c is not in the base set; this is the current
   upstream release.
 - Built with zchunk and libmodulemd metadata support.  Delta RPM (drpm)
   support is disabled and the optional Python bindings are not built.

@@ -114,7 +114,7 @@ rm -rf %{buildroot}
   (GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause): COPYING, alsaucm/usecase.c and topology/nhlt/nhlt.h (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.2.16-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Thu May 28 2020 Chris Statzer <chris.statzer@qq.com> 1.2.2
 - Initial RPM

@@ -38,8 +38,8 @@ and response-time measurement.  It is built from the nmap source tree.
 #
 # Use Nmap's bundled copies of PCRE2, Lua, libssh2 and liblinear: they are
 # static internals and are not shipped as separate packages, and their bundled
-# versions are at or above the BLFS r13.1 versions.  libpcap is the exception:
-# the bundled 1.10.6 is below BLFS 1.10.7, so link the system libpcap package.
+# versions are at or above the pinned versions.  libpcap is the exception:
+# the bundled 1.10.6 is below 1.10.7, so link the system libpcap package.
 # Everything else links against the system libraries.
 %configure --prefix=/usr \
     --without-zenmap \
@@ -64,10 +64,10 @@ rm -rf %{buildroot}
 
 %changelog
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 7.993-1
-- Update to 7.993 (current LFS/BLFS r13.1 trunk version).
+- Update to 7.993 (current upstream version).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 7.991-1
-- New package (BLFS r13.1 Nmap 7.991), split into nmap, ncat and nping.
+- New package (Nmap 7.991), split into nmap, ncat and nping.
 - Source: https://nmap.org/dist/nmap-7.991.tar.bz2
   md5 a689503c1b7851be8aba804eae414b27
   sha256 a5d507f29437bef3bedd4771ff9aaa8fc1c2a109ddba1f5b1cf12027456929be
@@ -75,7 +75,7 @@ rm -rf %{buildroot}
   dependencies (pypa-build, setuptools-gettext) are not packaged and the
   graphical frontend is outside this request.
 - Link against the packaged libpcap 1.10.7.  Nmap's bundled libpcap is
-  1.10.6, below the BLFS 1.10.7 version; the bundled PCRE2 10.47, Lua 5.4.8,
-  libssh2 1.11.1_NMAP1 and liblinear 250 are at or above the book versions and
+  1.10.6, below the pinned 1.10.7 version; the bundled PCRE2 10.47, Lua 5.4.8,
+  libssh2 1.11.1_NMAP1 and liblinear 250 are at or above the pinned versions and
   stay static internals, like vte's bundled subprojects.
 - OpenSSL 4 is detected from the system; no openssl4 fixes patch was needed.

@@ -31,7 +31,7 @@ rm -rf %{buildroot}
   (BSD-3-Clause): LICENSE, 3-clause BSD (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.1.13-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 2.1.12
 - Initial RPM

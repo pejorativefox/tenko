@@ -26,4 +26,4 @@ find %{buildroot} -name perllocal.pod -delete
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.14-1
-- Initial package (BLFS r13.1); build dependency of File::ShareDir 1.118
+- Initial package; build dependency of File::ShareDir 1.118

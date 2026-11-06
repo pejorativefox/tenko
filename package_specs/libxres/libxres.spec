@@ -44,7 +44,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel, static payload into libxres-devel, libxres-static (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.2.3
-- Sync with BLFS r13.1 (1.2.2)
+- Sync with 1.2.2
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.2.2-1
 - Version bump

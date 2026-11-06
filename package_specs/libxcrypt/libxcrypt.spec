@@ -39,7 +39,7 @@ rm -rf %{buildroot}
   (LGPL-2.1-or-later): COPYING.LIB, plus lib/crypt.c "either version 2.1 ... or any later version" (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 4.5.2
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Initial RPM

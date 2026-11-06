@@ -30,6 +30,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (GPL-3.0-or-later AND BSD-3-Clause): LICENSE (issue #8).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 4.5.1-1
-- Update to the BLFS r13.1 version (4.5.1, was 4.0.1) for the E1
+- Update to the pinned version (4.5.1, was 4.0.1) for the E1
   dnf/libdnf dependency chain (libdnf Python bindings).
 - Use a generated static filelist.

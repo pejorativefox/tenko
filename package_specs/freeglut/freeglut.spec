@@ -140,7 +140,7 @@ popd
   (X11 AND MIT): COPYING and man/LICENSE (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.8.0-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 3.4.0-1
 - Version bump

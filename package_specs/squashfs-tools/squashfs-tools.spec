@@ -14,8 +14,8 @@ creating and extracting Squashfs filesystems.  The Tenko live/installer
 image uses mksquashfs to build the compressed root filesystem that the
 installer unpacks and writes.
 
-This package is a user-approved exception to the LFS/BLFS version-parity
-rule: squashfs-tools is not in either book, so it tracks current upstream.
+This package is a user-approved exception to the base-set version policy
+rule: squashfs-tools is not in the base set, so it tracks current upstream.
 Source: https://github.com/plougher/squashfs-tools/releases/download/4.7.5/squashfs-tools-4.7.5.tar.gz
 sha256: 547b7b7f4d2e44bf91b6fc554664850c69563701deab9fd9cd7e21f694c88ea6
 
@@ -50,7 +50,7 @@ popd
   removed and the headers/.pc files now ship in xz (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.7.5-1
-- Update to upstream 4.7.5 (approved exception; not in LFS/BLFS), replacing
+- Update to upstream 4.7.5 (approved exception; not in the base set), replacing
   the 2019 4.4 template.  Enable gzip/lz4/xz/zstd, disable lzo/lzma because
   those libraries are not in the Browneye repo.
 - Source sha256: 547b7b7f4d2e44bf91b6fc554664850c69563701deab9fd9cd7e21f694c88ea6

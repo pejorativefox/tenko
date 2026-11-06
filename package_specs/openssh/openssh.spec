@@ -100,10 +100,10 @@ install -d -m 0700 -o root -g sshd /var/lib/sshd 2>/dev/null || :
   (SSH-OpenSSH AND BSD-2-Clause AND BSD-3-Clause AND (MIT OR Apache-2.0)): LICENCE (issue #8).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 10.6p1-1
-- Update to 10.6p1 (current LFS/BLFS r13.1 trunk version).
+- Update to 10.6p1 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 10.5p1-1
-- Rewrite for BLFS r13.1 OpenSSH 10.5p1
+- Rewrite for OpenSSH 10.5p1
 - Linux-PAM password authentication (--with-pam, UsePAM yes,
   PermitRootLogin yes) and an /etc/pam.d/sshd pam_unix stack
 - systemd sshd.service (Type=notify) + sshd-keygen.service and

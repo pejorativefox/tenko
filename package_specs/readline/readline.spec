@@ -51,6 +51,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split doc, devel payload into readline-doc, readline-devel (size audit)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 8.3
-- Sync with LFS r13.1
+- Sync with the base set
 
 # let's skip this for now

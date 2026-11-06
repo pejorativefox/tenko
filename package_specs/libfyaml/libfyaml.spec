@@ -32,4 +32,4 @@ rm -rf %{buildroot}
   split layout resolves without a file conflict.
 
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.9.6-1
-- New package, synced with BLFS r13.1.  Required by AppStream.
+- New package, synced with the base set.  Required by AppStream.

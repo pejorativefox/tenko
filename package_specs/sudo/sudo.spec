@@ -22,7 +22,7 @@ arguments.  This build uses Linux-PAM for authentication.
 %prep
 %setup -q
 
-# Fix building sudo with OpenSSL 4 (BLFS r13.1).
+# Fix building sudo with OpenSSL 4.
 sed -e 's/\([->.a-zA-Z_]*\)->length/ASN1_STRING_length(\1)/' \
     -i lib/iolog/hostcheck.c
 
@@ -46,7 +46,7 @@ install -vdm755 %{buildroot}/etc/sudoers.d
 install -vm0440 %{SOURCE1} %{buildroot}/etc/sudoers
 chmod 0750 %{buildroot}/etc/sudoers.d
 
-# BLFS Linux-PAM service definition for sudo.
+# Linux-PAM service definition for sudo.
 install -vdm755 %{buildroot}/etc/pam.d
 install -vm644 %{SOURCE2} %{buildroot}/etc/pam.d/sudo
 
@@ -76,8 +76,8 @@ fi
   main package (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.9.17p2-1
-- Rewrite for BLFS r13.1 sudo 1.9.17p2 (was a stale 1.8.23 template)
-- Build with Linux-PAM; ship the BLFS /etc/pam.d/sudo stack and an
+- Rewrite for sudo 1.9.17p2 (was a stale 1.8.23 template)
+- Build with Linux-PAM; ship /etc/pam.d/sudo stack and an
   /etc/sudoers that grants %wheel ALL=(ALL) ALL with env_reset
 - Split the plugin header into sudo-devel
 - Create the wheel group in %%pre if the base system lacks it

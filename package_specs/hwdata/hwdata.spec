@@ -28,7 +28,7 @@ rm -rf %{buildroot}
   (GPL-2.0-or-later): LICENSE, COPYING and pci.ids (issue #8).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 0.412-1
-- Update to 0.412 (current LFS/BLFS r13.1 trunk version).
+- Update to 0.412 (current upstream version).
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 0.410
-- Initial package (BLFS r13.1)
+- Initial package

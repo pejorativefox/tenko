@@ -35,7 +35,7 @@ make -C generate/unix install DESTDIR=%{buildroot} PREFIX=/usr
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 20260930-1
-- Not in the r13.1 books; latest upstream release (2026-09-30).
+- Not in the base set; latest upstream release (2026-09-30).
   Needed for the EDK2/OVMF firmware package (iasl).
 - License basis: LICENSE.BSD-3-Clause and LICENSE.GPL-2.0-only in the
   tarball; the project is dual-licensed.

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Assemble the single Tenko repository: the base repo, every RPM produced
-# by the BLFS/XFCE/desktop build runs, and every RPM staged by the package
+# by the XFCE/desktop build runs, and every RPM staged by the package
 # split waves.  There is no separate desktop repository.
 #
 # The repo is the union of:
 #   - $BASE        base repo produced by the container base rebuild
 #                  (default build/repo-selfhost)
-#   - build/blfs-parity-*/build/*/RPMS/*/    desktop/XFCE/kernel builds
+#   - build/desktop-parity-*/build/*/RPMS/*/    desktop/XFCE/kernel builds
 #   - $STAGING     wave builds done in separate git worktrees
 #                  (default build/rpm-staging)
 #   - $EXTRA_RPM_DIRS  colon-separated one-off directories
@@ -38,7 +38,7 @@ mkdir -p "$REPO"
 copy_from "$BASE"
 
 # Later build runs overwrite earlier ones; every phase directory is included.
-for dir in build/blfs-parity-*/build/*/RPMS/*/; do
+for dir in build/desktop-parity-*/build/*/RPMS/*/; do
     copy_from "${dir%/}"
 done
 
@@ -56,7 +56,7 @@ if [ -n "$EXTRA_RPM_DIRS" ]; then
 fi
 
 # The kernel is built in the container (E2) and is collected above with
-# every other blfs-parity RPM; no host copy is needed.
+# every other desktop-parity RPM; no host copy is needed.
 
 ./scripts/prune_repo.sh "$REPO"
 

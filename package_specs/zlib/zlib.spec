@@ -36,7 +36,7 @@ rm -fv %{buildroot}/usr/lib64/libz.a
 - Record the verified license (Zlib): LICENSE (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.3.2
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 1.2.13
 - Version bump

@@ -113,7 +113,7 @@ fi
 
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-24
 - Install OpenSSH and git in every target (desktop and base-only).  They
-  are already at the BLFS r13.1 versions (OpenSSH 10.6p1, git 2.56.0).
+  are already at the base-set versions (OpenSSH 10.6p1, git 2.56.0).
   The live image is deliberately unaffected: browneye-live builds from
   browneye-base-runtime, which stays minimal.
 
@@ -183,7 +183,7 @@ fi
   any number of GPT disks, adopt existing partitions without formatting,
   and mount data filesystems such as /home on a second disk.
 - Add btrfs support (mkfs.btrfs, fstab, UUID mount) alongside ext4, vfat
-  and swap.  Require btrfs-progs (BLFS r13.1 7.3).
+  and swap.  Require btrfs-progs 7.3.
 - Replace answer-file version 1 with version 2: a "layout" object holds a
   "disks" array, each with delete_partitions and per-partition
   role/fstype/mountpoint/size_mib/existing_number.

@@ -41,7 +41,7 @@ install -Dm644 manuals/dc.1 %{buildroot}%{_mandir}/man1/dc.1
   (BSD-2-Clause): LICENSE.md (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 7.0.3
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - added missing changelog :)

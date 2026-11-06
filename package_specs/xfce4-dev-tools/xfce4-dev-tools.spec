@@ -29,7 +29,7 @@ mkdir -p %{buildroot}/etc
   (GPL-2.0-or-later): COPYING (issue #8).
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0
-- Sync with BLFS r13.1 (4.19.0)
+- Sync with 4.19.0
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.19.0
 - Initial RPM

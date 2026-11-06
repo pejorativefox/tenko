@@ -36,7 +36,7 @@ rm -rf %{buildroot}
   (BSD-3-Clause AND MIT): LICENSE.txt (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.3.1-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Aug 19 2020 Chris Statzer <chris.statzer@qq.com> 2.1.0
 - Initial RPM

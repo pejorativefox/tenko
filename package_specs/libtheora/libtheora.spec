@@ -28,10 +28,8 @@ rm -rf %{buildroot}
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.1-1
-- Keep 1.1.1: this is the version named in the BLFS r13.1 book
-  (packages.ent and the archived archive/libtheora.xml page; the
-  r13.1 libdriv page is commented out) and it is still the latest
+- Keep 1.1.1: this is the pinned version and it is still the latest
   stable release.
-- Follow the archived book page: fix the libpng 1.6 build and use
+- Follow the archived package page: fix the libpng 1.6 build and use
   --disable-static; make install does not install the examples.
 - First Browneye build of the existing spec.

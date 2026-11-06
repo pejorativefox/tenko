@@ -117,7 +117,7 @@ test -f %{buildroot}/usr/lib/systemd/boot/efi/systemd-bootx64.efi || {
   the unattended installer test.
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 262.1-1
-- Update to 262.1 (current LFS/BLFS r13.1 trunk version).
+- Update to 262.1 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 261.3-3
 - Bump the release for the hwdb/lang/doc split: the 261.3-2 build is

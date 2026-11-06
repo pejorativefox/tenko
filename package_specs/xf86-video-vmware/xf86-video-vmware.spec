@@ -25,6 +25,5 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 13.4.0-1
-- Keep 13.4.0: latest upstream release, and the same version the archived
-  BLFS page lists (the package is not in the r13.1 book outside archive/)
+- Keep 13.4.0: latest upstream release, and the package is not part of the base set
 - Fix man page path in %files (/usr/share/man, not /usr/man)

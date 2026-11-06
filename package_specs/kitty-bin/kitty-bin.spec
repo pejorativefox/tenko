@@ -3,9 +3,9 @@
 # libraries, shaders, shell integration) and share/ (docs, man pages,
 # terminfo, desktop files).  This is a binary repackage, not a source build.
 #
-# Kitty is not part of LFS/BLFS r13.1.  The user explicitly approved
-# packaging the official prebuilt bundle as an exception to the version
-# parity rule in AGENTS.md.
+# Kitty is not part of the base set.  The user explicitly approved
+# packaging the official prebuilt bundle as an exception to the
+# version-policy rule in AGENTS.md.
 %global __strip /bin/true
 %global __spec_install_post %{nil}
 %global debug_package %{nil}
@@ -60,8 +60,8 @@ is self-contained: it ships its own Python 3.14 runtime, the graphics and
 font libraries it needs, the generated shaders, shell integration and a
 static Go kitten binary.
 
-kitty is not part of LFS/BLFS.  The user explicitly approved packaging the
-official prebuilt bundle as an exception to the Tenko version-parity
+kitty is not part of the base set.  The user explicitly approved packaging the
+official prebuilt bundle as an exception to the Tenko version-policy
 rule.
 
 %prep
@@ -113,4 +113,4 @@ install -m644 %{SOURCE1} %{buildroot}%{_docdir}/kitty/LICENSE
 - New package: official kitty 0.49.2 x86_64 prebuilt bundle under
   /opt/kitty-0.49.2, with /opt/kitty, /usr/bin/kitty and /usr/bin/kitten
   symlinks, desktop files, icons, man pages, docs and xterm-kitty terminfo.
-- kitty is not in LFS/BLFS (user-approved prebuilt exception).
+- kitty is not in the base set (user-approved prebuilt exception).

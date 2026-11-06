@@ -23,11 +23,11 @@ import os
 import sys
 
 out = sys.argv[1]
-with open("lfs.lock", encoding="utf-8") as handle:
+with open("tenko.lock", encoding="utf-8") as handle:
     lock = json.load(handle)
 aliases = lock.get("aliases", {})
 
-# ORDER is the LFS r13.1 chapter-8 list plus bootstrap extras and glue.
+# ORDER is the base package list plus bootstrap extras and glue.
 with open("package_specs/ORDER", encoding="utf-8") as handle:
     names = [line.split("#", 1)[0].strip() for line in handle]
 names = [name for name in names if name]

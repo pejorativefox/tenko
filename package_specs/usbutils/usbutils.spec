@@ -40,7 +40,7 @@ popd
 - Replace NO_IDEA with the verified license (GPL-2.0-or-later): README.md SPDX header (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 020-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Mon May 18 2020 Chris Statzer <chris.statzer@qq.com> 012
 - Initial RPM

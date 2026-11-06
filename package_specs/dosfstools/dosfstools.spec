@@ -24,7 +24,7 @@ rm -rf %{buildroot}
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.2-1
-- Build the current BLFS r13.1 version (4.2)
-- Configure with --enable-compat-symlinks as the book does, providing
+- Build the current pinned version (4.2)
+- Configure with --enable-compat-symlinks as the base build does, providing
   mkfs.vfat/mkfs.msdos/fsck.vfat/fsck.msdos for the installer
 - Ship a generated static filelist

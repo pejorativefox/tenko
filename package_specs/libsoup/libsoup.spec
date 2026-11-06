@@ -46,8 +46,8 @@ DESTDIR=%{buildroot} ninja -C build install
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.74.3-1
 - Update 2.62.3 -> 2.74.3, the final release of the libsoup 2.x line.
-- Basis: the active r13.1 book page is libsoup3; the archived BLFS
-  libsoup page is 2.74.3, which is the newest 2.x release.  This spec
+- Basis: libsoup3 is the active package; the archived libsoup 2.x
+  release is 2.74.3, which is the newest 2.x release.  This spec
   stays on the 2.x ABI (libsoup-2.4) because the tree still ships
   consumers of it.
 - Source: https://download.gnome.org/sources/libsoup/2.74/libsoup-2.74.3.tar.xz

@@ -56,7 +56,7 @@ the live systemd preset and the dracut dmsquash-live configuration.
 - Clean up old browneye paths, units, presets and configuration.
 
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-3
-- Require btrfs-progs (BLFS r13.1 7.3) so the live installer can create
+- Require btrfs-progs 7.3 so the live installer can create
   btrfs root and data filesystems.
 
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 13.1-2

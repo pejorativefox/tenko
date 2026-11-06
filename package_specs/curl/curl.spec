@@ -43,9 +43,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
   main package (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 8.23.0-1
-- Update to 8.23.0 (BLFS r13.1 trunk).
+- Update to 8.23.0 (current upstream).
 - Enable Public Suffix List support: libpsl 0.23.3 (with libidn2 2.3.8 and
-  libunistring 1.5) is now packaged, so drop --without-libpsl.  BLFS notes
+  libunistring 1.5) is now packaged, so drop --without-libpsl.  The base build notes
   that building without libpsl has severe security implications for cookie
   and HSTS domain scoping.
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 8.22.0-2

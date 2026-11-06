@@ -44,7 +44,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel payload into libxkbcommon-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.13.2
-- Sync with BLFS r13.1 (1.5.0)
+- Sync with 1.5.0
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.5.0-1
 - Version bump

@@ -13,7 +13,7 @@ Description:             2020-06-30 renodr:
                          2022-09-16 xry111:
                          Remove an extra newline before $(MYLDFLAGS).
                          MYLDFLAGS is empty by default so it does not break
-                         BLFS build, but it may break a custom build with
+                         standard build, but it may break a custom build with
                          tuning or hardening.
 
 diff -Naurp lua-5.4.0.orig/Makefile lua-5.4.0/Makefile

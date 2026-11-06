@@ -30,5 +30,5 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 23.0.0-1
-- Initial package (BLFS r13.1 archive); replaces the stale 3.30.1 template
+- Initial package; replaces the stale 3.30.1 template
   with a static filelist and the current 23.0.0 source

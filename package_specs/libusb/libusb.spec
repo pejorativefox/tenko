@@ -37,6 +37,6 @@ with USB hardware.
   split layout resolves without a file conflict.
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.0.30
-- Sync with BLFS r13.1 (1.0.23)
+- Sync with 1.0.23
 
 # let's skip this for now

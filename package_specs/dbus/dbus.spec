@@ -93,7 +93,7 @@ This package contains libraries for accessing D-BUS.
 - Record the verified license (AFL-2.1 OR GPL-2.0-or-later): COPYING (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.16.2
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.14.8-1
 - Version bump

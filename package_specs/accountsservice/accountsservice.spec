@@ -78,7 +78,7 @@ XML needed for building stays there.
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 26.27.3-2
 - Split the GObject Introspection typelibs into %{name}-gir; the -devel package now requires it
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 26.27.3-1
-- Initial package (BLFS r13.1 AccountsService 26.27.3) for the LightDM
+- Initial package (AccountsService 26.27.3) for the LightDM
   greeter user list
 - No Vala bindings (vala not packaged) and no API/dbus docs
-- Ship the BLFS adm-group polkit rule
+- Ship adm-group polkit rule

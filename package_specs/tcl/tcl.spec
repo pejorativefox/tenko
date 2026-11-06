@@ -66,7 +66,7 @@ popd
 - Split doc, devel payload into tcl-doc, tcl-devel (size audit)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 8.6.18
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Tue Jun 13 2023 Chris Statzer <chris.statzer@gmail.com> 3.30.1
 - Initial RPM

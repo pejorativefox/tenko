@@ -11,7 +11,7 @@ Source0:    xdriinfo-1.0.8.tar.xz
 %description
 Query DRI drivers on an X server.
 
-xdriinfo is maintained at its BLFS r13.1 version and is built
+xdriinfo is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

@@ -43,7 +43,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel, static payload into libxft-devel, libxft-static (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.3.9
-- Sync with BLFS r13.1 (2.3.8)
+- Sync with 2.3.8
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.3.8-1
 - Version bump

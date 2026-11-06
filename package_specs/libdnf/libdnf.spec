@@ -62,7 +62,7 @@ popd
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.76.0-1
 - Update to 0.76.0 (was 0.71.0) for the E1 dnf/libdnf chain.  libdnf is
-  not in LFS/BLFS; this is the current release of the dnf-4 branch, which
+  not in the base set; this is the current release of the dnf-4 branch, which
   is the branch that supports the rpm 4.18.1 in the base image (dnf5 needs
   rpm >= 4.19).
 - Python/SWIG bindings are enabled (dnf 4 is Python based); gtk-doc, HTML

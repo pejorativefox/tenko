@@ -27,7 +27,7 @@ rm -rf %{buildroot}
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.8-1
-- Not in the LFS/BLFS r13.1 book: bump to the latest upstream
+- Not in the base set: bump to the latest upstream
   stable release (3.8, checked 2026-11-05).
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 3.3a

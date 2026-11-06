@@ -27,7 +27,7 @@ rm -rf %{buildroot}
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.18-1
-- Rebuild 0.18: not in the r13.1 book; latest upstream stable
+- Rebuild 0.18: not in the base set; latest upstream stable
   2026-11-05 (https://sourceforge.net/projects/fakerootng/).
 - Add an explicit <sched.h> include: glibc 2.44 no longer exposes the
   CLONE_* constants through the headers process.cpp already had, and

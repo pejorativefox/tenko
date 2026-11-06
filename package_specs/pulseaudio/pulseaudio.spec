@@ -348,7 +348,7 @@ rm -f %{buildroot}/usr/share/dbus-1/system.d/pulseaudio-system.conf
   (LGPL-2.1-or-later): LICENSE (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 17.0-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 # let's skip this for now
 

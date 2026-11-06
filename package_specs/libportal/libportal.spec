@@ -82,7 +82,7 @@ popd
   (LGPL-3.0-only): COPYING, LGPL v3, and the SPDX headers in libportal/*.c (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.9.1-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Tue Jan 19 2021 Chris Statzer <chris.statzer@qq.com> 0.3
 - Initial RPM

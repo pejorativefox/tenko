@@ -30,7 +30,7 @@ fi
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 3.1.6
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 3.1.2-1
 - Version bump

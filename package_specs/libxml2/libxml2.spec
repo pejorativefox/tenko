@@ -44,7 +44,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel payload into libxml2-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.15.3
-- Sync with BLFS r13.1 (2.10.4)
+- Sync with 2.10.4
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 2.10.4
 - Version bump

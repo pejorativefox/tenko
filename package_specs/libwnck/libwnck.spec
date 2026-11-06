@@ -64,7 +64,7 @@ The .gir XML needed for building stays in the main package.
 - Split lang, devel payload into libwnck-lang, libwnck-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 43.1
-- Sync with BLFS r13.1 (3.32.0)
+- Sync with 3.32.0
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 3.32.0
 - Initial RPM

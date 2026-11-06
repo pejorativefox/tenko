@@ -24,6 +24,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libxpm.filelist
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 3.5.20
-- Sync with BLFS r13.1 (libxpm 3.5.20)
+- Sync with libxpm 3.5.20
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 3.5.16
 - Version bump

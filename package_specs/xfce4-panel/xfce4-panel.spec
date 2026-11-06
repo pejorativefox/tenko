@@ -71,7 +71,7 @@ The .gir XML needed for building stays in the main package.
 - Split lang, doc, devel payload into xfce4-panel-lang, xfce4-panel-doc, xfce4-panel-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.8
-- Sync with BLFS r13.1 (4.19.1)
+- Sync with 4.19.1
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.19.1
 - Version bump

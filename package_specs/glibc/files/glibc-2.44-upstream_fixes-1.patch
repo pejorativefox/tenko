@@ -8,8 +8,8 @@ Description:             This fixes multiple issues with the stable 2.44
                          building and installing glibc with multiple make jobs,
                          and doing certain steps in the right order. Fixes
                          non-lethal but potentially dangerous errors with
-                         regular LFS, but is required for MLFS, and brings in
-                         the fix for tanh shown in LFS. Some non-important
+                         a regular build, but is required for multi-lib builds, and
+                         brings in the upstream tanh fix. Some non-important
                          files are changed since this is comparing changes
                          between commits in the glibc git tree.
 

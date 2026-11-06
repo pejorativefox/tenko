@@ -15,8 +15,8 @@ enhancing privacy, modifying web page data and HTTP headers, controlling
 access, and removing ads and other obnoxious Internet junk.  It has a flexible
 configuration and can be used on stand-alone systems and multi-user networks.
 
-Privoxy is not part of LFS or BLFS r13.1; the user approved upstream 4.2.0
-stable as the version-parity exception.  This build uses the required pcre2
+Privoxy is not part of the base set; the user approved upstream 4.2.0
+stable as the version-policy exception.  This build uses the required pcre2
 and zlib libraries with Privoxy's default feature set.
 
 %prep
@@ -80,8 +80,8 @@ fi
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.2.0-1
 - New package: upstream Privoxy 4.2.0 stable.
-  Privoxy is not in LFS or BLFS r13.1; the user approved the current upstream
-  stable release as the version-parity exception.
+  Privoxy is not in the base set; the user approved the current upstream
+  stable release as the version-policy exception.
 - Source: https://downloads.sourceforge.net/ijbswa/privoxy-4.2.0-stable-src.tar.gz
   md5 0fbfb01fe8ac03927974f3ae2b35ca80
   sha256 6f91267f81f626c416994db89ab62f4d09246eebf4754b81186e13a18ee9028f

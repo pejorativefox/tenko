@@ -54,7 +54,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split lang, doc, devel payload into procps-ng-lang, procps-ng-doc, procps-ng-devel (size audit)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 4.0.7
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 4.0.3-1
 - Version bump

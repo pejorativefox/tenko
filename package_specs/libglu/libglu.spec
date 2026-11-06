@@ -41,7 +41,7 @@ popd
 - Replace NO_IDEA with the verified license (SGI-B-1.1 AND SGI-B-2.0 AND MIT): meson.build license: field (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 9.0.3-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Sun May 17 2020 Chris Statzer <chris.statzer@qq.com> 9.0.1-1
 - Initial RPM

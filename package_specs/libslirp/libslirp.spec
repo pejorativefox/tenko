@@ -13,7 +13,7 @@ machine emulators such as qemu.  It implements a virtual NAT network
 entirely in userspace, so guests get DHCP, DNS, TCP and UDP without any
 host configuration or elevated privileges.  qemu's `-nic user` uses it.
 
-libslirp-4.9.7 is the version in BLFS r13.1 (networking/netlibs/libslirp).
+libslirp-4.9.7 is the pinned version.
 
 %prep
 %setup -q -n %{name}-v%{version}
@@ -35,10 +35,10 @@ popd
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.9.7-1
-- New package for the qemu dependency chain.  libslirp is in BLFS r13.1
+- New package for the qemu dependency chain.  libslirp is in the base set
   at 4.9.7.
 - Source: https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v4.9.7/libslirp-v4.9.7.tar.bz2
   md5 e0463720a453b4221588c08878f759eb
-- Built with meson --buildtype=release as the book does; qemu 11.1.3 is
+- Built with meson --buildtype=release as the base build does; qemu 11.1.3 is
   configured with --enable-slirp so user-mode networking (and the
   hostfwd used by the desktop test) works without root.

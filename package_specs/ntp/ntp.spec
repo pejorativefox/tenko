@@ -36,7 +36,7 @@ export CFLAGS="$CFLAGS -Wno-error=incompatible-pointer-types"
 rm -rf %{buildroot}
 %make_install
 # update-leap is not packaged: its cargo-culted CPAN dependencies are not
-# in LFS/BLFS (see the changelog).
+# available (see the changelog).
 rm -f %{buildroot}/usr/sbin/update-leap \
       %{buildroot}/usr/share/man/man1/update-leap.1*
 
@@ -331,11 +331,11 @@ install -v -o ntp -g ntp -d /var/lib/ntp
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.2.8p18-2
 - Drop the ntp-leap subpackage (update-leap).  It needs the CPAN modules
-  IO::Socket::SSL and Net::SSLeay, which are not in LFS/BLFS, so the
+  IO::Socket::SSL and Net::SSLeay, which are not in the base set, so the
   subpackage was never installable; the user chose not to package it.
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.2.8p18-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Sun May 17 2020 Chris Statzer <chris.statzer@qq.com> 4.2.8p14-2
 - Added default configuration and finit service

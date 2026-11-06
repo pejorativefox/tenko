@@ -43,7 +43,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel, static payload into libxrandr-devel, libxrandr-static (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.5.5
-- Sync with BLFS r13.1 (1.5.3)
+- Sync with 1.5.3
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.5.3-1
 - Version bump

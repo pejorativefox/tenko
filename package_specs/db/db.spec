@@ -35,10 +35,10 @@ rm -rf %{buildroot}/usr/share/doc/
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 6.2.32-1
-- Rebuild 6.2.32 against the r13.1 toolchain.
-- Basis: the r13.1 book only carries the archived 5.3.28 page;
+- Rebuild 6.2.32 against the base toolchain.
+- Basis: only the archived 5.3.28 entry is available;
   6.2.32 is the current upstream stable release and is already
-  above the book version, so the version is unchanged.
+  above the pinned version, so the version is unchanged.
 - Source: https://download.oracle.com/berkeley-db/db-6.2.32.tar.gz
   md5 33491b4756cb44b91c3318b727e71023
 - Built from build_unix as before.  GCC 16 defaults to C23, where an

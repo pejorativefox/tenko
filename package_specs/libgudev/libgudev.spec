@@ -55,7 +55,7 @@ The .gir XML needed for building stays in the main package.
 - Split devel payload into libgudev-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 238
-- Sync with BLFS r13.1 (230)
+- Sync with 230
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 230-1
 - Version bump

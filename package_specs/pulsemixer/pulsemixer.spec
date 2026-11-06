@@ -41,4 +41,4 @@ install -m644 LICENSE README.md \
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.5.1-1
 - New package: user-approved replacement for pavucontrol (not in
-  LFS/BLFS); single-file MIT Python 3 curses mixer, needs only pactl
+  the base set); single-file MIT Python 3 curses mixer, needs only pactl

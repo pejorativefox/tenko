@@ -33,4 +33,4 @@ rm -vf %{buildroot}%{_infodir}/dir*
   split layout resolves without a file conflict.
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.1.7-1
-- Initial package (BLFS r13.1)
+- Initial package

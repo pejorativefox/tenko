@@ -20,7 +20,7 @@ zipsplit encrypt, annotate and split archives.
 %build
 # The upstream sources are K&R C.  GCC 16 defaults to gnu23, where "f()"
 # means "f(void)" and every old-style definition is a hard error, so compile
-# in gnu89 mode (same fix BLFS uses for this package).
+# in gnu89 mode (the same fix applies here).
 make -f unix/Makefile generic CC="gcc -std=gnu89"
 
 %install
@@ -35,6 +35,6 @@ make prefix=%{buildroot}/usr MANDIR=%{buildroot}/usr/share/man/man1 \
 - Ship zip.  The spec was a stub (Version 30, Summary TODO, %setup -a0
   re-extracting the tarball, %make_install commented out) and no zip RPM
   was ever published, so Browneye could extract archives but not create
-  them.  Rebuilt from the BLFS r13.1 page: Version 3.0, generic target with
+  them.  Rebuilt from the package page: Version 3.0, generic target with
   gcc -std=gnu89 (the K&R sources do not survive GCC 16's gnu23 default),
   upstream install target, man pages included.

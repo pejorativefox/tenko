@@ -116,7 +116,7 @@ Info and man pages for GCC, cpp, gcov, libgomp, libitm and libquadmath.
 - Replace directory globs with a generated static filelist
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 16.2.0
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Sun Sep 3 2023 Chris Statzer <chris.statzer@gmail.com> 13.2.0
 - Version bump

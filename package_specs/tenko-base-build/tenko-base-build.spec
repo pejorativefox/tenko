@@ -48,7 +48,7 @@ Requires:   man-db
 Requires:   man-pages
 
 %description
-The Tenko LFS r13.1 build environment: tenko-base-runtime plus the
+The Tenko base build environment: tenko-base-runtime plus the
 GCC toolchain (including the LTO parts and static libraries), binutils,
 the autotools, gettext tools, texinfo, tcl/expect/dejagnu,
 meson/ninja/cmake, kernel headers, glibc locale sources for localedef,

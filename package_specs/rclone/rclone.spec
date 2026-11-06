@@ -13,7 +13,7 @@ Prefix:     /usr
 # /opt/go.  The modules are vendored (Source1) because rpmbuild runs with
 # --network=none.
 #
-# Not in the LFS/BLFS r13.1 books; latest upstream stable, needed by the
+# Not in the base set; latest upstream stable, needed by the
 # publish scripts for the Cloudflare R2 target (issue #20).
 
 %description
@@ -55,7 +55,7 @@ install -Dm644 COPYING %{buildroot}%{_licensedir}/rclone/COPYING
 
 %changelog
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 1.75.2-1
-- Not in the r13.1 books; latest upstream stable (2026-10-09).
+- Not in the base set; latest upstream stable (2026-10-09).
   Needed to publish the repository to Cloudflare R2 (issue #20).
 - Built from source with the shipped go-bin toolchain; dependencies are
   vendored as a separate source so rpmbuild can run offline.

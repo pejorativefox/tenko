@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Build the X11 client utilities wave: 31 spec dirs updated to BLFS r13.1,
+# Build the X11 client utilities wave: 31 spec dirs updated to the base set,
 # built inside Tenko base containers without network access.
 #
 # Toolchain: localhost/tenko/build-htop:13.1 (tenko-base + gcc/rpm).
 # Build dependencies (published X11 libs) are staged from the public repo in
 # ~/rpmbuild/SOURCES/x11deps and baked into a deps image that every worker
-# slot shares.  Tarballs are staged with scripts/sync_blfs_spec.py --stage
-# (md5-verified against the book).
+# slot shares.  Tarballs are staged into ~/rpmbuild/SOURCES and
+# md5-verified against the spec's sources file.
 #
 # WORKERS=1 (default 1) builds everything sequentially in one persistent
 # container.  WORKERS=N builds N packages at a time across N short-lived

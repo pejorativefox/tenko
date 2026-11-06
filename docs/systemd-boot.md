@@ -13,9 +13,9 @@ phased implementation plan.
 ## Decisions
 
 1. **Add `python3-pyelftools`** (PyPI 0.33) as a build dependency so systemd
-   builds its EFI bootloader. `systemd` itself is in LFS/BLFS r13.1; BLFS lists
-   `pyelftools` as an optional dependency of systemd but ships no page for it,
-   so this is a book-less build dependency. Recorded in issue #2.
+   builds its EFI bootloader. `systemd` is in the base package set;
+   `pyelftools` is an optional upstream dependency with no base-set entry, so
+   it is an approved build dependency. Recorded in issue #2.
 2. **ESP mounted at `/boot`** on installed systems. sd-boot only reads FAT
    (`$BOOT` = ESP or XBOOTLDR), so kernel, initramfs and loader entries live on
    the ESP. No XBOOTLDR partition.

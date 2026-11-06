@@ -43,4 +43,4 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split lang payload into xkeyboard-config-lang (size audit)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.48-1
-- Initial package (BLFS r13.1)
+- Initial package

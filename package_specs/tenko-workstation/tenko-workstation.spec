@@ -25,10 +25,10 @@ OpenSSH (password authentication through Linux-PAM), git, the CA trust
 store, which, the opencode and herdr agent tools, and the podman container
 engine used by the self-hosted build pipeline.
 
-opencode, herdr and podman are not part of LFS/BLFS; the user explicitly
+opencode, herdr and podman are not part of the base set; the user explicitly
 approved packaging their official prebuilt binaries (D19 and the podman
 option A decision).  Node.js 26.13.0 is the approved upstream LTS
-exception to the BLFS 26.9.0 pin (D17).
+exception to the pinned 26.9.0 version (D17).
 
 %prep
 
@@ -54,7 +54,7 @@ rmdir /usr/share/browneye 2>/dev/null || true
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-3
 - Require podman-bin (podman 6.1.4 static bundle under /opt, user-approved
-  non-book exception) for the self-hosted container build pipeline
+  base-set exception) for the self-hosted container build pipeline
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-2
 - Require sudo for the administrative wheel user

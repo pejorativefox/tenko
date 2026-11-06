@@ -26,7 +26,7 @@ rm -f %{buildroot}%{_infodir}/dir
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.49.3-1
-- Update 1.47.15 -> 1.49.3: not in the r13.1 book; latest upstream
+- Update 1.47.15 -> 1.49.3: not in the base set; latest upstream
   stable 2026-11-05 (https://ftp.gnu.org/gnu/help2man/).
 - Build and install with the shipped autoconf/automake Makefile; the
   package is the Perl script plus its generated man page and info file.

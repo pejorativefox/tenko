@@ -52,6 +52,6 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel, doc, static payload into libxcb-devel, libxcb-doc, libxcb-static (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.17.0
-- Sync with BLFS r13.1 (1.15)
+- Sync with 1.15
 
 # let's skip this for now

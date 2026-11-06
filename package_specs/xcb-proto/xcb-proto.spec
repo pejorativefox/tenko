@@ -40,7 +40,7 @@ fi
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.17.0
-- Sync with BLFS r13.1 (1.15)
+- Sync with 1.15
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.15-1
 - Version bump

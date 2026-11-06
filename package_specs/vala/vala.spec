@@ -398,7 +398,7 @@ rm -rf %{buildroot}
   (LGPL-2.1-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2)): COPYING (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.56.19-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 0.40.8
 - Initial RPM

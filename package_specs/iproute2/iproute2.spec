@@ -61,13 +61,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (GPL-2.0-or-later): ip/ip.c (SPDX header) and COPYING (issue #8).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 7.3.0-1
-- Update to 7.3.0 (current LFS/BLFS r13.1 trunk version).
+- Update to 7.3.0 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 7.2.0-2
 - Rebuild against the base libtirpc (size audit P0); no host library
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 7.1.0
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 6.4.0-1
 - Version bump

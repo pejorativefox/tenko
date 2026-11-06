@@ -2,7 +2,7 @@
 #
 # Installed as ~/.rpmmacros (host builds) or shipped by tenko-rpm-config
 # (build container). Keep %_libdir at /usr/lib64: tenko follows the
-# Fedora-style layout, not LFS's /usr/lib.
+# Fedora-style layout, not a merged /usr/lib layout.
 
 %_prefix            /usr
 %_lib               /usr/lib64

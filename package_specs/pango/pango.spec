@@ -63,7 +63,7 @@ The .gir XML needed for building stays in the main package.
 - Split devel payload into pango-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.58.2
-- Sync with BLFS r13.1 (1.50.14)
+- Sync with 1.50.14
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.50.14-1
 - Version bump

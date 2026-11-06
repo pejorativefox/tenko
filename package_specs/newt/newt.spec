@@ -117,7 +117,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (LGPL-2.0-only): README (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.52.25-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed May 20 2020 Chris Statzer <chris.statzer@qq.com> 1.11.0-2
 - packaged the python2 files in a sub package to prevent being pulled in deps

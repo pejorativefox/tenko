@@ -248,4 +248,4 @@ popd
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.41.2-1
-- New package: BLFS r13.1 build, required by libnma
+- New package, required by libnma

@@ -906,7 +906,7 @@ ln -sfn ../cups/doc-%{version} %{buildroot}/usr/share/doc/cups-%{version}
   cupsd drops privileges to it at runtime.
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.4.20-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Fri Sep 04 2020 Chris Statzer <chris.statzer@qq.com> 2.3.3
 - Initial RPM

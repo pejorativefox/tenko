@@ -14,7 +14,7 @@ other storage tools.
 %setup -q
 
 %build
-# BLFS: do not install the static library.
+# Do not install the static library.
 sed -i '/install.*libaio.a/s/^/#/' src/Makefile
 %make_build
 
@@ -30,7 +30,7 @@ rm -rf %{buildroot}
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.3.113-1
-- Update to the BLFS r13.1 version (0.3.113, was 0.3.112) for LVM2 2.03.42
+- Update to the pinned version (0.3.113, was 0.3.112) for LVM2 2.03.42
 - Install into /usr/lib64 (the Makefile defaults to /usr/lib)
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 0.3.112

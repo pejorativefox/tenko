@@ -11,7 +11,7 @@ Source0:    xpr-1.2.1.tar.xz
 %description
 Print X11 window dumps.
 
-xpr is maintained at its BLFS r13.1 version and is built
+xpr is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

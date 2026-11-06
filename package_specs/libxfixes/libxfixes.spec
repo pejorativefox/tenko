@@ -43,7 +43,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split devel, static payload into libxfixes-devel, libxfixes-static (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 6.0.2
-- Sync with BLFS r13.1 (6.0.1)
+- Sync with 6.0.1
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 6.0.1-1
 - Version bump

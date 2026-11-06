@@ -72,7 +72,7 @@ than netrw, and the localised man pages.
   image happened to have installed
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 9.2.1225-1
-- Update to 9.2.1225 (current LFS/BLFS r13.1 trunk version).
+- Update to 9.2.1225 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 9.2.1099-3
 - Bump the release for the vim-minimal/vim-runtime-extra split: the
@@ -86,7 +86,7 @@ than netrw, and the localised man pages.
 - Disable libcanberra so the base editor does not pull GTK3 (size audit P0)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 9.2.1025
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 9.0.1677-1
 - Version bump

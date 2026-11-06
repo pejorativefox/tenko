@@ -11,7 +11,7 @@ Source0:    xvinfo-1.1.6.tar.xz
 %description
 Query the X11 Video extension (Xv).
 
-xvinfo is maintained at its BLFS r13.1 version and is built
+xvinfo is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

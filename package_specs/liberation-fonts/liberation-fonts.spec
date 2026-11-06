@@ -1,7 +1,7 @@
-# Liberation fonts are referenced from the BLFS TTF-and-OTF-fonts page but
-# the book does not carry a versioned download entity for them.  2.1.5 is the
+# Liberation fonts are referenced from the TTF-and-OTF-fonts page but
+# the base build does not carry a versioned download entry for them.  2.1.5 is the
 # current upstream release (GitHub tag 2.1.5).  The user explicitly requested
-# the package, so this is a user-approved exception to the version-parity rule.
+# the package, so this is a user-approved exception to the version-policy rule.
 #
 # The -ttf tarball is the upstream ready-made font artifact: no build step.
 %global __strip /bin/true
@@ -28,7 +28,7 @@ Arial, Courier New and Times New Roman.  Fontconfig will use them when
 those fonts are requested, and also for the similar Helvetica, Courier and
 Times Roman families.
 
-BLFS documents the Liberation fonts in its TTF-and-OTF-fonts page but does
+The base set documents the Liberation fonts in its TTF-and-OTF-fonts page but does
 not provide a versioned download entity; 2.1.5 is the current upstream
 release.  This package ships the upstream ready-made TTF artifact together
 with its OFL license and README.  User-approved exception for tenko.
@@ -53,5 +53,5 @@ install -m 0644 README.md \
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.1.5-1
 - Initial package: upstream Liberation fonts 2.1.5 TTF artifact, with the
-  OFL license text.  BLFS references the fonts without a versioned entity;
+  OFL license text.  There is no pinned version;
   user-approved exception.

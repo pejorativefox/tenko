@@ -62,7 +62,7 @@ popd
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.21.3-1
 - Update to 1.21.3 (was 1.15.2) for the E1 dnf/libdnf chain.  librepo is
-  not in LFS/BLFS; current libdnf requires >= 1.18.0.
+  not in the base set; current libdnf requires >= 1.18.0.
 - Built with gpgme and zchunk support; SELinux support is disabled (the
   distro has no libselinux) and the optional Python bindings are not
   needed by dnf.

@@ -71,7 +71,7 @@ EOF
   (BSD-3-Clause): LICENSE (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.8.0-1
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.5.1-1
 - Version bump

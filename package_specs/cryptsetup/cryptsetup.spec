@@ -47,7 +47,7 @@ rm -rf %{buildroot}
   main package (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.8.8-1
-- New package at the BLFS r13.1 version (2.8.8).
-- Built with the book's configure options: --disable-ssh-token and
+- New package at the pinned version (2.8.8).
+- Built with the documented configure options: --disable-ssh-token and
   --disable-asciidoc; default OpenSSL crypto backend, json-c, popt and
   libdevmapper (LVM2) required.

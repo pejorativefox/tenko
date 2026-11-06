@@ -35,7 +35,7 @@ rm -rf %{buildroot}
 - Record the verified license (BSD-2-Clause): COPYING (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 5.48
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 5.45
 - Version bump

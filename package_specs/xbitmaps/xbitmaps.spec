@@ -11,7 +11,7 @@ Source0:    xbitmaps-1.1.4.tar.xz
 %description
 Core X11 bitmap image data.
 
-xbitmaps is maintained at its BLFS r13.1 version and is built
+xbitmaps is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

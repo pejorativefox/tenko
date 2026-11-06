@@ -31,8 +31,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
   size/checksum mismatch.  Same content, new release.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.1.0
-- Sync with BLFS r13.1 (encodings 1.1.0)
+- Sync with encodings 1.1.0
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.1.0
-- Sync with BLFS r13.1 (encodings 1.1.0)
+- Sync with encodings 1.1.0
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.1.0-1
-- Initial package (BLFS r13.1)
+- Initial package

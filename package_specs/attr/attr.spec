@@ -44,7 +44,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (GPL-2.0-or-later AND LGPL-2.1-or-later): doc/COPYING and configure.ac (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 2.6.0
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump

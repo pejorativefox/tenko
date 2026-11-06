@@ -36,7 +36,7 @@ rm -rf %{buildroot}/usr/share/info/dir
   ((LGPL-3.0-or-later OR GPL-2.0-or-later) AND GPL-3.0-or-later): AUTHORS, src/asn1-func.c and doc/ksba.texi (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.8.1-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.3.5
 - Initial RPM

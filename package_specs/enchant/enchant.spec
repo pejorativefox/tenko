@@ -45,7 +45,7 @@ rm -rf %{buildroot}
   (LGPL-2.1-or-later): COPYING.LIB and src/enchant.c (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.8.21-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Sep 09 2020 Chris Statzer <chris.statzer@qq.com> 2.2.11
 - Initial RPM

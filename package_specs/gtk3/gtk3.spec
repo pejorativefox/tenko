@@ -73,7 +73,7 @@ The .gir XML needed for building stays in the main package.
 - Split lang, devel payload into gtk+-lang, gtk+-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 3.24.52
-- Sync with BLFS r13.1 (3.24.38)
+- Sync with 3.24.38
 
 # let's skip this for now
 

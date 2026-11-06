@@ -29,7 +29,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 20230223-1
 - Keep 20230223: it is the latest upstream snapshot (the last tagged x.org
-  release, 2.99.917, is older), matching the archived BLFS page.  The
-  package is not in the r13.1 book outside archive/
+  release, 2.99.917, is older), matching the archived package page.  The
+  package is not in the base set
 - Build through autogen.sh because the tarball has no configure script
 - Drop the stray mkdir of an /etc buildroot entry that nothing installs

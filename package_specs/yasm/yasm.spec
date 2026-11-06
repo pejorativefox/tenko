@@ -34,7 +34,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (BSD-2-Clause AND BSD-3-Clause AND (Artistic-1.0-Perl OR GPL-2.0-or-later OR LGPL-2.0-or-later)): COPYING (issue #8).
 
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.3.0-1
-- Rebuild from the BLFS r13.1 page
+- Rebuild from the package page
   (general/prog/yasm.xml, 1.3.0).
-- Apply the book's gcc-15 C++ guard fix to libyasm/bitvect.h.
+- Apply the documented gcc-15 C++ guard fix to libyasm/bitvect.h.
 - Refresh %files from the build (no -devel split).

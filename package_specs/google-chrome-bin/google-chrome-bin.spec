@@ -1,5 +1,5 @@
-# Google Chrome is proprietary and is not in LFS/BLFS, so the version-parity
-# rule in AGENTS.md cannot be satisfied from the books.  The user explicitly
+# Google Chrome is proprietary and is not in the base set, so the version-policy
+# rule in AGENTS.md cannot be satisfied by the base set.  The user explicitly
 # approved this binary-repackage exception (2026-11-03).
 #
 # Google no longer publishes a Linux tarball.  The official Google yum-repo
@@ -103,8 +103,8 @@ update-alternatives registration from the upstream RPM are intentionally
 not shipped; tenko owns updates.  The hicolor icons are installed by
 the package instead of at post-install time.
 
-Chrome is not in LFS/BLFS.  The user explicitly approved this package as an
-exception to the version-parity rule for personal use.
+Chrome is not in the base set.  The user explicitly approved this package as an
+exception to the version-policy rule for personal use.
 
 %prep
 rm -rf %{_builddir}/chrome-rpm
@@ -160,4 +160,4 @@ update-desktop-database %{_datadir}/applications &>/dev/null || :
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 156.0.8078.79-1
 - Initial repackage of the official Google Chrome stable x86_64 RPM under
   /opt/google/chrome; drop Google's repo/cron/alternatives integration.
-  User-approved LFS/BLFS exception; personal use.
+  User-approved base-set exception; personal use.

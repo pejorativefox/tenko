@@ -31,4 +31,4 @@ make -f Makefile.sharedlibrary INSTALL_PREFIX=%{buildroot}/usr install
   split layout resolves without a file conflict.
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.7.0
-- Initial package (BLFS r13.1)
+- Initial package

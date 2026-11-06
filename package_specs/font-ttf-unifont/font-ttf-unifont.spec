@@ -29,10 +29,10 @@ bitmap), with the supplementary planes in unifont_upper and the CSUR
 (Canadian Aboriginal syllabics-etc) block in unifont_csur.  It also ships
 the 8x16 PCF used by GRUB as the boot font.
 
-Unifont's package page is archived in BLFS (only the PCF has an up-to-date
+The Unifont package page is archived (only the PCF has an up-to-date
 entity); the user explicitly requested packaging the unicode symbol font,
 so the current 17.0.03 artifacts are shipped as a user-approved exception
-to the Tenko version-parity rule.  License: OFL for the OTF
+to the Tenko version-policy rule.  License: OFL for the OTF
 artifacts; GPL+FE for the bitmap glyphs held in the PCF.
 
 %install
@@ -48,5 +48,5 @@ install -m 0644 %{SOURCE3} %{buildroot}/usr/share/fonts/unifont/unifont-%{versio
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 17.0.03
 - Package the unicode symbol font: unifont 17.0.03 otf (base plane, upper
-  planes, CSUR) plus the GRUB boot PCF from the BLFS r13.1 book entity
-- Binary font package; user-approved exception (page is archived in BLFS)
+  planes, CSUR) plus the GRUB boot PCF from the pinned entity
+- Binary font package; user-approved exception (page is archived)

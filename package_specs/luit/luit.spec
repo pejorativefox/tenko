@@ -11,7 +11,7 @@ Source0:    luit-20260907.tgz
 %description
 Encoding converter for X11 terminals.
 
-luit is maintained at its BLFS r13.1 version and is built
+luit is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

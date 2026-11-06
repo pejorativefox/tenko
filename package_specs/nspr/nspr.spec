@@ -108,7 +108,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (MPL-2.0): LICENSE (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 4.40-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 4.35-1
 - Version bump

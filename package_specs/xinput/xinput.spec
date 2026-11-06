@@ -11,7 +11,7 @@ Source0:    xinput-1.6.4.tar.xz
 %description
 Configure and test X11 input devices.
 
-xinput is maintained at its BLFS r13.1 version and is built
+xinput is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

@@ -11,7 +11,7 @@ Source0:    xdpyinfo-1.4.0.tar.xz
 %description
 Display information about an X server.
 
-xdpyinfo is maintained at its BLFS r13.1 version and is built
+xdpyinfo is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

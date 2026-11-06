@@ -83,7 +83,7 @@ The .gir XML needed for building stays in the main package.
 - Split lang, tests, devel payload into gdk-pixbuf-lang, gdk-pixbuf-tests, gdk-pixbuf-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.44.7
-- Sync with BLFS r13.1 (2.42.9)
+- Sync with 2.42.9
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 2.42.9
 - Version bump

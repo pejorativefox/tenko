@@ -63,7 +63,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later): README.md (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.5.0-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 # let's skip this for now
 

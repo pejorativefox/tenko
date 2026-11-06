@@ -53,7 +53,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split lang payload into shared-mime-info-lang (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 2.5.1
-- Sync with BLFS r13.1 (1.10)
+- Sync with 1.10
 
 # let's skip this for now
 

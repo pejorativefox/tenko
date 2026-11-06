@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Build the BLFS r13.1 X/GNOME chain inside the self-hosted base image.
+# Build the X/GNOME desktop chain inside the self-hosted base image.
 # One persistent container so installed dependencies are visible to the next
-# package; each RPM is also kept under build/blfs-parity-<date>/build/<pkg>.
+# package; each RPM is also kept under build/desktop-parity-<date>/build/<pkg>.
 #
 # PHASE=core  X libraries, GLib/GI, cairo, GTK2/GTK3 (default)
 # PHASE=rest  CMake, libjpeg-turbo, ImageMagick, LLVM
@@ -9,23 +9,23 @@
 # PHASE=xfce  the XFCE 4.20 core desktop (X11 only)
 # PHASE=desktop  Xorg server, input/video drivers, xinit, fonts (X11 only)
 # PHASE=net     libpcap, nmap/ncat/nping and passt/pasta (podman networking)
-# PHASE=proxy   privoxy and proxychains-ng (not in BLFS; approved exceptions)
+# PHASE=proxy   privoxy and proxychains-ng (not in the base set; approved exceptions)
 set -uo pipefail
 cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
 IMG=${IMG:-$(pick_image localhost/tenko/base:r13.1 localhost/browneye/base:r13.1)}
-OUT=${OUT:-$PWD/build/blfs-parity-$(date +%Y%m%d)}
+OUT=${OUT:-$PWD/build/desktop-parity-$(date +%Y%m%d)}
 JOBS=${JOBS:-8}
 PHASE=${PHASE:-core}
 KEEP=${KEEP:-0}
 
 mkdir -p "$OUT"/{logs,status,build}
 if [ "$KEEP" != "1" ]; then
-    podman rm -f tenko-blfs >/dev/null 2>&1 || true
+    podman rm -f tenko-desktop >/dev/null 2>&1 || true
 fi
-if ! podman container exists tenko-blfs; then
-    podman run -d --name tenko-blfs --network=none \
+if ! podman container exists tenko-desktop; then
+    podman run -d --name tenko-desktop --network=none \
         -v "$PWD/package_specs:/specs:ro,z" \
         -v "$HOME/rpmbuild/SOURCES:/sources:ro,z" \
         -v "$OUT:/out:rw,z" \
@@ -40,12 +40,12 @@ build() {
         return 0
     fi
     mkdir -p "$OUT/build/$top"/{BUILD,BUILDROOT,RPMS,SRPMS,SPECS}
-    if podman exec tenko-blfs rpmbuild -bb --nodeps \
+    if podman exec tenko-desktop rpmbuild -bb --nodeps \
             --define "_topdir /out/build/$top" \
             --define "_sourcedir /sources" \
             --define "_smp_mflags -j$JOBS" \
             "$@" "/specs/$name/$name.spec" > "$OUT/logs/$top.log" 2>&1; then
-        podman exec tenko-blfs bash -lc \
+        podman exec tenko-desktop bash -lc \
             "rpm -Uvh --nodeps --replacepkgs --replacefiles /out/build/$top/RPMS/x86_64/*.rpm" \
             >> "$OUT/logs/$top.log" 2>&1
         echo "ok $top $(date +%T)" | tee "$OUT/status/$top"

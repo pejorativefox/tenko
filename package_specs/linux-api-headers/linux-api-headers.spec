@@ -30,7 +30,7 @@ find %{buildroot}/usr/include -type f ! -name '*.h' -delete
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 7.3.1-1
-- Update to the linux 7.3.1 UAPI headers (current LFS trunk).
+- Update to the linux 7.3.1 UAPI headers (current upstream).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 7.1.8-1
 - Generate UAPI headers from the pinned kernel source (C9)

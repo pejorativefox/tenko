@@ -143,4 +143,4 @@ popd
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.10.6-1
-- New package: BLFS r13.1 build, required by network-manager-applet
+- New package, required by network-manager-applet

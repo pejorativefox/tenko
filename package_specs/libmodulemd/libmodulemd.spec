@@ -56,8 +56,8 @@ popd
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.15.3-1
 - Update to 2.15.3 (was 2.15.0 in the modulemd spec) for the E1 dnf/libdnf
   chain; renamed the spec directory/package from modulemd to libmodulemd to
-  match upstream and BLFS-style naming.
-- libmodulemd is not in LFS/BLFS; current libdnf and createrepo_c require
+  match upstream naming.
+- libmodulemd is not in the base set; current libdnf and createrepo_c require
   modulemd-2.0 >= 2.9.3.
 - GObject Introspection and Python 3 bindings are disabled; only libdnf's
   C API is needed.

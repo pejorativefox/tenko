@@ -42,4 +42,4 @@ rm -rf %{buildroot}
 - Split lang payload into libexif-lang (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 0.6.26
-- Initial package (BLFS r13.1)
+- Initial package

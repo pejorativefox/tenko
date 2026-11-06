@@ -38,7 +38,7 @@ rm -f %{buildroot}%{_bindir}/tzselect \
   /etc/localtime only.
 
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2026f-1
-- Not shipped as a package in the r13.1 book; 2026f matches the book's
+- Not shipped as a package in the base set; 2026f matches the documented
   tzdata entity and is the current upstream release (2026-11-05).
 - Upstream no longer publishes tzdb-*.tar.gz; build the official
   tzcode2026f and tzdata2026f tarballs in one tree.

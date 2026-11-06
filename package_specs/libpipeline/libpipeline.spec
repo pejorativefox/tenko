@@ -34,7 +34,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (GPL-3.0-or-later): README.md (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.5.8
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 1.5.7-1
 - Version bump

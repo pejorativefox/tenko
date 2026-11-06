@@ -30,7 +30,7 @@ rm -rf %{buildroot}
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.6.0-1
-- Sync with BLFS r13.1 (libwebp.xml)
+- Sync with upstream
 
 * Sat Sep 05 2020 Chris Statzer <chris.statzer@qq.com> 1.1.0
 - Initial RPM

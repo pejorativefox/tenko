@@ -31,7 +31,7 @@ make install DESTDIR=%{buildroot} PREFIX=/usr MANPREFIX=/usr/share/man
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 6.5-1
-- Not in the LFS/BLFS r13.1 book; latest upstream stable 2026-11-05
+- Not in the base set; latest upstream stable 2026-11-05
   (6.5).  Built with the default upstream config.h against libX11,
   libXinerama, fontconfig and freetype.
 - Update from 6.2 to 6.5; install the dwm(1) man page as well.

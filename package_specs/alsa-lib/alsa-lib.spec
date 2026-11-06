@@ -34,6 +34,6 @@ rm -rf %{buildroot}
   split layout resolves without a file conflict.
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.16.1-1
-- Update to 1.2.16.1 (current BLFS r13.1), replacing the 2018 1.1.6 spec
+- Update to 1.2.16.1 (current base set), replacing the 2018 1.1.6 spec
 - Build with --disable-static; ship a generated static filelist
 - Needed by firefox-bin (libxul.so links libasound.so.2)

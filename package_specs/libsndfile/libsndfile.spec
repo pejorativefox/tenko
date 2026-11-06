@@ -76,7 +76,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (LGPL-2.1-or-later AND Apache-2.0): COPYING, src/ALAC/alac_encoder.c (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.2.2-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 # let's skip this for now
 

@@ -31,9 +31,9 @@ OpenCode is an AI coding agent for the terminal.  This package installs the
 official prebuilt linux-x64 release binary, a self-contained Bun-compiled
 ELF that needs no Node.js runtime.
 
-Neither opencode nor its components are part of LFS/BLFS.  The user
+Neither opencode nor its components are part of the base set.  The user
 explicitly approved packaging the official prebuilt binary as an exception
-to the Tenko version-parity rule.
+to the Tenko version-policy rule.
 
 The upstream release tarball contains only the executable and no license
 file; the MIT license is recorded in this spec.
@@ -53,4 +53,4 @@ install -D -m 0755 opencode %{buildroot}%{_bindir}/opencode
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.2.5
 - Package the official opencode 2.2.5 linux-x64 release binary
-- Binary RPM; opencode is not in LFS/BLFS (user-approved exception)
+- Binary RPM; opencode is not in the base set (user-approved exception)

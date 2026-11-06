@@ -62,7 +62,7 @@ make install PREFIX=%{buildroot}/usr
   (MIT): COPYING and the per-file SPDX headers (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 6.1.3-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Aug 19 2020 Chris Statzer <chris.statzer@qq.com> 5.2.1
 - Initial RPM

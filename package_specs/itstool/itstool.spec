@@ -33,5 +33,5 @@ make install DESTDIR=%{buildroot}
 - Record the verified license (GPL-3.0-or-later): COPYING (issue #8).
 
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2.0.7-1
-- New package, synced with BLFS r13.1, including the BLFS lxml patch
+- New package, synced with the base set, including lxml patch
   (itstool-2.0.7-lxml-1.patch).  Required by AppStream.

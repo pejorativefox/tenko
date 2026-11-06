@@ -50,10 +50,10 @@ install -m755 target/release/cargo-ctest   %{buildroot}%{_bindir}/
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.10.26-1
-- Update to 0.10.26 (current BLFS r13.1 trunk).  Vendor tarball regenerated
-  from the release Cargo.lock for offline builds; note the book still lists
+- Update to 0.10.26 (current upstream).  Vendor tarball regenerated
+  from the release Cargo.lock for offline builds; note tenko.lock still lists
   the 0.10.25 lock md5, but the actual v0.10.26 release lock is different.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.10.25-1
-- New package: cargo-c 0.10.25 (BLFS r13.1), required build tool for librsvg.
+- New package: cargo-c 0.10.25, required build tool for librsvg.
   Built with vendored crates for offline builds.

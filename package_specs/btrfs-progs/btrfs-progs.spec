@@ -22,7 +22,7 @@ and btrfstune.
 %install
 rm -rf %{buildroot}
 %make_install
-# --disable-documentation skips the sphinx build; the book installs the
+# --disable-documentation skips the sphinx build; the base build installs the
 # pre-generated manual pages by hand.
 for i in 5 8; do
     install -d %{buildroot}%{_mandir}/man$i
@@ -33,10 +33,10 @@ done
 
 %changelog
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 7.3-1
-- Add btrfs-progs 7.3 from BLFS r13.1
+- Add btrfs-progs 7.3 from the base set
   postlfs/filesystems/btrfs-progs.xml for the installer's btrfs support.
-- Configure per the book: --disable-static --disable-documentation.
-  Install the pre-generated manual pages from Documentation/ as the book
+- Configure as documented: --disable-static --disable-documentation.
+  Install the pre-generated manual pages from Documentation/ as the base build
   describes.  The package links against liblzo2 2.10 from
   general/genlib/lzo.xml.
 - The kernel already provides btrfs (CONFIG_BTRFS_FS=y), so no kernel

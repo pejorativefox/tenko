@@ -34,10 +34,10 @@ popd
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.2-1
-- Rebuild 1.0.2 (version already matches the book).
-- Basis: BLFS r13.1 general/graphlib/woff2.xml (woff2 1.0.2).
-- Add the book's gcc-15+ fix: include <cstdint> in src/woff2_out.cc.
-- Build per the book: Release build, CMAKE_POLICY_VERSION_MINIMUM=3.5
+- Rebuild 1.0.2 (version already matches the base set).
+- Basis: tenko.lock (woff2 1.0.2).
+- Add the documented gcc-15+ fix: include <cstdint> in src/woff2_out.cc.
+- Build as documented: Release build, CMAKE_POLICY_VERSION_MINIMUM=3.5
   and CMAKE_SKIP_INSTALL_RPATH=ON.  CMAKE_INSTALL_LIBDIR=lib64 keeps the
   distro's library layout.
 - Requires brotli (published 1.2.1).

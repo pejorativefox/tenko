@@ -30,11 +30,11 @@ rm -rf %{buildroot}
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 20250815-1
-- Update to the BLFS r13.1 snapshot 20250815
+- Update to the pinned snapshot 20250815
   (multimedia/libdriv/x264.xml).
-- Use the book's configure flags (--enable-shared --disable-cli) and
+- Use the documented configure flags (--enable-shared --disable-cli) and
   pass --libdir=%{_libdir} so the library lands in /usr/lib64.
 - Fix the old spec's "--diasble-cli" typo, which made it build the
   command-line encoder.
-- nasm is the only assembly dependency (the book recommends it); the
+- nasm is the only assembly dependency (recommended); the
   spec does not require yasm.

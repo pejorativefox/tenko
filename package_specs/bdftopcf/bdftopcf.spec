@@ -27,9 +27,9 @@ rm -rf %{buildroot}
   (X11): COPYING (issue #8).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.1.1
-- Sync with BLFS r13.1 (bdftopcf 1.1.1)
+- Sync with bdftopcf 1.1.1
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.1.1
-- Sync with BLFS r13.1 (bdftopcf 1.1.1)
+- Sync with bdftopcf 1.1.1
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.1
 - Initial RPM
 

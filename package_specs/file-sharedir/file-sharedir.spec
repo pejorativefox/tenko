@@ -26,4 +26,4 @@ find %{buildroot} -name perllocal.pod -delete
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.118-1
-- Initial package (BLFS r13.1); needed by XML::Parser 2.59
+- Initial package; needed by XML::Parser 2.59

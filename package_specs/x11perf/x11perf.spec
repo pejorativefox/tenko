@@ -34,5 +34,5 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.6.1-1
 - Update to x11perf 1.6.1, the latest published x.org release
-  (1.6.2 does not exist). Not in the r13.1 book (x.org archive-era
+  (1.6.2 does not exist). Not in the base set (x.org archive-era
   tool); latest upstream stable 2026-11-05.

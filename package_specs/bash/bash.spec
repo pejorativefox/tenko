@@ -60,6 +60,6 @@ popd
 - Split lang, doc, devel payload into bash-lang, bash-doc, bash-devel (size audit)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 5.3
-- Sync with LFS r13.1
+- Sync with the base set
 
 # let's skip this for now

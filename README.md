@@ -1,7 +1,7 @@
 # Tenko Linux
 
-Tenko Linux 6 (Workstation) is a small x86_64 Linux distribution built from
-the LFS/BLFS r13.1 books.  It uses systemd, a merged `/usr`, XFCE and a
+Tenko Linux 6 (Workstation) is a small x86_64 Linux distribution built with a
+self-hosted RPM toolchain.  It uses systemd, a merged `/usr`, XFCE and a
 UEFI-only, network-install ISO.  Packages are shipped as RPMs from a
 self-hosted dnf repository; the installer downloads them while installing, so
 the ISO carries no packages.  The distro release is 6; package versions roll
@@ -95,9 +95,9 @@ Everything is driven from this checkout:
 |---|---|
 | rebuild a package and publish it | [`docs/build.md`](docs/build.md) |
 | boot/install tests, QEMU and OVMF | [`docs/testing.md`](docs/testing.md) |
-| version policy and the LFS/BLFS sync tools | [`docs/versions.md`](docs/versions.md) |
+| version policy and package sync tools | [`docs/versions.md`](docs/versions.md) |
 | systemd-boot conversion notes | [`docs/systemd-boot.md`](docs/systemd-boot.md) |
 
-The rules for agents and maintainers (including the "every package must be at
-least the book version" policy and the publishing/mirror requirements) live in
-[`AGENTS.md`](AGENTS.md).  Do not duplicate them elsewhere; link to them.
+The rules for agents and maintainers (including the "every base package must
+be at least the pinned version" policy and the publishing/mirror requirements)
+live in [`AGENTS.md`](AGENTS.md).  Do not duplicate them elsewhere; link to them.

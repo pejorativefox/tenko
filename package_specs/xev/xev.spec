@@ -11,7 +11,7 @@ Source0:    xev-1.2.7.tar.xz
 %description
 Print the content of X11 events.
 
-xev is maintained at its BLFS r13.1 version and is built
+xev is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

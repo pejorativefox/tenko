@@ -31,4 +31,4 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.31.3-1
-- Initial package (BLFS r13.1)
+- Initial package

@@ -149,7 +149,7 @@ popd
   (LGPL-2.1-or-later): meson.build "license: LGPL-2.1-or-later" and the LICENSES/ directory (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.10.8-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.4.2
 - Initial RPM

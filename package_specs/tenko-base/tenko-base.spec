@@ -4,13 +4,13 @@ Release:    12
 # Tenko rename compatibility (issue #22).
 Obsoletes: browneye-base < 13.1-12
 Provides: browneye-base = %{version}-%{release}
-Summary:    Tenko Linux base system (LFS r13.1)
+Summary:    Tenko Linux base system
 License:    MIT
 Prefix:     /usr
 
 %include %{_sourcedir}/devel-obsoletes.inc
 
-# BEGIN GENERATED REQUIRES: generated from lfs.lock + requires-extra
+# BEGIN GENERATED REQUIRES: generated from tenko.lock + requires-extra
 # Run scripts/gen_base_requires.py after changing either file.
 Requires:   man-pages
 Requires:   iana-etc
@@ -115,7 +115,7 @@ Requires:   git
 # END GENERATED REQUIRES
 
 %description
-Meta-package pulling in the LFS r13.1 base system.
+Meta-package pulling in the Tenko base system.
 
 %prep
 
@@ -133,7 +133,7 @@ Meta-package pulling in the LFS r13.1 base system.
 
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-11
 - Add openssh and git to the base meta (via requires-extra).  Both specs
-  are already at the BLFS r13.1 versions (OpenSSH 10.6p1, git 2.56.0).
+  are already at the base-set versions (OpenSSH 10.6p1, git 2.56.0).
 
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 13.1-10
 - Expand the Obsoletes list to all 147 -devel packages the distro has
@@ -184,4 +184,4 @@ Meta-package pulling in the LFS r13.1 base system.
   (root password policy, E5)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 13.1
-- LFS r13.1 base meta-package
+- Base meta-package

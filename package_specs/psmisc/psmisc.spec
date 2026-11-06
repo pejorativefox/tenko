@@ -41,7 +41,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split lang payload into psmisc-lang (size audit)
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 23.7
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump

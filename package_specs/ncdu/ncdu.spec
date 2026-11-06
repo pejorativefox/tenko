@@ -28,7 +28,7 @@ rm -rf %{buildroot}
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.22-1
-- Not in the r13.1 book. The newest upstream stable (2.9.2) is a Zig
+- Not in the base set. The newest upstream stable (2.9.2) is a Zig
   rewrite and Zig is not in the distro, so the user approved the latest
   C-series release, 1.22 (2026-11-05).
 - Build against the published ncurses 6.6; no -devel split and no

@@ -48,10 +48,10 @@ ln -sv pkgconf.1 %{buildroot}/usr/share/man/man1/pkg-config.1
 - Record the verified license (ISC): COPYING (issue #8).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 3.0.10-1
-- Update to 3.0.10 (current LFS/BLFS r13.1 trunk version).
+- Update to 3.0.10 (current upstream version).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 3.0.5
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 2.0.1
 - Initial rpm

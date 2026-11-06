@@ -870,7 +870,7 @@ popd
   (LGPL-3.0-only OR CC-BY-SA-3.0): COPYING, COPYING_LGPL and COPYING_CCBYSA3 (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 51.0-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 3.30.1
 - Initial RPM release

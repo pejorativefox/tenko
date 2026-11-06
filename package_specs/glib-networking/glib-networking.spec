@@ -114,7 +114,7 @@ popd
   (LGPL-2.1-or-later): COPYING, LICENSE_EXCEPTION and tls/base/gtlslog.c (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.90.1-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 2.56.1
 - Initial RPM

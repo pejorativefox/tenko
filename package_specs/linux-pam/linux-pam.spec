@@ -57,12 +57,12 @@ popd
 # unprivileged callers (screen lockers, PAM-aware login programs).
 chmod 4755 %{buildroot}/usr/sbin/unix_chkpwd
 
-# BLFS ships pre-built man pages and guides; the base does not have the
-# DocBook toolchain needed to generate them.
+# Pre-built man pages and guides ship with the package; the base does not
+# have the DocBook toolchain needed to generate them.
 tar -C %{buildroot} --no-same-owner --skip-old-files \
     -xJf %{SOURCE1}
 
-# BLFS r13.1 default PAM stack.  Applications (including sshd) include or
+# The default PAM stack.  Applications (including sshd) include or
 # duplicate these; the restrictive "other" entry keeps unknown services
 # from silently falling through to an allow-all stack.
 install -vdm755 %{buildroot}/etc/pam.d
@@ -177,7 +177,7 @@ done
 %files doc -f %{_sourcedir}/linux-pam-doc.filelist
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.7.3-5
-- Add the BLFS systemd lines to system-session: pam_loginuid and
+- Add systemd lines to system-session: pam_loginuid and
   pam_systemd.  Without pam_systemd, console/tty logins (login, su)
   did not register a logind session even though GUI logins through
   LightDM did (issue #7).
@@ -201,10 +201,10 @@ done
 - Split lang, doc, devel payload into linux-pam-lang, linux-pam-doc, linux-pam-devel (size audit)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.7.3-1
-- Update to BLFS r13.1 Linux-PAM 1.7.3 (meson build)
-- Install PAM modules in /usr/lib64/security and the BLFS default
+- Update to Linux-PAM 1.7.3 (meson build)
+- Install PAM modules in /usr/lib64/security and default
   /etc/pam.d stack (system-auth/account/password/session + other)
-- Ship the BLFS pre-built man pages and documentation
+- Ship pre-built man pages and documentation
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.3.0
 - Initial RPM

@@ -1,4 +1,4 @@
-# Extra requirements of tenko-base that are not LFS chapter-8 packages.
+# Extra requirements of tenko-base that are not base package-set entries.
 #
 # - tenko-*: distro glue (filesystem layout, sysconfig, release file,
 #   first-boot policy, RPM macros)

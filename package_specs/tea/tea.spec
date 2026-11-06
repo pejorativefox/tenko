@@ -27,8 +27,8 @@ issues, pulls, organizations, releases and notifications from the terminal.
 This package installs the official linux-amd64 release binary, which is
 statically linked and therefore has no glibc runtime requirement.
 
-tea is not part of LFS/BLFS.  The user explicitly requested packaging the
-official prebuilt binary as an exception to the Tenko version-parity
+tea is not part of the base set.  The user explicitly requested packaging the
+official prebuilt binary as an exception to the Tenko version-policy
 rule.
 
 The upstream release contains only the executable and no license file; the
@@ -48,4 +48,4 @@ install -D -m 0755 %{SOURCE0} %{buildroot}%{_bindir}/tea
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.14.2
 - Package the official tea 0.14.2 linux-amd64 release binary
-- Binary RPM; tea is not in LFS/BLFS (user-requested exception)
+- Binary RPM; tea is not in the base set (user-requested exception)

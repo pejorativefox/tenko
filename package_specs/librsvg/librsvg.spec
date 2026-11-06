@@ -103,7 +103,7 @@ fi
   package now requires it (last typelib still in a runtime package)
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.63.4-1
-- Update to 2.63.4 (current BLFS r13.1 trunk).  Vendor tarball regenerated
+- Update to 2.63.4 (current upstream).  Vendor tarball regenerated
   from the shipped Cargo.lock now that the Rust 1.99.0 toolchain and
   cargo-c 0.10.26 are available.
 
@@ -112,5 +112,5 @@ fi
   is usable without rebuilding gdk-pixbuf
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.63.2-1
-- Sync with BLFS r13.1 (librsvg 2.63.2); port build to Meson + Rust
+- Sync with librsvg 2.63.2; port build to Meson + Rust
   with vendored crates; enable the gdk-pixbuf SVG loader.

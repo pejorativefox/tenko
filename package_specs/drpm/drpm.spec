@@ -40,7 +40,7 @@ popd
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.5.3-1
-- Update 0.4.1 -> 0.5.3: not in the r13.1 book; latest upstream stable
+- Update 0.4.1 -> 0.5.3: not in the base set; latest upstream stable
   2026-11-05
   (https://github.com/rpm-software-management/drpm/releases).
 - Source is the GitHub release archive, which extracts to drpm-0.5.3.

@@ -60,7 +60,7 @@ The .gir XML needed for building stays in the main package.
 - Split doc, devel payload into libxfce4windowing-doc, libxfce4windowing-devel (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.7
-- Sync with BLFS r13.1 (4.19.2)
+- Sync with 4.19.2
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.19.2
 - Initial RPM

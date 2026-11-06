@@ -41,7 +41,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (GPL-2.0-or-later): configure.ac and README (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.19.1
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 1.19.1
 - Initial RPM

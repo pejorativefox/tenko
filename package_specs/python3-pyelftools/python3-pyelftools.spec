@@ -42,7 +42,7 @@ fi
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.33-1
-- New package.  Not in LFS/BLFS: BLFS only lists pyelftools as an optional
-  build dependency of systemd.  systemd 262.1 needs it for
+- New package.  Not in the base set; the base build only lists pyelftools as
+  an optional build dependency of systemd.  systemd 262.1 needs it for
   -D bootloader=enabled, which produces systemd-bootx64.efi and the EFI stub.
   Pinned to the current PyPI release, 0.33.

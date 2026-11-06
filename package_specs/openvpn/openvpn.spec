@@ -33,7 +33,7 @@ rm -rf %{buildroot}
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.7.8-1
-- Not in the LFS/BLFS r13.1 book: bump to the latest upstream
+- Not in the base set: bump to the latest upstream
   stable release (2.7.8, checked 2026-11-05). Build with LZO, LZ4
   and DCO disabled because those libraries are not in the repo.
 - Requires libcap-ng, added as a new package because 2.7.8 hard-requires

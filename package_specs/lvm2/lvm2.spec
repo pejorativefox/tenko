@@ -36,10 +36,10 @@ export PATH="$PATH:/usr/sbin"
 %install
 rm -rf %{buildroot}
 %make_install
-# systemd revision of the BLFS instructions: install the units that
+# systemd revision of instructions: install the units that
 # activate logical volumes at boot (not installed by default).
 make install_systemd_units DESTDIR=%{buildroot}
-# BLFS systemd configuration step: the default locking_dir under /var/lock
+# systemd configuration step: the default locking_dir under /var/lock
 # deadlocks at boot; use the runtime lock directory instead.
 sed -e '/locking_dir =/{s/#//;s/var/run/}' \
     -i %{buildroot}%{_sysconfdir}/lvm/lvm.conf
@@ -63,9 +63,9 @@ sed -i 's|^ExecStart=/usr/sbin/vgimportdevices|ExecStart=%{_bindir}/vgimportdevi
   Found by the first UEFI installer-ISO boot test.
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 2.03.44-1
-- Update to 2.03.44 (current LFS/BLFS r13.1 trunk version).
+- Update to 2.03.44 (current upstream version).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 2.03.42-1
-- Update to the BLFS r13.1 version (2.03.42, was 2.03.05)
-- Enable cmdlib, pkgconfig and udev_sync as the book does; install the
+- Update to the pinned version (2.03.42, was 2.03.05)
+- Enable cmdlib, pkgconfig and udev_sync as the base build does; install the
   systemd units (systemd revision) and use the static filelist.

@@ -11,7 +11,7 @@ Source0:    xcmsdb-1.0.7.tar.xz
 %description
 Query and modify the X11 colour raster database.
 
-xcmsdb is maintained at its BLFS r13.1 version and is built
+xcmsdb is maintained at its pinned version and is built
 with the standard autotools build inline in its spec.
 
 

@@ -23,8 +23,8 @@ Translations for xfce4-terminal.
 
 %prep
 %setup -q
-# BLFS workaround: guard functions that are only available with
-# gtk-layer-shell, which is not part of BLFS.
+# workaround: guard functions that are only available with
+# gtk-layer-shell, which is not part of the base set.
 sed -e '570i #ifdef HAVE_GTK_LAYER_SHELL' \
     -e '574a #endif'                      \
     -i terminal/terminal-window-dropdown.c
@@ -57,6 +57,6 @@ popd
 - Split lang payload into xfce4-terminal-lang (size audit)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.2.0
-- Initial RPM, synced with BLFS r13.1 (xfce4-terminal 1.2.0)
+- Initial RPM, synced with the base set (xfce4-terminal 1.2.0)
 - Build with -Ddoc=true: the man page needs docbook-xsl-nons, which is
   not installed in the build image; the terminal itself is unaffected

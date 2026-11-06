@@ -40,7 +40,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (MIT): LICENSE (issue #8).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 3.8.0
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 
 - Version bump

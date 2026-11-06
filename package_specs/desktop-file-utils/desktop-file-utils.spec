@@ -34,4 +34,4 @@ popd
   (GPL-2.0-or-later): COPYING and src/validate.c (issue #8).
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 0.28
-- Initial package (BLFS r13.1)
+- Initial package

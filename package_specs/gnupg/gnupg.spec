@@ -163,7 +163,7 @@ rm -rf %{buildroot}/usr/share/info/dir
   (GPL-3.0-or-later): COPYING and the per-file SPDX headers (issue #8).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.5.24-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 2.2.9
 - Initial RPM

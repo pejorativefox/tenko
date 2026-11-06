@@ -35,7 +35,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   (MIT): COPYING (issue #8).
 
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.5-1
-- Update to libdmx 1.1.5. Not in the r13.1 book (x.org
+- Update to libdmx 1.1.5. Not in the base set (x.org
   archive-era tool); latest upstream stable 2026-11-05.
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.1.4-1
 - Version bump

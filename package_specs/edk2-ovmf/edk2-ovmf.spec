@@ -26,7 +26,7 @@ Prefix:     /usr
 OVMF is the Open Virtual Machine Firmware build of EDK2, providing a UEFI
 implementation for QEMU/KVM guests.  It installs the code and variable
 store images used by QEMU's pflash interface, plus the
-/usr/share/qemu/edk2-x86_64-code.fd name used by the BLFS QEMU
+/usr/share/qemu/edk2-x86_64-code.fd name used by QEMU
 documentation.
 
 %prep
@@ -78,7 +78,7 @@ ln -sf ../edk2/ovmf/OVMF_VARS.fd %{buildroot}%{_datadir}/qemu/edk2-x86_64-vars.f
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 202608-1
-- Not in the r13.1 books; latest upstream stable tag
+- Not in the base set; latest upstream stable tag
   (edk2-stable202608).  Needed to boot-test the UEFI installer image.
 - The pinned submodule commits (OpenSSL 3.5.7, Brotli, MIPI Sys-T,
   libfdt, Oniguruma, Mbed TLS, libspdm) are shipped as separate sources

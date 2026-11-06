@@ -38,7 +38,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 51.0-1
-- Update to 51.0 (BLFS r13.1, gnome/platform/dconf.xml).
+- Update to 51.0.
 - Build only dconf itself; dconf-editor is a separate package and is
   not built here.
 - Disable bash-completion, gtk-doc, man pages and vala bindings that

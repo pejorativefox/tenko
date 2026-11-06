@@ -39,11 +39,11 @@ cp -rv doc/man/. -T %{buildroot}/usr/share/man
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.5.4-1
-- Update to 2.5.4, the version in the BLFS r13.1 book
+- Update to 2.5.4, the pinned version
   (general/graphlib/openjpeg2.xml); it is also the latest upstream
   release.
-- Follow the book's cmake flags (Release build, shared library only)
-  and install the man pages the book copies into /usr/share/man.
+- Follow the documented cmake flags (Release build, shared library only)
+  and install the man pages the base build copies into /usr/share/man.
 - Install the libraries, CMake package files and pkg-config files into
   /usr/lib64; CMake's default for a /usr prefix on this image is lib.
 - First Browneye build; replaces the unbuilt 2.3.1 spec.

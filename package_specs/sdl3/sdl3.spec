@@ -124,4 +124,4 @@ popd
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 3.4.18-1
-- New package: BLFS r13.1 build, required by sdl2-compat
+- New package, required by sdl2-compat

@@ -3,7 +3,7 @@ import json
 import os
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LFS_LOCK = os.path.join(REPO_ROOT, "lfs.lock")
+LOCK = os.path.join(REPO_ROOT, "tenko.lock")
 SPECS_DIR = os.path.join(REPO_ROOT, "package_specs")
 ORDER_FILE = os.path.join(SPECS_DIR, "ORDER")
 
@@ -51,8 +51,8 @@ def discover_packages(path=SPECS_DIR):
     return packages
 
 
-def load_aliases(path=LFS_LOCK):
-    """Return LFS package name -> spec directory name mappings."""
+def load_aliases(path=LOCK):
+    """Return base package name -> spec directory name mappings."""
     if not os.path.isfile(path):
         return {}
     try:
@@ -78,7 +78,7 @@ def load_order(path=ORDER_FILE):
 
 
 def resolve_package_name(name, packages, aliases=None):
-    """Resolve an LFS or spec name to a discovered package name."""
+    """Resolve a base or spec name to a discovered package name."""
     aliases = aliases or {}
     for candidate in (name, aliases.get(name)):
         if candidate and candidate in packages:

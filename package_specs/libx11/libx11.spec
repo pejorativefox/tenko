@@ -48,13 +48,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
   main package (issue #4).
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.8.14-1
-- Update to 1.8.14 (current BLFS r13.1 trunk version).
+- Update to 1.8.14 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.8.13-2
 - Split devel, doc, static payload into libx11-devel, libx11-doc, libx11-static (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 1.8.13
-- Sync with BLFS r13.1 (1.8.6)
+- Sync with 1.8.6
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 1.8.6-1
 - Version bump

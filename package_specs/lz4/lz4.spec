@@ -38,4 +38,4 @@ make BUILD_STATIC=no PREFIX=/usr libdir=/usr/lib64 DESTDIR=%{buildroot} install
 - Replace directory globs with a generated static filelist
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.10.0
-- Initial package (LFS r13.1)
+- Initial package

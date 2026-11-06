@@ -41,7 +41,7 @@ mkdir -p %{buildroot}/etc
 - Split lang payload into xfce4-settings-lang (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.5
-- Sync with BLFS r13.1 (4.19.0)
+- Sync with 4.19.0
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.19.0
 - Version bump

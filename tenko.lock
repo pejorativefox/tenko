@@ -174,12 +174,6 @@
     "zlib": "zlib",
     "zstd": "zstd"
   },
-  "lfs": {
-    "commit": "1493db7e15cc7253405ad18a835f84257fb9b990",
-    "commit_date": "2026-10-31T15:28:31-05:00",
-    "repo": "https://git.linuxfromscratch.org/lfs.git",
-    "tag": "trunk"
-  },
   "packages": {
     "acl": "2.4.0",
     "am-minor": "1.19",
@@ -222,7 +216,6 @@
     "kbd": "2.10.0",
     "kmod": "34.3",
     "less": "710",
-    "lfs-bootscripts": "20250827",
     "libatomic": "1.2.0",
     "libbfd": "2.47.20260726",
     "libcap": "2.78",
@@ -277,7 +270,6 @@
     "tcl-major": "8.6",
     "texinfo": "7.3",
     "tzdata": "2026f",
-    "udev-lfs": "udev-lfs-20230818",
     "util-linux": "2.42.4",
     "vim": "9.2.1225",
     "wheel": "0.48.0",

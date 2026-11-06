@@ -1,6 +1,6 @@
-# xdg-utils 1.2.1 from BLFS r13.1 (xsoft/other/xdg-utils.xml).
+# xdg-utils 1.2.1.
 #
-# BLFS builds the man pages and the help text embedded in the shell scripts
+# the base builds the man pages and the help text embedded in the shell scripts
 # with xmlto + a text browser.  The base build image does not have that
 # documentation toolchain, so the generated .txt help snippets and man pages
 # are shipped as Source1, generated once from the same 1.2.1 source with
@@ -54,6 +54,6 @@ make -C scripts install DESTDIR=%{buildroot}
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.2.1-1
-- Initial package from BLFS r13.1 (xdg-utils 1.2.1)
+- Initial package (xdg-utils 1.2.1)
 - Build the shell scripts from source; ship the DocBook-generated help text
   and man pages as a side source because xmlto is not in the build image

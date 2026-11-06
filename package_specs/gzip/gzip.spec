@@ -45,10 +45,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Record the verified license (GPL-3.0-or-later): gzip.c (issue #8).
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.15-1
-- Update to 1.15 (current LFS/BLFS r13.1 trunk version).
+- Update to 1.15 (current upstream version).
 
 * Fri Oct 30 2026 browneye <build@browneye.invalid> 1.14
-- Sync with LFS r13.1
+- Sync with the base set
 
 * Mon Sep 4 2023 Chris Statzer <chris.statzer@gmail.com> 1.12-1
 - Version bump

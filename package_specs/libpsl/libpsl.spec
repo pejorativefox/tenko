@@ -44,5 +44,5 @@ popd
   package no longer drags pkgconfig(...) consumers into every install.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.23.3-1
-- New package (D8): current BLFS trunk version, built with libidn2; curl is
+- New package (D8): current trunk version, built with libidn2; curl is
   rebuilt with PSL support instead of --without-libpsl.

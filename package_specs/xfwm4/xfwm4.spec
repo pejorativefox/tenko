@@ -41,7 +41,7 @@ mkdir -p %{buildroot}/etc
 - Split lang payload into xfwm4-lang (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 4.20.0
-- Sync with BLFS r13.1 (4.18.0)
+- Sync with 4.18.0
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 4.18.0
 - Version bump

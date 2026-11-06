@@ -28,7 +28,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.12.4-1
-- Update to the BLFS r13.1 version (1.12.4, was 1.10.2) for lightdm
+- Update to the pinned version (1.12.4, was 1.10.2) for lightdm
 - Use a generated static filelist: the libtool version changed, so the
   shipped library is now libgcrypt.so.20.8.9 (SONAME libgcrypt.so.20)
 

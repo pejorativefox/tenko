@@ -36,17 +36,17 @@ rm -vf %{buildroot}%{_infodir}/dir*
   main package (issue #4).
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 79.1-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 78.3-2
 - Split devel payload into icu4c-devel (size audit)
 
 * Sun Nov 01 2026 Browneye Node.js wave <daspork@browneye.invalid> 78.3-1
-- Update 73.2 -> 78.3 (BLFS r13.1 packages.ent icu-version 78.3).
-  The spec directory and RPM name stay icu4c; BLFS calls the package "icu".
+- Update 73.2 -> 78.3 (tenko.lock icu-version 78.3).
+  The spec directory and RPM name stay icu4c; upstream calls the package "icu".
 - Source: https://github.com/unicode-org/icu/releases/download/release-78.3/icu4c-78.3-sources.tgz
   md5 a7b736b570ef0e180c96a31715a00c78
   sha256 3a2e7a47604ba702f345878308e6fefeca612ee895cf4a5f222e7955fabfe0c0
-- Configure: ./configure --prefix=/usr (from source/, BLFS r13.1).
+- Configure: ./configure --prefix=/usr (from source, as pinned).
 - Static filelist generated from the install tree (sonames are now .78).
 - Consumers of libicu*.so.73 must be rebuilt against this ABI.

@@ -43,15 +43,15 @@ popd
   split layout resolves without a file conflict.
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.2.1-1
-- Update to 1.2.1 (current LFS/BLFS r13.1 trunk version).
+- Update to 1.2.1 (current upstream version).
 
 * Sun Nov 01 2026 Browneye Node.js wave <daspork@browneye.invalid> 1.2.0-1
-- Update 1.0.9 -> 1.2.0 (BLFS r13.1 packages.ent brotli-version).
+- Update 1.0.9 -> 1.2.0 (tenko.lock brotli-version).
 - Source: https://github.com/google/brotli/archive/v1.2.0/brotli-1.2.0.tar.gz
   md5 8fbfae9a5ecbc278ae7f761ecb6d1285
   sha256 816c96e8e8f193b40151dad7e8ff37b1221d019dbcb9c35cd3fadbfe6477dfec
 - Configure: cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib64
-  -DCMAKE_BUILD_TYPE=Release -G Ninja (BLFS r13.1 command plus the
+  -DCMAKE_BUILD_TYPE=Release -G Ninja (the documented build command plus the
   distro's /usr/lib64 layout; the cmake 4.4.3 RPM patches GNUInstallDirs
   to default to lib, so lib64 is set explicitly).
 - Static filelist generated from the install tree.

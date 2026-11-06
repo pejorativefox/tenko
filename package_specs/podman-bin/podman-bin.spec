@@ -6,8 +6,8 @@
 # 2.1.0, pasta/passt 2026_10_02.cba3570, fuse-overlayfs 1.18 (libfuse
 # 3.18.3) and catatonit 0.2.1.
 #
-# podman and every one of its components are absent from LFS/BLFS r13.1, so
-# the version-parity rule in AGENTS.md cannot be satisfied from the books.
+# podman and every one of its components are absent from the base set, so
+# the version-policy rule in AGENTS.md cannot be satisfied by the base set.
 # The user explicitly approved this third-party static bundle as an
 # exception (recon: options A vs B vs D).
 %global __strip /bin/true
@@ -64,9 +64,9 @@ native rootless overlay with no mount_program.  systemd units, generators
 and quadlet are not shipped (the bundle compiles /usr/local/bin/podman into
 them); use podman from the command line or from the build scripts.
 
-Neither podman nor its dependency chain is part of LFS/BLFS.  The user
+Neither podman nor its dependency chain is part of the base set.  The user
 explicitly approved packaging this static upstream bundle as an exception
-to the Tenko version-parity rule.
+to the Tenko version-policy rule.
 
 %prep
 %setup -q -n podman-linux-amd64
@@ -127,8 +127,8 @@ install -m644 README.md %{buildroot}%{_docdir}/%{name}-%{version}/README.md
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 6.1.4-1
 - New package: the static podman 6.1.4 bundle from mgoltzsche/podman-static
   under /opt/podman-6.1.4, /opt/podman and /usr/bin/podman symlinks.
-  podman, conmon, crun, runc and the rest of the chain are not in LFS/BLFS;
-  this is the user-approved option A exception to the version-parity rule.
+  podman, conmon, crun, runc and the rest of the chain are not in the base set;
+  this is the user-approved option A exception to the version-policy rule.
 - Supersedes the stale package_specs/podman 4.5.1 spec, whose install
   layout no longer matches the 6.x tarball.  The old directory is left
   untouched for the integration session to retire.

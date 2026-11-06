@@ -28,7 +28,7 @@ rm -rf %{buildroot}
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.12.7-1
-- Sync with BLFS r13.1
+- Sync with the base set
 
 * Wed Aug 30 2023 Chris Statzer <chris.statzer@gmail.com> 1.12.0
 - Initial RPM

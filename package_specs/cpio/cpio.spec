@@ -20,7 +20,7 @@ Translations for cpio.
 %prep
 %setup -q
 
-# gcc15 workaround from BLFS r13.1
+# gcc15 workaround from the base set
 sed -e "/^extern int (\*xstat)/s/()/(const char * restrict,  struct stat * restrict)/" \
     -i src/extern.h
 sed -e "/^int (\*xstat)/s/()/(const char * restrict,  struct stat * restrict)/" \
@@ -46,6 +46,6 @@ rm -rf %{buildroot}/usr/share/man
 - Split lang payload into cpio-lang (size audit)
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.15
-- Update to BLFS r13.1 cpio 2.15
+- Update to cpio 2.15
 - Add the gcc15 xstat prototype workaround
 - Required by dracut for initramfs creation

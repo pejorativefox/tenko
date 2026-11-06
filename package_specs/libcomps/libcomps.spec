@@ -59,6 +59,6 @@ popd
 - New package (replaces the stale 0.1.15 python-libcomps spec) for the E1
   dnf/libdnf chain.
 - Builds the C library, headers and the libcomps Python module from the
-  same source tree; libcomps is not in LFS/BLFS and current libdnf requires
+  same source tree; libcomps is not in the base set and current libdnf requires
   >= 0.1.8.
 - Use a generated static filelist.

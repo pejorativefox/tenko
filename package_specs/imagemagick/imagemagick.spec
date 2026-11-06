@@ -53,7 +53,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 - Split doc payload into imagemagick-doc (size audit)
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 7.1.2
-- Sync with BLFS r13.1 (7.1.1)
+- Sync with 7.1.1
 
 * Wed Sep 6 2023 Chris Statzer <chris.statzer@gmail.com> 7.1.1-1
 - Version bump

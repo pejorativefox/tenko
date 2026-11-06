@@ -36,4 +36,4 @@ popd
   split layout resolves without a file conflict.
 
 * Sat Oct 31 2026 browneye <build@browneye.invalid> 0.4.0
-- Initial package (BLFS r13.1)
+- Initial package

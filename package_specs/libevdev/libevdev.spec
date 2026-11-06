@@ -33,7 +33,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
   split layout resolves without a file conflict.
 
 * Mon Nov  2 2026 browneye <build@browneye.invalid> 1.14.0-1
-- Update to 1.14.0 (current LFS/BLFS r13.1 trunk version).
+- Update to 1.14.0 (current upstream version).
 
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.13.6-1
-- Initial package (BLFS r13.1)
+- Initial package
