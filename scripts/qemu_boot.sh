@@ -32,7 +32,7 @@ cp ~/rpmbuild/RPMS/x86_64/linux-kernel-"$KVER"-*.rpm ~/rpmbuild/RPMS/x86_64/linu
 createrepo_c --quiet --update "$REPO"
 
 unshare -r dnf -y --nogpgcheck \
-  --installroot "$ROOTFS" --releasever=13.1 \
+  --installroot "$ROOTFS" --releasever=6 \
   --disablerepo='*' --repofrompath=tenko,$REPOPATH \
   --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
   install linux-kernel linux-modules

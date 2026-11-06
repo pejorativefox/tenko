@@ -77,7 +77,7 @@ def console_line(line: str) -> None:
 
 
 def marker(text: str) -> None:
-    line = "BROWNEY-INSTALL: " + text
+    line = "TENKO-INSTALL: " + text
     print(line, flush=True)
     serial_write(line)
 

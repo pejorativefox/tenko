@@ -87,7 +87,7 @@ dnf_install_packages() {
             -v "$repo:/repo:ro,z" \
             -v "$parent:/out:rw,z" \
             "$TOOL_IMAGE" dnf -y --nogpgcheck \
-                --installroot "/out/$base" --releasever=13.1 \
+                --installroot "/out/$base" --releasever=6 \
                 --disablerepo='*' --repofrompath=tenko,file:///repo \
                 --setopt=install_weak_deps=False \
                 --setopt=tsflags=noscripts \
@@ -95,7 +95,7 @@ dnf_install_packages() {
     else
         echo "dnf (host fallback): installing $* into $rootfs" >&2
         unshare -r dnf -y --nogpgcheck \
-            --installroot "$rootfs" --releasever=13.1 \
+            --installroot "$rootfs" --releasever=6 \
             --disablerepo='*' --repofrompath=tenko,file://$repo \
             --setopt=install_weak_deps=False \
             --setopt=tsflags=noscripts \

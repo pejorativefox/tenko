@@ -42,7 +42,7 @@ TAG_STABLE=${TAG_STABLE:-1}
 DEVEL_PACKAGES=${DEVEL_PACKAGES:-"python3-pyelftools liblzo2"}
 PACKAGES=${PACKAGES:-tenko-base tenko-build $DEVEL_PACKAGES}
 ROOTFS=${ROOTFS:-build/base-rootfs}
-TARBALL=${TARBALL:-build/base-rootfs.tar.gz}
+TARBALL=${TARBALL:-build/tenko-rootfs.tar.gz}
 FROM_TARBALL=${FROM_TARBALL:-}
 
 case "${1:-}" in
@@ -68,7 +68,7 @@ else
         podman run --rm --network=host \
             -v "$(dirname "$rootfs_abs"):/out:rw,z" \
             "$TOOL_IMAGE" dnf -y --nogpgcheck \
-                --installroot "/out/$(basename "$rootfs_abs")" --releasever=13.1 \
+                --installroot "/out/$(basename "$rootfs_abs")" --releasever=6 \
                 --disablerepo='*' --repofrompath=tenko,"$REPO_URL" \
                 --setopt=install_weak_deps=False \
                 --setopt=tsflags=noscripts \
@@ -76,7 +76,7 @@ else
     else
         echo "dnf (host, rootless): no image with dnf; using unshare -r" >&2
         unshare -r dnf -y --nogpgcheck \
-            --installroot "$rootfs_abs" --releasever=13.1 \
+            --installroot "$rootfs_abs" --releasever=6 \
             --disablerepo='*' --repofrompath=tenko,"$REPO_URL" \
             --setopt=install_weak_deps=False \
             --setopt=tsflags=noscripts \

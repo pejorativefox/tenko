@@ -40,7 +40,7 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     # privileges so a rebuild can start from a clean tree.
     unshare -r rm -rf "$ROOTFS"
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$ROOTFS" --releasever=13.1 \
+        --installroot "$ROOTFS" --releasever=6 \
         --disablerepo='*' --repofrompath=desktop,$REPOPATH \
         --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
         install tenko-base xfce-desktop linux-kernel linux-modules \

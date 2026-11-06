@@ -54,13 +54,13 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     # /bin/sh, which only exists once tenko-basefs has created the merged
     # /usr symlinks.  This is what an installer does before anything else.
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$ROOTFS" --releasever=13.1 \
+        --installroot "$ROOTFS" --releasever=6 \
         --disablerepo='*' --repofrompath=tenko,$REPOPATH \
         --setopt=install_weak_deps=False \
         install tenko-basefs
 
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$ROOTFS" --releasever=13.1 \
+        --installroot "$ROOTFS" --releasever=6 \
         --disablerepo='*' --repofrompath=tenko,$REPOPATH \
         --setopt=install_weak_deps=False \
         install tenko-base xfce-desktop linux-kernel linux-modules \

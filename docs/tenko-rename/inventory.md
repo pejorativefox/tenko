@@ -4,10 +4,13 @@
 - **Branch/worktree:** `rename/tenko` in `.worktrees/rename-tenko`
 - **Base commit:** `4c0e1b9c478d25ada40423330ab5569c3fc79cbd`
   (`docs: place agent worktrees under .worktrees`)
-- **Version:** 13.1 (unchanged)
+- **Version at baseline:** 13.1 (the pre-rename snapshot below)
+- **Distro release (updated 2026-11-06):** Tenko 6 (Workstation, stable);
+  package versions roll independently, with `tenko-release-6-1` carrying the
+  release identity. See `docs/tenko-rename/migration.md`.
 - **Date:** 2026-11-06
 - **Scope:** checkpoint 0 (baseline) and checkpoint 1 (inventory and impact
-  map). No source or package was changed.
+  map). No source or package was changed at the baseline commit.
 
 **Gate status:** checkpoint 0 records the locked name, commit, published
 packages/artifacts and checksums, compatibility window and handles. Checkpoint

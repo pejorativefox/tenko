@@ -8,7 +8,7 @@ mkdir -pv $ROOT
 cp ./iso/core.repo $ROOT/etc/yum.repos.d/
 cp /etc/resolv.conf $ROOT/etc/
 
-dnf-3 --installroot $ROOT --releasever=1 -y -x busybox install \
+dnf-3 --installroot $ROOT --releasever=6 -y -x busybox install \
         tenko-release tenko-sysconfig dnf dnf-plugins-core make-ca
 #./scripts/chroot.sh $ROOT "ln -s /etc/finit.d/available/networkmanager.conf /etc/finit.d/"
 

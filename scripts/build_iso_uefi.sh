@@ -52,13 +52,13 @@ if [ "$SKIP_LIVE" != "1" ]; then
     for dev in null zero random urandom; do : > "$LIVE/dev/$dev"; done
 
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$LIVE" --releasever=13.1 \
+        --installroot "$LIVE" --releasever=6 \
         --disablerepo='*' --repofrompath=tenko,"$REPOPATH" \
         --setopt=install_weak_deps=False \
         install tenko-basefs
 
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$LIVE" --releasever=13.1 \
+        --installroot "$LIVE" --releasever=6 \
         --disablerepo='*' --repofrompath=tenko,"$REPOPATH" \
         --setopt=install_weak_deps=False \
         install tenko-live

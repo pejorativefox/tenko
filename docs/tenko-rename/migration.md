@@ -872,16 +872,13 @@ The first, in-container attempt did plan `tenko-build` replacing
 must repeat the test from a rootfs containing all 13 old packages, with
 `tenko-release-6-1`, before the packages are published.
 
-### 6.8 `tenko-release-6-1` checkpoint-4 repetition
+### 6.8 Final `tenko-release-6-1` checkpoint-4 proof
 
 The final release package is `tenko-release-6-1`, not the 13.1 prototype.
-Checkpoint 4 must repeat the old → new test from a rootfs built from the
-published `browneye-13.1-*` packages. Do not start from a rootfs that already
-has the local `tenko-release-13.1-4` prototype: 6 sorts below 13.1, so
-`tenko-release-6-1` would be a downgrade from that scratch package. The
-prototype must never be published.
-
-Use `--releasever=6` and assert the Tenko 6 identity:
+The final old → new test was run on 2026-11-06 from a scratch rootfs built
+from the local published 13.1 repository (the rootfs was `browneye-base-13.1-9`
+plus its dependencies; the public R2 mirror was slow/flaky during the run, so
+the local published tree was used). The transaction was:
 
 ```sh
 dnf -y --nogpgcheck --installroot "$ROOT" --releasever=6 \
@@ -892,32 +889,60 @@ dnf -y --nogpgcheck --installroot "$ROOT" --releasever=6 \
     upgrade --allowerasing
 ```
 
-Expected after:
+Observed transaction:
 
 ```text
+Installing:
+ tenko-base       13.1-12  replacing browneye-base 13.1-9
+ tenko-basefs     1.0-2    replacing browneye-basefs 1.0-1
+ tenko-firstboot  13.1-3   replacing browneye-firstboot 13.1-2
+ tenko-release    6-1      replacing browneye-release 13.1-2
+ tenko-rpm-config 13.1-3   replacing browneye-rpm-config 13.1-2
+ tenko-sysconfig  13.1-4   replacing browneye-sysconfig 13.1-3
+ make-ca          1.16.1-4 upgrading 1.16.1-3
+```
+
+After:
+
+```text
+tenko-base-13.1-12.x86_64
+tenko-basefs-1.0-2.x86_64
+tenko-firstboot-13.1-3.x86_64
 tenko-release-6-1.x86_64
-...
+tenko-rpm-config-13.1-3.x86_64
+tenko-sysconfig-13.1-4.x86_64
+
 NAME="Tenko Linux"
 ID=tenko
-VERSION_ID="6"
 VERSION="6 (Workstation)"
+VERSION_ID="6"
 PRETTY_NAME="Tenko Linux 6 (Workstation)"
 VARIANT="Workstation"
-VARIANT_ID=workstation
 RELEASE_TYPE=stable
-...
--rw-r--r-- ... tenko-6.repo
+
+/etc/yum.repos.d/tenko-6.repo
+  [tenko-6]
+  name=Tenko Linux 6 (Workstation)
+  baseurl=https://repo.pjfox.xyz/tenko/packages/6/
 ```
 
-The release package must carry exactly:
+The test also verified:
 
-```spec
-Obsoletes: browneye-release < 13.1-4
-Provides: browneye-release = 13.1-4
-Provides: system-release
-Provides: system-release(6)
-Provides: system-release(13.1)
-```
+- `browneye-release` is gone;
+- the old firstboot unit is `not-found` and the new
+  `tenko-firstboot-root-password.service` is `enabled`;
+- old dracut/journald configs are moved to `.rpmsave` and the new
+  `10-tenko.conf` files are installed;
+- old RPM macros are gone and the Tenko macro tree is installed;
+- the firstboot marker and installer logs are migrated to `/var/lib/tenko`
+  and `/var/log/tenko-install`;
+- a custom `/etc/fstab` line, a seeded `/etc/machine-id`, and a custom
+  `/etc/hosts` line survive the upgrade (`%config(noreplace)` ownership fix).
+
+The clean-install proof with the same final package set also passed after
+installing `tenko-basefs` first (§6.9). The `tenko-release-6-1` package must
+never be published as `tenko-release-13.1-4`; the 13.1 prototype was scratch
+only.
 
 The explicit `Obsoletes`/`Provides` is what makes the lower 6 version safe
 without an Epoch. `tenko-release-6-1` obsoletes `browneye-release-13.1-3`
@@ -925,23 +950,14 @@ without an Epoch. `tenko-release-6-1` obsoletes `browneye-release-13.1-3`
 `>= 13.1-3` requirement is satisfied. `system-release(13.1)` keeps old
 consumers satisfied and `system-release(6)` advertises the new release.
 `%{version}-%{release}` would expand to `6-1`, which is below the old
-`13.1-3`; it would neither satisfy the
-old requirement nor make an `Obsoletes: browneye-release < 6-1` rule cover the
-old package. Do not add an Epoch.
-
-Checkpoint 4 must assert:
-
-- `rpm -q tenko-release` returns `tenko-release-6-1`;
-- `rpm -q browneye-release` fails;
-- `/etc/yum.repos.d/tenko-6.repo` exists, contains `[tenko-6]`, and points at
-  `https://repo.pjfox.xyz/tenko/packages/6/`;
-- `/etc/os-release` matches the Tenko 6 block in §2.1;
-- the old unit/preset/config/macro/marker/log checks in §6.4 still pass.
+`13.1-3`; it would neither satisfy the old requirement nor make an
+`Obsoletes: browneye-release < 6-1` rule cover the old package. Do not add an
+Epoch.
 
 The old `packages/13.1` public/R2/LAN paths and the old `browneye` LAN root
 remain compatibility aliases; the new repository path is the 6 path. The
 artifacts remain the unsuffixed `tenko-installer.iso` /
-`tenko-rootfs.tar.gz` until the deferred rebuild adds the `-6` names.
+`tenko-rootfs.tar.gz` until the image rebuild adds the `-6` names.
 
 ### 6.9 Clean-install ordering: bootstrap `tenko-basefs` first
 
