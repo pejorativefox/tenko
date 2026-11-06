@@ -4,10 +4,11 @@
 - **Checkpoint:** 2 — compatibility and migration design
 - **Branch/worktree:** `docs/tenko-migration` in `.worktrees/tenko-migration`
 - **Base commit:** `752a82f` (`docs: record handle choices for the Tenko rename`)
-- **Version:** 13.1 (unchanged)
+- **Distro release:** Tenko 6 (Workstation, stable); `tenko-release` is
+  `6-1`, while the other packages keep their planned 13.1 / basefs 1.0 EVRs
 - **Date:** 2026-11-06
-- **Status:** design complete; local old → new upgrade proof passed; checkpoint 3
-  has not started
+- **Status:** design complete; local old → new upgrade proof passed for the
+  13.1 rename prototype; the `tenko-release-6-1` proof is checkpoint 4
 
 This is the reviewable record for checkpoint 2. It defines the package
 aliases, upgrade scriptlets, payload renames, repository transition, and the
@@ -15,6 +16,12 @@ local proof. It adds **only this document**; no spec, script, source or
 package is changed by this commit. The generated prototype specs used for the
 proof are scratch artifacts under
 `.worktrees/rename-tenko/build/compat/proto/` and are not part of the tree.
+
+This revision applies the Tenko 6 versioning decision. The distro release is
+Tenko 6, edition Workstation, release type stable. Only `tenko-release` takes
+the new 6-1 EVR; the other packages keep their 13.1-era EVRs and roll
+independently. The old-name release compatibility is therefore explicit, not
+`%{version}-%{release}`, and no Epoch is used.
 
 The baseline and the old → new mapping are in
 [`inventory.md`](inventory.md). Mapping IDs such as M12–M15, M25–M31, M39 and
@@ -24,14 +31,17 @@ M42 refer to that document.
 
 ### 1.1 What checkpoint 2 delivers
 
-- A package strategy for all 13 renamed packages: release bump, versioned
-  `Obsoletes:`, versioned `Provides:` and no old-name primary packages.
+- A package strategy for all 13 renamed packages: release/EVR rules,
+  versioned `Obsoletes:`, versioned `Provides:` and no old-name primary
+  packages.
+- The Tenko 6 release identity and the `tenko-release` 6-1 exception.
 - The exact `%post`/`%posttrans` snippets that migrate an installed Browneye
-  13.1 system to Tenko 13.1.
+  13.1 system to Tenko 6.
 - The exact `%files` and payload renames for the 13 specs.
 - The repository-file transition and the aliases that stay during the
   compatibility window.
-- A reproducible local upgrade test and its observed result.
+- A reproducible local upgrade test and its observed result for the 13.1
+  rename prototype, plus the checkpoint-4 Tenko 6 repetition plan.
 - Known limits and the items checkpoint 3 must settle before it applies the
   rename.
 
@@ -40,8 +50,8 @@ M42 refer to that document.
 - Checkpoint 3 applies the rename to the tree: spec directories, payload
   files, `package_specs/ORDER`, build/publish scripts, installer code, docs,
   web and tests.
-- Checkpoint 4 builds the renamed RPMs and runs the full clean-install and
-  upgrade tests.
+- Checkpoint 4 builds the renamed RPMs (including `tenko-release-6-1`) and
+  runs the full clean-install and upgrade tests.
 - Checkpoints 5 and 6 stage and cut over the repository.
 - Checkpoint 7 rebuilds images. The existing ISO and rootfs still contain
   `browneye-*` packages and are expected to upgrade through the repository.
@@ -57,21 +67,67 @@ The issue defines the checkpoint-2 gate as:
 > a written migration plan exists and a local old → new upgrade succeeds.
 
 The plan is this document. The proof is §6; the passing run is
-`/tmp/opencode/compat-upgrade-rootfs2.log` (`=== PASS ===`).
+`/tmp/opencode/compat-upgrade-rootfs2.log` (`=== PASS ===`). That run used
+the 13.1 rename prototype (`tenko-release-13.1-4` and `tenko-13.1.repo`).
+The final `tenko-release-6-1` package repeats the same old → new test in
+checkpoint 4; §6.8 defines that repetition and why the lower 6 version is
+safe without an Epoch.
 
 ## 2. Package strategy
 
-### 2.1 The 13 packages
+### 2.1 Tenko 6 release identity
 
-`Release:` is bumped by one. `Version:` is unchanged, including the
-`tenko-basefs` 1.0 exception. No `Epoch:` is used. The alias block is inserted
-immediately after `Release:` in each spec:
+The distro release is **Tenko 6**, edition **Workstation**, release type
+**stable**. `tenko-release` is the release-identity package:
+
+```spec
+Name:       tenko-release
+Version:    6
+Release:    1
+```
+
+Its `/usr/lib/os-release` (with `/etc/os-release` pointing at it) carries:
+
+```ini
+NAME="Tenko Linux"
+ID=tenko
+VERSION_ID="6"
+VERSION="6 (Workstation)"
+PRETTY_NAME="Tenko Linux 6 (Workstation)"
+VARIANT="Workstation"
+VARIANT_ID=workstation
+RELEASE_TYPE=stable
+ANSI_COLOR="0;34"
+```
+
+The other 12 packages roll independently: their planned EVRs stay
+`13.1-<release>` (and `tenko-basefs-1.0-2`). Tenko 6 is the distro release
+identity, not a re-version of every package.
+
+### 2.2 The 13 packages
+
+For the 12 non-release packages, `Release:` is bumped by one and `Version:`
+stays 13.1 (or 1.0 for `tenko-basefs`). The alias block is:
 
 ```spec
 # Tenko rename compatibility (issue #22).
 Obsoletes: <old-name> < <new-evr>
 Provides: <old-name> = %{version}-%{release}
 ```
+
+`tenko-release` is the exception. Because 6 sorts below 13.1, it uses an
+explicit old-name alias instead of `%{version}-%{release}`:
+
+```spec
+# Tenko rename compatibility (issue #22).
+Obsoletes: browneye-release < 13.1-4
+Provides: browneye-release = 13.1-4
+Provides: system-release
+Provides: system-release(6)
+Provides: system-release(13.1)
+```
+
+No `Epoch:` is used anywhere.
 
 | Old package | Old EVR | New package | New EVR | Exact `Obsoletes:` line | Exact `Provides:` line |
 |---|---|---|---|---|---|
@@ -84,33 +140,42 @@ Provides: <old-name> = %{version}-%{release}
 | `browneye-firstboot` | 13.1-2 | `tenko-firstboot` | 13.1-3 | `Obsoletes: browneye-firstboot < 13.1-3` | `Provides: browneye-firstboot = %{version}-%{release}` |
 | `browneye-installer` | 13.1-24 | `tenko-installer` | 13.1-25 | `Obsoletes: browneye-installer < 13.1-25` | `Provides: browneye-installer = %{version}-%{release}` |
 | `browneye-live` | 13.1-3 | `tenko-live` | 13.1-4 | `Obsoletes: browneye-live < 13.1-4` | `Provides: browneye-live = %{version}-%{release}` |
-| `browneye-release` | 13.1-3 | `tenko-release` | 13.1-4 | `Obsoletes: browneye-release < 13.1-4` | `Provides: browneye-release = %{version}-%{release}` |
+| `browneye-release` | 13.1-3 | `tenko-release` | 6-1 | `Obsoletes: browneye-release < 13.1-4` | `Provides: browneye-release = 13.1-4` |
 | `browneye-rpm-config` | 13.1-2 | `tenko-rpm-config` | 13.1-3 | `Obsoletes: browneye-rpm-config < 13.1-3` | `Provides: browneye-rpm-config = %{version}-%{release}` |
 | `browneye-sysconfig` | 13.1-3 | `tenko-sysconfig` | 13.1-4 | `Obsoletes: browneye-sysconfig < 13.1-4` | `Provides: browneye-sysconfig = %{version}-%{release}` |
 | `browneye-workstation` | 13.1-3 | `tenko-workstation` | 13.1-4 | `Obsoletes: browneye-workstation < 13.1-4` | `Provides: browneye-workstation = %{version}-%{release}` |
 
-Old EVRs are the published EVRs from
-[`baseline-browneye-packages.csv`](baseline-browneye-packages.csv). The new
-EVR is the old release plus one, matching the prototype specs.
+The `tenko-release` row is deliberately outside the 13.1 EVR scheme; it also
+carries the rest of the release-provides block shown above. Old EVRs are the
+published EVRs from
+[`baseline-browneye-packages.csv`](baseline-browneye-packages.csv). For the 12
+non-release packages the new EVR is the old release plus one. The prototype
+proof used `tenko-release-13.1-4`; the final release package is
+`tenko-release-6-1`. Its new `%changelog` entry is
+`tenko <build@tenko.invalid> 6-1`; the other packages keep their 13.1 EVR
+entries.
 
-### 2.2 Why versioned aliases
+### 2.3 Why the release aliases are explicit
 
-- `Obsoletes: old < new-evr` lets RPM replace the old package with the new
-  one during `dnf upgrade`, including old scratch installs that are older than
-  the published EVR. The bound stops a future, higher-EVR old package (for
-  example a locally built one) from being removed by this package.
-- `Provides: old = %{version}-%{release}` lets packages that still require an
-  old name resolve. The aliases are a safety net, not the target dependency
-  graph: checkpoint 3 must update the specs that currently require
-  `browneye-*` (`xfce-desktop`, `xfce-desktop-core`, `xfce-desktop-full`,
-  `podman-bin`) to `tenko-*`. Checkpoint 4 must then verify there are no
-  accidental old-name runtime dependencies.
-- The `Provides` is versioned. A package that requires an exact old EVR
-  (`browneye-base = 13.1-11`) would not be satisfied by the new alias. The
-  current tree uses unversioned requires for these names, so this is not an
-  immediate problem; it is a reason to update the dependent specs.
+- `Obsoletes: browneye-release < 13.1-4` removes every published
+  `browneye-release` 13.1 release, including 13.1-3 and older scratch
+  installs.
+- `Provides: browneye-release = 13.1-4` is deliberately pinned above the old
+  13.1 releases. It satisfies an old requirement such as
+  `browneye-release >= 13.1-3`.
+- `system-release(6)` advertises the new distro release;
+  `system-release(13.1)` keeps consumers that still ask for the old version
+  satisfied during the window. The unversioned `system-release` stays as
+  before.
+- `%{version}-%{release}` would expand to `6-1`, which is lower than the old
+  `13.1-3`. It would neither satisfy an old `>= 13.1-3` requirement nor make
+  an `Obsoletes: browneye-release < 6-1` rule cover the old package. The
+  explicit `13.1-4` values avoid that without an Epoch. Do not add `Epoch: 1`.
+- For the 12 non-release packages the generic
+  `Provides: <old-name> = %{version}-%{release}` is still correct because
+  their new EVRs sort above the old ones.
 
-### 2.3 The `tenko-basefs` exception
+### 2.4 The `tenko-basefs` exception
 
 `browneye-basefs` is version `1.0`, not `13.1`. Its alias must therefore be:
 
@@ -123,7 +188,7 @@ Using `< 13.1-2` here would be wrong: the old `1.0-1` still sorts below it, but
 the bound would also claim to obsolete unrelated future 1.0 releases. The
 new package is `tenko-basefs-1.0-2`.
 
-### 2.4 No old-name primary packages
+### 2.5 No old-name primary packages
 
 The build and publish set contains only `package_specs/tenko-*` and
 `tenko-*.rpm`. Old names appear only as:
@@ -362,7 +427,7 @@ package_specs/browneye-X/browneye-X.spec
 | `tenko-firstboot` | `package_specs/tenko-firstboot/tenko-firstboot.spec` | 4 payload files renamed; README content updated | 5 lines |
 | `tenko-installer` | `package_specs/tenko-installer/tenko-installer.spec` | 5 payload files renamed; module dir and tests updated | 7 lines |
 | `tenko-live` | `package_specs/tenko-live/tenko-live.spec` | none | none (empty) |
-| `tenko-release` | `package_specs/tenko-release/tenko-release.spec` | `os-release` and repo file generated by the spec; empty `sources` marker kept | repo file line |
+| `tenko-release` | `package_specs/tenko-release/tenko-release.spec` | `os-release` and `tenko-6.repo` generated by the spec; empty `sources` marker kept | repo file line |
 | `tenko-rpm-config` | `package_specs/tenko-rpm-config/tenko-rpm-config.spec` | `macros.browneye` renamed; `strip_debug.sh` unchanged | 2 lines |
 | `tenko-sysconfig` | `package_specs/tenko-sysconfig/tenko-sysconfig.spec` | configs generated by the spec | 2 lines |
 | `tenko-workstation` | `package_specs/tenko-workstation/tenko-workstation.spec` | none | marker path |
@@ -408,7 +473,7 @@ package_specs/browneye-X/browneye-X.spec
 
 # tenko-release
 -%config(noreplace) /etc/yum.repos.d/browneye-13.1.repo
-+%config(noreplace) /etc/yum.repos.d/tenko-13.1.repo
++%config(noreplace) /etc/yum.repos.d/tenko-6.repo
 
 # tenko-rpm-config
 -%{_rpmmacrodir}/macros.browneye
@@ -474,12 +539,12 @@ Content-only changes that do not rename the file:
 
 ### 5.1 New repo file
 
-`tenko-release` generates `/etc/yum.repos.d/tenko-13.1.repo`:
+`tenko-release` generates `/etc/yum.repos.d/tenko-6.repo`:
 
 ```ini
-[tenko-13.1]
-name=Tenko Linux 13.1
-baseurl=https://repo.pjfox.xyz/tenko/packages/13.1/
+[tenko-6]
+name=Tenko Linux 6 (Workstation)
+baseurl=https://repo.pjfox.xyz/tenko/packages/6/
 enabled=1
 gpgcheck=0
 repo_gpgcheck=0
@@ -487,14 +552,15 @@ skip_if_unavailable=1
 ```
 
 It is installed as `%config(noreplace)`, so local edits are preserved on later
-upgrades. The repo id changes from `browneye-13.1` to `tenko-13.1`. The
-installer writes the same `tenko-13.1` id on the target, so the installed repo
-file replaces the shipped one rather than duplicating it.
+upgrades. The repo id changes from `browneye-13.1` to `tenko-6`. The installer
+writes the same `tenko-6` id on the target, so the installed repo file
+replaces the shipped one rather than duplicating it.
 
-The baseurl is the canonical Tenko path. Until checkpoint 6 cuts production
+The baseurl is the canonical Tenko 6 path. Until checkpoint 6 cuts production
 over, the local proof does **not** fetch it; the test uses
 `--repofrompath` against local directories. Checkpoints 5 and 6 make the URL
-resolve and keep the old path serving the compatibility repo.
+resolve and keep the old `packages/13.1` and `browneye` paths serving the
+compatibility repository.
 
 ### 5.2 Old repo files
 
@@ -506,8 +572,9 @@ resolve and keep the old path serving the compatibility repo.
 Two outcomes are acceptable for `browneye-13.1.repo`:
 
 - RPM removes the unmodified `%config(noreplace)` file when the old package is
-  obsoleted. The passing proof saw this outcome: only `tenko-13.1.repo`
-  remained.
+  obsoleted. The 13.1 prototype proof saw this outcome: only
+  `tenko-13.1.repo` remained. The Tenko 6 repetition must see only
+  `tenko-6.repo`.
 - The file was modified locally and survives the erase. The `%posttrans`
   renames it to `.disabled`.
 
@@ -520,17 +587,20 @@ rename is reversible.
 | Alias | Old value | New value | Action during the window |
 |---|---|---|---|
 | R2 bucket | `r2:browneye` | unchanged | Keep the bucket; only keys move under `tenko/`. |
-| R2 key prefix | `r2:browneye/packages/13.1/` | `r2:browneye/tenko/packages/13.1/` | Keep the old key as an alias. |
-| Public repo URL | `https://repo.pjfox.xyz/packages/13.1/` | `https://repo.pjfox.xyz/tenko/packages/13.1/` | Old URL keeps serving the compatibility repo. |
-| LAN mirror path | `public_html/browneye` | `public_html/tenko` | Move to the new path; leave `browneye` as a symlink. |
-| LAN URL | `http://192.168.31.9/~daspork/browneye/` | `http://192.168.31.9/~daspork/tenko/` | Old URL resolves through the symlink. |
-| Installer ISO | `browneye-installer.iso` | `tenko-installer.iso` | Keep the old artifact; new name only after a rebuild. |
-| Container rootfs | `browneye-rootfs.tar.gz` | `tenko-rootfs.tar.gz` | Keep the old artifact; new name only after a rebuild. |
-| Container image | `localhost/browneye/base:r13.1` | `localhost/tenko/base:r13.1` | Keep the old tag until checkpoint 7; scripts prefer the new tag and fall back. |
+| R2 key prefix | `r2:browneye/packages/13.1/` | `r2:browneye/tenko/packages/6` | Keep the old key as an alias. |
+| Public repo URL | `https://repo.pjfox.xyz/packages/13.1/` | `https://repo.pjfox.xyz/tenko/packages/6/` | Old URL keeps serving the compatibility repo. |
+| LAN mirror root | `public_html/browneye` | `public_html/tenko` | Move the tree; leave `browneye` as a symlink. |
+| LAN repo path | `public_html/browneye/packages/13.1` | `public_html/tenko/packages/6` | Keep the old path as an alias. |
+| LAN URL | `http://192.168.31.9/~daspork/browneye/` | `http://192.168.31.9/~daspork/tenko/packages/6/` | Old URL resolves through the symlink. |
+| Installer ISO | `browneye-installer.iso` | `tenko-installer.iso` | Keep the old artifact. At the deferred rebuild, `tenko-installer-6.iso` can be added; the unsuffixed and old names stay aliases. |
+| Container rootfs | `browneye-rootfs.tar.gz` | `tenko-rootfs.tar.gz` | Keep the old artifact. At the deferred rebuild, `tenko-rootfs-6.tar.gz` can be added; the unsuffixed and old names stay aliases. |
+| Container image | `localhost/browneye/base:r13.1` | `localhost/tenko/base:r6` (proposed; not locked) | Keep the old tag until checkpoint 7; the Tenko tag is an open question for the rebuild. |
 
 The old RPMs in the repository are not pruned. `PRUNE=1` on the whole
 repository would remove superseded packages the compatibility story wants to
-keep.
+keep. No image is rebuilt in this issue: the unsuffixed `tenko-installer.iso`
+and `tenko-rootfs.tar.gz` are the target for the deferred rebuild, and the old
+`browneye-*` artifacts remain available.
 
 ### 5.4 Publishing order
 
@@ -538,15 +608,22 @@ This checkpoint does not publish anything. The order is:
 
 1. Checkpoint 3 applies the rename to the tree.
 2. Checkpoint 4 builds the RPMs and repeats the upgrade test with the full
-   package set.
-3. Checkpoint 5 publishes to the staging prefix and exercises a clean client.
-4. Checkpoint 6 cuts production over and confirms the old aliases resolve.
+   package set and `tenko-release-6-1`.
+3. Checkpoint 5 publishes to the staging `tenko/packages/6` prefix and
+   `public_html/tenko/packages/6`, and exercises a clean client.
+4. Checkpoint 6 cuts production over and confirms the old `packages/13.1`
+   and `browneye` aliases resolve.
 
 Do not publish to the new R2 key or LAN path before checkpoint 5/6.
 
 ## 6. Upgrade test recipe and result
 
 ### 6.1 Environment and artifacts
+
+The recorded proof used the **13.1 rename prototype**: `tenko-release-13.1-4`,
+`tenko-13.1.repo` and os-release `Tenko Linux 13.1`. It proves the scriptlet,
+obsoletes and payload-cleanup mechanics, but it does not prove the final
+`tenko-release-6-1` package. The checkpoint-4 repetition is in §6.8.
 
 The proof used a container with:
 
@@ -583,7 +660,7 @@ The regular `$ROOT/dev/null` is required: scriptlet redirections such as
 `>/dev/null 2>&1` resolve inside the installroot, and without the file the
 scriptlets print errors and the migration is less trustworthy.
 
-### 6.3 Upgrade
+### 6.3 Recorded 13.1 prototype upgrade
 
 ```sh
 dnf -y --nogpgcheck --installroot "$ROOT" --releasever=13.1 \
@@ -598,9 +675,9 @@ dnf -y --nogpgcheck --installroot "$ROOT" --releasever=13.1 \
 `--disablerepo='*'` makes the run depend only on the two local repositories.
 `--nogpgcheck` is for the unsigned local staging repo.
 
-### 6.4 Verify
+### 6.4 Recorded 13.1 prototype checks
 
-The driver asserts, among other things:
+The 13.1 prototype driver asserts, among other things:
 
 ```sh
 ROOT=/out/old-root
@@ -645,7 +722,7 @@ test -f "$ROOT/var/log/tenko-install/test.log"
 test ! -d "$ROOT/var/log/browneye-install"
 ```
 
-### 6.5 Observed result
+### 6.5 Observed result (13.1 prototype)
 
 Before:
 
@@ -696,10 +773,10 @@ total 4
 
 | Check | Result |
 |---|---|
-| `tenko-release` installed | yes, 13.1-4 |
+| `tenko-release` installed | yes, 13.1-4 (prototype; the final package is 6-1) |
 | `browneye-release` gone | yes; the driver fails if `rpm -q browneye-release` succeeds |
-| `/etc/os-release` | `NAME="Tenko Linux"`, `ID=tenko`, `PRETTY_NAME="Tenko Linux 13.1"` |
-| Old repo file | gone; only `tenko-13.1.repo` remains (the `.disabled` branch is also accepted) |
+| `/etc/os-release` | `NAME="Tenko Linux"`, `ID=tenko`, `PRETTY_NAME="Tenko Linux 13.1"` (prototype; final values in §6.8) |
+| Old repo file | gone; only `tenko-13.1.repo` remains (prototype; final must be `tenko-6.repo`) |
 | Old firstboot unit | file and wants symlink gone; `is-enabled` no longer succeeds (reports `not-found` once the file is removed) |
 | New firstboot unit | `enabled`; unit and preset present |
 | Old dracut/journald configs | `10-browneye.conf` files gone |
@@ -713,7 +790,8 @@ total 4
 
 The driver exited `=== PASS ===`. Checks in the driver are silent on success,
 so the log shows the section headings without per-check output; the final
-`PASS` is the assertion result.
+`PASS` is the assertion result. This observed result is for the 13.1 rename
+prototype only; §6.8 defines the final Tenko 6 repetition.
 
 ### 6.6 Caveats found during the proof
 
@@ -755,29 +833,101 @@ still completed and the verification passed.
 ### 6.7 Coverage limits of the proof
 
 The passing rootfs contained 6 of the 13 old packages. The run therefore
-verified the `tenko-base`, `tenko-basefs`, `tenko-firstboot`,
-`tenko-release`, `tenko-rpm-config` and `tenko-sysconfig` upgrade paths (and
-the release-level cleanup of the old firstboot marker, logs and
+verified the prototype `tenko-base`, `tenko-basefs`, `tenko-firstboot`,
+`tenko-release-13.1-4`, `tenko-rpm-config` and `tenko-sysconfig` upgrade
+paths (and the release-level cleanup of the old firstboot marker, logs and
 `/usr/share/browneye`). It did not exercise `tenko-base-build`,
 `tenko-base-runtime`, `tenko-build`, `tenko-desktop-config`,
-`tenko-installer`, `tenko-live` or `tenko-workstation`.
+`tenko-installer`, `tenko-live` or `tenko-workstation`, and it did not test
+the final `tenko-release-6-1` package.
 
 The first, in-container attempt did plan `tenko-build` replacing
 `browneye-build`; it failed on `/etc/hosts` before verification. Checkpoint 4
-must repeat the test from a rootfs containing all 13 old packages before the
-packages are published.
+must repeat the test from a rootfs containing all 13 old packages, with
+`tenko-release-6-1`, before the packages are published.
 
-### 6.8 Clean-install ordering: bootstrap `tenko-basefs` first
+### 6.8 `tenko-release-6-1` checkpoint-4 repetition
+
+The final release package is `tenko-release-6-1`, not the 13.1 prototype.
+Checkpoint 4 must repeat the old → new test from a rootfs built from the
+published `browneye-13.1-*` packages. Do not start from a rootfs that already
+has the local `tenko-release-13.1-4` prototype: 6 sorts below 13.1, so
+`tenko-release-6-1` would be a downgrade from that scratch package. The
+prototype must never be published.
+
+Use `--releasever=6` and assert the Tenko 6 identity:
+
+```sh
+dnf -y --nogpgcheck --installroot "$ROOT" --releasever=6 \
+    --disablerepo='*' \
+    --repofrompath=tenko,file:///repo \
+    --repofrompath=published,file:///published \
+    --setopt=install_weak_deps=False \
+    upgrade --allowerasing
+```
+
+Expected after:
+
+```text
+tenko-release-6-1.x86_64
+...
+NAME="Tenko Linux"
+ID=tenko
+VERSION_ID="6"
+VERSION="6 (Workstation)"
+PRETTY_NAME="Tenko Linux 6 (Workstation)"
+VARIANT="Workstation"
+VARIANT_ID=workstation
+RELEASE_TYPE=stable
+...
+-rw-r--r-- ... tenko-6.repo
+```
+
+The release package must carry exactly:
+
+```spec
+Obsoletes: browneye-release < 13.1-4
+Provides: browneye-release = 13.1-4
+Provides: system-release
+Provides: system-release(6)
+Provides: system-release(13.1)
+```
+
+The explicit `Obsoletes`/`Provides` is what makes the lower 6 version safe
+without an Epoch. `tenko-release-6-1` obsoletes `browneye-release-13.1-3`
+(and older 13.1 releases) and provides the old name at `13.1-4`, so an old
+`>= 13.1-3` requirement is satisfied. `system-release(13.1)` keeps old
+consumers satisfied and `system-release(6)` advertises the new release.
+`%{version}-%{release}` would expand to `6-1`, which is below the old
+`13.1-3`; it would neither satisfy the
+old requirement nor make an `Obsoletes: browneye-release < 6-1` rule cover the
+old package. Do not add an Epoch.
+
+Checkpoint 4 must assert:
+
+- `rpm -q tenko-release` returns `tenko-release-6-1`;
+- `rpm -q browneye-release` fails;
+- `/etc/yum.repos.d/tenko-6.repo` exists, contains `[tenko-6]`, and points at
+  `https://repo.pjfox.xyz/tenko/packages/6/`;
+- `/etc/os-release` matches the Tenko 6 block in §2.1;
+- the old unit/preset/config/macro/marker/log checks in §6.4 still pass.
+
+The old `packages/13.1` public/R2/LAN paths and the old `browneye` LAN root
+remain compatibility aliases; the new repository path is the 6 path. The
+artifacts remain the unsuffixed `tenko-installer.iso` /
+`tenko-rootfs.tar.gz` until the deferred rebuild adds the `-6` names.
+
+### 6.9 Clean-install ordering: bootstrap `tenko-basefs` first
 
 The checkpoint-4 clean-install test must install `tenko-basefs` in its own
 first transaction, then install `tenko-base` and the rest of the target set:
 
 ```sh
-dnf -y --nogpgcheck --installroot "$ROOT" --releasever=13.1 \
+dnf -y --nogpgcheck --installroot "$ROOT" --releasever=6 \
     --disablerepo='*' --repofrompath=tenko,file:///repo \
     --setopt=install_weak_deps=False install tenko-basefs
 
-dnf -y --nogpgcheck --installroot "$ROOT" --releasever=13.1 \
+dnf -y --nogpgcheck --installroot "$ROOT" --releasever=6 \
     --disablerepo='*' --repofrompath=tenko,file:///repo \
     --setopt=install_weak_deps=False install tenko-base
 ```
@@ -837,13 +987,20 @@ defect.
   repo file or touch boot entries. The supported base/desktop upgrade pulls
   `tenko-release` through `tenko-base`.
 - The passing proof covers 6 of 13 packages and used older EVRs than the
-  published ones. Checkpoint 4 must test the full 13-package set from the
-  published EVRs.
+  published ones. It tested the `tenko-release-13.1-4` prototype, not the
+  final `tenko-release-6-1`. Checkpoint 4 must test the full 13-package set
+  from the published EVRs with the 6-1 release package.
+- The temporary `tenko-release-13.1-4` prototype must never be published.
+  Because 6 sorts below 13.1, a system that already has the prototype cannot
+  upgrade to `tenko-release-6-1` without an explicit `dnf downgrade` (or
+  rebuilding the test root). The supported path starts from
+  `browneye-release-13.1-*`, which the explicit
+  `Obsoletes: browneye-release < 13.1-4` handles.
 - The old `.disabled` repo branch was not exercised in the passing run
   because RPM removed the unmodified old repo file first. The code path is
   simple and reversible, but checkpoint 4 should include a modified old repo
   file in at least one case.
-- The new `tenko-13.1.repo` points at the canonical public URL before
+- The new `tenko-6.repo` points at the canonical public URL before
   checkpoint 6 has cut it over. The proof checks the file contents but does
   not fetch that URL. Do not treat the local proof as a production repo test.
 
@@ -858,13 +1015,21 @@ defect.
 - Some old names are intentional compatibility references: `Obsoletes`,
   `Provides`, cleanup paths, the `.disabled` repo file, old unit names in
   scriptlets and old artifact/URL aliases. The verifier must allowlist them.
-- The old image tag, ISO and rootfs remain in place. The tree and the images
-  are intentionally inconsistent until checkpoint 7 rebuilds them.
+- The old image tag and the old `browneye-*` ISO/rootfs remain in place. The
+  unsuffixed `tenko-*` artifacts are the target at checkpoint 7; `-6` names
+  can be added then. The tree and the images are intentionally inconsistent
+  until that rebuild.
 
 ## 8. Checkpoint 2 gate
 
-- [x] Package strategy for all 13 packages: old → new name, old → new EVR,
-  exact versioned `Obsoletes:`/`Provides:`.
+- [x] Package strategy for all 13 packages: old → new name, old → new EVR
+  (`tenko-release-6-1`; the other 12 keep their 13.1 / basefs EVRs), exact
+  versioned `Obsoletes:`/`Provides:`.
+- [x] Tenko 6 release identity recorded: `VERSION_ID="6"`, Workstation
+  edition, stable; `tenko-release-6-1`; other packages keep their planned
+  13.1 / basefs 1.0 EVRs.
+- [x] `tenko-release` explicit lower-version compatibility lines recorded;
+  no Epoch.
 - [x] `browneye-basefs` 1.0 exception recorded.
 - [x] No old-name primary packages; aliases are metadata only.
 - [x] Exact migration snippets for `tenko-release` `%posttrans`,
@@ -872,10 +1037,12 @@ defect.
   `tenko-rpm-config`, `tenko-base-build`, `tenko-base-runtime` and
   `tenko-workstation`.
 - [x] Exact `%files` and payload renames for all 13 specs.
-- [x] Repository transition: new `tenko-13.1.repo`, old repo files renamed
+- [x] Repository transition: new `tenko-6.repo`, old repo files renamed
   `.disabled`, compatibility aliases retained.
-- [x] Local old → new upgrade proof passed (`=== PASS ===`).
+- [x] Local old → new upgrade proof passed for the 13.1 rename prototype
+  (`=== PASS ===`).
 - [x] Risks and limits recorded.
+- [ ] Final `tenko-release-6-1` old → new proof (checkpoint 4, §6.8).
 
 **Open items for checkpoint 3/4:**
 
@@ -883,12 +1050,20 @@ defect.
    `default browneye.conf` (not just `default browneye-<kver>`).
 2. Update `xfce-desktop`, `xfce-desktop-core`, `xfce-desktop-full` and
    `podman-bin` to require `tenko-*`; do not rely on the `Provides` aliases.
-3. Repeat the upgrade test with all 13 old packages and the published EVRs,
-   including a modified old repo file to exercise the `.disabled` branch.
+3. Repeat the upgrade test with all 13 old packages, the published EVRs and
+   `tenko-release-6-1`, using `--releasever=6`; include a modified old repo
+   file to exercise the `.disabled` branch.
 4. Keep the checkpoint-3 verifier `%changelog`-aware and allowlist the
    intentional compatibility references.
+5. Decide the Tenko container image tag at the checkpoint-7 rebuild
+   (`localhost/tenko/base:r6` is proposed, but not locked); the old
+   `localhost/browneye/base:r13.1` tag remains until then.
+6. At the deferred image rebuild, confirm whether the unsuffixed
+   `tenko-installer.iso` / `tenko-rootfs.tar.gz` or the new `-6` names are
+   canonical; both remain aliases during the compatibility window.
 
-**Gate status:** met for checkpoint 2. The design is written and the local
-old → new upgrade succeeds. Checkpoint 3 may apply it to the tree; checkpoints
+**Gate status:** met for the checkpoint-2 design and the 13.1 prototype
+proof. The final `tenko-release-6-1` proof is explicitly the checkpoint-4
+repetition in §6.8. Checkpoint 3 may apply the design to the tree; checkpoints
 4–6 must still build, test and publish, and this document does not authorize a
 publish.
