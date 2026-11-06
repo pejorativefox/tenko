@@ -1,18 +1,21 @@
 Name:       tenko-release
-Version:    13.1
-Release:    4
-# Tenko rename compatibility (issue #22).
+Version:    6
+Release:    1
+# Tenko 6 sorts below the old 13.1 EVR, so the compatibility alias is
+# explicit rather than derived from %{version}-%{release} (issue #22).
 Obsoletes: browneye-release < 13.1-4
-Provides: browneye-release = %{version}-%{release}
+Provides: browneye-release = 13.1-4
 Summary:    Tenko Linux release file
 License:    MIT
 Prefix:     /usr
 
 Provides: system-release
-Provides: system-release(%{version})
+Provides: system-release(6)
+# Keep old clients and packages working during the compatibility window.
+Provides: system-release(13.1)
 
 %description
-Release identification for Tenko Linux 13.1.
+Release identification for Tenko Linux 6 (Workstation), stable release.
 
 %prep
 
@@ -24,18 +27,21 @@ mkdir -p %{buildroot}/usr/lib %{buildroot}/etc
 cat > %{buildroot}/usr/lib/os-release <<'OSR'
 NAME="Tenko Linux"
 ID=tenko
-VERSION="13.1"
-VERSION_ID="13.1"
-PRETTY_NAME="Tenko Linux 13.1"
+VERSION="6 (Workstation)"
+VERSION_ID="6"
+PRETTY_NAME="Tenko Linux 6 (Workstation)"
+VARIANT="Workstation"
+VARIANT_ID=workstation
+RELEASE_TYPE=stable
 ANSI_COLOR="0;34"
 OSR
 ln -sf ../usr/lib/os-release %{buildroot}/etc/os-release
 
 mkdir -p %{buildroot}/etc/yum.repos.d
-cat > %{buildroot}/etc/yum.repos.d/tenko-13.1.repo <<'REPO'
-[tenko-13.1]
-name=Tenko Linux 13.1
-baseurl=https://repo.pjfox.xyz/tenko/packages/13.1/
+cat > %{buildroot}/etc/yum.repos.d/tenko-6.repo <<'REPO'
+[tenko-6]
+name=Tenko Linux 6 (Workstation)
+baseurl=https://repo.pjfox.xyz/tenko/packages/6/
 enabled=1
 gpgcheck=0
 repo_gpgcheck=0
@@ -107,9 +113,20 @@ fi
 %files
 /etc/os-release
 /usr/lib/os-release
-%config(noreplace) /etc/yum.repos.d/tenko-13.1.repo
+%config(noreplace) /etc/yum.repos.d/tenko-6.repo
 
 %changelog
+* Fri Nov 06 2026 tenko <build@tenko.invalid> 6-1
+- Adopt the Tenko 6 distro identity: Tenko Linux 6 (Workstation), stable
+  release type.  Package versions roll independently; the other renamed
+  packages keep their 13.1 (and basefs 1.0) EVRs.
+- Keep the browneye-release compatibility alias explicit: 6 sorts below
+  13.1, so Obsoletes browneye-release < 13.1-4 and Provides
+  browneye-release = 13.1-4 replace the macro-derived alias.
+- Ship the tenko-6 repository file and provide system-release(6) plus
+  system-release(13.1) for the compatibility window.  The old
+  browneye-13.1.repo is disabled by %posttrans.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-4
 - Rename browneye-release to tenko-release and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.
