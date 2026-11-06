@@ -31,7 +31,7 @@ GIB = 1024 * MIB
 ESP_MIN_FREE_MIB = 256
 
 RELEASEVER = "13.1"
-DEFAULT_REPO = "https://repo.pjfox.xyz/tenko/packages/13.1/"
+DEFAULT_REPO = "https://repo.pjfox.xyz/tenko/packages/6/"
 FALLBACK_KVER = "7.3.1"
 
 TENKO_BASE_PACKAGES = ("tenko-basefs",)
@@ -837,9 +837,9 @@ class Installer:
             step="configure",
             description="create the repository directory")
         self.runner.write_file(
-            os.path.join(repos_dir, "tenko-13.1.repo"),
-            "[tenko-13.1]\n"
-            "name=Tenko Linux 13.1\n"
+            os.path.join(repos_dir, "tenko-6.repo"),
+            "[tenko-6]\n"
+            "name=Tenko Linux 6 (Workstation)\n"
             "baseurl=" + source + "\n"
             "enabled=1\n"
             "gpgcheck=0\n"

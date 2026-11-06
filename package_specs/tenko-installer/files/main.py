@@ -38,7 +38,7 @@ from runner import CommandError, CommandRunner
 from ui import BACK, QUIT, RESCAN, CursesUI, Field, Row
 
 VERSION = "13.1"
-DEFAULT_REPO = "https://repo.pjfox.xyz/tenko/packages/13.1/"
+DEFAULT_REPO = "https://repo.pjfox.xyz/tenko/packages/6/"
 DEFAULT_TARGET = "/mnt/tenko"
 LOG_DIR = "/run/tenko"
 LOG_JSONL = os.path.join(LOG_DIR, "install.jsonl")
@@ -237,7 +237,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--repo",
         default=None,
-        help="RPM repository, URL or path (default: the Tenko 13.1 repository)",
+        help="RPM repository, URL or path (default: the Tenko 6 repository)",
     )
     parser.add_argument(
         "--target",
