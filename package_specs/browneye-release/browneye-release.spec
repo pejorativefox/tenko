@@ -1,6 +1,6 @@
 Name:       browneye-release
 Version:    13.1
-Release:    2
+Release:    3
 Summary:    Browneye Linux release file
 License:    MIT
 Prefix:     /usr
@@ -32,7 +32,7 @@ mkdir -p %{buildroot}/etc/yum.repos.d
 cat > %{buildroot}/etc/yum.repos.d/browneye-13.1.repo <<'REPO'
 [browneye-13.1]
 name=Browneye Linux 13.1
-baseurl=https://tomfool.8bit.ca/browneye/packages/13.1/
+baseurl=https://repo.pjfox.xyz/packages/13.1/
 enabled=1
 gpgcheck=0
 repo_gpgcheck=0
@@ -45,6 +45,12 @@ REPO
 %config(noreplace) /etc/yum.repos.d/browneye-13.1.repo
 
 %changelog
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-3
+- Point the shipped dnf repository at https://repo.pjfox.xyz/packages/13.1/.
+  The public tree moved to Cloudflare R2, but the release package still
+  installed a browneye-13.1.repo that referenced the retired
+  tomfool.8bit.ca host.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-2
 - Ship /etc/yum.repos.d/browneye-13.1.repo so an installed system can
   dnf install packages from the published repository
