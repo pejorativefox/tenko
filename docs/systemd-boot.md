@@ -1,4 +1,4 @@
-# Converting Browneye to systemd-boot
+# Converting Tenko to systemd-boot
 
 **Status:** implemented and verified end to end on branch `systemd-boot`,
 2026-11-04 (P0 packaging, P1 installer/kernel, P2 ISO). Related: Gitea issue
@@ -39,7 +39,10 @@ phased implementation plan.
 Trade-offs accepted: no GRUB shell for recovery, boot data must live on FAT,
 larger ESP usage, and one more build-time dependency.
 
-## Verified current state
+## Verified current state (pre-rename record, 2026-11-04)
+
+The names and paths in this table are the values captured before the rename;
+they are kept as history, not as current guidance.
 
 | Layer | Now |
 |---|---|
@@ -95,7 +98,7 @@ Partitions (GPT):
 
 | # | Size | Type | Mount |
 |---|---|---|---|
-| 1 | 1 GiB | EFI System (FAT32, `BROWNEYEESP`) | `/boot` |
+| 1 | 1 GiB | EFI System (FAT32, `TENKOESP`) | `/boot` |
 | 2 | 2 GiB | Linux swap | swap |
 | 3 | rest | Linux (ext4) | `/` |
 
@@ -116,10 +119,10 @@ Boot chain:
 
 ```
 firmware
-  └─ /boot/EFI/systemd/systemd-bootx64.efi   (NVRAM entry "Browneye Linux")
+  └─ /boot/EFI/systemd/systemd-bootx64.efi   (NVRAM entry "Tenko Linux")
      or /boot/EFI/BOOT/BOOTX64.EFI           (removable fallback, same binary)
         └─ /boot/loader/loader.conf
-           └─ /boot/loader/entries/browneye-7.3.1.conf
+           └─ /boot/loader/entries/tenko-7.3.1.conf
               ├─ linux  /vmlinuz-7.3.1
               └─ initrd /initramfs-7.3.1.img
 ```
@@ -127,7 +130,7 @@ firmware
 `loader/loader.conf`:
 
 ```
-default browneye-*
+default tenko-*
 timeout 3
 console-mode keep
 editor no
@@ -136,7 +139,7 @@ editor no
 Entry (paths are relative to `$BOOT`, i.e. `/boot`):
 
 ```
-title Browneye Linux 13.1 (7.3.1)
+title Tenko Linux 13.1 (7.3.1)
 linux /vmlinuz-7.3.1
 initrd /initramfs-7.3.1.img
 options root=UUID=<root fs uuid> ro rootwait quiet splash
@@ -156,7 +159,7 @@ Keeping flat files means:
 
 - `linux-modules %post` keeps building `/boot/initramfs-<kver>.img` (unchanged,
   so module-only updates still refresh the initramfs);
-- `linux %post` writes `/boot/loader/entries/browneye-<kver>.conf`;
+- `linux %post` writes `/boot/loader/entries/tenko-<kver>.conf`;
 - `linux %preun` removes the entry (and the existing `%preun` in modules
   removes the initramfs);
 - the installer writes the same entry directly, with the root UUID it just
@@ -167,32 +170,32 @@ If UKIs become interesting later, this is the piece to replace with
 
 ## Installer changes
 
-`package_specs/browneye-installer/files/install.py`:
+`package_specs/tenko-installer/files/install.py`:
 
 - `step_mount`: mount the ESP at `target/boot` instead of `target/boot/efi`
   (create `boot` before mounting; root fs already has an empty `/boot`).
 - `_write_fstab`: `UUID=... /boot vfat umask=0077,shortname=winnt 0 2`.
 - `step_bootloader` → sd-boot:
   - `chroot <target> /usr/bin/bootctl --esp-path=/boot --no-variables install`
-  - write `loader/loader.conf` and `loader/entries/browneye-<kver>.conf`
+  - write `loader/loader.conf` and `loader/entries/tenko-<kver>.conf`
     (replaces `_grub_cfg`)
   - verify `/boot/EFI/systemd/systemd-bootx64.efi` and
     `/boot/EFI/BOOT/BOOTX64.EFI` exist
-  - `efibootmgr --create --disk ... --part <esp> --label "Browneye Linux"
+  - `efibootmgr --create --disk ... --part <esp> --label "Tenko Linux"
     --loader '\EFI\systemd\systemd-bootx64.efi'`, then `efibootmgr -v`
   - keep the current best-effort behavior for read-only NVRAM
 - `step_finish`: log copy to the ESP path changes from `/boot/efi` to `/boot`.
 - `step_initramfs`: unchanged (`dracut` writes the flat initramfs).
 
-`package_specs/browneye-installer/files/probe.py`: replace the `grub-install`
+`package_specs/tenko-installer/files/probe.py`: replace the `grub-install`
 preflight requirement with `bootctl` (and keep `efibootmgr`, `dracut`).
 
 Packaging:
 
-- `browneye-installer.spec`: drop `Requires: grub`; keep `dracut`,
+- `tenko-installer.spec`: drop `Requires: grub`; keep `dracut`,
   `efibootmgr`, `efivar`; update the description and README.
-- `browneye-live.spec`: drop `Requires: grub`; bootctl comes from systemd.
-- `README.browneye-installer`: update the "install the bootloader" step.
+- `tenko-live.spec`: drop `Requires: grub`; bootctl comes from systemd.
+- `README.tenko-installer`: update the "install the bootloader" step.
 - Keep the `grub` spec in the repository but stop depending on it. Removing it
   entirely is a separate decision (see open questions).
 
@@ -213,7 +216,7 @@ ISO9660
 efiboot.img (96 MiB, FAT32)
   /EFI/BOOT/BOOTX64.EFI        systemd-bootx64.efi from the live root
   /loader/loader.conf
-  /loader/entries/browneye.conf
+  /loader/entries/tenko.conf
   /vmlinuz
   /initrd.img
 ```
@@ -231,13 +234,13 @@ drop the ISO9660 copies only (already planned) and shrink to 64 MiB.
 - grow `efiboot.img` from 12 MiB FAT16 to 96 MiB FAT32 and copy kernel,
   initramfs, `loader.conf` and the entry into it with mtools;
 - keep the squashfs, the live boot args
-  (`root=live:CDLABEL=BROWNEYE rd.live.image rd.live.dir=LiveOS
+  (`root=live:CDLABEL=TENKO rd.live.image rd.live.dir=LiveOS
   rd.live.squashimg=squashfs.img rd.overlay=1 console=tty0
   console=ttyS0,115200`), `ISO_AUTO`/`ISO_ANSWER`, and the final `xorrisofs`
   invocation (`-e boot/efiboot.img -no-emul-boot -append_partition 2 0xef
   -isohybrid-gpt-basdat`).
 
-`loader.conf` for the ISO: `default browneye.conf`, `timeout 5`,
+`loader.conf` for the ISO: `default tenko.conf`, `timeout 5`,
 `console-mode keep`.
 
 Live-root/ISO tooling: no new packages. `systemd` now ships the loader;
@@ -291,7 +294,7 @@ Source0 URL: `https://files.pythonhosted.org/packages/source/p/pyelftools/pyelft
 - `-D bootloader=enabled` (keep `-D ukify=disabled`)
 - `-D sbat-distro-url=https://pjfox.xyz/git/daspork/browneye/issues`: SBAT
   autodetection reads `BUG_REPORT_URL` from `/etc/os-release`, which
-  `browneye-release` does not set yet, so the build fails without an explicit
+  `tenko-release` does not set yet, so the build fails without an explicit
   URL
 - `Release: 3`, changelog entry naming pyelftools and the new bootloader
 - after install, assert
@@ -312,7 +315,10 @@ Order of work: add pyelftools → build and publish it → rebuild systemd
 publish anything that depends on it. `scripts/publish_rpm.sh` publishes to the
 public site and the LAN mirror together.
 
-## Phases
+## Phases (pre-rename implementation record)
+
+Package names and SBAT strings in this table are the values recorded when each
+phase was completed; they are kept as history.
 
 | Phase | Work | Exit criteria |
 |---|---|---|
@@ -326,6 +332,10 @@ may land as code plus a local test image and the published ISO stays GRUB-based
 until a rebuild is asked for. Note that in the ISO/rootfs rebuild issue.
 
 ## Verification checklist
+
+Checked items record the pre-rename verification run on 2026-11-04; the
+package names and output strings in those lines are the values captured then.
+Unchecked items remain current work.
 
 - [x] `rpm -qpl systemd-262.1-3 | grep systemd-bootx64.efi` (main package)
 - [x] sd-boot menu appears on serial and boots the installed entry
@@ -346,7 +356,10 @@ until a rebuild is asked for. Note that in the ISO/rootfs rebuild issue.
 - [ ] install onto a disk with an existing 512 MiB ESP (the 256 MiB free-space
       check is unit-tested but not exercised on real media)
 
-### Test log (2026-11-04)
+### Test log (2026-11-04, pre-rename record)
+
+The build names, menu titles and login prompts below are the values captured
+during the pre-rename run.
 
 ```
 # skeleton ISO (dummy kernel) — media layout only
@@ -370,7 +383,10 @@ qemu-system-x86_64 ... -drive file=build/systemd-boot-test.img
 Artifacts from the run are under `build/` (`browneye-installer-systemd.iso`,
 `systemd-boot-install-serial.log`, `systemd-boot-run-serial.log`).
 
-### Published images
+### Published images (2026-11-06, pre-rename record)
+
+Artifact names, package versions and checksums below are the pre-rename
+published values.
 
 The installer ISO and container rootfs were rebuilt from `main` after the
 multi-disk layout editor, btrfs support, btrfs-progs/liblzo2 packages, the

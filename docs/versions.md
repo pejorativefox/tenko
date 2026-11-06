@@ -1,6 +1,6 @@
 # Version policy and book synchronisation
 
-Browneye tracks the LFS and BLFS r13.1 books (the `trunk` branches of
+Tenko tracks the LFS and BLFS r13.1 books (the `trunk` branches of
 `~/repos/lfs` and `~/repos/blfs`).  The rule, including how to handle packages
 that are not in the books, is in [`AGENTS.md`](../AGENTS.md) — this page only
 describes the tooling.

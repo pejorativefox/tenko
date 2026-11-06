@@ -1,4 +1,4 @@
-# Browneye spec audit — LFS/BLFS trunk
+# Tenko spec audit — LFS/BLFS trunk
 
 Audit of `package_specs/` against the LFS and BLFS checkouts and the
 **published** repository, 2026-11-05.
@@ -57,7 +57,7 @@ The 111 without a comparable entity fall into five groups; the
 version-bearing packages added in the 2026-11-05 waves were checked
 against upstream (§1.2):
 
-- **Distro-specific metas and config** (13): the `browneye-*` packages
+- **Distro-specific metas and config** (13): the `tenko-*` packages
   (`base`, `base-build`, `base-runtime`, `basefs`, `build`,
   `desktop-config`, `firstboot`, `installer`, `live`, `release`,
   `rpm-config`, `sysconfig`, `workstation`).

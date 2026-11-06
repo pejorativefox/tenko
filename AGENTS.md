@@ -1,4 +1,4 @@
-# Agent rules for Browneye
+# Agent rules for Tenko
 
 ## Version parity with LFS/BLFS
 
@@ -35,7 +35,7 @@ URL or use the web UI when `tea` can do the work.
 
 Every publish must reach the local-network mirror as well as the public
 site.  The publish scripts already do it (`MIRROR`, default
-`daspork@192.168.31.9`, `MIRROR_PUBLIC=public_html/browneye`; set
+`daspork@192.168.31.9`, `MIRROR_PUBLIC=public_html/tenko`; set
 `MIRROR=0` only for a deliberate local-only test):
 
 - `scripts/publish_rpm.sh` mirrors the RPM, the merged repodata and the
@@ -44,8 +44,10 @@ site.  The publish scripts already do it (`MIRROR`, default
   page.
 - `scripts/publish_iso.sh` uploads an ISO plus a fresh `.sha256` to both.
 
-The mirror is served at <http://192.168.31.9/~daspork/browneye/>.  Never
-publish to only one of the two.
+The mirror is served at <http://192.168.31.9/~daspork/tenko/>.  During the
+compatibility window the old `public_html/browneye` path is a symlink to
+`public_html/tenko`, so old URLs keep working.  Never publish to only one of
+the two.
 
 ## Images are rebuilt only on request
 

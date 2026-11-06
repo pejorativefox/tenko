@@ -20,7 +20,7 @@ Still open: encryption, btrfs subvolumes, timezone/keymap/locale, existing-OS
 labels, "install alongside" (shrink), answer-file v3, plain-mode parity and
 the optional graphical front end.
 
-Scope: the interactive experience of `browneye-installer` (the ncurses
+Scope: the interactive experience of `tenko-installer` (the ncurses
 installer on the live ISO).  The install backend, the answer-file format and
 the ISO build are only covered where the UX depends on them.
 
@@ -134,7 +134,7 @@ These are the things a first-time user hits, in order.
     distribution this is a visible gap.
 
 12. **No existing-OS awareness.**  Partitions are labelled with type names
-    and filesystem names, not "Windows 11" or "existing Browneye".  There is
+    and filesystem names, not "Windows 11" or "existing Tenko".  There is
     no warning that the selected ESP belongs to another OS.
 
 13. **Back navigation loses work.**  The wizard is a sequence of function
@@ -210,7 +210,7 @@ These are the things a first-time user hits, in order.
 
 * **Anaconda's Cockpit Storage integration** is powerful but heavy, and its
   manual storage flow has been criticised as a regression for newcomers.
-  Browneye does not need a general-purpose storage manager inside the
+  Tenko does not need a general-purpose storage manager inside the
   installer.
 * **Agama's expert partitioning** is still catching up.  A guided flow plus
   a focused editor is a better target than a full disk-management suite.
@@ -248,7 +248,7 @@ Five screens, of which only three require input:
 ```
 1. Welcome / preflight
    - UEFI, GPT-capable disks, network, repository
-   - [ Install Browneye 13.1 ]   [ Advanced installation ]
+   - [ Install Tenko 13.1 ]   [ Advanced installation ]
 
 2. Where to install
    - disk list (model, size, current contents, free space)
@@ -274,9 +274,9 @@ Five screens, of which only three require input:
 #### Screen 2 mock-up
 
 ```
- Install Browneye 13.1
+ Install Tenko 13.1
  ┌──────────────────────────────────────────────────────────────────┐
- │ Where should Browneye be installed?                              │
+ │ Where should Tenko be installed?                                 │
  │                                                                  │
  │   ( ) /dev/nvme0n1   Samsung 980 PRO 1 TB                        │
  │       [ Windows 400G ][ ESP 100M ][ free 500G ]                  │
@@ -284,7 +284,7 @@ Five screens, of which only three require input:
  │       [              free 20 GB                              ]   │
  │                                                                  │
  │   Installation type                                              │
- │     (*) Erase the disk and install Browneye                      │
+ │     (*) Erase the disk and install Tenko                         │
  │     ( ) Use the existing free space (keep all partitions)        │
  │     ( ) Custom partitioning...                                   │
  │                                                                  │
@@ -328,8 +328,8 @@ Notes:
  │   /dev/nvme0n1  NOT MODIFIED                                     │
  │                                                                  │
  │ Encryption  none                                                 │
- │ Account     admin (wheel), hostname browneye                     │
- │ Packages    Desktop (browneye-base + xfce-desktop)               │
+ │ Account     admin (wheel), hostname tenko                        │
+ │ Packages    Desktop (tenko-base + xfce-desktop)                  │
  │ Boot        systemd-boot on /dev/sda1                            │
  │                                                                  │
  │ Type ERASE to confirm: ______                                    │
@@ -352,7 +352,7 @@ This replaces `_edit_disk` and the two blind forms.
 ```
  Storage: /dev/nvme0n1
  ┌──────────────────────────────────────────────────────────────────┐
- │ [ ESP 100M ][ Windows 400G ][ Browneye 80G ][ free 420G ]        │
+ │ [ ESP 100M ][ Windows 400G ][ Tenko 80G ][ free 420G ]           │
  │                                                                  │
  │   #  Device        Size    Type       FS     Mount    Action     │
  │   1  nvme0n1p1    100M    EFI        vfat   /boot    keep       │
@@ -511,7 +511,7 @@ Install steps:
    `dm`; add `crypt`).
 7. `systemd-boot` entries reference the same UUID.
 
-Packages: `cryptsetup` exists in `package_specs/`.  Add it to `browneye-live`
+Packages: `cryptsetup` exists in `package_specs/`.  Add it to `tenko-live`
 and to the target package set when encryption is selected.
 
 Testing: QEMU install with a passphrase, boot and unlock; wrong passphrase;
@@ -583,7 +583,7 @@ Keep v2 compatible.  Add a simpler top-level form for the guided modes:
   "swap": "swapfile",
   "encrypt": false,
   "package_set": "desktop",
-  "hostname": "browneye",
+  "hostname": "tenko",
   "timezone": "Europe/Berlin",
   "locale": "en_US.UTF-8",
   "keymap": "us",
@@ -646,8 +646,8 @@ how a row is drawn.
 
 ## 5. Shell choice: TUI, GTK or web?
 
-The current live image is console-only.  `browneye-live` pulls in
-`browneye-base-runtime`, Python, ncurses, dnf, dracut and the filesystem
+The current live image is console-only.  `tenko-live` pulls in
+`tenko-base-runtime`, Python, ncurses, dnf, dracut and the filesystem
 tools; there is no Xorg, no Wayland compositor and no browser.
 
 | Option | What it takes | Pros | Cons |
