@@ -614,6 +614,17 @@ rename is reversible.
 |---|---|---|---|
 | R2 bucket | `r2:browneye` | unchanged | Keep the bucket; only keys move under `tenko/`. |
 | R2 key prefix | `r2:browneye/packages/13.1/` | `r2:browneye/tenko/packages/6` | Keep the old key as an alias. |
+
+**Bucket verification (2026-11-06):** the configured `r2:` remote can read and
+write `r2:browneye`. A test object written to
+`r2:browneye/tenko/packages/6/README.txt` was served at
+`https://repo.pjfox.xyz/tenko/packages/6/README.txt` (HTTP 200), confirming the
+custom-domain mapping. A new `r2:tenko` bucket exists, but the current rclone
+token receives HTTP 403 when listing it, and `repo.pjfox.xyz` still serves
+`r2:browneye`. The rename therefore publishes to
+`r2:browneye/tenko/packages/6` by default. To adopt the tenko bucket later:
+grant the token access to it, point the custom domain/Worker at it, and copy
+the tree server-side before switching the URLs.
 | Public repo URL | `https://repo.pjfox.xyz/packages/13.1/` | `https://repo.pjfox.xyz/tenko/packages/6/` | Old URL keeps serving the compatibility repo. |
 | LAN mirror root | `public_html/browneye` | `public_html/tenko` | Move the tree; leave `browneye` as a symlink. |
 | LAN repo path | `public_html/browneye/packages/13.1` | `public_html/tenko/packages/6` | Keep the old path as an alias. |
