@@ -5,7 +5,7 @@ books.  It uses systemd, a merged `/usr`, XFCE and a UEFI-only, network-install
 ISO.  Packages are shipped as RPMs from a self-hosted dnf repository; the
 installer downloads them while installing, so the ISO carries no packages.
 
-- Public repository: <https://tomfool.8bit.ca/browneye/packages/13.1/>
+- Public repository: <https://repo.pjfox.xyz/packages/13.1/>
 - LAN mirror: <http://192.168.31.9/~daspork/browneye/packages/13.1/>
 - Issue tracker: <https://pjfox.xyz/git/daspork/browneye/issues>
 
@@ -14,8 +14,8 @@ installer downloads them while installing, so the ISO carries no packages.
 ### 1. Download and verify the installer
 
 ```sh
-curl -LO https://tomfool.8bit.ca/browneye/iso/browneye-installer.iso
-curl -LO https://tomfool.8bit.ca/browneye/iso/browneye-installer.iso.sha256
+curl -LO https://repo.pjfox.xyz/iso/browneye-installer.iso
+curl -LO https://repo.pjfox.xyz/iso/browneye-installer.iso.sha256
 sha256sum -c browneye-installer.iso.sha256
 ```
 
@@ -65,8 +65,8 @@ A 244 MiB rootfs tarball with the build toolchain is published for use as a
 container/build image:
 
 ```sh
-curl -LO https://tomfool.8bit.ca/browneye/rootfs/browneye-rootfs.tar.gz
-curl -LO https://tomfool.8bit.ca/browneye/rootfs/browneye-rootfs.tar.gz.sha256
+curl -LO https://repo.pjfox.xyz/rootfs/browneye-rootfs.tar.gz
+curl -LO https://repo.pjfox.xyz/rootfs/browneye-rootfs.tar.gz.sha256
 sha256sum -c browneye-rootfs.tar.gz.sha256
 podman import browneye-rootfs.tar.gz localhost/browneye/rootfs:13.1
 ```

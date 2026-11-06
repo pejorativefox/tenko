@@ -135,12 +135,12 @@
     <p>Add the repository definition and install the base meta-package:</p>
 <pre><code><span class="c"># add the repo</span>
 sudo curl -o /etc/yum.repos.d/browneye-13.1.repo \
-  https://tomfool.8bit.ca/browneye/packages/13.1/browneye-13.1.repo
+  https://repo.pjfox.xyz/packages/13.1/browneye-13.1.repo
 
 <span class="c"># install the base system</span>
 sudo dnf install browneye-base</code></pre>
     <p>Or use it directly, without installing a repo file:</p>
-<pre><code>sudo dnf --repofrompath=browneye,https://tomfool.8bit.ca/browneye/packages/13.1/ \
+<pre><code>sudo dnf --repofrompath=browneye,https://repo.pjfox.xyz/packages/13.1/ \
   --disablerepo='*' install browneye-base</code></pre>
     <p>The XFCE 4.20 desktop (X11 only, no Wayland) is in the same repository:</p>
 <pre><code>sudo dnf install xfce-desktop</code></pre>
@@ -153,8 +153,8 @@ sudo dnf install browneye-base</code></pre>
        packages from this repository, so the machine needs network access
        while installing (the ISO itself carries no RPMs):</p>
 <pre><code><span class="c"># download and verify</span>
-curl -LO https://tomfool.8bit.ca/browneye/iso/browneye-installer.iso
-curl -LO https://tomfool.8bit.ca/browneye/iso/browneye-installer.iso.sha256
+curl -LO https://repo.pjfox.xyz/iso/browneye-installer.iso
+curl -LO https://repo.pjfox.xyz/iso/browneye-installer.iso.sha256
 sha256sum -c browneye-installer.iso.sha256
 
 <span class="c"># write it to a USB stick</span>
@@ -166,8 +166,8 @@ sudo dd if=browneye-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</
     <p>A container rootfs built from this repository is published too.
        It is the build image (gcc, make, Python 3.15, Perl, CMake/meson,
        rpm/dnf, createrepo_c) and can be imported directly:</p>
-<pre><code>curl -LO https://tomfool.8bit.ca/browneye/rootfs/browneye-rootfs.tar.gz
-curl -LO https://tomfool.8bit.ca/browneye/rootfs/browneye-rootfs.tar.gz.sha256
+<pre><code>curl -LO https://repo.pjfox.xyz/rootfs/browneye-rootfs.tar.gz
+curl -LO https://repo.pjfox.xyz/rootfs/browneye-rootfs.tar.gz.sha256
 sha256sum -c browneye-rootfs.tar.gz.sha256
 podman import browneye-rootfs.tar.gz localhost/browneye/rootfs:13.1</code></pre>
     <p class="muted">244 MiB gzip · 127 packages · regenerated from the

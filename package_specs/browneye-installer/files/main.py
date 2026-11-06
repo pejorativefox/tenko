@@ -32,7 +32,7 @@ from runner import CommandError, CommandRunner
 from ui import BACK, QUIT, RESCAN, CursesUI, Field, Row
 
 VERSION = "13.1"
-DEFAULT_REPO = "https://tomfool.8bit.ca/browneye/packages/13.1/"
+DEFAULT_REPO = "https://repo.pjfox.xyz/packages/13.1/"
 DEFAULT_TARGET = "/mnt/browneye"
 LOG_DIR = "/run/browneye"
 LOG_JSONL = os.path.join(LOG_DIR, "install.jsonl")

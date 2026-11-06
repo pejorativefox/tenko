@@ -30,7 +30,7 @@ GIB = 1024 * MIB
 ESP_MIN_FREE_MIB = 256
 
 RELEASEVER = "13.1"
-DEFAULT_REPO = "https://tomfool.8bit.ca/browneye/packages/13.1/"
+DEFAULT_REPO = "https://repo.pjfox.xyz/packages/13.1/"
 FALLBACK_KVER = "7.3.1"
 
 BROWNEYE_BASE_PACKAGES = ("browneye-basefs",)

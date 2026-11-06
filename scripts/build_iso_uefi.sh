@@ -15,13 +15,13 @@
 # efibootmgr/dosfstools/LVM2/kernel/python + browneye-installer).  dracut's
 # dmsquash-live mounts the squashfs with an overlayfs upper in tmpfs; the
 # installer then installs the target packages from the network repository
-# (https://tomfool.8bit.ca/browneye/packages/13.1/ by default), so the media
+# (https://repo.pjfox.xyz/packages/13.1/ by default), so the media
 # itself carries no RPMs.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 IMG=${IMG:-localhost/browneye/base:r13.1}
-REPO=${REPO:-https://tomfool.8bit.ca/browneye/packages/13.1/}
+REPO=${REPO:-https://repo.pjfox.xyz/packages/13.1/}
 KVER=${KVER:-7.3.1}
 LIVE=${LIVE:-$PWD/build/live-root}
 STAGE=${STAGE:-$PWD/build/iso-stage}

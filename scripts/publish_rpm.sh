@@ -20,24 +20,23 @@
 #   DRY_RUN=1 scripts/publish_rpm.sh foo.rpm
 #       stage and merge locally, print the plan, upload nothing.
 #
-# Requires createrepo_c, mergerepo_c, rsync, ssh, zstd and python3 on the host.
+# Requires createrepo_c, mergerepo_c, rclone, zstd and python3 on the host;
+# the LAN mirror step additionally needs rsync and ssh.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 VERSION=${VERSION:-13.1}
-REMOTE=${REMOTE:-tomfool8@tomfool.8bit.ca}
-PORT=${PORT:-53211}
-PUBLIC=${PUBLIC:-public_html/browneye}
-DEST=${DEST:-$PUBLIC/packages/$VERSION/}
+# Cloudflare R2 (S3) target for the public tree; the LAN mirror stays on rsync.
+R2=${R2:-r2:browneye}
+R2_PATH=${R2_PATH:-packages/$VERSION}
 # LAN mirror (also refreshed by publish_repo.sh); set MIRROR=0 to skip.
 MIRROR=${MIRROR:-daspork@192.168.31.9}
 MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/browneye}
-URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/}
+URL=${URL:-https://repo.pjfox.xyz/packages/$VERSION/}
 REPO_ID=browneye-$VERSION
 STAGE=${STAGE:-build/publish-rpm}
 PRUNE=${PRUNE:-0}
 DRY_RUN=${DRY_RUN:-0}
-SSH_CMD=(ssh -p "$PORT")
 
 [ "$#" -gt 0 ] || { echo "usage: $0 RPM..." >&2; exit 2; }
 
@@ -53,8 +52,10 @@ rm -rf "$STAGE"
 mkdir -p "$STAGE"/{new,merged}
 mkdir -p "$STAGE/old/repodata"
 
-echo "fetching published repodata from $REMOTE"
-rsync -a -e "ssh -p $PORT" "$REMOTE:$DEST/repodata/" "$STAGE/old/repodata/"
+echo "fetching published repodata from $R2/$R2_PATH"
+rclone copy "$R2/$R2_PATH/repodata" "$STAGE/old/repodata"
+[ -f "$STAGE/old/repodata/repomd.xml" ] || {
+    echo "error: no published repodata in $R2/$R2_PATH" >&2; exit 1; }
 
 for rpm in "${rpms[@]}"; do
     cp -p "$rpm" "$STAGE/new/"
@@ -224,36 +225,33 @@ if [ "$DRY_RUN" = 1 ]; then
 fi
 
 echo "uploading RPMs"
-rsync -av -e "ssh -p $PORT" "${rpms[@]}" "$REMOTE:$DEST"
+rclone copy "${rpms[@]}" "$R2/$R2_PATH/" --transfers 8
 
 echo "uploading merged metadata"
-rsync -av --delete -e "ssh -p $PORT" "$STAGE/merged/repodata/" \
-    "$REMOTE:$DEST/repodata/"
+rclone sync "$STAGE/merged/repodata" "$R2/$R2_PATH/repodata"
 
 if [ "$PRUNE" = 1 ]; then
     echo "pruning RPMs the merged metadata does not reference"
     zstd -dc "$STAGE/merged"/repodata/*primary.xml.zst |
         grep -o 'href="[^"]*\.rpm"' | cut -d'"' -f2 | sort -u > "$STAGE/keep.txt"
-    "${SSH_CMD[@]}" "$REMOTE" "cd ~/$DEST && ls *.rpm" |
+    rclone lsf "$R2/$R2_PATH" --files-only | grep '\.rpm$' |
         while read -r name; do
             grep -qxF "$name" "$STAGE/keep.txt" || echo "$name"
         done > "$STAGE/drop.txt"
     if [ -s "$STAGE/drop.txt" ]; then
         sed 's/^/  drop /' "$STAGE/drop.txt"
-        "${SSH_CMD[@]}" "$REMOTE" \
-            "cd ~/$DEST && xargs rm -f" < "$STAGE/drop.txt"
+        rclone delete "$R2/$R2_PATH" --files-from "$STAGE/drop.txt"
     else
         echo "  nothing to prune"
     fi
 fi
 
 echo "regenerating index.html"
-"${SSH_CMD[@]}" "$REMOTE" \
-    "cd ~/$DEST && find . -maxdepth 1 -name '*.rpm' -printf '%f %s\n'" \
-    > "$STAGE/files.txt"
+rclone lsf "$R2/$R2_PATH" --files-only --format "ps" --separator " " |
+    grep '\.rpm ' > "$STAGE/files.txt"
 python3 scripts/gen_repo_index.py "$STAGE/files.txt" "$STAGE/index.html" \
     "$VERSION" "$URL" "$REPO_ID"
-rsync -av -e "ssh -p $PORT" "$STAGE/index.html" "$REMOTE:$DEST/index.html"
+rclone copyto "$STAGE/index.html" "$R2/$R2_PATH/index.html"
 
 if [ "$MIRROR" != "0" ]; then
     echo "mirroring to $MIRROR:$MIRROR_PUBLIC/packages/$VERSION/"

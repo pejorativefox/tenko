@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Stage and publish the Browneye RPM repository to tomfool.8bit.ca.
+# Stage and publish the Browneye RPM repository to the public R2 bucket
+# (the LAN mirror is refreshed too).
 #
 # Publishes the single Browneye repository (base + desktop).
 #
@@ -14,14 +15,13 @@ VERSION=${VERSION:-13.1}
 REPO=${REPO:-build/repo-all}
 REPO_ID=browneye-$VERSION
 STAGE=${STAGE:-build/repo-publish/$VERSION}
-REMOTE=${REMOTE:-tomfool8@tomfool.8bit.ca}
-PORT=${PORT:-53211}
-PUBLIC=${PUBLIC:-public_html/browneye}
-DEST=${DEST:-$PUBLIC/packages/$VERSION/}
+# Cloudflare R2 (S3) target for the public tree; the LAN mirror stays on rsync.
+R2=${R2:-r2:browneye}
+R2_PATH=${R2_PATH:-packages/$VERSION}
 # LAN mirror; set MIRROR=0 to skip.
 MIRROR=${MIRROR:-daspork@192.168.31.9}
 MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/browneye}
-URL=${URL:-https://tomfool.8bit.ca/browneye/packages/$VERSION/}
+URL=${URL:-https://repo.pjfox.xyz/packages/$VERSION/}
 INDEX=${INDEX:-web/index.html}
 RSYNC_OPTS=${RSYNC_OPTS:-}
 DRY_RUN=${DRY_RUN:-0}
@@ -135,10 +135,9 @@ if [ "$DRY_RUN" = 1 ]; then
     exit 0
 fi
 
-ssh -p "$PORT" "$REMOTE" "mkdir -p ~/$PUBLIC/packages"
-rsync -av $RSYNC_OPTS --delete -e "ssh -p $PORT" "$STAGE/" "$REMOTE:$DEST"
+rclone sync "$STAGE/" "$R2/$R2_PATH" --transfers 8
 if [ -f "$INDEX" ]; then
-    rsync -av -e "ssh -p $PORT" "$INDEX" "$REMOTE:$PUBLIC/index.html"
+    rclone copyto "$INDEX" "$R2/index.html"
 fi
 
 if [ "$MIRROR" != "0" ]; then

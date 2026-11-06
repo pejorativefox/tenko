@@ -36,7 +36,7 @@ cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
 DATE=${DATE:-$(date +%Y%m%d)}
-REPO_URL=${REPO_URL:-https://tomfool.8bit.ca/browneye/packages/13.1/}
+REPO_URL=${REPO_URL:-https://repo.pjfox.xyz/packages/13.1/}
 IMAGE=${IMAGE:-localhost/browneye/base:r13.1-$DATE}
 TAG_STABLE=${TAG_STABLE:-1}
 DEVEL_PACKAGES=${DEVEL_PACKAGES:-python3-pyelftools}

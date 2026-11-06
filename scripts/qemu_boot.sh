@@ -16,7 +16,7 @@ IMG="${IMG:-$PWD/build/rootfs.img}"
 LOG="${LOG:-$PWD/build/qemu-boot.log}"
 # Prefer the single base+desktop repo: the kernel now requires dracut, which
 # only exists in repo-all.  build/repo is the historical bootstrap repo.
-REPO="${REPO:-https://tomfool.8bit.ca/browneye/packages/13.1/}"
+REPO="${REPO:-https://repo.pjfox.xyz/packages/13.1/}"
 case "$REPO" in
     http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
     *) REPOPATH="file://$REPO" ;;

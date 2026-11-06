@@ -2,7 +2,7 @@
 # Publish the installer ISO to the primary site and the LAN mirror.
 #
 # Writes a fresh <iso>.sha256 next to the image and rsyncs both files to
-# tomfool.8bit.ca (public) and to the local-network mirror, so the two
+# repo.pjfox.xyz (R2) and to the local-network mirror, so the two
 # always carry the same bytes.  Set MIRROR=0 to skip the LAN copy.
 #
 # Usage:
@@ -12,9 +12,9 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 ISO=${ISO:-$PWD/build/browneye-installer.iso}
-REMOTE=${REMOTE:-tomfool8@tomfool.8bit.ca}
-PORT=${PORT:-53211}
-PUBLIC=${PUBLIC:-public_html/browneye}
+# Cloudflare R2 (S3) target for the public tree; the LAN mirror stays on rsync.
+R2=${R2:-r2:browneye}
+R2_DIR=${R2_DIR:-iso}
 MIRROR=${MIRROR:-daspork@192.168.31.9}
 MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/browneye}
 DRY_RUN=${DRY_RUN:-0}
@@ -28,13 +28,13 @@ echo "publishing $name ($(du -h "$ISO" | cut -f1))"
 cat "$sum"
 
 if [ "$DRY_RUN" = 1 ]; then
-    echo "dry run: would upload to $REMOTE:$PUBLIC/iso/ and $MIRROR:$MIRROR_PUBLIC/iso/"
+    echo "dry run: would upload to $R2/$R2_DIR/ and $MIRROR:$MIRROR_PUBLIC/iso/"
     exit 0
 fi
 
-echo "uploading to $REMOTE:$PUBLIC/iso/"
-ssh -p "$PORT" "$REMOTE" "mkdir -p $PUBLIC/iso"
-rsync -av --partial -e "ssh -p $PORT" "$ISO" "$sum" "$REMOTE:$PUBLIC/iso/"
+echo "uploading to $R2/$R2_DIR/"
+rclone copyto "$ISO" "$R2/$R2_DIR/$(basename "$ISO")"
+rclone copyto "$sum" "$R2/$R2_DIR/$(basename "$sum")"
 
 if [ "$MIRROR" != "0" ]; then
     echo "mirroring to $MIRROR:$MIRROR_PUBLIC/iso/"
@@ -44,7 +44,7 @@ fi
 
 echo
 echo "published:"
-echo "  https://tomfool.8bit.ca/browneye/iso/$name"
+echo "  https://repo.pjfox.xyz/iso/$name"
 if [ "$MIRROR" != "0" ]; then
     echo "  http://192.168.31.9/~daspork/browneye/iso/$name"
 fi

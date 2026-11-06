@@ -4,7 +4,7 @@ Audit of `package_specs/` against the LFS and BLFS checkouts and the
 **published** repository, 2026-11-05.
 
 - Repo snapshot: `repodata/870aadc…-primary.xml.zst` of
-  <https://tomfool.8bit.ca/browneye/packages/13.1/> —
+  <https://repo.pjfox.xyz/packages/13.1/> —
   **690 RPM names** from **497 source packages**.
 - Books: `~/repos/lfs` branch `trunk` (`1493db7`) and `~/repos/blfs`
   branch `trunk` (`60fb6e5`).
@@ -316,9 +316,9 @@ it; other tools report it as a false mismatch.
 
 ```sh
 # 1. latest published repodata
-curl -s https://tomfool.8bit.ca/browneye/packages/13.1/repodata/repomd.xml \
+curl -s https://repo.pjfox.xyz/packages/13.1/repodata/repomd.xml \
   | grep -o '[a-f0-9]*-primary.xml.zst' | head -1
-curl -sO https://tomfool.8bit.ca/browneye/packages/13.1/repodata/<hash>-primary.xml.zst
+curl -sO https://repo.pjfox.xyz/packages/13.1/repodata/<hash>-primary.xml.zst
 
 # 2. the audit (needs ~/repos/lfs and ~/repos/blfs, zstd, python3)
 python3 scripts/spec_audit.py --primary <hash>-primary.xml.zst
