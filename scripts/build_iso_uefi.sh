@@ -72,6 +72,13 @@ if [ "$SKIP_LIVE" != "1" ]; then
         unshare -r chroot "$LIVE" /usr/bin/systemctl --root=/ set-default multi-user.target || true
     fi
 
+    # browneye-base-runtime now includes openssh, and the openssh preset
+    # enables sshd.  The live root has a known debugging root password, so
+    # never expose sshd on the installation media.
+    mkdir -p "$LIVE/etc/systemd/system"
+    ln -sfn /dev/null "$LIVE/etc/systemd/system/sshd.service"
+    ln -sfn /dev/null "$LIVE/etc/systemd/system/sshd-keygen.service"
+
     # The rootfs was assembled without scriptlets, so materialize the baseline
     # accounts (root, nobody, system users) exactly like rootfs_finalize does.
     if [ -x "$LIVE/usr/bin/systemd-sysusers" ]; then

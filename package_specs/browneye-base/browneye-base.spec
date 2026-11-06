@@ -1,6 +1,6 @@
 Name:       browneye-base
 Version:    13.1
-Release:    10
+Release:    11
 Summary:    Browneye Linux base system (LFS r13.1)
 License:    MIT
 Prefix:     /usr
@@ -107,6 +107,8 @@ Requires:   rpm
 Requires:   popt
 Requires:   libarchive
 Requires:   lua
+Requires:   openssh
+Requires:   git
 # END GENERATED REQUIRES
 
 %description
@@ -121,6 +123,10 @@ Meta-package pulling in the LFS r13.1 base system.
 %files
 
 %changelog
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-11
+- Add openssh and git to the base meta (via requires-extra).  Both specs
+  are already at the BLFS r13.1 versions (OpenSSH 10.6p1, git 2.56.0).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 13.1-10
 - Expand the Obsoletes list to all 147 -devel packages the distro has
   ever shipped, not just the 99 left in the 2026-11-05 repository.

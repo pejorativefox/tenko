@@ -6,6 +6,7 @@
 # - linux-api-headers, linux-pam, libtirpc: headers/runtime the base needs
 # - make-ca: CA trust store (/etc/pki/tls/certs/ca-bundle.crt and the
 #   /etc/ssl/certs links) used by curl, git, OpenSSL and derived images
+# - openssh, git: SSH client/server and version control in the base install
 # - libseccomp/libbsd/libmd, rpm/popt/libarchive/lua: RPM toolchain
 browneye-rpm-config
 browneye-basefs
@@ -25,3 +26,5 @@ rpm
 popt
 libarchive
 lua
+openssh
+git

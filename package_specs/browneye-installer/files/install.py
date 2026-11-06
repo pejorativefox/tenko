@@ -46,6 +46,8 @@ TARGET_PACKAGES_DESKTOP = (
     "dosfstools",
     "btrfs-progs",
     "sudo",
+    "openssh",
+    "git",
     "dnf",
 )
 

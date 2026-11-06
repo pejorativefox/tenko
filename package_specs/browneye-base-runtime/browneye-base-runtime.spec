@@ -1,6 +1,6 @@
 Name:       browneye-base-runtime
 Version:    13.1
-Release:    3
+Release:    6
 Summary:    Browneye Linux runtime base (no build toolchain)
 License:    MIT
 Prefix:     /usr
@@ -74,12 +74,14 @@ Requires:   browneye-release
 Requires:   browneye-firstboot
 Requires:   linux-pam
 Requires:   make-ca
+Requires:   openssh
+Requires:   git
 
 %description
 The Browneye Linux base system with no build toolchain: libc and the
 runtime libraries, the shell and core utilities, systemd/udev, D-Bus,
-the RPM runtime, Python and Perl runtimes, and the Browneye system
-configuration packages.
+the RPM runtime, Python and Perl runtimes, OpenSSH and git, and the
+Browneye system configuration packages.
 
 This profile deliberately omits gcc/gcc-lto, binutils,
 linux-api-headers, the autotools (m4, autoconf, automake, libtool,
@@ -107,6 +109,24 @@ touch %{buildroot}/usr/share/browneye/base-runtime
 /usr/share/browneye/base-runtime
 
 %changelog
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-6
+- Restore the openssh/git requires.  The installer pulls
+  browneye-base-runtime from the network repository, so this gives existing
+  installer media the tools without an ISO rebuild.  build_iso_uefi.sh now
+  masks sshd and sshd-keygen in the live root so the debugging root password
+  is never exposed over the network.
+
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-5
+- Revert the openssh/git requires from 13.1-4.  browneye-base-runtime is
+  also the live ISO base, and the live media must not start sshd with the
+  debugging root password.  The tools are in browneye-base and the
+  installer target package set instead.
+
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-4
+- Require openssh and git so every installed base system (desktop or
+  base-only) has the SSH client/server and Git.  Both specs are already at
+  the BLFS r13.1 versions (OpenSSH 10.6p1, git 2.56.0).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 13.1-3
 - Note that development headers and .pc files now ship in the runtime
   packages, after the -devel subpackages were removed (issue #4).

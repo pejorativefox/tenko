@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    23
+Release:    24
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -89,6 +89,12 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-24
+- Install OpenSSH and git in every target (desktop and base-only).  They
+  are already at the BLFS r13.1 versions (OpenSSH 10.6p1, git 2.56.0).
+  The live image is deliberately unaffected: browneye-live builds from
+  browneye-base-runtime, which stays minimal.
+
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-23
 - Add a guided install path: choose one disk, erase it or use its free
   space, pick ext4/btrfs and swapfile/swap-partition/no-swap, then review
