@@ -4,7 +4,7 @@ Release:    4
 # Tenko rename compatibility (issue #22).
 Obsoletes: browneye-live < 13.1-4
 Provides: browneye-live = %{version}-%{release}
-Summary:    Tenko Linux 13.1 live installer environment (meta-package)
+Summary:    Tenko Linux 6 (Workstation) live installer environment (meta-package)
 License:    MIT
 BuildArch:  noarch
 Prefix:     /usr
@@ -32,7 +32,7 @@ Requires:   btrfs-progs
 Requires:   tenko-installer
 
 %description
-Meta-package for the Tenko Linux 13.1 live installation environment.
+Meta-package for the Tenko Linux 6 (Workstation) live installation environment.
 
 It pulls in the runtime base, the kernel and modules, firmware, dnf,
 dracut, dosfstools, efibootmgr/efivar, LVM2 (for dmsetup, which

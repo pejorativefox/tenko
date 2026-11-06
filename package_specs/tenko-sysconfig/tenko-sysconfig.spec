@@ -103,30 +103,38 @@ unset f
 EOF2
 
 %post
-# Remove old %%config(noreplace) configuration files.
-rm -f /etc/dracut.conf.d/10-browneye.conf
-rm -f /etc/systemd/journald.conf.d/10-browneye.conf
+# Preserve modified old dracut/journald configs; do not silently delete them.
+for f in /etc/dracut.conf.d/10-browneye.conf \
+         /etc/systemd/journald.conf.d/10-browneye.conf; do
+    if [ -e "$f" ]; then
+        if [ -e "$f.rpmsave" ]; then
+            rm -f "$f"
+        else
+            mv -f "$f" "$f.rpmsave"
+        fi
+    fi
+done
 
 %files
-/etc/fstab
-/etc/systemd/system/default.target
-/etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
-/etc/systemd/journald.conf.d/10-tenko.conf
+%config(noreplace) /etc/fstab
+%config(noreplace) /etc/systemd/system/default.target
+%config(noreplace) /etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
+%config(noreplace) /etc/systemd/journald.conf.d/10-tenko.conf
 %dir /etc/systemd/journald.conf.d
 %dir /etc/dracut.conf.d
 %config(noreplace) /etc/dracut.conf.d/10-tenko.conf
-/etc/systemd/network/10-dhcp.network
-/etc/hosts
-/etc/shells
-/etc/inputrc
-/etc/vimrc
+%config(noreplace) /etc/systemd/network/10-dhcp.network
+%config(noreplace) /etc/hosts
+%config(noreplace) /etc/shells
+%config(noreplace) /etc/inputrc
+%config(noreplace) /etc/vimrc
 %config(noreplace) /etc/subuid
 %config(noreplace) /etc/subgid
-/etc/profile
-/etc/locale.conf
-/etc/vconsole.conf
-/etc/resolv.conf
-/etc/machine-id
+%config(noreplace) /etc/profile
+%config(noreplace) /etc/locale.conf
+%config(noreplace) /etc/vconsole.conf
+%config(noreplace) /etc/resolv.conf
+%config(noreplace) /etc/machine-id
 
 %changelog
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-4

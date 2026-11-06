@@ -49,63 +49,43 @@ skip_if_unavailable=1
 REPO
 
 %posttrans
-# Disable the old dnf repository file; keep it as .disabled for rollback.
-for f in /etc/yum.repos.d/browneye-13.1.repo \
-         /etc/yum.repos.d/browneye-local.repo; do
-    if [ -e "$f" ]; then
-        mv -f "$f" "$f.disabled"
-    fi
-done
+# Disable old dnf repository files once the old release package is gone;
+# keep them as .disabled for rollback.
+if ! rpm -q browneye-release >/dev/null 2>&1; then
+    for f in /etc/yum.repos.d/browneye-13.1.repo \
+             /etc/yum.repos.d/browneye-local.repo; do
+        if [ -e "$f" ]; then
+            mv -f "$f" "$f.disabled"
+        fi
+    done
+fi
 
-# Remove old dracut/journald configuration files.  These are
-# %%config(noreplace) in the old packages and can survive the obsolete.
-rm -f /etc/dracut.conf.d/10-browneye.conf
-rm -f /etc/systemd/journald.conf.d/10-browneye.conf
-
-# Remove old units, presets and dracut integration.
-rm -f /usr/lib/systemd/system/browneye-firstboot-root-password.service
-rm -f /usr/lib/systemd/system/browneye-installer.service
-rm -f /usr/lib/systemd/system-preset/90-browneye-firstboot.preset
-rm -f /usr/lib/systemd/system-preset/90-browneye-live.preset
-rm -f /usr/lib/dracut/dracut.conf.d/20-browneye-live.conf
-rm -f /etc/systemd/system/*.wants/browneye-*
-
-# Remove the old RPM macro tree.
-rm -f /usr/lib/rpm/macros.d/macros.browneye
-rm -rf /usr/lib/rpm/browneye
-
-# Remove old installer payload.
-rm -f /usr/bin/browneye-installer
-rm -rf /usr/lib/browneye-installer /usr/share/doc/browneye-installer
-
-# Migrate the first-boot marker so the prompt is not repeated.
+# Migrate first-boot state and installer logs before removing old dirs.
 if [ -e /var/lib/browneye/firstboot-root-password.done ] && \
    [ ! -e /var/lib/tenko/firstboot-root-password.done ]; then
     mkdir -p /var/lib/tenko
     mv -f /var/lib/browneye/firstboot-root-password.done \
         /var/lib/tenko/firstboot-root-password.done
 fi
-if [ -d /var/log/browneye-install ] && [ ! -d /var/log/tenko-install ]; then
-    mv /var/log/browneye-install /var/log/tenko-install
+if [ -d /var/log/browneye-install ]; then
+    mkdir -p /var/log/tenko-install
+    cp -a /var/log/browneye-install/. /var/log/tenko-install/ 2>/dev/null || true
+    rm -rf /var/log/browneye-install
 fi
 
-# Remove old package-owned markers and empty runtime directories.
+# Drop the old media repository copy and empty compatibility directories.
 rm -rf /var/lib/browneye/repo
-rm -f /usr/share/browneye/base /usr/share/browneye/base-build \
-      /usr/share/browneye/base-runtime /usr/share/browneye/workstation \
-      /usr/share/browneye/xfce-desktop \
-      /usr/share/browneye/xfce-desktop-core \
-      /usr/share/browneye/xfce-desktop-full \
-      /usr/share/browneye/xfce-desktop-hardware
 rmdir /usr/share/browneye /var/lib/browneye /run/browneye 2>/dev/null || true
 
 # Only remove old boot entries once a new tenko entry exists, so an upgrade
 # that does not include the kernel package cannot leave the system unbootable.
 if [ -d /boot/loader/entries ] && \
    ls /boot/loader/entries/tenko-*.conf >/dev/null 2>&1; then
-    rm -f /boot/loader/entries/browneye-*.conf
+    rm -f /boot/loader/entries/browneye-*.conf \
+          /boot/loader/entries/browneye.conf
     if [ -f /boot/loader/loader.conf ]; then
-        sed -i 's/^default browneye-/default tenko-/' \
+        sed -i -e 's/^default browneye\.conf/default tenko.conf/' \
+               -e 's/^default browneye-/default tenko-/' \
             /boot/loader/loader.conf || true
     fi
 fi

@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    2
+Release:    3
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -74,6 +74,10 @@ rm -f /usr/share/browneye/xfce-desktop-core
 rmdir /usr/share/browneye 2>/dev/null || true
 
 %changelog
+* Fri Nov 06 2026 tenko <build@tenko.invalid> 4.20-3
+- Use tenko-base-runtime/tenko-desktop-config and the /usr/share/tenko
+  marker; clean up the old browneye marker on upgrade.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-2
 - Require shared-mime-info: the MIME database used to arrive through
   gdk-pixbuf's .pc Requires and is runtime data, not a build dependency

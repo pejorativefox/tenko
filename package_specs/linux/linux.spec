@@ -1,6 +1,6 @@
 Name:       linux
 Version:    7.3.1
-Release:    3
+Release:    4
 Summary:    Linux kernel
 License:    GPL-2.0-only
 Prefix:     /usr
@@ -70,16 +70,23 @@ Linux kernel image (vmlinuz).
 if [ -d /boot/loader/entries ] && [ -f /etc/kernel/cmdline ]; then
     cmdline=$(tr '\n' ' ' < /etc/kernel/cmdline)
     cat > "/boot/loader/entries/tenko-%{version}.conf" <<TENKO_EOF
-title Tenko Linux 13.1 (%{version})
+title Tenko Linux 6 (Workstation) (%{version})
 linux /vmlinuz-%{version}
 initrd /initramfs-%{version}.img
 options $cmdline
 TENKO_EOF
+    if [ -f /boot/loader/loader.conf ]; then
+        sed -i -e 's/^default browneye\.conf/default tenko.conf/' \
+               -e 's/^default browneye-/default tenko-/' \
+            /boot/loader/loader.conf || true
+    fi
+    rm -f "/boot/loader/entries/browneye-%{version}.conf"
 fi
 
 %preun kernel
 if [ "$1" = 0 ]; then
-    rm -f "/boot/loader/entries/tenko-%{version}.conf"
+    rm -f "/boot/loader/entries/tenko-%{version}.conf" \
+          "/boot/loader/entries/browneye-%{version}.conf"
 fi
 
 %package kernel-debug
@@ -125,6 +132,11 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
+* Fri Nov 06 2026 tenko <build@tenko.invalid> 7.3.1-4
+- Rename the systemd-boot entry to tenko-<kver>.conf, use the Tenko 6
+  Workstation title, update loader.conf defaults, and remove the old
+  browneye entry after writing the new one.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 7.3.1-3
 - Replace the legacy short licence name with the verified SPDX expression
   (GPL-2.0-only): COPYING, which states GPL version 2 only (issue #8).

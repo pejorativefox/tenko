@@ -37,7 +37,7 @@ from probe import Check, Probe, ProbedDisk
 from runner import CommandError, CommandRunner
 from ui import BACK, QUIT, RESCAN, CursesUI, Field, Row
 
-VERSION = "13.1"
+VERSION = "6"
 DEFAULT_REPO = "https://repo.pjfox.xyz/tenko/packages/6/"
 DEFAULT_TARGET = "/mnt/tenko"
 LOG_DIR = "/run/tenko"
@@ -231,7 +231,7 @@ def read_cmdline() -> dict[str, Any]:
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="tenko-installer",
-        description="Install Tenko Linux 13.1 on a GPT disk.",
+        description="Install Tenko Linux 6 (Workstation) on a GPT disk.",
     )
     parser.add_argument("--version", action="version", version=VERSION)
     parser.add_argument(
@@ -1820,7 +1820,7 @@ def _install_mode(ui: CursesUI, simulated: bool) -> str | None:
 
     rows = [
         Row(
-            "Install Tenko Linux 13.1 (recommended)",
+            "Install Tenko Linux 6 (Workstation) (recommended)",
             note="guided: one disk, sensible defaults",
         ),
         Row(
@@ -2300,7 +2300,7 @@ def _confirm_and_install(
     progress.finish()
 
     text = [
-        "Tenko Linux 13.1 {} on {}.".format(
+        "Tenko Linux 6 (Workstation) {} on {}.".format(
             "simulation finished"
             if getattr(probe, "simulated", False)
             else "was installed",
@@ -2356,7 +2356,7 @@ def _interactive(
     config = _initial_config(args)
     checks, ok = run_preflight(probe, config, logger)
     lines = [
-        "This will install Tenko Linux 13.1 on a local GPT disk.",
+        "This will install Tenko Linux 6 (Workstation) on a local GPT disk.",
         "",
     ]
     for check in checks:
@@ -2392,7 +2392,7 @@ def _interactive(
         ui.message("Preflight failed", lines, footer="Press any key to exit")
         return 2
     key = ui.message(
-        "Tenko Linux 13.1 - Installer"
+        "Tenko Linux 6 (Workstation) - Installer"
         + (" (simulation)" if getattr(probe, "simulated", False) else ""),
         lines,
         footer="Enter continue   q quit",

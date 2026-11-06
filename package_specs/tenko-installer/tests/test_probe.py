@@ -92,7 +92,7 @@ class RepositoryProbeTest(unittest.TestCase):
             )
         self.assertTrue(ok)
         self.assertEqual(detail, "https://example.invalid/repodata/repomd.xml")
-        self.assertEqual(seen["user_agent"], "Tenko-Installer/13.1")
+        self.assertEqual(seen["user_agent"], "Tenko-Installer/6")
 
 
 if __name__ == "__main__":

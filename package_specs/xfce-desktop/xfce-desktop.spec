@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    9
+Release:    10
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -95,6 +95,10 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Fri Nov 06 2026 tenko <build@tenko.invalid> 4.20-10
+- Use tenko-desktop-config and the /usr/share/tenko marker; clean up the
+  old browneye marker on upgrade.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-9
 - Require librsvg for SVG icon/wallpaper rendering
 

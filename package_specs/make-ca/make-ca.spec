@@ -11,7 +11,7 @@
 # source so the package builds and regenerates its trust store offline.
 Name:       make-ca
 Version:    1.16.1
-Release:    3
+Release:    4
 Summary:    PKI setup script and Mozilla CA trust store
 License:    GPL-3.0-or-later
 URL:        https://github.com/lfs-book/make-ca
@@ -101,6 +101,9 @@ fi
 %files -f %{_sourcedir}/make-ca.filelist
 
 %changelog
+* Fri Nov 06 2026 tenko <build@tenko.invalid> 1.16.1-4
+- Rename the distro-specific heredoc and temporary identifier to Tenko.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.16.1-3
 - %post only regenerates the trust bundle when it is missing.  In a
   restricted installroot make-ca cannot read the anchors and wrote an

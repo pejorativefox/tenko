@@ -85,7 +85,7 @@ def _repository_reachable(repodata: str) -> tuple[bool, str]:
         return os.path.isfile(repodata), repodata
     last = "not fetched"
     request_headers = {
-        "User-Agent": "Tenko-Installer/13.1",
+        "User-Agent": "Tenko-Installer/6",
         "Accept": "*/*",
     }
     for _ in range(6):

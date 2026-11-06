@@ -1,8 +1,8 @@
-Tenko Linux installer
-=======================
+Tenko Linux 6 (Workstation) installer
+======================================
 
 tenko-installer is a Python 3 / ncurses installer for Tenko Linux
-13.1.  It is UEFI-only and GPT-only.
+6 (Workstation).  It is UEFI-only and GPT-only.
 
 The default path is a guided install: choose one disk, erase it or use its
 free space, pick ext4 or btrfs, and the installer creates a working desktop
@@ -51,7 +51,7 @@ Guided install
 
 After the preflight screen the installer offers two paths:
 
-  Install Tenko Linux 13.1 (recommended)
+  Install Tenko Linux 6 (Workstation) (recommended)
   Advanced installation
 
 The guided path asks for:

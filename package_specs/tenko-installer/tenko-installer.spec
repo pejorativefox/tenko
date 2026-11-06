@@ -4,7 +4,7 @@ Release:    25
 # Tenko rename compatibility (issue #22).
 Obsoletes: browneye-installer < 13.1-25
 Provides: browneye-installer = %{version}-%{release}
-Summary:    Tenko Linux 13.1 installer (Python + ncurses)
+Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
 Prefix:     /usr
@@ -25,7 +25,7 @@ Requires:   coreutils
 Requires:   systemd
 
 %description
-A Python 3 / ncurses installer for Tenko Linux 13.1.
+A Python 3 / ncurses installer for Tenko Linux 6 (Workstation).
 
 It is UEFI-only and GPT-only.  The default guided install erases one disk
 (or uses its free space), creates a 1 GiB ESP and a root filesystem with a
@@ -108,6 +108,8 @@ fi
 - Rename browneye-installer to tenko-installer and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.
 - Clean up old browneye paths, units, presets and configuration.
+- Use the Tenko 6 (Workstation) distro identity and repository
+  (tenko-6.repo, /tenko/packages/6/) for fresh installs.
 
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-24
 - Install OpenSSH and git in every target (desktop and base-only).  They

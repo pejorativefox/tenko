@@ -16,7 +16,7 @@
 
 Name:       podman-bin
 Version:    6.1.4
-Release:    2
+Release:    3
 Summary:    Podman container engine and helpers (static upstream bundle)
 License:    Apache-2.0 AND GPL-2.0-or-later
 URL:        https://github.com/mgoltzsche/podman-static
@@ -115,6 +115,9 @@ install -m644 README.md %{buildroot}%{_docdir}/%{name}-%{version}/README.md
 %files -f %{_sourcedir}/podman-bin.filelist
 
 %changelog
+* Fri Nov 06 2026 tenko <build@tenko.invalid> 6.1.4-3
+- Require tenko-sysconfig after the distro package rename.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 6.1.4-2
 - Stop shipping /etc/subuid and /etc/subgid: browneye-sysconfig already owns
   those paths, so installing podman-bin failed with a transaction file

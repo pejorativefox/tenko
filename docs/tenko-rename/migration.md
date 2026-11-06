@@ -215,63 +215,43 @@ up anything the individual `%post` snippets did not remove.
 
 ```spec
 %posttrans
-# Disable the old dnf repository file; keep it as .disabled for rollback.
-for f in /etc/yum.repos.d/browneye-13.1.repo \
-         /etc/yum.repos.d/browneye-local.repo; do
-    if [ -e "$f" ]; then
-        mv -f "$f" "$f.disabled"
-    fi
-done
+# Disable old dnf repository files once the old release package is gone;
+# keep them as .disabled for rollback.
+if ! rpm -q browneye-release >/dev/null 2>&1; then
+    for f in /etc/yum.repos.d/browneye-13.1.repo \
+             /etc/yum.repos.d/browneye-local.repo; do
+        if [ -e "$f" ]; then
+            mv -f "$f" "$f.disabled"
+        fi
+    done
+fi
 
-# Remove old dracut/journald configuration files.  These are
-# %%config(noreplace) in the old packages and can survive the obsolete.
-rm -f /etc/dracut.conf.d/10-browneye.conf
-rm -f /etc/systemd/journald.conf.d/10-browneye.conf
-
-# Remove old units, presets and dracut integration.
-rm -f /usr/lib/systemd/system/browneye-firstboot-root-password.service
-rm -f /usr/lib/systemd/system/browneye-installer.service
-rm -f /usr/lib/systemd/system-preset/90-browneye-firstboot.preset
-rm -f /usr/lib/systemd/system-preset/90-browneye-live.preset
-rm -f /usr/lib/dracut/dracut.conf.d/20-browneye-live.conf
-rm -f /etc/systemd/system/*.wants/browneye-*
-
-# Remove the old RPM macro tree.
-rm -f /usr/lib/rpm/macros.d/macros.browneye
-rm -rf /usr/lib/rpm/browneye
-
-# Remove old installer payload.
-rm -f /usr/bin/browneye-installer
-rm -rf /usr/lib/browneye-installer /usr/share/doc/browneye-installer
-
-# Migrate the first-boot marker so the prompt is not repeated.
+# Migrate first-boot state and installer logs before removing old dirs.
 if [ -e /var/lib/browneye/firstboot-root-password.done ] && \
    [ ! -e /var/lib/tenko/firstboot-root-password.done ]; then
     mkdir -p /var/lib/tenko
     mv -f /var/lib/browneye/firstboot-root-password.done \
         /var/lib/tenko/firstboot-root-password.done
 fi
-if [ -d /var/log/browneye-install ] && [ ! -d /var/log/tenko-install ]; then
-    mv /var/log/browneye-install /var/log/tenko-install
+if [ -d /var/log/browneye-install ]; then
+    mkdir -p /var/log/tenko-install
+    cp -a /var/log/browneye-install/. /var/log/tenko-install/ 2>/dev/null || true
+    rm -rf /var/log/browneye-install
 fi
 
-# Remove old package-owned markers and empty runtime directories.
+# Drop the old media repository copy and empty compatibility directories.
 rm -rf /var/lib/browneye/repo
-rm -f /usr/share/browneye/base /usr/share/browneye/base-build \
-      /usr/share/browneye/base-runtime /usr/share/browneye/workstation \
-      /usr/share/browneye/xfce-desktop \
-      /usr/share/browneye/xfce-desktop-core \
-      /usr/share/browneye/xfce-desktop-full \
-      /usr/share/browneye/xfce-desktop-hardware
 rmdir /usr/share/browneye /var/lib/browneye /run/browneye 2>/dev/null || true
 
 # Only remove old boot entries once a new tenko entry exists, so an upgrade
 # that does not include the kernel package cannot leave the system unbootable.
 if [ -d /boot/loader/entries ] && \
    ls /boot/loader/entries/tenko-*.conf >/dev/null 2>&1; then
-    rm -f /boot/loader/entries/browneye-*.conf
+    rm -f /boot/loader/entries/browneye-*.conf \
+          /boot/loader/entries/browneye.conf
     if [ -f /boot/loader/loader.conf ]; then
-        sed -i 's/^default browneye-/default tenko-/' \
+        sed -i -e 's/^default browneye\.conf/default tenko.conf/' \
+               -e 's/^default browneye-/default tenko-/' \
             /boot/loader/loader.conf || true
     fi
 fi
@@ -279,34 +259,80 @@ fi
 
 Notes:
 
-- `%%config` in the comment is the spec-file escape for a literal `%`.
 - The old repo files are renamed, not deleted, so rollback is
   `mv browneye-13.1.repo.disabled browneye-13.1.repo`. dnf ignores files that
-  do not end in `.repo`.
-- The old marker/log migration is skipped when the new path already exists.
-  It does not merge two existing trees.
+  do not end in `.repo`. The block is guarded so a partial upgrade that still
+  has `browneye-release` installed does not move its repo file.
+- Old dracut/journald configs, units, presets, RPM macros and installer
+  payload are cleaned by their owning `tenko-*` packages, not by
+  `tenko-release`. This avoids deleting files owned by an old package that is
+  still installed during a partial upgrade.
+- The old firstboot marker and installer logs are migrated. If both log
+  directories exist, the old logs are merged into `/var/log/tenko-install`
+  before the old directory is removed.
 - `/usr/share/browneye`, `/var/lib/browneye` and `/run/browneye` are removed
   with `rmdir`, not `rm -rf`: unknown or user-created files keep the directory
-  in place. The explicit marker list and `/var/lib/browneye/repo` are the only
-  recursive/forced removals.
+  in place. The only recursive removals are the old media repository copy and
+  the old log directory after migration.
 - The boot-entry block is deliberately conditional. It runs only when at least
-  one `tenko-*.conf` entry exists.
-- `sed` only rewrites a `default browneye-<kver>` line. A hand-written
-  `default browneye.conf` is not migrated; see §7.
+  one `tenko-*.conf` entry exists, handles both `browneye-<kver>.conf` and the
+  single `browneye.conf`, and rewrites both `default browneye-*` and
+  `default browneye.conf`.
+- The kernel package owns the normal future-kernel path: `linux.spec`
+  `%post kernel` writes `tenko-<kver>.conf`, updates `loader.conf`, and removes
+  the old `browneye-<kver>.conf` after the new entry is written.
 
-### 3.2 `tenko-sysconfig` `%post` — old config cleanup
+### 3.2 `tenko-sysconfig` `%post` — old config cleanup and `/etc` ownership
 
 ```spec
 %post
-# Remove old %%config(noreplace) configuration files.
-rm -f /etc/dracut.conf.d/10-browneye.conf
-rm -f /etc/systemd/journald.conf.d/10-browneye.conf
+# Preserve modified old dracut/journald configs; do not silently delete them.
+for f in /etc/dracut.conf.d/10-browneye.conf \
+         /etc/systemd/journald.conf.d/10-browneye.conf; do
+    if [ -e "$f" ]; then
+        if [ -e "$f.rpmsave" ]; then
+            rm -f "$f"
+        else
+            mv -f "$f" "$f.rpmsave"
+        fi
+    fi
+done
 ```
 
 The new files are `/etc/dracut.conf.d/10-tenko.conf` and
 `/etc/systemd/journald.conf.d/10-tenko.conf` with the same contents as the old
 files. Removing the old names is required because the old dracut file was
 `%config(noreplace)` and can survive the obsoleted package.
+
+The final `%files` list also marks the persistent `/etc` payload as
+`%config(noreplace)` so an upgrade cannot overwrite custom mounts, hostname,
+locale, profile, network or machine-id state:
+
+```spec
+%config(noreplace) /etc/fstab
+%config(noreplace) /etc/systemd/system/default.target
+%config(noreplace) /etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
+%config(noreplace) /etc/systemd/journald.conf.d/10-tenko.conf
+%config(noreplace) /etc/dracut.conf.d/10-tenko.conf
+%config(noreplace) /etc/systemd/network/10-dhcp.network
+%config(noreplace) /etc/hosts
+%config(noreplace) /etc/shells
+%config(noreplace) /etc/inputrc
+%config(noreplace) /etc/vimrc
+%config(noreplace) /etc/subuid
+%config(noreplace) /etc/subgid
+%config(noreplace) /etc/profile
+%config(noreplace) /etc/locale.conf
+%config(noreplace) /etc/vconsole.conf
+%config(noreplace) /etc/resolv.conf
+%config(noreplace) /etc/machine-id
+```
+
+This is a post-audit fix: the prototype left those files as ordinary package
+files, so an upgrade could replace `/etc/fstab`, empty `/etc/machine-id`,
+reset `default.target` to multi-user, and overwrite `/etc/hosts`/`/etc/shells`.
+They are persistent system configuration and must not be replaced by a package
+upgrade.
 
 ### 3.3 `tenko-firstboot` `%post` — marker and unit migration
 
@@ -951,10 +977,9 @@ defect.
 - Old systemd-boot entries are removed only when at least one
   `tenko-*.conf` entry exists. If the transaction does not include a kernel
   package, the old entries stay, which avoids leaving the system unbootable.
-- `loader.conf` is updated only in that same branch, and only for a
-  `default browneye-<kver>` line. A manually written `default browneye.conf`
-  is left alone. Checkpoint 3 should decide whether to broaden the `sed`
-  expression; it is currently an open question, not a proven regression.
+- `loader.conf` is updated in that same branch for both
+  `default browneye-<kver>` and `default browneye.conf`; `linux.spec`
+  `%post kernel` also updates it whenever it writes a new `tenko-<kver>.conf`.
 - If `loader.conf` is not writable, the `sed` failure is ignored. The old
   default can then point at a removed entry.
 
@@ -1046,16 +1071,12 @@ defect.
 
 **Open items for checkpoint 3/4:**
 
-1. Decide whether `loader.conf` migration should also rewrite
-   `default browneye.conf` (not just `default browneye-<kver>`).
-2. Update `xfce-desktop`, `xfce-desktop-core`, `xfce-desktop-full` and
-   `podman-bin` to require `tenko-*`; do not rely on the `Provides` aliases.
-3. Repeat the upgrade test with all 13 old packages, the published EVRs and
+1. Repeat the upgrade test with all 13 old packages, the published EVRs and
    `tenko-release-6-1`, using `--releasever=6`; include a modified old repo
    file to exercise the `.disabled` branch.
-4. Keep the checkpoint-3 verifier `%changelog`-aware and allowlist the
+2. Keep the checkpoint-3 verifier `%changelog`-aware and allowlist the
    intentional compatibility references.
-5. Decide the Tenko container image tag at the checkpoint-7 rebuild
+3. Decide the Tenko container image tag at the checkpoint-7 rebuild
    (`localhost/tenko/base:r6` is proposed, but not locked); the old
    `localhost/browneye/base:r13.1` tag remains until then.
 6. At the deferred image rebuild, confirm whether the unsuffixed

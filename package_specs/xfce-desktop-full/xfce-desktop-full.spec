@@ -1,6 +1,6 @@
 Name:       xfce-desktop-full
 Version:    4.20
-Release:    1
+Release:    2
 Summary:    Tenko XFCE 4.20 full desktop (session + all hardware extras)
 License:    MIT
 Prefix:     /usr
@@ -38,6 +38,10 @@ rm -f /usr/share/browneye/xfce-desktop-full
 rmdir /usr/share/browneye 2>/dev/null || true
 
 %changelog
+* Fri Nov 06 2026 tenko <build@tenko.invalid> 4.20-2
+- Use tenko-base-runtime and the /usr/share/tenko marker; clean up the
+  old browneye marker on upgrade.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-1
 - New full desktop profile: xfce-desktop + xfce-desktop-hardware +
   runtime base and kernel (plan D25)

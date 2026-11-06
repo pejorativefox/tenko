@@ -30,7 +30,7 @@ GIB = 1024 * MIB
 # couple of generations.
 ESP_MIN_FREE_MIB = 256
 
-RELEASEVER = "13.1"
+RELEASEVER = "6"
 DEFAULT_REPO = "https://repo.pjfox.xyz/tenko/packages/6/"
 FALLBACK_KVER = "7.3.1"
 
@@ -1216,7 +1216,7 @@ class Installer:
         # and sd-boot resolves these paths relative to the ESP.
         return "\n".join(
             [
-                "title Tenko Linux 13.1 ({})".format(self.kver),
+                "title Tenko Linux 6 (Workstation) ({})".format(self.kver),
                 "linux /vmlinuz-{}".format(self.kver),
                 "initrd /initramfs-{}.img".format(self.kver),
                 "options " + self._kernel_cmdline(),
