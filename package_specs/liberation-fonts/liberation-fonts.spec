@@ -31,7 +31,7 @@ Times Roman families.
 BLFS documents the Liberation fonts in its TTF-and-OTF-fonts page but does
 not provide a versioned download entity; 2.1.5 is the current upstream
 release.  This package ships the upstream ready-made TTF artifact together
-with its OFL license and README.  User-approved exception for browneye.
+with its OFL license and README.  User-approved exception for tenko.
 
 %prep
 %setup -q -n liberation-fonts-ttf-%{version}

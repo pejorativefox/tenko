@@ -17,7 +17,7 @@ ExclusiveArch: x86_64
 AutoProv: no
 AutoReq: no
 
-# make-ca is the CA trust package Browneye ships (it owns /etc/ssl/certs).
+# make-ca is the CA trust package Tenko ships (it owns /etc/ssl/certs).
 Requires: git
 Requires: make-ca
 Requires: bash
@@ -30,7 +30,7 @@ glibc runtime requirement.
 
 Neither herdr nor its components are part of LFS/BLFS.  The user explicitly
 approved packaging the official prebuilt binary as an exception to the
-BrownEye version-parity rule.
+Tenko version-parity rule.
 
 The upstream release contains only the executable and no license file; the
 Apache-2.0 license is recorded in this spec.

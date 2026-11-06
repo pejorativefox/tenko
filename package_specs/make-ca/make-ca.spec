@@ -45,13 +45,13 @@ sed '/mktemp/s/-t //' -i make-ca
 
 # make-ca recreates CERTDIR on every run (including update-ca-certificates);
 # keep the conventional curl/git bundle names afterwards.
-cat >> make-ca << "BROWNEYECA"
-# Browneye: expose the GnuTLS bundle under the conventional names.
+cat >> make-ca << "TENKOCA"
+# Tenko: expose the GnuTLS bundle under the conventional names.
 if [ -e "${DESTDIR}${CABUNDLE}" ]; then
     ln -sf /etc/pki/tls/certs/ca-bundle.crt "${DESTDIR}${CERTDIR}/ca-bundle.crt"
     ln -sf /etc/pki/tls/certs/ca-bundle.crt "${DESTDIR}${CERTDIR}/ca-certificates.crt"
 fi
-BROWNEYECA
+TENKOCA
 
 %build
 make
@@ -68,11 +68,11 @@ install -d %{buildroot}/etc/pki %{buildroot}/etc/ssl
 # The backup must live outside /usr/share/p11-kit/modules: p11-kit loads every
 # file in that directory.
 MOD=/usr/share/p11-kit/modules/p11-kit-trust.module
-cp -a "$MOD" /tmp/p11-kit-trust.module.browneye-build
+cp -a "$MOD" /tmp/p11-kit-trust.module.tenko-build
 sed -i "s|^x-init-reserved:.*|x-init-reserved: paths=%{buildroot}/etc/pki/anchors|" "$MOD"
 %{buildroot}/usr/sbin/make-ca -D %{buildroot} -f -C %{SOURCE1} \
     > %{_builddir}/make-ca-generate.log 2>&1
-mv -f /tmp/p11-kit-trust.module.browneye-build "$MOD"
+mv -f /tmp/p11-kit-trust.module.tenko-build "$MOD"
 
 # Conventional names used by curl, git and OpenSSL consumers.
 ln -sf /etc/pki/tls/certs/ca-bundle.crt %{buildroot}/etc/ssl/certs/ca-bundle.crt

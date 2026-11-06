@@ -9,7 +9,7 @@ Source0:    linux-%{version}.tar.xz
 Provides:   kernel-headers = %{version}-%{release}
 
 %description
-Sanitized Linux UAPI headers generated from the pinned Browneye kernel
+Sanitized Linux UAPI headers generated from the pinned Tenko kernel
 source with "make headers_install".  This replaces the old bootstrap
 package that copied the host's kernel-headers tree.
 

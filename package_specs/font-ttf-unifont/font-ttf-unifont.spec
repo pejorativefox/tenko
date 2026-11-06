@@ -32,7 +32,7 @@ the 8x16 PCF used by GRUB as the boot font.
 Unifont's package page is archived in BLFS (only the PCF has an up-to-date
 entity); the user explicitly requested packaging the unicode symbol font,
 so the current 17.0.03 artifacts are shipped as a user-approved exception
-to the Browneye version-parity rule.  License: OFL for the OTF
+to the Tenko version-parity rule.  License: OFL for the OTF
 artifacts; GPL+FE for the bitmap glyphs held in the PCF.
 
 %install

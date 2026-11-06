@@ -14,7 +14,7 @@ DWARF debugging information.
 
 systemd's meson build uses it to inspect the EFI binaries it produces, so it
 is a build-time dependency of the systemd package when the EFI bootloader
-(sd-boot) is enabled.  Nothing on a Browneye system requires it at runtime.
+(sd-boot) is enabled.  Nothing on a Tenko system requires it at runtime.
 
 %prep
 %setup -n pyelftools-%{version}

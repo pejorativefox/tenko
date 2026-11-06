@@ -1,0 +1,36 @@
+Tenko Linux first-boot root password policy
+==============================================
+
+Tenko ships /etc/shadow with the root account locked.  On the first boot
+of such an image, tenko-firstboot-root-password.service runs on tty1
+before getty@tty1.service and asks for a new root password using passwd(1).
+The prompt is visible on the physical/VGA console (tty1).  After the
+password is set, /var/lib/tenko/firstboot-root-password.done is written
+and the service never prompts again.
+
+Images that already have a root password are not prompted.  For example,
+the QEMU test image sets root/root; on boot the service detects a usable
+password, records the marker, and exits immediately.
+
+Serial console only (no VGA/tty1)
+---------------------------------
+The automated prompt is bound to tty1, so a machine booted only with
+console=ttyS0 does not show it.  Log in as root on the serial console and
+set the password manually:
+
+    passwd root
+
+The service will then detect a usable password on the next boot and skip
+the prompt.  If boot is blocked waiting for the tty1 prompt, boot with
+
+    systemd.mask=tenko-firstboot-root-password.service
+
+log in on the serial console, run "passwd root", then reboot normally.
+
+The same result can be achieved non-interactively from a serial console:
+
+    printf 'new-password\nnew-password\n' | passwd root
+
+Security note: choose a password that is not shipped in the image or in
+build scripts.  The test images use a throwaway root/root password and are
+not intended for deployment.

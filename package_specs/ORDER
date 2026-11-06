@@ -1,4 +1,4 @@
-# Build order: LFS r13.1 chapter 8 (systemd variant), then browneye glue.
+# Build order: LFS r13.1 chapter 8 (systemd variant), then tenko glue.
 # Generated from lfs.lock; aliases are resolved by builder/package.py.
 
 man-pages
@@ -93,10 +93,10 @@ popt
 libarchive
 lua
 rpm
-browneye-rpm-config
+tenko-rpm-config
 
-# browneye glue
-browneye-basefs
-browneye-sysconfig
-browneye-firstboot
-browneye-release
+# tenko glue
+tenko-basefs
+tenko-sysconfig
+tenko-firstboot
+tenko-release

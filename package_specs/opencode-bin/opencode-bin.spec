@@ -1,6 +1,6 @@
 # opencode ships as a self-contained Bun-compiled ELF.  The payload contains
 # its own JavaScript runtime and modules, so it must not be stripped or
-# rewritten.  Override both the browneye strip helper and rpm's brp-strip.
+# rewritten.  Override both the tenko strip helper and rpm's brp-strip.
 %global __strip /bin/true
 %global __spec_install_post %{nil}
 %global debug_package %{nil}
@@ -20,7 +20,7 @@ AutoReq: no
 
 Provides: opencode = %{version}-%{release}
 
-# make-ca is the CA trust package Browneye ships (it owns /etc/ssl/certs).
+# make-ca is the CA trust package Tenko ships (it owns /etc/ssl/certs).
 Requires: glibc >= 2.17
 Requires: git
 Requires: make-ca
@@ -33,7 +33,7 @@ ELF that needs no Node.js runtime.
 
 Neither opencode nor its components are part of LFS/BLFS.  The user
 explicitly approved packaging the official prebuilt binary as an exception
-to the BrownEye version-parity rule.
+to the Tenko version-parity rule.
 
 The upstream release tarball contains only the executable and no license
 file; the MIT license is recorded in this spec.

@@ -22,7 +22,7 @@ the TLS 1.3, TLS 1.2, TLS 1.1 and TLS 1.0 protocols along with X.509, OpenPGP
 and PSK authentication, and ships the gnutls-cli/certtool/p11tool utilities.
 
 The package bundles libunistring (--with-included-unistring) because
-libunistring is not part of the Browneye package set; this mirrors the
+libunistring is not part of the Tenko package set; this mirrors the
 historical GnuTLS spec and avoids an unpackaged runtime dependency.
 
 %package doc

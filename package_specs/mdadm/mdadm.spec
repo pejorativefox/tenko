@@ -22,7 +22,7 @@ to monitor MD external metadata arrays.
 rm -rf %{buildroot}
 make install BINDIR=/usr/sbin DESTDIR=%{buildroot}
 # The book's plain `make install` leaves the systemd units out; install
-# them for the systemd-based Browneye system.
+# them for the systemd-based Tenko system.
 make install-systemd BINDIR=/usr/sbin SYSTEMD_DIR=%{_unitdir} \
      DESTDIR=%{buildroot}
 

@@ -1,0 +1,2 @@
+# Enable the first-boot root password policy.
+enable tenko-firstboot-root-password.service

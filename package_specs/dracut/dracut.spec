@@ -20,7 +20,7 @@ installed system and combining it with dracut modules, usually found in
 /usr/lib/dracut/modules.d.
 
 This is dracut-ng, the maintained successor to the original dracut
-project.  It is used to build the Browneye initramfs for NVMe, LUKS/LVM
+project.  It is used to build the Tenko initramfs for NVMe, LUKS/LVM
 and other roots that are not built into the kernel.
 
 %prep

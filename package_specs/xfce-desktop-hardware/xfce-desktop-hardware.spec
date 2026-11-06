@@ -1,7 +1,7 @@
 Name:       xfce-desktop-hardware
 Version:    4.20
 Release:    1
-Summary:    Hardware extras for the Browneye XFCE desktop
+Summary:    Hardware extras for the Tenko XFCE desktop
 License:    MIT
 Prefix:     /usr
 
@@ -22,7 +22,7 @@ Requires:   linux-firmware-nic
 Requires:   linux-firmware-other
 
 %description
-Hardware enablement for the Browneye XFCE desktop: the udev hardware
+Hardware enablement for the Tenko XFCE desktop: the udev hardware
 database, the Mesa userspace (llvmpipe and GPU drivers) and every
 linux-firmware vendor pack (Intel Wi-Fi/GPU, NVIDIA, AMD GPU, MediaTek,
 Atheros, Bluetooth, NIC and misc).
@@ -36,11 +36,16 @@ and can be added to a xfce-desktop-core install with
 %build
 
 %install
-mkdir -p %{buildroot}/usr/share/browneye
-touch %{buildroot}/usr/share/browneye/xfce-desktop-hardware
+mkdir -p %{buildroot}/usr/share/tenko
+touch %{buildroot}/usr/share/tenko/xfce-desktop-hardware
 
 %files
-/usr/share/browneye/xfce-desktop-hardware
+/usr/share/tenko/xfce-desktop-hardware
+
+%post
+# Remove the old marker directory left by browneye-xfce-desktop-hardware.
+rm -f /usr/share/browneye/xfce-desktop-hardware
+rmdir /usr/share/browneye 2>/dev/null || true
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-1

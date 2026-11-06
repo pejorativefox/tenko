@@ -9,7 +9,7 @@ Source1:    linux-%{version}.config
 BuildRequires: xz
 
 %description
-General-purpose Linux kernel for Browneye Linux.  The configuration is
+General-purpose Linux kernel for Tenko Linux.  The configuration is
 based on the Fedora 44 host kernel config, forward-ported to this version
 and sanitized for our packaging (no debug info, no SELinux/IMA, no module
 signing, no Rust/BTF).
@@ -32,7 +32,7 @@ for opt in \
     NET_9P NET_9P_VIRTIO 9P_FS ; do
     scripts/config --enable "$opt"
 done
-# Browneye has no SELinux: keep it disabled even if a future config update
+# Tenko has no SELinux: keep it disabled even if a future config update
 # or Kconfig default tries to turn it back on.
 scripts/config --disable SECURITY_SELINUX
 # No module signing.  The distro does not ship a Secure Boot shim or an
@@ -69,17 +69,17 @@ Linux kernel image (vmlinuz).
 # boot through systemd-boot have no loader directory and are left alone.
 if [ -d /boot/loader/entries ] && [ -f /etc/kernel/cmdline ]; then
     cmdline=$(tr '\n' ' ' < /etc/kernel/cmdline)
-    cat > "/boot/loader/entries/browneye-%{version}.conf" <<BROWNEYE_EOF
-title Browneye Linux 13.1 (%{version})
+    cat > "/boot/loader/entries/tenko-%{version}.conf" <<TENKO_EOF
+title Tenko Linux 13.1 (%{version})
 linux /vmlinuz-%{version}
 initrd /initramfs-%{version}.img
 options $cmdline
-BROWNEYE_EOF
+TENKO_EOF
 fi
 
 %preun kernel
 if [ "$1" = 0 ]; then
-    rm -f "/boot/loader/entries/browneye-%{version}.conf"
+    rm -f "/boot/loader/entries/tenko-%{version}.conf"
 fi
 
 %package kernel-debug
@@ -97,7 +97,7 @@ not for booting.
 %package modules
 Summary:    Linux kernel modules
 Requires(post): kmod
-# dracut supplies /etc/dracut.conf.d/10-browneye.conf (hostonly=no) and the
+# dracut supplies /etc/dracut.conf.d/10-tenko.conf (hostonly=no) and the
 # initramfs generator used by the post-install scriptlet below.
 Requires(post): dracut
 %description modules
@@ -116,7 +116,7 @@ depmod %{version} >/dev/null 2>&1 || :
 if [ -x /usr/bin/dracut ]; then
     /usr/bin/dracut --force --kver %{version} \
         /boot/initramfs-%{version}.img || \
-        echo "browneye: dracut failed for %{version}; keep an existing initramfs" >&2
+        echo "tenko: dracut failed for %{version}; keep an existing initramfs" >&2
 fi
 
 %preun modules

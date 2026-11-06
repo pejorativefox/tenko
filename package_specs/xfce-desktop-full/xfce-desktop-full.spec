@@ -1,24 +1,24 @@
 Name:       xfce-desktop-full
 Version:    4.20
 Release:    1
-Summary:    Browneye XFCE 4.20 full desktop (session + all hardware extras)
+Summary:    Tenko XFCE 4.20 full desktop (session + all hardware extras)
 License:    MIT
 Prefix:     /usr
 
 # The complete install: the existing xfce-desktop meta (session, X11,
 # firmware base, hwdb, weak vendor-pack recommendations) plus the
 # hardware profile (every firmware vendor pack, Mesa) and a kernel.
-Requires:   browneye-base-runtime
+Requires:   tenko-base-runtime
 Requires:   linux-kernel
 Requires:   xfce-desktop
 Requires:   xfce-desktop-hardware
 
 %description
-The complete Browneye XFCE 4.20 desktop for physical hardware: the
+The complete Tenko XFCE 4.20 desktop for physical hardware: the
 runtime base, a kernel, the full XFCE session from xfce-desktop and the
 hardware profile (Mesa, udev hwdb and every linux-firmware vendor pack).
 
-Existing installs can keep using "browneye-base xfce-desktop"; this meta
+Existing installs can keep using "tenko-base xfce-desktop"; this meta
 is the one-shot profile for a laptop or workstation.
 
 %prep
@@ -26,11 +26,16 @@ is the one-shot profile for a laptop or workstation.
 %build
 
 %install
-mkdir -p %{buildroot}/usr/share/browneye
-touch %{buildroot}/usr/share/browneye/xfce-desktop-full
+mkdir -p %{buildroot}/usr/share/tenko
+touch %{buildroot}/usr/share/tenko/xfce-desktop-full
 
 %files
-/usr/share/browneye/xfce-desktop-full
+/usr/share/tenko/xfce-desktop-full
+
+%post
+# Remove the old marker directory left by browneye-xfce-desktop-full.
+rm -f /usr/share/browneye/xfce-desktop-full
+rmdir /usr/share/browneye 2>/dev/null || true
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.20-1

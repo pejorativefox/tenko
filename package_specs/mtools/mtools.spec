@@ -8,7 +8,7 @@ Prefix:     /usr
 
 %description
 Mtools is a collection of utilities to access MS-DOS disks (FAT filesystems)
-from GNU and Unix without mounting them.  The Browneye UEFI installer uses
+from GNU and Unix without mounting them.  The Tenko UEFI installer uses
 mcopy/mmd to populate the FAT EFI system partition of the hybrid ISO.
 
 This package is a user-approved exception to the LFS/BLFS version-parity

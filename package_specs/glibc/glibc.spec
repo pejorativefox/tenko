@@ -58,7 +58,7 @@ locale coverage of the former 222 MB archive.
 
 This package is additive: it does not replace /usr/lib/locale/locale-archive
 and can be erased at any time without leaving a broken system (the curated
-archive and everything browneye-base depends on stays installed).
+archive and everything tenko-base depends on stays installed).
 
 %prep
 %setup -q
@@ -100,7 +100,7 @@ popd
 # tree works alongside the archive and the packages share no path.  Using
 # directories for the opt-in package means -extra is purely additive: it
 # can be installed or erased without touching the base archive or the
-# browneye-base requirement on glibc-locales.
+# tenko-base requirement on glibc-locales.
 #
 # Both sets are compiled in this one %install pass with the just-built
 # localedef (run through the just-built loader) and the just-installed

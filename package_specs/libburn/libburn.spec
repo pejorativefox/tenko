@@ -9,7 +9,7 @@ Prefix:     /usr
 %description
 libburn is a library for writing preformatted data onto optical media: CD,
 DVD and BD (Blu-Ray).  It provides cdrskin and is the media-writing backend
-for libisoburn (xorriso), which the Browneye installer uses to write ISOs.
+for libisoburn (xorriso), which the Tenko installer uses to write ISOs.
 
 %prep
 %setup -q

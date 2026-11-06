@@ -99,7 +99,7 @@ EOF
 cat > %{buildroot}/etc/pam.d/system-password <<'EOF'
 # Begin /etc/pam.d/system-password
 
-# yescrypt is the libxcrypt default used by Browneye's shadow build.
+# yescrypt is the libxcrypt default used by Tenko's shadow build.
 password  required    pam_unix.so       yescrypt shadow try_first_pass
 
 # End /etc/pam.d/system-password

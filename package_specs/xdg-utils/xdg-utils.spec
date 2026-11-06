@@ -33,7 +33,7 @@ browser and mail client.  It is required for LSB conformance.
 
 The man pages and the help text embedded in the scripts are generated from
 the upstream DocBook sources; this package ships those generated files as a
-side source because the browneye build image does not include xmlto.
+side source because the tenko build image does not include xmlto.
 
 %prep
 %setup -q -n xdg-utils-v%{version}

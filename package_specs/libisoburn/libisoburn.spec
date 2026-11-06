@@ -13,7 +13,7 @@ Requires:   libburn, libisofs
 libisoburn is a frontend for the libburn and libisofs libraries, enabling
 creation and expansion of ISO-9660 filesystems on CD/DVD/BD media and on
 plain files or block devices.  It provides the xorriso, xorrisofs, osirrox
-and xorrecord commands used by the Browneye UEFI installer to produce hybrid
+and xorrecord commands used by the Tenko UEFI installer to produce hybrid
 BIOS/UEFI bootable ISOs.
 
 This package replaces the stale standalone xorriso 1.5.6 template: upstream
@@ -31,7 +31,7 @@ merged xorriso into libisoburn, and BLFS r13.1 packages it from here.
 rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir* %{buildroot}%{_libdir}/libisoburn.la
-# The Tk frontend needs /usr/bin/wish, and tk is not part of the Browneye
+# The Tk frontend needs /usr/bin/wish, and tk is not part of the Tenko
 # package set.  BLFS lists tk as optional; the installer only needs
 # xorriso/xorrisofs/osirrox/xorrecord.
 rm -vf %{buildroot}%{_bindir}/xorriso-tcltk \

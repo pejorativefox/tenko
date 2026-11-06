@@ -22,7 +22,7 @@ Requires(pre): shadow
 %description
 LightDM is a lightweight, cross-desktop display manager.  It runs the X
 server and presents a graphical login screen from an external greeter
-(lightdm-gtk-greeter in Browneye).
+(lightdm-gtk-greeter in Tenko).
 
 %package lang
 Summary:    lightdm translations
