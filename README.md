@@ -19,7 +19,7 @@ curl -LO https://repo.pjfox.xyz/iso/browneye-installer.iso.sha256
 sha256sum -c browneye-installer.iso.sha256
 ```
 
-The ISO is 427 MiB.  On the LAN the mirror carries the same bytes:
+The ISO is 430 MiB.  On the LAN the mirror carries the same bytes:
 `http://192.168.31.9/~daspork/browneye/iso/`.
 
 ### 2. Write it to a USB stick
