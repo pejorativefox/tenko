@@ -8,6 +8,7 @@ FILES = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "files")
 sys.path.insert(0, FILES)
 
+import disk  # noqa: E402
 import probe  # noqa: E402
 
 
@@ -39,6 +40,33 @@ class ReadTextTest(unittest.TestCase):
         os.symlink("/dev/null", link)
         self.assertTrue(os.path.islink(link))
         self.assertEqual(os.path.realpath(link), "/dev/null")
+
+
+class DeviceClassTest(unittest.TestCase):
+    def test_floppy_and_optical_are_not_targets(self):
+        floppy = disk.Disk(
+            path="/dev/fd0", kname="fd0", size_bytes=4096, sector_size=512
+        )
+        reasons = probe._device_class_reasons(floppy)
+        self.assertTrue(any("not a hard disk" in reason for reason in reasons))
+        self.assertTrue(any("too small" in reason for reason in reasons))
+
+    def test_tiny_disk_is_not_a_target(self):
+        tiny = disk.Disk(
+            path="/dev/vdz", kname="vdz", size_bytes=512 * 1024, sector_size=512
+        )
+        self.assertTrue(
+            any("too small" in reason for reason in probe._device_class_reasons(tiny))
+        )
+
+    def test_normal_disk_is_accepted(self):
+        normal = disk.Disk(
+            path="/dev/vda",
+            kname="vda",
+            size_bytes=20 * 1024 * 1024 * 1024,
+            sector_size=512,
+        )
+        self.assertEqual(probe._device_class_reasons(normal), [])
 
 
 class RepositoryProbeTest(unittest.TestCase):

@@ -17,6 +17,7 @@ import curses
 
 import disk
 import layout as layout_module
+import simulate as simulate_module
 from disk import Disk, PartitionTable, Region
 from install import (
     ConfigError,
@@ -145,6 +146,7 @@ def write_probe_snapshot(
         "mounts": _read_file("/proc/mounts"),
         "swaps": _read_file("/proc/swaps"),
         "mdstat": _read_file("/proc/mdstat"),
+        "simulated": bool(getattr(probe, "simulated", False)),
         "secure_boot": probe.secure_boot_state(),
         "disks": [
             {
@@ -165,23 +167,24 @@ def write_probe_snapshot(
     }
     if probed_list:
         data["disk"] = data["disks"][0]
-    for label, argv in (
-        ("lsblk", ("lsblk", "--json", "--bytes")),
-        ("findmnt", ("findmnt", "-J")),
-        ("efibootmgr", ("efibootmgr", "-v")),
-    ):
-        try:
-            result = probe.runner.run(
-                argv,
-                step="probe",
-                read_only=True,
-                destructive=False,
-                allow_failure=True,
-                description="snapshot " + label,
-            )
-            data[label] = result.output
-        except Exception as exc:
-            data[label] = "unavailable: {}".format(exc)
+    if not getattr(probe, "simulated", False):
+        for label, argv in (
+            ("lsblk", ("lsblk", "--json", "--bytes")),
+            ("findmnt", ("findmnt", "-J")),
+            ("efibootmgr", ("efibootmgr", "-v")),
+        ):
+            try:
+                result = probe.runner.run(
+                    argv,
+                    step="probe",
+                    read_only=True,
+                    destructive=False,
+                    allow_failure=True,
+                    description="snapshot " + label,
+                )
+                data[label] = result.output
+            except Exception as exc:
+                data[label] = "unavailable: {}".format(exc)
     try:
         os.makedirs(LOG_DIR, exist_ok=True)
         with open(os.path.join(LOG_DIR, "probe.json"), "w", encoding="utf-8") as handle:
@@ -258,6 +261,17 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         help="plan and log every command without executing mutating commands",
     )
     parser.add_argument(
+        "--simulate",
+        action="store_true",
+        help="use synthetic disks and force dry-run (no root or live media)",
+    )
+    parser.add_argument(
+        "--simulate-scenario",
+        choices=simulate_module.SCENARIOS,
+        default=None,
+        help="synthetic disk scenario (implies --simulate)",
+    )
+    parser.add_argument(
         "--plan-json",
         action="store_true",
         help="print the validated layout plan as JSON and exit",
@@ -274,6 +288,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--debug", action="store_true", help="verbose logging")
     args = parser.parse_args(argv)
+
+    if args.simulate_scenario:
+        args.simulate = True
+    if args.simulate:
+        args.dry_run = True
 
     cmd = read_cmdline()
     if args.answer is None:
@@ -1444,11 +1463,22 @@ def _interactive(
             "There is no undo after formatting begins.",
         ]
     )
+    if getattr(probe, "simulated", False):
+        lines.extend(
+            [
+                "",
+                "SIMULATION MODE: synthetic disks; no real device is touched.",
+                "Mutating commands are written to {}.".format(
+                    os.path.join(LOG_DIR, "plan.sh")
+                ),
+            ]
+        )
     if not ok:
         ui.message("Preflight failed", lines, footer="Press any key to exit")
         return 2
     key = ui.message(
-        "Browneye Linux 13.1 - Installer",
+        "Browneye Linux 13.1 - Installer"
+        + (" (simulation)" if getattr(probe, "simulated", False) else ""),
         lines,
         footer="Enter continue   q quit",
     )
@@ -1504,7 +1534,11 @@ def _interactive(
             target=args.target,
             dry_run=args.dry_run,
         )
-        issues = config.validate()
+        # Validate only the layout here.  The admin account and password are
+        # entered on the next screen, so a full config.validate() would always
+        # fail with "admin password must not be empty" and bounce the user
+        # back to disk selection before they ever see the form.
+        issues = config.layout.validate()
         if issues:
             ui.message(
                 "Invalid layout", issues, footer="Press any key to retry"
@@ -1639,8 +1673,10 @@ def _interactive(
     progress.finish()
 
     text = [
-        "Browneye Linux 13.1 was installed on {}.".format(
-            ", ".join(config.disk_paths)
+        "Browneye Linux 13.1 {} on {}.".format(
+            "simulation finished" if getattr(probe, "simulated", False)
+            else "was installed",
+            ", ".join(config.disk_paths),
         ),
         "",
         "Log: {}".format(logger.human_path or LOG_JSONL),
@@ -1649,8 +1685,12 @@ def _interactive(
         text.extend(
             [
                 "",
-                "DRY RUN: no disk was modified.",
-                "The exact mutating commands are in /run/browneye/plan.sh.",
+                "{}: no disk was modified.".format(
+                    "SIMULATION" if getattr(probe, "simulated", False) else "DRY RUN"
+                ),
+                "The exact mutating commands are in {}.".format(
+                    os.path.join(LOG_DIR, "plan.sh")
+                ),
             ]
         )
         ui.message("Dry run complete", text, footer="Press any key to exit")
@@ -1692,8 +1732,28 @@ def run_curses(
 # ---------------------------------------------------------------------------
 
 
+def _use_simulated_paths() -> str:
+    """Point logs/plans at a writable directory for --simulate."""
+
+    global LOG_DIR, LOG_JSONL, PLAN_JSON
+    directory = os.environ.get(
+        "BROWNEYE_SIM_DIR", "/tmp/browneye-installer-sim"
+    )
+    os.makedirs(directory, exist_ok=True)
+    LOG_DIR = directory
+    LOG_JSONL = os.path.join(directory, "install.jsonl")
+    PLAN_JSON = os.path.join(directory, "plan.json")
+    return directory
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
+    if args.simulate:
+        sim_dir = _use_simulated_paths()
+        print(
+            "browneye-installer: simulation mode, logs in {}".format(sim_dir),
+            file=sys.stderr,
+        )
     logger = Logger(
         LOG_JSONL,
         console=console_line if (args.non_interactive or args.plain) else None,
@@ -1703,9 +1763,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         dry_run=args.dry_run,
         non_interactive=args.non_interactive,
         plain=args.plain,
+        simulate=args.simulate,
     )
-    runner = CommandRunner(logger, dry_run=args.dry_run)
-    probe = Probe(runner)
+    runner = CommandRunner(
+        logger,
+        dry_run=args.dry_run,
+        plan_path=os.path.join(LOG_DIR, "plan.sh"),
+    )
+    if args.simulate:
+        scenario = args.simulate_scenario or "blank"
+        probe = simulate_module.SimulatedProbe(runner, scenario)
+        logger.info("simulate-mode", scenario=scenario)
+    else:
+        probe = Probe(runner)
     try:
         if args.non_interactive:
             return run_noninteractive(args, logger, runner, probe)

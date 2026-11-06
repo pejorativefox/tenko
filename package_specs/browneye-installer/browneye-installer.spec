@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    19
+Release:    22
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -56,7 +56,7 @@ install -vdm755 %{buildroot}/usr/lib/browneye-installer
 install -vm755 %{_sourcedir}/browneye-installer \
     %{buildroot}%{_bindir}/browneye-installer
 
-for module in log.py runner.py disk.py layout.py probe.py install.py ui.py main.py; do
+for module in log.py runner.py disk.py layout.py probe.py simulate.py install.py ui.py main.py; do
     install -vm644 %{_sourcedir}/"$module" \
         %{buildroot}/usr/lib/browneye-installer/"$module"
 done
@@ -87,6 +87,28 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-22
+- Do not offer floppy (fd*), optical (sr*), loop, ram and zram devices as
+  installation targets, and reject disks smaller than 1 GiB.  A QEMU boot
+  showed /dev/fd0 (4 KiB) as the first selectable disk, ahead of the real
+  virtio target.
+
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-21
+- Add --simulate / --simulate-scenario: run the real curses UI, planner
+  and install pipeline against synthetic in-memory disks, with the command
+  runner forced to dry-run.  No root, UEFI, network or block device is
+  needed; logs/plan.sh go to /tmp/browneye-installer-sim (override with
+  BROWNEYE_SIM_DIR).
+- Add scripts/run_installer_sim.sh and the "mixed" scenario with an
+  existing ESP and ext4 data partition for adoption testing.
+- Ship simulate.py.
+
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-20
+- Fix the interactive flow after disk setup: validate only the layout at
+  that point.  The full config.validate() rejected the still-empty admin
+  password and silently returned to disk selection, so the account form
+  was never shown and installation could not start.
+
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-19
 - Repository preflight: send a "Browneye-Installer/13.1" User-Agent.
   Cloudflare/R2 returns HTTP 403 to urllib's default Python-urllib UA,

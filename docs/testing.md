@@ -48,6 +48,14 @@ a screendump and quits.  Logs: `build/installer-serial.log`,
 `screenshot`: `build/installer-screen.ppm` (converted to `.png` when
 ImageMagick is installed).
 
+Interactive UI without an ISO: `scripts/run_installer_sim.sh` runs the real
+curses installer against synthetic in-memory disks, forces dry-run, and
+needs no root, UEFI firmware, network or block device.  Use
+`--simulate-scenario mixed` to test adopting an existing ESP/data partition.
+Every mutating command is written to `/tmp/browneye-installer-sim/plan.sh`
+(override with `BROWNEYE_SIM_DIR`).  This is the fast loop for installer UI
+changes; boot the ISO only after the flow is correct.
+
 Unattended install: build the ISO with `ISO_AUTO=1` and
 `ISO_ANSWER=tests/installer-answer.json`.  The version 2 answer file writes a
 layout on `/dev/vda` with a 1 GiB ESP + 2 GiB swap + ext4 root, installs the

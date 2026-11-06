@@ -173,6 +173,25 @@ def _holders(kname: str) -> list[str]:
     return _read_dir(f"/sys/class/block/{kname}/holders")
 
 
+MIN_TARGET_BYTES = 1024 * MIB
+
+
+def _device_class_reasons(probed: Disk) -> list[str]:
+    """Reject devices that lsblk reports as disks but are not targets."""
+
+    reasons: list[str] = []
+    kname = (probed.kname or "").lower()
+    if kname.startswith(("fd", "sr", "loop", "ram", "zram")):
+        reasons.append("not a hard disk (floppy/optical/loop/ram device)")
+    if probed.size_bytes and probed.size_bytes < MIN_TARGET_BYTES:
+        reasons.append(
+            "disk is too small for an installation target ({} MiB)".format(
+                probed.size_bytes // MIB
+            )
+        )
+    return reasons
+
+
 def _in_use_reasons(probed: Disk) -> list[str]:
     reasons: list[str] = []
     mounts = _mount_sources()
@@ -452,6 +471,7 @@ class Probe:
                     )
                 else:
                     reasons.append(f"unsupported partition table {item.pttype}")
+            reasons.extend(_device_class_reasons(item))
             reasons.extend(_in_use_reasons(item))
             table = None
             if not live and not item.ro:

@@ -186,6 +186,18 @@ class ConfigTest(unittest.TestCase):
         self.assertEqual(config.disk_paths, ("/dev/vda", "/dev/vdb"))
         self.assertEqual(config.layout.disks[1].partitions[0].fstype, "btrfs")
 
+    def test_layout_validation_does_not_require_admin_password(self):
+        # The curses flow validates the layout before it asks for the admin
+        # account.  A full validate() at that point always failed with the
+        # empty-password error and sent the user back to disk selection.
+        config = InstallConfig.from_mapping(
+            self._mapping(admin={"username": "admin", "password": ""})
+        )
+        self.assertEqual(config.layout.validate(), [])
+        self.assertTrue(
+            any("password" in issue for issue in config.validate())
+        )
+
     def test_base_package_set(self):
         config = InstallConfig.from_mapping(self._mapping(package_set="base"))
         self.assertNotIn("xfce-desktop", config.packages)

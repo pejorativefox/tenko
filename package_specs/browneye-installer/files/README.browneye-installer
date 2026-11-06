@@ -20,6 +20,20 @@ Running
                                      plan and log, execute no mutations
   browneye-installer --plan-json --answer FILE
                                      print the validated layout and exit
+  browneye-installer --simulate      interactive UI with synthetic disks;
+                                     forced dry-run, no root/live media
+  browneye-installer --simulate-scenario mixed
+                                     synthetic disks with an existing ESP
+                                     and data partition
+
+`--simulate` is for UI development: it runs the real curses flow, planner
+and install pipeline against in-memory disks.  No block device is opened or
+modified; all mutating commands go to `plan.sh` in the simulation directory
+(default `/tmp/browneye-installer-sim`, override with `BROWNEYE_SIM_DIR`).
+From a checkout, use:
+
+  scripts/run_installer_sim.sh
+  scripts/run_installer_sim.sh --simulate-scenario mixed
 
 The kernel command line can supply:
 
