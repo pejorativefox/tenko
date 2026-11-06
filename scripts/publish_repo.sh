@@ -5,23 +5,25 @@
 # Publishes the single Tenko repository (base + desktop).
 #
 # Usage:
-#   scripts/publish_repo.sh                     # version 13.1 from build/repo-all
+#   scripts/publish_repo.sh                     # Tenko 6 from build/repo-all
 #   RSYNC_OPTS=-c scripts/publish_repo.sh       # checksum mode (changed files only)
-#   VERSION=13.1 REPO=build/repo-all scripts/publish_repo.sh
+#   TENKO_RELEASE=6 REPO=build/repo-all scripts/publish_repo.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-VERSION=${VERSION:-13.1}
+TENKO_RELEASE=${TENKO_RELEASE:-6}
 REPO=${REPO:-build/repo-all}
-REPO_ID=tenko-$VERSION
-STAGE=${STAGE:-build/repo-publish/$VERSION}
+REPO_ID=tenko-$TENKO_RELEASE
+STAGE=${STAGE:-build/repo-publish/$TENKO_RELEASE}
 # Cloudflare R2 (S3) target; the bucket stays r2:browneye during the rename.
+# Keep packages/13.1 in the bucket as the external compatibility alias.
 R2=${R2:-r2:browneye}
-R2_PATH=${R2_PATH:-tenko/packages/$VERSION}
-# LAN mirror; set MIRROR=0 to skip.
+R2_PATH=${R2_PATH:-tenko/packages/$TENKO_RELEASE}
+# LAN mirror; set MIRROR=0 to skip. The old public_html/browneye symlink
+# remains the external compatibility alias.
 MIRROR=${MIRROR:-daspork@192.168.31.9}
 MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/tenko}
-URL=${URL:-https://repo.pjfox.xyz/tenko/packages/$VERSION/}
+URL=${URL:-https://repo.pjfox.xyz/tenko/packages/$TENKO_RELEASE/}
 INDEX=${INDEX:-web/index.html}
 RSYNC_OPTS=${RSYNC_OPTS:-}
 DRY_RUN=${DRY_RUN:-0}
@@ -38,7 +40,7 @@ createrepo_c --quiet "$STAGE"
 
 cat > "$STAGE/$REPO_ID.repo" <<EOF
 [$REPO_ID]
-name=Tenko Linux $VERSION
+name=Tenko Linux $TENKO_RELEASE
 baseurl=$URL
 enabled=1
 gpgcheck=0
@@ -46,7 +48,7 @@ repo_gpgcheck=0
 EOF
 
 cat > "$STAGE/README.txt" <<EOF
-Tenko Linux $VERSION package repository
+Tenko Linux $TENKO_RELEASE package repository
 
   baseurl: $URL
 
@@ -71,7 +73,7 @@ EOF
 echo "staged $rpm_count RPMs in $STAGE"
 
 # Generate a package listing because the web server has directory indexes off.
-python3 - "$STAGE" "$VERSION" "$URL" "$REPO_ID" <<'PY'
+python3 - "$STAGE" "$TENKO_RELEASE" "$URL" "$REPO_ID" <<'PY'
 import html
 import os
 import sys
@@ -142,9 +144,9 @@ fi
 
 if [ "$MIRROR" != "0" ]; then
     echo "mirroring to $MIRROR:$MIRROR_PUBLIC"
-    ssh "$MIRROR" "mkdir -p $MIRROR_PUBLIC/packages/$VERSION"
+    ssh "$MIRROR" "mkdir -p $MIRROR_PUBLIC/packages/$TENKO_RELEASE"
     rsync -av $RSYNC_OPTS --delete -e "ssh" "$STAGE/" \
-        "$MIRROR:$MIRROR_PUBLIC/packages/$VERSION/"
+        "$MIRROR:$MIRROR_PUBLIC/packages/$TENKO_RELEASE/"
     if [ -f "$INDEX" ]; then
         rsync -av -e "ssh" "$INDEX" "$MIRROR:$MIRROR_PUBLIC/index.html"
     fi

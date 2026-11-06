@@ -13,7 +13,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 KVER=${KVER:-7.3.1}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-desktop}
-REPO=${REPO:-https://repo.pjfox.xyz/tenko/packages/13.1/}
+REPO=${REPO:-https://repo.pjfox.xyz/tenko/packages/6/}
 case "$REPO" in
     http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
     *) REPOPATH="file://$REPO" ;;

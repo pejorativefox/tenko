@@ -17,7 +17,7 @@
 #       scripts/make_base_image.sh
 #
 # Environment:
-#   REPO_URL   published repo (default: the Tenko 13.1 repo)
+#   REPO_URL   published repo (default: the Tenko 6 repo)
 #   IMAGE      image tag (default: localhost/tenko/base:r13.1-YYYYMMDD)
 #   PACKAGES   packages to install (default: tenko-base tenko-build
 #              plus DEVEL_PACKAGES)
@@ -36,7 +36,7 @@ cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
 DATE=${DATE:-$(date +%Y%m%d)}
-REPO_URL=${REPO_URL:-https://repo.pjfox.xyz/tenko/packages/13.1/}
+REPO_URL=${REPO_URL:-https://repo.pjfox.xyz/tenko/packages/6/}
 IMAGE=${IMAGE:-localhost/tenko/base:r13.1-$DATE}
 TAG_STABLE=${TAG_STABLE:-1}
 DEVEL_PACKAGES=${DEVEL_PACKAGES:-"python3-pyelftools liblzo2"}

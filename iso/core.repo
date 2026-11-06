@@ -1,5 +1,5 @@
 [tenko-core]
 name=tenko-core - 64-bit
-baseurl=https://repo.pjfox.xyz/tenko/packages/13.1/
+baseurl=https://repo.pjfox.xyz/tenko/packages/6/
 enabled=1
 gpgcheck=0

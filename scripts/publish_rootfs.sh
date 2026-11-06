@@ -14,6 +14,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# Keep the unversioned name until the image is rebuilt; a later build can
+# publish tenko-rootfs-6.tar.gz and keep tenko-rootfs.tar.gz as an alias.
 TARBALL=${TARBALL:-$PWD/build/tenko-rootfs.tar.gz}
 # Cloudflare R2 (S3) target; the bucket stays r2:browneye during the rename.
 R2=${R2:-r2:browneye}

@@ -11,6 +11,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# Keep the unversioned name until the image is rebuilt; a later build can
+# publish tenko-installer-6.iso and keep tenko-installer.iso as an alias.
 ISO=${ISO:-$PWD/build/tenko-installer.iso}
 # Cloudflare R2 (S3) target; the bucket stays r2:browneye during the rename.
 R2=${R2:-r2:browneye}

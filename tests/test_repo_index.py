@@ -17,8 +17,8 @@ class GenRepoIndexTest(unittest.TestCase):
         with open(src, "w", encoding="utf-8") as handle:
             handle.write(listing)
         subprocess.run(
-            [sys.executable, SCRIPT, src, out, "13.1",
-             "https://example.org/tenko/packages/13.1/", "tenko-13.1"],
+            [sys.executable, SCRIPT, src, out, "6",
+             "https://example.org/tenko/packages/6/", "tenko-6"],
             check=True, capture_output=True, text=True)
         with open(out, encoding="utf-8") as handle:
             return handle.read()
@@ -32,7 +32,7 @@ class GenRepoIndexTest(unittest.TestCase):
         self.assertIn("bash-5.3-2.x86_64.rpm", page)
         self.assertNotIn("repomd.xml", page)
         self.assertIn("2 RPMs", page)
-        self.assertIn("tenko-13.1.repo", page)
+        self.assertIn("tenko-6.repo", page)
 
     def test_escapes_names_and_sorts(self):
         page = self.render(
