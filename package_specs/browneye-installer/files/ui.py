@@ -70,7 +70,6 @@ class CursesUI:
         except curses.error:
             return {}
         pairs = {
-            "header": (curses.COLOR_WHITE, curses.COLOR_BLUE),
             "selected": (curses.COLOR_BLACK, curses.COLOR_CYAN),
             "ok": (curses.COLOR_GREEN, -1),
             "warning": (curses.COLOR_YELLOW, -1),
@@ -125,7 +124,7 @@ class CursesUI:
 
     def _frame(self, title: str, subtitle: str = "", footer: str = "") -> None:
         self.screen.erase()
-        header = self.colors.get("header", curses.A_REVERSE)
+        header = curses.A_REVERSE
         self._safe_add(0, 0, " " * (self.cols - 1), header)
         self._safe_add(
             0, 2, title[: self.cols - 4], header | curses.A_BOLD
