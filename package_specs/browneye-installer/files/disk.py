@@ -224,6 +224,10 @@ class PlannedPartition:
     name: str
     existing: bool = False
     node: str = ""
+    mountpoint: str | None = None
+    fstype: str | None = None
+    format: bool = True
+    label: str | None = None
 
     @property
     def end(self) -> int:
@@ -1060,6 +1064,35 @@ def _render_table(
 
 def render_table(plan: LayoutPlan) -> str:
     return plan.new_table_text
+
+
+def render_new_table(
+    *,
+    disk_path: str,
+    disk_id: str,
+    first_lba: int,
+    last_lba: int,
+    unit: int,
+    remaining: PartitionTable,
+    new_parts: Sequence[PlannedPartition],
+    delete_numbers: Sequence[int] = (),
+) -> str:
+    """Render a complete replacement GPT for a multi-disk layout plan.
+
+    ``plan_layout`` keeps its own compatibility wrapper; this entry point is
+    used by :mod:`layout` so the generic planner can reuse the tested renderer.
+    """
+
+    return _render_table(
+        disk_path=disk_path,
+        disk_id=disk_id,
+        first_lba=first_lba,
+        last_lba=last_lba,
+        unit=unit,
+        remaining=remaining,
+        new_parts=new_parts,
+        delete_numbers=delete_numbers,
+    )
 
 
 def verify_preserved(

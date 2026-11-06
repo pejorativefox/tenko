@@ -105,6 +105,13 @@ room for a rescue kernel and initramfs growth. Reusing an existing ESP keeps
 its size (`plan_layout(reuse_existing_esp=True)`), so the installer must also
 check free space and fail with a clear message below ~200 MiB free.
 
+The multi-disk layout editor keeps this table as the default for the root
+disk, but the ESP, root and any data partitions may live on different disks.
+The bootloader always goes on the ESP partition selected as `/boot`, and the
+`efibootmgr` entry uses that ESP's disk and partition number.  Data
+filesystems such as `/home` are ordinary fstab mounts from any selected
+disk.
+
 Boot chain:
 
 ```

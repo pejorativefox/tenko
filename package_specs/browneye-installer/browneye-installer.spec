@@ -1,6 +1,6 @@
 Name:       browneye-installer
 Version:    13.1
-Release:    15
+Release:    18
 Summary:    Browneye Linux 13.1 installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -13,6 +13,7 @@ Requires:   ncurses
 Requires:   util-linux
 Requires:   e2fsprogs
 Requires:   dosfstools
+Requires:   btrfs-progs
 Requires:   dnf
 Requires:   dracut
 Requires:   efibootmgr
@@ -23,14 +24,15 @@ Requires:   systemd
 %description
 A Python 3 / ncurses installer for Browneye Linux 13.1.
 
-It is UEFI-only and GPT-only.  It selects one GPT disk, optionally deletes
-selected partition entries, and installs into one contiguous free region
-while preserving every other partition.  An existing ESP is reused;
-otherwise a 1 GiB FAT32 ESP is created.  Root is ext4 (minimum 8 GiB,
-growing to fill the region); swap is 2 GiB when it fits.  The ESP is mounted
-at /boot and carries systemd-boot, the kernel and the initramfs.  The target
-is browneye-base + xfce-desktop + kernel/modules + dracut/efibootmgr/
-dosfstools/dnf, installed with dnf --installroot after browneye-basefs.
+It is UEFI-only and GPT-only.  A multi-disk layout editor creates and
+deletes partitions on any number of GPT disks, assigns mount points (for
+example /home on a second disk), and adopts existing partitions without
+formatting them.  One root and one ESP are required; any number of data
+partitions can be mounted at absolute paths.  Filesystems are ext4, btrfs,
+vfat and swap.  The ESP is mounted at /boot and carries systemd-boot, the
+kernel and the initramfs.  The target is browneye-base + xfce-desktop +
+kernel/modules + dracut/efibootmgr/dosfstools/btrfs-progs/dnf, installed
+with dnf --installroot after browneye-basefs.
 
 The disk layer is a pure planner: it parses sfdisk --json and lsblk --json,
 computes free regions including the GPT tail gap, renders the complete
@@ -54,7 +56,7 @@ install -vdm755 %{buildroot}/usr/lib/browneye-installer
 install -vm755 %{_sourcedir}/browneye-installer \
     %{buildroot}%{_bindir}/browneye-installer
 
-for module in log.py runner.py disk.py probe.py install.py ui.py main.py; do
+for module in log.py runner.py disk.py layout.py probe.py install.py ui.py main.py; do
     install -vm644 %{_sourcedir}/"$module" \
         %{buildroot}/usr/lib/browneye-installer/"$module"
 done
@@ -85,6 +87,34 @@ install -vm644 %{_sourcedir}/README.browneye-installer \
 %{_docdir}/browneye-installer/README
 
 %changelog
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-18
+- Validate data mount points to a safe absolute-path character set before
+  they reach fstab, and require the v2 "format" field to be a JSON boolean.
+
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-17
+- Default an adopted existing partition in a v2 answer file to format=false:
+  adopting an entry must not reformat its data unless "format": true is
+  explicit.
+- On a partition write/verification failure, roll back every disk written
+  in this run, not only the disk that failed.
+- Refine the layout editor: handle Esc on the disk-selection screen, show the
+  free regions, allow reformatting an assigned existing partition, and reject
+  duplicate root/ESP roles immediately.
+
+* Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-16
+- Replace the single-disk ESP/swap/root planner with a multi-disk layout
+  editor (layout.py): create/delete partitions and assign mount points on
+  any number of GPT disks, adopt existing partitions without formatting,
+  and mount data filesystems such as /home on a second disk.
+- Add btrfs support (mkfs.btrfs, fstab, UUID mount) alongside ext4, vfat
+  and swap.  Require btrfs-progs (BLFS r13.1 7.3).
+- Replace answer-file version 1 with version 2: a "layout" object holds a
+  "disks" array, each with delete_partitions and per-partition
+  role/fstype/mountpoint/size_mib/existing_number.
+- The install pipeline partitions, formats and verifies every disk in the
+  layout, mounts all data partitions and swap, writes the complete fstab,
+  and keeps the bootloader on the ESP of whichever disk carries /boot.
+
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 13.1-15
 - Point the default repository at https://repo.pjfox.xyz/packages/13.1/
   after moving the public tree to Cloudflare R2.

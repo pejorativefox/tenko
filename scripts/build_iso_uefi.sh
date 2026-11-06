@@ -61,8 +61,8 @@ if [ "$SKIP_LIVE" != "1" ]; then
         install browneye-live
 
     for pkg in browneye-live browneye-base-runtime browneye-installer \
-               dnf dracut efibootmgr efivar dosfstools LVM2 python \
-               linux-kernel linux-modules; do
+               dnf dracut efibootmgr efivar dosfstools btrfs-progs LVM2 \
+               python linux-kernel linux-modules; do
         rpm -q --root "$LIVE" "$pkg" >/dev/null || {
             echo "live root is missing $pkg" >&2; exit 1; }
     done

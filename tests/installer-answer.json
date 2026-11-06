@@ -1,11 +1,18 @@
 {
-  "version": 1,
-  "disk": {"path": "/dev/vda"},
-  "delete_partitions": [],
-  "region": null,
-  "esp_mib": 1024,
-  "root_mib": null,
-  "swap_mib": 2048,
+  "version": 2,
+  "layout": {
+    "disks": [
+      {
+        "path": "/dev/vda",
+        "delete_partitions": [],
+        "partitions": [
+          {"role": "esp", "fstype": "vfat", "mountpoint": "/boot", "size_mib": 1024},
+          {"role": "swap", "fstype": "swap", "size_mib": 2048},
+          {"role": "root", "fstype": "ext4", "mountpoint": "/"}
+        ]
+      }
+    ]
+  },
   "package_set": "desktop",
   "hostname": "browneye-test",
   "admin": {"username": "admin", "password": "test-only"},

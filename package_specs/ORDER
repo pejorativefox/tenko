@@ -84,6 +84,8 @@ man-db
 procps
 util-linux
 e2fsprogs
+liblzo2
+btrfs-progs
 
 # bootstrap extras for the build container
 linux-api-headers

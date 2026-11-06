@@ -2,8 +2,10 @@ Browneye Linux installer
 =======================
 
 browneye-installer is a Python 3 / ncurses installer for Browneye Linux
-13.1.  It is UEFI-only and GPT-only.  It modifies only the selected disk and
-only inside one chosen free region; existing partitions are preserved.
+13.1.  It is UEFI-only and GPT-only.  It can install across several GPT
+disks: on each selected disk you can delete partitions, create new ones,
+and assign mount points to new or existing partitions.  Existing entries
+are preserved unless you mark them for deletion.
 
 The application and its tests use the Python standard library only.  The
 live image needs the packages listed by the browneye-live meta-package.
@@ -29,23 +31,68 @@ The kernel command line can supply:
 Answer file
 -----------
 
-The file is JSON.  See the recon document and install.py for the exact
-schema; a minimal example is:
+The file is JSON, version 2.  It describes one layout with a list of disks.
+Each disk has a path and an optional list of partitions.  A partition is
+either newly created (role + fstype + mountpoint + size_mib) or adopts an
+existing entry (existing_number, format false).  A minimal single-disk
+example is:
 
   {
-    "version": 1,
-    "disk": {"path": "/dev/vda", "serial": "QM00001",
-             "size_bytes": 21474836480},
-    "delete_partitions": [],
-    "region": null,
-    "esp_mib": 1024,
-    "root_mib": null,
-    "swap_mib": 2048,
+    "version": 2,
+    "layout": {
+      "disks": [
+        {
+          "path": "/dev/vda",
+          "serial": "QM00001",
+          "size_bytes": 21474836480,
+          "delete_partitions": [],
+          "partitions": [
+            {"role": "esp", "fstype": "vfat",
+             "mountpoint": "/boot", "size_mib": 1024},
+            {"role": "swap", "fstype": "swap", "size_mib": 2048},
+            {"role": "root", "fstype": "ext4", "mountpoint": "/"}
+          ]
+        }
+      ]
+    },
     "package_set": "desktop",
     "hostname": "browneye",
     "admin": {"username": "admin", "password": "change-me"},
     "confirm": {"disk": "/dev/vda", "phrase": "ERASE"}
   }
+
+``size_mib`` may be omitted to fill the remaining free region.  A partition
+that is mounted at an arbitrary absolute path has role ``data``; this is
+how /home is put on a second disk:
+
+  {
+    "version": 2,
+    "layout": {
+      "disks": [
+        {
+          "path": "/dev/vda",
+          "partitions": [
+            {"role": "esp", "fstype": "vfat",
+             "mountpoint": "/boot", "size_mib": 1024},
+            {"role": "swap", "fstype": "swap", "size_mib": 2048},
+            {"role": "root", "fstype": "btrfs", "mountpoint": "/"}
+          ]
+        },
+        {
+          "path": "/dev/vdb",
+          "partitions": [
+            {"role": "data", "fstype": "ext4", "mountpoint": "/home"}
+          ]
+        }
+      ]
+    },
+    ...
+  }
+
+To keep an existing partition without formatting it, give its
+``existing_number`` and set ``format`` to false.  The layout must contain
+exactly one root (``/``) and one ESP (``/boot``); every mount point must be
+unique.  Filesystems are ext4, btrfs, vfat and swap.
 
 The answer file contains a plaintext test password.  Keep it mode 0600 and
 remove it from the live media after use.  The installer never writes the
@@ -55,12 +102,18 @@ Layout policy
 -------------
 
   * GPT only.  MBR disks are refused with an explanation.
-  * An existing EFI System Partition is reused, with a warning when it is
-    too small for systemd-boot plus a kernel and initramfs.  Otherwise a
-    1 GiB FAT32 ESP is created at the start of the chosen free region.
-  * Root is ext4, at least 8 GiB, and grows to fill the region.
-  * Swap is 2 GiB.  It is skipped with a warning when the region cannot
-    hold it next to the minimum root.
+  * Every selected disk is edited independently.  New partitions are
+    placed in free regions; the editor shows exactly which entries will be
+    deleted and which will be preserved.
+  * An existing EFI System Partition can be adopted as /boot, with a warning
+    when it is too small for systemd-boot plus a kernel and initramfs.
+    Otherwise a 1 GiB FAT32 ESP is created.
+  * Root is ext4 or btrfs, at least 8 GiB when newly created, and fills the
+    remaining region unless a size is given.
+  * Swap is optional.
+  * Data partitions can use ext4, btrfs or vfat and may be mounted at any
+    absolute path except the system-owned /boot, /proc, /sys, /dev, /run
+    and /tmp trees.  /home on a second disk is the common case.
   * The GPT tail gap ends at the last usable LBA, never at the device end;
     the backup GPT is never included.
 
@@ -84,15 +137,19 @@ Safety features
 Install flow
 ------------
 
-  1. snapshot, delete selected entries, write the full replacement GPT,
-     re-read, verify preservation (rollback on mismatch)
-  2. mkfs.fat (only for a new ESP), mke2fs ext4, mkswap
-  3. mount root, the ESP at /boot, bind /dev /proc /sys /run, efivarfs
+  1. for every changed disk: snapshot, delete selected entries, write the
+     full replacement GPT, re-read, verify preservation (rollback on
+     mismatch)
+  2. mkfs.fat, mke2fs/ext4, mkfs.btrfs or mkswap for every partition that
+     needs a filesystem; blkid verifies the type and UUID
+  3. mount root, the ESP at /boot, every data partition at its mount point,
+     enable swap, bind /dev /proc /sys /run, efivarfs
   4. dnf --installroot: browneye-basefs in its own first transaction
   5. dnf --installroot: browneye-base + xfce-desktop + kernel/modules +
-     dracut + efibootmgr + dosfstools + sudo + dnf
-  6. fstab by UUID, hostname, admin user in wheel, root locked, first-boot
-     marker, systemd presets and graphical.target
+     dracut + efibootmgr + dosfstools + btrfs-progs + sudo + dnf
+  6. fstab by UUID for every mount and swap area, hostname, admin user in
+     wheel, root locked, first-boot marker, systemd presets and
+     graphical.target
   7. depmod + dracut --force --no-hostonly
   8. chroot bootctl --esp-path=/boot --no-variables install; loader.conf and
      loader/entries/browneye-<kver>.conf by UUID; EFI/BOOT/BOOTX64.EFI

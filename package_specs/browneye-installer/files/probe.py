@@ -41,7 +41,11 @@ REQUIRED_TOOLS = (
     "fsck.fat",
     "mke2fs",
     "e2fsck",
+    "mkfs.btrfs",
+    "btrfs",
     "mkswap",
+    "swapon",
+    "swapoff",
     "dnf",
     "rpm",
     "bootctl",
@@ -473,6 +477,19 @@ class Probe:
         paths = [plan.esp.by_partuuid, plan.root.by_partuuid]
         if plan.swap is not None:
             paths.append(plan.swap.by_partuuid)
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            if all(os.path.exists(path) for path in paths):
+                return True
+            time.sleep(0.25)
+        return all(os.path.exists(path) for path in paths)
+
+    def wait_for_partuuids(self, layout, timeout: float = 15.0) -> bool:
+        """Wait until every planned partition has a by-partuuid link."""
+
+        if self.runner.dry_run:
+            return True
+        paths = [part.by_partuuid for part in layout.new_partitions]
         deadline = time.monotonic() + timeout
         while time.monotonic() < deadline:
             if all(os.path.exists(path) for path in paths):

@@ -225,7 +225,9 @@ if [ "$DRY_RUN" = 1 ]; then
 fi
 
 echo "uploading RPMs"
-rclone copy "${rpms[@]}" "$R2/$R2_PATH/" --transfers 8 --s3-no-check-bucket
+for rpm in "${rpms[@]}"; do
+    rclone copy "$rpm" "$R2/$R2_PATH/" --s3-no-check-bucket
+done
 
 echo "uploading merged metadata"
 rclone sync "$STAGE/merged/repodata" "$R2/$R2_PATH/repodata" --s3-no-check-bucket

@@ -49,9 +49,11 @@ a screendump and quits.  Logs: `build/installer-serial.log`,
 ImageMagick is installed).
 
 Unattended install: build the ISO with `ISO_AUTO=1` and
-`ISO_ANSWER=tests/installer-answer.json`.  The answer file erases
-`/dev/vda`, creates a 1 GiB ESP + 2 GiB swap + root, installs the `desktop`
-set, sets hostname `browneye-test` and admin `admin` (test-only password).
+`ISO_ANSWER=tests/installer-answer.json`.  The version 2 answer file writes a
+layout on `/dev/vda` with a 1 GiB ESP + 2 GiB swap + ext4 root, installs the
+`desktop` set, sets hostname `browneye-test` and admin `admin` (test-only
+password).  Add another entry to `layout.disks` for a second disk, for
+example a btrfs or ext4 data partition mounted at `/home`.
 That image is a test artifact — do not use it on real hardware.
 
 To exercise the installed disk yourself, boot the same disk with a fresh

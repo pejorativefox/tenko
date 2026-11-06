@@ -88,15 +88,40 @@ class RunnerTest(unittest.TestCase):
 
 
 class ConfigTest(unittest.TestCase):
+    def _layout(self):
+        return {
+            "disks": [
+                {
+                    "path": "/dev/vda",
+                    "serial": "QM00001",
+                    "size_bytes": 21474836480,
+                    "delete_partitions": [],
+                    "partitions": [
+                        {
+                            "role": "esp",
+                            "fstype": "vfat",
+                            "mountpoint": "/boot",
+                            "size_mib": 1024,
+                        },
+                        {
+                            "role": "swap",
+                            "fstype": "swap",
+                            "size_mib": 2048,
+                        },
+                        {
+                            "role": "root",
+                            "fstype": "ext4",
+                            "mountpoint": "/",
+                        },
+                    ],
+                }
+            ]
+        }
+
     def _mapping(self, **overrides):
         data = {
-            "version": 1,
-            "disk": {"path": "/dev/vda", "serial": "QM00001", "size_bytes": 21474836480},
-            "delete_partitions": [2],
-            "region": None,
-            "esp_mib": 512,
-            "root_mib": None,
-            "swap_mib": 2048,
+            "version": 2,
+            "layout": self._layout(),
             "package_set": "desktop",
             "hostname": "browneye",
             "admin": {"username": "admin", "password": "test-password"},
@@ -115,6 +140,10 @@ class ConfigTest(unittest.TestCase):
         with self.assertRaises(ConfigError):
             InstallConfig.from_mapping(self._mapping(typo=True))
 
+    def test_v1_is_rejected(self):
+        with self.assertRaises(ConfigError):
+            InstallConfig.from_mapping({"version": 1})
+
     def test_confirmation_is_required(self):
         config = InstallConfig.from_mapping(
             self._mapping(confirm={"disk": "/dev/vdb", "phrase": "erase"})
@@ -123,13 +152,39 @@ class ConfigTest(unittest.TestCase):
         self.assertTrue(any("disk path" in issue for issue in issues))
         self.assertTrue(any("ERASE" in issue for issue in issues))
 
-    def test_root_minimum_and_hostname(self):
+    def test_hostname_and_missing_root(self):
+        layout = self._layout()
+        layout["disks"][0]["partitions"] = [
+            item
+            for item in layout["disks"][0]["partitions"]
+            if item["role"] != "root"
+        ]
         config = InstallConfig.from_mapping(
-            self._mapping(root_mib=4096, hostname="bad host name")
+            self._mapping(layout=layout, hostname="bad host name")
         )
         issues = config.validate()
-        self.assertTrue(any("8192" in issue for issue in issues))
+        self.assertTrue(any("root partition" in issue for issue in issues))
         self.assertTrue(any("hostname" in issue for issue in issues))
+
+    def test_multiple_disks(self):
+        layout = self._layout()
+        layout["disks"].append(
+            {
+                "path": "/dev/vdb",
+                "partitions": [
+                    {
+                        "role": "data",
+                        "fstype": "btrfs",
+                        "mountpoint": "/home",
+                    }
+                ],
+            }
+        )
+        config = InstallConfig.from_mapping(self._mapping(layout=layout))
+        self.assertEqual(config.validate(), [])
+        self.assertEqual(config.root_disk_path, "/dev/vda")
+        self.assertEqual(config.disk_paths, ("/dev/vda", "/dev/vdb"))
+        self.assertEqual(config.layout.disks[1].partitions[0].fstype, "btrfs")
 
     def test_base_package_set(self):
         config = InstallConfig.from_mapping(self._mapping(package_set="base"))

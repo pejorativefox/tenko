@@ -13,10 +13,11 @@ import os
 import re
 import time
 from dataclasses import dataclass, field
-from typing import Any, Callable, Iterable, Sequence
+from typing import Any, Callable, Sequence
 
 import disk
-from disk import LayoutPlan
+import layout as layout_module
+from layout import InstallLayout, InstallSpec
 from log import Logger
 from probe import Probe
 from runner import Command, CommandError, CommandRunner
@@ -43,6 +44,7 @@ TARGET_PACKAGES_DESKTOP = (
     "dracut",
     "efibootmgr",
     "dosfstools",
+    "btrfs-progs",
     "sudo",
     "dnf",
 )
@@ -61,18 +63,12 @@ _HOSTNAME_RE = re.compile(
     r"^(?=.{1,63}$)[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?$"
 )
 
-_DISK_KEYS = {"path", "serial", "size_bytes", "model"}
 _ADMIN_KEYS = {"username", "password"}
 _CONFIRM_KEYS = {"disk", "phrase"}
 _TOP_KEYS = {
     "version",
     "dry_run",
-    "disk",
-    "delete_partitions",
-    "region",
-    "esp_mib",
-    "root_mib",
-    "swap_mib",
+    "layout",
     "package_set",
     "hostname",
     "admin",
@@ -102,15 +98,7 @@ class InstallError(RuntimeError):
 
 @dataclass
 class InstallConfig:
-    disk_path: str
-    disk_serial: str | None = None
-    disk_size_bytes: int | None = None
-    disk_model: str | None = None
-    delete_partitions: tuple[int, ...] = ()
-    region_start_mib: int | None = None
-    esp_mib: int = disk.ESP_MIB
-    root_mib: int | None = None
-    swap_mib: int | None = 2048
+    layout: InstallSpec
     package_set: str = "desktop"
     hostname: str = "browneye"
     admin_user: str = "admin"
@@ -120,17 +108,35 @@ class InstallConfig:
     repo: str = DEFAULT_REPO
     target: str = "/mnt/browneye"
     dry_run: bool = False
+    warnings: list[str] = field(default_factory=list)
 
     @property
     def packages(self) -> tuple[str, ...]:
         return PACKAGE_SETS.get(self.package_set, TARGET_PACKAGES_DESKTOP)
 
+    @property
+    def root_disk_path(self) -> str:
+        for item in self.layout.disks:
+            if any(part.role == "root" for part in item.partitions):
+                return item.path
+        return self.layout.disks[0].path if self.layout.disks else ""
+
+    @property
+    def disk_paths(self) -> tuple[str, ...]:
+        return tuple(item.path for item in self.layout.disks)
+
     def validate(self) -> list[str]:
         issues: list[str] = []
-        if not self.disk_path or not self.disk_path.startswith("/dev/"):
-            issues.append("disk path must be an absolute /dev/... path")
-        if self.confirm_disk != self.disk_path:
-            issues.append("confirmation disk path does not match the selected disk")
+        issues.extend(self.layout.validate())
+        root_disk = self.root_disk_path
+        if not root_disk or not root_disk.startswith("/dev/"):
+            issues.append("the layout has no root disk")
+        elif self.confirm_disk != root_disk:
+            issues.append(
+                "confirmation disk path does not match the root disk {}".format(
+                    root_disk
+                )
+            )
         if self.confirm_phrase != "ERASE":
             issues.append("confirmation phrase must be exactly ERASE")
         if not _ADMIN_RE.match(self.admin_user or ""):
@@ -148,16 +154,6 @@ class InstallConfig:
             issues.append("hostname is not a valid DNS label")
         if self.package_set not in PACKAGE_SETS:
             issues.append("package_set must be 'desktop' or 'base'")
-        if self.root_mib is not None and int(self.root_mib) < 8192:
-            issues.append("root must be at least 8192 MiB")
-        if self.esp_mib < 32 or self.esp_mib > 4096:
-            issues.append("ESP size must be between 32 and 4096 MiB")
-        if self.swap_mib is not None and int(self.swap_mib) < 0:
-            issues.append("swap size must not be negative")
-        if len(set(self.delete_partitions)) != len(self.delete_partitions):
-            issues.append("delete_partitions contains duplicates")
-        if any(int(n) < 1 for n in self.delete_partitions):
-            issues.append("delete_partitions entries must be positive")
         if "://" not in self.repo and not os.path.isabs(self.repo):
             issues.append("repo must be an http(s)/ftp URL or an absolute path")
         if not os.path.isabs(self.target):
@@ -166,23 +162,15 @@ class InstallConfig:
 
     def public_dict(self) -> dict[str, Any]:
         return {
-            "disk": {
-                "path": self.disk_path,
-                "serial": self.disk_serial,
-                "size_bytes": self.disk_size_bytes,
-                "model": self.disk_model,
-            },
-            "delete_partitions": list(self.delete_partitions),
-            "region_start_mib": self.region_start_mib,
-            "esp_mib": self.esp_mib,
-            "root_mib": self.root_mib,
-            "swap_mib": self.swap_mib,
+            "layout": self.layout.to_dict(),
+            "root_disk": self.root_disk_path,
             "package_set": self.package_set,
             "hostname": self.hostname,
             "admin": {"username": self.admin_user, "password": "<redacted>"},
             "repo": self.repo,
             "target": self.target,
             "dry_run": self.dry_run,
+            "warnings": list(self.warnings),
         }
 
     @classmethod
@@ -201,20 +189,17 @@ class InstallConfig:
             raise ConfigError(
                 "unknown answer-file keys: " + ", ".join(sorted(unknown))
             )
-        version = data.get("version", 1)
-        if version != 1:
-            raise ConfigError(f"unsupported answer-file version: {version!r}")
-        disk_data = data.get("disk")
-        if not isinstance(disk_data, dict):
-            raise ConfigError("answer file has no disk object")
-        unknown_disk = set(disk_data) - _DISK_KEYS
-        if unknown_disk:
+        version = data.get("version", 2)
+        if version != 2:
             raise ConfigError(
-                "unknown disk keys: " + ", ".join(sorted(unknown_disk))
+                "unsupported answer-file version: {!r}; version 2 is required".format(
+                    version
+                )
             )
-        path = disk_data.get("path")
-        if not isinstance(path, str):
-            raise ConfigError("disk.path must be a string")
+        try:
+            spec = InstallSpec.from_mapping(data.get("layout"))
+        except ValueError as exc:
+            raise ConfigError(str(exc)) from exc
         admin = data.get("admin")
         if not isinstance(admin, dict):
             raise ConfigError("answer file has no admin object")
@@ -231,41 +216,8 @@ class InstallConfig:
             raise ConfigError(
                 "unknown confirm keys: " + ", ".join(sorted(unknown_confirm))
             )
-        delete = data.get("delete_partitions") or []
-        if not isinstance(delete, list) or any(
-            not isinstance(item, int) or isinstance(item, bool) for item in delete
-        ):
-            raise ConfigError("delete_partitions must be a list of integers")
-        region = data.get("region")
-        region_start_mib: int | None = None
-        if region is not None:
-            if not isinstance(region, dict):
-                raise ConfigError("region must be null or an object")
-            unknown_region = set(region) - {"start_mib", "start"}
-            if unknown_region:
-                raise ConfigError(
-                    "unknown region keys: " + ", ".join(sorted(unknown_region))
-                )
-            if "start_mib" in region:
-                region_start_mib = int(region["start_mib"])
-            elif "start" in region:
-                # Historically a sector value; accept it only as MiB for now.
-                region_start_mib = int(region["start"]) // 2048
-            else:
-                raise ConfigError("region needs start_mib")
-        size = disk_data.get("size_bytes")
-        root_mib = data.get("root_mib")
-        swap_mib = data.get("swap_mib", 2048)
         config = cls(
-            disk_path=path,
-            disk_serial=disk_data.get("serial"),
-            disk_size_bytes=int(size) if size is not None else None,
-            disk_model=disk_data.get("model"),
-            delete_partitions=tuple(int(n) for n in delete),
-            region_start_mib=region_start_mib,
-            esp_mib=int(data.get("esp_mib", disk.ESP_MIB)),
-            root_mib=int(root_mib) if root_mib is not None else None,
-            swap_mib=int(swap_mib) if swap_mib is not None else None,
+            layout=spec,
             package_set=str(data.get("package_set", "desktop")),
             hostname=str(data.get("hostname", "browneye")),
             admin_user=str(admin.get("username", "admin")),
@@ -292,7 +244,7 @@ class Installer:
         runner: CommandRunner,
         logger: Logger,
         probe: Probe,
-        plan: LayoutPlan,
+        layout: InstallLayout,
         *,
         on_step: Callable[[int, int, str], None] | None = None,
         on_line: Callable[[str], None] | None = None,
@@ -301,7 +253,7 @@ class Installer:
         self.runner = runner
         self.logger = logger
         self.probe = probe
-        self.plan = plan
+        self.layout = layout
         self.on_step = on_step
         self.on_line = on_line
         self.kver = FALLBACK_KVER
@@ -309,6 +261,7 @@ class Installer:
         self.root_mounted = False
         self.esp_mounted = False
         self.bind_mounted = False
+        self.swap_on: list[disk.PlannedPartition] = []
         self.destructive_started = False
         self.backup_dir = "/run/browneye/backup"
         self.dnf_cache = "/run/browneye/dnf-cache"
@@ -337,8 +290,8 @@ class Installer:
         total = len(steps)
         self.logger.info(
             "install-begin",
-            disk=self.plan.disk_path,
-            table=self.plan.to_dict(),
+            disks=list(self.config.disk_paths),
+            layout=self.layout.to_dict(),
             packages=list(self.config.packages),
         )
         try:
@@ -366,7 +319,7 @@ class Installer:
                         remedy=self._remedy_for(step.name),
                     ) from exc
                 self.logger.step_done(step.name, index, total)
-            self.logger.info("install-complete", disk=self.plan.disk_path)
+            self.logger.info("install-complete", disks=list(self.config.disk_paths))
         except InstallError as exc:
             self.logger.error(
                 "install-failed",
@@ -410,142 +363,177 @@ class Installer:
     # Steps
     # ------------------------------------------------------------------
     def step_partition(self) -> None:
-        self.logger.plan(self.plan.to_dict())
-        # 1. Snapshot.  A failure here is safe: nothing has changed yet.
-        for command in disk.snapshot_commands(self.plan, self.backup_dir):
-            self._run(command)
-        # 2. Delete selected entries and write the full replacement table.
-        try:
-            for command in disk.delete_commands(self.plan):
-                self._run(command)
-            for command in disk.write_table_commands(self.plan):
-                self._run(command)
-        except CommandError as exc:
-            self.logger.error("partition-write-failed", error=str(exc))
-            self._rollback("partition table write failed")
-            raise InstallError(
-                "partition",
-                "writing the replacement partition table failed: {}".format(exc),
-                reversible=True,
-                remedy="the saved table was restored",
-            ) from exc
+        self.logger.plan(self.layout.to_dict())
+        written: list[layout_module.DiskLayout] = []
 
-        self.destructive_started = True
+        def rollback_all(current: layout_module.DiskLayout, reason: str) -> None:
+            self._rollback(current, reason)
+            for previous in reversed(written):
+                if previous is not current:
+                    self._rollback(previous, reason)
 
+        for item in self.layout.disks:
+            if not item.changed:
+                continue
+            # 1. Snapshot.  A failure here is safe: nothing has changed yet.
+            for command in layout_module.snapshot_commands(item, self.backup_dir):
+                self._run(command)
+            # 2. Delete selected entries and write the full replacement table.
+            try:
+                for command in layout_module.delete_commands(item):
+                    self._run(command)
+                for command in layout_module.write_table_commands(item):
+                    self._run(command)
+            except CommandError as exc:
+                self.logger.error(
+                    "partition-write-failed", disk=item.disk_path, error=str(exc)
+                )
+                rollback_all(item, "partition table write failed")
+                raise InstallError(
+                    "partition",
+                    "writing the replacement partition table on {} failed: {}".format(
+                        item.disk_path, exc
+                    ),
+                    reversible=True,
+                    remedy="the saved tables were restored",
+                ) from exc
+
+            written.append(item)
+            self.destructive_started = True
+
+            if self.runner.dry_run:
+                continue
+            probed = self.probe.find_disk(item.disk_path, refresh=True)
+            if probed is None:
+                rollback_all(item, "selected disk disappeared")
+                raise InstallError(
+                    "partition",
+                    "the selected disk {} is no longer present".format(
+                        item.disk_path
+                    ),
+                    reversible=True,
+                )
+            after = self.probe.read_table(probed.disk)
+            issues = layout_module.verify_preserved(item, after)
+            issues.extend(layout_module.verify_planned(item, after))
+            if issues:
+                self.logger.error(
+                    "partition-verify-failed", disk=item.disk_path, issues=issues
+                )
+                rollback_all(item, "partition preservation check failed")
+                raise InstallError(
+                    "partition",
+                    "the new partition table on {} did not preserve existing "
+                    "entries: {}".format(item.disk_path, "; ".join(issues)),
+                    reversible=True,
+                    remedy="the saved tables were restored; no filesystem was written",
+                )
+            self.logger.info(
+                "partition-verified", disk=item.disk_path, table=after
+            )
         if self.runner.dry_run:
             self.logger.info("partition-plan-recorded")
-            return
 
-        probed = self.probe.find_disk(self.plan.disk_path, refresh=True)
-        if probed is None:
-            self._rollback("selected disk disappeared")
-            raise InstallError(
-                "partition",
-                "the selected disk is no longer present",
-                reversible=True,
-            )
-        after = self.probe.read_table(probed.disk)
-        issues = disk.verify_preserved(
-            self.plan.table,
-            after,
-            self.plan.delete_numbers,
-            self.plan.allowed_new_numbers,
-        )
-        issues.extend(disk.verify_planned(self.plan, after))
-        if issues:
-            self.logger.error("partition-verify-failed", issues=issues)
-            self._rollback("partition preservation check failed")
-            raise InstallError(
-                "partition",
-                "the new partition table did not preserve existing entries: "
-                + "; ".join(issues),
-                reversible=True,
-                remedy="the saved table was restored; no filesystem was written",
-            )
-        self.logger.info("partition-verified", table=after)
-
-    def _rollback(self, reason: str) -> None:
+    def _rollback(self, item: layout_module.DiskLayout, reason: str) -> None:
         if self.runner.dry_run:
             return
-        self.logger.warning("rollback-start", reason=reason)
+        self.logger.warning(
+            "rollback-start", disk=item.disk_path, reason=reason
+        )
         try:
-            for command in disk.rollback_commands(self.plan, self.backup_dir):
+            for command in layout_module.rollback_commands(
+                item, self.backup_dir
+            ):
                 self._run(command)
-            self.logger.info("rollback-done")
+            self.logger.info("rollback-done", disk=item.disk_path)
         except CommandError as exc:
             self.logger.error("rollback-failed", error=str(exc))
 
     def step_format(self) -> None:
-        if not self.runner.dry_run and not self.probe.wait_for_partuuid(self.plan):
+        if not self.runner.dry_run and not self.probe.wait_for_partuuids(
+            self.layout
+        ):
             raise InstallError(
                 "format",
                 "the new partition device nodes did not appear (udev did not settle)",
                 reversible=True,
             )
-        for command in disk.format_commands(self.plan):
-            self._run(command)
         self.destructive_started = True
+        for command in layout_module.all_format_commands(self.layout):
+            self._run(command)
         if self.runner.dry_run:
             self.logger.info("format-plan-recorded")
             return
-        expected = {
-            "esp-type": "vfat",
-            "root-type": "ext4",
-        }
-        results = [self._run(c) for c in disk.format_verify_commands(self.plan)]
-        values = [r.output.strip() for r in results]
-        if len(values) >= 4:
-            esp_type, esp_uuid, root_type, root_uuid = values[:4]
-            if esp_type.lower() != expected["esp-type"]:
+        for check in layout_module.all_format_checks(self.layout):
+            type_result = self._run(check.type_command)
+            uuid_result = self._run(check.uuid_command)
+            actual_type = (type_result.output or "").strip().lower()
+            actual_uuid = (uuid_result.output or "").strip()
+            if actual_type != check.expected_fstype:
                 raise InstallError(
                     "format",
-                    f"ESP is {esp_type!r}, expected vfat",
-                    reversible=False,
-                )
-            if root_type.lower() != expected["root-type"]:
-                raise InstallError(
-                    "format",
-                    f"root is {root_type!r}, expected ext4",
-                    reversible=False,
-                )
-            if self.plan.esp.fs_uuid and esp_uuid.upper() != self.plan.esp.fs_uuid.upper():
-                raise InstallError(
-                    "format",
-                    "ESP UUID mismatch: {} != {}".format(
-                        esp_uuid, self.plan.esp.fs_uuid
+                    "partition {} is {!r}, expected {}".format(
+                        check.part.number,
+                        actual_type,
+                        check.expected_fstype,
                     ),
                     reversible=False,
                 )
-            if self.plan.root.fs_uuid and root_uuid.lower() != self.plan.root.fs_uuid.lower():
-                raise InstallError(
-                    "format",
-                    "root UUID mismatch: {} != {}".format(
-                        root_uuid, self.plan.root.fs_uuid
-                    ),
-                    reversible=False,
-                )
+            expected_uuid = check.part.fs_uuid
+            if expected_uuid:
+                if check.expected_fstype == "vfat":
+                    matches = actual_uuid.upper() == expected_uuid.upper()
+                else:
+                    matches = actual_uuid.lower() == expected_uuid.lower()
+                if not matches:
+                    raise InstallError(
+                        "format",
+                        "partition {} UUID mismatch: {} != {}".format(
+                            check.part.number, actual_uuid, expected_uuid
+                        ),
+                        reversible=False,
+                    )
         # A read-only filesystem check is informative, not a hard failure right
         # after mkfs.  Do it so a broken image is visible in the log.
-        self.runner.run(
-            ("fsck.fat", "-n", self.probe.resolve_partition(self.plan.esp)),
-            step="format",
-            read_only=True,
-            destructive=False,
-            allow_failure=True,
-            description="check the new ESP",
-        )
-        self.runner.run(
-            ("e2fsck", "-fn", self.probe.resolve_partition(self.plan.root)),
-            step="format",
-            read_only=True,
-            destructive=False,
-            allow_failure=True,
-            description="check the new root filesystem",
-        )
+        for part in self.layout.partitions:
+            if part.existing and not part.format:
+                continue
+            device = self.probe.resolve_partition(part)
+            fstype = (part.fstype or "").lower()
+            if fstype == "vfat":
+                self.runner.run(
+                    ("fsck.fat", "-n", device),
+                    step="format",
+                    read_only=True,
+                    destructive=False,
+                    allow_failure=True,
+                    description="check the FAT filesystem on partition {}".format(
+                        part.number
+                    ),
+                )
+            elif fstype == "ext4":
+                self.runner.run(
+                    ("e2fsck", "-fn", device),
+                    step="format",
+                    read_only=True,
+                    destructive=False,
+                    allow_failure=True,
+                    description="check the ext4 filesystem on partition {}".format(
+                        part.number
+                    ),
+                )
 
     def step_mount(self) -> None:
-        root_dev = self.probe.resolve_partition(self.plan.root)
-        esp_dev = self.probe.resolve_partition(self.plan.esp)
+        root = self.layout.root
+        esp = self.layout.esp
+        if root is None or esp is None:
+            raise InstallError(
+                "mount",
+                "the layout has no root partition or no ESP",
+                reversible=True,
+            )
+        root_dev = self.probe.resolve_partition(root)
+        esp_dev = self.probe.resolve_partition(esp)
         self.runner.makedirs(self.target, step="mount")
         self.runner.run(
             ("mount", "-o", "rw,noatime", root_dev, self.target),
@@ -579,6 +567,26 @@ class Installer:
                     remedy="delete the partition and let the installer "
                            "create a larger ESP (1 GiB is recommended)",
                 )
+        # Data partitions are mounted before the bind mounts so package
+        # scriptlets and useradd see the final directory tree.
+        for part in sorted(self.layout.data, key=layout_module.mount_sort_key):
+            mountpoint = part.mountpoint or ""
+            destination = self.target + mountpoint
+            if mountpoint != "/":
+                self.runner.makedirs(destination, step="mount")
+            options = "rw,umask=0077" if part.fstype == "vfat" else "rw,noatime"
+            self.runner.run(
+                ("mount", "-o", options, self.probe.resolve_partition(part), destination),
+                step="mount",
+                description="mount {} at {}".format(mountpoint, mountpoint),
+            )
+        for part in self.layout.swaps:
+            self.runner.run(
+                ("swapon", self.probe.resolve_partition(part)),
+                step="mount",
+                description="enable swap on partition {}".format(part.number),
+            )
+            self.swap_on.append(part)
         for name in ("dev", "proc", "sys", "run"):
             self.runner.makedirs(os.path.join(self.target, name), step="mount")
         for name in ("dev", "proc", "sys", "run"):
@@ -768,18 +776,38 @@ class Installer:
             return "UUID=" + part.fs_uuid
         return "PARTUUID=" + part.partuuid
 
+    def _fstab_entry(self, part: disk.PlannedPartition) -> str:
+        if part.role == "swap":
+            return "{} none swap sw 0 0".format(self._uuid_ref(part))
+        mountpoint = part.mountpoint or ""
+        fstype = part.fstype or "auto"
+        if part.role == "root":
+            options = "defaults,noatime"
+            passno = 1
+        elif fstype == "vfat":
+            options = "umask=0077,shortname=winnt"
+            passno = 2
+        else:
+            options = "defaults,noatime"
+            passno = 2
+        return "{} {} {} {} 0 {}".format(
+            self._uuid_ref(part), mountpoint, fstype, options, passno
+        )
+
     def _write_fstab(self) -> None:
         lines = [
             "# <file system> <mount point> <type> <options> <dump> <pass>",
-            "{} / ext4 defaults,noatime 0 1".format(self._uuid_ref(self.plan.root)),
-            "{} /boot vfat umask=0077,shortname=winnt 0 2".format(
-                self._uuid_ref(self.plan.esp)
-            ),
         ]
-        if self.plan.swap is not None:
-            lines.append(
-                "{} none swap sw 0 0".format(self._uuid_ref(self.plan.swap))
-            )
+        root = self.layout.root
+        esp = self.layout.esp
+        if root is not None:
+            lines.append(self._fstab_entry(root))
+        if esp is not None:
+            lines.append(self._fstab_entry(esp))
+        for part in sorted(self.layout.data, key=layout_module.mount_sort_key):
+            lines.append(self._fstab_entry(part))
+        for part in self.layout.swaps:
+            lines.append(self._fstab_entry(part))
         lines.append("tmpfs /tmp tmpfs defaults 0 0")
         text = "\n".join(lines) + "\n"
         self.runner.write_file(
@@ -1045,14 +1073,22 @@ class Installer:
                     + ", ".join(missing),
                     reversible=False,
                 )
+        esp = self.layout.esp
+        esp_disk = self.layout.disk_for(esp) if esp is not None else None
+        if esp is None or esp_disk is None:
+            raise InstallError(
+                "bootloader",
+                "the layout has no ESP disk",
+                reversible=False,
+            )
         self.runner.run(
             (
                 "efibootmgr",
                 "--create",
                 "--disk",
-                self.plan.disk_path,
+                esp_disk.disk_path,
                 "--part",
-                str(self.plan.esp.number),
+                str(esp.number),
                 "--label",
                 "Browneye Linux",
                 "--loader",
@@ -1075,7 +1111,14 @@ class Installer:
         return "browneye-{}.conf".format(self.kver)
 
     def _kernel_cmdline(self) -> str:
-        return "root={} ro rootwait".format(self._uuid_ref(self.plan.root))
+        root = self.layout.root
+        if root is None:
+            raise InstallError(
+                "bootloader",
+                "the layout has no root partition",
+                reversible=False,
+            )
+        return "root={} ro rootwait".format(self._uuid_ref(root))
 
     def _loader_conf(self) -> str:
         return "\n".join(
@@ -1188,6 +1231,9 @@ class Installer:
         # the reboot; this is strictly best effort.
         if not self.destructive_started:
             return
+        esp = self.layout.esp
+        if esp is None:
+            return
         mountpoint = "/run/browneye/esp-failure"
         self.runner.makedirs(mountpoint, step="failure", allow_failure=True)
         mounted = self.runner.run(
@@ -1195,7 +1241,7 @@ class Installer:
                 "mount",
                 "-o",
                 "rw,umask=0077",
-                self.plan.esp.by_partuuid,
+                esp.by_partuuid,
                 mountpoint,
             ),
             step="failure",
@@ -1226,6 +1272,15 @@ class Installer:
             )
 
     def _cleanup_mounts(self, *, required: bool = False) -> None:
+        swap_on = list(self.swap_on)
+        self.swap_on = []
+        for part in swap_on:
+            self.runner.run(
+                ("swapoff", self.probe.resolve_partition(part)),
+                step="finish",
+                description="disable swap on partition {}".format(part.number),
+                allow_failure=True,
+            )
         if not (self.root_mounted or self.esp_mounted or self.bind_mounted):
             return
         if self.runner.dry_run:

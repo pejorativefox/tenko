@@ -16,15 +16,20 @@ from typing import Any, Sequence
 import curses
 
 import disk
-import probe as probe_module
-from disk import Disk, LayoutPlan, PartitionTable, Region
+import layout as layout_module
+from disk import Disk, PartitionTable, Region
 from install import (
     ConfigError,
     InstallConfig,
     InstallError,
     Installer,
     PACKAGE_SETS,
-    TARGET_PACKAGES_DESKTOP,
+)
+from layout import (
+    DiskSpec,
+    InstallLayout,
+    InstallSpec,
+    PartitionSpec,
 )
 from log import Logger
 from probe import Check, Probe, ProbedDisk
@@ -76,11 +81,11 @@ def marker(text: str) -> None:
     serial_write(line)
 
 
-def _write_plan_json(plan: LayoutPlan, config: InstallConfig) -> None:
+def _write_plan_json(plan: InstallLayout, config: InstallConfig) -> None:
     try:
         os.makedirs(LOG_DIR, exist_ok=True)
         payload = {
-            "version": 1,
+            "version": 2,
             "installer": VERSION,
             "config": config.public_dict(),
             "plan": plan.to_dict(),
@@ -100,9 +105,14 @@ def _read_file(path: str) -> str:
         return ""
 
 
-def write_probe_snapshot(probe: Probe, probed: ProbedDisk, logger: Logger) -> None:
+def write_probe_snapshot(
+    probe: Probe,
+    probed: ProbedDisk | Sequence[ProbedDisk],
+    logger: Logger,
+) -> None:
     """Write /run/browneye/probe.json for post-mortem debugging."""
 
+    probed_list = [probed] if isinstance(probed, ProbedDisk) else list(probed)
     dmi = {}
     for name in (
         "sys_vendor",
@@ -136,20 +146,25 @@ def write_probe_snapshot(probe: Probe, probed: ProbedDisk, logger: Logger) -> No
         "swaps": _read_file("/proc/swaps"),
         "mdstat": _read_file("/proc/mdstat"),
         "secure_boot": probe.secure_boot_state(),
-        "disk": {
-            "path": probed.disk.path,
-            "kname": probed.disk.kname,
-            "model": probed.disk.model,
-            "serial": probed.disk.serial,
-            "size_bytes": probed.disk.size_bytes,
-            "sector_size": probed.disk.sector_size,
-            "pttype": probed.disk.pttype,
-            "live": probed.live,
-            "selectable": probed.selectable,
-            "reasons": list(probed.reasons),
-            "table": asdict(probed.table) if probed.table is not None else None,
-        },
+        "disks": [
+            {
+                "path": item.disk.path,
+                "kname": item.disk.kname,
+                "model": item.disk.model,
+                "serial": item.disk.serial,
+                "size_bytes": item.disk.size_bytes,
+                "sector_size": item.disk.sector_size,
+                "pttype": item.disk.pttype,
+                "live": item.live,
+                "selectable": item.selectable,
+                "reasons": list(item.reasons),
+                "table": asdict(item.table) if item.table is not None else None,
+            }
+            for item in probed_list
+        ],
     }
+    if probed_list:
+        data["disk"] = data["disks"][0]
     for label, argv in (
         ("lsblk", ("lsblk", "--json", "--bytes")),
         ("findmnt", ("findmnt", "-J")),
@@ -371,88 +386,85 @@ def run_preflight(
     return checks, all(check.ok for check in checks)
 
 
-def _disk_matches(probed: ProbedDisk, config: InstallConfig) -> list[str]:
+def _disk_matches(probed: ProbedDisk, spec: DiskSpec) -> list[str]:
     issues: list[str] = []
-    if config.disk_serial:
+    if spec.serial:
         if not probed.disk.serial:
-            issues.append("the answer file requires a serial but the disk has none")
-        elif config.disk_serial.casefold() != probed.disk.serial.casefold():
+            issues.append("the layout requires a serial but the disk has none")
+        elif spec.serial.casefold() != probed.disk.serial.casefold():
             issues.append(
                 "disk serial changed: {} != {}".format(
-                    probed.disk.serial, config.disk_serial
+                    probed.disk.serial, spec.serial
                 )
             )
-    if config.disk_size_bytes is not None and probed.disk.size_bytes != config.disk_size_bytes:
+    if spec.size_bytes is not None and probed.disk.size_bytes != spec.size_bytes:
         issues.append(
             "disk size changed: {} != {}".format(
-                probed.disk.size_bytes, config.disk_size_bytes
+                probed.disk.size_bytes, spec.size_bytes
             )
         )
-    if not config.disk_serial and config.disk_model and probed.disk.model:
-        if config.disk_model.strip().casefold() != probed.disk.model.strip().casefold():
+    if not spec.serial and spec.model and probed.disk.model:
+        if spec.model.strip().casefold() != probed.disk.model.strip().casefold():
             issues.append(
                 "disk model changed: {} != {}".format(
-                    probed.disk.model, config.disk_model
+                    probed.disk.model, spec.model
                 )
             )
     return issues
 
 
-def build_plan(
+def build_layout(
     probe: Probe,
     config: InstallConfig,
-) -> tuple[LayoutPlan, ProbedDisk, list[Region]]:
-    probed = probe.find_disk(config.disk_path, refresh=True)
-    if probed is None:
-        raise ConfigError(f"disk {config.disk_path} was not found")
-    if probed.live:
-        raise ConfigError("the selected disk is the live installation media")
-    if not probed.selectable:
-        raise ConfigError(
-            "disk {} is not selectable: {}".format(
-                config.disk_path, "; ".join(probed.reasons) or "unknown reason"
+) -> tuple[InstallLayout, list[ProbedDisk], dict[str, list[Region]]]:
+    """Probe every disk in the layout and build the validated plan."""
+
+    probed_disks: list[ProbedDisk] = []
+    tables: dict[str, PartitionTable] = {}
+    totals: dict[str, int | None] = {}
+    regions_by_disk: dict[str, list[Region]] = {}
+    for spec in config.layout.disks:
+        probed = probe.find_disk(spec.path, refresh=True)
+        if probed is None:
+            raise ConfigError("disk {} was not found".format(spec.path))
+        if probed.live:
+            raise ConfigError(
+                "disk {} is the live installation media".format(spec.path)
             )
+        if not probed.selectable:
+            raise ConfigError(
+                "disk {} is not selectable: {}".format(
+                    spec.path, "; ".join(probed.reasons) or "unknown reason"
+                )
+            )
+        issues = _disk_matches(probed, spec)
+        if issues:
+            raise ConfigError("; ".join(issues))
+        table = probed.table or probe.read_table(probed.disk)
+        tables[spec.path] = table
+        totals[spec.path] = table.total_sectors
+        probed_disks.append(probed)
+        remaining = table.without(spec.delete_partitions)
+        regions_by_disk[spec.path] = disk.find_free_regions(
+            remaining,
+            total_sectors=table.total_sectors,
+            unit=table.unit,
+            align=max(1, MIB // (table.unit or 512)),
         )
-    issues = _disk_matches(probed, config)
-    if issues:
-        raise ConfigError("; ".join(issues))
-    table = probed.table or probe.read_table(probed.disk)
-    remaining = table.without(config.delete_partitions)
-    regions = disk.find_free_regions(
-        remaining,
-        total_sectors=table.total_sectors,
-        unit=table.unit,
-        align=max(1, MIB // (table.unit or 512)),
-    )
-    if not regions:
-        raise ConfigError(
-            "disk {} has no free region of at least 2 MiB".format(config.disk_path)
+    try:
+        plan = layout_module.plan_install(
+            tables,
+            config.layout,
+            total_sectors=totals,
         )
-    region = disk.choose_region(
-        regions,
-        required_mib=0,
-        start_mib=config.region_start_mib,
-    )
-    if region is None:
-        raise ConfigError(
-            "the requested free region was not found on {}".format(config.disk_path)
-        )
-    plan = disk.plan_layout(
-        table,
-        region,
-        disk_path=config.disk_path,
-        esp_mib=config.esp_mib,
-        root_mib=config.root_mib,
-        swap_mib=config.swap_mib,
-        root_min_mib=8192,
-        delete_numbers=config.delete_partitions,
-        total_sectors=table.total_sectors,
-        unit=table.unit,
-    )
-    issues = disk.validate_plan(plan)
-    if issues:
-        raise ConfigError("invalid layout: " + "; ".join(issues))
-    return plan, probed, regions
+    except disk.PlanError as exc:
+        raise ConfigError(str(exc)) from exc
+    for item in plan.disks:
+        for warning in item.warnings:
+            config_warning = "{}: {}".format(item.disk_path, warning)
+            if config_warning not in config.warnings:
+                config.warnings.append(config_warning)
+    return plan, probed_disks, regions_by_disk
 
 
 # ---------------------------------------------------------------------------
@@ -462,7 +474,7 @@ def build_plan(
 
 def execute_install(
     config: InstallConfig,
-    plan: LayoutPlan,
+    plan: InstallLayout,
     probe: Probe,
     runner: CommandRunner,
     logger: Logger,
@@ -532,7 +544,7 @@ def run_noninteractive(
         return 2
 
     try:
-        plan, probed, _regions = build_plan(probe, config)
+        plan, probed, _regions = build_layout(probe, config)
     except (ConfigError, disk.PlanError) as exc:
         marker("FAIL plan: " + str(exc))
         return 2
@@ -588,6 +600,83 @@ def _ask(prompt: str, default: str = "") -> str:
     return value or default
 
 
+def _existing_esp(table: PartitionTable) -> disk.Partition | None:
+    for part in table.partitions:
+        if (part.type or "").upper() == disk.ESP_TYPE:
+            return part
+    return None
+
+
+def _prompt_delete(table: PartitionTable) -> tuple[int, ...]:
+    print("\nCurrent partitions:")
+    for part in table.partitions:
+        print(
+            "  {}  start={} MiB  size={} MiB  {}  {}".format(
+                part.number,
+                (part.start * table.unit) // MIB,
+                (part.size * table.unit) // MIB,
+                disk.type_name(part.type, table.is_mbr),
+                part.name or "",
+            )
+        )
+    text = _ask("Delete partition numbers (comma-separated, blank = none)", "")
+    deleted: list[int] = []
+    for token in text.replace(" ", "").split(","):
+        if not token:
+            continue
+        try:
+            deleted.append(int(token))
+        except ValueError as exc:
+            raise ValueError("delete list is not a list of numbers") from exc
+    return tuple(deleted)
+
+
+def _default_root_partitions(
+    table: PartitionTable,
+    root_fstype: str,
+    root_mib: int | None,
+    swap_mib: int,
+) -> list[PartitionSpec]:
+    specs: list[PartitionSpec] = []
+    esp = _existing_esp(table)
+    if esp is not None:
+        specs.append(
+            PartitionSpec(
+                role="esp",
+                fstype="vfat",
+                mountpoint="/boot",
+                existing_number=esp.number,
+                format=False,
+            )
+        )
+    else:
+        specs.append(
+            PartitionSpec(
+                role="esp",
+                fstype="vfat",
+                mountpoint="/boot",
+                size_mib=layout_module.ESP_MIB,
+            )
+        )
+    if swap_mib > 0:
+        specs.append(
+            PartitionSpec(
+                role="swap",
+                fstype="swap",
+                size_mib=swap_mib,
+            )
+        )
+    specs.append(
+        PartitionSpec(
+            role="root",
+            fstype=root_fstype,
+            mountpoint="/",
+            size_mib=root_mib,
+        )
+    )
+    return specs
+
+
 def run_plain(
     args: argparse.Namespace,
     logger: Logger,
@@ -598,15 +687,15 @@ def run_plain(
     if answer_path:
         return run_noninteractive(args, logger, runner, probe)
 
-    console = lambda line: console_line(line)
-    logger.console = console
-    config = InstallConfig(
-        disk_path="",
+    logger.console = console_line
+    empty_spec = InstallSpec(disks=())
+    preflight_config = InstallConfig(
+        layout=empty_spec,
         repo=args.repo,
         target=args.target,
         dry_run=args.dry_run,
     )
-    checks, ok = run_preflight(probe, config, logger)
+    checks, ok = run_preflight(probe, preflight_config, logger)
     for check in checks:
         print("  [{}] {}: {}".format("ok" if check.ok else "!!", check.label, check.detail))
     if not ok:
@@ -620,7 +709,7 @@ def run_plain(
         for item in probed:
             print("  {}: {}".format(item.disk.path, "; ".join(item.reasons)))
         return 2
-    print("Select a disk:")
+    print("Select disks (first one becomes the root disk):")
     for index, item in enumerate(selectable, 1):
         print(
             "  {}. {}  {}  {}  {}".format(
@@ -631,61 +720,69 @@ def run_plain(
                 item.disk.model or "",
             )
         )
-    choice = _ask("Disk number", "1")
+    choice = _ask("Disk numbers (comma-separated)", "1")
+    selected: list[ProbedDisk] = []
     try:
-        selected = selectable[int(choice) - 1]
+        for token in choice.replace(" ", "").split(","):
+            if token:
+                selected.append(selectable[int(token) - 1])
     except (ValueError, IndexError):
         marker("FAIL disk selection")
         return 2
-    table = selected.table or probe.read_table(selected.disk)
-    print("\nCurrent partitions:")
-    for part in table.partitions:
-        print(
-            "  {}  start={} MiB  size={} MiB  {}  {}".format(
-                part.number,
-                (part.start * table.unit) // MIB,
-                (part.size * table.unit) // MIB,
-                disk.type_name(part.type, table.is_mbr),
-                part.name or "",
-            )
-        )
-    delete_text = _ask("Delete partition numbers (comma-separated, blank = none)", "")
-    deleted: list[int] = []
-    for token in delete_text.replace(" ", "").split(","):
-        if not token:
-            continue
-        try:
-            deleted.append(int(token))
-        except ValueError:
-            marker("FAIL delete list")
-            return 2
-    remaining = table.without(deleted)
-    regions = disk.find_free_regions(
-        remaining,
-        total_sectors=table.total_sectors,
-        unit=table.unit,
-        align=max(1, MIB // (table.unit or 512)),
-    )
-    if not regions:
-        print("No usable free region.")
+    if not selected:
+        marker("FAIL disk selection")
         return 2
-    print("\nFree regions:")
-    usable = [region for region in regions if region.size_mib >= 8192]
-    for index, region in enumerate(regions, 1):
-        note = "" if region in usable else "  (too small for an 8 GiB root)"
-        print(
-            "  {}. {}..{} MiB  {} MiB{}".format(
-                index, region.start_mib, region.end_mib, region.size_mib, note
-            )
-        )
-    choice = _ask("Region number", str(regions.index(max(regions, key=lambda r: r.size_mib)) + 1))
+
+    disk_specs: list[DiskSpec] = []
     try:
-        region = regions[int(choice) - 1]
-    except (ValueError, IndexError):
-        marker("FAIL region selection")
+        for position, item in enumerate(selected):
+            table = item.table or probe.read_table(item.disk)
+            deleted = _prompt_delete(table)
+            parts: list[PartitionSpec] = []
+            if position == 0:
+                root_fstype = _ask("Root filesystem (ext4/btrfs)", "ext4")
+                if root_fstype not in ("ext4", "btrfs"):
+                    marker("FAIL root filesystem")
+                    return 2
+                root_text = _ask("Root size MiB (blank = fill region)", "")
+                swap_text = _ask("Swap size MiB (0 = none)", "2048")
+                root_mib = int(root_text) if root_text else None
+                swap_mib = int(swap_text) if swap_text else 0
+                parts = _default_root_partitions(
+                    table, root_fstype, root_mib, swap_mib
+                )
+            else:
+                mountpoint = _ask(
+                    "{} mount point (blank = do not use this disk)".format(
+                        item.disk.path
+                    ),
+                    "",
+                )
+                if mountpoint:
+                    fstype = _ask("Filesystem (ext4/btrfs/vfat)", "ext4")
+                    size_text = _ask("Size MiB (blank = fill region)", "")
+                    parts.append(
+                        PartitionSpec(
+                            role="data",
+                            fstype=fstype,
+                            mountpoint=mountpoint,
+                            size_mib=int(size_text) if size_text else None,
+                        )
+                    )
+            disk_specs.append(
+                DiskSpec(
+                    path=item.disk.path,
+                    serial=item.disk.serial,
+                    size_bytes=item.disk.size_bytes,
+                    model=item.disk.model,
+                    delete_partitions=deleted,
+                    partitions=tuple(parts),
+                )
+            )
+    except ValueError as exc:
+        marker("FAIL input: " + str(exc))
         return 2
-    root_text = _ask("Root size MiB (blank = fill region)", "")
-    swap_text = _ask("Swap size MiB (0 = none)", "2048")
+
     hostname = _ask("Hostname", "browneye")
     admin = _ask("Admin user", "admin")
     try:
@@ -698,57 +795,38 @@ def run_plain(
         marker("FAIL password: passwords do not match or are empty")
         return 2
     package_set = _ask("Package set (desktop/base)", "desktop")
-    try:
-        config = InstallConfig(
-            disk_path=selected.disk.path,
-            disk_serial=selected.disk.serial,
-            disk_size_bytes=selected.disk.size_bytes,
-            disk_model=selected.disk.model,
-            delete_partitions=tuple(deleted),
-            region_start_mib=region.start_mib,
-            root_mib=int(root_text) if root_text else None,
-            swap_mib=int(swap_text) if swap_text else 0,
-            package_set=package_set if package_set in PACKAGE_SETS else "desktop",
-            hostname=hostname,
-            admin_user=admin,
-            admin_password=password,
-            confirm_disk=selected.disk.path,
-            confirm_phrase="ERASE",
-            repo=args.repo,
-            target=args.target,
-            dry_run=args.dry_run,
-        )
-    except ValueError:
-        marker("FAIL size: root and swap sizes must be integers")
-        return 2
+    spec = InstallSpec(disks=tuple(disk_specs))
+    config = InstallConfig(
+        layout=spec,
+        package_set=package_set if package_set in PACKAGE_SETS else "desktop",
+        hostname=hostname,
+        admin_user=admin,
+        admin_password=password,
+        confirm_disk=selected[0].disk.path,
+        confirm_phrase="ERASE",
+        repo=args.repo,
+        target=args.target,
+        dry_run=args.dry_run,
+    )
     issues = config.validate()
     if issues:
         print("Configuration errors: " + "; ".join(issues))
         return 2
     try:
-        plan, probed, _regions = build_plan(probe, config)
+        plan, probed_used, _regions = build_layout(probe, config)
     except (ConfigError, disk.PlanError) as exc:
         marker("FAIL plan: " + str(exc))
         return 2
-    write_probe_snapshot(probe, probed, logger)
+    write_probe_snapshot(probe, probed_used, logger)
     print("\nPlan:")
-    print("  disk:   {}".format(plan.disk_path))
-    print("  region: {}..{} MiB".format(plan.region.start_mib, plan.region.end_mib))
-    print("  delete: {}".format(", ".join(map(str, plan.delete_numbers)) or "none"))
-    print("  esp:    {} ({} MiB){}".format(
-        plan.esp.by_partuuid,
-        (plan.esp.size * plan.unit) // MIB,
-        " reuse" if plan.esp.existing else "",
-    ))
-    if plan.swap:
-        print("  swap:   {} MiB".format((plan.swap.size * plan.unit) // MIB))
-    print("  root:   {} MiB ext4".format((plan.root.size * plan.unit) // MIB))
-    for warning in plan.warnings:
+    for line in layout_module.describe_layout(plan):
+        print("  " + line)
+    for warning in config.warnings:
         print("  warning: " + warning)
     print("\nThere is no undo after formatting begins.")
-    typed_disk = _ask("Type the disk path to confirm", "")
+    typed_disk = _ask("Type the root disk path to confirm", "")
     typed_phrase = _ask("Type ERASE to start", "")
-    if typed_disk != plan.disk_path or typed_phrase != "ERASE":
+    if typed_disk != config.root_disk_path or typed_phrase != "ERASE":
         marker("FAIL confirmation")
         return 2
     config.confirm_disk = typed_disk
@@ -787,43 +865,556 @@ def _table_label(probed: ProbedDisk) -> str:
     return "blank"
 
 
-def _partition_rows(table: PartitionTable, deleted: set[int]) -> list[Row]:
-    rows: list[Row] = []
-    for part in sorted(table.partitions, key=lambda p: p.number):
-        marker = "[x]" if part.number in deleted else "[ ]"
-        detail = "{}  start {} MiB  size {} MiB  {}".format(
-            part.number,
-            (part.start * table.unit) // MIB,
-            (part.size * table.unit) // MIB,
-            disk.type_name(part.type, table.is_mbr),
-        )
-        if part.name:
-            detail += "  " + part.name
-        elif part.partuuid:
-            detail += "  " + part.partuuid
-        rows.append(Row(detail, marker=marker))
-    return rows
-
-
-def _region_rows(regions: Sequence[Region], minimum_mib: int = 8192) -> list[Row]:
-    rows = []
-    for region in regions:
-        enabled = region.size_mib >= minimum_mib
-        text = "{}..{} MiB   {} MiB".format(
-            region.start_mib, region.end_mib, region.size_mib
-        )
-        note = "" if enabled else "too small for an 8 GiB root"
-        rows.append(Row(text, enabled=enabled, note=note))
-    return rows
-
-
 def _initial_config(args: argparse.Namespace) -> InstallConfig:
     return InstallConfig(
-        disk_path="",
+        layout=InstallSpec(disks=()),
         repo=args.repo,
         target=args.target,
         dry_run=args.dry_run,
     )
+
+
+def _fs_for_existing(part: disk.Partition) -> str:
+    fstype = (part.fstype or "").lower()
+    if fstype in ("fat", "fat32", "msdos"):
+        return "vfat"
+    return fstype
+
+
+def _role_for(mountpoint: str, fstype: str) -> str:
+    if fstype == "swap":
+        return "swap"
+    if mountpoint == "/":
+        return "root"
+    if mountpoint == "/boot":
+        return "esp"
+    if not mountpoint:
+        return "swap"
+    return "data"
+
+
+def _default_disk_spec(item: ProbedDisk, *, root_disk: bool) -> DiskSpec:
+    base = dict(
+        path=item.disk.path,
+        serial=item.disk.serial,
+        size_bytes=item.disk.size_bytes,
+        model=item.disk.model,
+    )
+    if not root_disk:
+        return DiskSpec(**base)
+    table = item.table or PartitionTable()
+    specs: list[PartitionSpec] = []
+    esp = _existing_esp(table)
+    if esp is not None:
+        specs.append(
+            PartitionSpec(
+                role="esp",
+                fstype="vfat",
+                mountpoint="/boot",
+                existing_number=esp.number,
+                format=False,
+            )
+        )
+    else:
+        specs.append(
+            PartitionSpec(
+                role="esp",
+                fstype="vfat",
+                mountpoint="/boot",
+                size_mib=layout_module.ESP_MIB,
+            )
+        )
+    specs.append(
+        PartitionSpec(
+            role="swap",
+            fstype="swap",
+            size_mib=layout_module.SWAP_MIB,
+        )
+    )
+    specs.append(
+        PartitionSpec(
+            role="root",
+            fstype="ext4",
+            mountpoint="/",
+        )
+    )
+    return DiskSpec(partitions=tuple(specs), **base)
+
+
+def _select_disks(
+    ui: CursesUI, probed: Sequence[ProbedDisk]
+) -> list[ProbedDisk] | None:
+    selected: set[str] = set()
+    while True:
+        rows: list[Row] = []
+        for item in probed:
+            status = "selectable" if item.selectable else "; ".join(item.reasons)
+            rows.append(
+                Row(
+                    "{:<12} {:>8}  {:<8} {:<28} {}".format(
+                        item.disk.path,
+                        _size_columns(item.disk),
+                        _table_label(item),
+                        (item.disk.model or "")[:28],
+                        status,
+                    ),
+                    enabled=item.selectable,
+                    marker="[x]" if item.disk.path in selected else "[ ]",
+                )
+            )
+        rows.append(Row("Continue with these disks"))
+        choice = ui.menu(
+            "Select installation disks",
+            "The topmost selected disk becomes the root disk. Press Enter "
+            "to toggle a disk or to continue.",
+            rows,
+            footer="Up/Down select   Enter toggle/continue   r rescan   q quit",
+            allow_back=True,
+        )
+        if choice in (QUIT, BACK):
+            return None
+        if choice == RESCAN:
+            return []
+        if choice == len(rows) - 1:
+            chosen = [
+                item for item in probed if item.disk.path in selected
+            ]
+            if not chosen:
+                ui.message(
+                    "No disk selected",
+                    ["Select at least one disk with Enter."],
+                    footer="Press any key to continue",
+                )
+                continue
+            return chosen
+        item = probed[choice]
+        if not item.selectable:
+            continue
+        if item.disk.path in selected:
+            selected.remove(item.disk.path)
+        else:
+            selected.add(item.disk.path)
+
+
+def _existing_row(part: disk.Partition, table: PartitionTable) -> str:
+    text = "{}  start {} MiB  size {} MiB  {}".format(
+        part.number,
+        (part.start * table.unit) // MIB,
+        (part.size * table.unit) // MIB,
+        disk.type_name(part.type, table.is_mbr),
+    )
+    if part.fstype:
+        text += "  " + part.fstype
+    if part.name:
+        text += "  " + part.name
+    return text
+
+
+def _add_partition_form(ui: CursesUI) -> PartitionSpec | None:
+    values = ui.form(
+        "New partition",
+        [
+            Field("Mount point (blank = swap)", ""),
+            Field("Filesystem (ext4/btrfs/vfat/swap)", "ext4"),
+            Field("Size MiB (blank = fill region)", ""),
+            Field("Region start MiB (blank = auto)", ""),
+            Field("Name (optional)", ""),
+        ],
+        subtitle="A mount point of / makes the partition root; /boot makes it the ESP.",
+        footer="Tab next   Enter continue   Esc back",
+    )
+    if values is None:
+        return None
+    mount, fstype, size_text, region_text, name = [
+        value.strip() for value in values
+    ]
+    if not mount and fstype != "swap":
+        ui.message(
+            "Mount point required",
+            ["A mount point is required unless the filesystem is swap."],
+            footer="Press any key to retry",
+        )
+        return None
+    role = _role_for(mount, fstype)
+    if role == "esp":
+        fstype = "vfat"
+        mount = "/boot"
+    elif role == "swap":
+        fstype = "swap"
+        mount = ""
+    try:
+        spec = PartitionSpec(
+            role=role,
+            fstype=fstype,
+            mountpoint=mount or None,
+            size_mib=int(size_text) if size_text else None,
+            region_start_mib=int(region_text) if region_text else None,
+            name=name or None,
+        )
+    except ValueError:
+        ui.message(
+            "Invalid partition",
+            ["Sizes and region starts must be integers."],
+            footer="Press any key to retry",
+        )
+        return None
+    issues = spec.validate()
+    if issues:
+        ui.message("Invalid partition", issues, footer="Press any key to retry")
+        return None
+    return spec
+
+
+def _assign_existing_form(
+    ui: CursesUI, table: PartitionTable
+) -> PartitionSpec | None:
+    values = ui.form(
+        "Assign an existing partition",
+        [
+            Field("Partition number", ""),
+            Field("Mount point (blank = use as swap)", ""),
+            Field("Format it? (y/N)", "n"),
+            Field("Filesystem when formatting (blank = keep)", ""),
+        ],
+        subtitle="Leave format off to keep the existing data and filesystem.",
+        footer="Tab next   Enter continue   Esc back",
+    )
+    if values is None:
+        return None
+    number_text, mountpoint, format_text, fstype_text = [
+        value.strip() for value in values
+    ]
+    try:
+        number = int(number_text)
+    except ValueError:
+        ui.message(
+            "Invalid number",
+            ["The partition number must be an integer."],
+            footer="Press any key to retry",
+        )
+        return None
+    part = table.find_number(number)
+    if part is None:
+        ui.message(
+            "No such partition",
+            ["Partition {} does not exist.".format(number)],
+            footer="Press any key to retry",
+        )
+        return None
+    format_existing = format_text.lower() in ("y", "yes")
+    detected = _fs_for_existing(part)
+    fstype = fstype_text.lower() or detected
+    if not format_existing:
+        if not detected:
+            ui.message(
+                "Unknown filesystem",
+                [
+                    "Partition {} has no readable filesystem.".format(number),
+                    "Enable formatting or create a new partition instead.",
+                ],
+                footer="Press any key to retry",
+            )
+            return None
+        fstype = detected
+    if not mountpoint and fstype != "swap":
+        ui.message(
+            "Mount point required",
+            [
+                "Partition {} is not swap; enter a mount point.".format(number)
+            ],
+            footer="Press any key to retry",
+        )
+        return None
+    role = _role_for(mountpoint, fstype)
+    if role == "esp":
+        fstype = "vfat"
+    if role == "swap":
+        fstype = "swap"
+    elif fstype not in layout_module.DATA_FSTYPES:
+        ui.message(
+            "Invalid filesystem",
+            ["Choose ext4, btrfs or vfat (or swap for no mount point)."],
+            footer="Press any key to retry",
+        )
+        return None
+    spec = PartitionSpec(
+        role=role,
+        fstype=fstype,
+        mountpoint=mountpoint or None,
+        existing_number=number,
+        format=format_existing,
+    )
+    issues = spec.validate()
+    if issues:
+        ui.message("Invalid assignment", issues, footer="Press any key to retry")
+        return None
+    return spec
+
+
+def _edit_disk(
+    ui: CursesUI,
+    probe: Probe,
+    item: ProbedDisk,
+    initial: DiskSpec,
+    *,
+    root_disk: bool,
+) -> DiskSpec | None:
+    table = item.table or probe.read_table(item.disk)
+    specs = list(initial.partitions)
+    delete_set = set(initial.delete_partitions)
+
+    def adopted(number: int) -> PartitionSpec | None:
+        return next(
+            (spec for spec in specs if spec.existing_number == number), None
+        )
+
+    while True:
+        rows: list[Row] = []
+        for part in sorted(table.partitions, key=lambda value: value.number):
+            assigned = adopted(part.number)
+            if part.number in delete_set:
+                marker, note = "[x]", "delete"
+            elif assigned is not None:
+                marker = "[+]"
+                note = "{}{}{}".format(
+                    assigned.role,
+                    " " + assigned.mountpoint if assigned.mountpoint else "",
+                    " (reformat)" if assigned.format else " (keep)",
+                )
+            else:
+                marker, note = "[ ]", "preserve"
+            rows.append(
+                Row(_existing_row(part, table), marker=marker, note=note)
+            )
+        for spec in specs:
+            if spec.existing_number is not None:
+                continue
+            rows.append(
+                Row(
+                    "NEW {}  {} MiB".format(
+                        spec.role,
+                        spec.size_mib if spec.size_mib is not None else "fill",
+                    ),
+                    marker="[+]",
+                    note="{} {}".format(
+                        spec.fstype, spec.mountpoint or "swap"
+                    ),
+                )
+            )
+        actions = len(rows)
+        rows.extend(
+            [
+                Row("Add a new partition"),
+                Row("Assign an existing partition"),
+                Row("Toggle delete for an existing partition"),
+                Row("Remove a planned or assigned partition"),
+                Row("Done with this disk"),
+            ]
+        )
+        remaining = table.without(delete_set)
+        regions = disk.find_free_regions(
+            remaining,
+            total_sectors=table.total_sectors,
+            unit=table.unit,
+            align=max(1, MIB // (table.unit or 512)),
+        )
+        free_text = ", ".join(
+            "{}..{}".format(region.start_mib, region.end_mib)
+            for region in regions
+        )
+        subtitle = "{}  {}  {}{}  free: {}".format(
+            disk.human_size(item.disk.size_bytes),
+            (table.label or "blank").upper(),
+            item.disk.model or "",
+            "  (root disk)" if root_disk else "",
+            free_text or "none",
+        )
+        choice = ui.menu(
+            "Partition layout - {}".format(item.disk.path),
+            subtitle,
+            rows,
+            footer="Up/Down select   Enter act/continue   r rescan   Esc back",
+            allow_back=True,
+        )
+        if choice in (BACK, QUIT):
+            return None
+        if choice == RESCAN:
+            refreshed = probe.find_disk(item.disk.path, refresh=True) or item
+            item = refreshed
+            table = refreshed.table or probe.read_table(refreshed.disk)
+            continue
+        action = choice - actions
+        if action == 0:
+            spec = _add_partition_form(ui)
+            if spec is not None:
+                if spec.role in ("root", "esp") and any(
+                    existing.role == spec.role for existing in specs
+                ):
+                    ui.message(
+                        "Role already assigned",
+                        [
+                            "This disk already has a {} partition.".format(
+                                spec.role
+                            )
+                        ],
+                        footer="Press any key to retry",
+                    )
+                    continue
+                specs.append(spec)
+        elif action == 1:
+            spec = _assign_existing_form(ui, table)
+            if spec is not None:
+                if spec.role in ("root", "esp") and any(
+                    existing.role == spec.role
+                    for existing in specs
+                    if existing.existing_number != spec.existing_number
+                ):
+                    ui.message(
+                        "Role already assigned",
+                        [
+                            "This disk already has a {} partition.".format(
+                                spec.role
+                            )
+                        ],
+                        footer="Press any key to retry",
+                    )
+                    continue
+                number = int(spec.existing_number or 0)
+                delete_set.discard(number)
+                specs = [
+                    existing
+                    for existing in specs
+                    if existing.existing_number != number
+                ]
+                specs.append(spec)
+        elif action == 2:
+            values = ui.form(
+                "Delete an existing partition",
+                [Field("Partition number", "")],
+                subtitle="The partition entry is removed when the plan is applied.",
+                footer="Tab next   Enter continue   Esc back",
+            )
+            if values is None:
+                continue
+            try:
+                number = int(values[0].strip())
+            except ValueError:
+                continue
+            part = table.find_number(number)
+            if part is None:
+                ui.message(
+                    "No such partition",
+                    ["Partition {} does not exist.".format(number)],
+                    footer="Press any key to retry",
+                )
+                continue
+            specs = [
+                spec
+                for spec in specs
+                if spec.existing_number != number
+            ]
+            if number in delete_set:
+                delete_set.remove(number)
+            else:
+                delete_set.add(number)
+        elif action == 3:
+            if not specs:
+                ui.message(
+                    "Nothing to remove",
+                    ["No planned or assigned partition on this disk."],
+                    footer="Press any key to retry",
+                )
+                continue
+            remove_rows = [
+                Row(
+                    "{}{}  {}  {}".format(
+                        spec.role,
+                        " " + spec.mountpoint if spec.mountpoint else "",
+                        spec.fstype,
+                        "existing " + str(spec.existing_number)
+                        if spec.existing_number is not None
+                        else (
+                            str(spec.size_mib) + " MiB"
+                            if spec.size_mib is not None
+                            else "fill"
+                        ),
+                    )
+                )
+                for spec in specs
+            ]
+            picked = ui.menu(
+                "Remove a partition",
+                "Removing a planned partition does not delete anything on disk.",
+                remove_rows,
+                footer="Up/Down select   Enter remove   Esc back",
+                allow_back=True,
+            )
+            if picked in (BACK, QUIT):
+                continue
+            specs.pop(picked)
+        elif action == 4:
+            candidate = DiskSpec(
+                path=item.disk.path,
+                serial=item.disk.serial,
+                size_bytes=item.disk.size_bytes,
+                model=item.disk.model,
+                delete_partitions=tuple(sorted(delete_set)),
+                partitions=tuple(specs),
+            )
+            issues = candidate.validate()
+            if issues:
+                ui.message(
+                    "Invalid disk layout", issues, footer="Press any key to retry"
+                )
+                continue
+            try:
+                layout_module.plan_disk(
+                    table,
+                    candidate,
+                    disk_path=item.disk.path,
+                    total_sectors=table.total_sectors,
+                    unit=table.unit,
+                )
+            except disk.PlanError as exc:
+                ui.message(
+                    "Cannot plan this disk",
+                    [str(exc)],
+                    footer="Press any key to retry",
+                )
+                continue
+            return candidate
+
+
+def _confirm_lines(plan: InstallLayout, config: InstallConfig) -> list[str]:
+    lines = [
+        "Disks:   {}".format(", ".join(config.disk_paths)),
+        "Root on: {}".format(config.root_disk_path),
+    ]
+    for item in plan.disks:
+        for part in item.partitions:
+            label = part.mountpoint or "swap"
+            lines.append(
+                "  {} {:>4}  {}".format(
+                    item.disk_path,
+                    str(part.number),
+                    "{}  {}  {}".format(
+                        disk.human_size(part.size * item.unit),
+                        part.fstype,
+                        label,
+                    ),
+                )
+            )
+    lines.extend(
+        [
+            "Install: {}".format(", ".join(config.packages)),
+            "",
+            "This ERASES the selected partitions on every listed disk.",
+            "Other partitions are preserved. There is no undo after formatting.",
+        ]
+    )
+    for warning in config.warnings:
+        lines.append("Warning: " + warning)
+    return lines
 
 
 def _interactive(
@@ -837,7 +1428,7 @@ def _interactive(
     config = _initial_config(args)
     checks, ok = run_preflight(probe, config, logger)
     lines = [
-        "This will install Browneye Linux 13.1 on a local GPT disk.",
+        "This will install Browneye Linux 13.1 on one or more local GPT disks.",
         "",
     ]
     for check in checks:
@@ -847,8 +1438,10 @@ def _interactive(
     lines.extend(
         [
             "",
-            "UEFI only. Existing partitions are preserved; only the selected",
-            "disk is modified. There is no undo after formatting begins.",
+            "UEFI only. You can create partitions, assign mount points and use",
+            "several disks (for example /home on a second disk). Existing",
+            "partitions are preserved unless you mark them for deletion.",
+            "There is no undo after formatting begins.",
         ]
     )
     if not ok:
@@ -864,22 +1457,6 @@ def _interactive(
 
     while True:
         probed = probe.probe_disks(refresh=True)
-        rows = []
-        for item in probed:
-            status = "selectable" if item.selectable else "; ".join(item.reasons)
-            rows.append(
-                Row(
-                    "{:<12} {:>8}  {:<8} {:<28} {}".format(
-                        item.disk.path,
-                        _size_columns(item.disk),
-                        _table_label(item),
-                        (item.disk.model or "")[:28],
-                        status,
-                    ),
-                    enabled=item.selectable,
-                    note="",
-                )
-            )
         if not any(item.selectable for item in probed):
             ui.message(
                 "No selectable disk",
@@ -891,232 +1468,37 @@ def _interactive(
                 footer="Press any key to exit",
             )
             return 2
-        choice = ui.menu(
-            "Select installation disk",
-            "Only disks with no mounted partitions or holders are selectable.",
-            rows,
-            footer="Up/Down select   Enter continue   r rescan   q quit",
-        )
-        if choice == QUIT:
+        selected = _select_disks(ui, probed)
+        if selected is None:
             return 0
-        if choice == RESCAN:
+        if selected == []:
             continue
-        selected = probed[choice]
-        if not selected.selectable:
-            continue
-        break
 
-    table = selected.table or probe.read_table(selected.disk)
-    deleted: set[int] = set()
-    while True:
-        parts = table.partitions
-        rows = _partition_rows(table, deleted)
-        rows.append(Row("Continue with these deletions"))
-        action = ui.menu(
-            "Partition editor - {}".format(selected.disk.path),
-            "{}  {}  {}".format(
-                disk.human_size(selected.disk.size_bytes),
-                table.label.upper() if table.label else "blank",
-                selected.disk.model or "",
-            ),
-            rows,
-            footer="Up/Down select   Enter toggle/continue   r rescan   Esc back",
-            allow_back=True,
-        )
-        if action == BACK:
-            # Re-run the disk selection from the top.
-            return _interactive(stdscr, args, logger, runner, probe)
-        if action == RESCAN:
-            selected = probe.find_disk(selected.disk.path, refresh=True) or selected
-            table = selected.table or probe.read_table(selected.disk)
-            continue
-        if action == QUIT:
-            return 0
-        if action == len(rows) - 1:
-            break
-        number = parts[action].number
-        if number in deleted:
-            deleted.remove(number)
-        else:
-            deleted.add(number)
-
-    remaining = table.without(deleted)
-    regions = disk.find_free_regions(
-        remaining,
-        total_sectors=table.total_sectors,
-        unit=table.unit,
-        align=max(1, MIB // (table.unit or 512)),
-    )
-    if not regions:
-        ui.message(
-            "No free space",
-            [
-                "The disk has no contiguous free region of at least 2 MiB.",
-                "Delete a partition or choose another disk.",
-            ],
-            footer="Press any key to go back",
-        )
-        return _interactive(stdscr, args, logger, runner, probe)
-    has_esp = any(
-        (part.type or "").upper() == disk.ESP_TYPE
-        for part in remaining.partitions
-    )
-    required_mib = 8192 if has_esp else 9216
-    region_rows = _region_rows(regions, required_mib)
-    if not any(row.enabled for row in region_rows):
-        ui.message(
-            "Free space is too small",
-            [
-                "The largest free region is {} MiB; at least {} MiB is required ".format(
-                    max(region.size_mib for region in regions), required_mib
-                )
-                + ("for the root filesystem." if has_esp else "for a 1 GiB ESP and an 8 GiB root."),
-                "Delete more partitions or choose another disk.",
-            ],
-            footer="Press any key to go back",
-        )
-        return _interactive(stdscr, args, logger, runner, probe)
-    region_choice = ui.menu(
-        "Select free region",
-        "The installer only writes inside the chosen region.",
-        region_rows,
-        footer="Up/Down select   Enter continue   Esc back",
-        allow_back=True,
-    )
-    if region_choice in (BACK, QUIT):
-        return _interactive(stdscr, args, logger, runner, probe)
-    region = regions[region_choice]
-
-    # Sizing loop -------------------------------------------------------
-    plan: LayoutPlan | None = None
-    while True:
-        try:
-            candidate = disk.plan_layout(
-                table,
-                region,
-                disk_path=selected.disk.path,
-                esp_mib=disk.ESP_MIB,
-                root_mib=None,
-                swap_mib=2048,
-                root_min_mib=8192,
-                delete_numbers=tuple(sorted(deleted)),
-                total_sectors=table.total_sectors,
-                unit=table.unit,
+        disk_specs: list[DiskSpec] = []
+        aborted = False
+        for index, item in enumerate(selected):
+            initial = _default_disk_spec(item, root_disk=index == 0)
+            edited = _edit_disk(
+                ui, probe, item, initial, root_disk=index == 0
             )
-        except disk.PlanError as exc:
-            ui.message("Cannot plan layout", [str(exc)], footer="Press any key to go back")
-            return _interactive(stdscr, args, logger, runner, probe)
-        esp_mib = (candidate.esp.size * candidate.unit) // MIB
-        max_root = (candidate.root.size * candidate.unit) // MIB
-        swap_mib = (
-            (candidate.swap.size * candidate.unit) // MIB if candidate.swap else 0
-        )
-        extra = [
-            "Region: {}..{} MiB".format(region.start_mib, region.end_mib),
-            "ESP: {}".format(
-                "reuse existing {} MiB partition".format(esp_mib)
-                if candidate.esp.existing
-                else "create {} MiB".format(esp_mib)
-            ),
-            "Swap: {} MiB{}".format(
-                swap_mib,
-                "" if swap_mib else " (skipped; region too small)",
-            ),
-            "Maximum root size: {} MiB".format(max_root),
-        ]
-        values = ui.form(
-            "Install layout",
-            [
-                Field("Root size (MiB, blank = fill)", ""),
-                Field("Swap size (MiB, 0 = none)", str(swap_mib or 0)),
-            ],
-            footer="Tab next   Enter continue   Esc back",
-            extra_lines=extra,
-        )
-        if values is None:
-            return _interactive(stdscr, args, logger, runner, probe)
-        root_text, swap_text = values
-        try:
-            root_mib = int(root_text) if root_text.strip() else None
-            chosen_swap = int(swap_text) if swap_text.strip() else 0
-            plan = disk.plan_layout(
-                table,
-                region,
-                disk_path=selected.disk.path,
-                esp_mib=disk.ESP_MIB,
-                root_mib=root_mib,
-                swap_mib=chosen_swap,
-                root_min_mib=8192,
-                delete_numbers=tuple(sorted(deleted)),
-                total_sectors=table.total_sectors,
-                unit=table.unit,
-            )
-        except (ValueError, disk.PlanError) as exc:
-            ui.message("Invalid size", [str(exc)], footer="Press any key to retry")
+            if edited is None:
+                aborted = True
+                break
+            disk_specs.append(edited)
+        if aborted:
             continue
-        issues = disk.validate_plan(plan)
-        if issues:
-            ui.message("Invalid layout", issues, footer="Press any key to retry")
-            continue
-        break
 
-    # Account and package set ------------------------------------------
-    while True:
-        package_rows = [
-            Row("Desktop (browneye-base + xfce-desktop)"),
-            Row("Base only (no desktop)"),
-        ]
-        package_choice = ui.menu(
-            "Package set",
-            "The target always includes the kernel, modules, systemd-boot, "
-            "dracut, "
-            "efibootmgr, dosfstools and dnf.",
-            package_rows,
-            footer="Up/Down select   Enter continue   Esc back",
-            allow_back=True,
+        root_disk = next(
+            (
+                spec.path
+                for spec in disk_specs
+                if any(part.role == "root" for part in spec.partitions)
+            ),
+            disk_specs[0].path,
         )
-        if package_choice in (BACK, QUIT):
-            return _interactive(stdscr, args, logger, runner, probe)
-        package_set = "desktop" if package_choice == 0 else "base"
-        values = ui.form(
-            "System options",
-            [
-                Field("Hostname", "browneye"),
-                Field("Admin user", "admin"),
-                Field("Password", "", secret=True),
-                Field("Confirm password", "", secret=True),
-            ],
-            footer="Tab next   Enter continue   Esc back",
-            extra_lines=[
-                "The admin user is added to the wheel group.",
-                "Root stays locked; use sudo from the admin account.",
-            ],
-        )
-        if values is None:
-            return _interactive(stdscr, args, logger, runner, probe)
-        hostname, admin, password, confirm_password = values
-        if password != confirm_password:
-            ui.message(
-                "Passwords do not match",
-                ["Re-enter the admin password."],
-                footer="Press any key to retry",
-            )
-            continue
         config = InstallConfig(
-            disk_path=selected.disk.path,
-            disk_serial=selected.disk.serial,
-            disk_size_bytes=selected.disk.size_bytes,
-            disk_model=selected.disk.model,
-            delete_partitions=tuple(sorted(deleted)),
-            region_start_mib=region.start_mib,
-            esp_mib=disk.ESP_MIB,
-            root_mib=(plan.root.size * plan.unit) // MIB,
-            swap_mib=((plan.swap.size * plan.unit) // MIB if plan.swap else 0),
-            package_set=package_set,
-            hostname=hostname,
-            admin_user=admin,
-            admin_password=password,
-            confirm_disk=selected.disk.path,
+            layout=InstallSpec(disks=tuple(disk_specs)),
+            confirm_disk=root_disk,
             confirm_phrase="ERASE",
             repo=args.repo,
             target=args.target,
@@ -1124,53 +1506,89 @@ def _interactive(
         )
         issues = config.validate()
         if issues:
-            ui.message("Invalid options", issues, footer="Press any key to retry")
+            ui.message(
+                "Invalid layout", issues, footer="Press any key to retry"
+            )
             continue
-        # Keep the exact plan the user saw; re-plan with the same sizes.
         try:
-            plan, probed, _regions = build_plan(probe, config)
+            plan, probed_used, _regions = build_layout(probe, config)
         except (ConfigError, disk.PlanError) as exc:
-            ui.message("Cannot plan", [str(exc)], footer="Press any key to retry")
+            ui.message(
+                "Cannot plan the layout",
+                [str(exc)],
+                footer="Press any key to retry",
+            )
             continue
-        write_probe_snapshot(probe, probed, logger)
+
+        # Package set ------------------------------------------------
+        while True:
+            package_rows = [
+                Row("Desktop (browneye-base + xfce-desktop)"),
+                Row("Base only (no desktop)"),
+            ]
+            package_choice = ui.menu(
+                "Package set",
+                "The target always includes the kernel, modules, systemd-boot, "
+                "dracut, efibootmgr, dosfstools and dnf.",
+                package_rows,
+                footer="Up/Down select   Enter continue   Esc back",
+                allow_back=True,
+            )
+            if package_choice in (BACK, QUIT):
+                aborted = True
+                break
+            config.package_set = "desktop" if package_choice == 0 else "base"
+            values = ui.form(
+                "System options",
+                [
+                    Field("Hostname", "browneye"),
+                    Field("Admin user", "admin"),
+                    Field("Password", "", secret=True),
+                    Field("Confirm password", "", secret=True),
+                ],
+                footer="Tab next   Enter continue   Esc back",
+                extra_lines=[
+                    "The admin user is added to the wheel group.",
+                    "Root stays locked; use sudo from the admin account.",
+                ],
+            )
+            if values is None:
+                aborted = True
+                break
+            hostname, admin, password, confirm_password = values
+            if password != confirm_password:
+                ui.message(
+                    "Passwords do not match",
+                    ["Re-enter the admin password."],
+                    footer="Press any key to retry",
+                )
+                continue
+            config.hostname = hostname
+            config.admin_user = admin
+            config.admin_password = password
+            issues = config.validate()
+            if issues:
+                ui.message(
+                    "Invalid options", issues, footer="Press any key to retry"
+                )
+                continue
+            break
+        if aborted:
+            continue
+        write_probe_snapshot(probe, probed_used, logger)
         break
 
-    # Confirm ----------------------------------------------------------
-    confirm_lines = [
-        "Disk:    {}  {}".format(
-            plan.disk_path,
-            disk.human_size(plan.disk_size_bytes),
-        ),
-        "Delete:  {}".format(
-            ", ".join("partition {}".format(n) for n in plan.delete_numbers) or "none"
-        ),
-        "Region:  {}..{} MiB".format(plan.region.start_mib, plan.region.end_mib),
-        "ESP:     {} MiB {}".format(
-            (plan.esp.size * plan.unit) // MIB,
-            "(reuse)" if plan.esp.existing else "(new)",
-        ),
-        "Swap:    {}".format(
-            "{} MiB".format((plan.swap.size * plan.unit) // MIB)
-            if plan.swap
-            else "none (skipped)"
-        ),
-        "Root:    {} MiB ext4".format((plan.root.size * plan.unit) // MIB),
-        "Install: {}".format(", ".join(config.packages)),
-        "",
-        "This ERASES the selected partitions. Other partitions are preserved.",
-        "There is no undo after formatting begins.",
-    ]
-    for warning in plan.warnings:
-        confirm_lines.append("Warning: " + warning)
+    # Confirm -------------------------------------------------------
+    confirm_lines = _confirm_lines(plan, config)
     typed = ui.confirm_typed(
         "Confirm installation",
         confirm_lines,
-        ["Type the disk path", "Type ERASE"],
+        ["Type the root disk path", "Type ERASE"],
         footer="Tab next   Enter confirm   Esc back",
     )
     if typed is None:
         return _interactive(stdscr, args, logger, runner, probe)
-    if typed[0].strip() != plan.disk_path or typed[1].strip() != "ERASE":
+    if typed[0].strip() != config.root_disk_path or typed[1].strip() != "ERASE":
         ui.message(
             "Confirmation did not match",
             ["The disk path or ERASE phrase was incorrect.", "Nothing was changed."],
@@ -1221,7 +1639,9 @@ def _interactive(
     progress.finish()
 
     text = [
-        "Browneye Linux 13.1 was installed on {}.".format(plan.disk_path),
+        "Browneye Linux 13.1 was installed on {}.".format(
+            ", ".join(config.disk_paths)
+        ),
         "",
         "Log: {}".format(logger.human_path or LOG_JSONL),
     ]

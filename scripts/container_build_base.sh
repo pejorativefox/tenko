@@ -118,6 +118,33 @@ if grep -qx 'tcl/tcl.spec' "$OUT/packages.txt"; then
     fi
 fi
 
+# btrfs-progs needs liblzo2 headers and libraries at configure time.  Build
+# and install liblzo2 before the parallel wave so btrfs-progs does not race
+# an uninstalled dependency (the base image does not ship lzo).
+needs_lzo=0
+if grep -qx 'btrfs-progs/btrfs-progs.spec' "$OUT/packages.txt"; then
+    needs_lzo=1
+fi
+if grep -qx 'liblzo2/liblzo2.spec' "$OUT/packages.txt"; then
+    needs_lzo=1
+fi
+if [ "$needs_lzo" = 1 ] && [ -f "$SPECS/liblzo2/liblzo2.spec" ]; then
+    echo "prebuilding liblzo2 bootstrap"
+    build_one liblzo2/liblzo2.spec
+    if grep -q '^ok ' "$OUT/status/liblzo2" 2>/dev/null; then
+        lzo_rpm=$(find "$OUT/build/liblzo2/RPMS" -type f -name 'liblzo2-*.rpm' | head -1)
+        if [ -n "$lzo_rpm" ]; then
+            rpm -Uvh --replacepkgs --replacefiles --nodeps "$lzo_rpm" \
+                >"$OUT/logs/liblzo2-install.log" 2>&1 || true
+            if [ -f /usr/include/lzo/lzo1x.h ]; then
+                echo "liblzo2 bootstrap installed"
+            else
+                echo "warning: liblzo2 headers are still missing" >&2
+            fi
+        fi
+    fi
+fi
+
 running=0
 while IFS= read -r rel; do
     rel=${rel%%#*}
