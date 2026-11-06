@@ -18,7 +18,7 @@ class GenRepoIndexTest(unittest.TestCase):
             handle.write(listing)
         subprocess.run(
             [sys.executable, SCRIPT, src, out, "6",
-             "https://example.org/tenko/packages/6/", "tenko-6"],
+             "https://tenko.example.org/packages/6/", "tenko-6"],
             check=True, capture_output=True, text=True)
         with open(out, encoding="utf-8") as handle:
             return handle.read()
