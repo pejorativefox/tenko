@@ -993,6 +993,25 @@ first makes the checks pass. This matches the existing project flow
 first). It is an offline-install ordering/test concern, not a package rename
 defect.
 
+### 6.10 Final Tenko 6 image rebuild (2026-11-06)
+
+The ISO/rootfs rebuild was initially deferred, then requested by the user for
+the first Tenko 6 fresh install. The final artifacts are:
+
+| Artifact | Size | SHA-256 | Public URL |
+|---|---:|---|---|
+| `tenko-installer.iso` | 520,159,232 B (496 MiB) | `f69c0be0efdd68377b5bcd5e2491fa91ed2d2b9d3cb4e9799955155d93766931` | <https://tenko.pjfox.xyz/iso/tenko-installer.iso> |
+| `tenko-rootfs.tar.gz` | 326,994,709 B (312 MiB) | `fdd2ed5dea8b8b9933b050a152a588e4e09432aa1151c75ea6e93497775abb4f` | <https://tenko.pjfox.xyz/rootfs/tenko-rootfs.tar.gz> |
+
+Both are mirrored at `http://192.168.31.9/~daspork/tenko/iso/` and
+`http://192.168.31.9/~daspork/tenko/rootfs/`. The old `browneye-*` artifacts
+remain in the old `r2:browneye` bucket and under the LAN `browneye` symlink.
+
+The ISO was booted in OVMF/QEMU against a blank 20 GiB disk. The serial log
+shows the Tenko systemd-boot entry, `Tenko Linux 6 (Workstation)`, kernel
+7.3.1, and `Started Tenko Linux installer`. The rootfs tarball contains 130
+packages and boots as `localhost/tenko/rootfs:6-test`.
+
 ## 7. Risks and limits
 
 ### 7.1 Boot entries and NVRAM
@@ -1015,8 +1034,8 @@ defect.
   point or contain an old target tree; deleting it automatically is unsafe.
 - Old `%config(noreplace)` files are explicitly removed or renamed:
   `browneye-13.1.repo` → `.disabled`, and the old dracut/journald configs are
-  removed. Local edits in those config files are not preserved; the new
-  `10-tenko.conf` files carry the same default content.
+  moved to `.rpmsave`. Local edits in those config files are preserved next to
+  the new `10-tenko.conf` files.
 - `/var/lib/browneye/repo` is removed recursively. Systems that relied on the
   old offline copy of the install media lose it. Newer installers already
   dropped that copy; the repository is the supported delivery channel.
