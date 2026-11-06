@@ -1,6 +1,8 @@
 root/
 target-root/
 iso_build/
+# Installer ISO; keep the old name while pre-rename builds exist.
+tenko.iso
 browneye.iso
 build/
 .build/

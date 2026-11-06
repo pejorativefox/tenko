@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Build an arbitrary list of specs in a Browneye container image.
+# Build an arbitrary list of specs in a Tenko container image.
 #
 # Unlike verify_base_in_container.sh (which rebuilds ORDER), this is the
 # general driver for one-off waves: D7 spec bumps, single packages, etc.
 #
 # Usage:
-#   IMAGE=localhost/browneye/base:d7 OUT=build/d7/out \
+#   IMAGE=localhost/tenko/base:d7 OUT=build/d7/out \
 #       scripts/build_specs.sh libfs/libfs.spec libxvmc/libxvmc.spec
 #   IMAGE=... OUT=... scripts/build_specs.sh --from-file build/d7/pkglist.txt
 #
@@ -14,10 +14,11 @@
 # retry failures.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+. scripts/repo_tools.sh
 
 usage() { sed -n '2,17p' "$0"; exit "${1:-0}"; }
 
-IMAGE=${IMAGE:-localhost/browneye/base:r13.1}
+IMAGE=${IMAGE:-$(pick_image localhost/tenko/base:r13.1 localhost/browneye/base:r13.1)}
 OUT=${OUT:-build/specs-$(date +%Y%m%d-%H%M%S)}
 JOBS=${JOBS:-4}
 MAKE_JOBS=${MAKE_JOBS:-4}

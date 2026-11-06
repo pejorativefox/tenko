@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Boot the real first-boot flow and capture the LightDM greeter (C3/E1).
 #
-# Installs browneye-base + xfce-desktop (which now pulls lightdm) from the
+# Installs tenko-base + xfce-desktop (which now pulls lightdm) from the
 # repo with scriptlets ENABLED, leaves the root account locked, and boots to
-# graphical.target.  browneye-firstboot prompts on tty1; this script types a
+# graphical.target.  tenko-firstboot prompts on tty1; this script types a
 # throwaway password through the QEMU monitor, then waits for the greeter and
 # captures it (guest xwd over 9p, with a QEMU screendump fallback).
 #
@@ -20,7 +20,7 @@ cd "$(dirname "$0")/.."
 KVER=${KVER:-7.3.1}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-login-test}
 IMG=${IMG:-$PWD/build/login-test.img}
-REPO=${REPO:-https://repo.pjfox.xyz/packages/13.1/}
+REPO=${REPO:-https://repo.pjfox.xyz/tenko/packages/6/}
 case "$REPO" in
     http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
     *) REPOPATH="file://$REPO" ;;
@@ -38,7 +38,7 @@ EXTRA_RPMS=${EXTRA_RPMS:-}
 TEST_USER=${TEST_USER:-}
 WAIT_BOOT=${WAIT_BOOT:-40}
 WAIT_GREETER=${WAIT_GREETER:-45}
-TEST_PASSWORD=${TEST_PASSWORD:-browneye1}
+TEST_PASSWORD=${TEST_PASSWORD:-tenko1}
 
 [ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
 
@@ -51,19 +51,19 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     for dev in null zero random urandom; do : > "$ROOTFS/dev/$dev"; done
 
     # Lay down the base filesystem first: every scriptlet runs through
-    # /bin/sh, which only exists once browneye-basefs has created the merged
+    # /bin/sh, which only exists once tenko-basefs has created the merged
     # /usr symlinks.  This is what an installer does before anything else.
     unshare -r dnf -y --nogpgcheck \
         --installroot "$ROOTFS" --releasever=13.1 \
-        --disablerepo='*' --repofrompath=browneye,$REPOPATH \
+        --disablerepo='*' --repofrompath=tenko,$REPOPATH \
         --setopt=install_weak_deps=False \
-        install browneye-basefs
+        install tenko-basefs
 
     unshare -r dnf -y --nogpgcheck \
         --installroot "$ROOTFS" --releasever=13.1 \
-        --disablerepo='*' --repofrompath=browneye,$REPOPATH \
+        --disablerepo='*' --repofrompath=tenko,$REPOPATH \
         --setopt=install_weak_deps=False \
-        install browneye-base xfce-desktop linux-kernel linux-modules \
+        install tenko-base xfce-desktop linux-kernel linux-modules \
         ${EXTRA_PACKAGES} \
         || echo "warning: dnf reported a scriptlet failure; checking packages" >&2
 
@@ -73,8 +73,8 @@ if [ "$SKIP_INSTALL" != "1" ]; then
         unshare -r rpm --root "$ROOTFS" -Uvh --replacepkgs --nodeps $EXTRA_RPMS
     fi
 
-    for pkg in browneye-base xfce-desktop lightdm lightdm-gtk-greeter \
-               linux-kernel linux-modules browneye-firstboot; do
+    for pkg in tenko-base xfce-desktop lightdm lightdm-gtk-greeter \
+               linux-kernel linux-modules tenko-firstboot; do
         rpm -q --root "$ROOTFS" "$pkg" >/dev/null || {
             echo "missing package after install: $pkg" >&2; exit 1; }
     done
@@ -97,7 +97,7 @@ if [ "$SKIP_INSTALL" != "1" ]; then
         unshare -r chroot "$ROOTFS" /usr/sbin/useradd -m -c "Test User" "$TEST_USER" || true
     fi
 
-    # Root must stay locked so browneye-firstboot prompts on first boot.
+    # Root must stay locked so tenko-firstboot prompts on first boot.
     if unshare -r chroot "$ROOTFS" passwd -S root 2>/dev/null | grep -q '^root P'; then
         echo "error: root already has a password; first boot would be skipped" >&2
         exit 1

@@ -1,27 +1,29 @@
 #!/usr/bin/env bash
-# Stage and publish the Browneye RPM repository to the public R2 bucket
+# Stage and publish the Tenko RPM repository to the public R2 bucket
 # (the LAN mirror is refreshed too).
 #
-# Publishes the single Browneye repository (base + desktop).
+# Publishes the single Tenko repository (base + desktop).
 #
 # Usage:
-#   scripts/publish_repo.sh                     # version 13.1 from build/repo-all
+#   scripts/publish_repo.sh                     # Tenko 6 from build/repo-all
 #   RSYNC_OPTS=-c scripts/publish_repo.sh       # checksum mode (changed files only)
-#   VERSION=13.1 REPO=build/repo-all scripts/publish_repo.sh
+#   TENKO_RELEASE=6 REPO=build/repo-all scripts/publish_repo.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-VERSION=${VERSION:-13.1}
+TENKO_RELEASE=${TENKO_RELEASE:-6}
 REPO=${REPO:-build/repo-all}
-REPO_ID=browneye-$VERSION
-STAGE=${STAGE:-build/repo-publish/$VERSION}
-# Cloudflare R2 (S3) target for the public tree; the LAN mirror stays on rsync.
+REPO_ID=tenko-$TENKO_RELEASE
+STAGE=${STAGE:-build/repo-publish/$TENKO_RELEASE}
+# Cloudflare R2 (S3) target; the bucket stays r2:browneye during the rename.
+# Keep packages/13.1 in the bucket as the external compatibility alias.
 R2=${R2:-r2:browneye}
-R2_PATH=${R2_PATH:-packages/$VERSION}
-# LAN mirror; set MIRROR=0 to skip.
+R2_PATH=${R2_PATH:-tenko/packages/$TENKO_RELEASE}
+# LAN mirror; set MIRROR=0 to skip. The old public_html/browneye symlink
+# remains the external compatibility alias.
 MIRROR=${MIRROR:-daspork@192.168.31.9}
-MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/browneye}
-URL=${URL:-https://repo.pjfox.xyz/packages/$VERSION/}
+MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/tenko}
+URL=${URL:-https://repo.pjfox.xyz/tenko/packages/$TENKO_RELEASE/}
 INDEX=${INDEX:-web/index.html}
 RSYNC_OPTS=${RSYNC_OPTS:-}
 DRY_RUN=${DRY_RUN:-0}
@@ -38,7 +40,7 @@ createrepo_c --quiet "$STAGE"
 
 cat > "$STAGE/$REPO_ID.repo" <<EOF
 [$REPO_ID]
-name=Browneye Linux $VERSION
+name=Tenko Linux $TENKO_RELEASE
 baseurl=$URL
 enabled=1
 gpgcheck=0
@@ -46,7 +48,7 @@ repo_gpgcheck=0
 EOF
 
 cat > "$STAGE/README.txt" <<EOF
-Browneye Linux $VERSION package repository
+Tenko Linux $TENKO_RELEASE package repository
 
   baseurl: $URL
 
@@ -57,12 +59,12 @@ Install the repo definition:
 
 Or use it directly:
 
-  dnf --repofrompath=browneye,$URL \\
-      --disablerepo='*' install browneye-base
+  dnf --repofrompath=tenko,$URL \\
+      --disablerepo='*' install tenko-base
 
 The desktop is in the same repository:
 
-  dnf --repofrompath=browneye,$URL \\
+  dnf --repofrompath=tenko,$URL \\
       --disablerepo='*' install xfce-desktop
 
 The repository is unsigned; gpgcheck is disabled.
@@ -71,7 +73,7 @@ EOF
 echo "staged $rpm_count RPMs in $STAGE"
 
 # Generate a package listing because the web server has directory indexes off.
-python3 - "$STAGE" "$VERSION" "$URL" "$REPO_ID" <<'PY'
+python3 - "$STAGE" "$TENKO_RELEASE" "$URL" "$REPO_ID" <<'PY'
 import html
 import os
 import sys
@@ -92,7 +94,7 @@ page = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Browneye Linux {version} — packages</title>
+<title>Tenko Linux {version} — packages</title>
 <style>
  body {{ margin:0; background:#faf7f2; color:#2a211a;
         font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }}
@@ -112,11 +114,11 @@ page = """<!DOCTYPE html>
 </style>
 </head>
 <body><div class="wrap">
-<h1>Browneye Linux {version} — packages</h1>
+<h1>Tenko Linux {version} — packages</h1>
 <p><a href="../../">&larr; repository overview</a> · {count} RPMs ·
    <a href="{repo_id}.repo">{repo_id}.repo</a> ·
-   <a href="../../iso/browneye-installer.iso">installer ISO</a> ·
-   <a href="../../rootfs/browneye-rootfs.tar.gz">container rootfs</a></p>
+   <a href="../../iso/tenko-installer.iso">installer ISO</a> ·
+   <a href="../../rootfs/tenko-rootfs.tar.gz">container rootfs</a></p>
 <table>
   <thead><tr><th>Package</th><th>Size</th></tr></thead>
   <tbody>
@@ -142,9 +144,9 @@ fi
 
 if [ "$MIRROR" != "0" ]; then
     echo "mirroring to $MIRROR:$MIRROR_PUBLIC"
-    ssh "$MIRROR" "mkdir -p $MIRROR_PUBLIC/packages/$VERSION"
+    ssh "$MIRROR" "mkdir -p $MIRROR_PUBLIC/packages/$TENKO_RELEASE"
     rsync -av $RSYNC_OPTS --delete -e "ssh" "$STAGE/" \
-        "$MIRROR:$MIRROR_PUBLIC/packages/$VERSION/"
+        "$MIRROR:$MIRROR_PUBLIC/packages/$TENKO_RELEASE/"
     if [ -f "$INDEX" ]; then
         rsync -av -e "ssh" "$INDEX" "$MIRROR:$MIRROR_PUBLIC/index.html"
     fi

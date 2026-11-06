@@ -82,7 +82,7 @@ def pick_source_line(lines, old_basename):
 def changelog_entry(version, note="Sync with LFS r13.1"):
     now = datetime.date.today()
     stamp = now.strftime("%a %b %d %Y")
-    return "* {stamp} browneye <build@browneye.invalid> {version}\n- {note}".format(
+    return "* {stamp} tenko <build@tenko.invalid> {version}\n- {note}".format(
         stamp=stamp, version=version, note=note)
 
 

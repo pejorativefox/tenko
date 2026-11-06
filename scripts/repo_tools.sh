@@ -4,10 +4,11 @@
 #
 # Source this file.  It defines:
 #   TOOL_IMAGE          image that may contain dnf/createrepo_c
+#   pick_image NEW OLD  echo NEW if present, else OLD if present, else NEW
 #   tool_image_has BIN  true if TOOL_IMAGE exists and provides BIN
 #   createrepo DIR ...  run createrepo_c on DIR (image first, host fallback)
 #   dnf_installrepo REPO ROOTFS [EXTRA...]
-#                       install browneye-base from REPO into ROOTFS
+#                       install tenko-base from REPO into ROOTFS
 #   rootfs_finalize ROOTFS
 #                       run systemd-sysusers and systemctl preset-all offline
 #   rootfs_tarball ROOTFS TARBALL
@@ -15,12 +16,25 @@
 # TOOL_IMAGE defaults to the self-hosted base image.  That image does not
 # have dnf/createrepo_c yet, so the helpers fall back to the host binaries
 # until an image that provides them is passed in.  Set
-#   TOOL_IMAGE=localhost/browneye/base:r13.1-build-YYYYMMDD
+#   TOOL_IMAGE=localhost/tenko/base:r13.1-build-YYYYMMDD
 # for a fully self-hosted run.  (The old scratch bootstrap chain that built
 # such an image was removed on 2026-11-03; the published repo is the
 # checkpoint.)
 
-TOOL_IMAGE=${TOOL_IMAGE:-localhost/browneye/base:r13.1}
+# Prefer the Tenko image, but keep using the pre-rename tag until
+# checkpoint 7 rebuilds it.
+pick_image() {
+    local preferred=$1 fallback=${2:-}
+    if podman image exists "$preferred" 2>/dev/null; then
+        printf '%s\n' "$preferred"
+    elif [ -n "$fallback" ] && podman image exists "$fallback" 2>/dev/null; then
+        printf '%s\n' "$fallback"
+    else
+        printf '%s\n' "$preferred"
+    fi
+}
+
+TOOL_IMAGE=${TOOL_IMAGE:-$(pick_image localhost/tenko/base:r13.1 localhost/browneye/base:r13.1)}
 
 _tool_probe=${_tool_probe:-}
 
@@ -74,7 +88,7 @@ dnf_install_packages() {
             -v "$parent:/out:rw,z" \
             "$TOOL_IMAGE" dnf -y --nogpgcheck \
                 --installroot "/out/$base" --releasever=13.1 \
-                --disablerepo='*' --repofrompath=browneye,file:///repo \
+                --disablerepo='*' --repofrompath=tenko,file:///repo \
                 --setopt=install_weak_deps=False \
                 --setopt=tsflags=noscripts \
                 install "$@"
@@ -82,7 +96,7 @@ dnf_install_packages() {
         echo "dnf (host fallback): installing $* into $rootfs" >&2
         unshare -r dnf -y --nogpgcheck \
             --installroot "$rootfs" --releasever=13.1 \
-            --disablerepo='*' --repofrompath=browneye,file://$repo \
+            --disablerepo='*' --repofrompath=tenko,file://$repo \
             --setopt=install_weak_deps=False \
             --setopt=tsflags=noscripts \
             install "$@"
@@ -91,7 +105,7 @@ dnf_install_packages() {
 
 # dnf_installrepo <repo-dir> <rootfs-dir>
 dnf_installrepo() {
-    dnf_install_packages "$1" "$2" browneye-base
+    dnf_install_packages "$1" "$2" tenko-base
 }
 
 # rootfs_finalize <rootfs-dir>

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Bootstrap a Browneye build image from the published repo, on an installed
-# Browneye system, without any pre-existing localhost/browneye/base image.
+# Bootstrap a Tenko build image from the published repo, on an installed
+# Tenko system, without any pre-existing localhost/tenko/base image.
 #
 # This is the missing first step for the container workflows: it installs a
 # root filesystem with dnf (rootless, via unshare -r when no tool image is
@@ -11,15 +11,15 @@
 #
 # Usage:
 #   scripts/make_base_image.sh
-#   PACKAGES="browneye-base" IMAGE=localhost/browneye/base:r13.1-runtime \
+#   PACKAGES="tenko-base" IMAGE=localhost/tenko/base:r13.1-runtime \
 #       scripts/make_base_image.sh
-#   FROM_TARBALL=build/rootfs.tar.gz IMAGE=localhost/browneye/base:imported \
+#   FROM_TARBALL=build/rootfs.tar.gz IMAGE=localhost/tenko/base:imported \
 #       scripts/make_base_image.sh
 #
 # Environment:
-#   REPO_URL   published repo (default: the Browneye 13.1 repo)
-#   IMAGE      image tag (default: localhost/browneye/base:r13.1-YYYYMMDD)
-#   PACKAGES   packages to install (default: browneye-base browneye-build
+#   REPO_URL   published repo (default: the Tenko 6 repo)
+#   IMAGE      image tag (default: localhost/tenko/base:r13.1-YYYYMMDD)
+#   PACKAGES   packages to install (default: tenko-base tenko-build
 #              plus DEVEL_PACKAGES)
 #   DEVEL_PACKAGES  extra build-time packages.  Headers and .pc files ship
 #              in the runtime packages after the -devel subpackages were
@@ -36,11 +36,11 @@ cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
 DATE=${DATE:-$(date +%Y%m%d)}
-REPO_URL=${REPO_URL:-https://repo.pjfox.xyz/packages/13.1/}
-IMAGE=${IMAGE:-localhost/browneye/base:r13.1-$DATE}
+REPO_URL=${REPO_URL:-https://repo.pjfox.xyz/tenko/packages/6/}
+IMAGE=${IMAGE:-localhost/tenko/base:r13.1-$DATE}
 TAG_STABLE=${TAG_STABLE:-1}
 DEVEL_PACKAGES=${DEVEL_PACKAGES:-"python3-pyelftools liblzo2"}
-PACKAGES=${PACKAGES:-browneye-base browneye-build $DEVEL_PACKAGES}
+PACKAGES=${PACKAGES:-tenko-base tenko-build $DEVEL_PACKAGES}
 ROOTFS=${ROOTFS:-build/base-rootfs}
 TARBALL=${TARBALL:-build/base-rootfs.tar.gz}
 FROM_TARBALL=${FROM_TARBALL:-}
@@ -69,7 +69,7 @@ else
             -v "$(dirname "$rootfs_abs"):/out:rw,z" \
             "$TOOL_IMAGE" dnf -y --nogpgcheck \
                 --installroot "/out/$(basename "$rootfs_abs")" --releasever=13.1 \
-                --disablerepo='*' --repofrompath=browneye,"$REPO_URL" \
+                --disablerepo='*' --repofrompath=tenko,"$REPO_URL" \
                 --setopt=install_weak_deps=False \
                 --setopt=tsflags=noscripts \
                 install $PACKAGES
@@ -77,7 +77,7 @@ else
         echo "dnf (host, rootless): no image with dnf; using unshare -r" >&2
         unshare -r dnf -y --nogpgcheck \
             --installroot "$rootfs_abs" --releasever=13.1 \
-            --disablerepo='*' --repofrompath=browneye,"$REPO_URL" \
+            --disablerepo='*' --repofrompath=tenko,"$REPO_URL" \
             --setopt=install_weak_deps=False \
             --setopt=tsflags=noscripts \
             install $PACKAGES
@@ -119,7 +119,7 @@ echo "verifying $IMAGE"
 podman run --rm "$IMAGE" /usr/bin/bash -lc '
     set -e
     echo "packages: $(rpm -qa | wc -l)"
-    rpm -q browneye-base
+    rpm -q tenko-base
     for bin in gcc rpmbuild make python3 meson perl; do
         printf "%-9s " "$bin"
         command -v "$bin" || { echo missing; exit 1; }
@@ -133,9 +133,11 @@ podman run --rm "$IMAGE" /usr/bin/bash -lc '
     fi
 '
 
-if [ "$TAG_STABLE" = 1 ] && [ "$IMAGE" != "localhost/browneye/base:r13.1" ]; then
+if [ "$TAG_STABLE" = 1 ] && [ "$IMAGE" != "localhost/tenko/base:r13.1" ]; then
+    podman tag "$IMAGE" localhost/tenko/base:r13.1
+    # Keep the pre-rename tag until checkpoint 7 rebuilds the image.
     podman tag "$IMAGE" localhost/browneye/base:r13.1
-    echo "tagged localhost/browneye/base:r13.1 (stable name used by the scripts)"
+    echo "tagged localhost/tenko/base:r13.1 (old browneye tag kept as alias)"
 fi
 
 echo "created $IMAGE"

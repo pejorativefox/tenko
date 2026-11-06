@@ -11,12 +11,14 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-ISO=${ISO:-$PWD/build/browneye-installer.iso}
-# Cloudflare R2 (S3) target for the public tree; the LAN mirror stays on rsync.
+# Keep the unversioned name until the image is rebuilt; a later build can
+# publish tenko-installer-6.iso and keep tenko-installer.iso as an alias.
+ISO=${ISO:-$PWD/build/tenko-installer.iso}
+# Cloudflare R2 (S3) target; the bucket stays r2:browneye during the rename.
 R2=${R2:-r2:browneye}
 R2_DIR=${R2_DIR:-iso}
 MIRROR=${MIRROR:-daspork@192.168.31.9}
-MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/browneye}
+MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/tenko}
 DRY_RUN=${DRY_RUN:-0}
 
 [ -f "$ISO" ] || { echo "missing ISO: $ISO" >&2; exit 1; }
@@ -46,5 +48,5 @@ echo
 echo "published:"
 echo "  https://repo.pjfox.xyz/iso/$name"
 if [ "$MIRROR" != "0" ]; then
-    echo "  http://192.168.31.9/~daspork/browneye/iso/$name"
+    echo "  http://192.168.31.9/~daspork/tenko/iso/$name"
 fi

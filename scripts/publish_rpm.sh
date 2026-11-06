@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publish one or more already-built RPMs to the Browneye repository without
+# Publish one or more already-built RPMs to the Tenko repository without
 # mirroring the whole repository first.
 #
 # The published repodata is the source of truth: this script downloads only
@@ -25,15 +25,17 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-VERSION=${VERSION:-13.1}
-# Cloudflare R2 (S3) target for the public tree; the LAN mirror stays on rsync.
+TENKO_RELEASE=${TENKO_RELEASE:-6}
+# Cloudflare R2 (S3) target; the bucket stays r2:browneye during the rename.
+# Keep packages/13.1 in the bucket as the external compatibility alias.
 R2=${R2:-r2:browneye}
-R2_PATH=${R2_PATH:-packages/$VERSION}
+R2_PATH=${R2_PATH:-tenko/packages/$TENKO_RELEASE}
 # LAN mirror (also refreshed by publish_repo.sh); set MIRROR=0 to skip.
+# The old public_html/browneye symlink remains the external alias.
 MIRROR=${MIRROR:-daspork@192.168.31.9}
-MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/browneye}
-URL=${URL:-https://repo.pjfox.xyz/packages/$VERSION/}
-REPO_ID=browneye-$VERSION
+MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/tenko}
+URL=${URL:-https://repo.pjfox.xyz/tenko/packages/$TENKO_RELEASE/}
+REPO_ID=tenko-$TENKO_RELEASE
 STAGE=${STAGE:-build/publish-rpm}
 PRUNE=${PRUNE:-0}
 DRY_RUN=${DRY_RUN:-0}
@@ -252,32 +254,32 @@ echo "regenerating index.html"
 rclone lsf "$R2/$R2_PATH" --files-only --format "ps" --separator " " |
     grep '\.rpm ' > "$STAGE/files.txt"
 python3 scripts/gen_repo_index.py "$STAGE/files.txt" "$STAGE/index.html" \
-    "$VERSION" "$URL" "$REPO_ID"
+    "$TENKO_RELEASE" "$URL" "$REPO_ID"
 rclone copyto "$STAGE/index.html" "$R2/$R2_PATH/index.html" --s3-no-check-bucket
 
 if [ "$MIRROR" != "0" ]; then
-    echo "mirroring to $MIRROR:$MIRROR_PUBLIC/packages/$VERSION/"
-    ssh "$MIRROR" "mkdir -p $MIRROR_PUBLIC/packages/$VERSION/repodata"
-    rsync -av -e "ssh" "${rpms[@]}" "$MIRROR:$MIRROR_PUBLIC/packages/$VERSION/"
+    echo "mirroring to $MIRROR:$MIRROR_PUBLIC/packages/$TENKO_RELEASE/"
+    ssh "$MIRROR" "mkdir -p $MIRROR_PUBLIC/packages/$TENKO_RELEASE/repodata"
+    rsync -av -e "ssh" "${rpms[@]}" "$MIRROR:$MIRROR_PUBLIC/packages/$TENKO_RELEASE/"
     if [ "$PRUNE" = 1 ] && [ -s "$STAGE/keep.txt" ]; then
         echo "pruning mirror RPMs the merged metadata does not reference"
-        ssh "$MIRROR" "cd $MIRROR_PUBLIC/packages/$VERSION && ls *.rpm" |
+        ssh "$MIRROR" "cd $MIRROR_PUBLIC/packages/$TENKO_RELEASE && ls *.rpm" |
             while read -r name; do
                 grep -qxF "$name" "$STAGE/keep.txt" || echo "$name"
             done > "$STAGE/mirror-drop.txt"
         if [ -s "$STAGE/mirror-drop.txt" ]; then
             sed 's/^/  drop /' "$STAGE/mirror-drop.txt"
             ssh "$MIRROR" \
-                "cd $MIRROR_PUBLIC/packages/$VERSION && xargs rm -f" \
+                "cd $MIRROR_PUBLIC/packages/$TENKO_RELEASE && xargs rm -f" \
                 < "$STAGE/mirror-drop.txt"
         else
             echo "  nothing to prune"
         fi
     fi
     rsync -av --delete -e "ssh" "$STAGE/merged/repodata/" \
-        "$MIRROR:$MIRROR_PUBLIC/packages/$VERSION/repodata/"
+        "$MIRROR:$MIRROR_PUBLIC/packages/$TENKO_RELEASE/repodata/"
     rsync -av -e "ssh" "$STAGE/index.html" \
-        "$MIRROR:$MIRROR_PUBLIC/packages/$VERSION/index.html"
+        "$MIRROR:$MIRROR_PUBLIC/packages/$TENKO_RELEASE/index.html"
 fi
 
 echo

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build the UEFI-only Browneye installer ISO.
+# Build the UEFI-only Tenko installer ISO.
 #
 # Layout on the ISO:
 #   /LiveOS/squashfs.img           zstd-compressed live root (dmsquash-live)
@@ -11,24 +11,27 @@
 # XBOOTLDR), never ISO9660, so everything it loads lives on that image; the
 # squashfs stays on the ISO filesystem.
 #
-# The live root comes from browneye-live (base-runtime + dnf/dracut/
-# efibootmgr/dosfstools/LVM2/kernel/python + browneye-installer).  dracut's
+# The live root comes from tenko-live (base-runtime + dnf/dracut/
+# efibootmgr/dosfstools/LVM2/kernel/python + tenko-installer).  dracut's
 # dmsquash-live mounts the squashfs with an overlayfs upper in tmpfs; the
 # installer then installs the target packages from the network repository
-# (https://repo.pjfox.xyz/packages/13.1/ by default), so the media
+# (https://repo.pjfox.xyz/tenko/packages/6/ by default), so the media
 # itself carries no RPMs.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+. scripts/repo_tools.sh
 
-IMG=${IMG:-localhost/browneye/base:r13.1}
-REPO=${REPO:-https://repo.pjfox.xyz/packages/13.1/}
+IMG=${IMG:-$(pick_image localhost/tenko/base:r13.1 localhost/browneye/base:r13.1)}
+REPO=${REPO:-https://repo.pjfox.xyz/tenko/packages/6/}
 KVER=${KVER:-7.3.1}
 LIVE=${LIVE:-$PWD/build/live-root}
 STAGE=${STAGE:-$PWD/build/iso-stage}
-ISO=${ISO:-$PWD/build/browneye-installer.iso}
-ISO_LABEL=${ISO_LABEL:-BROWNEYE}
+# Keep the unversioned name until the image is rebuilt; a later build can
+# use tenko-installer-6.iso and keep tenko-installer.iso as an alias.
+ISO=${ISO:-$PWD/build/tenko-installer.iso}
+ISO_LABEL=${ISO_LABEL:-TENKO}
 TOOLREPO=${TOOLREPO:-$PWD/build/iso-tools}
-TOOLS=${TOOLS:-browneye-iso-build}
+TOOLS=${TOOLS:-tenko-iso-build}
 SKIP_LIVE=${SKIP_LIVE:-0}
 ISO_AUTO=${ISO_AUTO:-0}
 ISO_ANSWER=${ISO_ANSWER:-}
@@ -42,7 +45,7 @@ if [ "$REPOPATH" != "$REPO" ]; then
 fi
 
 if [ "$SKIP_LIVE" != "1" ]; then
-    echo "building the live root with browneye-live"
+    echo "building the live root with tenko-live"
     unshare -r rm -rf "$LIVE"
     mkdir -p "$LIVE/dev"
     # Fake-root builds cannot mknod; regular files are enough for scriptlets.
@@ -50,17 +53,17 @@ if [ "$SKIP_LIVE" != "1" ]; then
 
     unshare -r dnf -y --nogpgcheck \
         --installroot "$LIVE" --releasever=13.1 \
-        --disablerepo='*' --repofrompath=browneye,"$REPOPATH" \
+        --disablerepo='*' --repofrompath=tenko,"$REPOPATH" \
         --setopt=install_weak_deps=False \
-        install browneye-basefs
+        install tenko-basefs
 
     unshare -r dnf -y --nogpgcheck \
         --installroot "$LIVE" --releasever=13.1 \
-        --disablerepo='*' --repofrompath=browneye,"$REPOPATH" \
+        --disablerepo='*' --repofrompath=tenko,"$REPOPATH" \
         --setopt=install_weak_deps=False \
-        install browneye-live
+        install tenko-live
 
-    for pkg in browneye-live browneye-base-runtime browneye-installer \
+    for pkg in tenko-live tenko-base-runtime tenko-installer \
                dnf dracut efibootmgr efivar dosfstools btrfs-progs LVM2 \
                python linux-kernel linux-modules; do
         rpm -q --root "$LIVE" "$pkg" >/dev/null || {
@@ -72,7 +75,7 @@ if [ "$SKIP_LIVE" != "1" ]; then
         unshare -r chroot "$LIVE" /usr/bin/systemctl --root=/ set-default multi-user.target || true
     fi
 
-    # browneye-base-runtime now includes openssh, and the openssh preset
+    # tenko-base-runtime now includes openssh, and the openssh preset
     # enables sshd.  The live root has a known debugging root password, so
     # never expose sshd on the installation media.
     mkdir -p "$LIVE/etc/systemd/system"
@@ -136,7 +139,7 @@ if [ -n "$ISO_ANSWER" ]; then
     cp -f "$ISO_ANSWER" "$STAGE/answer.json"
 fi
 if [ "$ISO_AUTO" = "1" ]; then
-    bootargs="$bootargs browneye.auto=1"
+    bootargs="$bootargs tenko.auto=1"
 fi
 
 echo "building the systemd-boot EFI image"
@@ -156,13 +159,13 @@ cp -f "$LIVE/boot/vmlinuz-$KVER" "$EFIDIR/vmlinuz"
 cp -f "$LIVE/boot/initramfs-$KVER.img" "$EFIDIR/initrd.img"
 
 cat > "$EFIDIR/loader/loader.conf" <<EOF
-default browneye.conf
+default tenko.conf
 timeout 5
 console-mode keep
 EOF
 
-cat > "$EFIDIR/loader/entries/browneye.conf" <<EOF
-title Browneye Linux 13.1 installer
+cat > "$EFIDIR/loader/entries/tenko.conf" <<EOF
+title Tenko Linux 6 installer
 linux /vmlinuz
 initrd /initrd.img
 options $bootargs
@@ -173,7 +176,7 @@ EOF
 # mtools and xorrisofs live in the ISO tools container, not on the host.
 rm -f "$STAGE/boot/efiboot.img"
 truncate -s 96M "$STAGE/boot/efiboot.img"
-podman exec "$TOOLS" mkfs.fat -F 32 -n EFIBOOT /work/iso-stage/boot/efiboot.img >/dev/null
+podman exec "$TOOLS" mkfs.fat -F 32 -n TENKOESP /work/iso-stage/boot/efiboot.img >/dev/null
 podman exec "$TOOLS" mmd -i /work/iso-stage/boot/efiboot.img \
     ::/EFI ::/EFI/BOOT ::/loader ::/loader/entries
 podman exec "$TOOLS" mcopy -i /work/iso-stage/boot/efiboot.img \
@@ -185,7 +188,7 @@ podman exec "$TOOLS" mcopy -i /work/iso-stage/boot/efiboot.img \
 podman exec "$TOOLS" mcopy -i /work/iso-stage/boot/efiboot.img \
     /work/iso-efi/loader/loader.conf ::/loader/loader.conf
 podman exec "$TOOLS" mcopy -i /work/iso-stage/boot/efiboot.img \
-    /work/iso-efi/loader/entries/browneye.conf ::/loader/entries/browneye.conf
+    /work/iso-efi/loader/entries/tenko.conf ::/loader/entries/tenko.conf
 
 echo "writing $ISO"
 rm -f "$ISO"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sync Browneye specs with the current BLFS book (r13.1 trunk).
+"""Sync Tenko specs with the current BLFS book (r13.1 trunk).
 
 Reads the BLFS book entities (version + md5sum + download-URL) from the
 ~/repos/blfs checkout, compares each target spec's Version/Source0 and the
@@ -228,7 +228,7 @@ def rewrite_spec(pkg, book, write=False, convert_files=False):
         if cl and "- Sync with BLFS r13.1" not in cl.group(1).split("\n")[0]:
             today = datetime.date(2026, 11, 2)
             head, rest = cl.group(1).split("\n", 1)
-            entry = ("* {} browneye <build@browneye.invalid> {}\n"
+            entry = ("* {} tenko <build@tenko.invalid> {}\n"
                      "- Sync with BLFS r13.1 ({} {})\n"
                      .format(today.strftime("%a %b %d %Y"), version, pkg,
                              book["version"]))

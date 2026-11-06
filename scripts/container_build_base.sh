@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run inside the Browneye base container.  Build every spec listed in
+# Run inside the Tenko base container.  Build every spec listed in
 # /out/packages.txt with rpmbuild, keeping per-package logs and RPMs.
 #
 # The host wrapper scripts/verify_base_in_container.sh creates packages.txt
