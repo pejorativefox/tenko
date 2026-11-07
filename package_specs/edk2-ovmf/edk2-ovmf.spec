@@ -1,6 +1,6 @@
 Name:       edk2-ovmf
 Version:    202608
-Release:    1
+Release:    2
 Summary:    UEFI firmware for QEMU (OVMF)
 License:    BSD-2-Clause-Patent AND Apache-2.0 AND MIT AND BSD-2-Clause AND BSD-3-Clause
 URL:        https://github.com/tianocore/edk2
@@ -25,9 +25,11 @@ Prefix:     /usr
 %description
 OVMF is the Open Virtual Machine Firmware build of EDK2, providing a UEFI
 implementation for QEMU/KVM guests.  It installs the code and variable
-store images used by QEMU's pflash interface, plus the
-/usr/share/qemu/edk2-x86_64-code.fd name used by QEMU
-documentation.
+store images used by QEMU's pflash interface under /usr/share/edk2/ovmf.
+QEMU ships its own bundled edk2 firmware at /usr/share/qemu/edk2-*.fd;
+this package does not replace those files, so both packages can be
+installed together.  Point QEMU at /usr/share/edk2/ovmf/OVMF_CODE.fd
+when the newer EDK2 build is wanted.
 
 %prep
 %setup -q -n edk2-edk2-stable202608
@@ -65,18 +67,18 @@ install -m 0644 Build/OvmfX64/RELEASE_GCC/FV/OVMF_CODE.fd %{buildroot}%{_datadir
 install -m 0644 Build/OvmfX64/RELEASE_GCC/FV/OVMF_VARS.fd %{buildroot}%{_datadir}/edk2/ovmf/
 install -m 0644 Build/OvmfX64/RELEASE_GCC/FV/OVMF.fd      %{buildroot}%{_datadir}/edk2/ovmf/
 
-install -d %{buildroot}%{_datadir}/qemu
-ln -sf ../edk2/ovmf/OVMF_CODE.fd %{buildroot}%{_datadir}/qemu/edk2-x86_64-code.fd
-ln -sf ../edk2/ovmf/OVMF_VARS.fd %{buildroot}%{_datadir}/qemu/edk2-x86_64-vars.fd
-
 %files
 %{_datadir}/edk2/ovmf/OVMF_CODE.fd
 %{_datadir}/edk2/ovmf/OVMF_VARS.fd
 %{_datadir}/edk2/ovmf/OVMF.fd
-%{_datadir}/qemu/edk2-x86_64-code.fd
-%{_datadir}/qemu/edk2-x86_64-vars.fd
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 202608-2
+- Stop installing /usr/share/qemu/edk2-x86_64-code.fd and
+  edk2-x86_64-vars.fd symlinks.  qemu owns those paths with its bundled
+  firmware, so installing both packages failed the transaction with a
+  file conflict.  OVMF stays available at /usr/share/edk2/ovmf/.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 202608-1
 - Not in the base set; latest upstream stable tag
   (edk2-stable202608).  Needed to boot-test the UEFI installer image.
