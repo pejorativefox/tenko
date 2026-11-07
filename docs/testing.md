@@ -130,8 +130,10 @@ and screenshots are written under `build/`.
 python3 -m unittest discover -s tests -v
 ```
 
-The tests cover the build database, the no-`-devel` rule and the repository
-index generation; they do not need QEMU.
+The command runs the top-level tests (build database, the no-`-devel` rule,
+repository index generation) and the installer suite under
+`package_specs/tenko-installer/tests/` (planner, probe, answer file, dry-run
+install and simulation).  It needs no QEMU, root, network or block devices.
 
 ## Notes
 
