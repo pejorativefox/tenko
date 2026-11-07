@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    11
+Release:    12
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -20,6 +20,7 @@ Requires:   thunar-volman
 Requires:   tumbler
 Requires:   xfce4-appfinder
 Requires:   xfce4-terminal
+Requires:   mpv
 Requires:   xfdesktop
 Requires:   xfce4-power-manager
 Requires:   dbus-daemon
@@ -91,6 +92,9 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-12
+- Require mpv so the default desktop install ships the mpv video player.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-11
 - Drop the browneye marker cleanup; no Browneye installs remain.
 
