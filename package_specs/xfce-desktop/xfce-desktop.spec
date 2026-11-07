@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    12
+Release:    13
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -45,6 +45,12 @@ Requires:   xhost
 Requires:   xwininfo
 Requires:   xwd
 Requires:   hicolor-icon-theme
+# tenko-desktop-config ships new-user XFCE defaults that name Arc-Dark
+# (GTK/Xfwm), Kora (icons) and Terminus (terminal font).  The XFCE packages
+# do not pull those data packages in, so the desktop profile must.
+Requires:   arc-theme
+Requires:   kora-icon-theme
+Requires:   font-terminus
 # shared-mime-info used to be pulled in by gdk-pixbuf's .pc Requires.
 # The .pc ships in the gdk-pixbuf runtime package again after the -devel
 # subpackages were removed, but Thunar/GIO need the MIME database at
@@ -92,6 +98,10 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-13
+- Require arc-theme, kora-icon-theme and font-terminus so the default
+  new-user XFCE look from tenko-desktop-config resolves.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-12
 - Require mpv so the default desktop install ships the mpv video player.
 

@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    4
+Release:    5
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -28,6 +28,11 @@ Requires:   xhost
 Requires:   xwininfo
 Requires:   xwd
 Requires:   hicolor-icon-theme
+# The new-user XFCE defaults from tenko-desktop-config name Arc-Dark,
+# Kora and Terminus; the XFCE packages do not pull those in.
+Requires:   arc-theme
+Requires:   kora-icon-theme
+Requires:   font-terminus
 Requires:   shared-mime-info
 Requires:   libxfce4util
 Requires:   xfconf
@@ -69,6 +74,10 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-5
+- Require arc-theme, kora-icon-theme and font-terminus so the default
+  new-user XFCE look from tenko-desktop-config resolves.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-4
 - Drop the browneye marker cleanup; no Browneye installs remain.
 
