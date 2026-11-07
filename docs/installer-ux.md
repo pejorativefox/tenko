@@ -1,8 +1,9 @@
 # Installer UX review and modernization proposal
 
-Status: proposal, partially implemented.
+Status: guided flow implemented (commit `3f505db`); sections 1 and 2 describe
+the pre-change installer, and the remaining work is tracked in Gitea issue #21.
 
-Implemented so far:
+Implemented:
 
 * guided flow: erase disk / use free space / custom, filesystem and swap
   choices, review page, a single confirmation for create-only plans and the
@@ -16,9 +17,9 @@ Implemented so far:
   available;
 * optional colour in the ncurses UI (`NO_COLOR` disables it).
 
-Still open: encryption, btrfs subvolumes, timezone/keymap/locale, existing-OS
-labels, "install alongside" (shrink), answer-file v3, plain-mode parity and
-the optional graphical front end.
+Remaining (tracked in issue #21): encryption, btrfs subvolumes,
+timezone/keymap/locale, existing-OS labels, "install alongside" (shrink),
+answer-file v3, plain-mode parity and the optional graphical front end.
 
 Scope: the interactive experience of `tenko-installer` (the ncurses
 installer on the live ISO).  The install backend, the answer-file format and
