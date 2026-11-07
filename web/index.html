@@ -179,7 +179,7 @@ sudo dd if=tenko-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</cod
 curl -LO https://tenko.pjfox.xyz/rootfs/tenko-rootfs.tar.gz.sha256
 sha256sum -c tenko-rootfs.tar.gz.sha256
 podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6</code></pre>
-    <p class="muted">312 MiB gzip · 130 packages · regenerated from the
+    <p class="muted">407 MiB gzip · 137 packages · regenerated from the
        repository with <code>scripts/make_base_image.sh</code>.</p>
   </section>
 
@@ -216,7 +216,7 @@ podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6</code></pre>
         <tr><td><code>packages/6/README.txt</code></td><td>Short install notes</td></tr>
         <tr><td><code>iso/tenko-installer.iso</code></td><td>UEFI installer ISO, 496 MiB, network install (no packages on the media)</td></tr>
         <tr><td><code>iso/tenko-installer.iso.sha256</code></td><td>SHA-256 checksum for the ISO</td></tr>
-        <tr><td><code>rootfs/tenko-rootfs.tar.gz</code></td><td>container build rootfs, 312 MiB gzip, 130 packages</td></tr>
+        <tr><td><code>rootfs/tenko-rootfs.tar.gz</code></td><td>container build rootfs, 407 MiB gzip, 137 packages</td></tr>
         <tr><td><code>rootfs/tenko-rootfs.tar.gz.sha256</code></td><td>SHA-256 checksum for the rootfs tarball</td></tr>
       </tbody>
     </table>

@@ -122,7 +122,7 @@ Other publishers:
 
 - `scripts/publish_repo.sh` — whole repository + overview page.
 - `scripts/publish_iso.sh` — installer ISO (496 MiB) + fresh `.sha256`.
-- `scripts/publish_rootfs.sh` — container rootfs (312 MiB) + fresh `.sha256`.
+- `scripts/publish_rootfs.sh` — container rootfs (407 MiB) + fresh `.sha256`.
 
 ## Images
 

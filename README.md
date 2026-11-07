@@ -68,7 +68,7 @@ sudo dnf upgrade
 
 ## Container rootfs
 
-A 312 MiB rootfs tarball with the build toolchain is published for use as a
+A 407 MiB rootfs tarball with the build toolchain is published for use as a
 container/build image:
 
 ```sh
