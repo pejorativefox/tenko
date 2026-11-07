@@ -16,7 +16,7 @@
 
 Name:       podman-bin
 Version:    6.1.4
-Release:    3
+Release:    4
 Summary:    Podman container engine and helpers (static upstream bundle)
 License:    Apache-2.0 AND GPL-2.0-or-later
 URL:        https://github.com/mgoltzsche/podman-static
@@ -60,9 +60,11 @@ fuse-overlayfs, fusermount3 and catatonit.
 
 The bundled conmon is built without journald support, so
 /etc/containers/containers.conf sets log_driver = "k8s-file".  Storage uses
-native rootless overlay with no mount_program.  systemd units, generators
-and quadlet are not shipped (the bundle compiles /usr/local/bin/podman into
-them); use podman from the command line or from the build scripts.
+native rootless overlay with no mount_program.  The API service and socket
+units (system and user) are shipped with ExecStart rewritten from the
+bundle's /usr/local/bin/podman to /usr/bin/podman.  Generators, quadlet,
+auto-update and restart helpers are not shipped; use podman from the command
+line or from the build scripts.
 
 Neither podman nor its dependency chain is part of the base set.  The user
 explicitly approved packaging this static upstream bundle as an exception
@@ -90,6 +92,21 @@ ln -s podman-%{version} %{buildroot}/opt/podman
 install -d %{buildroot}%{_bindir}
 ln -s /opt/podman/bin/podman %{buildroot}%{_bindir}/podman
 
+# The bundle's unit files hardcode /usr/local/bin/podman.  Ship the API
+# service and socket for both the system and user managers, with the path
+# rewritten to the packaged /usr/bin/podman symlink.
+userunitdir=%{buildroot}%{_prefix}/lib/systemd/user
+install -vdm755 %{buildroot}%{_unitdir} "$userunitdir"
+for unit in podman.service podman.socket; do
+    sed 's#/usr/local/bin/podman#/usr/bin/podman#g' \
+        "usr/local/lib/systemd/system/$unit" \
+        > "%{buildroot}%{_unitdir}/$unit"
+    sed 's#/usr/local/bin/podman#/usr/bin/podman#g' \
+        "usr/local/lib/systemd/user/$unit" \
+        > "$userunitdir/$unit"
+    chmod 644 "%{buildroot}%{_unitdir}/$unit" "$userunitdir/$unit"
+done
+
 # Runtime configuration.  containers.conf and storage.conf are Tenko
 # specific (bundle conmon has no journald; native overlay without
 # mount_program).  policy.json, registries.conf and seccomp.json are taken
@@ -115,6 +132,11 @@ install -m644 README.md %{buildroot}%{_docdir}/%{name}-%{version}/README.md
 %files -f %{_sourcedir}/podman-bin.filelist
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6.1.4-4
+- Ship podman.service and podman.socket for the system and user managers,
+  with ExecStart rewritten from /usr/local/bin/podman to /usr/bin/podman.
+  Fixes "systemctl --user try-restart podman.service: Unit not found".
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 6.1.4-3
 - Require tenko-sysconfig after the distro package rename.
 

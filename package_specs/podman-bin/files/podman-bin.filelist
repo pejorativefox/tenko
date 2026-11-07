@@ -11,6 +11,8 @@
 %dir /opt/podman-6.1.4/share/zsh
 %dir /opt/podman-6.1.4/share/zsh/site-functions
 %dir /usr/bin
+%dir /usr/lib/systemd/system
+%dir /usr/lib/systemd/user
 %dir /usr/share
 %dir /usr/share/doc
 %dir /usr/share/doc/podman-bin-6.1.4
@@ -38,4 +40,8 @@
 /opt/podman-6.1.4/share/fish/vendor_completions.d/podman.fish
 /opt/podman-6.1.4/share/zsh/site-functions/_podman
 /usr/bin/podman
+/usr/lib/systemd/system/podman.service
+/usr/lib/systemd/system/podman.socket
+/usr/lib/systemd/user/podman.service
+/usr/lib/systemd/user/podman.socket
 /usr/share/doc/podman-bin-6.1.4/README.md
