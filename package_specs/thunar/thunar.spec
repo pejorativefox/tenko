@@ -1,10 +1,14 @@
 Name:       thunar
 Version:    4.20.10
-Release:    5
+Release:    6
 Summary:    Modern file manager for Xfce
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+
+Requires:   gvfs
+Requires:   gvfs-smb
+Requires:   gvfs-fuse
 
 %description
 Modern file manager for Xfce
@@ -52,6 +56,11 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/thunar-gir.filelist
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20.10-6
+- Hard-require gvfs, gvfs-smb and gvfs-fuse so SMB shares can be browsed
+  in Thunar out of the box.  The SMB and FUSE backends are part of the
+  supported desktop experience, not an optional add-on.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.10-5
 - Replace the legacy short licence name with the verified SPDX expression
   (GPL-2.0-or-later AND LGPL-2.0-or-later): COPYING, COPYING.LIB (issue #8).
