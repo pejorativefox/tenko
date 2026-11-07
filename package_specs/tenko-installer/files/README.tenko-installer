@@ -111,8 +111,9 @@ fstype + mountpoint + size_mib) or adopts an existing entry
 
 Optional top-level keys are `swap_mode` (`partition`, `swapfile` or `none`,
 default `partition`), `swap_mib` (default 2048), `timezone` (default `UTC`),
-`locale` (default `C.UTF-8`) and `keymap` (default `us`).  A `swapfile` layout
-must not contain a swap partition:
+`locale` (default `C.UTF-8`) and `keymap` (default `us`).  A locale other
+than C, POSIX or C.UTF-8 adds `glibc-locales-extra` to the target.  A
+`swapfile` layout must not contain a swap partition:
 
   "swap_mode": "swapfile",
   "swap_mib": 2048
@@ -156,7 +157,6 @@ password into a log or into plan.sh.
 
 Version 3 is the guided form; the planner creates the layout from the
 selected disk:
-
   {
     "version": 3,
     "mode": "erase-disk",

@@ -131,6 +131,17 @@ class V3AnswerTest(unittest.TestCase):
             main._config_from_v3(data, args, self._probe(table))
 
 
+class LocalePackagesTest(unittest.TestCase):
+    def test_non_c_locale_adds_locale_data(self):
+        config = InstallConfig(
+            layout=layout.InstallSpec(disks=()),
+            locale="en_US.UTF-8",
+        )
+        self.assertIn("glibc-locales-extra", config.packages)
+        config.locale = "C.UTF-8"
+        self.assertNotIn("glibc-locales-extra", config.packages)
+
+
 class ParseSizeTest(unittest.TestCase):
     def test_bare_number_is_gib(self):
         self.assertEqual(main._parse_size_mib("20"), 20480)

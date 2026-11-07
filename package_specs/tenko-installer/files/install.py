@@ -128,7 +128,12 @@ class InstallConfig:
 
     @property
     def packages(self) -> tuple[str, ...]:
-        return PACKAGE_SETS.get(self.package_set, TARGET_PACKAGES_DESKTOP)
+        packages = list(
+            PACKAGE_SETS.get(self.package_set, TARGET_PACKAGES_DESKTOP)
+        )
+        if self.locale not in ("C", "POSIX", "C.UTF-8"):
+            packages.append("glibc-locales-extra")
+        return tuple(packages)
 
     @property
     def root_disk_path(self) -> str:

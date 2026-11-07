@@ -2297,7 +2297,7 @@ def _account_and_packages(
                 footer="Tab next   Enter continue   Esc back",
                 extra_lines=[
                     "Timezone examples: UTC, Europe/Berlin, America/New_York.",
-                    "Locale: C.UTF-8 (other locales need their locale data).",
+                    "Locale examples: C.UTF-8, en_US.UTF-8.",
                     "Keymap examples: us, de, uk.",
                     "The admin user is added to the wheel group.",
                     "Root stays locked; use sudo from the admin account.",

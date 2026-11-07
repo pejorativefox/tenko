@@ -1,6 +1,6 @@
 Name:       tenko-installer
 Version:    6
-Release:    3
+Release:    4
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
@@ -90,6 +90,10 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-4
+- Install glibc-locales-extra automatically when the selected locale is
+  not C, POSIX or C.UTF-8.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-3
 - Add guided answer-file v3 import (`mode` + `disk`, filesystem and swap
   choices) with v2 layouts still supported.  Encryption is rejected until
