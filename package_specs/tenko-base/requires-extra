@@ -8,6 +8,9 @@
 #   /etc/ssl/certs links) used by curl, git, OpenSSL and derived images
 # - openssh, git: SSH client/server and version control in the base install
 # - libseccomp/libbsd/libmd, rpm/popt/libarchive/lua: RPM toolchain
+# - ncat, ncdu, htop, nodejs, bash-completion, podman-bin: user-requested
+#   additions to the base install (base-packages-additions.md).
+#   podman-bin provides the podman package name.
 tenko-rpm-config
 tenko-basefs
 tenko-sysconfig
@@ -28,3 +31,9 @@ libarchive
 lua
 openssh
 git
+ncat
+ncdu
+htop
+nodejs
+bash-completion
+podman-bin

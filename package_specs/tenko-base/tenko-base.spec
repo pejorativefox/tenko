@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    13.1
-Release:    12
+Release:    13
 # Tenko rename compatibility (issue #22).
 Obsoletes: browneye-base < 13.1-12
 Provides: browneye-base = %{version}-%{release}
@@ -112,6 +112,12 @@ Requires:   libarchive
 Requires:   lua
 Requires:   openssh
 Requires:   git
+Requires:   ncat
+Requires:   ncdu
+Requires:   htop
+Requires:   nodejs
+Requires:   bash-completion
+Requires:   podman-bin
 # END GENERATED REQUIRES
 
 %description
@@ -126,6 +132,10 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 13.1-13
+- Add ncat, ncdu, htop, nodejs, bash-completion and podman-bin to the base
+  install (user-requested; podman-bin provides podman).
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-12
 - Rename browneye-base to tenko-base and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.
