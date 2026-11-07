@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Regenerate the tenko-base Requires block from tenko.lock.
+"""Regenerate the tenko-base Requires block from package_specs/base.json.
 
 The base meta used to carry ~100 hand-written Requires lines that had to be
-updated by hand whenever the base list or a version changed.  This script
-expands tenko.lock's base package list (mapped through its aliases) plus
-the explicit extras in package_specs/tenko-base/requires-extra, and
-rewrites the block between the GENERATED REQUIRES markers in the spec.
+updated by hand whenever the base list changed.  This script expands
+base.json's package list (mapped through its aliases) plus the explicit
+extras in package_specs/tenko-base/requires-extra, and rewrites the block
+between the GENERATED REQUIRES markers in the spec.
 
 Usage:
     scripts/gen_base_requires.py            # rewrite the spec in place
@@ -18,7 +18,7 @@ import os
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOCK = os.path.join(ROOT, "tenko.lock")
+BASE = os.path.join(ROOT, "package_specs", "base.json")
 SPEC = os.path.join(ROOT, "package_specs", "tenko-base", "tenko-base.spec")
 EXTRA = os.path.join(ROOT, "package_specs", "tenko-base", "requires-extra")
 
@@ -45,11 +45,11 @@ def read_extra():
 
 
 def requires():
-    with open(LOCK, encoding="utf-8") as handle:
-        lock = json.load(handle)
-    aliases = lock.get("aliases", {})
+    with open(BASE, encoding="utf-8") as handle:
+        base = json.load(handle)
+    aliases = base.get("aliases", {})
     names = []
-    for name in lock["base_packages"]:
+    for name in base["packages"]:
         if name in EXCLUDE:
             continue
         names.extend(SPLIT.get(name, [aliases.get(name, name)]))
@@ -63,7 +63,7 @@ def requires():
 
 def block(names):
     lines = [
-        BEGIN + ": generated from tenko.lock + requires-extra",
+        BEGIN + ": generated from package_specs/base.json + requires-extra",
         "# Run scripts/gen_base_requires.py after changing either file.",
     ]
     lines += ["Requires:   " + name for name in names]

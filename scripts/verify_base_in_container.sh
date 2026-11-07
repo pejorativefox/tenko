@@ -23,15 +23,13 @@ import os
 import sys
 
 out = sys.argv[1]
-with open("tenko.lock", encoding="utf-8") as handle:
-    lock = json.load(handle)
-aliases = lock.get("aliases", {})
+with open("package_specs/base.json", encoding="utf-8") as handle:
+    base = json.load(handle)
+aliases = base.get("aliases", {})
 
-# ORDER is the base package list plus bootstrap extras and glue.
-with open("package_specs/ORDER", encoding="utf-8") as handle:
-    names = [line.split("#", 1)[0].strip() for line in handle]
-names = [name for name in names if name]
-# tenko-base pulls these in, but ORDER does not list them.
+# build_order is the base package list plus bootstrap extras and glue.
+names = list(base.get("build_order", []))
+# tenko-base pulls these in, but build_order does not list them.
 names += ["libbsd", "libmd", "libseccomp", "libunistring", "libtasn1",
               "p11-kit", "make-ca", "tenko-base"]
 

@@ -89,7 +89,7 @@ Everything is driven from this checkout:
 |---|---|
 | rebuild a package and publish it | [`docs/build.md`](docs/build.md) |
 | boot/install tests, QEMU and OVMF | [`docs/testing.md`](docs/testing.md) |
-| version policy and package sync tools | [`docs/versions.md`](docs/versions.md) |
+| version policy and base manifest | [`docs/versions.md`](docs/versions.md) |
 | systemd-boot conversion notes | [`docs/systemd-boot.md`](docs/systemd-boot.md) |
 
 The rules for agents and maintainers (including the "every base package must

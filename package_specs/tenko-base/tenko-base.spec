@@ -8,7 +8,7 @@ Prefix:     /usr
 
 %include %{_sourcedir}/devel-obsoletes.inc
 
-# BEGIN GENERATED REQUIRES: generated from tenko.lock + requires-extra
+# BEGIN GENERATED REQUIRES: generated from package_specs/base.json + requires-extra
 # Run scripts/gen_base_requires.py after changing either file.
 Requires:   man-pages
 Requires:   iana-etc

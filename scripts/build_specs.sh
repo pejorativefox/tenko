@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Build an arbitrary list of specs in a Tenko container image.
 #
-# Unlike verify_base_in_container.sh (which rebuilds ORDER), this is the
+# Unlike verify_base_in_container.sh (which rebuilds the base set), this is the
 # general driver for one-off waves: D7 spec bumps, single packages, etc.
 #
 # Usage:

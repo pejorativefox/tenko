@@ -3,9 +3,8 @@ import json
 import os
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOCK = os.path.join(REPO_ROOT, "tenko.lock")
 SPECS_DIR = os.path.join(REPO_ROOT, "package_specs")
-ORDER_FILE = os.path.join(SPECS_DIR, "ORDER")
+BASE_FILE = os.path.join(SPECS_DIR, "base.json")
 
 
 class Package(object):
@@ -51,30 +50,25 @@ def discover_packages(path=SPECS_DIR):
     return packages
 
 
-def load_aliases(path=LOCK):
-    """Return base package name -> spec directory name mappings."""
+def _load_base(path=BASE_FILE):
     if not os.path.isfile(path):
         return {}
     try:
         with open(path, "r", encoding="utf-8") as handle:
-            data = json.load(handle)
+            return json.load(handle)
     except (OSError, ValueError) as exc:
         print("warning: could not read {}: {}".format(path, exc))
         return {}
-    return data.get("aliases", {})
 
 
-def load_order(path=ORDER_FILE):
+def load_aliases(path=BASE_FILE):
+    """Return base package name -> spec directory name mappings."""
+    return _load_base(path).get("aliases", {})
+
+
+def load_order(path=BASE_FILE):
     """Return the preferred build order as a list of package names."""
-    if not os.path.isfile(path):
-        return []
-    order = []
-    with open(path, "r", encoding="utf-8") as handle:
-        for line in handle:
-            line = line.split("#", 1)[0].strip()
-            if line:
-                order.append(line)
-    return order
+    return list(_load_base(path).get("build_order", []))
 
 
 def resolve_package_name(name, packages, aliases=None):

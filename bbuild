@@ -31,7 +31,7 @@ def parse_args(argv=None):
         "build", help="build packages on the host")
     build_parser.add_argument(
         "package_name", nargs="+",
-        help="package name(s), base aliases, 'all' (the ORDER base set), "
+        help="package name(s), base aliases, 'all' (the build_order base set), "
              "or a path to a .spec")
     build_parser.add_argument(
         "--jobs", type=int, default=0,

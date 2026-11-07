@@ -1,20 +1,23 @@
 # Agent rules for Tenko
 
-## Base package versions
+## Base package set and versions
 
-The base package set is pinned in `tenko.lock`: package names, versions,
-hashes, build order and aliases for packages whose spec name differs
-(`pcre` → `pcre2`, `libelf` → `elfutils`, …).
+The base package set lives in
+[`package_specs/base.json`](package_specs/base.json): `packages` is the base
+membership, `aliases` maps spec directory names whose package name differs
+(`pcre` → `pcre2`, `libelf` → `elfutils`, …), and `build_order` is the order
+used to rebuild the base system.
 
-Every base package we build or install **must be at least the version pinned
-in `tenko.lock`**. This applies to the package being built **and its dependency
-chain**. Before starting a build (especially a new package such as Mesa), check
-`tenko.lock` and update any outdated specs/RPMs first. Never build an older
-version just because an old spec exists.
+Packages track the latest stable upstream release.  Record the version and the
+basis (upstream stable, a required patch level, or a user-approved exception)
+in the `%changelog`.  Source URLs and hashes live in
+`package_specs/<name>/sources`; that file is the only provenance source.
+There is no global version lock.
 
-If a package (or a required dependency/component) is **not in `tenko.lock`**,
-stop and ask the user how to proceed. Do not choose a version or substitute a
-different project on your own.
+Adding or removing a base package or changing `build_order` is a policy
+change: update `base.json` and run `scripts/gen_base_requires.py`.  Packages
+outside the base set may be added normally; if upstream has no stable release
+or you need a non-latest version, say why in the changelog.
 
 After updating a spec, rebuild and republish it before building packages
 that depend on it, then record the version and the reason in the commit

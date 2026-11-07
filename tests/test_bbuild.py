@@ -79,9 +79,9 @@ class ResolveTest(unittest.TestCase):
             "pcre2")
         self.assertIsNone(pkg.resolve_package_name("nope", packages))
 
-    def test_load_order_ignores_comments(self):
+    def test_load_order_reads_manifest(self):
         handle = tempfile.NamedTemporaryFile("w", delete=False)
-        handle.write("a # comment\n\nb\n")
+        handle.write('{"build_order": ["a", "b"]}\n')
         handle.close()
         self.addCleanup(os.unlink, handle.name)
         self.assertEqual(pkg.load_order(handle.name), ["a", "b"])

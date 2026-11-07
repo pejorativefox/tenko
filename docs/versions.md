@@ -1,14 +1,14 @@
-# Version policy and package synchronisation
+# Version policy and base manifest
 
-The base package set is pinned in [`tenko.lock`](../tenko.lock).  The rule,
-including how to handle packages outside the base set, is in
-[`AGENTS.md`](../AGENTS.md) — this page only describes the tooling.
+The base package set is defined in
+[`package_specs/base.json`](../package_specs/base.json).  The policy is in
+[`AGENTS.md`](../AGENTS.md) — this page describes the manifest and tooling.
 
-## The rule in one line
+## Policy in one line
 
-Every base package we build or install must be **at least** the version pinned
-in `tenko.lock`, including its dependency chain.  If a package is not in
-`tenko.lock`, stop and ask before choosing a version or substitute.
+Packages track the latest stable upstream release.  Record the version and the
+basis in the `%changelog`; source URLs and hashes live in the package's
+`sources` file.  There is no global version lock.
 
 ## Distro release and package versions
 
@@ -43,34 +43,27 @@ No Browneye compatibility aliases are shipped.  The `tenko-*` glue packages
 carry `Epoch: 1`, so `dnf upgrade` replaces an installed `13.1-*` glue
 package with the `6-*` build even though the version number is lower.
 
-## `tenko.lock`
+## `package_specs/base.json`
 
-`tenko.lock` pins the base package set: package names, versions, hashes, the
-build order and aliases for packages whose spec name differs
-(`pcre` → `pcre2`, `libelf` → `elfutils`, …).
+The manifest has three keys:
 
-## Syncing a spec
+- `packages` — base membership.  `tenko-base` requires exactly this set plus
+  `package_specs/tenko-base/requires-extra`.
+- `aliases` — base name → spec directory when they differ (`pcre` → `pcre2`,
+  `libelf` → `elfutils`, …).
+- `build_order` — the order used to rebuild the base set; it includes
+  bootstrap extras and the tenko glue packages.
 
-`sync_lock_spec.py` reads `tenko.lock` and is **report-only** by default:
-
-```sh
-python3 scripts/sync_lock_spec.py                  # show work
-python3 scripts/sync_lock_spec.py --write          # apply mechanical parts
-```
-
-With `--write` it bumps `Version:`, updates the `sources` line (md5 + URL),
-updates `Source0`, and prepends a changelog entry.  It deliberately does not
-touch configure options, patches or `%files`; anything else is printed for a
-manual pass.
-
-Always review the report: a version bump often needs a build-option or patch
-change that the script cannot infer.
+Each package's `package_specs/<name>/sources` file is the only source URL and
+hash data.  A version bump updates the spec and that file; nothing else pins
+the version.  Historical changelog entries may mention the retired
+`tenko.lock`; that file no longer exists.
 
 ## Regenerating the base meta-package
 
-`tenko-base` requires every package in the pinned base set.  After changing
-`tenko.lock` or `package_specs/tenko-base/requires-extra`, regenerate the
-Requires block:
+`tenko-base` requires every package in `base.json["packages"]`.  After
+changing `base.json` or `package_specs/tenko-base/requires-extra`, regenerate
+the Requires block:
 
 ```sh
 scripts/gen_base_requires.py            # rewrite the spec in place
@@ -81,11 +74,10 @@ scripts/gen_base_requires.py --check    # exit 1 if the block is stale
 
 When a spec changes:
 
-1. bump `Version`/`Release` and the changelog,
+1. update `Version`/`Release`, the `sources` file and the changelog,
 2. rebuild it (`docs/build.md`),
 3. publish it to both sites (`docs/build.md`; never only one),
 4. rebuild and publish anything that depends on it.
 
-Approved deviations (packages above the pinned version, packages outside the
-base set built from latest upstream, retired specs) are recorded in the Gitea
-issues, principally #7.  Do not silently add a new one.
+Non-latest versions, substitutes and retired specs are approved exceptions and
+are recorded in the Gitea issues, principally #7.  Do not silently add one.

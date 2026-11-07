@@ -191,7 +191,7 @@ class PackageBuilder(object):
         return result
 
     def build_all(self, jobs=0):
-        """Build the ORDER (base system) set, skipping built packages.
+        """Build the base set (build_order), skipping built packages.
 
         This deliberately no longer appends every discovered spec: building
         desktop packages on the host must be an explicit choice.
@@ -207,7 +207,7 @@ class PackageBuilder(object):
                 print(resolved, "is already built, skipping.")
                 continue
             queue.append(resolved)
-        print("Base set from ORDER: {} packages to build.".format(len(queue)))
+        print("Base set from build_order: {} packages to build.".format(len(queue)))
         return self.build_packages(queue, jobs=jobs)
 
 

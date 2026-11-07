@@ -70,15 +70,15 @@ package.  The only intentional split is `llvm-devel`/`clang-devel`.
 
 ## Version bumps
 
-Every base package must be at least the version in
-[`tenko.lock`](../tenko.lock); see [`docs/versions.md`](versions.md) and
-[`AGENTS.md`](../AGENTS.md).  When you bump a package:
+Packages track the latest stable upstream release; see
+[`docs/versions.md`](versions.md) and [`AGENTS.md`](../AGENTS.md).  When you
+bump a package:
 
 1. update `Version:` (and `Release:` back to 1, or bump the release for a
    rebuild),
 2. update the matching line in `sources` (md5 + URL),
-3. add a `%changelog` entry that states the basis (the `tenko.lock` entry, or
-   "not in the base set; latest upstream stable <date>"),
+3. add a `%changelog` entry that states the basis (latest stable upstream,
+   a required patch level, or a user-approved exception),
 4. rebuild and publish before building packages that depend on it.
 
 ## Publishing
