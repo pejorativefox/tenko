@@ -109,6 +109,28 @@ Not covered by this run: USB/`dd` boot and reuse of an existing small ESP
 `build/installed-serial.log`, `build/installed-screen.png`, plus the 4 GiB
 failure log `build/auto-serial-fail-4g.log`.
 
+### 2026-11-07 rebuild boot check
+
+Artifact: published `tenko-installer.iso`, 520,372,224 B, SHA-256
+`2ba9dc4fddf6f769ab519aaa3497a98de1ac348d00df13ec9351986fd890b2d5`.
+
+Environment: QEMU 11.1.3 and OVMF 202608-2, 4 GiB guest RAM, a blank 20 GiB
+virtio disk and a fresh OVMF variable store.  The host's `/dev/kvm` is
+root-only, so this run used QEMU TCG (`-accel tcg,thread=multi -cpu max`)
+rather than KVM.
+
+| check | result | evidence |
+|---|---|---|
+| stock ISO boots under OVMF | **PASS** | systemd-boot entry, `Tenko Linux 6 (Workstation)`, kernel 7.3.1, dracut live root |
+| installer service starts | **PASS** | `Started Tenko Linux installer` |
+| system reaches multi-user | **PASS** | `Reached target Multi-User System`, `localhost login:` |
+| failed units / emergency mode | **PASS** | no `Failed to start` or emergency lines |
+
+Evidence: `build/installer-serial-tcg.log` and
+`build/installer-screen-tcg.ppm`.  The full unattended install and graphical
+checks above were not repeated for this rebuild; they remain the 2026-11-06
+record.
+
 ## Graphical tests
 
 ```sh
