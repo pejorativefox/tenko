@@ -130,6 +130,7 @@ class DryRunPipelineTest(unittest.TestCase):
             self.assertIn("zoneinfo/Europe/Berlin", text)
             self.assertIn("LANG=C.UTF-8", text)
             self.assertIn("KEYMAP=de", text)
+            self.assertIn("useradd -m -G wheel,kvm", text)
             self.assertIn("chpasswd", text)
             self.assertIn("passwd -l root", text)
             self.assertIn("firstboot-root-password.done", text)

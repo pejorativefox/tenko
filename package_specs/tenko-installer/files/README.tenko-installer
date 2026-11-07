@@ -231,7 +231,7 @@ Install flow
   5. dnf --installroot: tenko-base + xfce-desktop + kernel/modules +
      dracut + efibootmgr + dosfstools + btrfs-progs + sudo + dnf
   6. fstab by UUID for every mount and swap area, hostname, admin user in
-     wheel, root locked, first-boot marker, systemd presets and
+     wheel and kvm, root locked, first-boot marker, systemd presets and
      graphical.target
   7. depmod + dracut --force --no-hostonly
   8. chroot bootctl --esp-path=/boot --no-variables install; loader.conf and

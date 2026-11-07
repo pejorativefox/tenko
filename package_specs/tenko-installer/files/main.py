@@ -2299,7 +2299,7 @@ def _account_and_packages(
                     "Timezone examples: UTC, Europe/Berlin, America/New_York.",
                     "Locale examples: C.UTF-8, en_US.UTF-8.",
                     "Keymap examples: us, de, uk.",
-                    "The admin user is added to the wheel group.",
+                    "The admin user is added to the wheel and kvm groups.",
                     "Root stays locked; use sudo from the admin account.",
                 ],
             )

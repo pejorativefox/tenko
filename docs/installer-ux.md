@@ -333,7 +333,7 @@ Notes:
  │   /dev/nvme0n1  NOT MODIFIED                                     │
  │                                                                  │
  │ Encryption  none                                                 │
- │ Account     admin (wheel), hostname tenko                        │
+ │ Account     admin (wheel, kvm), hostname tenko                   │
  │ Packages    Desktop (tenko-base + xfce-desktop)                  │
  │ Boot        systemd-boot on /dev/sda1                            │
  │                                                                  │

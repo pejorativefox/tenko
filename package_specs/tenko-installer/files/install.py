@@ -1009,21 +1009,33 @@ class Installer:
 
     def _configure_users(self) -> None:
         user = self.config.admin_user
+        # kvm gives the admin access to /dev/kvm for QEMU without sudo;
+        # wheel provides sudo.  systemd-sysusers normally creates kvm, but
+        # create either group explicitly if the target is missing it.
+        groups = ("wheel", "kvm")
+        group_list = ",".join(groups)
         if not self.runner.dry_run:
-            group = self.runner.run(
-                ("chroot", self.target, "/usr/bin/getent", "group", "wheel"),
-                step="configure",
-                read_only=True,
-                destructive=False,
-                allow_failure=True,
-                description="check for the wheel group",
-            )
-            if not group.ok:
-                self.runner.run(
-                    ("chroot", self.target, "/usr/sbin/groupadd", "-r", "wheel"),
+            for group_name in groups:
+                group = self.runner.run(
+                    ("chroot", self.target, "/usr/bin/getent", "group", group_name),
                     step="configure",
-                    description="create the wheel group",
+                    read_only=True,
+                    destructive=False,
+                    allow_failure=True,
+                    description="check for the {} group".format(group_name),
                 )
+                if not group.ok:
+                    self.runner.run(
+                        (
+                            "chroot",
+                            self.target,
+                            "/usr/sbin/groupadd",
+                            "-r",
+                            group_name,
+                        ),
+                        step="configure",
+                        description="create the {} group".format(group_name),
+                    )
             exists = self.runner.run(
                 ("chroot", self.target, "/usr/bin/getent", "passwd", user),
                 step="configure",
@@ -1039,13 +1051,13 @@ class Installer:
                         self.target,
                         "/usr/sbin/usermod",
                         "-aG",
-                        "wheel",
+                        group_list,
                         "-s",
                         "/bin/bash",
                         user,
                     ),
                     step="configure",
-                    description="ensure the admin user is in wheel",
+                    description="ensure the admin user is in wheel and kvm",
                 )
             else:
                 self.runner.run(
@@ -1055,7 +1067,7 @@ class Installer:
                         "/usr/sbin/useradd",
                         "-m",
                         "-G",
-                        "wheel",
+                        group_list,
                         "-s",
                         "/bin/bash",
                         user,
@@ -1073,7 +1085,7 @@ class Installer:
                     "/usr/sbin/useradd",
                     "-m",
                     "-G",
-                    "wheel",
+                    group_list,
                     "-s",
                     "/bin/bash",
                     user,
