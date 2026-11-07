@@ -1,0 +1,16 @@
+# NetworkManager is the network manager on Tenko: it covers wired,
+# wireless and VPN links.  systemd-networkd must not manage the same
+# interfaces, so turn it (and its wait-online unit) off.  systemd-resolved
+# stays enabled: NetworkManager pushes DNS settings to it.
+#
+# This file sorts before systemd's 90-systemd.preset.  systemd applies the
+# first matching preset rule, so these rules win over the upstream
+# networkd enable there.
+enable NetworkManager.service
+enable NetworkManager-wait-online.service
+disable systemd-networkd.service
+disable systemd-networkd.socket
+disable systemd-networkd-wait-online.service
+disable systemd-networkd-resolve-hook.socket
+disable systemd-networkd-varlink.socket
+disable systemd-networkd-varlink-metrics.socket

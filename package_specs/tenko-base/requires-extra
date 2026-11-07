@@ -11,6 +11,11 @@
 # - ncat, ncdu, htop, nodejs, bash-completion, podman-bin: user-requested
 #   additions to the base install (base-packages-additions.md).
 #   podman-bin provides the podman package name.
+# - NetworkManager, wpa-supplicant, nmtui, linux-firmware-base: wired and
+#   wireless networking.  NetworkManager owns the interfaces (its preset
+#   disables systemd-networkd), wpa-supplicant provides WPA/WPA2/WPA3,
+#   nmtui is the text UI, and linux-firmware-base supplies the signed
+#   regulatory database.
 tenko-rpm-config
 tenko-basefs
 tenko-sysconfig
@@ -37,3 +42,7 @@ htop
 nodejs
 bash-completion
 podman-bin
+NetworkManager
+wpa-supplicant
+nmtui
+linux-firmware-base

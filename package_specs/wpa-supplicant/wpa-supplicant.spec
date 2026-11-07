@@ -1,6 +1,6 @@
 Name:       wpa-supplicant
 Version:    2.12
-Release:    2
+Release:    3
 Summary:    WPA/WPA2 supplicant for wireless networks
 License:    BSD-3-Clause
 Prefix:     /usr
@@ -57,11 +57,19 @@ rm -rf %{buildroot}
 pushd wpa_supplicant
 mkdir -pv %{buildroot}/sbin
 install -v -m755 wpa_{cli,passphrase,supplicant} %{buildroot}/sbin/
-# dbus
+# dbus and systemd activation.  NetworkManager asks D-Bus for
+# fi.w1.wpa_supplicant1; the service file names wpa_supplicant.service, so
+# both must be installed or Wi-Fi never comes up.
 mkdir -pv %{buildroot}/usr/share/dbus-1/system-services/
-install -v -m644 dbus/fi.w1.wpa_supplicant1.service %{buildroot}/usr/share/dbus-1/system-services/
+sed 's|@BINDIR@|/sbin|g' dbus/fi.w1.wpa_supplicant1.service.in \
+    > %{buildroot}/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service
+chmod 644 %{buildroot}/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service
 install -v -d -m755 %{buildroot}/etc/dbus-1/system.d
 install -v -m644 dbus/dbus-wpa_supplicant.conf %{buildroot}/etc/dbus-1/system.d/wpa_supplicant.conf
+install -vdm755 %{buildroot}/usr/lib/systemd/system
+sed 's|@BINDIR@|/sbin|g' systemd/wpa_supplicant.service.in \
+    > %{buildroot}/usr/lib/systemd/system/wpa_supplicant.service
+chmod 644 %{buildroot}/usr/lib/systemd/system/wpa_supplicant.service
 popd
 
 %files
@@ -69,9 +77,16 @@ popd
 /sbin/wpa_cli
 /sbin/wpa_passphrase
 /sbin/wpa_supplicant
+/usr/lib/systemd/system/wpa_supplicant.service
 /usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 2.12-3
+- Ship wpa_supplicant.service and generate the D-Bus activation file from
+  the upstream template.  The old package installed only the D-Bus service
+  file, which points at wpa_supplicant.service, so D-Bus activation could
+  not start the supplicant and NetworkManager had no Wi-Fi backend.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.12-2
 - Replace the TODO summary/description and record the verified license
   (BSD-3-Clause): COPYING (issue #8).

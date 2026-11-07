@@ -57,9 +57,10 @@ roughly 20 GiB of disk.
 ### 5. First boot
 
 The installed system boots with systemd-boot into XFCE.  Log in with the admin
-account created by the installer.  `dnf` is already configured
-(`/etc/yum.repos.d/tenko-6.repo`) against the repository that was used
-for the install, so:
+account created by the installer.  Wired and wireless networking are managed
+by NetworkManager: run `nmtui` (or `nmcli`) to join a Wi-Fi network.  `dnf` is
+already configured (`/etc/yum.repos.d/tenko-6.repo`) against the repository
+that was used for the install, so:
 
 ```sh
 sudo dnf install tenko-base      # build toolchain

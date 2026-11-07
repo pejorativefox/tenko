@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    6
-Release:    1
+Release:    2
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
@@ -116,6 +116,10 @@ Requires:   htop
 Requires:   nodejs
 Requires:   bash-completion
 Requires:   podman-bin
+Requires:   NetworkManager
+Requires:   wpa-supplicant
+Requires:   nmtui
+Requires:   linux-firmware-base
 # END GENERATED REQUIRES
 
 %description
@@ -130,6 +134,12 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-2
+- Add NetworkManager, wpa-supplicant and nmtui to the base install, plus
+  linux-firmware-base for the signed regulatory database.  This makes
+  wired and wireless networking available out of the box, with nmtui as
+  the text UI.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
 - Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
   the old 13.1 EVR upgrade cleanly.

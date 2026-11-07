@@ -1,6 +1,6 @@
 Name:       tenko-base-runtime
 Version:    6
-Release:    1
+Release:    2
 Epoch:      1
 Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
@@ -77,6 +77,10 @@ Requires:   linux-pam
 Requires:   make-ca
 Requires:   openssh
 Requires:   git
+Requires:   NetworkManager
+Requires:   wpa-supplicant
+Requires:   nmtui
+Requires:   linux-firmware-base
 
 %description
 The Tenko Linux base system with no build toolchain: libc and the
@@ -110,6 +114,12 @@ touch %{buildroot}/usr/share/tenko/base-runtime
 /usr/share/tenko/base-runtime
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-2
+- Add NetworkManager, wpa-supplicant and nmtui plus linux-firmware-base
+  (signed regulatory database) so base-only installs have wired and
+  wireless networking.  NetworkManager's preset also disables
+  systemd-networkd so the two do not manage the same links.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
 - Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
   the old 13.1 EVR upgrade cleanly.
