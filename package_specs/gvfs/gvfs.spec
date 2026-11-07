@@ -120,44 +120,13 @@ if [ -x /usr/bin/gio-querymodules ]; then
     /usr/bin/gio-querymodules %{_libdir}/gio/modules || :
 fi
 
-%files
-%{_libexecdir}/gvfsd
-%{_libexecdir}/gvfsd-computer
-%{_libexecdir}/gvfsd-ftp
-%{_libexecdir}/gvfsd-localtest
-%{_libexecdir}/gvfsd-metadata
-%{_libexecdir}/gvfsd-network
-%{_libexecdir}/gvfsd-recent
-%{_libexecdir}/gvfsd-sftp
-%{_libexecdir}/gvfsd-trash
-%{_libdir}/gio/modules/*
-%{_libdir}/gvfs/*
-%{_prefix}/lib/systemd/user/*
-%{_datadir}/dbus-1/services/*
-%{_datadir}/GConf/gsettings/gvfs-smb.convert
-%{_datadir}/glib-2.0/schemas/*
-%{_datadir}/gvfs/mounts/computer.mount
-%{_datadir}/gvfs/mounts/ftp.mount
-%{_datadir}/gvfs/mounts/ftpis.mount
-%{_datadir}/gvfs/mounts/ftps.mount
-%{_datadir}/gvfs/mounts/localtest.mount
-%{_datadir}/gvfs/mounts/network.mount
-%{_datadir}/gvfs/mounts/recent.mount
-%{_datadir}/gvfs/mounts/sftp.mount
-%{_datadir}/gvfs/mounts/trash.mount
+%files -f %{_sourcedir}/gvfs.filelist
 
-%files fuse
-%{_libexecdir}/gvfsd-fuse
-/usr/lib/tmpfiles.d/gvfsd-fuse-tmpfiles.conf
+%files fuse -f %{_sourcedir}/gvfs-fuse.filelist
 
-%files smb
-%{_libexecdir}/gvfsd-smb
-%{_libexecdir}/gvfsd-smb-browse
-%{_datadir}/gvfs/mounts/smb.mount
-%{_datadir}/gvfs/mounts/smb-browse.mount
+%files smb -f %{_sourcedir}/gvfs-smb.filelist
 
-%files lang
-%{_datadir}/locale/*/LC_MESSAGES/gvfs.mo
+%files lang -f %{_sourcedir}/gvfs-lang.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 1.62.0-1

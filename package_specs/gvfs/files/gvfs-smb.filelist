@@ -1,0 +1,4 @@
+/usr/libexec/gvfsd-smb
+/usr/libexec/gvfsd-smb-browse
+/usr/share/gvfs/mounts/smb-browse.mount
+/usr/share/gvfs/mounts/smb.mount
