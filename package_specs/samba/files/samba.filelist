@@ -1,0 +1,470 @@
+%dir /etc/samba
+%config(noreplace) /etc/samba/smb.conf
+%dir /etc/sysconfig
+%config(noreplace) /etc/sysconfig/samba
+%dir /run
+%dir /run/samba
+%dir /usr/bin
+/usr/bin/cifsdd
+/usr/bin/dbwrap_tool
+/usr/bin/dumpmscat
+/usr/bin/gentest
+/usr/bin/ldbadd
+/usr/bin/ldbdel
+/usr/bin/ldbedit
+/usr/bin/ldbmodify
+/usr/bin/ldbrename
+/usr/bin/ldbsearch
+/usr/bin/locktest
+/usr/bin/masktest
+/usr/bin/mdsearch
+/usr/bin/mvxattr
+/usr/bin/ndrdump
+/usr/bin/net
+/usr/bin/nmblookup
+/usr/bin/ntlm_auth
+/usr/bin/oLschema2ldif
+/usr/bin/pdbedit
+/usr/bin/profiles
+/usr/bin/regdiff
+/usr/bin/regpatch
+/usr/bin/regshell
+/usr/bin/regtree
+/usr/bin/rpcclient
+/usr/bin/samba-log-parser
+/usr/bin/samba-regedit
+/usr/bin/sharesec
+/usr/bin/smbcacls
+/usr/bin/smbclient
+/usr/bin/smbcontrol
+/usr/bin/smbcquotas
+/usr/bin/smbget
+/usr/bin/smbpasswd
+/usr/bin/smbspool
+/usr/bin/smbstatus
+/usr/bin/smbtar
+/usr/bin/smbtree
+/usr/bin/tdbbackup
+/usr/bin/tdbdump
+/usr/bin/tdbrestore
+/usr/bin/tdbtool
+/usr/bin/testparm
+/usr/bin/wbinfo
+%dir /usr/include
+%dir /usr/include/samba-4.0
+/usr/include/samba-4.0/charset.h
+%dir /usr/include/samba-4.0/core
+/usr/include/samba-4.0/core/doserr.h
+/usr/include/samba-4.0/core/error.h
+/usr/include/samba-4.0/core/hresult.h
+/usr/include/samba-4.0/core/ntstatus.h
+/usr/include/samba-4.0/core/ntstatus_gen.h
+/usr/include/samba-4.0/core/werror.h
+/usr/include/samba-4.0/core/werror_gen.h
+/usr/include/samba-4.0/dcesrv_core.h
+/usr/include/samba-4.0/domain_credentials.h
+%dir /usr/include/samba-4.0/gen_ndr
+/usr/include/samba-4.0/gen_ndr/atsvc.h
+/usr/include/samba-4.0/gen_ndr/auth.h
+/usr/include/samba-4.0/gen_ndr/claims.h
+/usr/include/samba-4.0/gen_ndr/dcerpc.h
+/usr/include/samba-4.0/gen_ndr/drsblobs.h
+/usr/include/samba-4.0/gen_ndr/drsuapi.h
+/usr/include/samba-4.0/gen_ndr/krb5pac.h
+/usr/include/samba-4.0/gen_ndr/lsa.h
+/usr/include/samba-4.0/gen_ndr/misc.h
+/usr/include/samba-4.0/gen_ndr/nbt.h
+/usr/include/samba-4.0/gen_ndr/ndr_atsvc.h
+/usr/include/samba-4.0/gen_ndr/ndr_dcerpc.h
+/usr/include/samba-4.0/gen_ndr/ndr_drsblobs.h
+/usr/include/samba-4.0/gen_ndr/ndr_drsuapi.h
+/usr/include/samba-4.0/gen_ndr/ndr_krb5pac.h
+/usr/include/samba-4.0/gen_ndr/ndr_misc.h
+/usr/include/samba-4.0/gen_ndr/ndr_nbt.h
+/usr/include/samba-4.0/gen_ndr/ndr_samr.h
+/usr/include/samba-4.0/gen_ndr/ndr_svcctl.h
+/usr/include/samba-4.0/gen_ndr/ndr_svcctl_c.h
+/usr/include/samba-4.0/gen_ndr/netlogon.h
+/usr/include/samba-4.0/gen_ndr/samr.h
+/usr/include/samba-4.0/gen_ndr/security.h
+/usr/include/samba-4.0/gen_ndr/server_id.h
+/usr/include/samba-4.0/gen_ndr/svcctl.h
+/usr/include/samba-4.0/ldb_wrap.h
+/usr/include/samba-4.0/libsmbclient.h
+/usr/include/samba-4.0/lookup_sid.h
+/usr/include/samba-4.0/machine_sid.h
+%dir /usr/include/samba-4.0/ndr
+/usr/include/samba-4.0/ndr.h
+/usr/include/samba-4.0/ndr/ndr_dcerpc.h
+/usr/include/samba-4.0/ndr/ndr_drsblobs.h
+/usr/include/samba-4.0/ndr/ndr_drsuapi.h
+/usr/include/samba-4.0/ndr/ndr_krb5pac.h
+/usr/include/samba-4.0/ndr/ndr_nbt.h
+/usr/include/samba-4.0/ndr/ndr_svcctl.h
+/usr/include/samba-4.0/netapi.h
+/usr/include/samba-4.0/passdb.h
+/usr/include/samba-4.0/rpc_common.h
+%dir /usr/include/samba-4.0/samba
+/usr/include/samba-4.0/samba/session.h
+/usr/include/samba-4.0/samba/version.h
+/usr/include/samba-4.0/share.h
+/usr/include/samba-4.0/smb2_lease_struct.h
+/usr/include/samba-4.0/smb3posix.h
+/usr/include/samba-4.0/smbconf.h
+/usr/include/samba-4.0/tdr.h
+/usr/include/samba-4.0/tsocket.h
+/usr/include/samba-4.0/tsocket_internal.h
+%dir /usr/include/samba-4.0/util
+/usr/include/samba-4.0/util/attr.h
+/usr/include/samba-4.0/util/blocking.h
+/usr/include/samba-4.0/util/data_blob.h
+/usr/include/samba-4.0/util/debug.h
+/usr/include/samba-4.0/util/discard.h
+/usr/include/samba-4.0/util/fault.h
+/usr/include/samba-4.0/util/genrand.h
+/usr/include/samba-4.0/util/idtree.h
+/usr/include/samba-4.0/util/idtree_random.h
+/usr/include/samba-4.0/util/signal.h
+/usr/include/samba-4.0/util/substitute.h
+/usr/include/samba-4.0/util/talloc_keep_secret.h
+/usr/include/samba-4.0/util/tfork.h
+/usr/include/samba-4.0/util/time.h
+/usr/include/samba-4.0/util_ldb.h
+/usr/include/samba-4.0/wbclient.h
+%dir /usr/lib
+%dir /usr/lib/systemd
+%dir /usr/lib/systemd/system
+/usr/lib/systemd/system/nmb.service
+/usr/lib/systemd/system/samba-bgqd.service
+/usr/lib/systemd/system/smb.service
+%dir /usr/lib/tmpfiles.d
+/usr/lib/tmpfiles.d/samba.conf
+%dir /usr/lib64
+/usr/lib64/libdcerpc-binding.so
+/usr/lib64/libdcerpc-binding.so.0
+/usr/lib64/libdcerpc-binding.so.0.0.1
+/usr/lib64/libdcerpc-server-core.so
+/usr/lib64/libdcerpc-server-core.so.0
+/usr/lib64/libdcerpc-server-core.so.0.0.1
+/usr/lib64/libndr-krb5pac.so
+/usr/lib64/libndr-krb5pac.so.0
+/usr/lib64/libndr-krb5pac.so.0.0.1
+/usr/lib64/libndr-nbt.so
+/usr/lib64/libndr-nbt.so.0
+/usr/lib64/libndr-nbt.so.0.0.1
+/usr/lib64/libndr-standard.so
+/usr/lib64/libndr-standard.so.0
+/usr/lib64/libndr-standard.so.0.0.1
+/usr/lib64/libndr.so
+/usr/lib64/libndr.so.6
+/usr/lib64/libndr.so.6.1.0
+/usr/lib64/libnetapi.so
+/usr/lib64/libnetapi.so.1
+/usr/lib64/libnetapi.so.1.0.0
+/usr/lib64/libnss_winbind.so.2
+/usr/lib64/libnss_wins.so.2
+/usr/lib64/libsamba-errors.so
+/usr/lib64/libsamba-errors.so.1
+/usr/lib64/libsamba-errors.so.1.0.0
+/usr/lib64/libsamba-passdb.so
+/usr/lib64/libsamba-passdb.so.0
+/usr/lib64/libsamba-passdb.so.0.30.0
+/usr/lib64/libsamba-util.so
+/usr/lib64/libsamba-util.so.0
+/usr/lib64/libsamba-util.so.0.0.1
+/usr/lib64/libsmbclient.so
+/usr/lib64/libsmbclient.so.0
+/usr/lib64/libsmbclient.so.0.8.1
+/usr/lib64/libsmbconf.so
+/usr/lib64/libsmbconf.so.0
+/usr/lib64/libsmbconf.so.0.0.1
+/usr/lib64/libwbclient.so
+/usr/lib64/libwbclient.so.0
+/usr/lib64/libwbclient.so.0.16
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/ndr.pc
+/usr/lib64/pkgconfig/ndr_krb5pac.pc
+/usr/lib64/pkgconfig/ndr_nbt.pc
+/usr/lib64/pkgconfig/ndr_standard.pc
+/usr/lib64/pkgconfig/netapi.pc
+/usr/lib64/pkgconfig/samba-util.pc
+/usr/lib64/pkgconfig/smbclient.pc
+/usr/lib64/pkgconfig/wbclient.pc
+%dir /usr/lib64/samba
+%dir /usr/lib64/samba/idmap
+/usr/lib64/samba/idmap/autorid.so
+/usr/lib64/samba/idmap/hash.so
+/usr/lib64/samba/idmap/rid.so
+/usr/lib64/samba/idmap/script.so
+/usr/lib64/samba/idmap/tdb2.so
+%dir /usr/lib64/samba/krb5
+/usr/lib64/samba/krb5/async_dns_krb5_locator.so
+/usr/lib64/samba/krb5/winbind_krb5_locator.so
+%dir /usr/lib64/samba/ldb
+/usr/lib64/samba/ldb/asq.so
+/usr/lib64/samba/ldb/ildap.so
+/usr/lib64/samba/ldb/ldb.so
+/usr/lib64/samba/ldb/ldbsamba_extensions.so
+/usr/lib64/samba/ldb/paged_searches.so
+/usr/lib64/samba/ldb/rdn_name.so
+/usr/lib64/samba/ldb/sample.so
+/usr/lib64/samba/ldb/server_sort.so
+/usr/lib64/samba/ldb/skel.so
+/usr/lib64/samba/ldb/tdb.so
+/usr/lib64/samba/libCHARSET3-private-samba.so
+/usr/lib64/samba/libLIBWBCLIENT-OLD-private-samba.so
+/usr/lib64/samba/libMESSAGING-SEND-private-samba.so
+/usr/lib64/samba/libMESSAGING-private-samba.so
+/usr/lib64/samba/libREG-FULL-private-samba.so
+/usr/lib64/samba/libRPC-SERVER-LOOP-private-samba.so
+/usr/lib64/samba/libRPC-WORKER-private-samba.so
+/usr/lib64/samba/libaddns-private-samba.so
+/usr/lib64/samba/libads-private-samba.so
+/usr/lib64/samba/libasn1-private-samba.so
+/usr/lib64/samba/libasn1util-private-samba.so
+/usr/lib64/samba/libauth-private-samba.so
+/usr/lib64/samba/libauth-unix-token-private-samba.so
+/usr/lib64/samba/libauth4-private-samba.so
+/usr/lib64/samba/libauthkrb5-private-samba.so
+/usr/lib64/samba/libcli-cldap-private-samba.so
+/usr/lib64/samba/libcli-ldap-common-private-samba.so
+/usr/lib64/samba/libcli-ldap-private-samba.so
+/usr/lib64/samba/libcli-nbt-private-samba.so
+/usr/lib64/samba/libcli-smb-common-private-samba.so
+/usr/lib64/samba/libcli-spoolss-private-samba.so
+/usr/lib64/samba/libcliauth-private-samba.so
+/usr/lib64/samba/libclidns-private-samba.so
+/usr/lib64/samba/libcluster-private-samba.so
+/usr/lib64/samba/libcmdline-contexts-private-samba.so
+/usr/lib64/samba/libcmdline-private-samba.so
+/usr/lib64/samba/libcmocka-private-samba.so
+/usr/lib64/samba/libcom-err-private-samba.so
+/usr/lib64/samba/libcommon-auth-private-samba.so
+/usr/lib64/samba/libdbwrap-private-samba.so
+/usr/lib64/samba/libdcerpc-pkt-auth-private-samba.so
+/usr/lib64/samba/libdcerpc-private-samba.so
+/usr/lib64/samba/libdcerpc-samba-private-samba.so
+/usr/lib64/samba/libdcerpc-samba4-private-samba.so
+/usr/lib64/samba/libdcerpc-samr-private-samba.so
+/usr/lib64/samba/libdnsserver-common-private-samba.so
+/usr/lib64/samba/libdsdb-module-private-samba.so
+/usr/lib64/samba/libevents-private-samba.so
+/usr/lib64/samba/libflag-mapping-private-samba.so
+/usr/lib64/samba/libgenrand-private-samba.so
+/usr/lib64/samba/libgensec-private-samba.so
+/usr/lib64/samba/libgpext-private-samba.so
+/usr/lib64/samba/libgpo-private-samba.so
+/usr/lib64/samba/libgse-private-samba.so
+/usr/lib64/samba/libgss-preauth-private-samba.so
+/usr/lib64/samba/libgssapi-private-samba.so
+/usr/lib64/samba/libhcrypto-private-samba.so
+/usr/lib64/samba/libhdb-private-samba.so
+/usr/lib64/samba/libheimbase-private-samba.so
+/usr/lib64/samba/libheimntlm-private-samba.so
+/usr/lib64/samba/libhttp-private-samba.so
+/usr/lib64/samba/libhx509-private-samba.so
+/usr/lib64/samba/libidmap-private-samba.so
+/usr/lib64/samba/libinterfaces-private-samba.so
+/usr/lib64/samba/libiov-buf-private-samba.so
+/usr/lib64/samba/libkdc-private-samba.so
+/usr/lib64/samba/libkrb5-private-samba.so
+/usr/lib64/samba/libkrb5samba-private-samba.so
+/usr/lib64/samba/libldb-cmdline-private-samba.so
+/usr/lib64/samba/libldb-key-value-private-samba.so
+/usr/lib64/samba/libldb-private-samba.so
+/usr/lib64/samba/libldb-tdb-err-map-private-samba.so
+/usr/lib64/samba/libldb-tdb-int-private-samba.so
+/usr/lib64/samba/libldbsamba-private-samba.so
+/usr/lib64/samba/liblibcli-lsa3-private-samba.so
+/usr/lib64/samba/liblibcli-netlogon3-private-samba.so
+/usr/lib64/samba/liblibsmb-private-samba.so
+/usr/lib64/samba/libmessages-dgm-private-samba.so
+/usr/lib64/samba/libmessages-util-private-samba.so
+/usr/lib64/samba/libmscat-private-samba.so
+/usr/lib64/samba/libmsghdr-private-samba.so
+/usr/lib64/samba/libmsrpc3-private-samba.so
+/usr/lib64/samba/libndr-samba-private-samba.so
+/usr/lib64/samba/libndr-samba4-private-samba.so
+/usr/lib64/samba/libnet-keytab-private-samba.so
+/usr/lib64/samba/libnetif-private-samba.so
+/usr/lib64/samba/libngtcp2-crypto-gnutls-private-samba.so
+/usr/lib64/samba/libngtcp2-private-samba.so
+/usr/lib64/samba/libnpa-tstream-private-samba.so
+/usr/lib64/samba/libnss-info-private-samba.so
+/usr/lib64/samba/libposix-eadb-private-samba.so
+/usr/lib64/samba/libprinter-driver-private-samba.so
+/usr/lib64/samba/libprinting-migrate-private-samba.so
+/usr/lib64/samba/libquic-private-samba.so
+/usr/lib64/samba/libregistry-private-samba.so
+/usr/lib64/samba/libreplace-private-samba.so
+/usr/lib64/samba/libroken-private-samba.so
+/usr/lib64/samba/libsamba-cluster-support-private-samba.so
+/usr/lib64/samba/libsamba-credentials-private-samba.so
+/usr/lib64/samba/libsamba-debug-private-samba.so
+/usr/lib64/samba/libsamba-hostconfig-private-samba.so
+/usr/lib64/samba/libsamba-modules-private-samba.so
+/usr/lib64/samba/libsamba-net-private-samba.so
+/usr/lib64/samba/libsamba-policy-private-samba.so
+/usr/lib64/samba/libsamba-security-private-samba.so
+/usr/lib64/samba/libsamba-security-trusts-private-samba.so
+/usr/lib64/samba/libsamba-sockets-private-samba.so
+/usr/lib64/samba/libsamba3-util-private-samba.so
+/usr/lib64/samba/libsamdb-common-private-samba.so
+/usr/lib64/samba/libsamdb-private-samba.so
+/usr/lib64/samba/libsecrets3-private-samba.so
+/usr/lib64/samba/libserver-id-db-private-samba.so
+/usr/lib64/samba/libserver-role-private-samba.so
+/usr/lib64/samba/libshares-private-samba.so
+/usr/lib64/samba/libsmbclient-raw-private-samba.so
+/usr/lib64/samba/libsmbd-base-private-samba.so
+/usr/lib64/samba/libsmbd-shim-private-samba.so
+/usr/lib64/samba/libsmbpasswdparser-private-samba.so
+/usr/lib64/samba/libsocket-blocking-private-samba.so
+/usr/lib64/samba/libstable-sort-private-samba.so
+/usr/lib64/samba/libsys-rw-private-samba.so
+/usr/lib64/samba/libtalloc-private-samba.so
+/usr/lib64/samba/libtalloc-report-printf-private-samba.so
+/usr/lib64/samba/libtalloc-report-private-samba.so
+/usr/lib64/samba/libtdb-private-samba.so
+/usr/lib64/samba/libtdb-wrap-private-samba.so
+/usr/lib64/samba/libtevent-private-samba.so
+/usr/lib64/samba/libtevent-util-private-samba.so
+/usr/lib64/samba/libtime-basic-private-samba.so
+/usr/lib64/samba/libtorture-private-samba.so
+/usr/lib64/samba/libutil-crypt-private-samba.so
+/usr/lib64/samba/libutil-reg-private-samba.so
+/usr/lib64/samba/libutil-setid-private-samba.so
+/usr/lib64/samba/libutil-tdb-private-samba.so
+/usr/lib64/samba/libwind-private-samba.so
+/usr/lib64/samba/libxattr-tdb-private-samba.so
+%dir /usr/lib64/samba/nss_info
+/usr/lib64/samba/nss_info/hash.so
+%dir /usr/lib64/samba/vfs
+/usr/lib64/samba/vfs/acl_tdb.so
+/usr/lib64/samba/vfs/acl_xattr.so
+/usr/lib64/samba/vfs/aio_fork.so
+/usr/lib64/samba/vfs/aio_pthread.so
+/usr/lib64/samba/vfs/aio_ratelimit.so
+/usr/lib64/samba/vfs/audit.so
+/usr/lib64/samba/vfs/btrfs.so
+/usr/lib64/samba/vfs/cap.so
+/usr/lib64/samba/vfs/catia.so
+/usr/lib64/samba/vfs/commit.so
+/usr/lib64/samba/vfs/crossrename.so
+/usr/lib64/samba/vfs/default_quota.so
+/usr/lib64/samba/vfs/dirsort.so
+/usr/lib64/samba/vfs/expand_msdfs.so
+/usr/lib64/samba/vfs/extd_audit.so
+/usr/lib64/samba/vfs/fake_perms.so
+/usr/lib64/samba/vfs/fileid.so
+/usr/lib64/samba/vfs/fruit.so
+/usr/lib64/samba/vfs/full_audit.so
+/usr/lib64/samba/vfs/glusterfs_fuse.so
+/usr/lib64/samba/vfs/gpfs.so
+/usr/lib64/samba/vfs/linux_xfs_sgid.so
+/usr/lib64/samba/vfs/media_harmony.so
+/usr/lib64/samba/vfs/offline.so
+/usr/lib64/samba/vfs/preopen.so
+/usr/lib64/samba/vfs/readahead.so
+/usr/lib64/samba/vfs/readonly.so
+/usr/lib64/samba/vfs/recycle.so
+/usr/lib64/samba/vfs/shadow_copy.so
+/usr/lib64/samba/vfs/shadow_copy2.so
+/usr/lib64/samba/vfs/shell_snap.so
+/usr/lib64/samba/vfs/snapper.so
+/usr/lib64/samba/vfs/streams_depot.so
+/usr/lib64/samba/vfs/streams_xattr.so
+/usr/lib64/samba/vfs/syncops.so
+/usr/lib64/samba/vfs/time_audit.so
+/usr/lib64/samba/vfs/unityed_media.so
+/usr/lib64/samba/vfs/virusfilter.so
+/usr/lib64/samba/vfs/widelinks.so
+/usr/lib64/samba/vfs/worm.so
+/usr/lib64/samba/vfs/xattr_tdb.so
+%dir /usr/libexec
+%dir /usr/libexec/samba
+/usr/libexec/samba/rpcd_classic
+/usr/libexec/samba/rpcd_epmapper
+/usr/libexec/samba/rpcd_fsrvp
+/usr/libexec/samba/rpcd_lsad
+/usr/libexec/samba/rpcd_mdssvc
+/usr/libexec/samba/rpcd_spoolss
+/usr/libexec/samba/rpcd_winreg
+/usr/libexec/samba/samba-bgqd
+/usr/libexec/samba/samba-dcerpcd
+%dir /usr/sbin
+/usr/sbin/eventlogadm
+/usr/sbin/nmbd
+/usr/sbin/smbd
+%dir /usr/share
+%dir /usr/share/locale
+%dir /usr/share/locale/ar
+%dir /usr/share/locale/ar/LC_MESSAGES
+/usr/share/locale/ar/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+/usr/share/locale/cs/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+/usr/share/locale/da/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+/usr/share/locale/de/LC_MESSAGES/net.mo
+/usr/share/locale/de/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+/usr/share/locale/es/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+/usr/share/locale/fi/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+/usr/share/locale/fr/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/hu
+%dir /usr/share/locale/hu/LC_MESSAGES
+/usr/share/locale/hu/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+/usr/share/locale/it/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+/usr/share/locale/ja/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+/usr/share/locale/ka/LC_MESSAGES/net.mo
+/usr/share/locale/ka/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/ko
+%dir /usr/share/locale/ko/LC_MESSAGES
+/usr/share/locale/ko/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/nb
+%dir /usr/share/locale/nb/LC_MESSAGES
+/usr/share/locale/nb/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+/usr/share/locale/nl/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+/usr/share/locale/pl/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+/usr/share/locale/pt_BR/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+/usr/share/locale/ru/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+/usr/share/locale/sv/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+/usr/share/locale/tr/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+/usr/share/locale/zh_CN/LC_MESSAGES/pam_winbind.mo
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+/usr/share/locale/zh_TW/LC_MESSAGES/pam_winbind.mo
+%dir /var/cache/samba
+%dir /var/lib/samba
+%dir /var/lib/samba/lock
+%attr(0700,root,root) %dir /var/lib/samba/private
+%dir /var/log/samba

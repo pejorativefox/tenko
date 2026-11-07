@@ -100,17 +100,7 @@ if [ -x /usr/sbin/ldconfig ]; then
     /usr/sbin/ldconfig
 fi
 
-%files
-%{_bindir}
-%{_sbindir}
-%{_libdir}
-%{_libexecdir}
-%{_includedir}
-%{_datadir}
-/usr/lib
-/etc
-/run
-/var
+%files -f %{_sourcedir}/samba.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 4.25.1-1
