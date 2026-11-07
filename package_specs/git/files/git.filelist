@@ -14,6 +14,8 @@
 %dir /usr/share/bash-completion
 %dir /usr/share/bash-completion/completions
 %dir /usr/share/git-core
+%dir /usr/share/git-core/contrib
+%dir /usr/share/git-core/contrib/completion
 %dir /usr/share/git-core/templates
 %dir /usr/share/git-core/templates/hooks
 %dir /usr/share/git-core/templates/info
@@ -262,6 +264,9 @@
 /usr/libexec/git-core/mergetools/xxdiff
 /usr/libexec/git-core/scalar
 /usr/share/bash-completion/completions/git
+/usr/share/git-core/contrib/completion/git-completion.tcsh
+/usr/share/git-core/contrib/completion/git-completion.zsh
+/usr/share/git-core/contrib/completion/git-prompt.sh
 /usr/share/git-core/templates/description
 /usr/share/git-core/templates/hooks/applypatch-msg.sample
 /usr/share/git-core/templates/hooks/commit-msg.sample

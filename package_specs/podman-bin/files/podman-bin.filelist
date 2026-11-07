@@ -14,8 +14,17 @@
 %dir /usr/lib/systemd/system
 %dir /usr/lib/systemd/user
 %dir /usr/share
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+/usr/share/bash-completion/completions/podman
 %dir /usr/share/doc
 %dir /usr/share/doc/podman-bin-6.1.4
+%dir /usr/share/fish
+%dir /usr/share/fish/vendor_completions.d
+/usr/share/fish/vendor_completions.d/podman.fish
+%dir /usr/share/zsh
+%dir /usr/share/zsh/site-functions
+/usr/share/zsh/site-functions/_podman
 %config(noreplace) /etc/containers/containers.conf
 %config(noreplace) /etc/containers/policy.json
 %config(noreplace) /etc/containers/registries.conf

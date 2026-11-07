@@ -27,4 +27,7 @@
 %dir /usr/share
 %dir /usr/share/dbus-1
 %dir /usr/share/dbus-1/services
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+/usr/share/bash-completion/completions/dconf
 /usr/share/dbus-1/services/ca.desrt.dconf.service

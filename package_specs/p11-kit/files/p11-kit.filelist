@@ -43,5 +43,9 @@
 /usr/libexec/p11-kit/p11-kit-server
 /usr/libexec/p11-kit/trust-extract-compat
 /usr/share/p11-kit/modules/p11-kit-trust.module
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+/usr/share/bash-completion/completions/p11-kit
+/usr/share/bash-completion/completions/trust
 /usr/share/zsh/site-functions/_p11-kit
 /usr/share/zsh/site-functions/_trust

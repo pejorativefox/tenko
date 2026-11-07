@@ -1,6 +1,6 @@
 Name:       dbus-glib
 Version:    0.116
-Release:    2
+Release:    3
 Summary:    D-Bus bindings for GLib
 License:    AFL-2.1 OR GPL-2.0-or-later
 Prefix:     /usr
@@ -16,7 +16,7 @@ NetworkManager that still rely on it; new projects should use GDBus.
 %setup -a 0
 
 %build
-%configure --disable-static
+%configure --disable-static --enable-bash-completion
 %make_build
 
 %install    
@@ -26,6 +26,8 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 %files
 /usr/bin/dbus-binding-tool
+%dir /etc/bash_completion.d
+/etc/bash_completion.d/dbus-bash-completion.sh
 /usr/include/dbus-1.0/dbus/dbus-glib-bindings.h
 /usr/include/dbus-1.0/dbus/dbus-glib-lowlevel.h
 /usr/include/dbus-1.0/dbus/dbus-glib.h
@@ -35,6 +37,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/lib64/libdbus-glib-1.so.2
 /usr/lib64/libdbus-glib-1.so.2.3.7
 /usr/lib64/pkgconfig/dbus-glib-1.pc
+/usr/libexec/dbus-bash-completion-helper
 /usr/share/gtk-doc/html/dbus-glib/api-index-full.html
 /usr/share/gtk-doc/html/dbus-glib/ch01.html
 /usr/share/gtk-doc/html/dbus-glib/ch02.html
@@ -61,6 +64,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/dbus-binding-tool.1.gz
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 0.116-3
+- Build with --enable-bash-completion and package the dbus-binding-tool
+  completion helper again.  The old 0.110 build installed it under
+  /usr/etc/bash_completion.d, where nothing loaded it; the configure
+  sysconfdir now puts it in /etc/bash_completion.d.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.116-2
 - Replace the TODO summary/description and record the verified license
   (AFL-2.1 OR GPL-2.0-or-later): COPYING (issue #8).

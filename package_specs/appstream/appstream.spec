@@ -1,10 +1,11 @@
 Name:       appstream
 Version:    1.2.2
-Release:    4
+Release:    5
 Summary:    Library and tool for software metadata
 License:    LGPL-2.1-or-later AND FSFAP
 Source0:    AppStream-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: bash-completion
 
 %description
 AppStream provides a library and tool for retrieving software metadata.
@@ -21,7 +22,6 @@ meson setup ..              \
       --prefix=/usr         \
       --buildtype=release   \
       -Dapidocs=false       \
-      -Dbash-completion=false \
       -Dstemming=false      \
       -Dman=false
 ninja
@@ -36,6 +36,11 @@ popd
 %files -f %{_sourcedir}/appstream.filelist
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 1.2.2-5
+- Package the upstream appstreamcli bash completion.  The spec forced
+  -Dbash-completion=false, so the completion shipped in contrib/ was never
+  installed.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.2-4
 - Replace the legacy short licence name with the verified SPDX expression
   (LGPL-2.1-or-later AND FSFAP): COPYING, data/update-data.py and data/its/metainfo.its (issue #8).

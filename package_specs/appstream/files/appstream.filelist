@@ -54,6 +54,9 @@
 %dir /usr/share
 %dir /usr/share/appstream
 /usr/share/appstream/appstream.conf
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+/usr/share/bash-completion/completions/appstreamcli
 %dir /usr/share/doc
 %dir /usr/share/doc/appstream
 %dir /usr/share/doc/appstream/html

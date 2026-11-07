@@ -1,6 +1,6 @@
 Name:       libsecret
 Version:    0.21.8.2
-Release:    2
+Release:    3
 Summary:    GObject secret service library
 License:    LGPL-2.1-or-later
 Prefix:     /usr
@@ -19,6 +19,7 @@ mkdir build-libsecret
 pushd build-libsecret
 meson setup --prefix=/usr       \
             --buildtype=release \
+            -Dbashcompdir=/usr/share/bash-completion/completions \
             -D gtk_doc=false    \
             -D manpage=false    \
             -D vapi=false       \
@@ -58,6 +59,9 @@ rm -vf %{buildroot}%{_infodir}/dir
 /usr/lib64/pkgconfig/libsecret-1.pc
 /usr/lib64/pkgconfig/libsecret-unstable.pc
 /usr/share/gir-1.0/Secret-1.gir
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+/usr/share/bash-completion/completions/secret-tool
 /usr/share/locale/ab/LC_MESSAGES/libsecret.mo
 /usr/share/locale/an/LC_MESSAGES/libsecret.mo
 /usr/share/locale/ar/LC_MESSAGES/libsecret.mo
@@ -127,6 +131,11 @@ rm -vf %{buildroot}%{_infodir}/dir
 /usr/share/locale/zh_TW/LC_MESSAGES/libsecret.mo
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 0.21.8.2-3
+- Install the upstream secret-tool bash completion.  Meson only installed
+  it when bash-completion.pc was present; set bashcompdir explicitly so the
+  file is always packaged.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.21.8.2-2
 - Record the verified license (LGPL-2.1-or-later): COPYING (issue #8).
 

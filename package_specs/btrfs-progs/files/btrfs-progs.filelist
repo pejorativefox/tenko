@@ -7,6 +7,9 @@
 %dir /usr/lib64
 %dir /usr/lib64/pkgconfig
 %dir /usr/share
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+/usr/share/bash-completion/completions/btrfs
 %dir /usr/share/man
 %dir /usr/share/man/man5
 %dir /usr/share/man/man8

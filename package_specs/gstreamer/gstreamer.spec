@@ -1,10 +1,11 @@
 Name:       gstreamer
 Version:    1.28.8
-Release:    2
+Release:    3
 Summary:    Streaming multimedia framework
 License:    LGPL-2.1-or-later AND BSD-3-Clause
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: bash-completion
 
 %description
 Streaming multimedia framework
@@ -18,6 +19,7 @@ pushd build
 meson setup ..            \
       --prefix=/usr       \
       --buildtype=release \
+      -D bash-completion=enabled \
       -D gst_debug=false
 ninja
 popd
@@ -193,6 +195,12 @@ popd
 /usr/libexec/gstreamer-1.0/gst-plugin-scanner
 /usr/libexec/gstreamer-1.0/gst-plugins-doc-cache-generator
 /usr/share/aclocal/gst-element-check-1.0.m4
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+/usr/share/bash-completion/completions/gst-inspect-1.0
+/usr/share/bash-completion/completions/gst-launch-1.0
+%dir /usr/share/bash-completion/helpers
+/usr/share/bash-completion/helpers/gst
 /usr/share/cmake/FindGStreamer.cmake
 /usr/share/gdb/auto-load/usr/lib64/libgstreamer-1.0.so.0.2808.0-gdb.py
 /usr/share/gir-1.0/Gst-1.0.gir
@@ -256,6 +264,12 @@ popd
 /usr/libexec/gstreamer-1.0/gst-ptp-helper
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 1.28.8-3
+- Package the upstream gst-inspect-1.0/gst-launch-1.0 bash completions and
+  the gst helper again.  They were dropped when the generated filelist was
+  made in a build image without bash-completion.pc; require bash-completion
+  and enable the option so a future build fails instead of losing them.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.28.8-2
 - Replace the legacy short licence name with the verified SPDX expression
   (LGPL-2.1-or-later AND BSD-3-Clause): COPYING, gst/gstplugin.c and gst/gstcpuid.c (issue #8).

@@ -16,7 +16,7 @@
 
 Name:       podman-bin
 Version:    6.1.4
-Release:    4
+Release:    5
 Summary:    Podman container engine and helpers (static upstream bundle)
 License:    Apache-2.0 AND GPL-2.0-or-later
 URL:        https://github.com/mgoltzsche/podman-static
@@ -92,6 +92,19 @@ ln -s podman-%{version} %{buildroot}/opt/podman
 install -d %{buildroot}%{_bindir}
 ln -s /opt/podman/bin/podman %{buildroot}%{_bindir}/podman
 
+# The bundle keeps its shell completions under /opt, where bash-completion
+# does not look.  Expose them through the standard directories so
+# "podman <TAB>" works without extra setup.
+install -d %{buildroot}%{_datadir}/bash-completion/completions
+ln -s /opt/podman/share/bash-completion/completions/podman \
+    %{buildroot}%{_datadir}/bash-completion/completions/podman
+install -d %{buildroot}%{_datadir}/fish/vendor_completions.d
+ln -s /opt/podman/share/fish/vendor_completions.d/podman.fish \
+    %{buildroot}%{_datadir}/fish/vendor_completions.d/podman.fish
+install -d %{buildroot}%{_datadir}/zsh/site-functions
+ln -s /opt/podman/share/zsh/site-functions/_podman \
+    %{buildroot}%{_datadir}/zsh/site-functions/_podman
+
 # The bundle's unit files hardcode /usr/local/bin/podman.  Ship the API
 # service and socket for both the system and user managers, with the path
 # rewritten to the packaged /usr/bin/podman symlink.
@@ -132,6 +145,11 @@ install -m644 README.md %{buildroot}%{_docdir}/%{name}-%{version}/README.md
 %files -f %{_sourcedir}/podman-bin.filelist
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6.1.4-5
+- Link the bundle's bash, fish and zsh completions into the standard
+  completion directories.  They were only present under /opt, which the
+  shells do not search.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6.1.4-4
 - Ship podman.service and podman.socket for the system and user managers,
   with ExecStart rewritten from /usr/local/bin/podman to /usr/bin/podman.

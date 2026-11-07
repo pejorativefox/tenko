@@ -50,6 +50,15 @@ The list lives in `files/<spec>.filelist`.  It is static so package contents
 cannot silently change when upstream installs a new file; a build that installs
 an unlisted file fails with "Installed (but unpackaged) file(s) found".
 
+Optional payload can still disappear the other way: if the build image lacks a
+detected dependency, configure/meson simply does not install it and the
+regenerated filelist records the smaller tree.  Bash completion is the common
+case.  `tenko-base` now pulls in `bash-completion`, and packages whose build
+system looks for it should require it explicitly (`BuildRequires:
+bash-completion`) or set the install directory directly (`-Dbashcompdir=...`,
+`-Dbash_completion=...`) so a minimal image cannot silently drop the files.
+Check the rebuilt RPM with `rpm -qlp ... | grep completion` after a regen.
+
 Regenerate after a version bump or when adding/removing packages:
 
 ```sh
@@ -67,6 +76,11 @@ Adding a subpackage means adding both the `%package` section and its filelist
 (and the `%files -f` reference).  There are no `-devel` subpackages in this
 distro: headers, `.pc` files and unversioned `.so` links stay in the runtime
 package.  The only intentional split is `llvm-devel`/`clang-devel`.
+
+Build one-off waves with `IMAGE=localhost/tenko/base:r6`; the older
+`base:r13.1` image predates `bash-completion` and the desktop build
+dependencies, so a filelist regenerated there can lose completion files and
+GIR typelibs.
 
 ## Version bumps
 

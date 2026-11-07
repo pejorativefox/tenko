@@ -1,6 +1,6 @@
 Name:       p11-kit
 Version:    0.26.5
-Release:    3
+Release:    4
 Summary:    Load and enumerate PKCS#11 modules
 License:    BSD-3-Clause
 URL:        https://p11-glue.github.io/p11-glue/p11-kit.html
@@ -43,6 +43,7 @@ cd p11-build
 meson setup ..                 \
       --prefix=/usr            \
       --buildtype=release      \
+      -Dbashcompdir=/usr/share/bash-completion/completions \
       -D trust_paths=/etc/pki/anchors
 ninja -j8
 
@@ -56,6 +57,11 @@ ln -sf /usr/libexec/p11-kit/trust-extract-compat \
 %files -f %{_sourcedir}/p11-kit.filelist
 %files lang -f %{_sourcedir}/p11-kit-lang.filelist
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 0.26.5-4
+- Install the p11-kit and trust bash completions.  Meson skipped them when
+  bash-completion.pc was absent; set bashcompdir explicitly.  The zsh
+  completions were already packaged.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.26.5-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the
