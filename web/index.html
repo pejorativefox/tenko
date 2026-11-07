@@ -6,15 +6,19 @@
 <title>Tenko Linux 6 (Workstation) — package repository</title>
 <style>
   :root {
-    --bg: #faf7f2;
+    /* Palette riffs on the distro ANSI_COLOR="0;34": normal blue on a cool paper base. */
+    --bg: #f3f7fd;
     --panel: #ffffff;
-    --ink: #2a211a;
-    --muted: #6f6257;
-    --line: #e6ddd2;
-    --accent: #8a4b1e;
-    --accent-soft: #f3e6d8;
-    --code-bg: #241c16;
-    --code-ink: #f4ede4;
+    --ink: #172231;
+    --muted: #5c6b7d;
+    --line: #d7e2f0;
+    --accent: #2459a8;
+    --accent-bright: #6fa8ff;
+    --accent-soft: #e3edfb;
+    --header-bg: #0d1a2b;
+    --header-ink: #e7f0ff;
+    --code-bg: #0d1a2b;
+    --code-ink: #e7f0ff;
   }
   * { box-sizing: border-box; }
   body {
@@ -27,8 +31,8 @@
   code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
   .wrap { max-width: 860px; margin: 0 auto; padding: 0 22px; }
   header {
-    background: #241c16;
-    color: #f4ede4;
+    background: var(--header-bg);
+    color: var(--header-ink);
     padding: 52px 0 44px;
     border-bottom: 4px solid var(--accent);
   }
@@ -36,7 +40,7 @@
     text-transform: uppercase;
     letter-spacing: .16em;
     font-size: 12px;
-    color: #c9a884;
+    color: #8fb8e8;
   }
   header h1 {
     margin: 10px 0 6px;
@@ -44,8 +48,8 @@
     line-height: 1.1;
     letter-spacing: -.02em;
   }
-  header h1 span { color: #d99a5b; }
-  header p { margin: 0; color: #cbbfb2; max-width: 62ch; }
+  header h1 span { color: var(--accent-bright); }
+  header p { margin: 0; color: #b9cbe2; max-width: 62ch; }
   header .actions { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
   .btn {
     display: inline-block;
@@ -54,8 +58,8 @@
     text-decoration: none;
     font-weight: 600;
     font-size: 14px;
-    border: 1px solid #5a4636;
-    color: #f4ede4;
+    border: 1px solid #34516f;
+    color: var(--header-ink);
   }
   .btn.primary { background: var(--accent); border-color: var(--accent); }
   .btn:hover { filter: brightness(1.12); }
@@ -84,8 +88,8 @@
     line-height: 1.55;
     margin: 0 0 14px;
   }
-  pre .c { color: #9c8a7a; }
-  pre .p { color: #d99a5b; }
+  pre .c { color: #8296af; }
+  pre .p { color: var(--accent-bright); }
   .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
   .card {
     background: var(--panel);
@@ -100,7 +104,7 @@
   li { margin-bottom: 6px; }
   .files { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
   .files th, .files td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: 14px; vertical-align: top; }
-  .files th { background: var(--accent-soft); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: #6b4a2f; }
+  .files th { background: var(--accent-soft); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: #31537a; }
   .files tr:last-child td { border-bottom: 0; }
   .files code { font-size: 13px; }
   .note {

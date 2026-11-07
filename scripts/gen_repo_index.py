@@ -24,19 +24,20 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tenko Linux {version} — packages</title>
 <style>
- body {{ margin:0; background:#faf7f2; color:#2a211a;
+ /* riffs on the distro ANSI_COLOR="0;34" */
+ body {{ margin:0; background:#f3f7fd; color:#172231;
         font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }}
  .wrap {{ max-width:900px; margin:0 auto; padding:36px 22px 60px; }}
  h1 {{ font-size:26px; margin:0 0 6px; }}
- p {{ color:#6f6257; margin:0 0 18px; }}
- a {{ color:#8a4b1e; }}
+ p {{ color:#5c6b7d; margin:0 0 18px; }}
+ a {{ color:#2459a8; }}
  table {{ width:100%; border-collapse:collapse; background:#fff;
-          border:1px solid #e6ddd2; border-radius:10px; overflow:hidden; }}
- th, td {{ text-align:left; padding:10px 14px; border-bottom:1px solid #e6ddd2;
+          border:1px solid #d7e2f0; border-radius:10px; overflow:hidden; }}
+ th, td {{ text-align:left; padding:10px 14px; border-bottom:1px solid #d7e2f0;
            font-size:14px; }}
- th {{ background:#f3e6d8; font-size:12px; text-transform:uppercase;
-       letter-spacing:.08em; color:#6b4a2f; }}
- td:last-child {{ white-space:nowrap; color:#6f6257; }}
+ th {{ background:#e3edfb; font-size:12px; text-transform:uppercase;
+       letter-spacing:.08em; color:#31537a; }}
+ td:last-child {{ white-space:nowrap; color:#5c6b7d; }}
  tr:last-child td {{ border-bottom:0; }}
  code {{ font-family:ui-monospace,monospace; }}
 </style>

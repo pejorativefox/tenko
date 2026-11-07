@@ -73,64 +73,11 @@ EOF
 echo "staged $rpm_count RPMs in $STAGE"
 
 # Generate a package listing because the web server has directory indexes off.
-python3 - "$STAGE" "$TENKO_RELEASE" "$URL" "$REPO_ID" <<'PY'
-import html
-import os
-import sys
-
-stage, version, url, repo_id = sys.argv[1:5]
-rpms = sorted(f for f in os.listdir(stage) if f.endswith(".rpm"))
-rows = []
-for name in rpms:
-    size = os.path.getsize(os.path.join(stage, name))
-    rows.append(
-        '        <tr><td><a href="{}">{}</a></td><td>{:.1f} MB</td></tr>'.format(
-            html.escape(name), html.escape(name), size / 1048576.0
-        )
-    )
-
-page = """<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tenko Linux {version} — packages</title>
-<style>
- body {{ margin:0; background:#faf7f2; color:#2a211a;
-        font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }}
- .wrap {{ max-width:900px; margin:0 auto; padding:36px 22px 60px; }}
- h1 {{ font-size:26px; margin:0 0 6px; }}
- p {{ color:#6f6257; margin:0 0 18px; }}
- a {{ color:#8a4b1e; }}
- table {{ width:100%; border-collapse:collapse; background:#fff;
-          border:1px solid #e6ddd2; border-radius:10px; overflow:hidden; }}
- th, td {{ text-align:left; padding:10px 14px; border-bottom:1px solid #e6ddd2;
-           font-size:14px; }}
- th {{ background:#f3e6d8; font-size:12px; text-transform:uppercase;
-       letter-spacing:.08em; color:#6b4a2f; }}
- td:last-child {{ white-space:nowrap; color:#6f6257; }}
- tr:last-child td {{ border-bottom:0; }}
- code {{ font-family:ui-monospace,monospace; }}
-</style>
-</head>
-<body><div class="wrap">
-<h1>Tenko Linux {version} — packages</h1>
-<p><a href="../../">&larr; repository overview</a> · {count} RPMs ·
-   <a href="{repo_id}.repo">{repo_id}.repo</a> ·
-   <a href="../../iso/tenko-installer.iso">installer ISO</a> ·
-   <a href="../../rootfs/tenko-rootfs.tar.gz">container rootfs</a></p>
-<table>
-  <thead><tr><th>Package</th><th>Size</th></tr></thead>
-  <tbody>
-{rows}
-  </tbody>
-</table>
-</div></body></html>
-""".format(version=version, repo_id=repo_id, count=len(rpms), rows="\n".join(rows))
-
-with open(os.path.join(stage, "index.html"), "w", encoding="utf-8") as handle:
-    handle.write(page)
-PY
+# gen_repo_index.py owns the markup; publish_rpm.sh uses the same template.
+INDEX_LISTING=${INDEX_LISTING:-build/repo-index-files-$TENKO_RELEASE.txt}
+find "$STAGE" -maxdepth 1 -name '*.rpm' -printf '%f %s\n' | sort > "$INDEX_LISTING"
+python3 scripts/gen_repo_index.py "$INDEX_LISTING" "$STAGE/index.html" \
+    "$TENKO_RELEASE" "$URL" "$REPO_ID"
 
 if [ "$DRY_RUN" = 1 ]; then
     echo "dry run: staged $rpm_count RPMs in $STAGE; not uploading"
