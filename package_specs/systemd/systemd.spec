@@ -1,12 +1,13 @@
 Name:       systemd
 Version:    262.1
-Release:    4
+Release:    5
 Summary:    The systemd package contains programs for controlling the startup, running, and shutdown of the system.
 License:    LGPL-2.1-or-later AND GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: linux-pam
 BuildRequires: python3-pyelftools
+BuildRequires: cryptsetup
 Requires: linux-pam
 # The hardware database is only useful on real hardware.  Containers and
 # other minimal installs can omit it (dnf --setopt=install_weak_deps=False)
@@ -65,7 +66,6 @@ meson setup ..                  \
       -D sysupdate=disabled     \
       -D ukify=disabled         \
       -D bootloader=enabled     \
-      -D sbat-distro-url=https://pjfox.xyz/git/daspork/tenko/issues \
       -D importd=disabled      \
       -D remote=disabled       \
       -D imds=disabled         \
@@ -93,6 +93,11 @@ test -f %{buildroot}/usr/lib/systemd/boot/efi/systemd-bootx64.efi || {
 %files doc -f %{_sourcedir}/systemd-doc.filelist
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 262.1-5
+- Drop -D sbat-distro-url: tenko-release 6-3 ships BUG_REPORT_URL,
+  HOME_URL and the other os-release fields, so meson's SBAT
+  autodetection no longer needs the override.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 262.1-4
 - Replace the legacy short licence name with the verified SPDX expression
   (LGPL-2.1-or-later AND GPL-2.0-or-later): LICENSES/README.md (issue #8).

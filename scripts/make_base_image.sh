@@ -11,20 +11,20 @@
 #
 # Usage:
 #   scripts/make_base_image.sh
-#   PACKAGES="tenko-base" IMAGE=localhost/tenko/base:r13.1-runtime \
+#   PACKAGES="tenko-base" IMAGE=localhost/tenko/base:r6-runtime \
 #       scripts/make_base_image.sh
 #   FROM_TARBALL=build/rootfs.tar.gz IMAGE=localhost/tenko/base:imported \
 #       scripts/make_base_image.sh
 #
 # Environment:
 #   REPO_URL   published repo (default: the Tenko 6 repo)
-#   IMAGE      image tag (default: localhost/tenko/base:r13.1-YYYYMMDD)
+#   IMAGE      image tag (default: localhost/tenko/base:r6-YYYYMMDD)
 #   PACKAGES   packages to install (default: tenko-base tenko-build
 #              plus DEVEL_PACKAGES)
-#   DEVEL_PACKAGES  extra build-time packages.  Headers and .pc files ship
-#              in the runtime packages after the -devel subpackages were
-#              removed, so only python3-pyelftools is needed (systemd
-#              requires it for -D bootloader=enabled)
+#   DEVEL_PACKAGES  extra build-time packages: cryptsetup (libcryptsetup
+#              for systemd-cryptsetup), python3-pyelftools (sd-boot) and
+#              liblzo2 (btrfs-progs).  Headers and .pc files ship in the
+#              runtime packages after the -devel subpackages were removed.
 #   TAG_STABLE set to 0 to keep the dated tag only (e.g. for a lean E2 image
 #              that must not replace the dnf-capable base:r13.1)
 #   ROOTFS     staging rootfs directory (default: build/base-rootfs)
@@ -37,9 +37,9 @@ cd "$(dirname "$0")/.."
 
 DATE=${DATE:-$(date +%Y%m%d)}
 REPO_URL=${REPO_URL:-https://tenko.pjfox.xyz/packages/6/}
-IMAGE=${IMAGE:-localhost/tenko/base:r13.1-$DATE}
+IMAGE=${IMAGE:-localhost/tenko/base:r6-$DATE}
 TAG_STABLE=${TAG_STABLE:-1}
-DEVEL_PACKAGES=${DEVEL_PACKAGES:-"python3-pyelftools liblzo2"}
+DEVEL_PACKAGES=${DEVEL_PACKAGES:-"cryptsetup python3-pyelftools liblzo2"}
 PACKAGES=${PACKAGES:-tenko-base tenko-build $DEVEL_PACKAGES}
 ROOTFS=${ROOTFS:-build/base-rootfs}
 TARBALL=${TARBALL:-build/tenko-rootfs.tar.gz}
@@ -116,7 +116,7 @@ EOF
 )
 
 echo "verifying $IMAGE"
-podman run --rm "$IMAGE" /usr/bin/bash -lc '
+podman run --rm --network=none "$IMAGE" /usr/bin/bash -lc '
     set -e
     echo "packages: $(rpm -qa | wc -l)"
     rpm -q tenko-base
@@ -133,9 +133,9 @@ podman run --rm "$IMAGE" /usr/bin/bash -lc '
     fi
 '
 
-if [ "$TAG_STABLE" = 1 ] && [ "$IMAGE" != "localhost/tenko/base:r13.1" ]; then
-    podman tag "$IMAGE" localhost/tenko/base:r13.1
-    echo "tagged localhost/tenko/base:r13.1"
+if [ "$TAG_STABLE" = 1 ] && [ "$IMAGE" != "localhost/tenko/base:r6" ]; then
+    podman tag "$IMAGE" localhost/tenko/base:r6
+    echo "tagged localhost/tenko/base:r6"
 fi
 
 echo "created $IMAGE"

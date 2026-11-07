@@ -25,9 +25,7 @@ EXTRA = os.path.join(ROOT, "package_specs", "tenko-base", "requires-extra")
 BEGIN = "# BEGIN GENERATED REQUIRES"
 END = "# END GENERATED REQUIRES"
 
-# Base package names that the distro deliberately does not require...
-EXCLUDE = {"grub"}
-# ...and ones that are split into several binary packages.
+# Base package names that are split into several binary packages.
 SPLIT = {
     "dbus": ["dbus-daemon", "dbus-libs"],
     "vim": ["vim-minimal"],
@@ -50,8 +48,6 @@ def requires():
     aliases = base.get("aliases", {})
     names = []
     for name in base["packages"]:
-        if name in EXCLUDE:
-            continue
         names.extend(SPLIT.get(name, [aliases.get(name, name)]))
     seen = set(names)
     for name in read_extra():

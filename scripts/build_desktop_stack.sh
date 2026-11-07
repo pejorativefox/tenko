@@ -14,7 +14,7 @@ set -uo pipefail
 cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
-IMG=${IMG:-$(pick_image localhost/tenko/base:r13.1)}
+IMG=${IMG:-$(pick_image localhost/tenko/base:r6 localhost/tenko/base:r13.1)}
 OUT=${OUT:-$PWD/build/desktop-parity-$(date +%Y%m%d)}
 JOBS=${JOBS:-8}
 PHASE=${PHASE:-core}

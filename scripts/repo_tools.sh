@@ -16,7 +16,7 @@
 # TOOL_IMAGE defaults to the self-hosted base image.  That image does not
 # have dnf/createrepo_c yet, so the helpers fall back to the host binaries
 # until an image that provides them is passed in.  Set
-#   TOOL_IMAGE=localhost/tenko/base:r13.1-build-YYYYMMDD
+#   TOOL_IMAGE=localhost/tenko/base:r6-build-YYYYMMDD
 # for a fully self-hosted run.  (The old scratch bootstrap chain that built
 # such an image was removed on 2026-11-03; the published repo is the
 # checkpoint.)
@@ -34,7 +34,7 @@ pick_image() {
     fi
 }
 
-TOOL_IMAGE=${TOOL_IMAGE:-$(pick_image localhost/tenko/base:r13.1)}
+TOOL_IMAGE=${TOOL_IMAGE:-$(pick_image localhost/tenko/base:r6 localhost/tenko/base:r13.1)}
 
 _tool_probe=${_tool_probe:-}
 

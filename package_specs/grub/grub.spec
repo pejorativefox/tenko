@@ -1,3 +1,5 @@
+# Unsupported: Tenko uses systemd-boot.  This spec is kept for reference and
+# manual builds only; it is not part of package_specs/base.json.
 %global __global_ldflags %{nil}
 %global _lto_cflags %{nil}
 

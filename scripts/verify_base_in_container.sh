@@ -4,12 +4,12 @@
 # This is the self-hosting check: the host only prepares the package list and
 # bind mounts specs/sources/output.  Every rpmbuild invocation, including the
 # compiler, make, Python, meson, systemd, and the RPM toolchain, runs inside
-# localhost/tenko/base:r13.1.
+# localhost/tenko/base:r6.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
-IMAGE=${IMAGE:-$(pick_image localhost/tenko/base:r13.1)}
+IMAGE=${IMAGE:-$(pick_image localhost/tenko/base:r6 localhost/tenko/base:r13.1)}
 OUT=${OUT:-build/container-rebuild-$(date +%Y%m%d-%H%M%S)}
 JOBS=${JOBS:-4}
 MAKE_JOBS=${MAKE_JOBS:-4}

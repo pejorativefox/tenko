@@ -16,14 +16,14 @@ podman and `~/rpmbuild/SOURCES` for the tarballs.
 ## One package
 
 ```sh
-IMAGE=localhost/tenko/base:r13.1 \
+IMAGE=localhost/tenko/base:r6 \
 OUT=build/my-wave \
 JOBS=2 MAKE_JOBS=4 \
 scripts/build_specs.sh curl/curl.spec
 ```
 
 - Paths are relative to `package_specs/`.
-- `IMAGE` is the build environment.  `localhost/tenko/base:r13.1` is the
+- `IMAGE` is the build environment.  `localhost/tenko/base:r6` is the
   usual one; packages with extra requirements are built in derived images (see
   `scripts/make_base_image.sh`).
 - `OUT` must be a relative path.  Results are in `$OUT/build/<pkg>/RPMS/` and

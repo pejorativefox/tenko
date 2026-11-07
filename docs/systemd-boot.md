@@ -292,10 +292,9 @@ Source0 URL: `https://files.pythonhosted.org/packages/source/p/pyelftools/pyelft
 
 - `BuildRequires: python3-pyelftools`
 - `-D bootloader=enabled` (keep `-D ukify=disabled`)
-- `-D sbat-distro-url=https://pjfox.xyz/git/daspork/tenko/issues`: SBAT
-  autodetection reads `BUG_REPORT_URL` from `/etc/os-release`, which
-  `tenko-release` does not set yet, so the build fails without an explicit
-  URL
+- `-D sbat-distro-url=...` is no longer needed: tenko-release 6-3 sets
+  `BUG_REPORT_URL` (and the other URL fields), so meson's SBAT
+  autodetection reads them from `/etc/os-release`
 - `Release: 3`, changelog entry naming pyelftools and the new bootloader
 - after install, assert
   `test -f %{buildroot}/usr/lib/systemd/boot/efi/systemd-bootx64.efi`, so a
@@ -434,8 +433,10 @@ booted in OVMF/QEMU to multi-user and the `Browneye Linux installer` unit.
 ## Open questions
 
 1. Is a 1 GiB default ESP acceptable, or keep 512 MiB and prune aggressively?
-2. Keep the `grub` package in the repository (for users who want it) or remove
-   it after the conversion is proven?
+2. **Resolved (2026-11-07):** `grub` is no longer in the base manifest or
+   build order.  The spec stays in the tree as an unsupported optional
+   package for reference/manual builds; nothing depends on it and no new RPM
+   is built or published by default.
 3. Retire the BIOS/syslinux paths permanently, or keep them as dead scripts?
 4. Should `ukify` be enabled later for UKIs (needs `python-pefile`, and only
    matters if Secure Boot comes back into scope)?

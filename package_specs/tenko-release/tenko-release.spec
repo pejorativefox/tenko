@@ -1,6 +1,6 @@
 Name:       tenko-release
 Version:    6
-Release:    2
+Release:    3
 Summary:    Tenko Linux release file
 License:    MIT
 Prefix:     /usr
@@ -27,6 +27,10 @@ PRETTY_NAME="Tenko Linux 6 (Workstation)"
 VARIANT="Workstation"
 VARIANT_ID=workstation
 RELEASE_TYPE=stable
+HOME_URL="https://tenko.pjfox.xyz/"
+BUG_REPORT_URL="https://pjfox.xyz/git/daspork/tenko/issues"
+SUPPORT_URL="https://pjfox.xyz/git/daspork/tenko"
+DOCUMENTATION_URL="https://pjfox.xyz/git/daspork/tenko/src/branch/main/docs"
 ANSI_COLOR="0;34"
 OSR
 ln -sf ../usr/lib/os-release %{buildroot}/etc/os-release
@@ -48,6 +52,11 @@ REPO
 %config(noreplace) /etc/yum.repos.d/tenko-6.repo
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-3
+- Add HOME_URL, BUG_REPORT_URL, SUPPORT_URL and DOCUMENTATION_URL to
+  os-release.  systemd's SBAT autodetection reads these, so the
+  sbat-distro-url build override can be dropped.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-2
 - Drop the browneye-release Obsoletes/Provides alias, the
   system-release(13.1) provide and the old-tree %posttrans cleanup; no
