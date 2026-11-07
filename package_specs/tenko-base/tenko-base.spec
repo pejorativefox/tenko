@@ -1,9 +1,7 @@
 Name:       tenko-base
-Version:    13.1
-Release:    13
-# Tenko rename compatibility (issue #22).
-Obsoletes: browneye-base < 13.1-12
-Provides: browneye-base = %{version}-%{release}
+Version:    6
+Release:    1
+Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
 Prefix:     /usr
@@ -132,6 +130,12 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
+- Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
+  the old 13.1 EVR upgrade cleanly.
+- Drop the browneye-base Obsoletes/Provides alias; no Browneye installs
+  remain.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 13.1-13
 - Add ncat, ncdu, htop, nodejs, bash-completion and podman-bin to the base
   install (user-requested; podman-bin provides podman).

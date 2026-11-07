@@ -1,9 +1,7 @@
 Name:       tenko-build
-Version:    13.1
-Release:    2
-# Tenko rename compatibility (issue #22).
-Obsoletes: browneye-build < 13.1-2
-Provides: browneye-build = %{version}-%{release}
+Version:    6
+Release:    1
+Epoch:      1
 Summary:    Tenko build and repository assembly tools
 License:    MIT
 Prefix:     /usr
@@ -23,6 +21,12 @@ base toolchain.
 %files
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
+- Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
+  the old 13.1 EVR upgrade cleanly.
+- Drop the browneye-build Obsoletes/Provides alias; no Browneye installs
+  remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-2
 - Rename browneye-build to tenko-build and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.

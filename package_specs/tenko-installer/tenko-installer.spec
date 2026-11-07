@@ -1,9 +1,7 @@
 Name:       tenko-installer
-Version:    13.1
-Release:    25
-# Tenko rename compatibility (issue #22).
-Obsoletes: browneye-installer < 13.1-25
-Provides: browneye-installer = %{version}-%{release}
+Version:    6
+Release:    1
+Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
 BuildArch:  noarch
@@ -82,18 +80,6 @@ install -vdm755 %{buildroot}%{_docdir}/tenko-installer
 install -vm644 %{_sourcedir}/README.tenko-installer \
     %{buildroot}%{_docdir}/tenko-installer/README
 
-%post
-# Remove the old installer payload and unit/preset/dracut integration.
-rm -f /usr/lib/systemd/system/browneye-installer.service
-rm -f /usr/lib/systemd/system-preset/90-browneye-live.preset
-rm -f /usr/lib/dracut/dracut.conf.d/20-browneye-live.conf
-rm -f /etc/systemd/system/*.wants/browneye-installer.service
-rm -f /usr/bin/browneye-installer
-rm -rf /usr/lib/browneye-installer /usr/share/doc/browneye-installer
-if [ -d /var/log/browneye-install ] && [ ! -d /var/log/tenko-install ]; then
-    mv /var/log/browneye-install /var/log/tenko-install
-fi
-
 %files
 %dir /usr/lib/tenko-installer
 /usr/lib/tenko-installer/*.py
@@ -104,6 +90,13 @@ fi
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
+- Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
+  the old 13.1 EVR upgrade cleanly.
+- Drop the browneye-installer Obsoletes/Provides alias and the old
+  payload, unit, preset, dracut and log cleanup; no Browneye installs
+  remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-25
 - Rename browneye-installer to tenko-installer and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.

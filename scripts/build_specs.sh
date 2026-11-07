@@ -18,7 +18,7 @@ cd "$(dirname "$0")/.."
 
 usage() { sed -n '2,17p' "$0"; exit "${1:-0}"; }
 
-IMAGE=${IMAGE:-$(pick_image localhost/tenko/base:r13.1 localhost/browneye/base:r13.1)}
+IMAGE=${IMAGE:-$(pick_image localhost/tenko/base:r13.1)}
 OUT=${OUT:-build/specs-$(date +%Y%m%d-%H%M%S)}
 JOBS=${JOBS:-4}
 MAKE_JOBS=${MAKE_JOBS:-4}

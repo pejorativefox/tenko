@@ -20,10 +20,10 @@ set -uo pipefail
 cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
-IMG=${IMG:-$(pick_image localhost/tenko/build-htop:13.1 localhost/browneye/build-htop:13.1)}
+IMG=${IMG:-$(pick_image localhost/tenko/build-htop:13.1)}
 OUT=${OUT:-$PWD/build/x11-wave/out}
 CTR=${CTR:-tenko-x11}
-DEPS_IMAGE=${DEPS_IMAGE:-$(pick_image localhost/tenko/x11-deps:latest localhost/browneye/x11-deps:latest)}
+DEPS_IMAGE=${DEPS_IMAGE:-$(pick_image localhost/tenko/x11-deps:latest)}
 JOBS=${JOBS:-8}
 WORKERS=${WORKERS:-1}
 FORCE=${FORCE:-0}

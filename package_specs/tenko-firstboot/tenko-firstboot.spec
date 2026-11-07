@@ -1,9 +1,7 @@
 Name:       tenko-firstboot
-Version:    13.1
-Release:    3
-# Tenko rename compatibility (issue #22).
-Obsoletes: browneye-firstboot < 13.1-3
-Provides: browneye-firstboot = %{version}-%{release}
+Version:    6
+Release:    1
+Epoch:      1
 Summary:    First-boot root account policy for Tenko Linux
 License:    MIT
 Prefix:     /usr
@@ -43,16 +41,6 @@ install -vm644 %{_sourcedir}/README \
 install -vdm755 %{buildroot}/var/lib/tenko
 
 %post
-# Migrate the old first-boot marker before removing the old package paths.
-if [ -e /var/lib/browneye/firstboot-root-password.done ] && \
-   [ ! -e /var/lib/tenko/firstboot-root-password.done ]; then
-    mkdir -p /var/lib/tenko
-    mv -f /var/lib/browneye/firstboot-root-password.done \
-        /var/lib/tenko/firstboot-root-password.done
-fi
-rm -f /etc/systemd/system/*.wants/browneye-firstboot-root-password.service
-rm -f /usr/lib/systemd/system/browneye-firstboot-root-password.service
-rm -f /usr/lib/systemd/system-preset/90-browneye-firstboot.preset
 if command -v systemctl >/dev/null 2>&1; then
     systemctl --root=/ enable tenko-firstboot-root-password.service \
         >/dev/null 2>&1 || true
@@ -66,6 +54,12 @@ fi
 %dir /var/lib/tenko
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
+- Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
+  the old 13.1 EVR upgrade cleanly.
+- Drop the browneye-firstboot Obsoletes/Provides alias and the old marker,
+  unit and preset cleanup; no Browneye installs remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-3
 - Rename browneye-firstboot to tenko-firstboot and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.

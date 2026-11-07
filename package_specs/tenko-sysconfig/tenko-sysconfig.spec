@@ -1,9 +1,7 @@
 Name:       tenko-sysconfig
-Version:    13.1
-Release:    4
-# Tenko rename compatibility (issue #22).
-Obsoletes: browneye-sysconfig < 13.1-4
-Provides: browneye-sysconfig = %{version}-%{release}
+Version:    6
+Release:    1
+Epoch:      1
 Summary:    Base configuration for Tenko Linux
 License:    MIT
 Prefix:     /usr
@@ -102,19 +100,6 @@ done
 unset f
 EOF2
 
-%post
-# Preserve modified old dracut/journald configs; do not silently delete them.
-for f in /etc/dracut.conf.d/10-browneye.conf \
-         /etc/systemd/journald.conf.d/10-browneye.conf; do
-    if [ -e "$f" ]; then
-        if [ -e "$f.rpmsave" ]; then
-            rm -f "$f"
-        else
-            mv -f "$f" "$f.rpmsave"
-        fi
-    fi
-done
-
 %files
 %config(noreplace) /etc/fstab
 %config(noreplace) /etc/systemd/system/default.target
@@ -137,6 +122,12 @@ done
 %config(noreplace) /etc/machine-id
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
+- Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
+  the old 13.1 EVR upgrade cleanly.
+- Drop the browneye-sysconfig Obsoletes/Provides alias and the old
+  dracut/journald config cleanup; no Browneye installs remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-4
 - Rename browneye-sysconfig to tenko-sysconfig and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.

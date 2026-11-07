@@ -1,9 +1,7 @@
 Name:       tenko-rpm-config
-Version:    13.1
-Release:    3
-# Tenko rename compatibility (issue #22).
-Obsoletes: browneye-rpm-config < 13.1-3
-Provides: browneye-rpm-config = %{version}-%{release}
+Version:    6
+Release:    1
+Epoch:      1
 Summary:    RPM macros and strip helper for Tenko builds
 License:    MIT
 Prefix:     /usr
@@ -26,16 +24,17 @@ mkdir -p %{buildroot}%{_rpmmacrodir} %{buildroot}/usr/lib/rpm/tenko
 install -m 644 %{_sourcedir}/macros.tenko %{buildroot}%{_rpmmacrodir}/macros.tenko
 install -m 755 %{_sourcedir}/strip_debug.sh %{buildroot}/usr/lib/rpm/tenko/strip_debug.sh
 
-%post
-# Remove the old RPM macro directory and macro file.
-rm -f /usr/lib/rpm/macros.d/macros.browneye
-rm -rf /usr/lib/rpm/browneye
-
 %files
 %{_rpmmacrodir}/macros.tenko
 /usr/lib/rpm/tenko/strip_debug.sh
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
+- Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
+  the old 13.1 EVR upgrade cleanly.
+- Drop the browneye-rpm-config Obsoletes/Provides alias and the old macro
+  cleanup; no Browneye installs remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-3
 - Rename browneye-rpm-config to tenko-rpm-config and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.

@@ -1,9 +1,6 @@
 Name:       tenko-basefs
 Version:    1.0
-Release:    2
-# Tenko rename compatibility (issue #22).
-Obsoletes: browneye-basefs < 1.0-2
-Provides: browneye-basefs = %{version}-%{release}
+Release:    3
 Summary:    Base filesystem layout for Tenko Linux
 License:    MIT
 Prefix:     /
@@ -67,6 +64,10 @@ ln -sf usr/sbin %{buildroot}/sbin
 /srv
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 1.0-3
+- Drop the browneye-basefs Obsoletes/Provides alias; no Browneye installs
+  remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 1.0-2
 - Rename browneye-basefs to tenko-basefs and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.

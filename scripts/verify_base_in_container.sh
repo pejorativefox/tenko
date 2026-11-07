@@ -9,7 +9,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
-IMAGE=${IMAGE:-$(pick_image localhost/tenko/base:r13.1 localhost/browneye/base:r13.1)}
+IMAGE=${IMAGE:-$(pick_image localhost/tenko/base:r13.1)}
 OUT=${OUT:-build/container-rebuild-$(date +%Y%m%d-%H%M%S)}
 JOBS=${JOBS:-4}
 MAKE_JOBS=${MAKE_JOBS:-4}

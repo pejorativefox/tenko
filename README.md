@@ -7,12 +7,8 @@ self-hosted dnf repository; the installer downloads them while installing, so
 the ISO carries no packages.  The distro release is 6; package versions roll
 independently and keep their own versions.
 
-- Public repository: <https://tenko.pjfox.xyz/packages/6/> (the Tenko 6
-  repository; the old <https://repo.pjfox.xyz/packages/13.1/> path remains a
-  compatibility alias)
-- LAN mirror: <http://192.168.31.9/~daspork/tenko/> (the old
-  `http://192.168.31.9/~daspork/browneye/` path is a symlink during the
-  transition)
+- Public repository: <https://tenko.pjfox.xyz/packages/6/>
+- LAN mirror: <http://192.168.31.9/~daspork/tenko/>
 - Issue tracker: <https://pjfox.xyz/git/daspork/browneye/issues>
 
 ## Quick start
@@ -26,11 +22,9 @@ sha256sum -c tenko-installer.iso.sha256
 ```
 
 The ISO is 496 MiB.  On the LAN the mirror carries the same bytes:
-`http://192.168.31.9/~daspork/tenko/iso/`.  The current published images
-predate the rename and the Tenko 6 release, so they are republished under
-these Tenko names at the next image rebuild.  A future rebuild may also
-publish versioned `tenko-installer-6.iso` and `tenko-rootfs-6.tar.gz`
-artifacts, with the unversioned names kept as aliases.
+`http://192.168.31.9/~daspork/tenko/iso/`.  Images are rebuilt only on
+request; a future rebuild may also publish versioned `tenko-installer-6.iso`
+and `tenko-rootfs-6.tar.gz`, with the unversioned names kept as aliases.
 
 ### 2. Write it to a USB stick
 

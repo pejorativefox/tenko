@@ -1,9 +1,7 @@
 Name:       tenko-live
-Version:    13.1
-Release:    4
-# Tenko rename compatibility (issue #22).
-Obsoletes: browneye-live < 13.1-4
-Provides: browneye-live = %{version}-%{release}
+Version:    6
+Release:    1
+Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) live installer environment (meta-package)
 License:    MIT
 BuildArch:  noarch
@@ -50,6 +48,12 @@ the live systemd preset and the dracut dmsquash-live configuration.
 %files
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
+- Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
+  the old 13.1 EVR upgrade cleanly.
+- Drop the browneye-live Obsoletes/Provides alias; no Browneye installs
+  remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-4
 - Rename browneye-live to tenko-live and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.

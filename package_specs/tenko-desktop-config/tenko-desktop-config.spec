@@ -1,9 +1,7 @@
 Name:       tenko-desktop-config
-Version:    13.1
-Release:    2
-# Tenko rename compatibility (issue #22).
-Obsoletes: browneye-desktop-config < 13.1-2
-Provides: browneye-desktop-config = %{version}-%{release}
+Version:    6
+Release:    1
+Epoch:      1
 Summary:    Tenko X11/XFCE session configuration
 License:    MIT
 Prefix:     /usr
@@ -32,6 +30,12 @@ chmod 644 %{buildroot}/etc/skel/.xinitrc
 %config /etc/skel/.xinitrc
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
+- Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
+  the old 13.1 EVR upgrade cleanly.
+- Drop the browneye-desktop-config Obsoletes/Provides alias; no Browneye
+  installs remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-2
 - Rename browneye-desktop-config to tenko-desktop-config and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.

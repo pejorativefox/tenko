@@ -1,18 +1,12 @@
 Name:       tenko-release
 Version:    6
-Release:    1
-# Tenko 6 sorts below the old 13.1 EVR, so the compatibility alias is
-# explicit rather than derived from %{version}-%{release} (issue #22).
-Obsoletes: browneye-release < 13.1-4
-Provides: browneye-release = 13.1-4
+Release:    2
 Summary:    Tenko Linux release file
 License:    MIT
 Prefix:     /usr
 
 Provides: system-release
 Provides: system-release(6)
-# Keep old clients and packages working during the compatibility window.
-Provides: system-release(13.1)
 
 %description
 Release identification for Tenko Linux 6 (Workstation), stable release.
@@ -48,54 +42,17 @@ repo_gpgcheck=0
 skip_if_unavailable=1
 REPO
 
-%posttrans
-# Disable old dnf repository files once the old release package is gone;
-# keep them as .disabled for rollback.
-if ! rpm -q browneye-release >/dev/null 2>&1; then
-    for f in /etc/yum.repos.d/browneye-13.1.repo \
-             /etc/yum.repos.d/browneye-local.repo; do
-        if [ -e "$f" ]; then
-            mv -f "$f" "$f.disabled"
-        fi
-    done
-fi
-
-# Migrate first-boot state and installer logs before removing old dirs.
-if [ -e /var/lib/browneye/firstboot-root-password.done ] && \
-   [ ! -e /var/lib/tenko/firstboot-root-password.done ]; then
-    mkdir -p /var/lib/tenko
-    mv -f /var/lib/browneye/firstboot-root-password.done \
-        /var/lib/tenko/firstboot-root-password.done
-fi
-if [ -d /var/log/browneye-install ]; then
-    mkdir -p /var/log/tenko-install
-    cp -a /var/log/browneye-install/. /var/log/tenko-install/ 2>/dev/null || true
-    rm -rf /var/log/browneye-install
-fi
-
-# Drop the old media repository copy and empty compatibility directories.
-rm -rf /var/lib/browneye/repo
-rmdir /usr/share/browneye /var/lib/browneye /run/browneye 2>/dev/null || true
-
-# Only remove old boot entries once a new tenko entry exists, so an upgrade
-# that does not include the kernel package cannot leave the system unbootable.
-if [ -d /boot/loader/entries ] && \
-   ls /boot/loader/entries/tenko-*.conf >/dev/null 2>&1; then
-    rm -f /boot/loader/entries/browneye-*.conf \
-          /boot/loader/entries/browneye.conf
-    if [ -f /boot/loader/loader.conf ]; then
-        sed -i -e 's/^default browneye\.conf/default tenko.conf/' \
-               -e 's/^default browneye-/default tenko-/' \
-            /boot/loader/loader.conf || true
-    fi
-fi
-
 %files
 /etc/os-release
 /usr/lib/os-release
 %config(noreplace) /etc/yum.repos.d/tenko-6.repo
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-2
+- Drop the browneye-release Obsoletes/Provides alias, the
+  system-release(13.1) provide and the old-tree %posttrans cleanup; no
+  Browneye installs remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 6-1
 - Adopt the Tenko 6 distro identity: Tenko Linux 6 (Workstation), stable
   release type.  Package versions roll independently; the other renamed

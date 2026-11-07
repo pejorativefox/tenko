@@ -17,7 +17,7 @@ cd "$(dirname "$0")/.."
 # Keep the unversioned name until the image is rebuilt; a later build can
 # publish tenko-rootfs-6.tar.gz and keep tenko-rootfs.tar.gz as an alias.
 TARBALL=${TARBALL:-$PWD/build/tenko-rootfs.tar.gz}
-# Cloudflare R2 (S3) target; the new Tenko bucket is r2_tenko:tenko; r2:browneye remains the compatibility alias.
+# Cloudflare R2 (S3) target.
 R2=${R2:-r2_tenko:tenko}
 R2_DIR=${R2_DIR:-rootfs}
 MIRROR=${MIRROR:-daspork@192.168.31.9}

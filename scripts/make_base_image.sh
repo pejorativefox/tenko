@@ -135,9 +135,7 @@ podman run --rm "$IMAGE" /usr/bin/bash -lc '
 
 if [ "$TAG_STABLE" = 1 ] && [ "$IMAGE" != "localhost/tenko/base:r13.1" ]; then
     podman tag "$IMAGE" localhost/tenko/base:r13.1
-    # Keep the pre-rename tag until checkpoint 7 rebuilds the image.
-    podman tag "$IMAGE" localhost/browneye/base:r13.1
-    echo "tagged localhost/tenko/base:r13.1 (old browneye tag kept as alias)"
+    echo "tagged localhost/tenko/base:r13.1"
 fi
 
 echo "created $IMAGE"

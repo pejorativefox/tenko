@@ -21,7 +21,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 . scripts/repo_tools.sh
 
-IMG=${IMG:-$(pick_image localhost/tenko/base:r13.1 localhost/browneye/base:r13.1)}
+IMG=${IMG:-$(pick_image localhost/tenko/base:r13.1)}
 REPO=${REPO:-https://tenko.pjfox.xyz/packages/6/}
 KVER=${KVER:-7.3.1}
 LIVE=${LIVE:-$PWD/build/live-root}

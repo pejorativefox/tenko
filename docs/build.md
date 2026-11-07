@@ -25,9 +25,7 @@ scripts/build_specs.sh curl/curl.spec
 - Paths are relative to `package_specs/`.
 - `IMAGE` is the build environment.  `localhost/tenko/base:r13.1` is the
   usual one; packages with extra requirements are built in derived images (see
-  `scripts/make_base_image.sh`).  Until the image rebuild (checkpoint 7), the
-  pre-rename `localhost/browneye/base:r13.1` tag remains available as the
-  fallback.
+  `scripts/make_base_image.sh`).
 - `OUT` must be a relative path.  Results are in `$OUT/build/<pkg>/RPMS/` and
   logs in `$OUT/logs/`.
 - `--from-file list.txt` builds a list instead of arguments.

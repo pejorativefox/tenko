@@ -1,9 +1,7 @@
 Name:       tenko-base-build
-Version:    13.1
-Release:    3
-# Tenko rename compatibility (issue #22).
-Obsoletes: browneye-base-build < 13.1-3
-Provides: browneye-base-build = %{version}-%{release}
+Version:    6
+Release:    1
+Epoch:      1
 Summary:    Tenko Linux build environment (runtime base + toolchain)
 License:    MIT
 Prefix:     /usr
@@ -66,15 +64,16 @@ available unchanged for existing installs.
 mkdir -p %{buildroot}/usr/share/tenko
 touch %{buildroot}/usr/share/tenko/base-build
 
-%post
-# Remove the old marker directory left by browneye-base-build.
-rm -f /usr/share/browneye/base-build
-rmdir /usr/share/browneye 2>/dev/null || true
-
 %files
 /usr/share/tenko/base-build
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
+- Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
+  the old 13.1 EVR upgrade cleanly.
+- Drop the browneye-base-build Obsoletes/Provides alias and the old marker
+  cleanup; no Browneye installs remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-3
 - Rename browneye-base-build to tenko-base-build and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.

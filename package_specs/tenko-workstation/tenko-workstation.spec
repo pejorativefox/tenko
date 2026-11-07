@@ -1,9 +1,7 @@
 Name:       tenko-workstation
-Version:    13.1
-Release:    4
-# Tenko rename compatibility (issue #22).
-Obsoletes: browneye-workstation < 13.1-4
-Provides: browneye-workstation = %{version}-%{release}
+Version:    6
+Release:    1
+Epoch:      1
 Summary:    Tenko developer workstation (Node.js, SSH, git, agent tools)
 License:    MIT
 Prefix:     /usr
@@ -38,15 +36,16 @@ exception to the pinned 26.9.0 version (D17).
 mkdir -p %{buildroot}/usr/share/tenko
 touch %{buildroot}/usr/share/tenko/workstation
 
-%post
-# Remove the old marker directory left by browneye-workstation.
-rm -f /usr/share/browneye/workstation
-rmdir /usr/share/browneye 2>/dev/null || true
-
 %files
 /usr/share/tenko/workstation
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
+- Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
+  the old 13.1 EVR upgrade cleanly.
+- Drop the browneye-workstation Obsoletes/Provides alias and the old
+  marker cleanup; no Browneye installs remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 13.1-4
 - Rename browneye-workstation to tenko-workstation and add versioned
   Obsoletes/Provides aliases for the Tenko 13.1 compatibility window.

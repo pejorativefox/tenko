@@ -1,6 +1,6 @@
 Name:       xfce-desktop-hardware
 Version:    4.20
-Release:    2
+Release:    3
 Summary:    Hardware extras for the Tenko XFCE desktop
 License:    MIT
 Prefix:     /usr
@@ -42,12 +42,10 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-hardware
 %files
 /usr/share/tenko/xfce-desktop-hardware
 
-%post
-# Remove the old marker directory left by browneye-xfce-desktop-hardware.
-rm -f /usr/share/browneye/xfce-desktop-hardware
-rmdir /usr/share/browneye 2>/dev/null || true
-
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-3
+- Drop the browneye marker cleanup; no Browneye installs remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 4.20-2
 - Use the /usr/share/tenko marker; clean up the old browneye marker on
   upgrade.

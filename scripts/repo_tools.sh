@@ -34,7 +34,7 @@ pick_image() {
     fi
 }
 
-TOOL_IMAGE=${TOOL_IMAGE:-$(pick_image localhost/tenko/base:r13.1 localhost/browneye/base:r13.1)}
+TOOL_IMAGE=${TOOL_IMAGE:-$(pick_image localhost/tenko/base:r13.1)}
 
 _tool_probe=${_tool_probe:-}
 

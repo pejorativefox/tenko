@@ -12,10 +12,12 @@ in `tenko.lock`, including its dependency chain.  If a package is not in
 
 ## Distro release and package versions
 
-The distribution release is **Tenko 6 (Workstation)**.  Packages roll
-independently and keep their own versions, so the distro release is not the
-version of every package.  `tenko-release` carries the release identity and is
-versioned `6-1`; other packages keep their own upstream versions.
+The distribution release is **Tenko 6 (Workstation)**.  `tenko-release`
+carries the release identity and is versioned `6-2`.  Upstream packages roll
+independently and keep their own versions; the `tenko-*` glue packages track
+the distro release and are rebased as a group (`Epoch: 1` keeps older
+`13.1-*` installs upgradable).  The distro release is not the version of
+every package.
 
 `/etc/os-release`:
 
@@ -32,10 +34,14 @@ RELEASE_TYPE=stable
 
 The distro repository is `tenko-6`:
 `/etc/yum.repos.d/tenko-6.repo`, id `tenko-6`, at
-<https://tenko.pjfox.xyz/packages/6/>.  Existing Browneye installs still
-have `/etc/yum.repos.d/browneye-13.1.repo`; `tenko-release` removes or
-disables that file during the upgrade.  It is the compatibility cleanup
-target only — never reuse its name for the Tenko repo.
+<https://tenko.pjfox.xyz/packages/6/>.  It is the only repository file the
+release package ships.
+
+## Upgrading from the 13.1 packages
+
+No Browneye compatibility aliases are shipped.  The `tenko-*` glue packages
+carry `Epoch: 1`, so `dnf upgrade` replaces an installed `13.1-*` glue
+package with the `6-*` build even though the version number is lower.
 
 ## `tenko.lock`
 

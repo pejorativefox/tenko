@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    10
+Release:    11
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -84,10 +84,6 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop
 /usr/share/tenko/xfce-desktop
 
 %post
-# Remove the old marker directory left by browneye-xfce-desktop.
-rm -f /usr/share/browneye/xfce-desktop
-rmdir /usr/share/browneye 2>/dev/null || true
-
 # The base system boots to multi-user.target.  A desktop profile should come
 # up in the graphical target so lightdm (required above) starts the greeter.
 if [ -x /usr/bin/systemctl ]; then
@@ -95,6 +91,9 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-11
+- Drop the browneye marker cleanup; no Browneye installs remain.
+
 * Fri Nov 06 2026 tenko <build@tenko.invalid> 4.20-10
 - Use tenko-desktop-config and the /usr/share/tenko marker; clean up the
   old browneye marker on upgrade.

@@ -14,7 +14,7 @@ cd "$(dirname "$0")/.."
 # Keep the unversioned name until the image is rebuilt; a later build can
 # publish tenko-installer-6.iso and keep tenko-installer.iso as an alias.
 ISO=${ISO:-$PWD/build/tenko-installer.iso}
-# Cloudflare R2 (S3) target; the new Tenko bucket is r2_tenko:tenko; r2:browneye remains the compatibility alias.
+# Cloudflare R2 (S3) target.
 R2=${R2:-r2_tenko:tenko}
 R2_DIR=${R2_DIR:-iso}
 MIRROR=${MIRROR:-daspork@192.168.31.9}

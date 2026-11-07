@@ -22,14 +22,13 @@ message (and in the Gitea issue if the change belongs to one).
 
 ## Distro release vs package versions
 
-The distribution release is **Tenko 6 (Workstation)**; `tenko-release-6-1`
-carries the release identity.  Package versions roll independently and keep
-their own upstream versions — do not set every package to version 6.
+The distribution release is **Tenko 6 (Workstation)**; `tenko-release-6-2`
+carries the release identity.  Upstream package versions roll independently
+and keep their own versions; the `tenko-*` glue packages track the distro
+release and are rebased as a group.
 
 The distro repository is `tenko-6`: `/etc/yum.repos.d/tenko-6.repo`, id
-`tenko-6`, at <https://tenko.pjfox.xyz/packages/6/>.  The old
-`/etc/yum.repos.d/browneye-13.1.repo` is only the compatibility cleanup
-target for upgrades, not the new repo.  See
+`tenko-6`, at <https://tenko.pjfox.xyz/packages/6/>.  See
 [`docs/versions.md`](docs/versions.md) for the `/etc/os-release` identity.
 
 ## Issue tracking (Gitea)
@@ -55,12 +54,9 @@ site.  The publish scripts already do it (`MIRROR`, default
   page.
 - `scripts/publish_iso.sh` uploads an ISO plus a fresh `.sha256` to both.
 
-The public bucket is `r2_tenko:tenko` (served at <https://tenko.pjfox.xyz/>); the
-old `r2:browneye` bucket remains the 13.1 compatibility tree and keeps serving
-old artifacts.  The mirror is served at
-<http://192.168.31.9/~daspork/tenko/>.  During the compatibility window the
-old `public_html/browneye` path is a symlink to `public_html/tenko`, so old
-URLs keep working.  Never publish to only one of the two.
+The public bucket is `r2_tenko:tenko` (served at <https://tenko.pjfox.xyz/>).
+The mirror is served at <http://192.168.31.9/~daspork/tenko/>.  Never publish
+to only one of the two.
 
 ## Images are rebuilt only on request
 
