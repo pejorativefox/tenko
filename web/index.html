@@ -143,7 +143,7 @@ sudo curl -o /etc/yum.repos.d/tenko-6.repo \
 
 <span class="c"># install the base system</span>
 sudo dnf install tenko-base</code></pre>
-    <p class="muted">The Tenko 6 repository lives at <code>https://tenko.pjfox.xyz/packages/6/</code>.  The previous <code>https://repo.pjfox.xyz/packages/13.1/</code> path remains valid as a compatibility alias.</p>
+    <p class="muted">The Tenko 6 repository lives at <code>https://tenko.pjfox.xyz/packages/6/</code>.</p>
     <p>Or use it directly, without installing a repo file:</p>
 <pre><code>sudo dnf --repofrompath=tenko-6,https://tenko.pjfox.xyz/packages/6/ \
   --disablerepo='*' install tenko-base</code></pre>
@@ -167,10 +167,8 @@ sudo dd if=tenko-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</cod
     <p class="muted">496 MiB · kernel 7.3.1 · installs the runtime base and
        the XFCE desktop from this repository; install the build toolchain
        afterwards with <code>dnf install tenko-base</code>.</p>
-    <p class="muted">The current images predate the rename and the Tenko 6
-       release; they are republished under these Tenko names at the next
-       image rebuild.  A future rebuild may also publish
-       <code>tenko-installer-6.iso</code> and
+    <p class="muted">Images are rebuilt only on request.  A future rebuild
+       may also publish <code>tenko-installer-6.iso</code> and
        <code>tenko-rootfs-6.tar.gz</code>, with the unversioned names kept
        as aliases.</p>
 
@@ -228,12 +226,11 @@ podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6</code></pre>
     <h2><span class="num">05</span>Notes</h2>
     <div class="note">
       The repository is <strong>unsigned</strong> and lives on a single origin. The build is self-hosted:
-      all 93 specs rebuild offline inside <code>localhost/tenko/base:r13.1</code>,
+      the base set rebuilds offline inside <code>localhost/tenko/base:r6</code>,
       and <code>build/rootfs-selfhost</code> is installed from these RPMs.
-      The pre-rename image tag remains valid until the image rebuild.
     </div>
     <ul style="margin-top:14px">
-      <li>Built: <span class="muted">2026-11-03</span> · Base manifest: <code>base.json</code></li>
+      <li>Built: <span class="muted">2026-11-07</span> · Base manifest: <code>base.json</code></li>
       <li>Sources and build notes: <a href="https://pjfox.xyz/git/daspork/tenko">pjfox.xyz/git/daspork/tenko</a></li>
       <li>Mirror: <a href="https://github.com/pejorativefox/browneye">github.com/pejorativefox/browneye</a></li>
       <li>LAN mirror: <a href="http://192.168.31.9/~daspork/tenko/">192.168.31.9/~daspork/tenko/</a></li>
