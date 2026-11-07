@@ -81,6 +81,9 @@ class DryRunPipelineTest(unittest.TestCase):
                 layout=spec,
                 package_set="desktop",
                 hostname="tenko",
+                timezone="Europe/Berlin",
+                locale="C.UTF-8",
+                keymap="de",
                 admin_user="admin",
                 admin_password="super-secret",
                 confirm_disk="/dev/vda",
@@ -123,6 +126,10 @@ class DryRunPipelineTest(unittest.TestCase):
             self.assertIn("[tenko-6]", text)
             self.assertIn("name=Tenko Linux 6 (Workstation)", text)
             self.assertIn("https://tenko.pjfox.xyz/packages/6/", text)
+            self.assertIn("/etc/localtime", text)
+            self.assertIn("zoneinfo/Europe/Berlin", text)
+            self.assertIn("LANG=C.UTF-8", text)
+            self.assertIn("KEYMAP=de", text)
             self.assertIn("chpasswd", text)
             self.assertIn("passwd -l root", text)
             self.assertIn("firstboot-root-password.done", text)

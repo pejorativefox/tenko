@@ -1,6 +1,6 @@
 Name:       tenko-installer
 Version:    6
-Release:    1
+Release:    3
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
@@ -90,6 +90,16 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-3
+- Add guided answer-file v3 import (`mode` + `disk`, filesystem and swap
+  choices) with v2 layouts still supported.  Encryption is rejected until
+  LUKS support lands; other locales note that locale data is required.
+
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-2
+- Add timezone, locale and keymap selection to the guided, plain and
+  answer-file flows.  Write /etc/localtime, /etc/locale.conf and
+  /etc/vconsole.conf during configure; install tzdb in the target.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
 - Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
   the old 13.1 EVR upgrade cleanly.

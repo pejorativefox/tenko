@@ -1,6 +1,6 @@
 Name:       tenko-live
 Version:    6
-Release:    1
+Release:    2
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) live installer environment (meta-package)
 License:    MIT
@@ -27,6 +27,7 @@ Requires:   ncurses
 Requires:   util-linux
 Requires:   e2fsprogs
 Requires:   btrfs-progs
+Requires:   tzdb
 Requires:   tenko-installer
 
 %description
@@ -48,6 +49,10 @@ the live systemd preset and the dracut dmsquash-live configuration.
 %files
 
 %changelog
+* Sat Nov 07 2026 tenko <build@tenko.invalid> 6-2
+- Require tzdb: the live environment needs zoneinfo for the installer's
+  timezone selection and validation.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
 - Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
   the old 13.1 EVR upgrade cleanly.

@@ -15,11 +15,15 @@ Implemented:
 * GiB-based size inputs (`20`, `20G`, `20GiB`, `512M`);
 * swapfile default (guided and advanced), with a swap partition still
   available;
+* timezone, locale and keymap selection, written to `/etc/localtime`,
+  `/etc/locale.conf` and `/etc/vconsole.conf`;
+* guided answer-file v3 (`mode` + `disk`) import, with v2 layouts still
+  supported;
 * optional colour in the ncurses UI (`NO_COLOR` disables it).
 
-Remaining (tracked in issue #21): encryption, btrfs subvolumes,
-timezone/keymap/locale, existing-OS labels, "install alongside" (shrink),
-answer-file v3, plain-mode parity and the optional graphical front end.
+Remaining (tracked in issue #21): encryption, btrfs subvolumes, existing-OS
+labels, "install alongside" (shrink), plain-mode parity and the optional
+graphical front end.
 
 Scope: the interactive experience of `tenko-installer` (the ncurses
 installer on the live ISO).  The install backend, the answer-file format and

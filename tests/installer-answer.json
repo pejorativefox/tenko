@@ -15,6 +15,9 @@
   },
   "package_set": "desktop",
   "hostname": "tenko-test",
+  "timezone": "UTC",
+  "locale": "C.UTF-8",
+  "keymap": "us",
   "admin": {"username": "admin", "password": "test-only"},
   "confirm": {"disk": "/dev/vda", "phrase": "ERASE"}
 }

@@ -518,6 +518,103 @@ def execute_install(
 # Non-interactive mode
 # ---------------------------------------------------------------------------
 
+_V3_KEYS = {
+    "version",
+    "mode",
+    "disk",
+    "filesystem",
+    "swap",
+    "swap_mib",
+    "encrypt",
+    "package_set",
+    "hostname",
+    "timezone",
+    "locale",
+    "keymap",
+    "admin",
+    "confirm",
+    "dry_run",
+}
+
+
+def _config_from_v3(
+    data: dict[str, Any], args: argparse.Namespace, probe: Probe
+) -> InstallConfig:
+    """Build an InstallConfig from the guided (version 3) answer form."""
+    unknown = set(data) - _V3_KEYS
+    if unknown:
+        raise ConfigError(
+            "unknown answer-file keys: " + ", ".join(sorted(unknown))
+        )
+    if data.get("encrypt"):
+        raise ConfigError(
+            "encryption is not implemented yet; remove 'encrypt' or set it to false"
+        )
+    mode = str(data.get("mode", ""))
+    if mode not in ("erase-disk", "free-space"):
+        raise ConfigError("mode must be 'erase-disk' or 'free-space'")
+    disk_path = str(data.get("disk", ""))
+    if not disk_path.startswith("/dev/"):
+        raise ConfigError("disk must be a /dev/ path")
+    fstype = str(data.get("filesystem", "ext4"))
+    swap = str(data.get("swap", "swapfile"))
+    if swap not in ("swapfile", "partition", "none"):
+        raise ConfigError("swap must be 'swapfile', 'partition' or 'none'")
+    swap_mib = data.get("swap_mib", layout_module.SWAP_MIB)
+    if isinstance(swap_mib, bool) or not isinstance(swap_mib, int):
+        raise ConfigError("swap_mib must be an integer")
+
+    probed = probe.probe_disks(refresh=True)
+    item = next((entry for entry in probed if entry.name == disk_path), None)
+    if item is None or item.table is None:
+        raise ConfigError(
+            "disk {} was not found or cannot be partitioned".format(disk_path)
+        )
+    layout_swap = "partition" if swap == "partition" else "none"
+    try:
+        if mode == "erase-disk":
+            spec = layout_module.plan_erase_disk(
+                item.table, fstype=fstype, swap=layout_swap, swap_mib=swap_mib
+            )
+        else:
+            spec = layout_module.plan_free_space(
+                item.table, fstype=fstype, swap=layout_swap, swap_mib=swap_mib
+            )
+    except (ValueError, disk.PlanError) as exc:
+        raise ConfigError(str(exc)) from exc
+    spec = replace(
+        spec,
+        path=item.disk.path,
+        serial=item.disk.serial,
+        size_bytes=item.disk.size_bytes,
+        model=item.disk.model,
+    )
+
+    admin = data.get("admin")
+    if not isinstance(admin, dict):
+        raise ConfigError("answer file has no admin object")
+    confirm = data.get("confirm")
+    if not isinstance(confirm, dict):
+        raise ConfigError("answer file has no confirm object")
+
+    return InstallConfig(
+        layout=InstallSpec(disks=(spec,)),
+        package_set=str(data.get("package_set", "desktop")),
+        hostname=str(data.get("hostname", "tenko")),
+        timezone=str(data.get("timezone", "UTC")),
+        locale=str(data.get("locale", "C.UTF-8")),
+        keymap=str(data.get("keymap", "us")),
+        admin_user=str(admin.get("username", "admin")),
+        admin_password=str(admin.get("password", "")),
+        confirm_disk=str(confirm.get("disk", disk_path)),
+        confirm_phrase=str(confirm.get("phrase", "")),
+        repo=args.repo,
+        target=args.target,
+        dry_run=args.dry_run or bool(data.get("dry_run", False)),
+        swap_mode=swap,
+        swap_mib=swap_mib,
+    )
+
 
 def run_noninteractive(
     args: argparse.Namespace,
@@ -531,12 +628,15 @@ def run_noninteractive(
         return 2
     try:
         data = load_answer(answer_path)
-        config = InstallConfig.from_mapping(
-            data,
-            repo=args.repo,
-            target=args.target,
-            dry_run=args.dry_run,
-        )
+        if data.get("version") == 3:
+            config = _config_from_v3(data, args, probe)
+        else:
+            config = InstallConfig.from_mapping(
+                data,
+                repo=args.repo,
+                target=args.target,
+                dry_run=args.dry_run,
+            )
     except ConfigError as exc:
         marker("FAIL answer: " + str(exc))
         return 2
@@ -803,6 +903,9 @@ def run_plain(
         return 2
 
     hostname = _ask("Hostname", "tenko")
+    timezone = _ask("Timezone (IANA name)", "UTC")
+    locale = _ask("Locale", "C.UTF-8")
+    keymap = _ask("Keymap", "us")
     admin = _ask("Admin user", "admin")
     try:
         password = getpass.getpass("Admin password: ")
@@ -819,6 +922,9 @@ def run_plain(
         layout=spec,
         package_set=package_set if package_set in PACKAGE_SETS else "desktop",
         hostname=hostname,
+        timezone=timezone,
+        locale=locale,
+        keymap=keymap,
         admin_user=admin,
         admin_password=password,
         confirm_disk=selected[0].disk.path,
@@ -1781,6 +1887,11 @@ def _confirm_lines(plan: InstallLayout, config: InstallConfig) -> list[str]:
     lines.append(
         "Account: {} on {}".format(config.admin_user, config.hostname)
     )
+    lines.append(
+        "Locale: {} · {} · {}".format(
+            config.timezone, config.locale, config.keymap
+        )
+    )
     lines.append("Boot: systemd-boot on the ESP")
     lines.extend(
         [
@@ -2150,8 +2261,11 @@ def _advanced_layout_flow(
 def _account_and_packages(
     ui: CursesUI, config: InstallConfig
 ) -> bool:
-    hostname_value = "tenko"
-    admin_value = "admin"
+    hostname_value = config.hostname or "tenko"
+    timezone_value = config.timezone or "UTC"
+    locale_value = config.locale or "C.UTF-8"
+    keymap_value = config.keymap or "us"
+    admin_value = config.admin_user or "admin"
     while True:
         package_rows = [
             Row("Desktop (tenko-base + xfce-desktop)"),
@@ -2173,20 +2287,35 @@ def _account_and_packages(
                 "System options",
                 [
                     Field("Hostname", hostname_value),
+                    Field("Timezone (IANA name)", timezone_value),
+                    Field("Locale", locale_value),
+                    Field("Keymap", keymap_value),
                     Field("Admin user", admin_value),
                     Field("Password", "", secret=True),
                     Field("Confirm password", "", secret=True),
                 ],
                 footer="Tab next   Enter continue   Esc back",
                 extra_lines=[
+                    "Timezone examples: UTC, Europe/Berlin, America/New_York.",
+                    "Locale: C.UTF-8 (other locales need their locale data).",
+                    "Keymap examples: us, de, uk.",
                     "The admin user is added to the wheel group.",
                     "Root stays locked; use sudo from the admin account.",
                 ],
             )
             if values is None:
                 break
-            hostname, admin, password, confirm_password = values
+            (
+                hostname,
+                timezone,
+                locale,
+                keymap,
+                admin,
+                password,
+                confirm_password,
+            ) = values
             hostname_value, admin_value = hostname, admin
+            timezone_value, locale_value, keymap_value = timezone, locale, keymap
             if password != confirm_password:
                 ui.message(
                     "Passwords do not match",
@@ -2195,6 +2324,9 @@ def _account_and_packages(
                 )
                 continue
             config.hostname = hostname
+            config.timezone = timezone
+            config.locale = locale
+            config.keymap = keymap
             config.admin_user = admin
             config.admin_password = password
             issues = config.validate()

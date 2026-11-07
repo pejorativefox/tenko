@@ -41,6 +41,7 @@ TARGET_PACKAGES_DESKTOP = (
     "xfce-desktop",
     "linux-kernel",
     "linux-modules",
+    "tzdb",
     "dracut",
     "efibootmgr",
     "dosfstools",
@@ -64,6 +65,9 @@ _ADMIN_RE = re.compile(r"^[a-z_][a-z0-9_-]{0,31}$")
 _HOSTNAME_RE = re.compile(
     r"^(?=.{1,63}$)[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?$"
 )
+_TIMEZONE_RE = re.compile(r"^[A-Za-z0-9_+\-]+(?:/[A-Za-z0-9_+\-]+)*$")
+_LOCALE_RE = re.compile(r"^[A-Za-z0-9_@.\-]+$")
+_KEYMAP_RE = re.compile(r"^[A-Za-z0-9_\-]+$")
 
 _ADMIN_KEYS = {"username", "password"}
 _CONFIRM_KEYS = {"disk", "phrase"}
@@ -73,6 +77,9 @@ _TOP_KEYS = {
     "layout",
     "package_set",
     "hostname",
+    "timezone",
+    "locale",
+    "keymap",
     "admin",
     "confirm",
     "swap_mode",
@@ -105,6 +112,9 @@ class InstallConfig:
     layout: InstallSpec
     package_set: str = "desktop"
     hostname: str = "tenko"
+    timezone: str = "UTC"
+    locale: str = "C.UTF-8"
+    keymap: str = "us"
     admin_user: str = "admin"
     admin_password: str = ""
     confirm_disk: str = ""
@@ -158,6 +168,12 @@ class InstallConfig:
             issues.append("admin password must not contain ':' or a newline")
         if not _HOSTNAME_RE.match(self.hostname or ""):
             issues.append("hostname is not a valid DNS label")
+        if not _TIMEZONE_RE.match(self.timezone or ""):
+            issues.append("timezone is not a valid IANA zone name")
+        if not _LOCALE_RE.match(self.locale or ""):
+            issues.append("locale is not a valid locale name")
+        if not _KEYMAP_RE.match(self.keymap or ""):
+            issues.append("keymap is not a valid keymap name")
         if self.package_set not in PACKAGE_SETS:
             issues.append("package_set must be 'desktop' or 'base'")
         if self.swap_mode not in ("partition", "swapfile", "none"):
@@ -184,6 +200,9 @@ class InstallConfig:
             "root_disk": self.root_disk_path,
             "package_set": self.package_set,
             "hostname": self.hostname,
+            "timezone": self.timezone,
+            "locale": self.locale,
+            "keymap": self.keymap,
             "admin": {"username": self.admin_user, "password": "<redacted>"},
             "repo": self.repo,
             "target": self.target,
@@ -244,6 +263,9 @@ class InstallConfig:
             layout=spec,
             package_set=str(data.get("package_set", "desktop")),
             hostname=str(data.get("hostname", "tenko")),
+            timezone=str(data.get("timezone", "UTC")),
+            locale=str(data.get("locale", "C.UTF-8")),
+            keymap=str(data.get("keymap", "us")),
             admin_user=str(admin.get("username", "admin")),
             admin_password=str(admin.get("password", "")),
             confirm_disk=str(confirm.get("disk", "")),
@@ -818,6 +840,7 @@ class Installer:
     def step_configure(self) -> None:
         self._write_fstab()
         self._write_network_files()
+        self._write_locale()
         self._write_repo_file()
         self._configure_systemd()
         self._configure_users()
@@ -919,6 +942,40 @@ class Installer:
                 existing += "\n"
             text = existing + "127.0.1.1\t{}\n".format(hostname)
         self.runner.write_file(hosts_path, text, mode=0o644, step="configure")
+
+    def _write_locale(self) -> None:
+        tz = self.config.timezone
+        zone = os.path.join(self.target, "usr", "share", "zoneinfo", tz)
+        if not self.runner.dry_run and not os.path.isfile(zone):
+            raise InstallError(
+                "configure",
+                "timezone data for {} is missing from the target".format(tz),
+                remedy="install tzdb in the target or choose another timezone",
+            )
+        self.runner.run(
+            (
+                "chroot",
+                self.target,
+                "/usr/bin/ln",
+                "-sf",
+                "/usr/share/zoneinfo/" + tz,
+                "/etc/localtime",
+            ),
+            step="configure",
+            description="set the system timezone",
+        )
+        self.runner.write_file(
+            os.path.join(self.target, "etc", "locale.conf"),
+            "LANG={}\n".format(self.config.locale),
+            mode=0o644,
+            step="configure",
+        )
+        self.runner.write_file(
+            os.path.join(self.target, "etc", "vconsole.conf"),
+            "KEYMAP={}\n".format(self.config.keymap),
+            mode=0o644,
+            step="configure",
+        )
 
     def _configure_systemd(self) -> None:
         self.runner.run(

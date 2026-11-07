@@ -59,7 +59,7 @@ The guided path asks for:
   1. the target disk (one disk; other disks are not touched)
   2. erase the disk or use its existing free space
   3. ext4 or btrfs, and swapfile / swap partition / no swap
-  4. the account, hostname and package set
+  4. the account, hostname, timezone/locale/keymap and package set
 
 It then shows a review page with every deletion and creation and installs
 after one confirmation.  A guided erase marks every existing partition on
@@ -76,11 +76,11 @@ also accepted).
 Answer file
 -----------
 
-The file is JSON, version 2.  It describes one layout with a list of disks.
-Each disk has a path and an optional list of partitions.  A partition is
-either newly created (role + fstype + mountpoint + size_mib) or adopts an
-existing entry (existing_number, format false).  A minimal single-disk
-example is:
+The file is JSON.  Version 2 describes one layout with a list of disks;
+version 3 is the guided form (mode + disk).  Each disk has a path and an
+optional list of partitions.  A partition is either newly created (role +
+fstype + mountpoint + size_mib) or adopts an existing entry
+(existing_number, format false).  A minimal single-disk example is:
 
   {
     "version": 2,
@@ -102,12 +102,16 @@ example is:
     },
     "package_set": "desktop",
     "hostname": "tenko",
+    "timezone": "UTC",
+    "locale": "C.UTF-8",
+    "keymap": "us",
     "admin": {"username": "admin", "password": "change-me"},
     "confirm": {"disk": "/dev/vda", "phrase": "ERASE"}
   }
 
 Optional top-level keys are `swap_mode` (`partition`, `swapfile` or `none`,
-default `partition`) and `swap_mib` (default 2048).  A `swapfile` layout
+default `partition`), `swap_mib` (default 2048), `timezone` (default `UTC`),
+`locale` (default `C.UTF-8`) and `keymap` (default `us`).  A `swapfile` layout
 must not contain a swap partition:
 
   "swap_mode": "swapfile",
@@ -149,6 +153,28 @@ unique.  Filesystems are ext4, btrfs, vfat and swap.
 The answer file contains a plaintext test password.  Keep it mode 0600 and
 remove it from the live media after use.  The installer never writes the
 password into a log or into plan.sh.
+
+Version 3 is the guided form; the planner creates the layout from the
+selected disk:
+
+  {
+    "version": 3,
+    "mode": "erase-disk",
+    "disk": "/dev/vda",
+    "filesystem": "ext4",
+    "swap": "swapfile",
+    "package_set": "desktop",
+    "hostname": "tenko",
+    "timezone": "UTC",
+    "locale": "C.UTF-8",
+    "keymap": "us",
+    "admin": {"username": "admin", "password": "change-me"},
+    "confirm": {"phrase": "ERASE"}
+  }
+
+``mode`` is ``erase-disk`` or ``free-space``; ``swap`` is ``swapfile``,
+``partition`` or ``none``.  ``encrypt`` is accepted only as false until LUKS
+support lands.  Version 2 layouts remain supported.
 
 Layout policy
 -------------

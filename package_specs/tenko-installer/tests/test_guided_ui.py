@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import pathlib
 import sys
 import unittest
@@ -12,7 +13,8 @@ sys.path.insert(0, str(HERE.parent / "files"))
 import disk  # noqa: E402
 import layout  # noqa: E402
 import main  # noqa: E402
-from install import InstallConfig  # noqa: E402
+from install import ConfigError, InstallConfig  # noqa: E402
+from probe import ProbedDisk  # noqa: E402
 
 
 class FakeUI:
@@ -58,6 +60,75 @@ def one_partition_table():
         total_sectors=41943040,
         partitions=(part,),
     ), part
+
+
+class V3AnswerTest(unittest.TestCase):
+    def _probe(self, table):
+        class FakeProbe:
+            def probe_disks(self, refresh=False):
+                return [
+                    ProbedDisk(
+                        disk=disk.Disk(
+                            path="/dev/vdb",
+                            kname="vdb",
+                            size_bytes=(table.total_sectors or 0)
+                            * (table.unit or 512),
+                            pttype="gpt",
+                        ),
+                        table=table,
+                        selectable=True,
+                    )
+                ]
+
+        return FakeProbe()
+
+    def test_guided_answer_builds_layout(self):
+        table, _ = one_partition_table()
+        args = argparse.Namespace(
+            repo="https://tenko.pjfox.xyz/packages/6/",
+            target="/mnt/tenko",
+            dry_run=False,
+        )
+        data = {
+            "version": 3,
+            "mode": "erase-disk",
+            "disk": "/dev/vdb",
+            "filesystem": "ext4",
+            "swap": "swapfile",
+            "package_set": "base",
+            "hostname": "tenko-test",
+            "timezone": "Europe/Berlin",
+            "locale": "C.UTF-8",
+            "keymap": "de",
+            "admin": {"username": "admin", "password": "test-only"},
+            "confirm": {"phrase": "ERASE"},
+        }
+        config = main._config_from_v3(data, args, self._probe(table))
+        self.assertEqual(config.root_disk_path, "/dev/vdb")
+        self.assertEqual(config.swap_mode, "swapfile")
+        self.assertEqual(config.timezone, "Europe/Berlin")
+        self.assertEqual(config.keymap, "de")
+        self.assertEqual(config.validate(), [])
+        roles = [part.role for part in config.layout.disks[0].partitions]
+        self.assertEqual(roles, ["esp", "root"])
+
+    def test_encryption_is_rejected_for_now(self):
+        table, _ = one_partition_table()
+        args = argparse.Namespace(
+            repo="https://tenko.pjfox.xyz/packages/6/",
+            target="/mnt/tenko",
+            dry_run=False,
+        )
+        data = {
+            "version": 3,
+            "mode": "erase-disk",
+            "disk": "/dev/vdb",
+            "encrypt": True,
+            "admin": {"username": "admin", "password": "test-only"},
+            "confirm": {"phrase": "ERASE"},
+        }
+        with self.assertRaises(ConfigError):
+            main._config_from_v3(data, args, self._probe(table))
 
 
 class ParseSizeTest(unittest.TestCase):
@@ -131,12 +202,15 @@ class AccountFlowTest(unittest.TestCase):
         ui = FakeUI(
             [
                 0,
-                ["myhost", "myuser", "one", "two"],
-                ["myhost", "myuser", "same", "same"],
+                ["myhost", "UTC", "C.UTF-8", "us", "myuser", "one", "two"],
+                ["myhost", "UTC", "C.UTF-8", "us", "myuser", "same", "same"],
             ]
         )
         self.assertTrue(main._account_and_packages(ui, config))
         self.assertEqual(config.admin_password, "same")
+        self.assertEqual(config.timezone, "UTC")
+        self.assertEqual(config.locale, "C.UTF-8")
+        self.assertEqual(config.keymap, "us")
         self.assertEqual(len(ui.menus), 1)
         self.assertEqual(len(ui.forms), 2)
         self.assertEqual(len(ui.messages), 1)
