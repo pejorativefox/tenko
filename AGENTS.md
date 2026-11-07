@@ -38,10 +38,10 @@ The distro repository is `tenko-6`: `/etc/yum.repos.d/tenko-6.repo`, id
 
 Use the `tea` CLI to read, comment on and close issues on the project's
 Gitea instance (login `pjfox.xyz`, <https://pjfox.xyz/git>, repo
-`daspork/browneye`): `tea issues list --repo daspork/browneye`,
-`tea issues 1 --repo daspork/browneye --comments`,
-`tea comments add 1 --repo daspork/browneye "text"`, and
-`tea issues close 1 --repo daspork/browneye`. Do not guess the tracker
+`daspork/tenko`): `tea issues list --repo daspork/tenko`,
+`tea issues 1 --repo daspork/tenko --comments`,
+`tea comments add 1 --repo daspork/tenko "text"`, and
+`tea issues close 1 --repo daspork/tenko`. Do not guess the tracker
 URL or use the web UI when `tea` can do the work.
 
 ## Publishing also updates the LAN mirror

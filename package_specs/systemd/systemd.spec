@@ -65,7 +65,7 @@ meson setup ..                  \
       -D sysupdate=disabled     \
       -D ukify=disabled         \
       -D bootloader=enabled     \
-      -D sbat-distro-url=https://pjfox.xyz/git/daspork/browneye/issues \
+      -D sbat-distro-url=https://pjfox.xyz/git/daspork/tenko/issues \
       -D importd=disabled      \
       -D remote=disabled       \
       -D imds=disabled         \

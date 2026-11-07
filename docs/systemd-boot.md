@@ -292,7 +292,7 @@ Source0 URL: `https://files.pythonhosted.org/packages/source/p/pyelftools/pyelft
 
 - `BuildRequires: python3-pyelftools`
 - `-D bootloader=enabled` (keep `-D ukify=disabled`)
-- `-D sbat-distro-url=https://pjfox.xyz/git/daspork/browneye/issues`: SBAT
+- `-D sbat-distro-url=https://pjfox.xyz/git/daspork/tenko/issues`: SBAT
   autodetection reads `BUG_REPORT_URL` from `/etc/os-release`, which
   `tenko-release` does not set yet, so the build fails without an explicit
   URL
@@ -414,7 +414,8 @@ booted in OVMF/QEMU to multi-user and the `Browneye Linux installer` unit.
   check free space and the docs should tell users to prune old kernels.
 - **FAT as boot storage.** No journaling; a power loss mid-dracut can leave a
   truncated initramfs. sd-boot has no recovery shell, so recovery means booting
-  the live ISO and reinstalling the bootloader.
+  the live ISO and reissuing the bootloader; see
+  [`docs/recovery.md`](recovery.md).
 - **Unsigned chain.** sd-boot is unsigned, exactly like the current GRUB; the
   system still requires Secure Boot off (probe.py enforces it), per issue #2.
 - **NVRAM quirks.** Some firmware ignores a `\EFI\systemd\` entry or has a full

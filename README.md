@@ -9,7 +9,7 @@ independently and keep their own versions.
 
 - Public repository: <https://tenko.pjfox.xyz/packages/6/>
 - LAN mirror: <http://192.168.31.9/~daspork/tenko/>
-- Issue tracker: <https://pjfox.xyz/git/daspork/browneye/issues>
+- Issue tracker: <https://pjfox.xyz/git/daspork/tenko/issues>
 
 ## Quick start
 
@@ -89,6 +89,7 @@ Everything is driven from this checkout:
 |---|---|
 | rebuild a package and publish it | [`docs/build.md`](docs/build.md) |
 | boot/install tests, QEMU and OVMF | [`docs/testing.md`](docs/testing.md) |
+| recovery and rescue | [`docs/recovery.md`](docs/recovery.md) |
 | version policy and base manifest | [`docs/versions.md`](docs/versions.md) |
 | systemd-boot conversion notes | [`docs/systemd-boot.md`](docs/systemd-boot.md) |
 
