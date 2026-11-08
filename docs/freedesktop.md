@@ -76,14 +76,14 @@ open without weakening the end state.
 | `menu` | 1.1 | implemented | garcon xfce-applications.menu and xfce-settings-manager.menu validate |
 | `mime-apps` | 1.0.1 | implemented | /etc/xdg/mimeapps.list defaults; xdg-utils and desktop-file-utils in the desktop profiles |
 | `mpris` | current spec | N/A | Application responsibility (media players); no distro service |
-| `notification` | 1.3 | gap | No notification daemon installed; #37 |
+| `notification` | 1.3 | implemented | xfce4-notifyd 0.9.7 in the desktop profiles; dunst remains the non-XFCE alternative |
 | `polkit` | current docs | implemented | polkitd, xfce-polkit agent and the wheel admin rule; policy audit in #33 |
 | `recent-files` | 0.3 | implemented | gvfsd-recent via gvfs (required by Thunar); recent:// verified in #32 |
 | `secret-service` | 0.2 | gap | libsecret client only, no provider; #39 |
 | `shortcuts` | draft | N/A | Portal/Wayland; no Wayland session |
 | `shared-mime-info` | 0.22 | implemented | MIME database packaged; update-mime-database file trigger |
-| `sound-naming` | 0.2 | gap | No sound theme or naming support installed; #43 |
-| `sound-theme` | 0.2 | gap | No sound-theme-freedesktop; #43 |
+| `sound-naming` | 0.2 | implemented | freedesktop stereo event sounds; XSettings default in tenko-desktop-config |
+| `sound-theme` | 0.2 | implemented | sound-theme-freedesktop 0.8 with a valid index.theme; desktop profiles require it |
 | `startup-notification` | 0.2 | implemented | Library and xfwm4 support packaged; verification in #36 |
 | `status-notifier-item` | 0.1 draft | N/A | Draft; optional SNI host work in #44 |
 | `systemtray` | 0.3 | implemented | xfce4-panel systray plugin; verification in #44 |
@@ -182,6 +182,33 @@ The audit parses every `/usr/share/dbus-1` and `/etc/dbus-1` configuration
 file and the polkit `.policy` XML.  The runtime prompt is exercised by the
 final QEMU desktop test; the system bus must start without policy parse
 errors.
+
+## Sound theme
+
+`sound-theme-freedesktop` 0.8 installs the freedesktop theme under
+`/usr/share/sounds/freedesktop` with `Directories=stereo` and the standard
+event names.  `tenko-desktop-config` sets the XSettings `SoundThemeName` to
+`freedesktop`, and the desktop profiles require the package.  libcanberra's
+own default and fallback theme is `freedesktop`, so a missing configured
+theme still resolves instead of failing silently.  The runtime check uses
+`canberra-gtk-play -i bell` and `-i dialog-error`.
+
+## Desktop notifications
+
+`xfce4-notifyd` 0.9.7 is the default notification daemon; its D-Bus
+activation file names `org.freedesktop.Notifications` and the
+`/etc/xdg/autostart/xfce4-notifyd.desktop` entry (`OnlyShowIn=XFCE;`) starts
+it with the session.  It advertises `body`, `body-markup`, `actions` and
+`icon-static`, stores notification history in SQLite, and implements the
+standard `Notify`, `CloseNotification`, `GetCapabilities`,
+`GetServerInformation` and `GetNotifications` calls.  Upstream does not
+return the literal `persistence` capability string even though it keeps a
+history; this is an upstream implementation detail rather than a missing
+distro component.
+
+`dunst` 1.13.2 remains packaged as the non-XFCE alternative and is not part
+of the desktop profile.  The final QEMU check runs `notify-send`, a
+notification with an action, and introspects the service owner.
 
 ## Runtime verification
 

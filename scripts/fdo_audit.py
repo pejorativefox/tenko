@@ -1163,7 +1163,14 @@ class Auditor:
         profile = self.desktop_profile_requires()
 
         if self.selected("notification"):
-            if "org.freedesktop.Notifications" not in self.dbus_service_names:
+            service = (
+                "org.freedesktop.Notifications" in self.dbus_service_names
+                or any(
+                    path.endswith(".service") and "Notifications" in path
+                    for path in self.paths
+                )
+            )
+            if not service:
                 self.add(
                     "notification",
                     "dbus",
@@ -1176,7 +1183,11 @@ class Auditor:
                     "no notification daemon is required by the desktop profile",
                 )
         if self.selected("secret-service"):
-            if "org.freedesktop.secrets" not in self.dbus_service_names:
+            service = (
+                "org.freedesktop.secrets" in self.dbus_service_names
+                or any("secrets.service" in path for path in self.paths)
+            )
+            if not service:
                 self.add(
                     "secret-service",
                     "dbus",

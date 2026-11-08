@@ -127,6 +127,19 @@ class SoundThemeTest(unittest.TestCase):
         self.assertIn(THEME_DIR + "/index.theme", entries)
         self.assertIn(THEME_DIR + "/stereo/bell.oga", entries)
 
+    def test_desktop_profiles_install_the_theme(self):
+        for name in ("xfce-desktop", "xfce-desktop-core"):
+            spec = read(REPO_ROOT / "package_specs" / name / (name + ".spec"))
+            self.assertIn("Requires:   %s" % PACKAGE, spec, name)
+
+    def test_xsettings_defaults_to_freedesktop(self):
+        spec = read(REPO_ROOT / "package_specs" / "tenko-desktop-config" /
+                    "tenko-desktop-config.spec")
+        self.assertIn(
+            '<property name="SoundThemeName" type="string" value="freedesktop"/>',
+            spec,
+        )
+
     def test_built_rpm_contains_index_theme_and_events(self):
         rpm = find_rpm()
         if rpm is None:

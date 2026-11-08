@@ -1,6 +1,6 @@
 Name:       tenko-desktop-config
 Version:    6
-Release:    4
+Release:    5
 Epoch:      1
 Summary:    Tenko X11/XFCE session configuration
 License:    MIT
@@ -53,6 +53,7 @@ cat > "$xfconfdir/xsettings.xml" <<'EOF'
   <property name="Net" type="empty">
     <property name="ThemeName" type="string" value="Arc-Dark"/>
     <property name="IconThemeName" type="string" value="kora"/>
+    <property name="SoundThemeName" type="string" value="freedesktop"/>
   </property>
   <property name="Gtk" type="empty">
     <property name="DecorationLayout" type="string" value="icon,menu:minimize,maximize,close"/>
@@ -178,6 +179,11 @@ EOF
 %config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-5
+- Set the default XSettings SoundThemeName to freedesktop so libcanberra
+  resolves event sounds from the sound-theme-freedesktop package
+  (issue #43).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-4
 - Ship the desktop metadata defaults: /etc/xdg/mimeapps.list associates
   Thunar, Vim, mpv and the XFCE preferred browser, and maps help: URIs to

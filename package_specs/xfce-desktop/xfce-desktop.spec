@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    17
+Release:    19
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -18,6 +18,9 @@ Requires:   xfce4-settings
 Requires:   thunar
 Requires:   thunar-volman
 Requires:   tumbler
+# XFCE-native Desktop Notifications 1.3 daemon.  dunst stays in the
+# repository as the non-XFCE alternative but is not part of this profile.
+Requires:   xfce4-notifyd
 Requires:   xfce4-appfinder
 Requires:   xfce4-terminal
 Requires:   mpv
@@ -66,6 +69,8 @@ Requires:   hicolor-icon-theme
 Requires:   arc-theme
 Requires:   kora-icon-theme
 Requires:   font-terminus
+# Event sounds through libcanberra (Sound Theme 0.2 / Sound Naming 0.2).
+Requires:   sound-theme-freedesktop
 # shared-mime-info used to be pulled in by gdk-pixbuf's .pc Requires.
 # The .pc ships in the gdk-pixbuf runtime package again after the -devel
 # subpackages were removed, but Thunar/GIO need the MIME database at
@@ -76,7 +81,6 @@ Requires:   shared-mime-info
 Requires:   xdg-user-dirs
 Requires:   xdg-utils
 Requires:   desktop-file-utils
-Requires:   xfce-polkit
 Requires:   tenko-desktop-config
 Requires:   linux-firmware-base
 # udev's hardware database is what maps PCI/USB/input IDs to device
@@ -119,6 +123,14 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-19
+- Require xfce4-notifyd 0.9.7 so org.freedesktop.Notifications has an
+  owner on a default desktop (issue #37).
+
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-18
+- Require sound-theme-freedesktop so libcanberra event sounds resolve
+  (issue #43).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-17
 - Require xfce-polkit so privileged desktop actions can show the polkit
   authentication dialog (issue #40).
