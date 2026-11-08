@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    5
+Release:    6
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -10,6 +10,11 @@ Prefix:     /usr
 # profile for QEMU/VMs and headless boxes.
 Requires:   tenko-base-runtime
 Requires:   linux-kernel
+# Networking UI, same as the full desktop profile: NetworkManager's preset
+# enables the service on boot and the applet's /etc/xdg/autostart entry is
+# launched by xfce4-session.
+Requires:   NetworkManager
+Requires:   network-manager-applet
 Requires:   dbus-daemon
 Requires:   dbus-x11
 Requires:   xorg-server
@@ -74,6 +79,11 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-6
+- Require NetworkManager and network-manager-applet so the core session
+  has the network manager running on boot and the panel applet, matching
+  the xfce-desktop profile.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-5
 - Require arc-theme, kora-icon-theme and font-terminus so the default
   new-user XFCE look from tenko-desktop-config resolves.

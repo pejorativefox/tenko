@@ -58,9 +58,11 @@ roughly 20 GiB of disk.
 
 The installed system boots with systemd-boot into XFCE.  Log in with the admin
 account created by the installer.  Wired and wireless networking are managed
-by NetworkManager: run `nmtui` (or `nmcli`) to join a Wi-Fi network.  `dnf` is
-already configured (`/etc/yum.repos.d/tenko-6.repo`) against the repository
-that was used for the install, so:
+by NetworkManager, which starts on boot; `nm-applet` autostarts in the panel
+(right-click its icon for the connection editor).  From a terminal, use
+`nmtui` or `nmcli` to join a Wi-Fi network.  `dnf` is already configured
+(`/etc/yum.repos.d/tenko-6.repo`) against the repository that was used for the
+install, so:
 
 ```sh
 sudo dnf install tenko-base      # build toolchain

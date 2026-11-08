@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    13
+Release:    14
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -29,6 +29,12 @@ Requires:   xorg-server
 Requires:   lightdm
 Requires:   accountsservice
 Requires:   sudo
+# Networking UI.  NetworkManager is the manager the base install uses (its
+# preset enables the service and turns systemd-networkd off); nm-applet puts
+# connection status in the panel and ships the /etc/xdg/autostart entry that
+# xfce4-session launches at login.
+Requires:   NetworkManager
+Requires:   network-manager-applet
 Requires:   librsvg
 Requires:   xinit
 Requires:   xauth
@@ -98,6 +104,12 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-14
+- Require NetworkManager and network-manager-applet: a desktop install now
+  starts the network manager on boot (the NetworkManager preset enables the
+  service) and ships the panel applet.  xfce4-session autostarts it from the
+  /etc/xdg/autostart/nm-applet.desktop entry in the applet package.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-13
 - Require arc-theme, kora-icon-theme and font-terminus so the default
   new-user XFCE look from tenko-desktop-config resolves.
