@@ -1,6 +1,6 @@
 Name:       go-bin
 Version:    1.27.3
-Release:    1
+Release:    2
 Summary:    The go programming language (golang)
 License:    BSD-3-Clause
 Source0:    go%{version}.linux-amd64.tar.gz
@@ -29,9 +29,23 @@ cp -a . %{buildroot}/opt/go
 
 mkdir -pv %{buildroot}/etc/profile.d
 cat > %{buildroot}/etc/profile.d/go_path.sh << "EOF"
-export PATH=$PATH:/opt/go/bin
+# GOROOT points tools at the bundle; the go and gofmt entry points are in
+# /usr/bin, so PATH is only a convenience for shells that already read
+# /etc/profile.d.  Keep the PATH update idempotent.
 export GOROOT=/opt/go
+case ":$PATH:" in
+    *:/opt/go/bin:*) ;;
+    *) PATH="$PATH:/opt/go/bin" ;;
+esac
+export PATH
 EOF
+
+# Every user-facing command is linked into /usr/bin, like the other /opt
+# bundles: desktop launchers, systemd units and non-login shells do not read
+# /etc/profile.d.
+install -d %{buildroot}%{_bindir}
+ln -s /opt/go/bin/go %{buildroot}%{_bindir}/go
+ln -s /opt/go/bin/gofmt %{buildroot}%{_bindir}/gofmt
 rm %{buildroot}/opt/go/src/run.rc
 rm %{buildroot}/opt/go/src/make.rc
 rm %{buildroot}/opt/go/src/clean.rc
@@ -40,8 +54,16 @@ rm %{buildroot}/opt/go/src/all.rc
 %files
 /opt/go/*
 /etc/profile.d/go_path.sh
+%{_bindir}/go
+%{_bindir}/gofmt
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 1.27.3-2
+- Link go and gofmt into /usr/bin like the other /opt bundles, so desktop
+  launchers, systemd units, cron and non-login shells find the toolchain
+  without reading /etc/profile.d.  The profile.d snippet keeps GOROOT and
+  a convenience PATH entry, now idempotent.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.27.3-1
 - Not in the base set; 1.27.3 is the latest upstream stable
   (2026-11-05).

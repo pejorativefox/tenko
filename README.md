@@ -94,8 +94,10 @@ Everything is driven from this checkout:
 | boot/install tests, QEMU and OVMF | [`docs/testing.md`](docs/testing.md) |
 | recovery and rescue | [`docs/recovery.md`](docs/recovery.md) |
 | version policy and base manifest | [`docs/versions.md`](docs/versions.md) |
+| packaging conventions (`/opt`, `profile.d`, `/etc/skel`) | [`rules.md`](rules.md) |
 | systemd-boot conversion notes | [`docs/systemd-boot.md`](docs/systemd-boot.md) |
 
 The rules for agents and maintainers (including the "every base package must
 be at least the pinned version" policy and the publishing/mirror requirements)
-live in [`AGENTS.md`](AGENTS.md).  Do not duplicate them elsewhere; link to them.
+live in [`AGENTS.md`](AGENTS.md); packaging conventions live in
+[`rules.md`](rules.md).  Do not duplicate them elsewhere; link to them.
