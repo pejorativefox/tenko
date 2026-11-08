@@ -1,19 +1,25 @@
 Name:       mesa
 Version:    26.2.3
-Release:    5
+Release:    6
 Summary:    Mesa 3D Graphics Library
 License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
+# The iris and crocus drivers make Mesa build its Intel CLC (mesa_clc), which
+# needs LLVMSPIRVLib, SPIRV-Tools and clang's opencl-c.h at build time.  Those
+# tools are build-only and are tracked in issue #51; the build image must carry
+# them even though they are not runtime requirements of this package.
 BuildRequires: libx11, libxext, libxfixes, libxrandr, libxxf86vm
 BuildRequires: libxcb, libxshmfence, libdrm, llvm-devel
 Requires:   libxshmfence
 
 %description
-Open source implementations of OpenGL, OpenGL ES, EGL, GBM, the
-llvmpipe software rasterizer and the virgl guest driver for QEMU's
-virtio-gpu 3D device, built for X11 only (no Wayland, no Vulkan).
+Open source implementations of OpenGL, OpenGL ES, EGL and GBM, built
+for X11 only (no Wayland, no Vulkan).  Includes the llvmpipe software
+rasterizer, the virgl guest driver for QEMU's virtio-gpu 3D device, and
+the hardware Gallium drivers crocus and iris (Intel) and radeonsi and
+r600 (AMD).
 
 %prep
 %setup -q
@@ -25,7 +31,7 @@ meson setup ..                \
       --prefix=/usr           \
       --buildtype=release     \
       -Dplatforms=x11         \
-      -Dgallium-drivers=llvmpipe,virgl \
+      -Dgallium-drivers=llvmpipe,virgl,crocus,iris,radeonsi,r600 \
       -Dvulkan-drivers=       \
       -Dglx=dri               \
       -Dglvnd=disabled        \
@@ -51,6 +57,14 @@ popd
 %files -f %{_sourcedir}/mesa.filelist
 
 %changelog
+* Sun Nov 08 2026 browneye <build@browneye.invalid> 26.2.3-6
+- Build the hardware Gallium drivers: crocus (Intel Gen4-7.5, e.g.
+  Haswell), iris (Intel Gen8+), radeonsi (AMD GCN1+) and r600 (AMD
+  R600-Evergreen).  The package previously shipped only llvmpipe and
+  virgl, so systems with a supported GPU fell back to software
+  rasterization and Chrome/ANGLE reported no hardware GL adapter.
+  Keep llvmpipe and virgl for software and VM guests.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 26.2.3-5
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the
