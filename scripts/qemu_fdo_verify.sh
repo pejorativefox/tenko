@@ -49,6 +49,9 @@ if [ -f "$ROOTFS/etc/systemd/system/xfce-test.service" ]; then
     sed -i '/^Environment=XAUTHORITY=/d' \
         "$ROOTFS/etc/systemd/system/xfce-test.service"
     rm -f "$ROOTFS/root/.Xauthority"
+    # The graphical harness starts X directly; LightDM would race it for :0.
+    rm -f "$ROOTFS/etc/systemd/system/display-manager.service"
+    ln -sf /dev/null "$ROOTFS/etc/systemd/system/lightdm.service"
 fi
 
 # The session checker runs inside the guest.
@@ -62,17 +65,23 @@ exec > /mnt/fdo-check.txt 2>&1
 export DISPLAY=:0 XAUTHORITY=/root/.Xauthority
 export HOME=/root
 
-# The XFCE session owns a private bus; find its address from the session
-# processes.  The address itself is usually unix:path=/run/user/0/bus, so it
-# does not contain the word "session"; exclude the system bus explicitly.
-for envfile in /proc/[0-9]*/environ; do
-    [ -r "$envfile" ] || continue
-    addr=$( (tr '\0' '\n' < "$envfile") 2>/dev/null |
-        sed -n 's/^DBUS_SESSION_BUS_ADDRESS=//p' | head -1)
-    case "$addr" in
-        ""|*system_bus*|*/run/dbus/*) continue ;;
-        *) export DBUS_SESSION_BUS_ADDRESS="$addr"; break ;;
-    esac
+# The XFCE session owns a private bus; wait for it (the session can take
+# longer than a fixed sleep on a cold boot).  The address is usually
+# unix:path=/run/user/0/bus, so it does not contain the word "session";
+# exclude the system bus explicitly.
+tries=0
+while [ "$tries" -lt 45 ]; do
+    for envfile in /proc/[0-9]*/environ; do
+        [ -r "$envfile" ] || continue
+        addr=$( (tr '\0' '\n' < "$envfile") 2>/dev/null |
+            sed -n 's/^DBUS_SESSION_BUS_ADDRESS=//p' | head -1)
+        case "$addr" in
+            ""|*system_bus*|*/run/dbus/*) continue ;;
+            *) export DBUS_SESSION_BUS_ADDRESS="$addr"; break 2 ;;
+        esac
+    done
+    tries=$((tries + 1))
+    sleep 2
 done
 echo "bus=${DBUS_SESSION_BUS_ADDRESS:-none}"
 

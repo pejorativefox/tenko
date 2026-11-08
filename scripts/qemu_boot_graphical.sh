@@ -73,6 +73,7 @@ if [ "$SKIP_INSTALL" != "1" ]; then
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ preset-all || true
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ enable dbus.socket || true
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ mask getty@tty1.service || true
+        unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ mask lightdm.service || true
         rm -f "$ROOTFS/etc/systemd/system/getty.target.wants/getty@tty1.service"
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ set-default graphical.target || true
     fi
