@@ -1,8 +1,8 @@
 # Tenko packaging rules
 
 Package-spec conventions.  Agent workflow, publishing and LAN-mirror rules
-live in [`AGENTS.md`](AGENTS.md); build and publish commands live in
-[`docs/build.md`](docs/build.md).  Do not duplicate those here — link.
+live in [`AGENTS.md`](../AGENTS.md); build and publish commands live in
+[`build.md`](build.md).  Do not duplicate those here — link.
 
 ## Base membership
 

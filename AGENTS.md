@@ -1,7 +1,7 @@
 # Agent rules for Tenko
 
 Packaging conventions (third-party `/opt` bundles, `profile.d` snippets,
-`/etc/skel` defaults, tests) live in [`rules.md`](rules.md).
+`/etc/skel` defaults, tests) live in [`docs/rules.md`](docs/rules.md).
 
 ## Base package set and versions
 
