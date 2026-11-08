@@ -1,6 +1,6 @@
 Name:       tenko-release
 Version:    6
-Release:    3
+Release:    4
 Summary:    Tenko Linux release file
 License:    MIT
 Prefix:     /usr
@@ -46,12 +46,22 @@ repo_gpgcheck=0
 skip_if_unavailable=1
 REPO
 
+install -Dpm644 %{_sourcedir}/org.tenko.Tenko.metainfo.xml \
+    %{buildroot}%{_datadir}/metainfo/org.tenko.Tenko.metainfo.xml
+
 %files
 /etc/os-release
 /usr/lib/os-release
 %config(noreplace) /etc/yum.repos.d/tenko-6.repo
+%dir %{_datadir}/metainfo
+%{_datadir}/metainfo/org.tenko.Tenko.metainfo.xml
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-4
+- Ship an AppStream operating-system component
+  (/usr/share/metainfo/org.tenko.Tenko.metainfo.xml) so appstreamcli and
+  software centres can identify the Tenko distribution (issue #42).
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-3
 - Add HOME_URL, BUG_REPORT_URL, SUPPORT_URL and DOCUMENTATION_URL to
   os-release.  systemd's SBAT autodetection reads these, so the

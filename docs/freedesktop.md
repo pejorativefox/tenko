@@ -59,7 +59,7 @@ open without weakening the end state.
 
 | Spec | Version | Disposition | Evidence / work |
 |---|---|---|---|
-| `appstream` | current docs | partial | Metadata packaged but no validation or catalogue; #33, #42 |
+| `appstream` | current docs | implemented | appstreamcli in the desktop profiles; distro OS metainfo; validation in the audit |
 | `autostart` | 0.5 | implemented | xfce4-session reads /etc/xdg/autostart; verification in #36 |
 | `basedir` | 0.8 | implemented | XDG base directories honoured; ~/.local/bin in PATH for login and interactive shells; runtime check in #32 |
 | `clipboard` | 1.0 | N/A | Wayland data-device protocol; X11 uses X selections |
@@ -182,6 +182,25 @@ The audit parses every `/usr/share/dbus-1` and `/etc/dbus-1` configuration
 file and the polkit `.policy` XML.  The runtime prompt is exercised by the
 final QEMU desktop test; the system bus must start without policy parse
 errors.
+
+## AppStream
+
+`appstream` 1.2.2 is part of the desktop profiles, so `appstreamcli` and the
+metadata readers are installed.  Distro metadata is
+`/usr/share/metainfo/org.tenko.Tenko.metainfo.xml` (type
+`operating-system`, id `org.tenko.Tenko`) from `tenko-release`; application
+metadata ships with the applications themselves (Thunar, xfce4-appfinder,
+xfce4-power-manager, nm-connection-editor, AppStream's own CLI and the
+Chrome bundle).
+
+Every metainfo file is validated with `appstreamcli validate --no-net` by the
+audit.  The Chrome bundle's `type-property-required` error is an upstream
+vendor defect and is waived in the "Allowed upstream findings" table below;
+it does not block distro metadata.  Tenko does not ship a pre-composed
+catalogue: `appstreamcli search` reads the installed metainfo at runtime,
+and a repository-wide catalogue can be generated from an installed root with
+`appstreamcli compose` when a software centre needs one.  That is a
+deliberate decision, not an omission.
 
 ## Sound theme
 

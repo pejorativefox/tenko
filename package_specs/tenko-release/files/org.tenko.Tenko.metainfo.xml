@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="operating-system">
+  <id>org.tenko.Tenko</id>
+  <name>Tenko Linux</name>
+  <summary>X11/XFCE workstation distribution</summary>
+  <description>
+    <p>
+      Tenko Linux 6 (Workstation) is an X11/XFCE distribution built from
+      source with a merged-/usr layout, systemd, D-Bus and the freedesktop
+      desktop stack.  It ships the XFCE session, Thunar, the freedesktop
+      portal backend and Flatpak, with a Tenko package repository for
+      independent package updates.
+    </p>
+  </description>
+  <url type="homepage">https://tenko.pjfox.xyz/</url>
+  <url type="bugtracker">https://pjfox.xyz/git/daspork/tenko/issues</url>
+  <url type="help">https://pjfox.xyz/git/daspork/tenko/src/branch/main/docs</url>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  <releases>
+    <release version="6" date="2026-11-08">
+      <description>
+        <p>Tenko 6 (Workstation) release.</p>
+      </description>
+    </release>
+  </releases>
+  <content_rating type="oars-1.1"/>
+</component>

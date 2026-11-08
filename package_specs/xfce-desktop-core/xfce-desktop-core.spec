@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    11
+Release:    12
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -46,6 +46,8 @@ Requires:   arc-theme
 Requires:   kora-icon-theme
 Requires:   font-terminus
 Requires:   shared-mime-info
+# Software metadata: appstreamcli and the installed metainfo.
+Requires:   appstream
 # Creates ~/.config/user-dirs.dirs and the localized Desktop, Documents,
 # Downloads, Music, Pictures and Videos directories at session start.
 Requires:   xdg-user-dirs
@@ -100,6 +102,10 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-12
+- Require appstream so appstreamcli is present and the installed metainfo
+  can be validated and searched on a desktop install (issue #42).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-11
 - Require xfce4-notifyd 0.9.7 so org.freedesktop.Notifications has an
   owner on a default desktop (issue #37).

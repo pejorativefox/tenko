@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    19
+Release:    20
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -76,6 +76,10 @@ Requires:   sound-theme-freedesktop
 # subpackages were removed, but Thunar/GIO need the MIME database at
 # runtime, so require the data package explicitly.
 Requires:   shared-mime-info
+# Software metadata: appstreamcli validates and searches the installed
+# metainfo; the repository catalogue decision is documented in
+# docs/freedesktop.md.
+Requires:   appstream
 # Creates ~/.config/user-dirs.dirs and the standard user directories at
 # session start.
 Requires:   xdg-user-dirs
@@ -123,6 +127,10 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-20
+- Require appstream so appstreamcli is present and the installed metainfo
+  can be validated and searched on a desktop install (issue #42).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-19
 - Require xfce4-notifyd 0.9.7 so org.freedesktop.Notifications has an
   owner on a default desktop (issue #37).

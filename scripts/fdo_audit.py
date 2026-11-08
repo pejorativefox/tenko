@@ -1162,6 +1162,15 @@ class Auditor:
         path_names = {path.rsplit("/", 1)[-1] for path in self.paths}
         profile = self.desktop_profile_requires()
 
+        if self.selected("appstream"):
+            if "appstream" not in profile:
+                self.add(
+                    "appstream",
+                    "profile",
+                    "appstream is not required by the desktop profile",
+                )
+            if not self.has_path("/usr/bin/appstreamcli"):
+                self.add("appstream", "package", "appstreamcli is not shipped")
         if self.selected("notification"):
             service = (
                 "org.freedesktop.Notifications" in self.dbus_service_names
