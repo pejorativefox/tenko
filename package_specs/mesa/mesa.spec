@@ -7,11 +7,14 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 # The iris and crocus drivers make Mesa build its Intel CLC (mesa_clc), which
-# needs LLVMSPIRVLib, SPIRV-Tools and clang's opencl-c.h at build time.  Those
-# tools are build-only and are tracked in issue #51; the build image must carry
-# them even though they are not runtime requirements of this package.
+# needs LLVMSPIRVLib, SPIRV-Tools, clang-cpp and clang's opencl-c.h at build
+# time, plus Mako and PyYAML for Mesa's generated tables.  These are build-only
+# dependencies and are not runtime requirements of this package.
 BuildRequires: libx11, libxext, libxfixes, libxrandr, libxxf86vm
 BuildRequires: libxcb, libxshmfence, libdrm, llvm-devel
+BuildRequires: spirv-llvm-translator, spirv-tools
+BuildRequires: clang-libs, clang-resource-filesystem
+BuildRequires: python-mako, python-pyyaml
 Requires:   libxshmfence
 
 %description
@@ -64,6 +67,11 @@ popd
   virgl, so systems with a supported GPU fell back to software
   rasterization and Chrome/ANGLE reported no hardware GL adapter.
   Keep llvmpipe and virgl for software and VM guests.
+- Declare the CLC build chain in BuildRequires now that it is packaged:
+  spirv-llvm-translator, spirv-tools, clang-libs,
+  clang-resource-filesystem, python-mako and python-pyyaml (issue #51).
+  A clean rebuild keeps the same file list, installed size and runtime
+  dependencies.
 
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 26.2.3-5
 - Remove the -devel subpackage: fold its headers, include

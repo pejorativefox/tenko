@@ -38,6 +38,25 @@ first (the `sources` file gives the URL and md5), or pre-populate them with
 and source staging — **it is not the release path**; release builds go through
 the container scripts.
 
+## Build image profiles
+
+`tenko-base-build` is the build-environment meta: `tenko-base-runtime` plus
+the compiler, autotools, meson/ninja/cmake and the RPM packaging macros.
+Derive a build image with it instead of the runtime `tenko-base`.
+
+It now also carries the build-only chain for Mesa's Intel CLC (`mesa_clc`):
+`llvm-devel`, `llvm`, `llvm-static`, `clang-libs`,
+`clang-resource-filesystem`, `spirv-headers`, `spirv-tools`,
+`spirv-llvm-translator`, `python-mako` and `python-pyyaml`.  These provide
+`llvm-config`, `LLVMSPIRVLib.pc`, `SPIRV-Tools.pc`, `libclang-cpp`,
+`opencl-c.h` and the Python modules Mesa's build requires.
+
+Do not recreate the old local-workaround image with zero-length LLVM `.a`
+files or a stub `llvm-tblgen`.  `LLVMExports.cmake` references every installed
+archive and tool binary; the build profile installs the real `llvm` and
+`llvm-static` packages (the published `llvm-devel` does not pull them in) so
+the CMake package check succeeds without placeholders.
+
 ## Static filelists
 
 `%files` is a generated, static list:
