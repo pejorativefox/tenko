@@ -104,7 +104,6 @@ After=dbus.service
 Type=simple
 User=root
 Environment=HOME=/root
-Environment=XAUTHORITY=/root/.Xauthority
 Environment=XDG_RUNTIME_DIR=/run/user/0
 Environment=GTK_THEME=Default
 TTYPath=/dev/tty1

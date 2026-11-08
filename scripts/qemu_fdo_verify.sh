@@ -46,11 +46,9 @@ mkdir -p "$SHARE"
 if [ -f "$ROOTFS/etc/systemd/system/xfce-test.service" ]; then
     sed -i 's|^ExecStart=/usr/bin/startx -- :0 vt1$|ExecStart=/usr/bin/startx -- :0 vt1 -ac|' \
         "$ROOTFS/etc/systemd/system/xfce-test.service"
-    grep -q '^Environment=XAUTHORITY=' \
-        "$ROOTFS/etc/systemd/system/xfce-test.service" || \
-        sed -i '/^Environment=HOME=\/root$/a Environment=XAUTHORITY=/root/.Xauthority' \
-            "$ROOTFS/etc/systemd/system/xfce-test.service"
-    install -m 600 /dev/null "$ROOTFS/root/.Xauthority"
+    sed -i '/^Environment=XAUTHORITY=/d' \
+        "$ROOTFS/etc/systemd/system/xfce-test.service"
+    rm -f "$ROOTFS/root/.Xauthority"
 fi
 
 # The session checker runs inside the guest.
