@@ -1,0 +1,134 @@
+# Freedesktop compliance
+
+Tenko tracks its conformance with the [freedesktop.org specifications][specs]
+and the companion standards the XFCE desktop relies on.  This document is the
+durable record: every specification has a version, a disposition, and either
+evidence or a linked work issue.  The tracker is Gitea issue #32.
+
+[specs]: https://specifications.freedesktop.org/
+
+## Scope
+
+Tenko ships XFCE on X11.  Most protocol implementations come from XFCE, GTK,
+GLib, gvfs and systemd; distro work is packaging, desktop-profile membership,
+configuration, database triggers and verification.  Upstream implementation
+bugs are reported upstream and recorded in the relevant issue.
+
+Repackaged vendor bundles under `/opt` are audited, but upstream metadata
+defects inside those bundles do not block the distro's own compliance; they
+are listed as allowed upstream findings in the audit.
+
+Wayland-only and draft specifications are N/A for this release.  Revisit them
+only if a Wayland session is adopted.
+
+## Dispositions
+
+| value | meaning | audit treatment |
+|---|---|---|
+| **implemented** | the component ships and the protocol is in use | any failing check fails the audit |
+| **partial** | the component exists but the distro integration is incomplete | failures are reported as `OPEN` and owned by the linked issue |
+| **gap** | no usable implementation ships | failures are reported as `OPEN` and owned by the linked issue |
+| **N/A** | not applicable to an X11/XFCE distro, or application-owned | no check is run; the rationale must be recorded |
+
+A `partial` or `gap` row must link at least one issue.  When the last issue for
+a row closes, change the disposition to `implemented`; the audit then treats
+any remaining failure as fatal.  This keeps the harness green while work is
+open without weakening the end state.
+
+## Audit policy
+
+- `desktop-file-validate` must report no errors.  Warnings and hints are
+  allowed because most of them are upstream translation text or deprecated
+  keys that the distro does not own; the audit prints a warning count.
+- `appstreamcli validate --no-net` must report no errors.  Warnings and
+  informational messages are allowed.  A vendor bundle may be listed in
+  `UPSTREAM_APPSTREAM_ERRORS` in `scripts/fdo_audit.py` with an issue number;
+  today only the Chrome bundle has such an entry (#42).
+- Icon themes must inherit only themes that are installed, and every `Icon=`
+  in an application or autostart entry must resolve in hicolor, an installed
+  theme, or `/usr/share/pixmaps`.
+- Cache updates must be file triggers, not ad-hoc `%post` calls:
+  `update-desktop-database` for `/usr/share/applications`,
+  `update-mime-database` for `/usr/share/mime`, and
+  `gtk-update-icon-cache` for `/usr/share/icons`.
+- The audit is network-free.  Run it against the built repository with
+  `scripts/fdo_audit.py --rpm-dir build/repo-publish/6`; see
+  [`testing.md`](testing.md).
+
+## Matrix
+
+| Spec | Version | Disposition | Evidence / work |
+|---|---|---|---|
+| `appstream` | current docs | partial | Metadata packaged but no validation or catalogue; #33, #42 |
+| `autostart` | 0.5 | implemented | xfce4-session reads /etc/xdg/autostart; verification in #36 |
+| `basedir` | 0.8 | partial | Apps follow it; xdg-user-dirs and ~/.local/bin in PATH are missing; #34 |
+| `clipboard` | 1.0 | N/A | Wayland data-device protocol; X11 uses X selections |
+| `clipboard-extensions` | 1.0 | N/A | Wayland-only |
+| `dbus` | current spec | implemented | dbus-daemon/dbus-x11 in base and desktop; policy audit in #40 |
+| `desktop-entry` | 1.5 | partial | 48 files validate with no errors, but no build-time validation or database trigger; #35 |
+| `fhs` | 3.0 | partial | Merged-/usr layout present; /media, /var/local and most /usr/local dirs missing; #34 |
+| `global-shortcuts` | draft | N/A | Portal/Wayland; no Wayland session |
+| `help-system` | current spec | gap | No /usr/share/help layout or help: URI handler; folded into #35 |
+| `icon-naming` | 0.8.90 | partial | Kora inherits missing breeze; Adwaita inherits missing AdwaitaLegacy; #35 |
+| `icon-theme` | 0.13 | partial | Themes present; inheritance and cache triggers incomplete; #35 |
+| `idle-inhibit` | 0.1 | N/A | Wayland protocol; X11 uses XScreenSaver |
+| `intent-apps` | 1.0.0 | N/A | New spec with no XFCE-stack implementation; revisit later |
+| `menu` | 1.1 | partial | garcon ships xfce-applications.menu; not validated; #35 |
+| `mime-apps` | 1.0.1 | gap | No default mimeapps.list; xdg-utils not in desktop metas; #35 |
+| `mpris` | current spec | N/A | Application responsibility (media players); no distro service |
+| `notification` | 1.3 | gap | No notification daemon installed; #37 |
+| `polkit` | current docs | partial | Daemon packaged, no authentication agent; #40 |
+| `recent-files` | 0.3 | partial | gvfsd-recent shipped via thunar; unverified; #38 |
+| `secret-service` | 0.2 | gap | libsecret client only, no provider; #39 |
+| `shortcuts` | draft | N/A | Portal/Wayland; no Wayland session |
+| `shared-mime-info` | 0.22 | partial | Database packaged; no runtime update trigger; #35 |
+| `sound-naming` | 0.2 | gap | No sound theme or naming support installed; #43 |
+| `sound-theme` | 0.2 | gap | No sound-theme-freedesktop; #43 |
+| `startup-notification` | 0.2 | implemented | Library and xfwm4 support packaged; verification in #36 |
+| `status-notifier-item` | 0.1 draft | N/A | Draft; optional SNI host work in #44 |
+| `systemtray` | 0.3 | implemented | xfce4-panel systray plugin; verification in #44 |
+| `terminal-intent` | draft | N/A | Draft/Wayland-oriented; no implementation |
+| `thumbnail` | 0.8.0/0.9.0 | partial | tumbler present, video/audio thumbnailer disabled; #38 |
+| `trash` | 1.0 | partial | gvfsd-trash shipped via thunar; layout unverified; #38 |
+| `wm` | 1.5 | implemented | xfwm4; EWMH atom verification in #36 |
+| `xembed` | 0.5 | implemented | xfce4-panel systray; verification in #44 |
+| `xsettings` | 0.5 | implemented | xfsettingsd; verification in #36 |
+| `XDG user dirs` | current spec | gap | xdg-user-dirs not packaged; #34 |
+| `xdg-desktop-portal` | 1.22 | gap | Portal packaged, no backend; #41 |
+
+## Work issues
+
+- #33 — compliance audit harness and CI hook
+- #34 — XDG base directories, user dirs and FHS layout
+- #35 — desktop entries, menu, MIME, icons and help
+- #36 — autostart, startup notification, XSettings and EWMH
+- #37 — desktop notifications service
+- #38 — trash, recent files and thumbnails
+- #39 — Secret Service provider
+- #40 — polkit agent and D-Bus policy
+- #41 — portals and Flatpak integration
+- #42 — AppStream metadata and catalogue
+- #43 — sound theme and sound naming
+- #44 — system tray, XEmbed and StatusNotifierItem
+
+## Runtime verification
+
+Some protocol rows can only be checked in a running session.  Those checks are
+owned by #36 (autostart, startup notification, XSettings, EWMH), #37
+(notification delivery), #38 (trash/recent/thumbnails), #40 (polkit prompt),
+#41 (portal request), #43 (sound events) and #44 (tray/SNI).  The static
+harness verifies that the components are packaged and configured; the final
+QEMU install in #32 records the desktop-level evidence.
+
+## Allowed upstream findings
+
+These findings belong to upstream or vendor bundles and do not block the
+distro's own compliance.  Each entry names the owning issue so it is revisited
+when the bundle or upstream metadata changes.
+
+| Finding | Owner | Rationale |
+|---|---|---|
+| `google-chrome.appdata.xml`: `type-property-required` | #42 | Google Chrome vendor bundle metadata; fixed by the bundle or replaced by distro metadata |
+| XFCE helper `.desktop` files under `/usr/share/xfce4/helpers` | #35 | XFCE private helper format, not Desktop Entry; not validated as application entries |
+| GTK module `.desktop` files under `/usr/lib64/gnome-settings-daemon-3.0` | #35 | GTK module descriptor format, not Desktop Entry |
+| Xsession `.desktop` files under `/usr/share/xsessions` | #36 | Xsession format, not an application entry; verified in the session checks |
