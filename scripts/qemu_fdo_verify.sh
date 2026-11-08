@@ -563,6 +563,9 @@ else
 fi
 sleep 2
 
+echo "=== startx log ==="
+cat /run/xfce-test-startx.log 2>/dev/null || true
+
 echo "=== session checker ==="
 /usr/local/bin/fdo_session_check.sh || true
 
