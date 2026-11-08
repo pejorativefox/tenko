@@ -139,7 +139,7 @@ unshare -r /usr/sbin/mke2fs -q -t ext4 -d "$ROOTFS" "$IMG"
 
 rm -f "$SHARE/fdo-check.txt" "$SERIAL" "$MON"
 initrd=()
-[ "$USE_INITRD:-1" = 1 ] && [ -f "$ROOTFS/boot/initramfs-$KVER.img" ] && \
+[ "${USE_INITRD:-1}" = 1 ] && [ -f "$ROOTFS/boot/initramfs-$KVER.img" ] && \
     initrd=(-initrd "$ROOTFS/boot/initramfs-$KVER.img")
 
 accel=(-enable-kvm -cpu host)
