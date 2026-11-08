@@ -1,0 +1,29 @@
+Rename the private closefrom() helper so it does not conflict with the
+closefrom() function added to glibc 2.34.  Upstream FUSE 2.9.9 predates
+that addition and fails to compile with a modern libc:
+
+  ulockmgr_server.c:127:12: error: conflicting types for 'closefrom';
+  have 'int(int)'
+
+The helper is file-local; renaming it keeps the behaviour identical.
+
+--- a/util/ulockmgr_server.c
++++ b/util/ulockmgr_server.c
+@@ -124,7 +124,7 @@ static int receive_fd(int fd, int *fdp, size_t *numfds)
+ 	return res;
+ }
+ 
+-static int closefrom(int minfd)
++static int fuse_closefrom(int minfd)
+ {
+ 	DIR *dir = opendir("/proc/self/fd");
+ 	if (dir) {
+@@ -384,7 +384,7 @@ int main(int argc, char *argv[])
+ 		dup2(nullfd, 1);
+ 	}
+ 	close(3);
+-	closefrom(5);
++	fuse_closefrom(5);
+ 	while (1) {
+ 		char c;
+ 		int sock;
