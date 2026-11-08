@@ -78,6 +78,20 @@ class BaseShellTest(unittest.TestCase):
         self.assertIn(". /etc/bashrc", profile)
         self.assertIn("/etc/profile.d/*.sh", profile)
 
+    def test_login_path_includes_administrative_directories(self):
+        spec = read("package_specs/tenko-sysconfig/tenko-sysconfig.spec")
+        bashrc = heredoc(spec, "/etc/bashrc")
+        # login(1) gives a non-root session the login.defs ENV_PATH without
+        # sbin; terminals inherit that PATH, so the shared shell defaults have
+        # to add the administrative directories back.
+        for directory in ("/usr/local/sbin", "/usr/sbin", "/sbin"):
+            self.assertIn(directory, bashrc)
+        self.assertIn('case ":$PATH:"', bashrc)
+        self.assertIn("missing", bashrc)
+        # /etc/profile is what applies the fix to existing accounts on login.
+        profile = heredoc(spec, "/etc/profile")
+        self.assertIn(". /etc/bashrc", profile)
+
 
 if __name__ == "__main__":
     unittest.main()

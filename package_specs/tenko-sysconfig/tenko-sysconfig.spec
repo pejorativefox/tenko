@@ -1,6 +1,6 @@
 Name:       tenko-sysconfig
 Version:    6
-Release:    6
+Release:    7
 Epoch:      1
 Summary:    Base configuration for Tenko Linux
 License:    MIT
@@ -115,6 +115,22 @@ alias ls='ls --color'
 if [ -r /etc/profile.d/bash_completion.sh ]; then
     . /etc/profile.d/bash_completion.sh
 fi
+# login(1) starts a non-root session with /etc/login.defs ENV_PATH, which
+# omits the sbin directories; display managers and containers can pass an
+# equally reduced PATH, and terminals inherit it.  Put the administrative
+# directories back so useradd, mount, iptables and friends resolve.  Keep the
+# guard: this file is reached through more than one startup path.
+missing=
+for d in /usr/local/sbin /usr/sbin /sbin; do
+    case ":$PATH:" in
+        *":$d:"*) ;;
+        *) missing="$missing:$d" ;;
+    esac
+done
+if [ -n "$missing" ]; then
+    PATH="${missing#:}:$PATH"
+fi
+unset d missing
 # User-local executables.  Keep the guard: this file is reached through more
 # than one startup path.
 case ":$PATH:" in
@@ -186,6 +202,18 @@ chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 %config(noreplace) /etc/machine-id
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-7
+- Put /usr/local/sbin, /usr/sbin and /sbin back on PATH in /etc/bashrc when
+  they are missing.  login(1) starts a non-root session with the
+  /etc/login.defs ENV_PATH, which omits them, and /etc/profile did not
+  restore them, so admin tools (useradd, mount, iptables, ...) did not
+  resolve in the console session or in the terminals started from it.
+  /etc/profile sources /etc/bashrc, so login shells pick the change up at
+  the next login; the update is idempotent and keeps any PATH the caller
+  already provided.  Accounts whose own ~/.bashrc does not source
+  /etc/bashrc need that source line to get the same PATH in interactive
+  non-login shells.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-6
 - Ship /etc/bashrc with the system prompt, ls alias, bash-completion and
   ~/.local/bin PATH, and load it from /etc/profile and /etc/skel/.bashrc.

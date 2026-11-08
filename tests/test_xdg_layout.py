@@ -72,7 +72,7 @@ class XdgLayoutTest(unittest.TestCase):
         self.assertIn('PATH="$HOME/.local/bin:$PATH"', bashrc)
         self.assertIn("export PATH", bashrc)
         # The guard must not append unconditionally on every source.
-        self.assertEqual(bashrc.count(guard), 1)
+        self.assertEqual(bashrc.count('*:$HOME/.local/bin:*)'), 1)
         # Both startup paths reach the shared file.
         self.assertIn(". /etc/bashrc", heredoc(spec, "/etc/profile"))
         self.assertIn(". /etc/bashrc", skel)
