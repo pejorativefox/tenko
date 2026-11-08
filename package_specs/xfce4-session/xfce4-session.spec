@@ -1,6 +1,6 @@
 Name:       xfce4-session
 Version:    4.20.4
-Release:    3
+Release:    4
 Summary:    A session manager for Xfce
 License:    GPL-2.0-or-later AND GPL-2.0-only
 Source0:    %{name}-%{version}.tar.bz2
@@ -29,12 +29,31 @@ Translations for xfce4-session.
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc
 %make_install
+# The upstream file names xapp first for Wallpaper, Screenshot, Background
+# and Settings, but xapp is not packaged and the X11 session cannot use the
+# wlr Screenshot/ScreenCast backends.  Select the GTK backend by default so
+# the interfaces it implements (FileChooser, AppChooser, Print,
+# Notification, Inhibit, Access, Account, Email, DynamicLauncher, Lockdown,
+# Settings) resolve without a missing-backend warning (issue #41).
+cat > %{buildroot}%{_datadir}/xdg-desktop-portal/xfce-portals.conf <<'EOF'
+[preferred]
+default=gtk;
+EOF
 
 %files -f %{_sourcedir}/xfce4-session.filelist
 %files lang -f %{_sourcedir}/xfce4-session-lang.filelist
 
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20.4-4
+- Replace xfce-portals.conf with a `default=gtk` selection.  The upstream
+  file names xapp for Wallpaper, Screenshot, Background and Settings (not
+  packaged) and wlr for ScreenCast (Wayland-only), so the X11 session
+  produced missing-backend warnings.  The GTK backend implements
+  FileChooser, AppChooser, Print, Notification, Inhibit, Access, Account,
+  Email, DynamicLauncher, Lockdown and Settings; the remaining interfaces
+  are documented as unsupported (issue #41).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.4-3
 - Replace the legacy short licence name with the verified SPDX expression
   (GPL-2.0-or-later AND GPL-2.0-only): COPYING (issue #8).
