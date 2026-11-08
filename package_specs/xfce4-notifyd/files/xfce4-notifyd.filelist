@@ -1,0 +1,67 @@
+%dir /etc/xdg
+%dir /etc/xdg/autostart
+/etc/xdg/autostart/xfce4-notifyd.desktop
+%dir /usr/bin
+/usr/bin/xfce4-notifyd-config
+%dir /usr/lib64
+%dir /usr/lib64/xfce4
+%dir /usr/lib64/xfce4/notifyd
+/usr/lib64/xfce4/notifyd/xfce4-notifyd
+%dir /usr/lib64/xfce4/panel
+%dir /usr/lib64/xfce4/panel/plugins
+/usr/lib64/xfce4/panel/plugins/libnotification-plugin.so
+%dir /usr/share
+%dir /usr/share/applications
+/usr/share/applications/xfce4-notifyd-config.desktop
+%dir /usr/share/dbus-1
+%dir /usr/share/dbus-1/services
+/usr/share/dbus-1/services/org.xfce.xfce4-notifyd.Notifications.service
+/usr/share/dbus-1/services/org.xfce.xfce4-notifyd.Notifyd.service
+%dir /usr/share/icons
+%dir /usr/share/icons/hicolor
+%dir /usr/share/icons/hicolor/128x128
+%dir /usr/share/icons/hicolor/128x128/apps
+/usr/share/icons/hicolor/128x128/apps/org.xfce.notification.png
+%dir /usr/share/icons/hicolor/16x16
+%dir /usr/share/icons/hicolor/16x16/apps
+/usr/share/icons/hicolor/16x16/apps/org.xfce.notification.png
+%dir /usr/share/icons/hicolor/48x48
+%dir /usr/share/icons/hicolor/48x48/apps
+/usr/share/icons/hicolor/48x48/apps/org.xfce.notification.png
+%dir /usr/share/icons/hicolor/scalable
+%dir /usr/share/icons/hicolor/scalable/apps
+/usr/share/icons/hicolor/scalable/apps/org.xfce.notification.svg
+%dir /usr/share/icons/hicolor/scalable/status
+/usr/share/icons/hicolor/scalable/status/notification-disabled-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/notification-symbolic.svg
+/usr/share/icons/hicolor/scalable/status/org.xfce.notification.unread-emblem-symbolic.svg
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/xfce4-notifyd-config.1.gz
+%dir /usr/share/themes
+%dir /usr/share/themes/Bright
+%dir /usr/share/themes/Bright/xfce-notify-4.0
+/usr/share/themes/Bright/xfce-notify-4.0/gtk.css
+%dir /usr/share/themes/Default
+%dir /usr/share/themes/Default/xfce-notify-4.0
+/usr/share/themes/Default/xfce-notify-4.0/gtk.css
+%dir /usr/share/themes/Retro
+%dir /usr/share/themes/Retro/xfce-notify-4.0
+/usr/share/themes/Retro/xfce-notify-4.0/gtk.css
+%dir /usr/share/themes/Smoke
+%dir /usr/share/themes/Smoke/xfce-notify-4.0
+/usr/share/themes/Smoke/xfce-notify-4.0/gtk.css
+%dir /usr/share/themes/XP-Balloon
+%dir /usr/share/themes/XP-Balloon/xfce-notify-4.0
+/usr/share/themes/XP-Balloon/xfce-notify-4.0/gtk.css
+/usr/share/themes/XP-Balloon/xfce-notify-4.0/msgbox-bottom-left.png
+/usr/share/themes/XP-Balloon/xfce-notify-4.0/msgbox-bottom-right.png
+/usr/share/themes/XP-Balloon/xfce-notify-4.0/msgbox-top-left.png
+/usr/share/themes/XP-Balloon/xfce-notify-4.0/msgbox-top-right.png
+%dir /usr/share/themes/ZOMG-PONIES!
+%dir /usr/share/themes/ZOMG-PONIES!/xfce-notify-4.0
+/usr/share/themes/ZOMG-PONIES!/xfce-notify-4.0/gtk.css
+%dir /usr/share/xfce4
+%dir /usr/share/xfce4/panel
+%dir /usr/share/xfce4/panel/plugins
+/usr/share/xfce4/panel/plugins/notification-plugin.desktop
