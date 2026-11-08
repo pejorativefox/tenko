@@ -1,6 +1,6 @@
 Name:       xfce4-session
 Version:    4.20.4
-Release:    4
+Release:    5
 Summary:    A session manager for Xfce
 License:    GPL-2.0-or-later AND GPL-2.0-only
 Source0:    %{name}-%{version}.tar.bz2
@@ -38,6 +38,7 @@ mkdir -p %{buildroot}/etc
 cat > %{buildroot}%{_datadir}/xdg-desktop-portal/xfce-portals.conf <<'EOF'
 [preferred]
 default=gtk;
+org.freedesktop.impl.portal.Secret=gnome-keyring;
 EOF
 
 %files -f %{_sourcedir}/xfce4-session.filelist
@@ -45,6 +46,10 @@ EOF
 
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20.4-5
+- Select the gnome-keyring backend for the portal Secret interface now that
+  issue #39 ships the provider (issue #39, #41).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20.4-4
 - Replace xfce-portals.conf with a `default=gtk` selection.  The upstream
   file names xapp for Wallpaper, Screenshot, Background and Settings (not

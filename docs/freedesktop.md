@@ -79,7 +79,7 @@ open without weakening the end state.
 | `notification` | 1.3 | implemented | xfce4-notifyd 0.9.7 in the desktop profiles; dunst remains the non-XFCE alternative |
 | `polkit` | current docs | implemented | polkitd, xfce-polkit agent and the wheel admin rule; policy audit in #33 |
 | `recent-files` | 0.3 | implemented | gvfsd-recent via gvfs (required by Thunar); recent:// verified in #32 |
-| `secret-service` | 0.2 | gap | libsecret client only, no provider; #39 |
+| `secret-service` | 0.2 | implemented | gnome-keyring 50.0 Secret Service, PAM login unlock and portal Secret backend |
 | `shortcuts` | draft | N/A | Portal/Wayland; no Wayland session |
 | `shared-mime-info` | 0.22 | implemented | MIME database packaged; update-mime-database file trigger |
 | `sound-naming` | 0.2 | implemented | freedesktop stereo event sounds; XSettings default in tenko-desktop-config |
@@ -229,6 +229,23 @@ distro component.
 of the desktop profile.  The final QEMU check runs `notify-send`, a
 notification with an action, and introspects the service owner.
 
+## Secret Service
+
+`gnome-keyring` 50.0 is the Secret Service provider.  It owns
+`org.freedesktop.secrets`, ships the login keyring, the PKCS#11 module, the
+gcr prompter integration and the `pam_gnome_keyring` module.  LightDM's PAM
+configuration adds the optional auth and session hooks, so a password typed
+at the greeter unlocks the login keyring; autologin starts the daemon
+without an unlock and prompts later if a secret is requested.  The provider
+is part of both desktop profiles.
+
+gnome-keyring also ships `gnome-keyring.portal`, so
+`/etc/xdg/mimeapps.list`-independent portal configuration selects
+`org.freedesktop.impl.portal.Secret=gnome-keyring` and sandboxed
+applications reach the same keyring through the portal.  `libsecret`'s
+`secret-tool` is the command-line check used by the final QEMU test
+(store/lookup round-trip, collections, aliases and locked-keyring prompt).
+
 ## Portals and Flatpak
 
 Tenko ships `xdg-desktop-portal` 1.22.1, the `xdg-desktop-portal-gtk` 1.15.3
@@ -242,10 +259,11 @@ users manage system remotes and install local bundles.
 packaged) and the Wayland-only wlr ScreenCast backend.  The GTK backend
 implements FileChooser, AppChooser, Print, Notification, Inhibit, Access,
 Account, Email, DynamicLauncher, Lockdown and Settings.  Screenshot,
-ScreenCast, Background, Wallpaper and Secret have no backend in this release:
-Screenshot/Background/Wallpaper would need xapp, ScreenCast is
-Wayland-oriented, and Secret waits for the #39 provider.  Applications using
-those interfaces get the portal's normal "not supported" reply rather than a
+ScreenCast, Background and Wallpaper have no backend in this release:
+Screenshot/Background/Wallpaper would need xapp, and ScreenCast is
+Wayland-oriented.  The Secret interface uses the gnome-keyring backend from
+the Secret Service section above.  Applications using the unsupported
+interfaces get the portal's normal "not supported" reply rather than a
 broken activation.
 
 The final QEMU check introspects `org.freedesktop.portal.Desktop`, opens a

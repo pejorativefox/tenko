@@ -48,7 +48,11 @@ class PortalTest(unittest.TestCase):
             r"xfce-portals\.conf <<'EOF'\n(.*?)\nEOF", spec, re.S,
         )
         self.assertIsNotNone(match)
-        self.assertEqual(match.group(1).strip(), "[preferred]\ndefault=gtk;")
+        self.assertEqual(
+            match.group(1).strip(),
+            "[preferred]\ndefault=gtk;\n"
+            "org.freedesktop.impl.portal.Secret=gnome-keyring;",
+        )
         self.assertNotIn("xapp", match.group(1))
         self.assertIn("/usr/share/xdg-desktop-portal/xfce-portals.conf",
                       read("package_specs/xfce4-session/files/xfce4-session.filelist"))

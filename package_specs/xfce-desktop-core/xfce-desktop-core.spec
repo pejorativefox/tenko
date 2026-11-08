@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    12
+Release:    13
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -22,6 +22,9 @@ Requires:   flatpak
 Requires:   xfce-polkit
 Requires:   xdg-desktop-portal
 Requires:   xdg-desktop-portal-gtk
+# Secret Service provider (org.freedesktop.secrets) and portal Secret
+# backend.
+Requires:   gnome-keyring
 Requires:   dbus-daemon
 Requires:   dbus-x11
 Requires:   xorg-server
@@ -102,6 +105,10 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-13
+- Require gnome-keyring as the Secret Service provider and portal Secret
+  backend (issue #39).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-12
 - Require appstream so appstreamcli is present and the installed metainfo
   can be validated and searched on a desktop install (issue #42).

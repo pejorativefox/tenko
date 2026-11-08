@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    20
+Release:    21
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -47,6 +47,9 @@ Requires:   flatpak
 Requires:   xfce-polkit
 Requires:   xdg-desktop-portal
 Requires:   xdg-desktop-portal-gtk
+# Secret Service provider (org.freedesktop.secrets) for libsecret apps and
+# the portal Secret backend.
+Requires:   gnome-keyring
 Requires:   librsvg
 Requires:   xinit
 Requires:   xauth
@@ -127,6 +130,10 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-21
+- Require gnome-keyring as the Secret Service provider and portal Secret
+  backend (issue #39).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-20
 - Require appstream so appstreamcli is present and the installed metainfo
   can be validated and searched on a desktop install (issue #42).

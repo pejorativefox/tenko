@@ -1,6 +1,6 @@
 Name:       lightdm
 Version:    1.33.1
-Release:    4
+Release:    5
 Summary:    Lightweight cross-desktop display manager
 License:    GPL-3.0-or-later
 Source0:    lightdm-1.33.1.tar.gz
@@ -17,6 +17,9 @@ BuildRequires: gobject-introspection
 # The greeter is packaged separately but is what lightdm starts.
 Requires:      xorg-server
 Requires:      lightdm-gtk-greeter
+# The PAM session hooks in /etc/pam.d/lightdm use the keyring module when
+# the provider is installed; a minimal lightdm install can omit it.
+Recommends:    gnome-keyring
 Requires(pre): shadow
 
 %description
@@ -75,6 +78,16 @@ rm -rf %{buildroot}%{_datadir}/accountsservice
 install -Dpm0644 %{SOURCE1} %{buildroot}%{_unitdir}/lightdm.service
 install -Dpm0644 %{SOURCE2} %{buildroot}%{_prefix}/lib/systemd/system-preset/50-lightdm.preset
 
+# Unlock the login keyring with the password typed at the greeter.  The
+# module is optional, so a minimal install without gnome-keyring still logs
+# in; the desktop profiles require the provider (issue #39).
+sed -E -i '/^auth[[:space:]]+required[[:space:]]+pam_unix\.so/a auth      optional pam_gnome_keyring.so' \
+    %{buildroot}/%{_sysconfdir}/pam.d/lightdm
+sed -E -i '/^session[[:space:]]+required[[:space:]]+pam_unix\.so/a session   optional pam_gnome_keyring.so auto_start' \
+    %{buildroot}/%{_sysconfdir}/pam.d/lightdm
+sed -E -i '/^session[[:space:]]+required[[:space:]]+pam_unix\.so/a session   optional pam_gnome_keyring.so auto_start' \
+    %{buildroot}/%{_sysconfdir}/pam.d/lightdm-autologin
+
 %pre
 # Idempotent and tolerant of chroot installs where /dev/null is not mounted
 # yet: a failed check must not abort the transaction.
@@ -110,6 +123,12 @@ XML needed for building stays there.
 %files gir -f %{_sourcedir}/lightdm-gir.filelist
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 1.33.1-5
+- Add the optional pam_gnome_keyring auth and session hooks to
+  /etc/pam.d/lightdm and the auto_start session hook to
+  /etc/pam.d/lightdm-autologin so the login keyring unlocks with the
+  password typed at the greeter (issue #39).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.33.1-4
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the
