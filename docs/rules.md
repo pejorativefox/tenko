@@ -54,8 +54,10 @@ read only `~/.bashrc`, so `profile.d` is not a general environment loader.
   `tenko-sysconfig`.  XFCE/desktop look and layout belong to
   `tenko-desktop-config`.  Do not scatter skel files across other packages.
 - `.bash_profile` only sources `~/.bashrc`: bash reads `/etc/profile` itself
-  for login shells.  `.bashrc` loads targeted snippets (for example
-  `bash_completion.sh`), not the whole `profile.d` directory.
+  for login shells.  `.bashrc` sources `/etc/bashrc`, the system-wide
+  interactive defaults (prompt, aliases, completion, `~/.local/bin`), so it
+  does not load the whole `profile.d` directory.  `/etc/profile` loads the
+  same file for bash login shells, keeping one definition for both paths.
 - Use `%config(noreplace)`, own the directories you create, and keep the
   files mode 0644.
 - Skel only applies to accounts created after the package is installed.

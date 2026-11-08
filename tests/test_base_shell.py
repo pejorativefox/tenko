@@ -39,11 +39,20 @@ class BaseShellTest(unittest.TestCase):
         self.assertIn("Requires:   bash-completion",
                       read("package_specs/tenko-base/tenko-base.spec"))
 
+    def test_runtime_meta_installs_completion(self):
+        # The installer and the live ISO install tenko-base-runtime, not
+        # tenko-base.  Base membership alone leaves bash-completion off a
+        # freshly installed system.
+        runtime = read(
+            "package_specs/tenko-base-runtime/tenko-base-runtime.spec")
+        self.assertIn("Requires:   bash-completion", runtime)
+
     def test_new_users_get_login_and_interactive_startup_files(self):
         spec = read("package_specs/tenko-sysconfig/tenko-sysconfig.spec")
         self.assertIn("%dir /etc/skel", spec)
         self.assertIn("%config(noreplace) /etc/skel/.bash_profile", spec)
         self.assertIn("%config(noreplace) /etc/skel/.bashrc", spec)
+        self.assertIn("%config(noreplace) /etc/bashrc", spec)
 
         profile = heredoc(spec, "/etc/skel/.bash_profile")
         self.assertIn('. "$HOME/.bashrc"', profile)
@@ -52,9 +61,22 @@ class BaseShellTest(unittest.TestCase):
         self.assertNotIn("if [ -r /etc/profile ]", profile)
 
         bashrc = heredoc(spec, "/etc/skel/.bashrc")
-        self.assertIn(". /etc/profile.d/bash_completion.sh", bashrc)
+        self.assertIn(". /etc/bashrc", bashrc)
         # Re-sourcing all of /etc/profile.d appends to PATH in some snippets.
         self.assertNotIn("/etc/profile.d/*.sh", bashrc)
+
+    def test_system_prompt_is_shared_by_login_and_terminal_shells(self):
+        spec = read("package_specs/tenko-sysconfig/tenko-sysconfig.spec")
+        bashrc = heredoc(spec, "/etc/bashrc")
+        # The prompt terminal emulators show must be the system one, not
+        # bash's compiled-in "bash-5.3$" fallback.
+        self.assertIn("PS1=", bashrc)
+        self.assertIn("bash_completion.sh", bashrc)
+        # /etc/profile loads the shared file and still runs profile.d.
+        # profile.d from ~/.bashrc.
+        profile = heredoc(spec, "/etc/profile")
+        self.assertIn(". /etc/bashrc", profile)
+        self.assertIn("/etc/profile.d/*.sh", profile)
 
 
 if __name__ == "__main__":

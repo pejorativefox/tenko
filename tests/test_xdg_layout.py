@@ -64,17 +64,18 @@ class XdgLayoutTest(unittest.TestCase):
 
     def test_local_bin_is_on_path_in_login_and_interactive_shells(self):
         spec = read("package_specs/tenko-sysconfig/tenko-sysconfig.spec")
-        profile = heredoc(spec, "/etc/profile")
-        bashrc = heredoc(spec, "/etc/skel/.bashrc")
+        bashrc = heredoc(spec, "/etc/bashrc")
+        skel = heredoc(spec, "/etc/skel/.bashrc")
         guard = 'case ":$PATH:" in'
-        for name, text in (("/etc/profile", profile), ("~/.bashrc", bashrc)):
-            self.assertIn(guard, text, name)
-            self.assertIn('*:$HOME/.local/bin:*)', text, name)
-            self.assertIn('PATH="$HOME/.local/bin:$PATH"', text, name)
-            self.assertIn("export PATH", text, name)
+        self.assertIn(guard, bashrc)
+        self.assertIn('*:$HOME/.local/bin:*)', bashrc)
+        self.assertIn('PATH="$HOME/.local/bin:$PATH"', bashrc)
+        self.assertIn("export PATH", bashrc)
         # The guard must not append unconditionally on every source.
-        self.assertEqual(profile.count(guard), 1)
         self.assertEqual(bashrc.count(guard), 1)
+        # Both startup paths reach the shared file.
+        self.assertIn(". /etc/bashrc", heredoc(spec, "/etc/profile"))
+        self.assertIn(". /etc/bashrc", skel)
 
     def test_basefs_creates_the_remaining_fhs_directories(self):
         spec = read("package_specs/tenko-basefs/tenko-basefs.spec")

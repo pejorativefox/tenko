@@ -1,6 +1,6 @@
 Name:       tenko-sysconfig
 Version:    6
-Release:    5
+Release:    6
 Epoch:      1
 Summary:    Base configuration for Tenko Linux
 License:    MIT
@@ -102,28 +102,44 @@ cat > %{buildroot}/etc/fstab <<'EOF2'
 # <file system> <mount point> <type> <options> <dump> <pass>
 tmpfs /tmp tmpfs defaults 0 0
 EOF2
-cat > %{buildroot}/etc/profile <<'EOF2'
+# System-wide interactive shell defaults.  /etc/profile is the only startup
+# file a login shell reads; terminal emulators start interactive non-login
+# shells, which read ~/.bashrc instead.  Both paths load this file so the
+# prompt, aliases and completions are defined once for the whole system.
+cat > %{buildroot}/etc/bashrc <<'EOF2'
+# Interactive bash settings shared by login and non-login shells.
 export PS1='(\h) \u:\w\$ '
 alias ls='ls --color'
-for f in /etc/profile.d/*.sh; do
-    [ -r "$f" ] && . "$f"
-done
-unset f
-# User-local executables.  Keep this idempotent: interactive shells read
-# ~/.bashrc too, and profile.d snippets may already have added the path.
+# Load bash-completion without re-running every /etc/profile.d snippet:
+# several of them append to PATH and are not all idempotent.
+if [ -r /etc/profile.d/bash_completion.sh ]; then
+    . /etc/profile.d/bash_completion.sh
+fi
+# User-local executables.  Keep the guard: this file is reached through more
+# than one startup path.
 case ":$PATH:" in
     *:$HOME/.local/bin:*) ;;
     *) PATH="$HOME/.local/bin:$PATH" ;;
 esac
 export PATH
 EOF2
+cat > %{buildroot}/etc/profile <<'EOF2'
+# Bash login shells share the interactive defaults with display-manager
+# terminals through /etc/bashrc.
+if [ -n "${BASH_VERSION-}" ] && [ -r /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+for f in /etc/profile.d/*.sh; do
+    [ -r "$f" ] && . "$f"
+done
+unset f
+EOF2
 
 # New-user shell startup.  Login shells read /etc/profile (and therefore
 # /etc/profile.d) on their own; terminal emulators start interactive
-# non-login shells, which only read ~/.bashrc.  Load bash-completion there
-# so tab completion works in a new account's terminal by default.  Do not
-# source all of /etc/profile.d again: some snippets append to PATH and are
-# not idempotent.
+# non-login shells, which only read ~/.bashrc.  Load the system defaults
+# there so a new account starts with the same prompt, aliases and
+# bash-completion as a login shell.
 cat > %{buildroot}/etc/skel/.bash_profile <<'EOF2'
 # Login shells already read /etc/profile, which loads the profile.d snippets;
 # this file only has to bring in the user's interactive settings.
@@ -133,21 +149,16 @@ fi
 EOF2
 cat > %{buildroot}/etc/skel/.bashrc <<'EOF2'
 # Interactive (non-login) shells, such as the ones terminal emulators start,
-# do not read /etc/profile.  Load the same bash-completion snippet that
-# /etc/profile.d provides to login shells.
-if [ -r /etc/profile.d/bash_completion.sh ]; then
-    . /etc/profile.d/bash_completion.sh
+# do not read /etc/profile.  Load the same system defaults a login shell gets.
+if [ -r /etc/bashrc ]; then
+    . /etc/bashrc
 fi
-# User-local executables, with the same idempotent guard as /etc/profile.
-case ":$PATH:" in
-    *:$HOME/.local/bin:*) ;;
-    *) PATH="$HOME/.local/bin:$PATH" ;;
-esac
-export PATH
 EOF2
+chmod 644 %{buildroot}/etc/bashrc
 chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 
 %files
+%config(noreplace) /etc/bashrc
 %dir /etc/skel
 %config(noreplace) /etc/skel/.bash_profile
 %config(noreplace) /etc/skel/.bashrc
@@ -175,6 +186,15 @@ chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 %config(noreplace) /etc/machine-id
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-6
+- Ship /etc/bashrc with the system prompt, ls alias, bash-completion and
+  ~/.local/bin PATH, and load it from /etc/profile and /etc/skel/.bashrc.
+  ~/.bashrc previously loaded completion but never set PS1, so a terminal
+  started by the desktop fell back to bash's default "bash-5.3$" prompt
+  instead of the system prompt login shells already had.  Existing accounts
+  keep their own ~/.bashrc; add "if [ -r /etc/bashrc ]; then . /etc/bashrc;
+  fi" there (or copy the fresh /etc/skel/.bashrc) to get the same prompt.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-5
 - Create /etc/polkit-1/rules.d with mode 0750 to match polkit's directory
   ownership; 0755 made a file conflict in a transaction that installed both

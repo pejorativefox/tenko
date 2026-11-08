@@ -1,6 +1,6 @@
 Name:       tenko-base-runtime
 Version:    6
-Release:    2
+Release:    3
 Epoch:      1
 Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
@@ -34,6 +34,7 @@ Requires:   psmisc
 Requires:   gettext-libs
 Requires:   grep
 Requires:   bash
+Requires:   bash-completion
 Requires:   gdbm
 Requires:   expat
 Requires:   inetutils
@@ -114,6 +115,12 @@ touch %{buildroot}/usr/share/tenko/base-runtime
 /usr/share/tenko/base-runtime
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-3
+- Require bash-completion.  The installer and the live ISO install this
+  runtime meta, not tenko-base, so promoting bash-completion into
+  base.json's package set did not put it on a freshly installed system.
+  A new install now gets the package and its /etc/profile.d snippet.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-2
 - Add NetworkManager, wpa-supplicant and nmtui plus linux-firmware-base
   (signed regulatory database) so base-only installs have wired and
