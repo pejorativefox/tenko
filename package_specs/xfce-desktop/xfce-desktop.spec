@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    16
+Release:    17
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -67,6 +67,7 @@ Requires:   shared-mime-info
 Requires:   xdg-user-dirs
 Requires:   xdg-utils
 Requires:   desktop-file-utils
+Requires:   xfce-polkit
 Requires:   tenko-desktop-config
 Requires:   linux-firmware-base
 # udev's hardware database is what maps PCI/USB/input IDs to device
@@ -109,6 +110,10 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-17
+- Require xfce-polkit so privileged desktop actions can show the polkit
+  authentication dialog (issue #40).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-16
 - Require xdg-utils and desktop-file-utils so the full desktop has the
   xdg-* tools and the desktop entry database trigger (issue #35).

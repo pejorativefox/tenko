@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    8
+Release:    9
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -42,6 +42,9 @@ Requires:   shared-mime-info
 # Creates ~/.config/user-dirs.dirs and the localized Desktop, Documents,
 # Downloads, Music, Pictures and Videos directories at session start.
 Requires:   xdg-user-dirs
+# Polkit authentication agent: privileged desktop actions need a session
+# agent to show the auth_admin dialog.
+Requires:   xfce-polkit
 # Desktop entry, MIME and icon metadata: xdg-utils provides the xdg-*
 # tools, desktop-file-utils validates/updates the entry database (and now
 # owns the file trigger), and mpv is the default media handler in
@@ -89,6 +92,10 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-9
+- Require xfce-polkit so the core session has a polkit authentication
+  agent for auth_admin actions (issue #40).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-8
 - Require xdg-utils, desktop-file-utils and mpv so the core profile has the
   desktop metadata tools, the entry database trigger and the default media

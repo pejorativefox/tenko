@@ -1,6 +1,6 @@
 Name:       tenko-sysconfig
 Version:    6
-Release:    3
+Release:    4
 Epoch:      1
 Summary:    Base configuration for Tenko Linux
 License:    MIT
@@ -72,6 +72,16 @@ chmod 0444 %{buildroot}/etc/machine-id
 cat > %{buildroot}/etc/hosts <<'EOF2'
 127.0.0.1 localhost
 ::1       localhost
+EOF2
+# The installer creates the admin account in wheel and keeps root locked.
+# Make that group the polkit administrator for auth_admin actions; the
+# accountsservice rule still adds adm for compatibility.
+mkdir -p %{buildroot}/etc/polkit-1/rules.d
+cat > %{buildroot}/etc/polkit-1/rules.d/50-tenko-wheel.rules <<'EOF2'
+// Tenko: the installer adds the admin user to wheel and locks root.
+polkit.addAdminRule(function(action, subject) {
+    return ["unix-group:wheel"];
+});
 EOF2
 cat > %{buildroot}/etc/shells <<'EOF2'
 /bin/sh
@@ -149,6 +159,9 @@ chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 %config(noreplace) /etc/dracut.conf.d/10-tenko.conf
 %config(noreplace) /etc/systemd/network/10-dhcp.network
 %config(noreplace) /etc/hosts
+%dir /etc/polkit-1
+%dir /etc/polkit-1/rules.d
+%config(noreplace) /etc/polkit-1/rules.d/50-tenko-wheel.rules
 %config(noreplace) /etc/shells
 %config(noreplace) /etc/inputrc
 %config(noreplace) /etc/vimrc
@@ -161,6 +174,12 @@ chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 %config(noreplace) /etc/machine-id
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-4
+- Ship /etc/polkit-1/rules.d/50-tenko-wheel.rules so the installer-created
+  admin account (wheel) is a polkit administrator for auth_admin actions;
+  root stays locked and accountsservice's adm rule remains in place
+  (issue #40).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-3
 - Add ~/.local/bin to PATH in /etc/profile and /etc/skel/.bashrc.  The
   update is idempotent and covers both login shells and the interactive
