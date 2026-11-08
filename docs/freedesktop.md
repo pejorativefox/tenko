@@ -85,13 +85,13 @@ open without weakening the end state.
 | `sound-naming` | 0.2 | implemented | freedesktop stereo event sounds; XSettings default in tenko-desktop-config |
 | `sound-theme` | 0.2 | implemented | sound-theme-freedesktop 0.8 with a valid index.theme; desktop profiles require it |
 | `startup-notification` | 0.2 | implemented | Library and xfwm4 support packaged; verification in #36 |
-| `status-notifier-item` | 0.1 draft | N/A | Draft; optional SNI host work in #44 |
-| `systemtray` | 0.3 | implemented | xfce4-panel systray plugin; verification in #44 |
+| `status-notifier-item` | 0.1 draft | N/A | Draft; no maintained XFCE SNI host is packaged (see the tray section); optional work in #44 |
+| `systemtray` | 0.3 | implemented | xfce4-panel systray plugin in the default panel; _NET_SYSTEM_TRAY_S0 check in #44 |
 | `terminal-intent` | draft | N/A | Draft/Wayland-oriented; no implementation |
 | `thumbnail` | 0.8.0/0.9.0 | implemented | tumbler covers, desktop files, fonts, JPEG and pixbuf; video/audio unsupported and documented below |
 | `trash` | 1.0 | implemented | gvfsd-trash via gvfs; home layout tested; cross-filesystem limitation documented below |
 | `wm` | 1.5 | implemented | xfwm4; EWMH atom verification in #36 |
-| `xembed` | 0.5 | implemented | xfce4-panel systray; verification in #44 |
+| `xembed` | 0.5 | implemented | xfce4-panel systray plugin (XEmbed host); session check in #44 |
 | `xsettings` | 0.5 | implemented | xfsettingsd; verification in #36 |
 | `XDG user dirs` | current spec | implemented | xdg-user-dirs 0.20 in the desktop profiles; the autostart entry creates ~/.config/user-dirs.dirs and the standard directories; verification in #34 |
 | `xdg-desktop-portal` | 1.22 | implemented | portal, GTK backend and Flatpak in the desktop profiles; xfce-portals.conf defaults to gtk; unsupported interfaces documented |
@@ -269,6 +269,21 @@ broken activation.
 The final QEMU check introspects `org.freedesktop.portal.Desktop`, opens a
 file chooser and OpenURI, sends a notification and confirms the document
 portal and permission store activate.
+
+## System tray and StatusNotifierItem
+
+The default XFCE panel includes the `systray` plugin (`libsystray.so`), which
+implements the XEmbed System Tray 0.3 protocol.  The session checker verifies
+that an owner holds `_NET_SYSTEM_TRAY_S0` and that the panel configuration
+contains the plugin.  XEmbed clients such as `nm-applet` therefore appear and
+activate normally.
+
+StatusNotifierItem is a draft specification and Tenko does not ship an SNI
+host: the available XFCE SNI plugins are unmaintained and would add a second
+tray implementation to the panel.  Applications that *only* provide an SNI
+icon (some modern Electron/Flatpak apps) may not show a tray icon; this is
+the documented limitation.  Revisit if a maintained host is packaged and the
+default panel can carry both.
 
 ## Runtime verification
 

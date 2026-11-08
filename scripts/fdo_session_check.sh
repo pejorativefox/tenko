@@ -262,6 +262,63 @@ else
     skip "startup-e2e" "no test application with startup-notification support (xfce4-terminal) is installed"
 fi
 
+# ---------------------------------------------------------------------------
+# System tray (System Tray 0.3 / XEmbed 0.5) and StatusNotifierItem
+# ---------------------------------------------------------------------------
+if ! have python3; then
+    skip "tray-selection" "python3 not installed; cannot query _NET_SYSTEM_TRAY_S0"
+elif ! python3 -c 'import ctypes' >/dev/null 2>&1; then
+    skip "tray-selection" "python3 ctypes is unavailable"
+else
+    python3 - <<'PY' 2>/dev/null
+import ctypes
+import sys
+
+try:
+    xlib = ctypes.CDLL("libX11.so.6")
+except OSError:
+    sys.exit(2)
+xlib.XOpenDisplay.restype = ctypes.c_void_p
+display = xlib.XOpenDisplay(None)
+if not display:
+    sys.exit(2)
+xlib.XInternAtom.restype = ctypes.c_ulong
+xlib.XInternAtom.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_int]
+xlib.XGetSelectionOwner.restype = ctypes.c_ulong
+xlib.XGetSelectionOwner.argtypes = [ctypes.c_void_p, ctypes.c_ulong]
+atom = xlib.XInternAtom(display, b"_NET_SYSTEM_TRAY_S0", 0)
+owner = xlib.XGetSelectionOwner(display, atom)
+if owner:
+    print(hex(owner))
+    sys.exit(0)
+sys.exit(1)
+PY
+    tray_rc=$?
+    case "$tray_rc" in
+        0)  pass "tray-selection" "_NET_SYSTEM_TRAY_S0 has an owner" ;;
+        1)  fail "tray-selection" "no XEmbed system tray owns _NET_SYSTEM_TRAY_S0" ;;
+        *)  skip "tray-selection" "libX11 is unavailable; cannot query the tray selection" ;;
+    esac
+fi
+
+if ! have xfconf-query; then
+    skip "tray-plugin" "xfconf-query not installed; cannot inspect the panel plugins"
+else
+    plugins=$(xfconf-query -c xfce4-panel -p /plugins -l -v 2>/dev/null) ||
+        plugins=$(xfconf-query -c xfce4-panel -p /plugins 2>/dev/null) ||
+        plugins=
+    if printf '%s\n' "$plugins" | grep -q 'systray'; then
+        pass "tray-plugin" "the panel configuration includes the systray plugin"
+    else
+        fail "tray-plugin" "the panel configuration has no systray plugin"
+    fi
+    if printf '%s\n' "$plugins" | grep -q 'statusnotifier'; then
+        pass "sni-host" "the panel configuration includes a StatusNotifierItem host"
+    else
+        skip "sni-host" "no StatusNotifierItem host is shipped (draft; documented)"
+    fi
+fi
+
 if [ "$status" -eq 0 ]; then
     printf '%s\n' "session integration: OK"
 else
