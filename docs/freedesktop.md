@@ -78,7 +78,7 @@ open without weakening the end state.
 | `mpris` | current spec | N/A | Application responsibility (media players); no distro service |
 | `notification` | 1.3 | gap | No notification daemon installed; #37 |
 | `polkit` | current docs | partial | Daemon packaged, no authentication agent; #40 |
-| `recent-files` | 0.3 | partial | gvfsd-recent shipped via thunar; unverified; #38 |
+| `recent-files` | 0.3 | implemented | gvfsd-recent via gvfs (required by Thunar); recent:// verified in #32 |
 | `secret-service` | 0.2 | gap | libsecret client only, no provider; #39 |
 | `shortcuts` | draft | N/A | Portal/Wayland; no Wayland session |
 | `shared-mime-info` | 0.22 | implemented | MIME database packaged; update-mime-database file trigger |
@@ -88,8 +88,8 @@ open without weakening the end state.
 | `status-notifier-item` | 0.1 draft | N/A | Draft; optional SNI host work in #44 |
 | `systemtray` | 0.3 | implemented | xfce4-panel systray plugin; verification in #44 |
 | `terminal-intent` | draft | N/A | Draft/Wayland-oriented; no implementation |
-| `thumbnail` | 0.8.0/0.9.0 | partial | tumbler present, video/audio thumbnailer disabled; #38 |
-| `trash` | 1.0 | partial | gvfsd-trash shipped via thunar; layout unverified; #38 |
+| `thumbnail` | 0.8.0/0.9.0 | implemented | tumbler covers, desktop files, fonts, JPEG and pixbuf; video/audio unsupported and documented below |
+| `trash` | 1.0 | implemented | gvfsd-trash via gvfs; home layout tested; cross-filesystem limitation documented below |
 | `wm` | 1.5 | implemented | xfwm4; EWMH atom verification in #36 |
 | `xembed` | 0.5 | implemented | xfce4-panel systray; verification in #44 |
 | `xsettings` | 0.5 | implemented | xfsettingsd; verification in #36 |
@@ -139,6 +139,32 @@ the resolved path instead.  `/etc/xdg/mimeapps.list` maps
 `x-scheme-handler/help` to `tenko-help.desktop`, so `xdg-open help:tenko`
 works on a full desktop (through the XFCE preferred browser) and degrades to
 the printed path on a minimal install.
+
+## Trash and recent files
+
+gvfs supplies `gvfsd-trash`, `gvfsd-recent` and `gvfsd-metadata`; Thunar
+requires gvfs, so `trash://` and `recent://` are available on a desktop
+install.  The home trash layout is `$XDG_DATA_HOME/Trash/{files,info}` with
+`Path` and `DeletionDate` in each `.trashinfo`, as required by Trash 1.0.
+
+GLib's local trash refuses to move a file across filesystem boundaries on
+some system-internal mounts (it reports "system internal mounts" or "across
+filesystem boundaries" instead of creating a top-directory trash).  This is
+an upstream GLib limitation, not a distro configuration choice.  Files on
+the same filesystem as the home trash, including the common `/home` case,
+are handled; the limitation is recorded here so the behaviour is not
+mistaken for a silent data-loss bug.
+
+## Thumbnail support
+
+tumbler ships the cover, desktop, font, JPEG and pixbuf thumbnailers.  The
+GStreamer thumbnailer is deliberately disabled: Tenko does not package the
+codec set it would need for reliable video and audio thumbnails, and
+`libffmpegthumbnailer` is not packaged either.  Image, font, cover and
+desktop-file thumbnails are supported; video and audio thumbnails are
+**unsupported** and fall back to the application's generic icon.  Adding a
+codec-backed thumbnailer later means packaging the required plugins and
+re-enabling the plugin in the tumbler spec together with the file list.
 
 ## Runtime verification
 
