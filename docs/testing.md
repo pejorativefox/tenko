@@ -153,9 +153,41 @@ python3 -m unittest discover -s tests -v
 ```
 
 The command runs the top-level tests (build database, the no-`-devel` rule,
-repository index generation) and the installer suite under
-`package_specs/tenko-installer/tests/` (planner, probe, answer file, dry-run
-install and simulation).  It needs no QEMU, root, network or block devices.
+repository index generation, the freedesktop audit fixtures) and the installer
+suite under `package_specs/tenko-installer/tests/` (planner, probe, answer
+file, dry-run install and simulation).  It needs no QEMU, root, network or
+block devices.
+
+`scripts/run_checks.sh` is the local/CI entry point: it runs the unit tests,
+`scripts/gen_base_requires.py --check` and the static freedesktop audit.
+
+## Freedesktop audit
+
+[`freedesktop.md`](freedesktop.md) is the durable compliance matrix.  The
+audit prints one result per matrix row and exits non-zero only for `FAIL`
+rows: findings in a row marked `implemented` are fatal, while findings in
+`partial`/`gap` rows are reported as `OPEN` and owned by the linked issue.
+
+```sh
+# Built repository (validates desktop entries, AppStream, menus, MIME and icons)
+python3 scripts/fdo_audit.py --rpm-dir build/repo-publish/6 --verbose
+
+# An extracted or mounted root tree
+python3 scripts/fdo_audit.py --root build/rootfs-xfce
+
+# Static checks from a clean checkout (specs and file lists only)
+python3 scripts/fdo_audit.py --no-rpm
+
+# One or more rows while iterating
+python3 scripts/fdo_audit.py --rpm-dir build/repo-publish/6 --only desktop-entry,icons
+```
+
+The full RPM audit needs `desktop-file-utils`, `appstream`, `rpm`,
+`rpm2cpio` and `cpio` on the host; it is network-free and takes well under a
+minute for the current repository.  `--json` adds a machine-readable report.
+Set `--rpm-dir` to a staging directory (for example a wave output) to audit
+freshly built packages before they are published.
+
 
 ## Notes
 

@@ -72,12 +72,15 @@ read only `~/.bashrc`, so `profile.d` is not a general environment loader.
 
 Every default that can silently regress gets a `unittest` under `tests/`
 (see `tests/test_base_shell.py`, `tests/test_desktop_defaults.py`,
-`tests/test_no_devel_subpackages.py`).  Before publishing run:
+`tests/test_no_devel_subpackages.py`, `tests/test_fdo_audit.py`).  Before
+publishing run:
 
 ```sh
-python3 -m unittest discover -s tests
-scripts/gen_base_requires.py --check
+scripts/run_checks.sh
 ```
+
+It runs the unit tests, `scripts/gen_base_requires.py --check` and the
+freedesktop audit; see [`testing.md`](testing.md) for the audit modes.
 
 ## Versions and changelogs
 
