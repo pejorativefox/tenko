@@ -94,7 +94,7 @@ open without weakening the end state.
 | `xembed` | 0.5 | implemented | xfce4-panel systray; verification in #44 |
 | `xsettings` | 0.5 | implemented | xfsettingsd; verification in #36 |
 | `XDG user dirs` | current spec | implemented | xdg-user-dirs 0.20 in the desktop profiles; the autostart entry creates ~/.config/user-dirs.dirs and the standard directories; verification in #34 |
-| `xdg-desktop-portal` | 1.22 | gap | Portal packaged, no backend; #41 |
+| `xdg-desktop-portal` | 1.22 | implemented | portal, GTK backend and Flatpak in the desktop profiles; xfce-portals.conf defaults to gtk; unsupported interfaces documented |
 
 ## Work issues
 
@@ -182,6 +182,29 @@ The audit parses every `/usr/share/dbus-1` and `/etc/dbus-1` configuration
 file and the polkit `.policy` XML.  The runtime prompt is exercised by the
 final QEMU desktop test; the system bus must start without policy parse
 errors.
+
+## Portals and Flatpak
+
+Tenko ships `xdg-desktop-portal` 1.22.1, the `xdg-desktop-portal-gtk` 1.15.3
+backend, `xdg-dbus-proxy`, `bubblewrap` and `flatpak` 1.18.4 in the default
+desktop profiles.  Flatpak is part of the default install; the Flathub remote
+is shipped through `/usr/share/flatpak/remotes.d/flathub.flatpakrepo`, and
+`/etc/polkit-1/rules.d/50-tenko-flatpak.rules` lets active local `wheel`
+users manage system remotes and install local bundles.
+
+`xfce-portals.conf` selects `default=gtk` instead of naming xapp (not
+packaged) and the Wayland-only wlr ScreenCast backend.  The GTK backend
+implements FileChooser, AppChooser, Print, Notification, Inhibit, Access,
+Account, Email, DynamicLauncher, Lockdown and Settings.  Screenshot,
+ScreenCast, Background, Wallpaper and Secret have no backend in this release:
+Screenshot/Background/Wallpaper would need xapp, ScreenCast is
+Wayland-oriented, and Secret waits for the #39 provider.  Applications using
+those interfaces get the portal's normal "not supported" reply rather than a
+broken activation.
+
+The final QEMU check introspects `org.freedesktop.portal.Desktop`, opens a
+file chooser and OpenURI, sends a notification and confirms the document
+portal and permission store activate.
 
 ## Runtime verification
 
