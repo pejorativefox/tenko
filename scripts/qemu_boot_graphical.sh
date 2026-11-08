@@ -46,6 +46,19 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     # CA trust directories are read-only; remove them with fake-root
     # privileges so a rebuild can start from a clean tree.
     unshare -r rm -rf "$ROOTFS"
+    mkdir -p "$ROOTFS/dev"
+    # The fake-root build cannot mknod; regular files are enough for the
+    # redirections and helpers the scriptlets use.
+    for dev in null zero random urandom; do : > "$ROOTFS/dev/$dev"; done
+
+    # Lay down the merged-/usr symlinks before DNF creates /lib as a real
+    # directory in the installroot; otherwise tenko-basefs cannot unpack.
+    unshare -r dnf -y --nogpgcheck \
+        --installroot "$ROOTFS" --releasever=6 \
+        --disablerepo='*' --repofrompath=desktop,$REPOPATH \
+        --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
+        install tenko-basefs
+
     unshare -r dnf -y --nogpgcheck \
         --installroot "$ROOTFS" --releasever=6 \
         --disablerepo='*' --repofrompath=desktop,$REPOPATH \
