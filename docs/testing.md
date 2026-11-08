@@ -131,6 +131,27 @@ Evidence: `build/installer-serial-tcg.log` and
 checks above were not repeated for this rebuild; they remain the 2026-11-06
 record.
 
+### 2026-11-08 rebuild boot check
+
+Artifact: published `tenko-installer.iso`, 573,976,576 B, SHA-256
+`c8f7b4e288a7f39a6af3fd9f35731d5555f33cba6e383edf54367d5fc5a348ca`.
+
+Environment: QEMU 11.1.3 and OVMF 202608-2, 4 GiB guest RAM, a blank 20 GiB
+virtio disk and a fresh OVMF variable store.  The rebuild includes the
+`2026-11-08` console stack (kmscon plus the Noto/Nerd font fallbacks).
+
+| check | result | evidence |
+|---|---|---|
+| stock ISO boots under OVMF | **PASS** | systemd-boot entry, `Tenko Linux 6 (Workstation)`, kernel 7.3.1, dracut live root |
+| installer service starts | **PASS** | `Started Tenko Linux installer` |
+| kmscon replaces fbcon on tty1 | **PASS** | `Started KMS System Console on tty1` |
+| system reaches multi-user | **PASS** | `Reached target Multi-User System`, `localhost login:` |
+| failed units / emergency mode | **PASS** | no `Failed to start` or emergency lines |
+
+Evidence: `build/installer-serial.log` and `build/installer-screen.ppm`.  The
+full unattended install and graphical checks above were not repeated for this
+rebuild; they remain the 2026-11-06 record.
+
 ## Graphical tests
 
 ```sh

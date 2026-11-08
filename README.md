@@ -21,7 +21,7 @@ curl -LO https://tenko.pjfox.xyz/iso/tenko-installer.iso.sha256
 sha256sum -c tenko-installer.iso.sha256
 ```
 
-The ISO is 496 MiB.  On the LAN the mirror carries the same bytes:
+The ISO is 548 MiB.  On the LAN the mirror carries the same bytes:
 `http://192.168.31.9/~daspork/tenko/iso/`.  Images are rebuilt only on
 request; a future rebuild may also publish versioned `tenko-installer-6.iso`
 and `tenko-rootfs-6.tar.gz`, with the unversioned names kept as aliases.
