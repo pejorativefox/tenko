@@ -79,7 +79,11 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     fi
 
     unshare -r chroot "$ROOTFS" /sbin/ldconfig || true
-    depmod -b "$ROOTFS" "$KVER" || true
+    if command -v depmod >/dev/null 2>&1; then
+        depmod -b "$ROOTFS" "$KVER" || true
+    elif [ -x "$ROOTFS/usr/sbin/depmod" ]; then
+        unshare -r chroot "$ROOTFS" /usr/sbin/depmod -a "$KVER" || true
+    fi
 fi
 
 if [ -n "$EXTRA_RPMS" ]; then
@@ -95,7 +99,27 @@ if [ ! -f "$ROOTFS/boot/initramfs-$KVER.img" ] && [ -x "$ROOTFS/usr/bin/dracut" 
     "$PWD/scripts/make_initramfs.sh" "$ROOTFS" "$KVER"
 fi
 
-# One-shot X session for the test: root, tty1, no login required.
+# One-shot X session for the test: root, tty1, no login required.  The
+# wrapper records the environment, the X lock state and the startx exit
+# status so an intermittent failure is not silent on the serial console.
+cat > "$ROOTFS/usr/local/bin/xfce-test-startx.sh" <<'EOF'
+#!/bin/sh
+log=/run/xfce-test-startx.log
+exec >>"$log" 2>&1
+echo "=== startx wrapper $(date -u '+%Y-%m-%dT%H:%M:%SZ') ==="
+echo "--- environment ---"
+env | sort
+mkdir -p /run/user/0 /tmp/.X11-unix
+chmod 700 /run/user/0
+chmod 1777 /tmp/.X11-unix
+rm -f /tmp/.X0-lock /tmp/.X11-unix/X0
+echo "--- startx ---"
+/usr/bin/startx -- :0 vt1 -ac
+rc=$?
+echo "startx exit status: $rc"
+exit "$rc"
+EOF
+chmod 0755 "$ROOTFS/usr/local/bin/xfce-test-startx.sh"
 cat > "$ROOTFS/etc/systemd/system/xfce-test.service" <<'EOF'
 [Unit]
 Description=Start XFCE on tty1 (graphical boot test)
@@ -110,10 +134,7 @@ Environment=GTK_THEME=Default
 TTYPath=/dev/tty1
 StandardInput=tty
 StandardOutput=journal+console
-ExecStartPre=/bin/mkdir -p /run/user/0
-ExecStartPre=/bin/chmod 700 /run/user/0
-ExecStartPre=/bin/rm -f /tmp/.X0-lock /tmp/.X11-unix/X0
-ExecStart=/usr/bin/startx -- :0 vt1 -ac
+ExecStart=/usr/local/bin/xfce-test-startx.sh
 Restart=no
 TimeoutStartSec=30
 
@@ -134,6 +155,7 @@ mount -t 9p -o trans=virtio,version=9p2000.L host0 /mnt 2>/dev/null || true
     echo "===GLMODULES==="; ls -l /usr/lib64/xorg/modules/extensions/ /usr/lib64/dri/ 2>&1
     echo "===JOURNAL==="; journalctl -b -o short
     echo "===XORG==="; cat /var/log/Xorg.0.log 2>&1
+    echo "===STARTX==="; cat /run/xfce-test-startx.log 2>&1
 } > /mnt/debug.txt 2>&1
 xwd -root -out /mnt/root.xwd 2>>/mnt/debug.txt
 EOF

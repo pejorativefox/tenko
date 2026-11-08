@@ -82,6 +82,13 @@ if [ "$SKIP_INSTALL" != "1" ]; then
             echo "missing package after install: $pkg" >&2; exit 1; }
     done
 
+    # The image build uses fake root, so %pre/%post user creation may not have
+    # run; systemd-sysusers creates the system accounts (including the root
+    # entry the first-boot prompt needs) from the shipped sysusers.d files.
+    if [ -x "$ROOTFS/usr/bin/systemd-sysusers" ]; then
+        unshare -r chroot "$ROOTFS" /usr/bin/systemd-sysusers || true
+    fi
+
     # Presets are only applied when something asks systemd to apply them.
     if [ -x "$ROOTFS/usr/bin/systemctl" ]; then
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ preset-all || true

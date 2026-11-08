@@ -268,7 +268,11 @@ broken activation.
 
 The final QEMU check introspects `org.freedesktop.portal.Desktop`, opens a
 file chooser and OpenURI, sends a notification and confirms the document
-portal and permission store activate.
+portal and permission store activate.  It runs from a LightDM autologin
+session with a systemd user manager, waits for `graphical-session.target` and
+`xfce-session.target`, and requires `xdg-desktop-portal.service` to be
+activated by the user manager; a private dbus-launch bus is a harness
+failure, not a portal pass.
 
 XFCE 4.20 does not start its session through systemd, so nothing activates
 `graphical-session.target`; `xdg-desktop-portal.service` uses

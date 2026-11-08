@@ -8,6 +8,11 @@
 # bus is a failure because the checker is meant to run inside the desktop
 # session (for example from the graphical QEMU test after login).
 #
+# Tenko relies on a systemd user manager for D-Bus activation: a private
+# dbus-launch bus (unix:path=/tmp/dbus-*) cannot activate services such as
+# xdg-desktop-portal.  The checker therefore requires the manager bus and
+# the issue #48 session targets, not merely "some bus".
+#
 # Usage:
 #   sh scripts/fdo_session_check.sh
 #
@@ -49,7 +54,15 @@ if [ -z "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
     env_ok=0
 elif have busctl; then
     if busctl --user status >/dev/null 2>&1; then
-        pass "session-bus" "busctl --user status succeeds"
+        case "$DBUS_SESSION_BUS_ADDRESS" in
+            unix:path=/tmp/dbus-*)
+                fail "session-bus" "private dbus-launch bus; the systemd user manager bus is required for portal activation"
+                env_ok=0
+                ;;
+            *)
+                pass "session-bus" "busctl --user status succeeds ($DBUS_SESSION_BUS_ADDRESS)"
+                ;;
+        esac
     else
         fail "session-bus" "DBUS_SESSION_BUS_ADDRESS is set but busctl --user status failed"
         env_ok=0
@@ -57,7 +70,15 @@ elif have busctl; then
 elif have dbus-send; then
     if dbus-send --session --print-reply --dest=org.freedesktop.DBus \
         / org.freedesktop.DBus.GetId >/dev/null 2>&1; then
-        pass "session-bus" "org.freedesktop.DBus answers on the session bus"
+        case "$DBUS_SESSION_BUS_ADDRESS" in
+            unix:path=/tmp/dbus-*)
+                fail "session-bus" "private dbus-launch bus; the systemd user manager bus is required for portal activation"
+                env_ok=0
+                ;;
+            *)
+                pass "session-bus" "org.freedesktop.DBus answers on the session bus"
+                ;;
+        esac
     else
         fail "session-bus" "DBUS_SESSION_BUS_ADDRESS is set but dbus-send could not reach the bus"
         env_ok=0
@@ -69,6 +90,45 @@ fi
 if [ "$env_ok" -ne 1 ]; then
     printf '%s\n' "session integration: no usable X/session-bus environment" >&2
     exit "$status"
+fi
+
+# ---------------------------------------------------------------------------
+# Systemd user manager and the #48 session targets
+#
+# The portal is a D-Bus activated user service with
+# Requisite=graphical-session.target.  Without the user manager and the
+# targets, introspection can still succeed through the legacy Exec= path on
+# a private bus, which is not the path a real login uses.
+# ---------------------------------------------------------------------------
+if ! have systemctl; then
+    skip "user-manager" "systemctl is not installed; cannot verify systemd user services"
+    skip "session-targets" "systemctl is not installed"
+else
+    manager=$(systemctl --user show -p Version --value 2>/dev/null) || manager=
+    if [ -n "$manager" ]; then
+        pass "user-manager" "systemd user manager $manager"
+    else
+        fail "user-manager" "systemctl --user cannot reach the user manager"
+    fi
+    if [ -n "$manager" ]; then
+        i=0
+        while [ "$i" -lt 20 ]; do
+            if systemctl --user is-active -q graphical-session.target 2>/dev/null &&
+               systemctl --user is-active -q xfce-session.target 2>/dev/null; then
+                break
+            fi
+            i=$((i + 1))
+            sleep 1
+        done
+        graphical=$(systemctl --user is-active graphical-session.target 2>&1) ||
+            graphical=
+        xfce=$(systemctl --user is-active xfce-session.target 2>&1) || xfce=
+        if [ "$graphical" = active ] && [ "$xfce" = active ]; then
+            pass "session-targets" "graphical-session.target and xfce-session.target are active"
+        else
+            fail "session-targets" "graphical-session.target=${graphical:-unknown} xfce-session.target=${xfce:-unknown}"
+        fi
+    fi
 fi
 
 # ---------------------------------------------------------------------------
@@ -226,9 +286,10 @@ elif ! have xwininfo; then
     skip "startup-e2e" "xwininfo not installed; cannot search all X windows for _NET_STARTUP_ID"
 elif have xfce4-terminal; then
     startup_token="tenko-session-check-$$-$(date +%s)"
+    startup_log=/tmp/tenko-startup-check.$$.log
     DESKTOP_STARTUP_ID="$startup_token" \
         xfce4-terminal --disable-server --title=tenko-startup-check \
-        >/dev/null 2>&1 &
+        >"$startup_log" 2>&1 &
     startup_pid=$!
     startup_found=0
     startup_tries=0
@@ -251,12 +312,18 @@ elif have xfce4-terminal; then
         done
         [ "$startup_found" -eq 1 ] && break
     done
-    kill "$startup_pid" 2>/dev/null || :
+    # Only kill the process if the PID still belongs to the terminal; the
+    # application may have exited and its PID may have been reused.
+    if [ "$(ps -o comm= -p "$startup_pid" 2>/dev/null)" = xfce4-terminal ]; then
+        kill "$startup_pid" 2>/dev/null || :
+    fi
     wait "$startup_pid" 2>/dev/null || :
+    startup_err=$(sed -n '1p' "$startup_log" 2>/dev/null) || startup_err=
+    rm -f "$startup_log"
     if [ "$startup_found" -eq 1 ]; then
         pass "startup-e2e" "xfce4-terminal published _NET_STARTUP_ID=$startup_token"
     else
-        fail "startup-e2e" "xfce4-terminal did not publish _NET_STARTUP_ID in 10s"
+        fail "startup-e2e" "xfce4-terminal did not publish _NET_STARTUP_ID in 10s${startup_err:+ ($startup_err)}"
     fi
 else
     skip "startup-e2e" "no test application with startup-notification support (xfce4-terminal) is installed"
@@ -281,7 +348,8 @@ except OSError:
 xlib.XOpenDisplay.restype = ctypes.c_void_p
 display = xlib.XOpenDisplay(None)
 if not display:
-    sys.exit(2)
+    # libX11 loaded but the display could not be opened.
+    sys.exit(3)
 xlib.XInternAtom.restype = ctypes.c_ulong
 xlib.XInternAtom.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_int]
 xlib.XGetSelectionOwner.restype = ctypes.c_ulong
@@ -297,7 +365,9 @@ PY
     case "$tray_rc" in
         0)  pass "tray-selection" "_NET_SYSTEM_TRAY_S0 has an owner" ;;
         1)  fail "tray-selection" "no XEmbed system tray owns _NET_SYSTEM_TRAY_S0" ;;
-        *)  skip "tray-selection" "libX11 is unavailable; cannot query the tray selection" ;;
+        2)  skip "tray-selection" "libX11 is unavailable; cannot query the tray selection" ;;
+        3)  fail "tray-selection" "the X display is not reachable; cannot query the tray selection" ;;
+        *)  skip "tray-selection" "libX11 returned $tray_rc; cannot query the tray selection" ;;
     esac
 fi
 

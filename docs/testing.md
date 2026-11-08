@@ -142,9 +142,9 @@ SKIP_INSTALL=1 scripts/qemu_boot_login.sh
 BUILD_ONLY=1 scripts/qemu_boot_login.sh
 ```
 
-For the freedesktop desktop-level gate, run the same boot plus the in-guest
-session checks (notifications, portal, Secret Service, sound, trash, tray,
-XSettings and EWMH).  Prefer the LAN mirror when it is reachable:
+For the freedesktop desktop-level gate, run the same install plus the
+in-guest session checks (notifications, portal, Secret Service, sound, trash,
+tray, XSettings and EWMH).  Prefer the LAN mirror when it is reachable:
 
 ```sh
 REPO=http://192.168.31.9/~daspork/tenko/packages/6/ \
@@ -152,11 +152,49 @@ REPO=http://192.168.31.9/~daspork/tenko/packages/6/ \
 REPO=build/repo-all scripts/qemu_fdo_verify.sh   # local repository
 ```
 
-`scripts/qemu_fdo_verify.sh` installs a fresh rootfs, adds a one-shot guest
-service that writes `build/qemu-share/fdo-check.txt`, boots QEMU, and exits
-non-zero if any guest check reports `FAIL`.  The PAM keyring unlock is
-covered separately by the LightDM PAM configuration and a manual greeter
-login.
+`scripts/qemu_fdo_verify.sh` installs a fresh rootfs (or reuses a cached one,
+see below) and logs in through LightDM autologin as an ordinary test account,
+so the checks run in a real
+logind session with a systemd user manager and
+`DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus`.  This is the same
+D-Bus activation path as a real login: the portal check waits for
+`graphical-session.target` and `xfce-session.target`, then confirms that
+`xdg-desktop-portal.service` is active under the user manager (the issue #48
+fix).  A private `unix:path=/tmp/dbus-*` bus is never accepted as a pass.
+
+The guest writes `build/qemu-share/fdo-check.txt` and the script exits:
+
+| status | meaning |
+|---|---|
+| `0` | every check passed; hardware-only checks may be `SKIP` |
+| `1` | a packaged component failed its check (`FAIL`) |
+| `2` | harness failure (`HARNESS-FAIL`): no usable login session, wrong bus, or missing #48 units; LightDM/Xorg/journal diagnostics are in `fdo-check.txt` |
+
+The script fails before booting if the installed `tenko-desktop-config` is
+older than 6-6 (no `xfce-session.target`) or if a required desktop package is
+missing.  `WAIT`, `SESSION_WAIT`, `TARGET_WAIT` and `DESKTOP_WAIT` bound the
+host and guest timeouts; the result file is written atomically so a partial
+check cannot be mistaken for a pass.  The log prints the rootfs, guest and
+total phase times.
+
+The installed package set is cached while the repository's `repomd.xml` is
+unchanged: the first run installs, later runs reuse it and only rebuild the
+image and boot QEMU.  Use `REBUILD_ROOTFS=1` for a forced fresh install,
+`SKIP_BUILD=1` to reuse any existing rootfs, and `MEM=4096` (the default) to
+change the guest memory.
+
+The Secret Service is checked twice: a `dbus-run-session` round-trip as root
+(provider packaging) and a `secret-tool` round-trip in the login session
+(user keyring).  Autologin has no password for PAM to hand to
+`pam_gnome_keyring`, so the guest unlocks the keyring with the test password;
+if the persistent login collection does not exist, the round-trip uses the
+Secret Service session collection.  The PAM hooks themselves are checked in
+`/etc/pam.d/lightdm` and `/etc/pam.d/lightdm-autologin`.  To exercise the
+greeter unlock end to end, disable the autologin drop-in in a test image, log
+in at the LightDM greeter with the test password, and confirm that
+`secret-tool lookup service tenko key test` returns without the manual
+unlock.  The #48 evidence in that manual greeter login is recorded on the
+issue tracker.
 
 Both install from the published repository (`REPO`, default public URL) into
 `build/rootfs-*`, build an ext4 image, boot it and capture the screen.  Logs
@@ -167,7 +205,11 @@ and screenshots are written under `build/`.
 `scripts/fdo_session_check.sh` checks the freedesktop session protocols from
 inside a live XFCE/X11 session.  It is network-free and read-only, needs
 `DISPLAY` and a reachable session bus (`DBUS_SESSION_BUS_ADDRESS`), and prints
-one `PASS`/`FAIL`/`SKIP` line per check:
+one `PASS`/`FAIL`/`SKIP` line per check.  It requires the systemd user manager
+bus (`XDG_RUNTIME_DIR/bus`): a private `dbus-launch` bus cannot activate the
+portal, so it is reported as a failure rather than a pass.  It also verifies
+that `graphical-session.target` and `xfce-session.target` are active, which
+covers the issue #48 autostart entry:
 
 ```sh
 # run as the logged-in user inside the guest

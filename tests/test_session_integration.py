@@ -331,6 +331,16 @@ class SessionComponentsTest(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_qemu_gate_uses_a_real_login_session(self):
+        """The desktop gate must cover the systemd user manager path (#46)."""
+        script = read_text(REPO_ROOT / "scripts" / "qemu_fdo_verify.sh")
+        self.assertIn("autologin-user", script)
+        self.assertIn("fdo-prep.service", script)
+        self.assertIn("fdo-check.service", script)
+        self.assertIn("xfce-session.target", script)
+        self.assertIn("HARNESS-FAIL", script)
+        self.assertIn("unix:path=/tmp/dbus-*", script)
+
 
 if __name__ == "__main__":
     unittest.main()
