@@ -94,7 +94,7 @@ open without weakening the end state.
 | `xembed` | 0.5 | implemented | xfce4-panel systray plugin (XEmbed host); session check in #44 |
 | `xsettings` | 0.5 | implemented | xfsettingsd; verification in #36 |
 | `XDG user dirs` | current spec | implemented | xdg-user-dirs 0.20 in the desktop profiles; the autostart entry creates ~/.config/user-dirs.dirs and the standard directories; verification in #34 |
-| `xdg-desktop-portal` | 1.22 | implemented | portal, GTK backend and Flatpak in the desktop profiles; xfce-portals.conf defaults to gtk; xfce-session.target starts graphical-session.target; unsupported interfaces documented |
+| `xdg-desktop-portal` | 1.22 | implemented | portal, GTK backend and Flatpak in the desktop profiles; xfce-portals.conf defaults to gtk; xfce-session.target starts graphical-session.target, verified in a real LightDM login (issue #48); unsupported interfaces documented |
 
 ## Work issues
 

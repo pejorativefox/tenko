@@ -40,7 +40,10 @@ WAIT_BOOT=${WAIT_BOOT:-40}
 WAIT_GREETER=${WAIT_GREETER:-45}
 TEST_PASSWORD=${TEST_PASSWORD:-tenko1}
 
-[ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
+case "$REPO" in
+    http://*|https://*|ftp://*) ;;
+    *) [ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; } ;;
+esac
 
 if [ "$SKIP_INSTALL" != "1" ]; then
     echo "installing unified rootfs with scriptlets enabled"
