@@ -1,6 +1,7 @@
 %dir /etc/profile.d
 /etc/profile.d/flatpak.csh
 /etc/profile.d/flatpak.sh
+%config(noreplace) /etc/polkit-1/rules.d/50-tenko-flatpak.rules
 %dir /usr/bin
 /usr/bin/flatpak
 /usr/bin/flatpak-bisect
@@ -75,6 +76,8 @@
 %dir /usr/share/fish/vendor_conf.d
 /usr/share/fish/vendor_conf.d/flatpak.fish
 %dir /usr/share/flatpak
+%dir /usr/share/flatpak/remotes.d
+/usr/share/flatpak/remotes.d/flathub.flatpakrepo
 %dir /usr/share/flatpak/triggers
 /usr/share/flatpak/triggers/desktop-database.trigger
 /usr/share/flatpak/triggers/gtk-icon-cache.trigger

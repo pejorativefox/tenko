@@ -1,6 +1,6 @@
 Name:       flatpak
 Version:    1.18.4
-Release:    6
+Release:    7
 Summary:    Application sandboxing and distribution framework
 License:    LGPL-2.1-or-later
 Source0:    %{name}-%{version}.tar.xz
@@ -8,6 +8,9 @@ Requires:   bubblewrap
 Requires:   xdg-dbus-proxy
 Requires:   fuse3
 Requires:   gnupg
+# This build enables flatpak's dconf proxy, so sandboxed apps inherit the
+# host's GSettings values.
+Requires:   dconf
 Prefix:     /usr
 
 %description
@@ -52,6 +55,17 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
+# Let active local wheel users manage system-wide remotes without a polkit
+# agent (issue #29).
+install -Dpm0644 %{_sourcedir}/50-tenko-flatpak.rules \
+    %{buildroot}/etc/polkit-1/rules.d/50-tenko-flatpak.rules
+
+# Enable Flathub as a system remote out of the box.  flatpak only creates a
+# remote from remotes.d when the repository does not already configure one,
+# so an existing remote is left untouched.
+install -Dpm0644 %{_sourcedir}/flathub.flatpakrepo \
+    %{buildroot}/usr/share/flatpak/remotes.d/flathub.flatpakrepo
+
 %post
 # Make the system-helper user available immediately.  The Tenko systemd
 # package does not ship a sysusers.d file trigger, so packages that own a
@@ -65,6 +79,19 @@ fi
 %files -f %{_sourcedir}/flatpak.filelist
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 1.18.4-7
+- Allow active local wheel users to configure system-wide flatpak remotes
+  (org.freedesktop.Flatpak.configure-remote) and install local bundles
+  (org.freedesktop.Flatpak.install-bundle), matching the upstream wheel
+  rule for remote install/uninstall.  The base desktop has no polkit
+  authentication agent, so remote-add previously failed with "Flatpak
+  system operation ConfigureRemote not allowed for user" (issue #29).
+- Ship /usr/share/flatpak/remotes.d/flathub.flatpakrepo so Flathub is
+  available as a system remote out of the box.  An existing remote
+  configuration is left untouched.
+- Require dconf: this build enables the dconf proxy, so sandboxed apps
+  inherit the host's GSettings values.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.18.4-6
 - Replace the legacy short licence name with the verified SPDX expression
   (LGPL-2.1-or-later): COPYING and the per-file SPDX headers (issue #8).

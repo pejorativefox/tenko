@@ -15,6 +15,13 @@ Requires:   linux-kernel
 # launched by xfce4-session.
 Requires:   NetworkManager
 Requires:   network-manager-applet
+# Flatpak support, same as the full desktop profile: flatpak present at
+# session start, a polkit authentication agent, and the portal backend
+# (issue #29).
+Requires:   flatpak
+Requires:   xfce-polkit
+Requires:   xdg-desktop-portal
+Requires:   xdg-desktop-portal-gtk
 Requires:   dbus-daemon
 Requires:   dbus-x11
 Requires:   xorg-server
@@ -93,6 +100,10 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 - Require xdg-utils, desktop-file-utils and mpv so the core profile has the
   desktop metadata tools, the entry database trigger and the default media
   handler named by /etc/xdg/mimeapps.list (issue #35).
+- Require flatpak, xfce-polkit, xdg-desktop-portal and
+  xdg-desktop-portal-gtk, matching the xfce-desktop profile: flatpak is
+  present at session start, auth_admin prompts work and flatpak apps get
+  the GTK portal backend (issue #29).
 
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-7
 - Require xdg-user-dirs so a new account gets ~/.config/user-dirs.dirs and

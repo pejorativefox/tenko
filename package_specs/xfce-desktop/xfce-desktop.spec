@@ -35,6 +35,15 @@ Requires:   sudo
 # xfce4-session launches at login.
 Requires:   NetworkManager
 Requires:   network-manager-applet
+# Flatpak support.  flatpak must be present when the session starts so the
+# systemd user environment generator adds the flatpak exports directories to
+# XDG_DATA_DIRS; xfce-polkit provides the polkit authentication agent the
+# auth_admin actions need; the portal backend gives sandboxed apps their file
+# chooser, print and OpenURI integration (issue #29).
+Requires:   flatpak
+Requires:   xfce-polkit
+Requires:   xdg-desktop-portal
+Requires:   xdg-desktop-portal-gtk
 Requires:   librsvg
 Requires:   xinit
 Requires:   xauth
@@ -112,6 +121,11 @@ fi
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-16
 - Require xdg-utils and desktop-file-utils so the full desktop has the
   xdg-* tools and the desktop entry database trigger (issue #35).
+- Require flatpak, xfce-polkit, xdg-desktop-portal and
+  xdg-desktop-portal-gtk.  flatpak is present at first login, so the
+  session environment includes the flatpak exports dirs instead of warning
+  until a restart; xfce-polkit answers auth_admin prompts; the portal
+  backend gives flatpak apps file chooser and OpenURI support (issue #29).
 
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-15
 - Require xdg-user-dirs so a new account gets ~/.config/user-dirs.dirs and
