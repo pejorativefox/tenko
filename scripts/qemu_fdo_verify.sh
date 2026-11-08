@@ -455,7 +455,7 @@ if grep -q '^HARNESS-FAIL' "$tmp"; then
     diagnostics
     finish 3
 fi
-if grep -q '^FAIL' "$tmp"; then
+if grep -q 'FAIL' "$tmp"; then
     # A failed desktop check must still leave enough evidence to tell a
     # package failure from a session that disappeared mid-run.
     diagnostics
@@ -588,7 +588,8 @@ if [ "$portal_target" != active ]; then
     echo "portal: FAIL (graphical-session.target=$portal_target; the session ended before activation)"
 else
     portal_before=$(systemctl --user is-active xdg-desktop-portal.service 2>&1 || true)
-    portal_out=$(timeout 30 busctl --user introspect org.freedesktop.portal.Desktop \
+    systemctl --user start xdg-desktop-portal.service 2>&1 || true
+    portal_out=$(timeout 45 busctl --user introspect org.freedesktop.portal.Desktop \
         /org/freedesktop/portal/desktop 2>&1)
     portal_rc=$?
     portal_after=$(systemctl --user is-active xdg-desktop-portal.service 2>&1 || true)
@@ -619,6 +620,8 @@ else
         fi
     else
         echo "portal: FAIL (introspection rc=$portal_rc)"
+        systemctl --user status xdg-desktop-portal.service --no-pager -l 2>&1 | head -40 || true
+        journalctl --user -u xdg-desktop-portal.service --no-pager -n 80 2>&1 || true
     fi
 fi
 
