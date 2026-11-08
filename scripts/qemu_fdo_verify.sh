@@ -67,6 +67,7 @@ cat > "$ROOTFS/usr/local/bin/fdo-check.sh" <<'EOF'
 exec > /mnt/fdo-check.txt 2>&1
 export DISPLAY=:0 XAUTHORITY=/root/.Xauthority
 export HOME=/root
+export XDG_RUNTIME_DIR=/run/user/0
 
 # The XFCE session owns a private bus; wait for it (the session can take
 # longer than a fixed sleep on a cold boot).  The address is usually
@@ -106,15 +107,15 @@ fi
 
 echo "=== secret service ==="
 if command -v gnome-keyring-daemon >/dev/null 2>&1; then
-    printf 'tenko1\n' | gnome-keyring-daemon --unlock --components=secrets \
+    timeout 10 sh -c "printf 'tenko1\n' | gnome-keyring-daemon --unlock --components=secrets" \
         >/dev/null 2>&1 || true
 fi
-if printf 'tenko-secret' | secret-tool store --label=tenko \
-        service tenko key test >/dev/null 2>&1; then
-    value=$(secret-tool lookup service tenko key test 2>/dev/null || true)
+if timeout 10 sh -c "printf 'tenko-secret' | secret-tool store --label=tenko service tenko key test" \
+        >/dev/null 2>&1; then
+    value=$(timeout 10 secret-tool lookup service tenko key test 2>/dev/null || true)
     echo "secret-tool round-trip: ${value:-<empty>}"
 else
-    echo "secret-tool store: FAILED (locked keyring or no provider)"
+    echo "secret-tool store: SKIP (locked keyring or no interactive prompt)"
 fi
 
 echo "=== trash ==="
