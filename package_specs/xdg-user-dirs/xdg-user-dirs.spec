@@ -1,6 +1,6 @@
 Name:       xdg-user-dirs
 Version:    0.20
-Release:    1
+Release:    2
 Summary:    Manage user directories like ~/Desktop and ~/Music
 License:    GPL-2.0-or-later
 URL:        https://gitlab.freedesktop.org/xdg/xdg-user-dirs
@@ -44,6 +44,10 @@ popd
 %files -f %{_sourcedir}/xdg-user-dirs.filelist
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 0.20-2
+- Rebuild for publication after the 0.20-1 NEVRA was staged with different
+  content; no payload change (issue #34).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 0.20-1
 - Initial package (xdg-user-dirs 0.20, latest stable upstream release,
   tagged 2026-04-08).  Ship the upstream autostart entry and systemd user
