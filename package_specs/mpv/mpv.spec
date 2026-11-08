@@ -1,6 +1,6 @@
 Name:       mpv
 Version:    0.42.0
-Release:    1
+Release:    2
 Summary:    Media player for the command line
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:        https://mpv.io/
@@ -101,18 +101,6 @@ popd
 rm -rf %{buildroot}
 DESTDIR=%{buildroot} ninja -C build install
 
-%post
-update-desktop-database %{_datadir}/applications &>/dev/null || :
-if command -v gtk-update-icon-cache >/dev/null 2>&1; then
-    gtk-update-icon-cache -q -t -f %{_datadir}/icons/hicolor || :
-fi
-
-%postun
-update-desktop-database %{_datadir}/applications &>/dev/null || :
-if command -v gtk-update-icon-cache >/dev/null 2>&1; then
-    gtk-update-icon-cache -q -t -f %{_datadir}/icons/hicolor || :
-fi
-
 %files
 /usr/bin/mpv
 %dir /usr/include/mpv
@@ -146,6 +134,11 @@ fi
 /usr/share/zsh/site-functions/_mpv
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 0.42.0-2
+- Drop the manual update-desktop-database and gtk-update-icon-cache
+  calls; desktop-file-utils and gtk+ now provide file triggers for the
+  desktop entry database and icon theme caches (issue #35).
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 0.42.0-1
 - New package: mpv 0.42.0, latest stable upstream, for the default
   desktop.  Built with X11/EGL and libplacebo OpenGL output, ALSA and

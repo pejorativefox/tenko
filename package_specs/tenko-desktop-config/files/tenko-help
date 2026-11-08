@@ -1,0 +1,55 @@
+#!/bin/sh
+# Open a freedesktop help: URI using the documentation installed under
+# /usr/share/help.  Falls back to printing the page path when no GUI handler
+# is configured, so the command is still useful on a minimal install.
+set -eu
+
+target=${1:-}
+case "$target" in
+    help:*)
+        id=${target#help:}
+        ;;
+    "")
+        echo "usage: tenko-help help:<id>" >&2
+        exit 2
+        ;;
+    *)
+        id=$target
+        ;;
+esac
+
+# Help ids are directory names, never paths.
+id=${id%%/*}
+case "$id" in
+    ""|*[!A-Za-z0-9._-]*)
+        id=tenko
+        ;;
+esac
+
+locale=${LANG:-C}
+locale=${locale%%.*}
+language=${locale%%_*}
+page=""
+for candidate in \
+    "/usr/share/help/$locale/$id/index.html" \
+    "/usr/share/help/$language/$id/index.html" \
+    "/usr/share/help/C/$id/index.html" \
+    "/usr/share/help/$id/index.html" \
+    "/usr/share/help/C/tenko/index.html"; do
+    if [ -f "$candidate" ]; then
+        page=$candidate
+        break
+    fi
+done
+
+if [ -z "$page" ]; then
+    echo "tenko-help: no help page for '$id'" >&2
+    exit 1
+fi
+
+if command -v xdg-open >/dev/null 2>&1 && xdg-open "$page"; then
+    exit 0
+fi
+
+# Documented fallback: no browser or help viewer is configured.
+printf '%s\n' "$page"

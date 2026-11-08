@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Tenko Help
+Comment=Open an installed help page
+Exec=tenko-help %u
+Icon=help-browser
+Terminal=false
+NoDisplay=true
+Categories=System;
+MimeType=x-scheme-handler/help;

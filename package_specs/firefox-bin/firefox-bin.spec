@@ -1,6 +1,6 @@
 Name:       firefox-bin
 Version:    159.0
-Release:    1
+Release:    2
 Summary:    Mozilla Firefox web browser (official upstream linux-x86_64 build)
 License:    MPL-2.0
 URL:        https://www.mozilla.org/firefox/
@@ -87,12 +87,6 @@ for size in 16 32 48 64 128; do
         %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/firefox.png
 done
 
-%post
-update-desktop-database %{_datadir}/applications &>/dev/null || :
-
-%postun
-update-desktop-database %{_datadir}/applications &>/dev/null || :
-
 %files
 %dir /opt/firefox
 /opt/firefox/*
@@ -101,6 +95,10 @@ update-desktop-database %{_datadir}/applications &>/dev/null || :
 %{_datadir}/icons/hicolor/*/apps/firefox.png
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 159.0-2
+- Drop the manual update-desktop-database calls; desktop-file-utils now
+  provides a file trigger for /usr/share/applications (issue #35).
+
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 159.0-1
 - Update to Firefox 159.0 (current release; the spec was at 116.0.3 from
   2023) using the official linux-x86_64 .tar.xz

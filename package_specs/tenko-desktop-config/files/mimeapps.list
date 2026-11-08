@@ -1,0 +1,20 @@
+[Default Applications]
+inode/directory=thunar.desktop
+text/plain=vim.desktop
+text/html=xfce4-web-browser.desktop
+application/xhtml+xml=xfce4-web-browser.desktop
+x-scheme-handler/http=xfce4-web-browser.desktop
+x-scheme-handler/https=xfce4-web-browser.desktop
+x-scheme-handler/help=tenko-help.desktop
+image/png=mpv.desktop
+image/jpeg=mpv.desktop
+image/gif=mpv.desktop
+image/webp=mpv.desktop
+audio/mpeg=mpv.desktop
+audio/ogg=mpv.desktop
+audio/x-wav=mpv.desktop
+audio/flac=mpv.desktop
+video/mp4=mpv.desktop
+video/webm=mpv.desktop
+video/x-matroska=mpv.desktop
+video/x-msvideo=mpv.desktop

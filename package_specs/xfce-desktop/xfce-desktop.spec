@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    15
+Release:    16
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -65,6 +65,8 @@ Requires:   shared-mime-info
 # Creates ~/.config/user-dirs.dirs and the standard user directories at
 # session start.
 Requires:   xdg-user-dirs
+Requires:   xdg-utils
+Requires:   desktop-file-utils
 Requires:   tenko-desktop-config
 Requires:   linux-firmware-base
 # udev's hardware database is what maps PCI/USB/input IDs to device
@@ -107,6 +109,10 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-16
+- Require xdg-utils and desktop-file-utils so the full desktop has the
+  xdg-* tools and the desktop entry database trigger (issue #35).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-15
 - Require xdg-user-dirs so a new account gets ~/.config/user-dirs.dirs and
   the standard localized user directories at session start (issue #34).
