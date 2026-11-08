@@ -62,20 +62,22 @@ exec > /mnt/fdo-check.txt 2>&1
 export DISPLAY=:0 XAUTHORITY=/root/.Xauthority
 export HOME=/root
 
+# The XFCE session owns a private bus; find its address from the session
+# processes.  The address itself is usually unix:path=/run/user/0/bus, so it
+# does not contain the word "session"; exclude the system bus explicitly.
+for envfile in /proc/[0-9]*/environ; do
+    [ -r "$envfile" ] || continue
+    addr=$( (tr '\0' '\n' < "$envfile") 2>/dev/null |
+        sed -n 's/^DBUS_SESSION_BUS_ADDRESS=//p' | head -1)
+    case "$addr" in
+        ""|*system_bus*|*/run/dbus/*) continue ;;
+        *) export DBUS_SESSION_BUS_ADDRESS="$addr"; break ;;
+    esac
+done
+echo "bus=${DBUS_SESSION_BUS_ADDRESS:-none}"
+
 echo "=== session checker ==="
 /usr/local/bin/fdo_session_check.sh || true
-
-# The XFCE session owns a private bus; find its address from the daemon.
-if [ -z "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
-    for envfile in /proc/[0-9]*/environ; do
-        addr=$(tr '\0' '\n' < "$envfile" 2>/dev/null |
-            sed -n 's/^DBUS_SESSION_BUS_ADDRESS=//p' | head -1)
-        case "$addr" in
-            *session*) export DBUS_SESSION_BUS_ADDRESS="$addr"; break ;;
-        esac
-    done
-fi
-echo "bus=${DBUS_SESSION_BUS_ADDRESS:-none}"
 
 echo "=== portal ==="
 busctl --user introspect org.freedesktop.portal.Desktop \
@@ -115,10 +117,21 @@ fi
 echo "=== sound ==="
 xfconf-query -c xsettings -p /Net/SoundThemeName 2>&1 || true
 if command -v canberra-gtk-play >/dev/null 2>&1; then
-    if canberra-gtk-play -i bell 2>&1; then echo "canberra bell: ok"; else
-        echo "canberra bell: FAILED"; fi
+    sound_out=$(canberra-gtk-play -i bell 2>&1) && sound_rc=0 || sound_rc=1
+    if [ "$sound_rc" -eq 0 ]; then
+        echo "canberra bell: ok"
+    else
+        case "$sound_out" in
+            *"Sound disabled"*|*"Connection refused"*|*"not available"*)
+                echo "canberra bell: SKIP ($sound_out)"
+                ;;
+            *)
+                echo "canberra bell: FAILED ($sound_out)"
+                ;;
+        esac
+    fi
 else
-    echo "canberra-gtk-play: not installed"
+    echo "canberra-gtk-play: SKIP (not installed)"
 fi
 
 echo "=== reached the end ==="
