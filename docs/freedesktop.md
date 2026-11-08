@@ -94,7 +94,7 @@ open without weakening the end state.
 | `xembed` | 0.5 | implemented | xfce4-panel systray plugin (XEmbed host); session check in #44 |
 | `xsettings` | 0.5 | implemented | xfsettingsd; verification in #36 |
 | `XDG user dirs` | current spec | implemented | xdg-user-dirs 0.20 in the desktop profiles; the autostart entry creates ~/.config/user-dirs.dirs and the standard directories; verification in #34 |
-| `xdg-desktop-portal` | 1.22 | implemented | portal, GTK backend and Flatpak in the desktop profiles; xfce-portals.conf defaults to gtk; unsupported interfaces documented |
+| `xdg-desktop-portal` | 1.22 | implemented | portal, GTK backend and Flatpak in the desktop profiles; xfce-portals.conf defaults to gtk; xfce-session.target starts graphical-session.target; unsupported interfaces documented |
 
 ## Work issues
 
@@ -269,6 +269,16 @@ broken activation.
 The final QEMU check introspects `org.freedesktop.portal.Desktop`, opens a
 file chooser and OpenURI, sends a notification and confirms the document
 portal and permission store activate.
+
+XFCE 4.20 does not start its session through systemd, so nothing activates
+`graphical-session.target`; `xdg-desktop-portal.service` uses
+`Requisite=graphical-session.target` and therefore cannot be D-Bus activated
+in a plain XFCE session.  `tenko-desktop-config` ships `xfce-session.target`
+(`BindsTo=graphical-session.target`) together with an `/etc/xdg/autostart`
+entry that exports `DISPLAY`/`XAUTHORITY` to the user manager and starts the
+target.  `xfce-session-watch.service` stops the target when `xfce4-session`
+exits, so the next login starts a fresh session instead of reusing the
+previous portal and environment.
 
 ## System tray and StatusNotifierItem
 

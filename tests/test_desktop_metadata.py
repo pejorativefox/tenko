@@ -132,13 +132,15 @@ class DesktopMetadataTest(unittest.TestCase):
     @unittest.skipUnless(shutil.which("desktop-file-validate"),
                          "desktop-file-validate not installed")
     def test_new_desktop_entry_validates(self):
-        entry = (REPO_ROOT / "package_specs/tenko-desktop-config/files/"
-                 "tenko-help.desktop")
-        result = subprocess.run(
-            ["desktop-file-validate", str(entry)],
-            capture_output=True, text=True,
-        )
-        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        for name in ("tenko-help.desktop", "xfce-graphical-session.desktop"):
+            entry = (REPO_ROOT / "package_specs/tenko-desktop-config/files/"
+                     / name)
+            result = subprocess.run(
+                ["desktop-file-validate", str(entry)],
+                capture_output=True, text=True,
+            )
+            self.assertEqual(result.returncode, 0,
+                             name + ": " + result.stdout + result.stderr)
 
     def test_help_script_resolves_an_installed_page(self):
         script = REPO_ROOT / "package_specs/tenko-desktop-config/files/tenko-help"

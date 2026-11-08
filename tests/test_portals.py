@@ -66,6 +66,38 @@ class PortalTest(unittest.TestCase):
         self.assertTrue((SPECS / "flatpak" / "files" /
                          "50-tenko-flatpak.rules").is_file())
 
+    def test_xfce_session_activates_graphical_session_target(self):
+        # XFCE 4.20 does not start the session through systemd; without a
+        # concrete target the portal's Requisite= never resolves.
+        spec = spec_text("tenko-desktop-config")
+        for path in (
+            "/usr/lib/systemd/user/xfce-session.target",
+            "/usr/lib/systemd/user/xfce-session-watch.service",
+            "%{_sysconfdir}/xdg/autostart/xfce-graphical-session.desktop",
+        ):
+            self.assertIn(path, spec)
+
+        target = read(
+            "package_specs/tenko-desktop-config/files/xfce-session.target")
+        self.assertIn("BindsTo=graphical-session.target", target)
+        self.assertIn(
+            "Wants=graphical-session-pre.target xfce-session-watch.service",
+            target)
+
+        watch = read(
+            "package_specs/tenko-desktop-config/files/"
+            "xfce-session-watch.service")
+        self.assertIn("xfce4-session", watch)
+        self.assertIn("stop graphical-session.target", watch)
+
+        autostart = read(
+            "package_specs/tenko-desktop-config/files/"
+            "xfce-graphical-session.desktop")
+        self.assertIn("OnlyShowIn=XFCE;", autostart)
+        self.assertIn(
+            "import-environment DISPLAY XAUTHORITY", autostart)
+        self.assertIn("start xfce-session.target", autostart)
+
     def test_gtk_backend_advertises_the_supported_interfaces(self):
         rpms = sorted(
             (REPO_ROOT / "build").glob("**/xdg-desktop-portal-gtk-*.rpm"),

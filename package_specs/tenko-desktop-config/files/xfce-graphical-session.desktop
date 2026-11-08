@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Xfce systemd session
+Comment=Activate graphical-session.target so the portal and session services start
+Exec=sh -c "systemctl --user import-environment DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE; systemctl --user start xfce-session.target"
+OnlyShowIn=XFCE;

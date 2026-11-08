@@ -1,0 +1,6 @@
+[Unit]
+Description=Stop graphical-session.target when the Xfce session exits
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'while pgrep -u "$(id -u)" -x xfce4-session >/dev/null; do sleep 2; done; systemctl --user --no-block stop graphical-session.target'

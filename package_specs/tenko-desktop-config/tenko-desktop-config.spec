@@ -1,6 +1,6 @@
 Name:       tenko-desktop-config
 Version:    6
-Release:    5
+Release:    6
 Epoch:      1
 Summary:    Tenko X11/XFCE session configuration
 License:    MIT
@@ -9,6 +9,8 @@ Prefix:     /usr
 Requires:   xinit
 Requires:   xfce4-session
 Requires:   xdg-utils
+Requires:   systemd
+Requires:   procps-ng
 
 %description
 Default X session configuration for Tenko: startxfce4 on startx, plus the
@@ -41,6 +43,19 @@ install -Dpm644 %{_sourcedir}/tenko-help.html \
     %{buildroot}%{_datadir}/help/C/tenko/index.html
 install -Dpm644 %{_sourcedir}/mimeapps.list \
     %{buildroot}%{_sysconfdir}/xdg/mimeapps.list
+
+# XFCE does not start its session through systemd, so nothing pulls in
+# graphical-session.target.  xdg-desktop-portal.service has
+# Requisite=graphical-session.target and therefore refuses D-Bus activation
+# in an XFCE session.  Ship a concrete session target, an autostart entry that
+# starts it from inside the running session, and a watcher that stops it when
+# xfce4-session exits so the next login starts clean.
+install -Dpm644 %{_sourcedir}/xfce-session.target \
+    %{buildroot}/usr/lib/systemd/user/xfce-session.target
+install -Dpm644 %{_sourcedir}/xfce-session-watch.service \
+    %{buildroot}/usr/lib/systemd/user/xfce-session-watch.service
+install -Dpm644 %{_sourcedir}/xfce-graphical-session.desktop \
+    %{buildroot}%{_sysconfdir}/xdg/autostart/xfce-graphical-session.desktop
 
 # New-user XFCE defaults.  The installer creates the admin account with
 # "useradd -m", so these land in ~/.config on first login.  They are partial
@@ -168,6 +183,10 @@ EOF
 %{_datadir}/help/C/tenko/index.html
 %dir %{_sysconfdir}/xdg
 %config(noreplace) %{_sysconfdir}/xdg/mimeapps.list
+%dir %{_sysconfdir}/xdg/autostart
+%config(noreplace) %{_sysconfdir}/xdg/autostart/xfce-graphical-session.desktop
+/usr/lib/systemd/user/xfce-session.target
+/usr/lib/systemd/user/xfce-session-watch.service
 %config /etc/skel/.xinitrc
 %dir %{_sysconfdir}/skel/.config
 %dir %{_sysconfdir}/skel/.config/xfce4
@@ -179,6 +198,16 @@ EOF
 %config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-6
+- Activate graphical-session.target in an XFCE session.  XFCE 4.20 does not
+  start the session through systemd, so the target stayed inactive and
+  xdg-desktop-portal.service, which has Requisite=graphical-session.target,
+  refused every D-Bus activation (file choosers, OpenURI and Flatpak apps
+  timed out).  Ship xfce-session.target (BindsTo=graphical-session.target),
+  an /etc/xdg/autostart entry that exports DISPLAY/XAUTHORITY and starts it,
+  and xfce-session-watch.service, which stops the target when xfce4-session
+  exits.  Existing sessions get the fix at the next login (issue #48).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-5
 - Set the default XSettings SoundThemeName to freedesktop so libcanberra
   resolves event sounds from the sound-theme-freedesktop package
