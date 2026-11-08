@@ -1,6 +1,6 @@
 Name:       tenko-installer
 Version:    6
-Release:    5
+Release:    6
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
@@ -45,7 +45,8 @@ logged as JSON Lines and mirrored to the console; the log is copied to the
 ESP at the end.
 
 The package also ships the live systemd unit, the preset that masks the
-first-boot root-password prompt, and the dracut dmsquash-live configuration.
+first-boot root-password prompt, and the dracut dmsquash-live configuration
+(including the fallback that finds the ISO on a Ventoy data partition).
 
 %prep
 
@@ -76,6 +77,12 @@ install -vdm755 %{buildroot}/usr/lib/dracut/dracut.conf.d
 install -vm644 %{_sourcedir}/20-tenko-live.conf \
     %{buildroot}/usr/lib/dracut/dracut.conf.d/20-tenko-live.conf
 
+install -vdm755 %{buildroot}/usr/lib/dracut/modules.d/95tenko-ventoy
+install -vm755 %{_sourcedir}/95tenko-ventoy.module-setup.sh \
+    %{buildroot}/usr/lib/dracut/modules.d/95tenko-ventoy/module-setup.sh
+install -vm755 %{_sourcedir}/95tenko-ventoy.iso-scan.sh \
+    %{buildroot}/usr/lib/dracut/modules.d/95tenko-ventoy/tenko-ventoy-iso.sh
+
 install -vdm755 %{buildroot}%{_docdir}/tenko-installer
 install -vm644 %{_sourcedir}/README.tenko-installer \
     %{buildroot}%{_docdir}/tenko-installer/README
@@ -87,9 +94,21 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %{_unitdir}/tenko-installer.service
 /usr/lib/systemd/system-preset/90-tenko-live.preset
 /usr/lib/dracut/dracut.conf.d/20-tenko-live.conf
+%dir /usr/lib/dracut/modules.d/95tenko-ventoy
+/usr/lib/dracut/modules.d/95tenko-ventoy/module-setup.sh
+/usr/lib/dracut/modules.d/95tenko-ventoy/tenko-ventoy-iso.sh
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-6
+- Add a live-initramfs module that finds the installer ISO on a Ventoy data
+  partition and loop-mounts it for dmsquash-live.  Ventoy's UEFI chain loader
+  boots the ISO's systemd-boot from the El Torito image, so the kernel never
+  sees the ISO file and root=live:CDLABEL=TENKO waited forever (issue #49).
+  The scan only runs when a VTOYEFI partition is present and is skipped when
+  the TENKO label already exists, so CD and dd-written USB boots are
+  unchanged.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-5
 - Add the admin user to the kvm group as well as wheel, creating kvm if
   the target does not have it.  This gives the installed user access to
