@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    14
+Release:    15
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -22,6 +22,10 @@ Requires:   flatpak
 Requires:   xfce-polkit
 Requires:   xdg-desktop-portal
 Requires:   xdg-desktop-portal-gtk
+# AppImage type-2 runtimes are built against FUSE 2 and dlopen
+# libfuse.so.2 at startup; fuse3 ships a different soname and cannot
+# satisfy them.
+Requires:   fuse2
 # Secret Service provider (org.freedesktop.secrets) and portal Secret
 # backend.
 Requires:   gnome-keyring
@@ -108,6 +112,11 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-15
+- Require fuse2 so AppImage type-2 executables can mount their squashfs
+  image through libfuse.so.2.  fuse3 alone is not enough: the type-2
+  runtime loads libfuse.so.2 and a different soname cannot satisfy it.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-14
 - Require libcanberra and libsecret so the sound theme has a player and
   libsecret applications have the client tools on a default desktop
