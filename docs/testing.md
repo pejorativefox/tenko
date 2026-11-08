@@ -146,6 +146,35 @@ Both install from the published repository (`REPO`, default public URL) into
 `build/rootfs-*`, build an ext4 image, boot it and capture the screen.  Logs
 and screenshots are written under `build/`.
 
+## Session integration check
+
+`scripts/fdo_session_check.sh` checks the freedesktop session protocols from
+inside a live XFCE/X11 session.  It is network-free and read-only, needs
+`DISPLAY` and a reachable session bus (`DBUS_SESSION_BUS_ADDRESS`), and prints
+one `PASS`/`FAIL`/`SKIP` line per check:
+
+```sh
+# run as the logged-in user inside the guest
+sh scripts/fdo_session_check.sh
+```
+
+The graphical QEMU test should run it inside the session after login (for
+example from the session debug unit) and treat a non-zero exit as a failure.
+It checks the EWMH root atoms `_NET_SUPPORTING_WM_CHECK`, `_NET_SUPPORTED`,
+`_NET_CLIENT_LIST` and `_NET_ACTIVE_WINDOW`, that the supporting-window-check
+target has `_NET_WM_NAME`, the `_XSETTINGS_S0` owner and its
+`_XSETTINGS_SETTINGS` property, the `libstartup-notification` loader entry,
+the session bus, and optionally an `xfce4-terminal` launch that publishes
+`_NET_STARTUP_ID`.
+
+Only a failed protocol check is `FAIL`.  Missing optional tools (for example
+`xprop`, `busctl`/`dbus-send`, `ldconfig` or a startup-notification test
+client) and an X server that does not expose the selection owner are `SKIP`
+with a reason, so a minimal or headless session does not produce false
+failures.  The headless packaging and Autostart 0.5 precedence checks live in
+`tests/test_session_integration.py`; set `TENKO_ROOT` to an extracted root
+tree to validate the real autostart payload instead of skipping it.
+
 ## Unit tests
 
 ```sh
