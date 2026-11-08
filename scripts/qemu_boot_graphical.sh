@@ -112,6 +112,7 @@ StandardInput=tty
 StandardOutput=journal+console
 ExecStartPre=/bin/mkdir -p /run/user/0
 ExecStartPre=/bin/chmod 700 /run/user/0
+ExecStartPre=/bin/rm -f /tmp/.X0-lock /tmp/.X11-unix/X0
 ExecStart=/usr/bin/startx -- :0 vt1 -ac
 Restart=no
 TimeoutStartSec=30

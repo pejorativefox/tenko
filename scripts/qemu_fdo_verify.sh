@@ -48,6 +48,9 @@ if [ -f "$ROOTFS/etc/systemd/system/xfce-test.service" ]; then
         "$ROOTFS/etc/systemd/system/xfce-test.service"
     sed -i '/^Environment=XAUTHORITY=/d' \
         "$ROOTFS/etc/systemd/system/xfce-test.service"
+    grep -q 'X0-lock' "$ROOTFS/etc/systemd/system/xfce-test.service" || \
+        sed -i '/^ExecStartPre=\/bin\/chmod 700 \/run\/user\/0$/a ExecStartPre=/bin/rm -f /tmp/.X0-lock /tmp/.X11-unix/X0' \
+            "$ROOTFS/etc/systemd/system/xfce-test.service"
     rm -f "$ROOTFS/root/.Xauthority"
     # The graphical harness starts X directly; LightDM would race it for :0.
     rm -f "$ROOTFS/etc/systemd/system/display-manager.service"
