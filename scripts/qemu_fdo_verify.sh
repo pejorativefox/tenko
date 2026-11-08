@@ -135,7 +135,7 @@ ln -sf ../fdo-check.service \
 echo "rebuilding the ext4 image with the guest checks"
 rm -f "$IMG"
 truncate -s "$IMGSIZE" "$IMG"
-unshare -r mke2fs -q -t ext4 -d "$ROOTFS" "$IMG"
+unshare -r /usr/sbin/mke2fs -q -t ext4 -d "$ROOTFS" "$IMG"
 
 rm -f "$SHARE/fdo-check.txt" "$SERIAL" "$MON"
 initrd=()

@@ -158,7 +158,7 @@ EOF
     echo "building ext4 image"
     rm -f "$IMG"
     truncate -s "$IMGSIZE" "$IMG"
-    unshare -r mke2fs -q -t ext4 -d "$ROOTFS" "$IMG"
+    unshare -r /usr/sbin/mke2fs -q -t ext4 -d "$ROOTFS" "$IMG"
 fi
 
 [ -f "$ROOTFS/boot/vmlinuz-$KVER" ] || { echo "missing kernel" >&2; exit 1; }
