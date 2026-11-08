@@ -1,6 +1,6 @@
 Name:       tenko-desktop-config
 Version:    6
-Release:    2
+Release:    3
 Epoch:      1
 Summary:    Tenko X11/XFCE session configuration
 License:    MIT
@@ -11,8 +11,9 @@ Requires:   xfce4-session
 
 %description
 Default X session configuration for Tenko: startxfce4 on startx, plus the
-default XFCE look (GTK/icon/Xfwm themes and the terminal profile) for new
-users.  The desktop metas pull in the themes and font these defaults name.
+default XFCE look (GTK/icon/Xfwm themes, the terminal profile and a single
+top panel) for new users.  The desktop metas pull in the themes and font
+these defaults name.
 
 %prep
 
@@ -77,6 +78,69 @@ cat > "$xfconfdir/xfce4-terminal.xml" <<'EOF'
 </channel>
 EOF
 
+# Panel layout.  Without this, xfce4-panel seeds ~/.config from
+# /etc/xdg/xfce4/panel/default.xml on first login, which has a second panel
+# at the bottom of the screen.  Ship the top panel only, carrying the same
+# plugins as the upstream default panel-1 and no panel-2.
+cat > "$xfconfdir/xfce4-panel.xml" <<'EOF'
+<?xml version="1.1" encoding="UTF-8"?>
+
+<channel name="xfce4-panel" version="1.0">
+  <property name="configver" type="int" value="2"/>
+  <property name="panels" type="array">
+    <value type="int" value="1"/>
+    <property name="dark-mode" type="bool" value="true"/>
+    <property name="panel-1" type="empty">
+      <property name="position" type="string" value="p=6;x=0;y=0"/>
+      <property name="length" type="uint" value="100"/>
+      <property name="position-locked" type="bool" value="true"/>
+      <property name="icon-size" type="uint" value="16"/>
+      <property name="size" type="uint" value="26"/>
+      <property name="plugin-ids" type="array">
+        <value type="int" value="1"/>
+        <value type="int" value="2"/>
+        <value type="int" value="3"/>
+        <value type="int" value="4"/>
+        <value type="int" value="5"/>
+        <value type="int" value="6"/>
+        <value type="int" value="7"/>
+        <value type="int" value="8"/>
+        <value type="int" value="9"/>
+        <value type="int" value="10"/>
+      </property>
+    </property>
+  </property>
+  <property name="plugins" type="empty">
+    <property name="plugin-1" type="string" value="applicationsmenu">
+      <property name="button-title" type="string" value=""/>
+      <property name="button-icon" type="string" value="desktop-environment-xfce"/>
+    </property>
+    <property name="plugin-2" type="string" value="tasklist">
+      <property name="grouping" type="uint" value="1"/>
+    </property>
+    <property name="plugin-3" type="string" value="separator">
+      <property name="expand" type="bool" value="true"/>
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-4" type="string" value="pager"/>
+    <property name="plugin-5" type="string" value="separator">
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-6" type="string" value="systray">
+      <property name="square-icons" type="bool" value="true"/>
+    </property>
+    <property name="plugin-7" type="string" value="separator">
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-8" type="string" value="clock"/>
+    <property name="plugin-9" type="string" value="separator">
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-10" type="string" value="actions"/>
+  </property>
+</channel>
+EOF
+
 %files
 %dir /var/lib/xkb
 %config /etc/skel/.xinitrc
@@ -87,8 +151,14 @@ EOF
 %config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 %config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
 %config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-terminal.xml
+%config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-3
+- Ship a single top panel in /etc/skel/xfce4-panel.xml.  xfce4-panel was
+  still seeding new accounts from /etc/xdg/xfce4/panel/default.xml, which
+  brings up a second panel at the bottom of the screen.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-2
 - Ship new-user XFCE defaults in /etc/skel: Arc-Dark GTK/Xfwm theme,
   Kora icons and the Terminus terminal profile.
