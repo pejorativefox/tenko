@@ -1,0 +1,109 @@
+/usr/lib/systemd/user/xdg-desktop-portal-gtk.service
+/usr/libexec/xdg-desktop-portal-gtk
+/usr/share/applications/xdg-desktop-portal-gtk.desktop
+/usr/share/dbus-1/services/org.freedesktop.impl.portal.desktop.gtk.service
+%dir /usr/share/locale/be
+%dir /usr/share/locale/be/LC_MESSAGES
+/usr/share/locale/be/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+/usr/share/locale/ca/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+/usr/share/locale/cs/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+/usr/share/locale/da/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+/usr/share/locale/de/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/en_GB
+%dir /usr/share/locale/en_GB/LC_MESSAGES
+/usr/share/locale/en_GB/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+/usr/share/locale/es/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+/usr/share/locale/fr/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/gl
+%dir /usr/share/locale/gl/LC_MESSAGES
+/usr/share/locale/gl/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/he
+%dir /usr/share/locale/he/LC_MESSAGES
+/usr/share/locale/he/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/hi
+%dir /usr/share/locale/hi/LC_MESSAGES
+/usr/share/locale/hi/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/hr
+%dir /usr/share/locale/hr/LC_MESSAGES
+/usr/share/locale/hr/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/hu
+%dir /usr/share/locale/hu/LC_MESSAGES
+/usr/share/locale/hu/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+/usr/share/locale/id/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/ie
+%dir /usr/share/locale/ie/LC_MESSAGES
+/usr/share/locale/ie/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+/usr/share/locale/it/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+/usr/share/locale/ja/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+/usr/share/locale/ka/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/lt
+%dir /usr/share/locale/lt/LC_MESSAGES
+/usr/share/locale/lt/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+/usr/share/locale/nl/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/oc
+%dir /usr/share/locale/oc/LC_MESSAGES
+/usr/share/locale/oc/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+/usr/share/locale/pl/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/pt
+%dir /usr/share/locale/pt/LC_MESSAGES
+/usr/share/locale/pt/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+/usr/share/locale/pt_BR/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/ro
+%dir /usr/share/locale/ro/LC_MESSAGES
+/usr/share/locale/ro/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+/usr/share/locale/ru/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/sk
+%dir /usr/share/locale/sk/LC_MESSAGES
+/usr/share/locale/sk/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/sl
+%dir /usr/share/locale/sl/LC_MESSAGES
+/usr/share/locale/sl/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/sr
+%dir /usr/share/locale/sr/LC_MESSAGES
+/usr/share/locale/sr/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+/usr/share/locale/sv/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+/usr/share/locale/tr/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+/usr/share/locale/uk/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+/usr/share/locale/zh_CN/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+/usr/share/locale/zh_TW/LC_MESSAGES/xdg-desktop-portal-gtk.mo
+%dir /usr/share/xdg-desktop-portal
+%dir /usr/share/xdg-desktop-portal/portals
+/usr/share/xdg-desktop-portal/portals/gtk.portal
