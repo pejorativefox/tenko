@@ -1,6 +1,6 @@
 Name:       tenko-sysconfig
 Version:    6
-Release:    2
+Release:    3
 Epoch:      1
 Summary:    Base configuration for Tenko Linux
 License:    MIT
@@ -98,6 +98,13 @@ for f in /etc/profile.d/*.sh; do
     [ -r "$f" ] && . "$f"
 done
 unset f
+# User-local executables.  Keep this idempotent: interactive shells read
+# ~/.bashrc too, and profile.d snippets may already have added the path.
+case ":$PATH:" in
+    *:$HOME/.local/bin:*) ;;
+    *) PATH="$HOME/.local/bin:$PATH" ;;
+esac
+export PATH
 EOF2
 
 # New-user shell startup.  Login shells read /etc/profile (and therefore
@@ -120,6 +127,12 @@ cat > %{buildroot}/etc/skel/.bashrc <<'EOF2'
 if [ -r /etc/profile.d/bash_completion.sh ]; then
     . /etc/profile.d/bash_completion.sh
 fi
+# User-local executables, with the same idempotent guard as /etc/profile.
+case ":$PATH:" in
+    *:$HOME/.local/bin:*) ;;
+    *) PATH="$HOME/.local/bin:$PATH" ;;
+esac
+export PATH
 EOF2
 chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 
@@ -148,6 +161,14 @@ chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 %config(noreplace) /etc/machine-id
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-3
+- Add ~/.local/bin to PATH in /etc/profile and /etc/skel/.bashrc.  The
+  update is idempotent and covers both login shells and the interactive
+  non-login shells started by terminal emulators (issue #34).  /etc/profile
+  reaches existing accounts immediately; accounts created before this
+  package keep their own ~/.bashrc, so they need the same case block added
+  there (or a fresh copy of /etc/skel/.bashrc).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-2
 - Ship /etc/skel/.bash_profile and /etc/skel/.bashrc.  Login shells
   already read /etc/profile and its profile.d snippets, but terminal

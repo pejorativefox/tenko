@@ -61,12 +61,12 @@ open without weakening the end state.
 |---|---|---|---|
 | `appstream` | current docs | partial | Metadata packaged but no validation or catalogue; #33, #42 |
 | `autostart` | 0.5 | implemented | xfce4-session reads /etc/xdg/autostart; verification in #36 |
-| `basedir` | 0.8 | partial | Apps follow it; xdg-user-dirs and ~/.local/bin in PATH are missing; #34 |
+| `basedir` | 0.8 | implemented | XDG base directories honoured; ~/.local/bin in PATH for login and interactive shells; runtime check in #32 |
 | `clipboard` | 1.0 | N/A | Wayland data-device protocol; X11 uses X selections |
 | `clipboard-extensions` | 1.0 | N/A | Wayland-only |
 | `dbus` | current spec | implemented | dbus-daemon/dbus-x11 in base and desktop; policy audit in #40 |
 | `desktop-entry` | 1.5 | partial | 48 files validate with no errors, but no build-time validation or database trigger; #35 |
-| `fhs` | 3.0 | partial | Merged-/usr layout present; /media, /var/local and most /usr/local dirs missing; #34 |
+| `fhs` | 3.0 | implemented | Merged-/usr layout plus /media, /var/local and the /usr/local subdirectories; /var/run and /var/lock via systemd tmpfiles |
 | `global-shortcuts` | draft | N/A | Portal/Wayland; no Wayland session |
 | `help-system` | current spec | gap | No /usr/share/help layout or help: URI handler; folded into #35 |
 | `icon-naming` | 0.8.90 | partial | Kora inherits missing breeze; Adwaita inherits missing AdwaitaLegacy; #35 |
@@ -93,7 +93,7 @@ open without weakening the end state.
 | `wm` | 1.5 | implemented | xfwm4; EWMH atom verification in #36 |
 | `xembed` | 0.5 | implemented | xfce4-panel systray; verification in #44 |
 | `xsettings` | 0.5 | implemented | xfsettingsd; verification in #36 |
-| `XDG user dirs` | current spec | gap | xdg-user-dirs not packaged; #34 |
+| `XDG user dirs` | current spec | implemented | xdg-user-dirs 0.20 in the desktop profiles; the autostart entry creates ~/.config/user-dirs.dirs and the standard directories; verification in #34 |
 | `xdg-desktop-portal` | 1.22 | gap | Portal packaged, no backend; #41 |
 
 ## Work issues
@@ -110,6 +110,23 @@ open without weakening the end state.
 - #42 — AppStream metadata and catalogue
 - #43 — sound theme and sound naming
 - #44 — system tray, XEmbed and StatusNotifierItem
+
+## XDG base directory exceptions
+
+The XDG Base Directory specification covers application data, configuration,
+cache and state.  The distro audit found no application writing outside those
+directories except the cases below.  Each is deliberate or owned by an
+upstream application.
+
+| Path | Owner | Rationale |
+|---|---|---|
+| `~/.pyenv` | pyenv | Upstream's default root for interpreters and shims; users may set `PYENV_ROOT`, and `/etc/profile.d/pyenv.sh` only initialises when the directory already exists |
+| `~/.ssh`, `~/.gnupg` | OpenSSH, GnuPG | Security-sensitive upstream layouts that predate XDG and must not be redirected |
+| `~/.Xauthority`, `~/.ICEauthority` | X11 / XFCE session | X11 cookie files consumed before the session environment exists |
+| `~/.bashrc`, `~/.bash_profile` | shell convention | Shell startup files are not application state |
+
+XFCE itself uses `~/.config`, `~/.cache` and `~/.local/share` as required by
+the specification.
 
 ## Runtime verification
 
