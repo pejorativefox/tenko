@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    7
+Release:    8
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -42,6 +42,13 @@ Requires:   shared-mime-info
 # Creates ~/.config/user-dirs.dirs and the localized Desktop, Documents,
 # Downloads, Music, Pictures and Videos directories at session start.
 Requires:   xdg-user-dirs
+# Desktop entry, MIME and icon metadata: xdg-utils provides the xdg-*
+# tools, desktop-file-utils validates/updates the entry database (and now
+# owns the file trigger), and mpv is the default media handler in
+# /etc/xdg/mimeapps.list.
+Requires:   xdg-utils
+Requires:   desktop-file-utils
+Requires:   mpv
 Requires:   libxfce4util
 Requires:   xfconf
 Requires:   libxfce4ui
@@ -82,6 +89,11 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-8
+- Require xdg-utils, desktop-file-utils and mpv so the core profile has the
+  desktop metadata tools, the entry database trigger and the default media
+  handler named by /etc/xdg/mimeapps.list (issue #35).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-7
 - Require xdg-user-dirs so a new account gets ~/.config/user-dirs.dirs and
   the standard localized user directories at session start (issue #34).

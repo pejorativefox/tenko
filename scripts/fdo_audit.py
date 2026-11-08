@@ -115,7 +115,12 @@ FHS_REQUIRED_DIRS = (
 )
 
 # Default associations a desktop install should provide (MIME Apps 1.0.1).
-MIME_DEFAULT_REQUIRED = ("text/plain", "image/png")
+MIME_DEFAULT_REQUIRED = (
+    "text/plain",
+    "image/png",
+    "inode/directory",
+    "x-scheme-handler/http",
+)
 
 DESKTOP_PROFILE_PREFIXES = (
     "xfce-desktop",
@@ -363,11 +368,16 @@ class Auditor:
                     continue
                 if not in_files:
                     continue
+                if path_directive.match(line):
+                    entry = path_directive.sub("", line)
+                    entry = normalize_macro(entry)
+                    if entry.startswith("/"):
+                        self.static_paths.add(entry)
+                    continue
                 if other_section.match(line):
                     in_files = False
                     continue
-                entry = path_directive.sub("", line)
-                entry = normalize_macro(entry)
+                entry = normalize_macro(line)
                 if entry.startswith("/"):
                     self.static_paths.add(entry)
 
@@ -978,15 +988,48 @@ class Auditor:
             return
         if not self.has_path("/usr/share/help"):
             self.add("help-system", "layout", "/usr/share/help is not shipped")
-        xdg_open = self.content_file("/usr/bin/xdg-open")
-        if xdg_open:
-            text = xdg_open.read_text(encoding="utf-8", errors="replace")
-            if "help)" not in text and "help:" not in text:
-                self.add(
-                    "help-system",
-                    "help-uri",
-                    "xdg-open has no help: URI handler",
+        elif not any(
+            path.startswith("/usr/share/help/") and path.endswith("index.html")
+            for path in self.paths
+        ):
+            self.add(
+                "help-system",
+                "layout",
+                "no /usr/share/help/<id>/index.html page is shipped",
+            )
+        if not self.has_path("/usr/bin/tenko-help"):
+            self.add(
+                "help-system",
+                "handler",
+                "no help: URI handler is shipped (tenko-help)",
+            )
+        local = self.content_file("/etc/xdg/mimeapps.list")
+        if local:
+            parser = configparser.ConfigParser(strict=False, interpolation=None)
+            try:
+                parser.read(local)
+            except configparser.Error:
+                parser = None
+            if parser is None or not parser.has_section("Default Applications"):
+                self.add("help-system", "handler", "mimeapps.list cannot be parsed")
+            else:
+                value = parser["Default Applications"].get(
+                    "x-scheme-handler/help", ""
                 )
+                if not value:
+                    self.add(
+                        "help-system",
+                        "handler",
+                        "x-scheme-handler/help has no default handler",
+                    )
+                else:
+                    self.note("help-system", f"help: handler is {value}")
+        elif self.contents:
+            self.add(
+                "help-system",
+                "handler",
+                "/etc/xdg/mimeapps.list is not shipped",
+            )
 
     def check_triggers(self) -> None:
         wanted = {

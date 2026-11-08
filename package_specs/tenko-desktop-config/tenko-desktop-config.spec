@@ -1,6 +1,6 @@
 Name:       tenko-desktop-config
 Version:    6
-Release:    3
+Release:    4
 Epoch:      1
 Summary:    Tenko X11/XFCE session configuration
 License:    MIT
@@ -8,6 +8,7 @@ Prefix:     /usr
 
 Requires:   xinit
 Requires:   xfce4-session
+Requires:   xdg-utils
 
 %description
 Default X session configuration for Tenko: startxfce4 on startx, plus the
@@ -28,6 +29,18 @@ cat > %{buildroot}/etc/skel/.xinitrc <<'EOF'
 exec startxfce4
 EOF
 chmod 644 %{buildroot}/etc/skel/.xinitrc
+
+# Desktop-level metadata shared by the XFCE profiles: default MIME
+# associations, a help: URI handler and the Help System layout.
+install -Dpm755 %{_sourcedir}/tenko-help %{buildroot}%{_bindir}/tenko-help
+install -Dpm644 %{_sourcedir}/tenko-help.desktop \
+    %{buildroot}%{_datadir}/applications/tenko-help.desktop
+install -Dpm644 %{_sourcedir}/tenko-help.html \
+    %{buildroot}%{_datadir}/help/tenko/index.html
+install -Dpm644 %{_sourcedir}/tenko-help.html \
+    %{buildroot}%{_datadir}/help/C/tenko/index.html
+install -Dpm644 %{_sourcedir}/mimeapps.list \
+    %{buildroot}%{_sysconfdir}/xdg/mimeapps.list
 
 # New-user XFCE defaults.  The installer creates the admin account with
 # "useradd -m", so these land in ~/.config on first login.  They are partial
@@ -143,6 +156,17 @@ EOF
 
 %files
 %dir /var/lib/xkb
+%{_bindir}/tenko-help
+%dir %{_datadir}/applications
+%{_datadir}/applications/tenko-help.desktop
+%dir %{_datadir}/help
+%dir %{_datadir}/help/tenko
+%{_datadir}/help/tenko/index.html
+%dir %{_datadir}/help/C
+%dir %{_datadir}/help/C/tenko
+%{_datadir}/help/C/tenko/index.html
+%dir %{_sysconfdir}/xdg
+%config(noreplace) %{_sysconfdir}/xdg/mimeapps.list
 %config /etc/skel/.xinitrc
 %dir %{_sysconfdir}/skel/.config
 %dir %{_sysconfdir}/skel/.config/xfce4
@@ -154,6 +178,13 @@ EOF
 %config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-4
+- Ship the desktop metadata defaults: /etc/xdg/mimeapps.list associates
+  Thunar, Vim, mpv and the XFCE preferred browser, and maps help: URIs to
+  the new tenko-help handler.  Install the Help System layout under
+  /usr/share/help (tenko and C/tenko) with a fallback page and a
+  /usr/share/applications/tenko-help.desktop entry (issue #35).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-3
 - Ship a single top panel in /etc/skel/xfce4-panel.xml.  xfce4-panel was
   still seeding new accounts from /etc/xdg/xfce4/panel/default.xml, which

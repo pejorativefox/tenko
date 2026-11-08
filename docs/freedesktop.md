@@ -65,23 +65,23 @@ open without weakening the end state.
 | `clipboard` | 1.0 | N/A | Wayland data-device protocol; X11 uses X selections |
 | `clipboard-extensions` | 1.0 | N/A | Wayland-only |
 | `dbus` | current spec | implemented | dbus-daemon/dbus-x11 in base and desktop; policy audit in #40 |
-| `desktop-entry` | 1.5 | partial | 48 files validate with no errors, but no build-time validation or database trigger; #35 |
+| `desktop-entry` | 1.5 | implemented | Entries validate with no errors; update-desktop-database file trigger; build-time audit in #33 |
 | `fhs` | 3.0 | implemented | Merged-/usr layout plus /media, /var/local and the /usr/local subdirectories; /var/run and /var/lock via systemd tmpfiles |
 | `global-shortcuts` | draft | N/A | Portal/Wayland; no Wayland session |
-| `help-system` | current spec | gap | No /usr/share/help layout or help: URI handler; folded into #35 |
-| `icon-naming` | 0.8.90 | partial | Kora inherits missing breeze; Adwaita inherits missing AdwaitaLegacy; #35 |
-| `icon-theme` | 0.13 | partial | Themes present; inheritance and cache triggers incomplete; #35 |
+| `help-system` | current spec | implemented | /usr/share/help layout plus the tenko-help handler; documented browser fallback |
+| `icon-naming` | 0.8.90 | implemented | Kora and Adwaita inherit hicolor; every application Icon= resolves |
+| `icon-theme` | 0.13 | implemented | Theme inheritance corrected; gtk-update-icon-cache file trigger |
 | `idle-inhibit` | 0.1 | N/A | Wayland protocol; X11 uses XScreenSaver |
 | `intent-apps` | 1.0.0 | N/A | New spec with no XFCE-stack implementation; revisit later |
-| `menu` | 1.1 | partial | garcon ships xfce-applications.menu; not validated; #35 |
-| `mime-apps` | 1.0.1 | gap | No default mimeapps.list; xdg-utils not in desktop metas; #35 |
+| `menu` | 1.1 | implemented | garcon xfce-applications.menu and xfce-settings-manager.menu validate |
+| `mime-apps` | 1.0.1 | implemented | /etc/xdg/mimeapps.list defaults; xdg-utils and desktop-file-utils in the desktop profiles |
 | `mpris` | current spec | N/A | Application responsibility (media players); no distro service |
 | `notification` | 1.3 | gap | No notification daemon installed; #37 |
 | `polkit` | current docs | partial | Daemon packaged, no authentication agent; #40 |
 | `recent-files` | 0.3 | partial | gvfsd-recent shipped via thunar; unverified; #38 |
 | `secret-service` | 0.2 | gap | libsecret client only, no provider; #39 |
 | `shortcuts` | draft | N/A | Portal/Wayland; no Wayland session |
-| `shared-mime-info` | 0.22 | partial | Database packaged; no runtime update trigger; #35 |
+| `shared-mime-info` | 0.22 | implemented | MIME database packaged; update-mime-database file trigger |
 | `sound-naming` | 0.2 | gap | No sound theme or naming support installed; #43 |
 | `sound-theme` | 0.2 | gap | No sound-theme-freedesktop; #43 |
 | `startup-notification` | 0.2 | implemented | Library and xfwm4 support packaged; verification in #36 |
@@ -127,6 +127,18 @@ upstream application.
 
 XFCE itself uses `~/.config`, `~/.cache` and `~/.local/share` as required by
 the specification.
+
+## Help System fallback
+
+Tenko does not ship a dedicated help browser.  Documents are installed under
+`/usr/share/help/<id>/index.html` (and the `C` locale fallback), and
+`tenko-help` resolves `help:<id>` in this order: the user's locale, the
+language, `C`, the id without a locale, then the generic Tenko page.  It
+opens the page through `xdg-open`; if no HTML handler is configured it prints
+the resolved path instead.  `/etc/xdg/mimeapps.list` maps
+`x-scheme-handler/help` to `tenko-help.desktop`, so `xdg-open help:tenko`
+works on a full desktop (through the XFCE preferred browser) and degrades to
+the printed path on a minimal install.
 
 ## Runtime verification
 

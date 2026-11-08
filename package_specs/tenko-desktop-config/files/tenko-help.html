@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenko help</title>
+<style>
+ body { margin: 0 auto; max-width: 46rem; padding: 2rem 1.25rem;
+        font: 16px/1.6 ui-sans-serif, system-ui, sans-serif; color: #172231;
+        background: #f3f7fd; }
+ h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+ code { font-family: ui-monospace, monospace; background: #e3edfb;
+        padding: .1rem .3rem; border-radius: .25rem; }
+ a { color: #2459a8; }
+</style>
+</head>
+<body>
+<h1>Tenko 6 help</h1>
+<p>This is the fallback help page for Tenko 6 (Workstation).  It is opened
+for <code>help:</code> URIs when an application or the desktop requests
+documentation that is not installed under a more specific help id.</p>
+
+<h2>Installed documentation</h2>
+<ul>
+  <li>Manual pages: <code>man &lt;command&gt;</code>.</li>
+  <li>Installed help collections live under
+      <code>/usr/share/help/&lt;id&gt;/index.html</code>.</li>
+  <li>Desktop applications open their own help through
+      <code>xdg-open help:&lt;id&gt;</code>.</li>
+</ul>
+
+<h2>Common tasks</h2>
+<ul>
+  <li>Package management: <code>dnf install</code>,
+      <code>dnf upgrade</code>, <code>dnf search</code>.</li>
+  <li>Repository definition: <code>/etc/yum.repos.d/tenko-6.repo</code>.</li>
+  <li>Session logs: <code>journalctl --user</code> and
+      <code>journalctl -b</code>.</li>
+</ul>
+</body>
+</html>

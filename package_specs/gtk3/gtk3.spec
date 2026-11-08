@@ -1,6 +1,6 @@
 Name:       gtk+
 Version:    3.24.52
-Release:    6
+Release:    7
 Summary:    Multi-platform toolkit for creating graphical user interfaces
 License:    LGPL-2.1-or-later
 Prefix:     /usr
@@ -57,7 +57,29 @@ The .gir XML needed for building stays in the main package.
 %files lang -f %{_sourcedir}/gtk3-lang.filelist
 %files gir -f %{_sourcedir}/gtk3-gir.filelist
 
+# Rebuild every installed icon theme cache after a transaction touches
+# /usr/share/icons.  gtk-update-icon-cache ships in this package, so the
+# trigger only fires once GTK is installed; the themes and applications
+# that need the cache are all part of the desktop profile.
+%transfiletriggerin -- %{_datadir}/icons
+for theme in %{_datadir}/icons/*/index.theme; do
+    [ -f "$theme" ] || continue
+    gtk-update-icon-cache -q -t -f "${theme%/index.theme}" &>/dev/null || :
+done
+
+%transfiletriggerpostun -- %{_datadir}/icons
+for theme in %{_datadir}/icons/*/index.theme; do
+    [ -f "$theme" ] || continue
+    gtk-update-icon-cache -q -t -f "${theme%/index.theme}" &>/dev/null || :
+done
+
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 3.24.52-7
+- Add file triggers for /usr/share/icons so every installed theme cache is
+  rebuilt after a package transaction, replacing the per-package %post
+  calls in mpv, firefox-bin, google-chrome-bin and kora-icon-theme
+  (issue #35).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.24.52-6
 - Replace the TODO summary/description and record the verified license
   (LGPL-2.1-or-later): meson.build, gdk/COPYING (issue #8).

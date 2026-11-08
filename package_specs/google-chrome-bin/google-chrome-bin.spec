@@ -21,7 +21,7 @@
 
 Name:       google-chrome-bin
 Version:    156.0.8078.79
-Release:    1
+Release:    2
 Summary:    Google Chrome web browser (official upstream x86_64 RPM repackaged)
 License:    Proprietary (Google Chrome Terms of Service)
 URL:        https://chrome.google.com/
@@ -148,15 +148,13 @@ for size in 16 24 32 48 64 128 256; do
         %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/google-chrome.png
 done
 
-%post
-update-desktop-database %{_datadir}/applications &>/dev/null || :
-
-%postun
-update-desktop-database %{_datadir}/applications &>/dev/null || :
-
 %files -f %{_sourcedir}/google-chrome-bin.filelist
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 156.0.8078.79-2
+- Drop the manual update-desktop-database calls; desktop-file-utils now
+  provides a file trigger for /usr/share/applications (issue #35).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 156.0.8078.79-1
 - Initial repackage of the official Google Chrome stable x86_64 RPM under
   /opt/google/chrome; drop Google's repo/cron/alternatives integration.
