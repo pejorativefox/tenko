@@ -77,7 +77,7 @@ open without weakening the end state.
 | `mime-apps` | 1.0.1 | implemented | /etc/xdg/mimeapps.list defaults; xdg-utils and desktop-file-utils in the desktop profiles |
 | `mpris` | current spec | N/A | Application responsibility (media players); no distro service |
 | `notification` | 1.3 | gap | No notification daemon installed; #37 |
-| `polkit` | current docs | partial | Daemon packaged, no authentication agent; #40 |
+| `polkit` | current docs | implemented | polkitd, xfce-polkit agent and the wheel admin rule; policy audit in #33 |
 | `recent-files` | 0.3 | implemented | gvfsd-recent via gvfs (required by Thunar); recent:// verified in #32 |
 | `secret-service` | 0.2 | gap | libsecret client only, no provider; #39 |
 | `shortcuts` | draft | N/A | Portal/Wayland; no Wayland session |
@@ -165,6 +165,23 @@ desktop-file thumbnails are supported; video and audio thumbnails are
 **unsupported** and fall back to the application's generic icon.  Adding a
 codec-backed thumbnailer later means packaging the required plugins and
 re-enabling the plugin in the tumbler spec together with the file list.
+
+## Polkit and D-Bus
+
+`polkitd` runs on the system bus and ships `pkexec`, `pkcheck`, `pkaction`
+and `pkttyagent`.  The session starts `xfce-polkit` from
+`/etc/xdg/autostart/xfce-polkit.desktop`; its `NotShowIn=GNOME;KDE;` line
+keeps it out of other desktops.  The installer creates the admin account in
+`wheel` and locks root, so `/etc/polkit-1/rules.d/50-tenko-wheel.rules`
+makes `unix-group:wheel` the polkit administrator; accountsservice's
+existing `adm` rule is left in place for compatibility.  Actions and rules
+ship with the packages that own them (NetworkManager, accountsservice,
+flatpak, polkit itself).
+
+The audit parses every `/usr/share/dbus-1` and `/etc/dbus-1` configuration
+file and the polkit `.policy` XML.  The runtime prompt is exercised by the
+final QEMU desktop test; the system bus must start without policy parse
+errors.
 
 ## Runtime verification
 
