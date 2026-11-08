@@ -1,0 +1,4 @@
+# Ventoy only: expose the Tenko ISO file on the data partition to the live
+# initramfs.  A normal CD or dd-written stick has no VTOYEFI label, so this
+# rule never runs and the boot path is unchanged.
+ACTION=="add", SUBSYSTEM=="block", ENV{ID_FS_LABEL}=="VTOYEFI", RUN+="/sbin/initqueue --onetime --unique --name tenko-ventoy /sbin/tenko-ventoy-iso"

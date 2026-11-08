@@ -82,6 +82,8 @@ install -vm755 %{_sourcedir}/95tenko-ventoy.module-setup.sh \
     %{buildroot}/usr/lib/dracut/modules.d/95tenko-ventoy/module-setup.sh
 install -vm755 %{_sourcedir}/95tenko-ventoy.iso-scan.sh \
     %{buildroot}/usr/lib/dracut/modules.d/95tenko-ventoy/tenko-ventoy-iso.sh
+install -vm644 %{_sourcedir}/95tenko-ventoy.rules \
+    %{buildroot}/usr/lib/dracut/modules.d/95tenko-ventoy/tenko-ventoy.rules
 
 install -vdm755 %{buildroot}%{_docdir}/tenko-installer
 install -vm644 %{_sourcedir}/README.tenko-installer \
@@ -97,6 +99,7 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %dir /usr/lib/dracut/modules.d/95tenko-ventoy
 /usr/lib/dracut/modules.d/95tenko-ventoy/module-setup.sh
 /usr/lib/dracut/modules.d/95tenko-ventoy/tenko-ventoy-iso.sh
+/usr/lib/dracut/modules.d/95tenko-ventoy/tenko-ventoy.rules
 %{_docdir}/tenko-installer/README
 
 %changelog

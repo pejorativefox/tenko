@@ -1,14 +1,11 @@
 #!/bin/sh
 # Find the Tenko ISO on a Ventoy data partition and give it to dmsquash-live.
 #
-# dmsquash-live has already asked udev for /dev/disk/by-label/TENKO.  Ventoy
-# only maps the ISO inside the firmware, so once the kernel runs the media is
-# a *.iso file on the Ventoy data partition.  Loop that file and run
-# dmsquash-live-root directly; the initqueue is waiting for the live root.
-#
-# A real CD or a dd-written USB stick already provides the label, so this
-# exits immediately there.  Without a VTOYEFI partition (every non-Ventoy
-# boot) it also does nothing.
+# Queued by the 95tenko-ventoy udev rule when the VTOYEFI partition appears,
+# so it never runs on a normal CD or dd-written USB boot.  Ventoy only maps
+# the ISO inside the firmware; for the kernel it is just a *.iso file on the
+# data partition.  Loop that file and run dmsquash-live-root directly; the
+# initqueue is waiting for the live root.
 
 command -v info > /dev/null || . /lib/dracut-lib.sh
 
@@ -16,20 +13,11 @@ PATH=/usr/sbin:/usr/bin:/sbin:/bin
 export PATH
 
 TENKO_LABEL=TENKO
-VTOY_LABEL=VTOYEFI
 MNT=/run/initramfs/tenko-ventoy
 ISO_LIST=/tmp/tenko-ventoy-isos
 
+# A real CD or a dd-written stick already provides the label.
 [ -e "/dev/disk/by-label/$TENKO_LABEL" ] && exit 0
-
-# Only a Ventoy disk has a VTOYEFI partition.  Give udev a moment to publish
-# it, then give up: a normal live boot must not be delayed by this scan.
-i=0
-while [ ! -e "/dev/disk/by-label/$VTOY_LABEL" ]; do
-    i=$((i + 1))
-    [ "$i" -gt 100 ] && exit 0
-    sleep 0.1
-done
 
 mkdir -p "$MNT"
 
@@ -58,12 +46,20 @@ try_device() {
     return 1
 }
 
-for dev in /dev/disk/by-uuid/*; do
-    [ -e "$dev" ] || continue
-    case "$(readlink -f "$dev")" in
-        /dev/loop*) continue ;;
-    esac
-    try_device "$dev" && exit 0
+# The data partition is usually ready before VTOYEFI (same disk, partition 1
+# before partition 2), but retry briefly in case udev reports them out of
+# order.  This wait only happens on a Ventoy boot.
+i=0
+while [ "$i" -lt 25 ]; do
+    for dev in /dev/disk/by-uuid/*; do
+        [ -e "$dev" ] || continue
+        case "$(readlink -f "$dev")" in
+            /dev/loop*) continue ;;
+        esac
+        try_device "$dev" && exit 0
+    done
+    i=$((i + 1))
+    sleep 0.2
 done
 
 exit 1
