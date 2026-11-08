@@ -258,6 +258,14 @@ set -u
 
 mkdir -p /mnt /tmp/.X11-unix
 chmod 1777 /tmp/.X11-unix || true
+
+# The installroot transaction can run before every schema is present, and
+# the glib file trigger cannot compile schemas without a mounted /proc.
+# Recompile after the package set is complete so the portal backend can read
+# org.gnome.desktop.lockdown and friends.
+if [ -x /usr/bin/glib-compile-schemas ]; then
+    /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas || true
+fi
 rm -f /tmp/.X0-lock /tmp/.X11-unix/X0
 if ! grep -q '^host0 /mnt ' /proc/mounts 2>/dev/null; then
     modprobe 9pnet_virtio >/dev/null 2>&1 || true

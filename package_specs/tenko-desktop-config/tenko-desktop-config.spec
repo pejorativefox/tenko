@@ -1,6 +1,6 @@
 Name:       tenko-desktop-config
 Version:    6
-Release:    6
+Release:    7
 Epoch:      1
 Summary:    Tenko X11/XFCE session configuration
 License:    MIT
@@ -56,6 +56,11 @@ install -Dpm644 %{_sourcedir}/xfce-session-watch.service \
     %{buildroot}/usr/lib/systemd/user/xfce-session-watch.service
 install -Dpm644 %{_sourcedir}/xfce-graphical-session.desktop \
     %{buildroot}%{_sysconfdir}/xdg/autostart/xfce-graphical-session.desktop
+
+# The GTK portal backend is activated by the systemd user manager and must
+# open the X display itself; the manager does not inherit XAUTHORITY.
+install -Dpm644 %{_sourcedir}/xdg-desktop-portal-gtk-x11.conf \
+    %{buildroot}/usr/lib/systemd/user/xdg-desktop-portal-gtk.service.d/10-tenko-x11.conf
 
 # New-user XFCE defaults.  The installer creates the admin account with
 # "useradd -m", so these land in ~/.config on first login.  They are partial
@@ -187,6 +192,8 @@ EOF
 %config(noreplace) %{_sysconfdir}/xdg/autostart/xfce-graphical-session.desktop
 /usr/lib/systemd/user/xfce-session.target
 /usr/lib/systemd/user/xfce-session-watch.service
+%dir /usr/lib/systemd/user/xdg-desktop-portal-gtk.service.d
+/usr/lib/systemd/user/xdg-desktop-portal-gtk.service.d/10-tenko-x11.conf
 %config /etc/skel/.xinitrc
 %dir %{_sysconfdir}/skel/.config
 %dir %{_sysconfdir}/skel/.config/xfce4
@@ -198,6 +205,12 @@ EOF
 %config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-7
+- Give the systemd-activated xdg-desktop-portal-gtk service a DISPLAY and
+  XAUTHORITY.  The user manager does not inherit the LightDM session's
+  XAUTHORITY, so the GTK backend aborted with "cannot open display: :0.0"
+  and every portal request timed out (issue #46).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-6
 - Activate graphical-session.target in an XFCE session.  XFCE 4.20 does not
   start the session through systemd, so the target stayed inactive and
