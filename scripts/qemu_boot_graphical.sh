@@ -31,8 +31,15 @@ IMGSIZE=${IMGSIZE:-4G}
 EXTRA_PACKAGES=${EXTRA_PACKAGES:-}
 EXTRA_RPMS=${EXTRA_RPMS:-}
 
-[ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
-ls "$REPO"/xfce-desktop-*.rpm >/dev/null 2>&1 || { echo "repo has no xfce-desktop" >&2; exit 1; }
+if [ -d "$REPO" ]; then
+    ls "$REPO"/xfce-desktop-*.rpm >/dev/null 2>&1 || {
+        echo "repo has no xfce-desktop" >&2; exit 1; }
+else
+    case "$REPO" in
+        http://*|https://*|ftp://*) ;;
+        *) echo "missing repo: $REPO" >&2; exit 1 ;;
+    esac
+fi
 
 if [ "$SKIP_INSTALL" != "1" ]; then
     echo "installing desktop rootfs (base + xfce-desktop)"

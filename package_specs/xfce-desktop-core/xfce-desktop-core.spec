@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    13
+Release:    14
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -56,6 +56,9 @@ Requires:   appstream
 Requires:   xdg-user-dirs
 # Event sounds through libcanberra (Sound Theme 0.2 / Sound Naming 0.2).
 Requires:   sound-theme-freedesktop
+# Playback for the sound theme and the libsecret client tools.
+Requires:   libcanberra
+Requires:   libsecret
 # Desktop entry, MIME and icon metadata: xdg-utils provides the xdg-*
 # tools, desktop-file-utils validates/updates the entry database (and now
 # owns the file trigger), and mpv is the default media handler in
@@ -105,6 +108,11 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-14
+- Require libcanberra and libsecret so the sound theme has a player and
+  libsecret applications have the client tools on a default desktop
+  (issues #39, #43).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-13
 - Require gnome-keyring as the Secret Service provider and portal Secret
   backend (issue #39).

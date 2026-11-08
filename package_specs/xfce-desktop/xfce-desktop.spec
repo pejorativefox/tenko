@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    21
+Release:    22
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -74,6 +74,10 @@ Requires:   kora-icon-theme
 Requires:   font-terminus
 # Event sounds through libcanberra (Sound Theme 0.2 / Sound Naming 0.2).
 Requires:   sound-theme-freedesktop
+# Playback for the sound theme (canberra-gtk-play) and the libsecret client
+# tools used by desktop applications (secret-tool).
+Requires:   libcanberra
+Requires:   libsecret
 # shared-mime-info used to be pulled in by gdk-pixbuf's .pc Requires.
 # The .pc ships in the gdk-pixbuf runtime package again after the -devel
 # subpackages were removed, but Thunar/GIO need the MIME database at
@@ -130,6 +134,11 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-22
+- Require libcanberra and libsecret so the sound theme has a player and
+  libsecret applications have the client tools on a default desktop
+  (issues #39, #43).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-21
 - Require gnome-keyring as the Secret Service provider and portal Secret
   backend (issue #39).

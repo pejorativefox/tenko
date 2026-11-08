@@ -1,6 +1,6 @@
 Name:       tenko-sysconfig
 Version:    6
-Release:    4
+Release:    5
 Epoch:      1
 Summary:    Base configuration for Tenko Linux
 License:    MIT
@@ -77,6 +77,7 @@ EOF2
 # Make that group the polkit administrator for auth_admin actions; the
 # accountsservice rule still adds adm for compatibility.
 mkdir -p %{buildroot}/etc/polkit-1/rules.d
+chmod 0750 %{buildroot}/etc/polkit-1/rules.d
 cat > %{buildroot}/etc/polkit-1/rules.d/50-tenko-wheel.rules <<'EOF2'
 // Tenko: the installer adds the admin user to wheel and locks root.
 polkit.addAdminRule(function(action, subject) {
@@ -174,6 +175,11 @@ chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 %config(noreplace) /etc/machine-id
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-5
+- Create /etc/polkit-1/rules.d with mode 0750 to match polkit's directory
+  ownership; 0755 made a file conflict in a transaction that installed both
+  packages (issue #40).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-4
 - Ship /etc/polkit-1/rules.d/50-tenko-wheel.rules so the installer-created
   admin account (wheel) is a polkit administrator for auth_admin actions;

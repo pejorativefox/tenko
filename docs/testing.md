@@ -142,6 +142,22 @@ SKIP_INSTALL=1 scripts/qemu_boot_login.sh
 BUILD_ONLY=1 scripts/qemu_boot_login.sh
 ```
 
+For the freedesktop desktop-level gate, run the same boot plus the in-guest
+session checks (notifications, portal, Secret Service, sound, trash, tray,
+XSettings and EWMH).  Prefer the LAN mirror when it is reachable:
+
+```sh
+REPO=http://192.168.31.9/~daspork/tenko/packages/6/ \
+    scripts/qemu_fdo_verify.sh
+REPO=build/repo-all scripts/qemu_fdo_verify.sh   # local repository
+```
+
+`scripts/qemu_fdo_verify.sh` installs a fresh rootfs, adds a one-shot guest
+service that writes `build/qemu-share/fdo-check.txt`, boots QEMU, and exits
+non-zero if any guest check reports `FAIL`.  The PAM keyring unlock is
+covered separately by the LightDM PAM configuration and a manual greeter
+login.
+
 Both install from the published repository (`REPO`, default public URL) into
 `build/rootfs-*`, build an ext4 image, boot it and capture the screen.  Logs
 and screenshots are written under `build/`.
