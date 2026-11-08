@@ -104,6 +104,7 @@ After=dbus.service
 Type=simple
 User=root
 Environment=HOME=/root
+Environment=XAUTHORITY=/root/.Xauthority
 Environment=XDG_RUNTIME_DIR=/run/user/0
 Environment=GTK_THEME=Default
 TTYPath=/dev/tty1
@@ -111,7 +112,7 @@ StandardInput=tty
 StandardOutput=journal+console
 ExecStartPre=/bin/mkdir -p /run/user/0
 ExecStartPre=/bin/chmod 700 /run/user/0
-ExecStart=/usr/bin/startx -- :0 vt1
+ExecStart=/usr/bin/startx -- :0 vt1 -ac
 Restart=no
 TimeoutStartSec=30
 

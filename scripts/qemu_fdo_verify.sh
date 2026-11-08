@@ -39,6 +39,20 @@ fi
 
 mkdir -p "$SHARE"
 
+# The graphical harness starts X as root on tty1.  Disable X access control
+# for this test session and give startx a stable XAUTHORITY so the XFCE
+# session can connect even when the harness rebuilds the image without
+# replaying qemu_boot_graphical.sh.
+if [ -f "$ROOTFS/etc/systemd/system/xfce-test.service" ]; then
+    sed -i 's|^ExecStart=/usr/bin/startx -- :0 vt1$|ExecStart=/usr/bin/startx -- :0 vt1 -ac|' \
+        "$ROOTFS/etc/systemd/system/xfce-test.service"
+    grep -q '^Environment=XAUTHORITY=' \
+        "$ROOTFS/etc/systemd/system/xfce-test.service" || \
+        sed -i '/^Environment=HOME=\/root$/a Environment=XAUTHORITY=/root/.Xauthority' \
+            "$ROOTFS/etc/systemd/system/xfce-test.service"
+    install -m 600 /dev/null "$ROOTFS/root/.Xauthority"
+fi
+
 # The session checker runs inside the guest.
 install -m 0755 scripts/fdo_session_check.sh \
     "$ROOTFS/usr/local/bin/fdo_session_check.sh"
