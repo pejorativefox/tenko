@@ -1,6 +1,6 @@
 Name:       tenko-base-runtime
 Version:    6
-Release:    3
+Release:    4
 Epoch:      1
 Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
@@ -54,6 +54,11 @@ Requires:   gzip
 Requires:   iproute2
 Requires:   libtirpc
 Requires:   kbd
+Requires:   font-noto-cjk
+Requires:   font-noto-emoji
+Requires:   font-nerd-symbols
+Requires:   libtsm
+Requires:   kmscon
 Requires:   libpipeline
 Requires:   tar
 Requires:   vim-minimal
@@ -115,6 +120,13 @@ touch %{buildroot}/usr/share/tenko/base-runtime
 /usr/share/tenko/base-runtime
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-4
+- Require the console Unicode stack: kmscon (with libtsm) replaces fbcon on
+  the VTs, and the Noto CJK, Noto Emoji and Nerd Fonts symbol packages give
+  the console and the desktop terminal Chinese, emoji and icon coverage.
+  This is the profile the installer and the live media install, so the fix
+  reaches both a fresh base-only system and the desktop set.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-3
 - Require bash-completion.  The installer and the live ISO install this
   runtime meta, not tenko-base, so promoting bash-completion into

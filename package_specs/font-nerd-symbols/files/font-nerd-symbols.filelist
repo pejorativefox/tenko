@@ -1,0 +1,11 @@
+%dir /etc/fonts
+%dir /etc/fonts/conf.d
+%dir /usr/share/doc
+%dir /usr/share/doc/font-nerd-symbols
+%dir /usr/share/fonts
+%dir /usr/share/fonts/nerd-symbols
+/etc/fonts/conf.d/69-tenko-nerd-symbols.conf
+/usr/share/doc/font-nerd-symbols/LICENSE
+/usr/share/doc/font-nerd-symbols/README.md
+/usr/share/fonts/nerd-symbols/SymbolsNerdFont-Regular.ttf
+/usr/share/fonts/nerd-symbols/SymbolsNerdFontMono-Regular.ttf

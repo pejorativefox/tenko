@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    23
+Release:    24
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -63,6 +63,9 @@ Requires:   xf86-video-vesa
 Requires:   iceauth
 Requires:   font-alias
 Requires:   font-bh-ttf
+# Color emoji for GUI applications and the desktop terminal; the base system
+# ships the monochrome Noto Emoji face for kmscon.
+Requires:   font-noto-color-emoji
 Requires:   xrdb
 Requires:   xset
 Requires:   xmodmap
@@ -138,6 +141,11 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-24
+- Require font-noto-color-emoji for color emoji in GUI applications and the
+  desktop terminal.  The base system keeps the monochrome Noto Emoji face
+  that kmscon can render.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-23
 - Require fuse2 so AppImage type-2 executables can mount their squashfs
   image through libfuse.so.2.  fuse3 alone is not enough: the type-2

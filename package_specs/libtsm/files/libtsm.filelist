@@ -1,0 +1,13 @@
+%dir /usr/include
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+%dir /usr/share/doc
+%dir /usr/share/doc/libtsm
+/usr/include/libtsm.h
+/usr/lib64/libtsm.so
+/usr/lib64/libtsm.so.4
+/usr/lib64/libtsm.so.4.8.0
+/usr/lib64/pkgconfig/libtsm.pc
+/usr/share/doc/libtsm/COPYING
+/usr/share/doc/libtsm/LICENSE_htable
+/usr/share/doc/libtsm/README.md

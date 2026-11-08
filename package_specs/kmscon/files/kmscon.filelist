@@ -1,0 +1,19 @@
+%dir /etc/fonts
+%dir /etc/fonts/conf.d
+%dir /etc/kmscon
+%dir /usr/lib/systemd/system-preset
+%dir /usr/lib64/kmscon
+%dir /usr/share/terminfo
+%dir /usr/share/terminfo/k
+/etc/fonts/conf.d/69-tenko-console.conf
+%config(noreplace) /etc/kmscon/kmscon.conf
+%config(noreplace) /etc/kmscon/kmscon.conf.example
+/usr/bin/kmscon
+/usr/bin/kmscon-launch-gui
+/usr/lib/systemd/system-preset/50-tenko-console.preset
+/usr/lib/systemd/system/kmscon.service
+/usr/lib/systemd/system/kmsconvt@.service
+/usr/lib64/kmscon/mod-freetype.so
+/usr/lib64/kmscon/mod-psf.so
+/usr/lib64/kmscon/mod-unifont.so
+/usr/share/terminfo/k/kmscon

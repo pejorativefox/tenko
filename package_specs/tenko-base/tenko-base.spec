@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    6
-Release:    3
+Release:    4
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
@@ -76,6 +76,9 @@ Requires:   groff
 Requires:   gzip
 Requires:   iproute2
 Requires:   kbd
+Requires:   font-noto-cjk
+Requires:   font-noto-emoji
+Requires:   font-nerd-symbols
 Requires:   libpipeline
 Requires:   make
 Requires:   patch
@@ -120,6 +123,8 @@ Requires:   NetworkManager
 Requires:   wpa-supplicant
 Requires:   nmtui
 Requires:   linux-firmware-base
+Requires:   libtsm
+Requires:   kmscon
 # END GENERATED REQUIRES
 
 %description
@@ -134,6 +139,14 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-4
+- Add the console Unicode stack.  font-noto-cjk, font-noto-emoji and
+  font-nerd-symbols are base packages (and in the rebuild order); libtsm
+  and kmscon are runtime extras.  kmscon replaces fbcon on the VTs because
+  the kernel console is capped at 512 glyphs and cannot render Simplified
+  Chinese; the fonts give the desktop terminal Chinese, emoji and Nerd Font
+  icon fallback.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-3
 - Move bash-completion from requires-extra into base.json, so it is part
   of the base package set and base rebuild order instead of an extra

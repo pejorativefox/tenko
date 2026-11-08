@@ -1,6 +1,6 @@
 Name:       tenko-firstboot
 Version:    6
-Release:    1
+Release:    3
 Epoch:      1
 Summary:    First-boot root account policy for Tenko Linux
 License:    MIT
@@ -54,6 +54,17 @@ fi
 %dir /var/lib/tenko
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-3
+- Keep only the ordering against kmsconvt@tty1.service; drop the Conflicts=.
+  systemd enqueues a stop job for a Conflicts= target even when this unit's
+  first-boot ConditionPathExists is false, and that deleted kmscon's start
+  job on every normal boot.  Before= still keeps the prompt on tty1 until it
+  exits.
+
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-2
+- Conflict with and start before kmsconvt@tty1.service, so the first-boot
+  root password prompt keeps tty1 now that kmscon is the base console.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
 - Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
   the old 13.1 EVR upgrade cleanly.

@@ -45,3 +45,11 @@ NetworkManager
 wpa-supplicant
 nmtui
 linux-firmware-base
+# Console Unicode support.  The kernel VT is capped at 512 glyphs and cannot
+# render Simplified Chinese; kmscon replaces fbcon on the VTs with a userspace
+# renderer that uses fontconfig and freetype.  libtsm is its terminal state
+# machine.  Both are runtime extras rather than base.json membership because
+# they need the desktop font/graphics libraries (already repository packages)
+# at build time.
+libtsm
+kmscon

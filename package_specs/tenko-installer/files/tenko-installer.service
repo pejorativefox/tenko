@@ -3,7 +3,11 @@ Description=Tenko Linux installer
 Documentation=file:///usr/share/doc/tenko-installer/README
 After=local-fs.target network-online.target
 Wants=network-online.target
-Before=getty@tty1.service
+# kmscon is the base console on tty1.  Ordering is enough: a Conflicts= here
+# would enqueue a stop job even when the live ConditionPathExists is false, and
+# that would delete kmscon's start job on an installed system that happens to
+# carry this package.
+Before=getty@tty1.service kmsconvt@tty1.service
 Conflicts=getty@tty1.service
 ConditionPathExists=/run/initramfs/live
 

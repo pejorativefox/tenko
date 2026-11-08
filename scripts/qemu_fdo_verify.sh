@@ -148,6 +148,7 @@ if [ "$install_rootfs" = 1 ]; then
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ enable lightdm.service || true
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ set-default graphical.target || true
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ mask getty@tty1.service || true
+        unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ mask kmsconvt@tty1.service || true
     fi
 
     unshare -r chroot "$ROOTFS" /sbin/ldconfig || true

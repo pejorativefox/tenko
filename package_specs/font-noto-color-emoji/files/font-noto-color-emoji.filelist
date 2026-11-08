@@ -1,0 +1,9 @@
+%dir /etc/fonts
+%dir /etc/fonts/conf.d
+%dir /usr/share/doc
+%dir /usr/share/doc/font-noto-color-emoji
+%dir /usr/share/fonts
+%dir /usr/share/fonts/noto-color-emoji
+/etc/fonts/conf.d/69-tenko-noto-color-emoji.conf
+/usr/share/doc/font-noto-color-emoji/OFL.txt
+/usr/share/fonts/noto-color-emoji/NotoColorEmoji-Regular.ttf

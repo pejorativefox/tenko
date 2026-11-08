@@ -1,6 +1,6 @@
 Name:       lightdm
 Version:    1.33.1
-Release:    5
+Release:    6
 Summary:    Lightweight cross-desktop display manager
 License:    GPL-3.0-or-later
 Source0:    lightdm-1.33.1.tar.gz
@@ -123,6 +123,11 @@ XML needed for building stays there.
 %files gir -f %{_sourcedir}/lightdm-gir.filelist
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 1.33.1-6
+- Conflict with and start after kmsconvt@tty1.service.  kmscon is now the
+  base console on tty1; without the conflict lightdm would try to start X
+  while kmscon still holds the DRM master.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 1.33.1-5
 - Add the optional pam_gnome_keyring auth and session hooks to
   /etc/pam.d/lightdm and the auto_start session hook to

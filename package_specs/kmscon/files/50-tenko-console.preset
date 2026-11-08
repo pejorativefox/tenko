@@ -1,0 +1,10 @@
+# Use kmscon as the userspace console on the VTs.
+#
+# This file must sort before systemd's 90-systemd.preset, which enables
+# getty@.service: preset files are read in lexical order and the first
+# matching line for a unit wins.
+disable getty@.service
+# The non-VT service is for systems without /dev/tty0; on a normal install
+# the VT template above is the only console unit that should be enabled.
+disable kmscon.service
+enable kmsconvt@.service

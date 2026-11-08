@@ -92,6 +92,7 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     # Presets are only applied when something asks systemd to apply them.
     if [ -x "$ROOTFS/usr/bin/systemctl" ]; then
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ preset-all || true
+        unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ mask kmsconvt@tty1.service || true
         unshare -r chroot "$ROOTFS" /usr/bin/systemctl --root=/ set-default graphical.target || true
     fi
 

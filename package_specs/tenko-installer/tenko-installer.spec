@@ -1,6 +1,6 @@
 Name:       tenko-installer
 Version:    6
-Release:    6
+Release:    8
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
@@ -103,6 +103,17 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-8
+- Keep only the ordering against kmsconvt@tty1.service; drop the Conflicts=.
+  The live unit's ConditionPathExists is false on an installed system, but
+  systemd still enqueues the conflict stop job and that deletes kmscon's
+  start job.  Before= keeps the installer on tty1 while it runs.
+
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-7
+- Conflict with and start before kmsconvt@tty1.service.  The live root now
+  pulls kmscon in through tenko-base-runtime; the installer must keep tty1
+  instead of racing the userspace console for it.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-6
 - Add a live-initramfs module that finds the installer ISO on a Ventoy data
   partition and loop-mounts it for dmsquash-live.  Ventoy's UEFI chain loader

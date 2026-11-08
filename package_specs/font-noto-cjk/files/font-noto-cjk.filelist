@@ -1,0 +1,10 @@
+%dir /etc/fonts
+%dir /etc/fonts/conf.d
+%dir /usr/share/doc
+%dir /usr/share/doc/font-noto-cjk
+%dir /usr/share/fonts
+%dir /usr/share/fonts/noto-cjk
+/etc/fonts/conf.d/69-tenko-noto-cjk.conf
+/usr/share/doc/font-noto-cjk/LICENSE
+/usr/share/fonts/noto-cjk/NotoSansMonoCJKsc-Bold.otf
+/usr/share/fonts/noto-cjk/NotoSansMonoCJKsc-Regular.otf
