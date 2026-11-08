@@ -1,6 +1,6 @@
 Name:       tenko-sysconfig
 Version:    6
-Release:    1
+Release:    2
 Epoch:      1
 Summary:    Base configuration for Tenko Linux
 License:    MIT
@@ -17,7 +17,7 @@ Base configuration files for Tenko Linux.
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc %{buildroot}/etc/systemd/system/getty.target.wants
 mkdir -p %{buildroot}/etc/systemd/journald.conf.d %{buildroot}/etc/systemd/network
-mkdir -p %{buildroot}/etc/dracut.conf.d
+mkdir -p %{buildroot}/etc/dracut.conf.d %{buildroot}/etc/skel
 ln -sf /usr/lib/systemd/system/multi-user.target %{buildroot}/etc/systemd/system/default.target
 ln -sf /usr/lib/systemd/system/serial-getty@ttyS0.service %{buildroot}/etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
 
@@ -100,7 +100,33 @@ done
 unset f
 EOF2
 
+# New-user shell startup.  Login shells read /etc/profile (and therefore
+# /etc/profile.d) on their own; terminal emulators start interactive
+# non-login shells, which only read ~/.bashrc.  Load bash-completion there
+# so tab completion works in a new account's terminal by default.  Do not
+# source all of /etc/profile.d again: some snippets append to PATH and are
+# not idempotent.
+cat > %{buildroot}/etc/skel/.bash_profile <<'EOF2'
+# Login shells already read /etc/profile, which loads the profile.d snippets;
+# this file only has to bring in the user's interactive settings.
+if [ -r "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
+fi
+EOF2
+cat > %{buildroot}/etc/skel/.bashrc <<'EOF2'
+# Interactive (non-login) shells, such as the ones terminal emulators start,
+# do not read /etc/profile.  Load the same bash-completion snippet that
+# /etc/profile.d provides to login shells.
+if [ -r /etc/profile.d/bash_completion.sh ]; then
+    . /etc/profile.d/bash_completion.sh
+fi
+EOF2
+chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
+
 %files
+%dir /etc/skel
+%config(noreplace) /etc/skel/.bash_profile
+%config(noreplace) /etc/skel/.bashrc
 %config(noreplace) /etc/fstab
 %config(noreplace) /etc/systemd/system/default.target
 %config(noreplace) /etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
@@ -122,6 +148,14 @@ EOF2
 %config(noreplace) /etc/machine-id
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-2
+- Ship /etc/skel/.bash_profile and /etc/skel/.bashrc.  Login shells
+  already read /etc/profile and its profile.d snippets, but terminal
+  emulators start interactive non-login shells that only read ~/.bashrc,
+  so a new account had no bash-completion until it sourced the snippet by
+  hand.  ~/.bashrc now loads bash_completion.sh without re-running the
+  rest of /etc/profile.d (several snippets append to PATH).
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
 - Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
   the old 13.1 EVR upgrade cleanly.

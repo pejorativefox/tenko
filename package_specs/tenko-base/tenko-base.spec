@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    6
-Release:    2
+Release:    3
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
@@ -47,6 +47,7 @@ Requires:   gettext
 Requires:   bison
 Requires:   grep
 Requires:   bash
+Requires:   bash-completion
 Requires:   libtool
 Requires:   gdbm
 Requires:   gperf
@@ -114,7 +115,6 @@ Requires:   ncat
 Requires:   ncdu
 Requires:   htop
 Requires:   nodejs
-Requires:   bash-completion
 Requires:   podman-bin
 Requires:   NetworkManager
 Requires:   wpa-supplicant
@@ -134,6 +134,11 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 6-3
+- Move bash-completion from requires-extra into base.json, so it is part
+  of the base package set and base rebuild order instead of an extra
+  requirement.  The resolved base transaction is unchanged.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-2
 - Add NetworkManager, wpa-supplicant and nmtui to the base install, plus
   linux-firmware-base for the signed regulatory database.  This makes

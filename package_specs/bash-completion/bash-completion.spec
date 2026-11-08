@@ -1,6 +1,6 @@
 Name:       bash-completion
 Version:    2.18.0
-Release:    1
+Release:    2
 Summary:    Programmable completion for the bash shell
 License:    GPL-2.0-or-later
 URL:        https://github.com/scop/bash-completion
@@ -17,9 +17,10 @@ completion files and an /etc/profile.d snippet that loads the library for
 interactive shells when bash detects that no completions have been loaded
 yet.
 
-bash-completion is not in the base set (it is only an optional
-dependency); the user approved upstream 2.18.0 as the version-policy
-exception.
+bash-completion is part of the base package set.  Interactive login shells
+load it from /etc/profile.d/bash_completion.sh; tenko-sysconfig's
+/etc/skel/.bashrc loads the same snippet for terminal emulators, which
+start non-login shells.
 
 %prep
 %setup -q
@@ -35,6 +36,10 @@ rm -rf %{buildroot}
 %files -f %{_sourcedir}/bash-completion.filelist
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 2.18.0-2
+- Promote bash-completion into the base package set (base.json); it is no
+  longer only a tenko-base requires-extra entry.  No payload change.
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.18.0-1
 - Update to upstream 2.18.0 (was a 2.10 stub that was never built).
   bash-completion is not in the base set; the user approved this
