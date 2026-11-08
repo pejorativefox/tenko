@@ -13,13 +13,13 @@ SECTION = re.compile(
     r"post|postun|pre|preun|package)\b")
 
 
-def read(relative):
-    with open(os.path.join(REPO_ROOT, relative), encoding="utf-8") as handle:
-        return handle.read()
-
-
 def spec_path(relative):
     return os.path.join(SPECS, relative)
+
+
+def read(relative):
+    with open(spec_path(relative), encoding="utf-8") as handle:
+        return handle.read()
 
 
 def spec_lines(relative):
@@ -92,8 +92,8 @@ class AppImageSupportTest(unittest.TestCase):
         spec = read(FUSE2_SPEC)
         self.assertIsNone(
             re.search(r"(?m)^%package\s+devel\b", spec),
-            "fuse2 must not ship a -devel subpackage; fuse3 owns the "
-            "development files")
+            "fuse2 must not ship a -devel subpackage; Tenko keeps headers, "
+            ".pc files and unversioned links in the runtime package")
 
     def test_fuse2_leaves_fuse3_owned_paths_alone(self):
         spec = read(FUSE2_SPEC)
