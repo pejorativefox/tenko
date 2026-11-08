@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    6
+Release:    7
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -39,6 +39,9 @@ Requires:   arc-theme
 Requires:   kora-icon-theme
 Requires:   font-terminus
 Requires:   shared-mime-info
+# Creates ~/.config/user-dirs.dirs and the localized Desktop, Documents,
+# Downloads, Music, Pictures and Videos directories at session start.
+Requires:   xdg-user-dirs
 Requires:   libxfce4util
 Requires:   xfconf
 Requires:   libxfce4ui
@@ -79,6 +82,10 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-7
+- Require xdg-user-dirs so a new account gets ~/.config/user-dirs.dirs and
+  the standard localized user directories at session start (issue #34).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-6
 - Require NetworkManager and network-manager-applet so the core session
   has the network manager running on boot and the panel applet, matching

@@ -1,6 +1,6 @@
 Name:       tenko-basefs
 Version:    1.0
-Release:    3
+Release:    4
 Summary:    Base filesystem layout for Tenko Linux
 License:    MIT
 Prefix:     /
@@ -20,11 +20,13 @@ Owns the base directory layout and the merged-/usr symlinks.
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/{etc,usr/{bin,lib,lib64,sbin,include,libexec,share,src,local/{bin,lib,sbin}},var/{cache,log,mail,opt,spool,tmp,lib},run,root,boot,home,mnt,opt,srv}
+mkdir -p %{buildroot}/{etc,usr/{bin,lib,lib64,sbin,include,libexec,share,src,local/{bin,etc,games,include,lib,man,sbin,share,src}},var/{cache,log,mail,opt,spool,tmp,lib,local},run,root,boot,home,mnt,opt,srv,media}
 chmod 1777 %{buildroot}/tmp 2>/dev/null || true
 mkdir -p %{buildroot}/tmp %{buildroot}/var/tmp
 chmod 1777 %{buildroot}/tmp %{buildroot}/var/tmp
 chmod 0750 %{buildroot}/root
+chmod 0755 %{buildroot}/media %{buildroot}/var/local
+chmod 0755 %{buildroot}/usr/local/{etc,games,include,man,share,src}
 ln -sf usr/bin  %{buildroot}/bin
 ln -sf usr/lib  %{buildroot}/lib
 ln -sf usr/lib64 %{buildroot}/lib64
@@ -45,11 +47,18 @@ ln -sf usr/sbin %{buildroot}/sbin
 /usr/share
 /usr/src
 /usr/local/bin
+/usr/local/etc
+/usr/local/games
+/usr/local/include
 /usr/local/lib
+/usr/local/man
 /usr/local/sbin
+/usr/local/share
+/usr/local/src
 /var/cache
 /var/log
 /var/mail
+/var/local
 /var/opt
 /var/spool
 /var/tmp
@@ -62,8 +71,16 @@ ln -sf usr/sbin %{buildroot}/sbin
 /mnt
 /opt
 /srv
+/media
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 1.0-4
+- Complete the FHS 3.0 layout: add /media, /var/local and the
+  /usr/local/{etc,games,include,man,share,src} directories with root:root
+  and mode 0755.  /var/run and /var/lock remain systemd tmpfiles symlinks
+  (var.conf and legacy.conf) and are verified on a booted install
+  (issue #34).
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 1.0-3
 - Drop the browneye-basefs Obsoletes/Provides alias; no Browneye installs
   remain.

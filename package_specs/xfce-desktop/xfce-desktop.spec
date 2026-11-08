@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    14
+Release:    15
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -62,6 +62,9 @@ Requires:   font-terminus
 # subpackages were removed, but Thunar/GIO need the MIME database at
 # runtime, so require the data package explicitly.
 Requires:   shared-mime-info
+# Creates ~/.config/user-dirs.dirs and the standard user directories at
+# session start.
+Requires:   xdg-user-dirs
 Requires:   tenko-desktop-config
 Requires:   linux-firmware-base
 # udev's hardware database is what maps PCI/USB/input IDs to device
@@ -104,6 +107,10 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-15
+- Require xdg-user-dirs so a new account gets ~/.config/user-dirs.dirs and
+  the standard localized user directories at session start (issue #34).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-14
 - Require NetworkManager and network-manager-applet: a desktop install now
   starts the network manager on boot (the NetworkManager preset enables the
