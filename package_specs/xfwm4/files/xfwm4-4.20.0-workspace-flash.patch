@@ -1,0 +1,311 @@
+diff -ruN xfwm4-4.20.0.orig/src/screen.c xfwm4-4.20.0/src/screen.c
+--- a/src/screen.c	2024-10-23 13:33:12.000000000 -0000
++++ b/src/screen.c	2026-11-09 11:12:44.851618891 -0000
+@@ -52,6 +52,7 @@
+ #include "mywindow.h"
+ #include "compositor.h"
+ #include "ui_style.h"
++#include "workspaces.h"
+ 
+ #ifndef WM_EXITING_TIMEOUT
+ #define WM_EXITING_TIMEOUT 15 /*seconds */
+@@ -373,6 +374,8 @@
+     g_free (screen_info->params);
+     screen_info->params = NULL;
+ 
++    workspaceClearPending (screen_info);
++
+     gtk_widget_destroy (screen_info->gtk_win);
+     screen_info->gtk_win = NULL;
+ 
+diff -ruN xfwm4-4.20.0.orig/src/screen.h xfwm4-4.20.0/src/screen.h
+--- a/src/screen.h	2024-10-23 13:33:12.000000000 -0000
++++ b/src/screen.h	2026-11-09 11:12:30.309373666 -0000
+@@ -141,6 +141,13 @@
+     guint current_ws;
+     guint previous_ws;
+ 
++    /* Windows of the previous workspace, kept mapped until the compositor
++       has content for the windows mapped on the new workspace */
++    GList *pending_withdraw;
++    guint pending_withdraw_timeout_id;
++    gint64 pending_withdraw_since;
++    GList *pending_paint;
++
+     /* Monitor search caching */
+     GdkRectangle cache_monitor;
+     gint num_monitors;
+diff -ruN xfwm4-4.20.0.orig/src/workspaces.c xfwm4-4.20.0/src/workspaces.c
+--- a/src/workspaces.c	2023-12-27 15:53:47.000000000 -0000
++++ b/src/workspaces.c	2026-11-09 11:18:14.562070240 -0000
+@@ -29,6 +29,10 @@
+ #include <X11/Xlib.h>
+ #include <X11/Xutil.h>
+ #include <X11/Xmd.h>
++#ifdef HAVE_COMPOSITOR
++#include <X11/extensions/Xdamage.h>
++#include <X11/extensions/Xfixes.h>
++#endif
+ 
+ #include <glib.h>
+ #include <gdk/gdk.h>
+@@ -48,6 +52,7 @@
+ #include "frame.h"
+ #include "stacking.h"
+ #include "hints.h"
++#include "compositor.h"
+ 
+ static void
+ workspaceGetPosition (ScreenInfo *screen_info, int n, int * row, int * col)
+@@ -239,6 +244,224 @@
+     return (screen_info->current_ws != previous_ws);
+ }
+ 
++#ifdef HAVE_COMPOSITOR
++typedef struct
++{
++    Window window;
++    Damage damage;
++} WorkspacePendingPaint;
++#endif
++
++#define WORKSPACE_WITHDRAW_POLL_MS 10
++#define WORKSPACE_WITHDRAW_MAX_MS  100
++
++static void
++workspaceClearPendingPaint (ScreenInfo *screen_info)
++{
++#ifdef HAVE_COMPOSITOR
++    DisplayInfo *display_info;
++    GList *list;
++
++    display_info = screen_info->display_info;
++
++    for (list = screen_info->pending_paint; list; list = g_list_next (list))
++    {
++        WorkspacePendingPaint *pending = (WorkspacePendingPaint *) list->data;
++
++        XDamageDestroy (display_info->dpy, pending->damage);
++        g_free (pending);
++    }
++#endif
++    g_list_free (screen_info->pending_paint);
++    screen_info->pending_paint = NULL;
++}
++
++void
++workspaceClearPending (ScreenInfo *screen_info)
++{
++    g_return_if_fail (screen_info != NULL);
++
++    if (screen_info->pending_withdraw_timeout_id != 0)
++    {
++        g_source_remove (screen_info->pending_withdraw_timeout_id);
++        screen_info->pending_withdraw_timeout_id = 0;
++    }
++    g_list_free (screen_info->pending_withdraw);
++    screen_info->pending_withdraw = NULL;
++    workspaceClearPendingPaint (screen_info);
++}
++
++static void
++workspaceTrackPendingPaint (ScreenInfo *screen_info, Client *c)
++{
++#ifdef HAVE_COMPOSITOR
++    WorkspacePendingPaint *pending;
++
++    if (!compositorIsActive (screen_info))
++    {
++        return;
++    }
++
++    pending = g_new0 (WorkspacePendingPaint, 1);
++    pending->window = c->window;
++    pending->damage = XDamageCreate (myScreenGetXDisplay (screen_info),
++                                     c->window, XDamageReportNonEmpty);
++    if (pending->damage == None)
++    {
++        g_free (pending);
++        return;
++    }
++    screen_info->pending_paint = g_list_prepend (screen_info->pending_paint, pending);
++#else
++    (void) screen_info;
++    (void) c;
++#endif
++}
++
++static gboolean
++workspacePendingPaintDone (ScreenInfo *screen_info, Window window)
++{
++#ifdef HAVE_COMPOSITOR
++    DisplayInfo *display_info;
++    WorkspacePendingPaint *pending = NULL;
++    GList *list;
++    XserverRegion parts;
++    XRectangle *rects;
++    gint nrects;
++    gboolean done;
++
++    display_info = screen_info->display_info;
++
++    for (list = screen_info->pending_paint; list; list = g_list_next (list))
++    {
++        WorkspacePendingPaint *p = (WorkspacePendingPaint *) list->data;
++
++        if (p->window == window)
++        {
++            pending = p;
++            break;
++        }
++    }
++
++    if (pending == NULL)
++    {
++        /* Not waiting for this window: it was already painted before the
++           workspace switch. */
++        return TRUE;
++    }
++
++    parts = XFixesCreateRegion (display_info->dpy, NULL, 0);
++    XDamageSubtract (display_info->dpy, pending->damage, None, parts);
++    rects = XFixesFetchRegion (display_info->dpy, parts, &nrects);
++    done = (rects != NULL) && (nrects > 0);
++    if (rects)
++    {
++        XFree (rects);
++    }
++    XFixesDestroyRegion (display_info->dpy, parts);
++
++    if (done)
++    {
++        screen_info->pending_paint =
++            g_list_remove (screen_info->pending_paint, pending);
++        XDamageDestroy (display_info->dpy, pending->damage);
++        g_free (pending);
++    }
++    return done;
++#else
++    (void) screen_info;
++    (void) window;
++    return TRUE;
++#endif
++}
++
++static gboolean
++workspaceCurrentPainted (ScreenInfo *screen_info)
++{
++    GList *list;
++
++    for (list = screen_info->windows_stack; list; list = g_list_next (list))
++    {
++        Client *c = (Client *) list->data;
++
++        if ((c->win_workspace == screen_info->current_ws) &&
++            FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE) &&
++            !workspacePendingPaintDone (screen_info, c->window))
++        {
++            return FALSE;
++        }
++    }
++    return TRUE;
++}
++
++static gboolean
++workspaceWithdrawPending (gpointer data)
++{
++    ScreenInfo *screen_info = (ScreenInfo *) data;
++    GList *list;
++    gboolean timed_out;
++
++    g_return_val_if_fail (screen_info != NULL, G_SOURCE_REMOVE);
++
++    timed_out = (g_get_monotonic_time () - screen_info->pending_withdraw_since) >=
++                ((gint64) WORKSPACE_WITHDRAW_MAX_MS * 1000);
++
++    if (!timed_out && !workspaceCurrentPainted (screen_info))
++    {
++        /* The windows shown on the new workspace have not painted yet: keep
++           the old workspace mapped so the compositor has content to show. */
++        return G_SOURCE_CONTINUE;
++    }
++
++    for (list = screen_info->pending_withdraw; list; list = g_list_next (list))
++    {
++        Window id = (Window) GPOINTER_TO_UINT (list->data);
++        Client *c = myScreenGetClientFromWindow (screen_info, id, SEARCH_FRAME);
++
++        if ((c != NULL) &&
++            (c->win_workspace != screen_info->current_ws) &&
++            FLAG_TEST (c->xfwm_flags, XFWM_FLAG_VISIBLE))
++        {
++            clientWithdraw (c, screen_info->current_ws, FALSE);
++        }
++    }
++
++    g_list_free (screen_info->pending_withdraw);
++    screen_info->pending_withdraw = NULL;
++    screen_info->pending_withdraw_timeout_id = 0;
++    workspaceClearPendingPaint (screen_info);
++    return G_SOURCE_REMOVE;
++}
++
++static void
++workspaceWithdrawClient (ScreenInfo *screen_info, Client *c)
++{
++    g_return_if_fail (c != NULL);
++
++    if (!compositorIsActive (screen_info))
++    {
++        clientWithdraw (c, screen_info->current_ws, FALSE);
++        return;
++    }
++
++    /*
++     * Hide the window only after the windows mapped on the new workspace have
++     * painted.  With the compositor active, unmapping them in the same batch
++     * leaves the incoming windows without content for a frame and the
++     * compositor paints the root wallpaper in that gap.
++     */
++    screen_info->pending_withdraw =
++        g_list_prepend (screen_info->pending_withdraw, GUINT_TO_POINTER (c->frame));
++
++    if (screen_info->pending_withdraw_timeout_id == 0)
++    {
++        screen_info->pending_withdraw_since = g_get_monotonic_time ();
++        screen_info->pending_withdraw_timeout_id =
++            g_timeout_add (WORKSPACE_WITHDRAW_POLL_MS,
++                           workspaceWithdrawPending, screen_info);
++    }
++}
++
+ void
+ workspaceSwitch (ScreenInfo *screen_info, gint new_ws, Client * c2, gboolean update_focus, guint32 timestamp)
+ {
+@@ -319,6 +542,7 @@
+             {
+                 if (!clientIsTransientOrModal (c) || !clientTransientOrModalHasAncestor (c, new_ws))
+                 {
++                    workspaceTrackPendingPaint (screen_info, c);
+                     clientShow (c, FALSE);
+                 }
+             }
+@@ -341,7 +565,7 @@
+             {
+                 if (!clientIsTransientOrModal (c) || !clientTransientOrModalHasAncestor (c, new_ws))
+                 {
+-                    clientWithdraw (c, new_ws, FALSE);
++                    workspaceWithdrawClient (screen_info, c);
+                 }
+             }
+         }
+diff -ruN xfwm4-4.20.0.orig/src/workspaces.h xfwm4-4.20.0/src/workspaces.h
+--- a/src/workspaces.h	2023-12-27 15:53:47.000000000 -0000
++++ b/src/workspaces.h	2026-11-09 11:12:53.845770502 -0000
+@@ -61,4 +61,6 @@
+ void                    workspaceDelete                         (ScreenInfo *,
+                                                                  guint);
+ 
++void                    workspaceClearPending                   (ScreenInfo *);
++
+ #endif /* INC_WORKSPACES_H */
