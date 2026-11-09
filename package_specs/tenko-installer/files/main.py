@@ -7,6 +7,7 @@ import getpass
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -50,6 +51,8 @@ ANSWER_PATHS = (
 )
 MIB = 1024 * 1024
 GIB = 1024 * MIB
+NETWORK_TOOL_PATH = "/usr/sbin:/usr/bin:/sbin:/bin"
+REPOSITORY_CHECK = "package repository"
 
 
 # ---------------------------------------------------------------------------
@@ -381,6 +384,8 @@ def run_preflight(
     probe: Probe,
     config: InstallConfig,
     logger: Logger,
+    *,
+    repo_attempts: int = 6,
 ) -> tuple[list[Check], bool]:
     live_kname = probe.detect_live_disk(refresh=True)
     checks = probe.preflight(
@@ -388,6 +393,7 @@ def run_preflight(
         target=config.target,
         live_kname=live_kname,
         dry_run=config.dry_run,
+        repo_attempts=repo_attempts,
     )
     for check in checks:
         if check.ok:
@@ -403,6 +409,219 @@ def run_preflight(
                 detail=check.detail,
             )
     return checks, all(check.ok for check in checks)
+
+
+# ---------------------------------------------------------------------------
+# Network setup
+# ---------------------------------------------------------------------------
+
+
+def repository_check_failed(checks: Sequence[Check]) -> bool:
+    """True when the package repository check failed."""
+
+    return any(
+        not check.ok and check.label == REPOSITORY_CHECK for check in checks
+    )
+
+
+def _nmcli_command(runner: CommandRunner, *argv: str) -> str:
+    if shutil.which(argv[0], path=NETWORK_TOOL_PATH) is None:
+        return ""
+    try:
+        result = runner.run(
+            argv,
+            step="network",
+            read_only=True,
+            destructive=False,
+            allow_failure=True,
+            timeout=10,
+            description="read the network state",
+        )
+    except (CommandError, OSError):
+        return ""
+    return result.output
+
+
+def _split_nmcli_fields(line: str) -> list[str]:
+    """Split nmcli's terse output, which escapes ':' as '\\:'."""
+
+    fields: list[str] = []
+    current: list[str] = []
+    escaped = False
+    for char in line:
+        if escaped:
+            current.append(char)
+            escaped = False
+        elif char == "\\":
+            escaped = True
+        elif char == ":":
+            fields.append("".join(current))
+            current = []
+        else:
+            current.append(char)
+    fields.append("".join(current))
+    return fields
+
+
+def network_status_lines(runner: CommandRunner) -> list[str]:
+    """A short, readable device list for the network setup screen."""
+
+    output = _nmcli_command(
+        runner,
+        "nmcli",
+        "-t",
+        "-f",
+        "DEVICE,TYPE,STATE,CONNECTION",
+        "device",
+        "status",
+    )
+    lines: list[str] = []
+    for raw in output.splitlines():
+        fields = _split_nmcli_fields(raw)
+        if len(fields) < 3:
+            continue
+        device, type_name, state = fields[:3]
+        connection = fields[3] if len(fields) > 3 else ""
+        text = "{:<12} {:<10} {:<12}".format(device, type_name, state)
+        if connection:
+            text += "  " + connection
+        lines.append(text.rstrip())
+    if lines:
+        return lines
+    if shutil.which("nmcli", path=NETWORK_TOOL_PATH) is None:
+        return ["NetworkManager (nmcli) is not installed."]
+    if not output:
+        return ["NetworkManager returned no devices."]
+    return output.splitlines()[:8]
+
+
+def launch_nmtui(
+    runner: CommandRunner,
+    logger: Logger,
+    ui: CursesUI | None = None,
+) -> bool:
+    """Run nmtui in the foreground, suspending curses while it owns the tty."""
+
+    program = shutil.which(
+        "nmtui-connect", path=NETWORK_TOOL_PATH
+    ) or shutil.which("nmtui", path=NETWORK_TOOL_PATH)
+    if program is None:
+        logger.warning("network-setup-unavailable", program="nmtui")
+        return False
+
+    logger.info("network-setup", program=program)
+    suspended = False
+    if ui is not None:
+        try:
+            curses.def_prog_mode()
+            curses.endwin()
+            suspended = True
+        except curses.error:
+            suspended = False
+    try:
+        env = runner.env.copy()
+        env.setdefault("TERM", os.environ.get("TERM", "linux"))
+        subprocess.run((program,), env=env, check=False)
+    except OSError as exc:
+        logger.warning("network-setup-failed", error=str(exc))
+        return False
+    finally:
+        if suspended and ui is not None:
+            try:
+                curses.reset_prog_mode()
+            except curses.error:
+                pass
+            try:
+                ui.screen.clear()
+                ui.screen.refresh()
+            except curses.error:
+                pass
+    return True
+
+
+def network_setup_screen(
+    ui: CursesUI,
+    runner: CommandRunner,
+    logger: Logger,
+) -> bool:
+    """Offer nmtui and a retry; return True when the caller should retry."""
+
+    while True:
+        status = network_status_lines(runner)
+        rows = [
+            Row("Connect a network (nmtui)"),
+            Row("Retry the network check"),
+            Row("Exit the installer", note="Ctrl+Alt+F2 gives a shell"),
+        ]
+        choice = ui.menu(
+            "Network required",
+            "Tenko downloads every package from the repository; no usable "
+            "network connection was found.",
+            rows,
+            footer="Up/Down select   Enter continue",
+            allow_rescan=False,
+            detail=lambda _index: status,
+            detail_height=min(10, max(2, len(status))),
+        )
+        if choice in (QUIT, 2):
+            return False
+        if choice == 1:
+            return True
+        if not launch_nmtui(runner, logger, ui=ui):
+            ui.message(
+                "Network setup is unavailable",
+                [
+                    "nmtui was not found on this live medium.",
+                    "",
+                    "Use wired Ethernet, a USB Ethernet adapter or USB",
+                    "tethering, then choose Retry.",
+                ],
+                footer="Press any key to continue",
+            )
+            continue
+        # Return to the caller, which immediately probes the repository again.
+        return True
+
+
+def plain_network_retry(
+    probe: Probe,
+    config: InstallConfig,
+    logger: Logger,
+    runner: CommandRunner,
+    checks: list[Check],
+    ok: bool,
+) -> tuple[list[Check], bool]:
+    """Line-oriented equivalent of the network setup screen."""
+
+    while not ok and repository_check_failed(checks):
+        print(
+            "\nThe installer downloads packages from {}; the network is "
+            "not reachable.".format(config.repo)
+        )
+        print("Connect a network (for example Wi-Fi with nmtui) and retry.")
+        for line in network_status_lines(runner):
+            print("  " + line)
+        answer = _ask("Run nmtui now? (y/N, or q to exit)", "")
+        if answer.lower() in ("q", "quit"):
+            break
+        if answer.lower() in ("y", "yes"):
+            if not launch_nmtui(runner, logger):
+                print("nmtui is not available on this live medium.")
+                break
+        else:
+            answer = _ask(
+                "Press Enter to retry the network check, or q to exit", ""
+            )
+            if answer.lower() in ("q", "quit"):
+                break
+        checks, ok = run_preflight(probe, config, logger, repo_attempts=2)
+        for check in checks:
+            print(
+                "  [{}] {}: {}".format(
+                    "ok" if check.ok else "!!", check.label, check.detail
+                )
+            )
+    return checks, ok
 
 
 def _disk_matches(probed: ProbedDisk, spec: DiskSpec) -> list[str]:
@@ -660,6 +879,10 @@ def run_noninteractive(
             if not check.ok
         )
         marker("FAIL preflight: " + failing)
+        if repository_check_failed(checks):
+            marker(
+                "HINT network: run nmtui-connect, then rerun the installer"
+            )
         return 2
 
     try:
@@ -814,9 +1037,13 @@ def run_plain(
         target=args.target,
         dry_run=args.dry_run,
     )
-    checks, ok = run_preflight(probe, preflight_config, logger)
+    checks, ok = run_preflight(probe, preflight_config, logger, repo_attempts=1)
     for check in checks:
         print("  [{}] {}: {}".format("ok" if check.ok else "!!", check.label, check.detail))
+    if not ok and repository_check_failed(checks):
+        checks, ok = plain_network_retry(
+            probe, preflight_config, logger, runner, checks, ok
+        )
     if not ok:
         marker("FAIL preflight")
         return 2
@@ -2486,7 +2713,13 @@ def _interactive(
 ) -> int:
     ui = CursesUI(stdscr)
     config = _initial_config(args)
-    checks, ok = run_preflight(probe, config, logger)
+    # A single attempt keeps the first screen responsive; the network setup
+    # screen below handles the retry and runs nmtui when needed.
+    checks, ok = run_preflight(probe, config, logger, repo_attempts=1)
+    while not ok and repository_check_failed(checks):
+        if not network_setup_screen(ui, runner, logger):
+            return 2
+        checks, ok = run_preflight(probe, config, logger, repo_attempts=2)
     lines = [
         "This will install Tenko Linux 6 (Workstation) on a local GPT disk.",
         "",

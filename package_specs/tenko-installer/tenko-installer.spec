@@ -1,6 +1,6 @@
 Name:       tenko-installer
 Version:    6
-Release:    8
+Release:    9
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
@@ -103,6 +103,16 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 6-9
+- Do not exit when the package repository is unreachable.  The curses
+  preflight now shows a network screen that lists NetworkManager devices,
+  runs nmtui-connect (or nmtui) with curses suspended, and retries the
+  repository check; the plain/serial flow offers the same retry and the
+  non-interactive failure prints the nmtui hint (issue #50).
+- Use one repository probe attempt in the interactive and plain flows so
+  the network screen appears promptly instead of after a two-minute wait;
+  the unattended flow keeps the longer retry for slow DHCP leases.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-8
 - Keep only the ordering against kmsconvt@tty1.service; drop the Conflicts=.
   The live unit's ConditionPathExists is false on an installed system, but

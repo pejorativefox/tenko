@@ -1,6 +1,6 @@
 Name:       tenko-live
 Version:    6
-Release:    2
+Release:    3
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) live installer environment (meta-package)
 License:    MIT
@@ -22,6 +22,14 @@ Requires:   LVM2
 Requires:   linux-kernel
 Requires:   linux-modules
 Requires:   linux-firmware-base
+# The installer is network-only and most Wi-Fi cards need their vendor
+# firmware before a wlan interface appears.  build_iso_uefi.sh installs with
+# install_weak_deps=False, so these must be real Requires, not Recommends.
+Requires:   linux-firmware-intel-wifi
+Requires:   linux-firmware-ath
+Requires:   linux-firmware-mediatek
+Requires:   linux-firmware-other
+Requires:   linux-firmware-nic
 Requires:   python
 Requires:   ncurses
 Requires:   util-linux
@@ -40,6 +48,10 @@ btrfs-progs and tenko-installer.  It ships no files; tenko-installer
 owns the unit,
 the live systemd preset and the dracut dmsquash-live configuration.
 
+It also pulls the vendor Wi-Fi and NIC firmware packs, because the
+installer downloads every package and most wireless cards need external
+firmware before NetworkManager can offer an interface.
+
 %prep
 
 %build
@@ -49,6 +61,14 @@ the live systemd preset and the dracut dmsquash-live configuration.
 %files
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 6-3
+- Require the vendor Wi-Fi and NIC firmware packs (Intel, Atheros,
+  MediaTek, Realtek wired and the remaining Broadcom/Cypress/etc. blobs).
+  The live kernel already ships iwlwifi/ath/rtw*/mt76 drivers, but the
+  media only carried linux-firmware-base, so a wireless card was detected
+  and then failed to load firmware, leaving the network-only installer
+  with no usable interface (issue #50).
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-2
 - Require tzdb: the live environment needs zoneinfo for the installer's
   timezone selection and validation.

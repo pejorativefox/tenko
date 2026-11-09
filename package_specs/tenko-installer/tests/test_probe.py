@@ -94,6 +94,23 @@ class RepositoryProbeTest(unittest.TestCase):
         self.assertEqual(detail, "https://example.invalid/repodata/repomd.xml")
         self.assertEqual(seen["user_agent"], "Tenko-Installer/6")
 
+    def test_single_attempt_does_not_sleep_or_retry(self):
+        calls = []
+
+        def fake_urlopen(request, timeout=0):
+            calls.append(request.full_url)
+            raise probe.urllib.error.URLError("offline")
+
+        with mock.patch("probe.urllib.request.urlopen", fake_urlopen), \
+                mock.patch("probe.time.sleep") as sleep:
+            ok, detail = probe._repository_reachable(
+                "https://example.invalid/repodata/repomd.xml", attempts=1
+            )
+        self.assertFalse(ok)
+        self.assertEqual(len(calls), 1)
+        self.assertIn("offline", detail)
+        sleep.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -70,12 +70,22 @@ class ProbeError(RuntimeError):
     pass
 
 
-def _repository_reachable(repodata: str) -> tuple[bool, str]:
+def _repository_reachable(
+    repodata: str,
+    *,
+    attempts: int = 6,
+    timeout: float = 15.0,
+    delay: float = 5.0,
+) -> tuple[bool, str]:
     """True if the repository metadata exists locally or can be fetched.
 
     A network repository is retried for a while: the installer starts as
     soon as the live system reaches multi-user, which can be before DHCP
     has finished, and a URL is not a path that os.path.isfile() can see.
+
+    The interactive installer uses a single attempt and then offers a
+    network setup screen; the unattended paths keep the longer retry so a
+    slow DHCP lease does not turn an answer-file install into a failure.
 
     The public repository sits behind Cloudflare, which returns HTTP 403 to
     the default ``Python-urllib`` User-Agent while dnf's UA is allowed.  Send
@@ -88,10 +98,10 @@ def _repository_reachable(repodata: str) -> tuple[bool, str]:
         "User-Agent": "Tenko-Installer/6",
         "Accept": "*/*",
     }
-    for _ in range(6):
+    for attempt in range(max(1, attempts)):
         try:
             request = urllib.request.Request(repodata, headers=request_headers)
-            with urllib.request.urlopen(request, timeout=15) as response:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
                 if response.status == 200:
                     return True, repodata
                 last = "HTTP %s" % response.status
@@ -99,7 +109,8 @@ def _repository_reachable(repodata: str) -> tuple[bool, str]:
             last = "HTTP %s %s" % (exc.code, exc.reason)
         except (urllib.error.URLError, OSError) as exc:
             last = str(exc)
-        time.sleep(5)
+        if attempt + 1 < max(1, attempts):
+            time.sleep(delay)
     return False, "%s (%s)" % (repodata, last)
 
 
@@ -568,6 +579,7 @@ class Probe:
         target: str,
         live_kname: str | None,
         dry_run: bool = False,
+        repo_attempts: int = 6,
     ) -> list[Check]:
         checks: list[Check] = []
 
@@ -633,7 +645,9 @@ class Probe:
 
         repodata = repo.rstrip("/") + "/repodata/repomd.xml" if "://" in repo \
             else os.path.join(repo, "repodata", "repomd.xml")
-        repo_ok, repo_detail = _repository_reachable(repodata)
+        repo_ok, repo_detail = _repository_reachable(
+            repodata, attempts=repo_attempts
+        )
         if dry_run and not repo_ok:
             checks.append(
                 Check(True, "package repository", f"{repo} (missing; dry-run only)")

@@ -54,6 +54,12 @@ After the preflight screen the installer offers two paths:
   Install Tenko Linux 6 (Workstation) (recommended)
   Advanced installation
 
+If the package repository is unreachable, the installer shows a network
+screen instead of exiting: it lists the NetworkManager devices, opens
+`nmtui-connect` (or `nmtui`) when asked, and retries the repository check.
+The same retry is offered in `--plain`/serial mode; an `--answer` install
+reports the nmtui hint and keeps the longer automatic retry.
+
 The guided path asks for:
 
   1. the target disk (one disk; other disks are not touched)
