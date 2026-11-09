@@ -1,6 +1,6 @@
 Name:       tenko-rpm-config
 Version:    6
-Release:    1
+Release:    2
 Epoch:      1
 Summary:    RPM macros and strip helper for Tenko builds
 License:    MIT
@@ -29,6 +29,13 @@ install -m 755 %{_sourcedir}/strip_debug.sh %{buildroot}/usr/lib/rpm/tenko/strip
 /usr/lib/rpm/tenko/strip_debug.sh
 
 %changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 6-2
+- Align %_dbpath with installed systems: /var/lib/rpm instead of
+  /usr/lib/sysimage/rpm.  tenko-osdev/tenko-base-build install this macro
+  package on running systems, and the old path made rpm/dnf lose the
+  existing database after installation.  Images built before this release
+  need a one-time database move or a rebuild.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1
 - Rebase on the Tenko 6 distro release with Epoch 1 so installs carrying
   the old 13.1 EVR upgrade cleanly.

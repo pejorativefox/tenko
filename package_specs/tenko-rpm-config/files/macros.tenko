@@ -6,7 +6,11 @@
 %_libdir            /usr/lib64
 %_unitdir           /usr/lib/systemd/system
 %_udevrulesdir      /usr/lib/udev/rules.d
-%_dbpath            /usr/lib/sysimage/rpm
+# Match the installed system: runtime package sets do not ship this macro
+# package, so their RPM database stays at the rpm default.  Keeping the build
+# image on the same path means installing tenko-osdev/tenko-base-build on a
+# running system cannot hide the existing database behind a new %_dbpath.
+%_dbpath            /var/lib/rpm
 
 # Standard runpaths (e.g. /usr/lib64) are acceptable for tenko.
 %__brp_check_rpaths %{nil}
