@@ -1,8 +1,7 @@
 /etc/localtime
 /usr/lib/libtz.a
-/usr/share/man/man3/*
-/usr/share/man/man5/*
-/usr/share/man/man8/*
+/usr/share/man/man3/newctime.3.gz
+/usr/share/man/man3/newtzset.3.gz
 /usr/share/zoneinfo/Africa/Abidjan
 /usr/share/zoneinfo/Africa/Accra
 /usr/share/zoneinfo/Africa/Addis_Ababa
