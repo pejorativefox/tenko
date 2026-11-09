@@ -1,6 +1,6 @@
 Name:       mesa
 Version:    26.2.3
-Release:    7
+Release:    8
 Summary:    Mesa 3D Graphics Library
 License:    MIT
 Prefix:     /usr
@@ -12,9 +12,12 @@ Source0:    %{name}-%{version}.tar.xz
 # dependencies and are not runtime requirements of this package.
 BuildRequires: libx11, libxext, libxfixes, libxrandr, libxxf86vm
 BuildRequires: libxcb, libxshmfence, libdrm, llvm-devel
+BuildRequires: xorgproto
 BuildRequires: spirv-llvm-translator, spirv-tools
 BuildRequires: clang-libs, clang-resource-filesystem, clang-devel
 BuildRequires: python-mako, python-pyyaml
+BuildRequires: libva
+BuildRequires: glslang
 Requires:   libxshmfence
 Requires:   vulkan-loader
 
@@ -23,8 +26,10 @@ Open source implementations of OpenGL, OpenGL ES, EGL, GBM and Vulkan,
 built for X11 only (no Wayland).  Includes the llvmpipe software
 rasterizer, the virgl guest driver for QEMU's virtio-gpu 3D device, the
 hardware Gallium drivers crocus and iris (Intel) and radeonsi and r600
-(AMD), and the Vulkan ICDs: RADV (AMD GCN1+), ANV (Intel Gen8+), Hasvk
-(Intel Gen4-7.5) and lavapipe (software).
+(AMD), the Vulkan ICDs: RADV (AMD GCN1+), ANV (Intel Gen8+), Hasvk
+(Intel Gen4-7.5) and lavapipe (software), and the VA-API frontend with
+H.264, HEVC, AV1 and VP9 encode/decode support for the AMD and Intel
+Gallium drivers.
 
 %prep
 %setup -q
@@ -46,8 +51,8 @@ meson setup ..                \
       -Dgles2=enabled         \
       -Degl=enabled           \
       -Dllvm=enabled          \
-      -Dgallium-va=disabled   \
-      -Dvideo-codecs=         \
+      -Dgallium-va=enabled    \
+      -Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,av1dec,av1enc,vp9dec \
       -Dvalgrind=disabled     \
       -Dlibunwind=disabled
 ninja
@@ -62,6 +67,16 @@ popd
 %files -f %{_sourcedir}/mesa.filelist
 
 %changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 26.2.3-8
+- Build the VA-API frontend (-Dgallium-va=enabled) and enable the
+  H.264/HEVC/AV1/VP9 encoders and decoders in -Dvideo-codecs.  The
+  hardware Gallium drivers shipped no VA driver, so gpu-screen-recorder
+  and other VA-API encoders found no H.264/HEVC encode entry point on
+  AMD and Intel GPUs.  This is a required dependency of the new
+  gpu-screen-recorder package; the Vulkan ICDs from 26.2.3-7 are kept.
+- Declare the glslang and xorgproto build inputs: the Vulkan drivers run
+  glslangValidator and the XCB pkg-config files need xproto.pc.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 26.2.3-7
 - Build the Vulkan drivers: RADV (amd), ANV (intel), Hasvk (intel_hasvk)
   and lavapipe (swrast).  The package shipped no Vulkan ICD, so SDL_GPU

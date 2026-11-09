@@ -39,9 +39,12 @@
 /usr/lib64/dri/kms_swrast_dri.so
 /usr/lib64/dri/libdril_dri.so
 /usr/lib64/dri/r600_dri.so
+/usr/lib64/dri/r600_drv_video.so
 /usr/lib64/dri/radeonsi_dri.so
+/usr/lib64/dri/radeonsi_drv_video.so
 /usr/lib64/dri/swrast_dri.so
 /usr/lib64/dri/virtio_gpu_dri.so
+/usr/lib64/dri/virtio_gpu_drv_video.so
 %dir /usr/lib64/gbm
 /usr/lib64/gbm/dri_gbm.so
 /usr/lib64/libEGL.so

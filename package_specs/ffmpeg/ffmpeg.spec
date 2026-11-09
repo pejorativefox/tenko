@@ -1,6 +1,6 @@
 Name:       ffmpeg
 Version:    9.0.2
-Release:    2
+Release:    3
 Summary:    Multimedia framework for audio and video processing
 License:    GPL-3.0-or-later
 Prefix:     /usr
@@ -9,13 +9,16 @@ Source1:    %{name}-%{version}-chromium_method-1.patch
 
 BuildRequires: libtheora
 BuildRequires: libvorbis
+BuildRequires: libva
+BuildRequires: libx264
 
 %description
 FFmpeg is a collection of libraries and tools to process multimedia content
 such as audio, video, subtitles and related metadata. It provides the
 libavcodec, libavformat, libavutil, libavfilter, libavdevice, libswresample
 and libswscale libraries, together with the ffmpeg, ffplay and ffprobe
-tools.
+tools.  This build includes VA-API hardware encoding/decoding for AMD
+and Intel GPUs and the libx264 software H.264 encoder.
 
 %prep
 %setup -q
@@ -35,6 +38,10 @@ patch -Np1 -i %{SOURCE1}
             --enable-libvorbis        \
             --enable-libvpx           \
             --enable-openssl          \
+            --enable-vaapi            \
+            --enable-libx264          \
+            --disable-vulkan          \
+            --disable-nvenc           \
             --ignore-tests=enhanced-flv-av1,enhanced-flv-multitrack \
             --docdir=/usr/share/doc/ffmpeg-%{version}
 %make_build
@@ -310,6 +317,16 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man3/libswscale.3.gz
 
 %changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 9.0.2-3
+- Enable VA-API (--enable-vaapi) and the libx264 software H.264 encoder
+  (--enable-libx264).  gpu-screen-recorder uses FFmpeg's h264_vaapi,
+  hevc_vaapi, av1_vaapi, vp8_vaapi and vp9_vaapi encoders, and libx264
+  for its CPU fallback; without these the recorder has no usable video
+  encoder at all.  Vulkan and NVENC are disabled explicitly: Tenko ships
+  no NVIDIA driver stack, and enabling them would otherwise depend on
+  whatever headers happen to be installed in the build image.  The
+  library sonames and the package file list are unchanged.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 9.0.2-2
 - Replace the TODO summary/description and record the verified license
   (GPL-3.0-or-later): LICENSE.md (issue #8).
