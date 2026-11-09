@@ -1,6 +1,6 @@
 Name:       tenko-osdev
 Version:    6
-Release:    1
+Release:    2
 Epoch:      1
 Summary:    Tenko Linux OS development environment
 License:    MIT
@@ -52,9 +52,9 @@ rclone and OpenSSH for publishing, the ISO authoring tools (libisoburn,
 squashfs-tools, mtools, dosfstools), dracut/cpio for the live initramfs, and
 QEMU with OVMF for boot testing.
 
-tenko-rpm-config arrives through tenko-base-build; keeping it installed on
-the host makes dnf --installroot write the RPM database to the same path the
-generated images expect (/usr/lib/sysimage/rpm).
+tenko-rpm-config arrives through tenko-base-build; it uses the same
+/var/lib/rpm database path as installed Tenko systems, so adding this meta
+to an existing system does not move the RPM database.
 
 %prep
 
@@ -68,6 +68,11 @@ touch %{buildroot}/usr/share/tenko/osdev
 /usr/share/tenko/osdev
 
 %changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 6-2
+- Rebuild against tenko-rpm-config 6-2: the RPM database path is now
+  /var/lib/rpm (the installed-system default), so installing this meta no
+  longer requires a database migration.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 6-1
 - New meta-package for OS development on Tenko: full base, the build and
   RPM/repodata toolchain, podman, publish clients, ISO authoring tools and

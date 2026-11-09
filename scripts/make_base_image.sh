@@ -96,11 +96,11 @@ else
     echo "installing $PACKAGES into $rootfs_abs from $REPO_URL"
     rootfs_install $PACKAGES
 
-    # dnf --installroot uses the host's %_dbpath.  On a host without
-    # tenko-rpm-config that is /var/lib/rpm, while the image's rpm
-    # (macros.tenko) expects /usr/lib/sysimage/rpm, which leaves rpm -qa
-    # empty inside the image.  tenko-osdev installs tenko-rpm-config on the
-    # host; this relocation keeps the script working on other hosts too.
+    # Compatibility for images built with tenko-rpm-config < 6-2, which
+    # expected /usr/lib/sysimage/rpm: dnf --installroot uses the host's
+    # %_dbpath, so a host on /var/lib/rpm leaves rpm -qa empty in such an
+    # image.  Current hosts and images both use /var/lib/rpm, so this is a
+    # no-op there.
     if [ -d "$rootfs_abs/var/lib/rpm" ] && \
        [ ! -d "$rootfs_abs/usr/lib/sysimage/rpm" ]; then
         echo "relocating the RPM database to /usr/lib/sysimage/rpm"

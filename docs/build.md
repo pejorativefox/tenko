@@ -61,14 +61,15 @@ The host-side counterpart is `tenko-osdev`.  It installs `tenko-base`,
 `tenko-base-build`, `tenko-build`, `podman-bin`, the publish clients
 (`rclone`, `rsync`, `openssh`), the ISO authoring tools and QEMU/OVMF.
 Install it on a fresh Tenko system before running the build, image and
-publish scripts.  It also brings in `tenko-rpm-config`, which keeps the
-host and `dnf --installroot` RPM database path consistent
-(`/usr/lib/sysimage/rpm`).
+publish scripts.  `tenko-rpm-config` keeps the RPM database at the
+installed-system default (`/var/lib/rpm`), so adding the development meta
+to a running system does not move it.
 
 `make_base_image.sh` installs `tenko-basefs` in its own first transaction
 (so the `/bin`, `/sbin`, `/lib` and `/lib64` usr-merge symlinks win over the
 directories created by the rest of the transaction) and relocates the RPM
-database when the host lacks `tenko-rpm-config`.
+database for images built before `tenko-rpm-config` 6-2 (which used
+`/usr/lib/sysimage/rpm`).
 
 ## Static filelists
 
