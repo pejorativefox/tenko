@@ -15,10 +15,6 @@ import sys
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(REPO_DIR, "builder"))
 
-# Make rpmsupport/strip_debug.sh available to the rpmbuild macros.
-os.environ["PATH"] = os.path.join(REPO_DIR, "rpmsupport") + os.pathsep + \
-    os.environ.get("PATH", "")
-
 import db
 from build import PackageBuilder
 
