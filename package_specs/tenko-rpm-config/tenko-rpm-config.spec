@@ -1,8 +1,8 @@
 Name:       tenko-rpm-config
 Version:    6
-Release:    2
+Release:    3
 Epoch:      1
-Summary:    RPM macros and strip helper for Tenko builds
+Summary:    RPM build macros for Tenko packages
 License:    MIT
 Prefix:     /usr
 
@@ -11,8 +11,8 @@ Requires: binutils
 Requires: file
 
 %description
-RPM macros, library paths, and the strip helper used to build Tenko
-packages inside the base container.
+RPM macros and library paths used to build Tenko packages inside the base
+container.
 
 %prep
 
@@ -20,15 +20,19 @@ packages inside the base container.
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}%{_rpmmacrodir} %{buildroot}/usr/lib/rpm/tenko
+mkdir -p %{buildroot}%{_rpmmacrodir}
 install -m 644 %{_sourcedir}/macros.tenko %{buildroot}%{_rpmmacrodir}/macros.tenko
-install -m 755 %{_sourcedir}/strip_debug.sh %{buildroot}/usr/lib/rpm/tenko/strip_debug.sh
 
 %files
 %{_rpmmacrodir}/macros.tenko
-/usr/lib/rpm/tenko/strip_debug.sh
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 6-3
+- Drop the vendored strip helper and the %strip / %__spec_install_post
+  overrides.  rpm's platform macros load after macros.tenko and already
+  replace %__spec_install_post, so the override never ran; stripping is
+  handled by brp-strip inside %__os_install_post.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 6-2
 - Align %_dbpath with installed systems: /var/lib/rpm instead of
   /usr/lib/sysimage/rpm.  tenko-osdev/tenko-base-build install this macro

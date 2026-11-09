@@ -26,13 +26,3 @@
 
 # Python byte-compile failures in test fixtures must not abort packaging.
 %_python_bytecompile_errors_terminate_build 0
-
-# Strip binaries into the buildroot with the vendored helper.
-%strip /usr/lib/rpm/tenko/strip_debug.sh %{buildroot}
-
-%__spec_install_post\
-    %strip\
-    %{?__debug_package:%{__debug_install_post}}\
-    %{__arch_install_post}\
-    %{__os_install_post}\
-%nil
