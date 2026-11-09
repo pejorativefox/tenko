@@ -1,0 +1,10 @@
+/usr/bin/skdump
+/usr/bin/sktest
+/usr/include/atasmart.h
+/usr/lib64/libatasmart.so
+/usr/lib64/libatasmart.so.4
+/usr/lib64/libatasmart.so.4.0.5
+/usr/lib64/pkgconfig/libatasmart.pc
+%dir /usr/share/doc/libatasmart
+%doc /usr/share/doc/libatasmart/README
+/usr/share/vala/vapi/atasmart.vapi

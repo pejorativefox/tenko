@@ -1,0 +1,22 @@
+/usr/include/libnvme-mi.h
+/usr/include/libnvme.h
+%dir /usr/include/nvme
+/usr/include/nvme/api-types.h
+/usr/include/nvme/fabrics.h
+/usr/include/nvme/filters.h
+/usr/include/nvme/ioctl.h
+/usr/include/nvme/linux.h
+/usr/include/nvme/log.h
+/usr/include/nvme/mi.h
+/usr/include/nvme/nbft.h
+/usr/include/nvme/tree.h
+/usr/include/nvme/types.h
+/usr/include/nvme/util.h
+/usr/lib64/libnvme-mi.so
+/usr/lib64/libnvme-mi.so.1
+/usr/lib64/libnvme-mi.so.1.16.2
+/usr/lib64/libnvme.so
+/usr/lib64/libnvme.so.1
+/usr/lib64/libnvme.so.1.16.2
+/usr/lib64/pkgconfig/libnvme-mi.pc
+/usr/lib64/pkgconfig/libnvme.pc
