@@ -1,0 +1,10 @@
+# Tenko live media: the installer owns tty1.
+#
+# This file must sort before 50-tenko-console.preset: preset files are read
+# in lexical order and the first matching line wins, so an enable of
+# kmsconvt@.service (or of tenko-firstboot-root-password.service in the
+# 90-tenko-firstboot preset) would otherwise take tty1 away from the
+# installer and leave only a login prompt on the screen.
+disable kmsconvt@tty1.service
+disable tenko-firstboot-root-password.service
+enable tenko-installer.service

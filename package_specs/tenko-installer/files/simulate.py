@@ -207,6 +207,7 @@ class SimulatedProbe:
         target: str,
         live_kname: str | None,
         dry_run: bool = False,
+        repo_attempts: int = 6,
     ) -> list[Check]:
         return [
             Check(

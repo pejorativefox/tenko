@@ -92,9 +92,38 @@ if [ "$SKIP_LIVE" != "1" ]; then
         unshare -r chroot "$LIVE" /usr/sbin/grpconv || true
     fi
 
-    # Throwaway console password for debugging the live session only.
-    hash=$(openssl passwd -6 live)
-    unshare -r sed -i "s|^root:[^:]*:|root:${hash}:|" "$LIVE/etc/shadow"
+    # The live console must belong to the installer: kmsconvt and
+    # firstboot-root-password would otherwise take tty1 and leave a login
+    # prompt over the running installer.  45-tenko-live.preset handles the
+    # preset state, but remove the enablement links and mask both units so
+    # no preset/template ordering can win.
+    rm -f "$LIVE/etc/systemd/system/getty.target.wants/kmsconvt@tty1.service"
+    rm -f "$LIVE/etc/systemd/system/multi-user.target.wants/tenko-firstboot-root-password.service"
+    ln -sfn /dev/null "$LIVE/etc/systemd/system/kmsconvt@tty1.service"
+    ln -sfn /dev/null \
+        "$LIVE/etc/systemd/system/tenko-firstboot-root-password.service"
+
+    # A passwordless root shell on tty2 (Ctrl+Alt+F2) and on the serial
+    # console makes a broken install recoverable without knowing a password.
+    install -d "$LIVE/etc/systemd/system/getty@tty2.service.d"
+    cat > "$LIVE/etc/systemd/system/getty@tty2.service.d/autologin.conf" <<'EOF'
+[Service]
+ExecStart=
+ExecStart=-/usr/sbin/agetty --autologin root --noclear %I $TERM
+EOF
+    ln -sfn /usr/lib/systemd/system/getty@.service \
+        "$LIVE/etc/systemd/system/multi-user.target.wants/getty@tty2.service"
+
+    install -d "$LIVE/etc/systemd/system/serial-getty@ttyS0.service.d"
+    cat > "$LIVE/etc/systemd/system/serial-getty@ttyS0.service.d/autologin.conf" <<'EOF'
+[Service]
+ExecStart=
+ExecStart=-/usr/sbin/agetty --autologin root --noreset --noclear --keep-baud 115200,57600,38400,9600 - $TERM
+EOF
+
+    # The live medium is disposable; root has no password so the rescue
+    # shells are immediately usable.  The target system's root stays locked.
+    unshare -r sed -i 's|^root:[^:]*:|root::|' "$LIVE/etc/shadow"
 
     "$PWD/scripts/make_initramfs.sh" "$LIVE" "$KVER"
 fi

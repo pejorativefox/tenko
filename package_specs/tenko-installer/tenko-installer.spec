@@ -1,6 +1,6 @@
 Name:       tenko-installer
 Version:    6
-Release:    9
+Release:    10
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
@@ -70,8 +70,8 @@ install -vm644 %{_sourcedir}/tenko-installer.service \
     %{buildroot}%{_unitdir}/tenko-installer.service
 
 install -vdm755 %{buildroot}/usr/lib/systemd/system-preset
-install -vm644 %{_sourcedir}/90-tenko-live.preset \
-    %{buildroot}/usr/lib/systemd/system-preset/90-tenko-live.preset
+install -vm644 %{_sourcedir}/45-tenko-live.preset \
+    %{buildroot}/usr/lib/systemd/system-preset/45-tenko-live.preset
 
 install -vdm755 %{buildroot}/usr/lib/dracut/dracut.conf.d
 install -vm644 %{_sourcedir}/20-tenko-live.conf \
@@ -94,7 +94,7 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 /usr/lib/tenko-installer/*.py
 %{_bindir}/tenko-installer
 %{_unitdir}/tenko-installer.service
-/usr/lib/systemd/system-preset/90-tenko-live.preset
+/usr/lib/systemd/system-preset/45-tenko-live.preset
 /usr/lib/dracut/dracut.conf.d/20-tenko-live.conf
 %dir /usr/lib/dracut/modules.d/95tenko-ventoy
 /usr/lib/dracut/modules.d/95tenko-ventoy/module-setup.sh
@@ -103,6 +103,13 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 6-10
+- Ship the live preset as 45-tenko-live.preset so it sorts before
+  50-tenko-console.preset.  Preset files are first-match-wins: the old
+  90-tenko-live.preset could not disable kmsconvt@tty1 or the first-boot
+  root-password service, which took tty1 and left a login prompt instead
+  of the installer.  Disable kmsconvt@tty1 explicitly (issue #50).
+
 * Mon Nov 09 2026 tenko <build@tenko.invalid> 6-9
 - Do not exit when the package repository is unreachable.  The curses
   preflight now shows a network screen that lists NetworkManager devices,
