@@ -45,11 +45,13 @@ the compiler, autotools, meson/ninja/cmake and the RPM packaging macros.
 Derive a build image with it instead of the runtime `tenko-base`.
 
 It now also carries the build-only chain for Mesa's Intel CLC (`mesa_clc`):
-`llvm-devel`, `llvm`, `llvm-static`, `clang-libs`,
+`llvm-devel`, `llvm`, `llvm-static`, `clang-libs`, `clang-devel`,
 `clang-resource-filesystem`, `spirv-headers`, `spirv-tools`,
-`spirv-llvm-translator`, `python-mako` and `python-pyyaml`.  These provide
+`spirv-llvm-translator`, `python-mako` and `python-pyyaml`, plus
+`vulkan-headers` for the Vulkan loader.  These provide
 `llvm-config`, `LLVMSPIRVLib.pc`, `SPIRV-Tools.pc`, `libclang-cpp`,
-`opencl-c.h` and the Python modules Mesa's build requires.
+`clang/Config/config.h`, `opencl-c.h`, the Vulkan headers and the Python
+modules Mesa's build requires.
 
 Do not recreate the old local-workaround image with zero-length LLVM `.a`
 files or a stub `llvm-tblgen`.  `LLVMExports.cmake` references every installed

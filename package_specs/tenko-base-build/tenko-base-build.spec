@@ -1,6 +1,6 @@
 Name:       tenko-base-build
 Version:    6
-Release:    2
+Release:    3
 Epoch:      1
 Summary:    Tenko Linux build environment (runtime base + toolchain)
 License:    MIT
@@ -47,9 +47,11 @@ Requires:   llvm
 Requires:   llvm-static
 Requires:   clang-libs
 Requires:   clang-resource-filesystem
+Requires:   clang-devel
 Requires:   spirv-headers
 Requires:   spirv-tools
 Requires:   spirv-llvm-translator
+Requires:   vulkan-headers
 Requires:   tenko-rpm-config
 Requires:   groff
 Requires:   man-db
@@ -64,9 +66,11 @@ the Python build backends and the RPM packaging macros.  Development
 headers and .pc files ship in the runtime packages themselves.
 
 It also carries the build-only chain for Mesa's Intel CLC (mesa_clc):
-LLVM, Clang libraries and resource files, SPIRV-Headers, SPIRV-Tools,
-SPIRV-LLVM-Translator, Mako and PyYAML.  Those are build-time inputs;
-the Mesa RPM has no runtime dependency on the SPIRV libraries.
+LLVM, Clang libraries, headers and resource files, SPIRV-Headers,
+SPIRV-Tools, SPIRV-LLVM-Translator, Mako and PyYAML, and the Khronos
+Vulkan headers for the Vulkan loader.  Those are build-time inputs; the
+Mesa RPM carries only the SPIRV-Tools shared library for its Vulkan
+drivers.
 
 Use this profile for a build container or CI image.  tenko-base stays
 available unchanged for existing installs.
@@ -83,6 +87,13 @@ touch %{buildroot}/usr/share/tenko/base-build
 /usr/share/tenko/base-build
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 6-3
+- Carry vulkan-headers: the Vulkan loader builds from the Khronos
+  headers, and Mesa installs Vulkan ICDs that the loader loads.
+- Carry clang-devel: Mesa's Intel CLC includes clang/Config/config.h
+  and the Clang C++ headers, which the runtime clang packages do not
+  ship.  A fresh build image needs them explicitly.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-2
 - Carry the Mesa Intel CLC build chain: llvm-devel, llvm, llvm-static,
   clang-libs, clang-resource-filesystem, spirv-headers, spirv-tools,

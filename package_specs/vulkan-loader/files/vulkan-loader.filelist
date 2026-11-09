@@ -1,0 +1,16 @@
+%dir /etc/vulkan
+%dir /etc/vulkan/explicit_layer.d
+%dir /etc/vulkan/icd.d
+%dir /etc/vulkan/implicit_layer.d
+%dir /usr/lib64/cmake/VulkanLoader
+/usr/lib64/cmake/VulkanLoader/VulkanLoaderConfig-release.cmake
+/usr/lib64/cmake/VulkanLoader/VulkanLoaderConfig.cmake
+/usr/lib64/cmake/VulkanLoader/VulkanLoaderConfigVersion.cmake
+/usr/lib64/libvulkan.so
+/usr/lib64/libvulkan.so.1
+/usr/lib64/libvulkan.so.1.4.363
+/usr/lib64/pkgconfig/vulkan.pc
+%dir /usr/share/vulkan
+%dir /usr/share/vulkan/explicit_layer.d
+%dir /usr/share/vulkan/icd.d
+%dir /usr/share/vulkan/implicit_layer.d
