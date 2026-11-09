@@ -1,0 +1,8 @@
+%dir /usr/bin
+/usr/bin/strace
+/usr/bin/strace-log-merge
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/strace-log-merge.1.gz
+%doc /usr/share/man/man1/strace.1.gz

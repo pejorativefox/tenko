@@ -1,0 +1,6 @@
+%dir /usr/bin
+/usr/bin/lsof
+%dir /usr/share
+%dir /usr/share/man
+%dir /usr/share/man/man8
+%doc /usr/share/man/man8/lsof.8.gz
