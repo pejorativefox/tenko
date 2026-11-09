@@ -1,6 +1,6 @@
 Name:       mesa
 Version:    26.2.3
-Release:    6
+Release:    7
 Summary:    Mesa 3D Graphics Library
 License:    MIT
 Prefix:     /usr
@@ -13,16 +13,18 @@ Source0:    %{name}-%{version}.tar.xz
 BuildRequires: libx11, libxext, libxfixes, libxrandr, libxxf86vm
 BuildRequires: libxcb, libxshmfence, libdrm, llvm-devel
 BuildRequires: spirv-llvm-translator, spirv-tools
-BuildRequires: clang-libs, clang-resource-filesystem
+BuildRequires: clang-libs, clang-resource-filesystem, clang-devel
 BuildRequires: python-mako, python-pyyaml
 Requires:   libxshmfence
+Requires:   vulkan-loader
 
 %description
-Open source implementations of OpenGL, OpenGL ES, EGL and GBM, built
-for X11 only (no Wayland, no Vulkan).  Includes the llvmpipe software
-rasterizer, the virgl guest driver for QEMU's virtio-gpu 3D device, and
-the hardware Gallium drivers crocus and iris (Intel) and radeonsi and
-r600 (AMD).
+Open source implementations of OpenGL, OpenGL ES, EGL, GBM and Vulkan,
+built for X11 only (no Wayland).  Includes the llvmpipe software
+rasterizer, the virgl guest driver for QEMU's virtio-gpu 3D device, the
+hardware Gallium drivers crocus and iris (Intel) and radeonsi and r600
+(AMD), and the Vulkan ICDs: RADV (AMD GCN1+), ANV (Intel Gen8+), Hasvk
+(Intel Gen4-7.5) and lavapipe (software).
 
 %prep
 %setup -q
@@ -35,7 +37,7 @@ meson setup ..                \
       --buildtype=release     \
       -Dplatforms=x11         \
       -Dgallium-drivers=llvmpipe,virgl,crocus,iris,radeonsi,r600 \
-      -Dvulkan-drivers=       \
+      -Dvulkan-drivers=amd,intel,intel_hasvk,swrast \
       -Dglx=dri               \
       -Dglvnd=disabled        \
       -Dgbm=enabled           \
@@ -60,6 +62,13 @@ popd
 %files -f %{_sourcedir}/mesa.filelist
 
 %changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 26.2.3-7
+- Build the Vulkan drivers: RADV (amd), ANV (intel), Hasvk (intel_hasvk)
+  and lavapipe (swrast).  The package shipped no Vulkan ICD, so SDL_GPU
+  and other Vulkan consumers found no device on Tenko.
+- Require vulkan-loader: the installed ICD manifests are only usable
+  through the Khronos loader.
+
 * Sun Nov 08 2026 browneye <build@browneye.invalid> 26.2.3-6
 - Build the hardware Gallium drivers: crocus (Intel Gen4-7.5, e.g.
   Haswell), iris (Intel Gen8+), radeonsi (AMD GCN1+) and r600 (AMD

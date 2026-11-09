@@ -1,43 +1,39 @@
 %dir /usr/include
 %dir /usr/include/EGL
-%dir /usr/include/GL
-%dir /usr/include/GL/internal
-%dir /usr/include/GLES
-%dir /usr/include/GLES2
-%dir /usr/include/GLES3
-%dir /usr/include/KHR
-%dir /usr/lib64
-%dir /usr/lib64/dri
-%dir /usr/lib64/gbm
-%dir /usr/lib64/pkgconfig
-%dir /usr/share
-%dir /usr/share/drirc.d
 /usr/include/EGL/egl.h
 /usr/include/EGL/eglext.h
 /usr/include/EGL/eglext_angle.h
 /usr/include/EGL/eglmesaext.h
 /usr/include/EGL/eglplatform.h
+%dir /usr/include/GL
 /usr/include/GL/gl.h
 /usr/include/GL/glcorearb.h
 /usr/include/GL/glext.h
 /usr/include/GL/glx.h
 /usr/include/GL/glxext.h
+%dir /usr/include/GL/internal
 /usr/include/GL/internal/dri_interface.h
+%dir /usr/include/GLES
 /usr/include/GLES/egl.h
 /usr/include/GLES/gl.h
 /usr/include/GLES/glext.h
 /usr/include/GLES/glplatform.h
+%dir /usr/include/GLES2
 /usr/include/GLES2/gl2.h
 /usr/include/GLES2/gl2ext.h
 /usr/include/GLES2/gl2platform.h
+%dir /usr/include/GLES3
 /usr/include/GLES3/gl3.h
 /usr/include/GLES3/gl31.h
 /usr/include/GLES3/gl32.h
 /usr/include/GLES3/gl3ext.h
 /usr/include/GLES3/gl3platform.h
+%dir /usr/include/KHR
 /usr/include/KHR/khrplatform.h
 /usr/include/gbm.h
 /usr/include/gbm_backend_abi.h
+%dir /usr/lib64
+%dir /usr/lib64/dri
 /usr/lib64/dri/crocus_dri.so
 /usr/lib64/dri/iris_dri.so
 /usr/lib64/dri/kms_swrast_dri.so
@@ -46,6 +42,7 @@
 /usr/lib64/dri/radeonsi_dri.so
 /usr/lib64/dri/swrast_dri.so
 /usr/lib64/dri/virtio_gpu_dri.so
+%dir /usr/lib64/gbm
 /usr/lib64/gbm/dri_gbm.so
 /usr/lib64/libEGL.so
 /usr/lib64/libEGL.so.1
@@ -63,6 +60,11 @@
 /usr/lib64/libgbm.so
 /usr/lib64/libgbm.so.1
 /usr/lib64/libgbm.so.1.0.0
+/usr/lib64/libvulkan_intel.so
+/usr/lib64/libvulkan_intel_hasvk.so
+/usr/lib64/libvulkan_lvp.so
+/usr/lib64/libvulkan_radeon.so
+%dir /usr/lib64/pkgconfig
 /usr/lib64/pkgconfig/dri.pc
 /usr/lib64/pkgconfig/egl.pc
 /usr/lib64/pkgconfig/gbm.pc
@@ -70,9 +72,21 @@
 /usr/lib64/pkgconfig/glesv1_cm.pc
 /usr/lib64/pkgconfig/glesv2.pc
 /usr/lib64/pkgconfig/glx.pc
+%dir /usr/share
+%dir /usr/share/drirc.d
+/usr/share/drirc.d/00-anv-defaults.conf
 /usr/share/drirc.d/00-crocus-defaults.conf
+/usr/share/drirc.d/00-hasvk-defaults.conf
 /usr/share/drirc.d/00-iris-defaults.conf
+/usr/share/drirc.d/00-lavapipe-defaults.conf
 /usr/share/drirc.d/00-mesa-defaults.conf
 /usr/share/drirc.d/00-r600-defaults.conf
 /usr/share/drirc.d/00-radeonsi-defaults.conf
+/usr/share/drirc.d/00-radv-defaults.conf
 /usr/share/drirc.d/00-virtio_gpu-defaults.conf
+%dir /usr/share/vulkan
+%dir /usr/share/vulkan/icd.d
+/usr/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json
+/usr/share/vulkan/icd.d/intel_icd.x86_64.json
+/usr/share/vulkan/icd.d/lvp_icd.x86_64.json
+/usr/share/vulkan/icd.d/radeon_icd.x86_64.json

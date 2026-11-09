@@ -10,6 +10,7 @@ CLC_BUILD_PACKAGES = {
     "llvm",
     "llvm-static",
     "clang-libs",
+    "clang-devel",
     "clang-resource-filesystem",
     "spirv-headers",
     "spirv-tools",
