@@ -61,7 +61,7 @@ class LiveVentoyTest(unittest.TestCase):
         self.assertIn("95tenko-ventoy.module-setup.sh", spec)
         self.assertIn("95tenko-ventoy.iso-scan.sh", spec)
         self.assertIn("95tenko-ventoy.rules", spec)
-        self.assertIn("Release:    10", spec)
+        self.assertIn("Release:    12", spec)
         self.assertIn("#49", spec)
 
     def test_module_files_exist(self):

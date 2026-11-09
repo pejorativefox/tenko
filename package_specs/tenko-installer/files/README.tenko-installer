@@ -58,7 +58,9 @@ If the package repository is unreachable, the installer shows a network
 screen instead of exiting: it lists the NetworkManager devices, opens
 `nmtui-connect` (or `nmtui`) when asked, and retries the repository check.
 The same retry is offered in `--plain`/serial mode; an `--answer` install
-reports the nmtui hint and keeps the longer automatic retry.
+reports the nmtui hint and keeps the longer automatic retry.  nmtui runs
+with a UTF-8 locale inside a kmscon VT, so non-ASCII SSIDs are not dropped
+and render with the CJK console font stack.
 
 The guided path asks for:
 

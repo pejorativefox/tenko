@@ -154,13 +154,13 @@ rebuild; they remain the 2026-11-06 record.
 
 ### 2026-11-09 rebuild boot check
 
-Artifact: published `tenko-installer.iso`, 824,475,648 B, SHA-256
-`2a9f70296c6d189d1c60022591c14ced38d9e58339b1363b57c382509b489e55`.
+Artifact: published `tenko-installer.iso`, 824,487,936 B, SHA-256
+`30e2d49a11a99001c9347e53dcc6fe70de8fafbd66e04af899d11a8045ff014d`.
 
 Environment: QEMU 11.1.3 and OVMF 202608-2, 4 GiB guest RAM, a blank 20 GiB
 virtio disk, a fresh OVMF variable store and either the default user-mode
-e1000 NIC or `-nic none`.  The rebuild includes `tenko-installer-6-10`
-(network setup screen, nmtui retry and live-console fix) and
+e1000 NIC or `-nic none`.  The rebuild includes `tenko-installer-6-12`
+(network setup screen, nmtui retry, live-console fix and UTF-8 nmtui) and
 `tenko-live-6-3` (Wi-Fi/NIC firmware packs); the live root is now 247 MiB
 of firmware.
 
@@ -170,15 +170,17 @@ of firmware.
 | installer owns tty1 | **PASS** | the curses welcome screen is visible; kmscon and firstboot-root-password are masked |
 | installer service starts | **PASS** | `Started Tenko Linux installer` |
 | no-network path | **PASS** | `-nic none` shows the "Network required" screen with nmtui and retry |
+| nmtui console | **PASS** | nmtui runs in kmscon on tty3 with `LC_ALL=C.UTF-8` and returns to the installer |
 | passwordless rescue shell | **PASS** | tty2 getty and `serial-getty@ttyS0` autologin as root |
 | system reaches multi-user | **PASS** | `Reached target Multi-User System` |
 | failed units / emergency mode | **PASS** | no `Failed to start` or emergency lines |
 | firmware packs in the live root | **PASS** | `linux-firmware-{intel-wifi,ath,mediatek,other,nic}-20261019-3` |
 
 Evidence: `build/iso-smoke-issue50-console.log`,
-`build/installer-screen.png`, `build/nonet-screen.png` and
-`build/nonet-serial.log`.  The no-network screen was exercised; an actual
-Wi-Fi association on real Intel/Realtek hardware is still outstanding.
+`build/installer-screen.png`, `build/nonet-screen.png`,
+`build/nmtui4-nm.png` and `build/nmtui4-back.png`.  The no-network screen
+and the kmscon nmtui round trip were exercised; an actual Wi-Fi association
+and a Chinese SSID on real Intel/Realtek hardware are still outstanding.
 The full unattended install and graphical checks were not repeated.
 
 ## Graphical tests

@@ -495,12 +495,44 @@ def network_status_lines(runner: CommandRunner) -> list[str]:
     return output.splitlines()[:8]
 
 
+def nmtui_env(runner: CommandRunner) -> dict[str, str]:
+    """Environment for nmtui: UTF-8, not the installer's C locale.
+
+    nmtui converts every label from UTF-8 to the current locale and drops
+    the text when that conversion fails (g_locale_from_utf8).  Under
+    LC_ALL=C a Chinese SSID therefore becomes an empty row and looks like
+    the access point was filtered out.  C.UTF-8 is present on the live
+    medium and keeps the menu text in English while preserving the SSID.
+    """
+
+    env = runner.env.copy()
+    for key in (
+        "LC_ALL",
+        "LANG",
+        "LANGUAGE",
+        "LC_CTYPE",
+        "LC_MESSAGES",
+        "LC_COLLATE",
+    ):
+        env.pop(key, None)
+    env["LC_ALL"] = "C.UTF-8"
+    env["LANG"] = "C.UTF-8"
+    env["TERM"] = "kmscon"
+    return env
+
+
 def launch_nmtui(
     runner: CommandRunner,
     logger: Logger,
     ui: CursesUI | None = None,
 ) -> bool:
-    """Run nmtui in the foreground, suspending curses while it owns the tty."""
+    """Run nmtui in the foreground, suspending curses while it owns the tty.
+
+    The installer console itself is fbcon, whose 8x16 font has no CJK
+    glyphs.  Run nmtui in a kmscon instance on a spare VT so Chinese SSIDs
+    render with the Noto CJK stack; fall back to the current tty if kmscon
+    is unavailable.
+    """
 
     program = shutil.which(
         "nmtui-connect", path=NETWORK_TOOL_PATH
@@ -508,6 +540,10 @@ def launch_nmtui(
     if program is None:
         logger.warning("network-setup-unavailable", program="nmtui")
         return False
+
+    env = nmtui_env(runner)
+    kmscon = shutil.which("kmscon", path=NETWORK_TOOL_PATH)
+    chvt = shutil.which("chvt", path=NETWORK_TOOL_PATH)
 
     logger.info("network-setup", program=program)
     suspended = False
@@ -519,9 +555,40 @@ def launch_nmtui(
         except curses.error:
             suspended = False
     try:
-        env = runner.env.copy()
-        env.setdefault("TERM", os.environ.get("TERM", "linux"))
-        subprocess.run((program,), env=env, check=False)
+        ran_kmscon = False
+        if kmscon and chvt:
+            switched = subprocess.run(
+                (chvt, "3"), env=env, check=False
+            ).returncode
+            if switched == 0:
+                ran_kmscon = True
+                logger.info(
+                    "network-setup-console", console="kmscon", vt="tty3"
+                )
+                try:
+                    subprocess.run(
+                        (
+                            kmscon,
+                            "--vt=tty3",
+                            "--no-switchvt",
+                            "--oneshot",
+                            "--no-reset-env",
+                            "--no-issue",
+                            "--login",
+                            "--",
+                            program,
+                        ),
+                        env=env,
+                        check=False,
+                    )
+                finally:
+                    subprocess.run(
+                        (chvt, "1"), env=env, check=False
+                    )
+        if not ran_kmscon:
+            logger.info("network-setup-console", console="tty")
+            env["TERM"] = os.environ.get("TERM", "linux")
+            subprocess.run((program,), env=env, check=False)
     except OSError as exc:
         logger.warning("network-setup-failed", error=str(exc))
         return False

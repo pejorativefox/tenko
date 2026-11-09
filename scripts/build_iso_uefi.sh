@@ -102,6 +102,12 @@ if [ "$SKIP_LIVE" != "1" ]; then
     ln -sfn /dev/null "$LIVE/etc/systemd/system/kmsconvt@tty1.service"
     ln -sfn /dev/null \
         "$LIVE/etc/systemd/system/tenko-firstboot-root-password.service"
+    # nmtui runs in a kmscon instance on tty3.  Without this mask, switching
+    # there makes systemd-getty-generator start a getty on tty3; logind then
+    # activates that session's VT after nmtui exits and the installer never
+    # comes back to the foreground.
+    ln -sfn /dev/null "$LIVE/etc/systemd/system/getty@tty3.service"
+    ln -sfn /dev/null "$LIVE/etc/systemd/system/kmsconvt@tty3.service"
 
     # A passwordless root shell on tty2 (Ctrl+Alt+F2) and on the serial
     # console makes a broken install recoverable without knowing a password.

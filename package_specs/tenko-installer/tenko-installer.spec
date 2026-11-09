@@ -1,6 +1,6 @@
 Name:       tenko-installer
 Version:    6
-Release:    10
+Release:    12
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
@@ -21,6 +21,8 @@ Requires:   efibootmgr
 Requires:   efivar
 Requires:   coreutils
 Requires:   systemd
+Requires:   kmscon
+Requires:   font-noto-cjk
 
 %description
 A Python 3 / ncurses installer for Tenko Linux 6 (Workstation).
@@ -103,6 +105,13 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 6-11
+- Run nmtui with LC_ALL=C.UTF-8.  nmtui converts label text from UTF-8 to
+  the process locale and turns the row into an empty string when that
+  fails, so a Chinese SSID was invisible under the installer's C locale.
+- Launch nmtui in a kmscon instance on tty3 so the Noto CJK console stack
+  renders the SSID instead of the kernel 8x16 font (issue #50).
+
 * Mon Nov 09 2026 tenko <build@tenko.invalid> 6-10
 - Ship the live preset as 45-tenko-live.preset so it sorts before
   50-tenko-console.preset.  Preset files are first-match-wins: the old

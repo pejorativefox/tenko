@@ -52,10 +52,11 @@ Both paths then ask for the package set (`desktop` installs XFCE) and an admin
 account.  Installation is performed entirely from the network repository.
 If the network is not up yet, the preflight screen offers `nmtui` (Wi-Fi or
 wired), then retries the repository check; the live media carries the common
-Wi-Fi firmware packs so wireless cards can appear.  If the installer screen
-does not appear, Ctrl+Alt+F2 opens a passwordless root shell on tty2; the
-serial console autologins root as well, so `journalctl -u tenko-installer`
-can be inspected.
+Wi-Fi firmware packs so wireless cards can appear.  nmtui runs in a UTF-8
+kmscon console so Chinese and other non-ASCII SSIDs are listed and rendered.
+If the installer screen does not appear, Ctrl+Alt+F2 opens a passwordless
+root shell on tty2; the serial console autologins root as well, so
+`journalctl -u tenko-installer` can be inspected.
 
 Requirements: x86_64 UEFI machine, a network connection during install, and
 roughly 20 GiB of disk.

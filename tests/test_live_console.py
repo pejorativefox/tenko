@@ -47,6 +47,9 @@ class LiveRescueShellTest(unittest.TestCase):
         self.assertIn("root::", build)
         # The instance mask protects against a preset-order regression.
         self.assertIn("kmsconvt@tty1.service", build)
+        # The kmscon nmtui VT must not get a competing login.
+        self.assertIn("getty@tty3.service", build)
+        self.assertIn("kmsconvt@tty3.service", build)
 
 
 if __name__ == "__main__":
