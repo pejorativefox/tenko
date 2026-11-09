@@ -1,6 +1,6 @@
 Name:       tenko-installer
 Version:    6
-Release:    13
+Release:    14
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
@@ -49,6 +49,9 @@ ESP at the end.
 The package also ships the live systemd unit, the preset that masks the
 first-boot root-password prompt, and the dracut dmsquash-live configuration
 (including the fallback that finds the ISO on a Ventoy data partition).
+On the live medium the curses flow can update the running installer from
+the package repository and restart itself, so an older ISO picks up the
+current installer without a rebuild.
 
 %prep
 
@@ -62,7 +65,7 @@ install -vdm755 %{buildroot}/usr/lib/tenko-installer
 install -vm755 %{_sourcedir}/tenko-installer \
     %{buildroot}%{_bindir}/tenko-installer
 
-for module in log.py runner.py disk.py layout.py probe.py simulate.py install.py ui.py main.py; do
+for module in log.py runner.py disk.py layout.py probe.py simulate.py install.py ui.py selfupdate.py main.py; do
     install -vm644 %{_sourcedir}/"$module" \
         %{buildroot}/usr/lib/tenko-installer/"$module"
 done
@@ -105,6 +108,16 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 6-14
+- Update the running installer from the network.  Once the repository is
+  reachable, the curses flow compares the installed tenko-installer with
+  the repository (`dnf repoquery --upgrades`); when a newer build exists it
+  offers to install it into the live root's writable overlay and restarts
+  the installer with the same arguments.  This lets a fix such as 6-13 be
+  picked up from an older ISO instead of rebuilding the media.
+- Skip the check in simulation, dry-run and non-live environments, and
+  keep the current installer when the check or the update fails.
+
 * Mon Nov 09 2026 tenko <build@tenko.invalid> 6-13
 - Force a full curses repaint on every screen, and redraw idle prompts on
   a one-second timer.  The installer runs on the kernel console (tty1),

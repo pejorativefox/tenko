@@ -29,6 +29,8 @@ Running
   tenko-installer --simulate-scenario mixed
                                      synthetic disks with an existing ESP
                                      and data partition
+  tenko-installer --no-self-update  never check the repository for a newer
+                                     installer and restart
 
 `--simulate` is for UI development: it runs the real curses flow, planner
 and install pipeline against in-memory disks.  No block device is opened or
@@ -61,6 +63,14 @@ The same retry is offered in `--plain`/serial mode; an `--answer` install
 reports the nmtui hint and keeps the longer automatic retry.  nmtui runs
 with a UTF-8 locale inside a kmscon VT, so non-ASCII SSIDs are not dropped
 and render with the CJK console font stack.
+
+Once the repository is reachable, the curses flow checks whether it contains
+a newer tenko-installer.  If it does, the installer offers to upgrade the
+running copy in the live root's writable overlay and restart itself with the
+same arguments.  An older ISO can therefore pick up current installer fixes
+without a media rebuild.  The check is skipped in `--simulate`, `--dry-run`,
+non-interactive and installed-system runs, and a failed check or update
+simply leaves the current installer running.
 
 The guided path asks for:
 

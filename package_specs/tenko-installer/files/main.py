@@ -18,6 +18,7 @@ import curses
 
 import disk
 import layout as layout_module
+import selfupdate
 import simulate as simulate_module
 from disk import Disk, PartitionTable, Region
 from install import (
@@ -288,6 +289,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "--no-reboot",
         action="store_true",
         help="never reboot automatically",
+    )
+    parser.add_argument(
+        "--no-self-update",
+        action="store_true",
+        help="do not check for or install a newer installer from the repository",
     )
     parser.add_argument("--debug", action="store_true", help="verbose logging")
     args = parser.parse_args(argv)
@@ -2787,6 +2793,19 @@ def _interactive(
         if not network_setup_screen(ui, runner, logger):
             return 2
         checks, ok = run_preflight(probe, config, logger, repo_attempts=2)
+    # The live medium may be older than the repository.  Now that the
+    # network works, offer to update the running installer and start over
+    # with the new code instead of requiring a fresh ISO.
+    if (
+        ok
+        and not getattr(args, "no_self_update", False)
+        and not getattr(probe, "simulated", False)
+        and not args.dry_run
+        and not runner.dry_run
+        and os.path.exists("/run/initramfs/live")
+    ):
+        if selfupdate.offer_update(ui, runner, logger, config.repo):
+            return selfupdate.RESTART
     lines = [
         "This will install Tenko Linux 6 (Workstation) on a local GPT disk.",
         "",
@@ -2861,6 +2880,34 @@ def _interactive(
             return outcome
 
 
+def restart_installer(logger: Logger) -> int:
+    """Replace this process with the freshly updated installer."""
+
+    launcher = "/usr/bin/tenko-installer"
+    if os.access(launcher, os.X_OK):
+        program = launcher
+        argv = [launcher] + list(sys.argv[1:])
+    else:
+        # Running from a checkout; restart the same main.py with the same
+        # interpreter and arguments.
+        program = sys.executable
+        argv = [
+            sys.executable,
+            os.path.abspath(sys.argv[0]),
+        ] + list(sys.argv[1:])
+    logger.info("self-update", status="restarting", program=program)
+    try:
+        os.execv(program, argv)
+    except OSError as exc:
+        logger.error("self-update", status="restart-failed", error=str(exc))
+        print(
+            "tenko-installer: cannot restart after update: {}".format(exc),
+            file=sys.stderr,
+        )
+        return 1
+    return 0
+
+
 def run_curses(
     args: argparse.Namespace,
     logger: Logger,
@@ -2868,13 +2915,16 @@ def run_curses(
     probe: Probe,
 ) -> int:
     try:
-        return curses.wrapper(_interactive, args, logger, runner, probe)
+        result = curses.wrapper(_interactive, args, logger, runner, probe)
     except KeyboardInterrupt:
         return 130
     except Exception as exc:
         logger.error("curses-failed", error=str(exc))
         print("tenko-installer: {}: {}".format(type(exc).__name__, exc), file=sys.stderr)
         return 1
+    if result == selfupdate.RESTART:
+        return restart_installer(logger)
+    return result
 
 
 # ---------------------------------------------------------------------------
