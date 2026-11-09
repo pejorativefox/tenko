@@ -1,0 +1,39 @@
+%dir /usr/bin
+/usr/bin/glslang
+/usr/bin/glslangValidator
+%dir /usr/include
+%dir /usr/include/glslang
+%dir /usr/include/glslang/Include
+/usr/include/glslang/Include/ResourceLimits.h
+/usr/include/glslang/Include/glslang_c_interface.h
+/usr/include/glslang/Include/glslang_c_shader_types.h
+/usr/include/glslang/Include/visibility.h
+%dir /usr/include/glslang/MachineIndependent
+/usr/include/glslang/MachineIndependent/Versions.h
+%dir /usr/include/glslang/Public
+/usr/include/glslang/Public/ResourceLimits.h
+/usr/include/glslang/Public/ShaderLang.h
+/usr/include/glslang/Public/resource_limits_c.h
+%dir /usr/include/glslang/SPIRV
+/usr/include/glslang/SPIRV/GlslangToSpv.h
+/usr/include/glslang/SPIRV/Logger.h
+/usr/include/glslang/SPIRV/SpvTools.h
+/usr/include/glslang/SPIRV/disassemble.h
+/usr/include/glslang/SPIRV/spirv.hpp11
+/usr/include/glslang/build_info.h
+%dir /usr/lib64
+%dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/glslang
+/usr/lib64/cmake/glslang/glslang-config-version.cmake
+/usr/lib64/cmake/glslang/glslang-config.cmake
+/usr/lib64/cmake/glslang/glslang-targets-release.cmake
+/usr/lib64/cmake/glslang/glslang-targets.cmake
+/usr/lib64/libSPIRV.so
+/usr/lib64/libSPIRV.so.16
+/usr/lib64/libSPIRV.so.16.6.0
+/usr/lib64/libglslang-default-resource-limits.so
+/usr/lib64/libglslang-default-resource-limits.so.16
+/usr/lib64/libglslang-default-resource-limits.so.16.6.0
+/usr/lib64/libglslang.so
+/usr/lib64/libglslang.so.16
+/usr/lib64/libglslang.so.16.6.0
