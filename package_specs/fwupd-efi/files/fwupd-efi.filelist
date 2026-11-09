@@ -1,0 +1,11 @@
+%dir /usr/lib64
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/fwupd-efi.pc
+%dir /usr/libexec
+%dir /usr/libexec/fwupd
+%dir /usr/libexec/fwupd/efi
+/usr/libexec/fwupd/efi/fwupdx64.efi
+%dir /usr/share
+%dir /usr/share/licenses
+%dir /usr/share/licenses/fwupd-efi
+/usr/share/licenses/fwupd-efi/COPYING
