@@ -189,6 +189,17 @@ class DiskMapTest(unittest.TestCase):
         self.assertIn("free 20.0 GiB", lines[1])
 
 
+class GuidedOptionsTest(unittest.TestCase):
+    def test_btrfs_is_the_default_filesystem(self):
+        ui = FakeUI([0, 0])
+        self.assertEqual(main._guided_options(ui), ("btrfs", "swapfile"))
+        self.assertEqual(ui.menus[0], ("Filesystem", ["btrfs", "ext4"]))
+
+    def test_ext4_is_the_second_choice(self):
+        ui = FakeUI([1, 0])
+        self.assertEqual(main._guided_options(ui), ("ext4", "swapfile"))
+
+
 class AccountFlowTest(unittest.TestCase):
     def test_password_mismatch_returns_to_the_account_form(self):
         spec = layout.InstallSpec(

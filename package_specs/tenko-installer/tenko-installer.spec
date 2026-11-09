@@ -1,6 +1,6 @@
 Name:       tenko-installer
 Version:    6
-Release:    14
+Release:    15
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
@@ -28,8 +28,8 @@ Requires:   font-noto-cjk
 A Python 3 / ncurses installer for Tenko Linux 6 (Workstation).
 
 It is UEFI-only and GPT-only.  The default guided install erases one disk
-(or uses its free space), creates a 1 GiB ESP and a root filesystem with a
-swapfile, and optionally uses btrfs.  The advanced multi-disk layout editor
+(or uses its free space), creates a 1 GiB ESP and a btrfs root filesystem
+with a swapfile; ext4 is also offered.  The advanced multi-disk layout editor
 creates and deletes partitions on any number of GPT disks, assigns mount
 points (for example /home on a second disk), and adopts existing partitions
 without formatting them.  One root and one ESP are required; any number of
@@ -108,6 +108,12 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 6-15
+- Make btrfs the first and default choice on the guided filesystem screen;
+  ext4 moves to second place.  The review screen and install pipeline are
+  unchanged, and plain/advanced/answer-file flows keep their explicit
+  filesystem selection.
+
 * Mon Nov 09 2026 tenko <build@tenko.invalid> 6-14
 - Update the running installer from the network.  Once the repository is
   reachable, the curses flow compares the installed tenko-installer with

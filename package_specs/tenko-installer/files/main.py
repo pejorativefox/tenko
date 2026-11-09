@@ -2369,11 +2369,11 @@ def _guided_mode(
 def _guided_options(ui: CursesUI) -> tuple[str, str] | None:
     filesystem = ui.menu(
         "Filesystem",
-        "ext4 is the safe default. btrfs adds subvolumes and is a good "
-        "choice for advanced users.",
+        "btrfs is the default and supports subvolumes. ext4 is the "
+        "conservative choice.",
         [
-            Row("ext4", note="recommended"),
-            Row("btrfs", note="advanced"),
+            Row("btrfs", note="recommended"),
+            Row("ext4", note="conservative"),
         ],
         footer="Up/Down select   Enter continue   Esc back",
         allow_back=True,
@@ -2402,7 +2402,7 @@ def _guided_options(ui: CursesUI) -> tuple[str, str] | None:
     if swap in (BACK, QUIT):
         return None
     return (
-        "ext4" if filesystem == 0 else "btrfs",
+        "btrfs" if filesystem == 0 else "ext4",
         ("swapfile", "partition", "none")[swap],
     )
 

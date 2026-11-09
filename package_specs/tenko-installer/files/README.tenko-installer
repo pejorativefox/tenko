@@ -5,7 +5,7 @@ tenko-installer is a Python 3 / ncurses installer for Tenko Linux
 6 (Workstation).  It is UEFI-only and GPT-only.
 
 The default path is a guided install: choose one disk, erase it or use its
-free space, pick ext4 or btrfs, and the installer creates a working desktop
+free space, pick btrfs (the default) or ext4, and the installer creates a working desktop
 with a swapfile.  The advanced path is a multi-disk layout editor: on each
 selected disk you can delete partitions, create new ones, and assign mount
 points to new or existing partitions.  Existing entries are preserved unless
@@ -76,7 +76,7 @@ The guided path asks for:
 
   1. the target disk (one disk; other disks are not touched)
   2. erase the disk or use its existing free space
-  3. ext4 or btrfs, and swapfile / swap partition / no swap
+  3. btrfs (default) or ext4, and swapfile / swap partition / no swap
   4. the account, hostname, timezone/locale/keymap and package set
 
 It then shows a review page with every deletion and creation and installs
@@ -204,7 +204,7 @@ Layout policy
   * An existing EFI System Partition can be adopted as /boot, with a warning
     when it is too small for systemd-boot plus a kernel and initramfs.
     Otherwise a 1 GiB FAT32 ESP is created.
-  * Root is ext4 or btrfs, at least 8 GiB when newly created, and fills the
+  * Root is btrfs (default) or ext4, at least 8 GiB when newly created, and fills the
     remaining region unless a size is given.
   * Swap is optional.  The guided install defaults to a 2 GiB swapfile on
     the root filesystem; the advanced default is also a swapfile.  A swap
