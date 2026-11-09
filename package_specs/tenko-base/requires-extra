@@ -8,9 +8,10 @@
 #   /etc/ssl/certs links) used by curl, git, OpenSSL and derived images
 # - openssh, git: SSH client/server and version control in the base install
 # - libseccomp/libbsd/libmd, rpm/popt/libarchive/lua: RPM toolchain
-# - ncat, ncdu, htop, nodejs, podman-bin: user-requested additions to the
-#   base install (base-packages-additions.md).
-#   podman-bin provides the podman package name.
+# - curl, wget, rsync, pciutils, usbutils, which, ncat, ncdu, htop,
+#   bwm-ng, nodejs, podman-bin: user-requested additions to the base
+#   install (base-packages-additions.md).  podman-bin provides the podman
+#   package name.
 # - NetworkManager, wpa-supplicant, nmtui, linux-firmware-base: wired and
 #   wireless networking.  NetworkManager owns the interfaces (its preset
 #   disables systemd-networkd), wpa-supplicant provides WPA/WPA2/WPA3,
@@ -36,9 +37,16 @@ libarchive
 lua
 openssh
 git
+curl
+wget
+rsync
+pciutils
+usbutils
+which
 ncat
 ncdu
 htop
+bwm-ng
 nodejs
 podman-bin
 NetworkManager

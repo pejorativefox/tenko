@@ -1,6 +1,6 @@
 Name:       tenko-base-runtime
 Version:    6
-Release:    5
+Release:    6
 Epoch:      1
 Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
@@ -92,6 +92,17 @@ Requires:   linux-pam
 Requires:   make-ca
 Requires:   openssh
 Requires:   git
+# User-requested base console tools: HTTP/FTP transfer, rsync, PCI/USB
+# inspection, the htop/ncdu/bwm-ng monitors and `which`.
+Requires:   curl
+Requires:   wget
+Requires:   rsync
+Requires:   pciutils
+Requires:   usbutils
+Requires:   which
+Requires:   htop
+Requires:   bwm-ng
+Requires:   ncdu
 Requires:   NetworkManager
 Requires:   wpa-supplicant
 Requires:   nmtui
@@ -129,6 +140,12 @@ touch %{buildroot}/usr/share/tenko/base-runtime
 /usr/share/tenko/base-runtime
 
 %changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 6-6
+- Require the user-requested base console tools: curl, wget, rsync,
+  pciutils, usbutils, which, htop, bwm-ng and ncdu.  The installer and
+  live media install this runtime meta, so these are what put the tools
+  on a fresh base-only install as well as on a desktop install.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 6-5
 - Require the new base-set storage, firmware and diagnostic packages:
   libblockdev and udisks2 for the D-Bus block-device service, fwupd for

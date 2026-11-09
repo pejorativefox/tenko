@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    6
-Release:    5
+Release:    6
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
@@ -120,9 +120,16 @@ Requires:   libarchive
 Requires:   lua
 Requires:   openssh
 Requires:   git
+Requires:   curl
+Requires:   wget
+Requires:   rsync
+Requires:   pciutils
+Requires:   usbutils
+Requires:   which
 Requires:   ncat
 Requires:   ncdu
 Requires:   htop
+Requires:   bwm-ng
 Requires:   nodejs
 Requires:   podman-bin
 Requires:   NetworkManager
@@ -145,6 +152,12 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 6-6
+- Add the user-requested base console tools through requires-extra: curl,
+  wget, rsync, pciutils, usbutils, which, htop, bwm-ng and ncdu.  They
+  are base-install extras, not base.json rebuild-order members; htop and
+  ncdu were already listed.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 6-5
 - Promote the storage, firmware and diagnostic packages into the base
   package set: libblockdev and udisks2 provide the block-device service

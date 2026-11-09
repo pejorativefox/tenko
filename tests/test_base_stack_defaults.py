@@ -13,6 +13,11 @@ BASE_PACKAGES = ("lsof", "strace", "nano", "libblockdev", "udisks2", "fwupd")
 # Requested desktop-profile packages: panel volume control and VA-API.
 DESKTOP_PACKAGES = ("xfce4-pulseaudio-plugin", "libva")
 
+# User-requested base console tools.  These are requires-extra entries
+# rather than base.json membership, but both install metas must carry them.
+BASE_TOOLS = ("curl", "wget", "rsync", "pciutils", "usbutils", "which",
+              "htop", "bwm-ng", "ncdu")
+
 
 def read(relative):
     with open(os.path.join(SPECS, relative), encoding="utf-8") as handle:
@@ -57,6 +62,15 @@ class BaseStackDefaultsTest(unittest.TestCase):
                     has_require(lines, name),
                     "%s must require %s" % (spec, name))
 
+    def test_base_install_metas_require_console_tools(self):
+        for spec in ("tenko-base/tenko-base.spec",
+                     "tenko-base-runtime/tenko-base-runtime.spec"):
+            lines = spec_lines(spec)
+            for name in BASE_TOOLS:
+                self.assertTrue(
+                    has_require(lines, name),
+                    "%s must require %s" % (spec, name))
+
     def test_desktop_profile_requires_media_packages(self):
         lines = spec_lines("xfce-desktop/xfce-desktop.spec")
         for name in DESKTOP_PACKAGES:
@@ -65,7 +79,7 @@ class BaseStackDefaultsTest(unittest.TestCase):
                 "xfce-desktop must require %s" % name)
 
     def test_every_default_package_has_a_spec(self):
-        for name in BASE_PACKAGES + DESKTOP_PACKAGES:
+        for name in BASE_PACKAGES + DESKTOP_PACKAGES + BASE_TOOLS:
             spec = os.path.join(SPECS, name, name + ".spec")
             self.assertTrue(os.path.isfile(spec), "missing spec for " + name)
 
