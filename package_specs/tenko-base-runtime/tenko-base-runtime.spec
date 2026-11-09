@@ -1,6 +1,6 @@
 Name:       tenko-base-runtime
 Version:    6
-Release:    4
+Release:    5
 Epoch:      1
 Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
@@ -68,6 +68,15 @@ Requires:   dbus-libs
 Requires:   procps-ng
 Requires:   util-linux
 Requires:   e2fsprogs
+# Base OS storage, firmware and diagnostic tools.  The installer and the
+# live media install tenko-base-runtime instead of tenko-base, so these
+# base-set members also have to be listed here to reach a fresh install.
+Requires:   lsof
+Requires:   strace
+Requires:   nano
+Requires:   libblockdev
+Requires:   udisks2
+Requires:   fwupd
 Requires:   libseccomp
 Requires:   libbsd
 Requires:   libmd
@@ -120,6 +129,15 @@ touch %{buildroot}/usr/share/tenko/base-runtime
 /usr/share/tenko/base-runtime
 
 %changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 6-5
+- Require the new base-set storage, firmware and diagnostic packages:
+  libblockdev and udisks2 for the D-Bus block-device service, fwupd for
+  firmware updates, and lsof, strace and nano as base tools.  The
+  installer and live media install this runtime meta, so listing them
+  here is what puts them on a fresh base-only system.  The dependency
+  chains (glib, polkit, gnutls, LVM2, mdadm, btrfs-progs, ...) come in
+  through RPM requires.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-4
 - Require the console Unicode stack: kmscon (with libtsm) replaces fbcon on
   the VTs, and the Noto CJK, Noto Emoji and Nerd Fonts symbol packages give

@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    6
-Release:    4
+Release:    5
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
@@ -94,6 +94,12 @@ Requires:   man-db
 Requires:   procps-ng
 Requires:   util-linux
 Requires:   e2fsprogs
+Requires:   lsof
+Requires:   strace
+Requires:   nano
+Requires:   libblockdev
+Requires:   udisks2
+Requires:   fwupd
 Requires:   tenko-rpm-config
 Requires:   tenko-basefs
 Requires:   tenko-sysconfig
@@ -139,6 +145,14 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 6-5
+- Promote the storage, firmware and diagnostic packages into the base
+  package set: libblockdev and udisks2 provide the block-device service
+  and its backend, fwupd covers firmware updates, and lsof, strace and
+  nano are the requested base diagnostics/editor tools.  base.json carries
+  them in packages and build_order, so tenko-base and the base rebuild
+  order both include them.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-4
 - Add the console Unicode stack.  font-noto-cjk, font-noto-emoji and
   font-nerd-symbols are base packages (and in the rebuild order); libtsm

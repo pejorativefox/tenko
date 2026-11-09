@@ -82,7 +82,13 @@
     "man-db",
     "procps",
     "util-linux",
-    "e2fsprogs"
+    "e2fsprogs",
+    "lsof",
+    "strace",
+    "nano",
+    "libblockdev",
+    "udisks2",
+    "fwupd"
   ],
   "aliases": {
     "flit-core": "python-flit-core",
@@ -189,6 +195,12 @@
     "libarchive",
     "lua",
     "rpm",
+    "lsof",
+    "strace",
+    "nano",
+    "libblockdev",
+    "udisks2",
+    "fwupd",
     "tenko-rpm-config",
     "tenko-basefs",
     "tenko-sysconfig",

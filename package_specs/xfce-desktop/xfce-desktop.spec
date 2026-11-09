@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    24
+Release:    25
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -26,6 +26,11 @@ Requires:   xfce4-terminal
 Requires:   mpv
 Requires:   xfdesktop
 Requires:   xfce4-power-manager
+# Panel volume control and VA-API video acceleration.  The plugin pulls
+# PulseAudio at runtime; libva is the API used by the video stack and its
+# GLX backend brings in libGL.
+Requires:   xfce4-pulseaudio-plugin
+Requires:   libva
 Requires:   dbus-daemon
 Requires:   dbus-x11
 Requires:   xorg-server
@@ -141,6 +146,14 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 4.20-25
+- Require xfce4-pulseaudio-plugin so the panel has volume/mute control and
+  device selection on a default desktop; PulseAudio arrives through the
+  plugin's libpulse dependency.
+- Require libva so the VA-API video stack is available on the desktop
+  profile.  The base OS carries udisks2/libblockdev, fwupd, lsof, strace
+  and nano, so they are not repeated here.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-24
 - Require font-noto-color-emoji for color emoji in GUI applications and the
   desktop terminal.  The base system keeps the monochrome Noto Emoji face
