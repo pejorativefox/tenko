@@ -1,9 +1,10 @@
 Name:       lightdm-gtk-greeter
 Version:    2.0.9
-Release:    2
+Release:    3
 Summary:    GTK+ greeter for LightDM
 License:    GPL-3.0-or-later
 Source0:    lightdm-gtk-greeter-2.0.9.tar.gz
+Source1:    lightdm-gtk-greeter.conf
 Prefix:     /usr
 
 BuildRequires: gtk+, libxklavier, gettext
@@ -11,6 +12,10 @@ BuildRequires: gtk+, libxklavier, gettext
 BuildRequires: lightdm
 
 Requires: lightdm >= 1.19.2
+# The Tenko greeter configuration names the desktop themes, so keep them
+# resolvable on any install that brings in the greeter.
+Requires: arc-theme
+Requires: kora-icon-theme
 
 %description
 The reference GTK+ greeter for LightDM.  It provides the login screen, the
@@ -50,6 +55,11 @@ Sample greeter stylesheet.
 rm -rf %{buildroot}
 %make_install
 
+# Replace upstream's commented-out template with the Tenko defaults: Arc-Dark
+# widgets, Kora icons and a black background.  Without an explicit icon theme
+# the greeter falls back to hicolor, which lacks the symbolic indicator icons.
+install -Dpm0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf
+
 # Version the documentation directory.
 mv -v %{buildroot}%{_docdir}/lightdm-gtk-greeter \
       %{buildroot}%{_docdir}/lightdm-gtk-greeter-%{version}
@@ -61,6 +71,12 @@ mv -v %{buildroot}%{_docdir}/lightdm-gtk-greeter \
 %files doc -f %{_sourcedir}/lightdm-gtk-greeter-doc.filelist
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 2.0.9-3
+- Ship the Tenko greeter configuration: Arc-Dark GTK theme, Kora icons and
+  a black background.  Without an icon theme the greeter fell back to
+  hicolor, so the accessibility (and other symbolic) indicator icons were
+  blank.  Require arc-theme and kora-icon-theme so the named themes resolve.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.9-2
 - Build against lightdm instead of lightdm-devel: the -devel subpackages
   were removed and the .pc/GIR/headers now ship in lightdm (issue #4).
