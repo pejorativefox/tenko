@@ -152,6 +152,32 @@ Evidence: `build/installer-serial.log` and `build/installer-screen.ppm`.  The
 full unattended install and graphical checks above were not repeated for this
 rebuild; they remain the 2026-11-06 record.
 
+### 2026-11-09 rebuild boot check
+
+Artifact: published `tenko-installer.iso`, 824,475,648 B, SHA-256
+`be9a65a6b1be9eed2f87344c4aa58941244ce48458b5d9183b2c550e23ffcdba`.
+
+Environment: QEMU 11.1.3 and OVMF 202608-2, 4 GiB guest RAM, a blank 20 GiB
+virtio disk, a fresh OVMF variable store and the default user-mode e1000
+NIC.  The rebuild includes `tenko-installer-6-9` (network setup screen and
+nmtui retry) and `tenko-live-6-3` (Wi-Fi/NIC firmware packs); the live root
+is now 247 MiB of firmware.
+
+| check | result | evidence |
+|---|---|---|
+| stock ISO boots under OVMF | **PASS** | systemd-boot entry, `Tenko Linux 6 (Workstation)`, kernel 7.3.1, dracut live root |
+| installer service starts | **PASS** | `Started Tenko Linux installer` |
+| kmscon replaces fbcon on tty1 | **PASS** | `Started KMS System Console on tty1` |
+| system reaches multi-user | **PASS** | `Reached target Multi-User System`, `localhost login:` |
+| failed units / emergency mode | **PASS** | no `Failed to start` or emergency lines |
+| firmware packs in the live root | **PASS** | `linux-firmware-{intel-wifi,ath,mediatek,other,nic}-20261019-3` |
+
+Evidence: `build/iso-smoke-issue50.log`, `build/installer-serial.log` and
+`build/installer-screen.ppm`.  The default e1000 link was up, so this boot
+did not exercise the no-network screen; the nmtui/retry path is covered by
+the installer unit tests and still needs a QEMU no-link and real Wi-Fi test.
+The full unattended install and graphical checks were not repeated.
+
 ## Graphical tests
 
 ```sh

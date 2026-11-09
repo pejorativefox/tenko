@@ -126,7 +126,7 @@
     <p>Packages for the Tenko 6 (Workstation) base system, built with the self-hosted Tenko container toolchain.  Package versions roll independently of the distro release.</p>
     <div class="actions">
       <a class="btn primary" href="https://tenko.pjfox.xyz/packages/6/">Browse packages</a>
-      <a class="btn" href="iso/tenko-installer.iso">Installer ISO (548 MiB)</a>
+      <a class="btn" href="iso/tenko-installer.iso">Installer ISO (787 MiB)</a>
       <a class="btn" href="https://tenko.pjfox.xyz/packages/6/tenko-6.repo">tenko-6.repo</a>
       <a class="btn" href="https://pjfox.xyz/git/daspork/tenko">Source</a>
     </div>
@@ -164,7 +164,7 @@ sha256sum -c tenko-installer.iso.sha256
 
 <span class="c"># write it to a USB stick</span>
 sudo dd if=tenko-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync</code></pre>
-    <p class="muted">548 MiB · kernel 7.3.1 · installs the runtime base and
+    <p class="muted">787 MiB · kernel 7.3.1 · installs the runtime base and
        the XFCE desktop from this repository; install the build toolchain
        afterwards with <code>dnf install tenko-base</code>.</p>
     <p class="muted">Images are rebuilt only on request.  A future rebuild
@@ -214,7 +214,7 @@ podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6</code></pre>
         <tr><td><code>packages/6/tenko-6.repo</code></td><td>dnf repository definition</td></tr>
         <tr><td><code>packages/6/</code> (xfce-desktop)</td><td>XFCE 4.20 desktop meta-package and dependencies, same repo</td></tr>
         <tr><td><code>packages/6/README.txt</code></td><td>Short install notes</td></tr>
-        <tr><td><code>iso/tenko-installer.iso</code></td><td>UEFI installer ISO, 548 MiB, network install (no packages on the media)</td></tr>
+        <tr><td><code>iso/tenko-installer.iso</code></td><td>UEFI installer ISO, 787 MiB, network install (no packages on the media)</td></tr>
         <tr><td><code>iso/tenko-installer.iso.sha256</code></td><td>SHA-256 checksum for the ISO</td></tr>
         <tr><td><code>rootfs/tenko-rootfs.tar.gz</code></td><td>container build rootfs, 407 MiB gzip, 137 packages</td></tr>
         <tr><td><code>rootfs/tenko-rootfs.tar.gz.sha256</code></td><td>SHA-256 checksum for the rootfs tarball</td></tr>
