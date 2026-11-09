@@ -1,10 +1,13 @@
 Name:       xfwm4
 Version:    4.20.0
-Release:    3
+Release:    4
 Summary:    Xfce's window manager
 License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+
+BuildRequires: libxpresent
+BuildRequires: xorgproto
 
 %description
 Xfce's window manager
@@ -33,6 +36,12 @@ mkdir -p %{buildroot}/etc
 
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 4.20.0-4
+- Build with libXpresent (plus presentproto from xorgproto) so the compositor
+  offers the XPresent vblank method.  Upstream enables it by default when
+  pkg-config finds xpresent; the previous build image lacked it.
+- Rebuild of the same upstream version: no source change.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.0-3
 - Replace the legacy short licence name with the verified SPDX expression
   (GPL-2.0-or-later): COPYING (issue #8).
