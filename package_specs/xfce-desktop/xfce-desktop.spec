@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    25
+Release:    26
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -24,6 +24,10 @@ Requires:   xfce4-notifyd
 Requires:   xfce4-appfinder
 Requires:   xfce4-terminal
 Requires:   mpv
+# Default web browser: the Google Chrome vendor bundle under /opt, with its
+# /usr/bin entry points and desktop file as required for repackaged bundles.
+# Its upstream appstream defect is waived in the freedesktop audit (#42).
+Requires:   google-chrome-bin
 Requires:   xfdesktop
 Requires:   xfce4-power-manager
 # Panel volume control and VA-API video acceleration.  The plugin pulls
@@ -146,6 +150,13 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 4.20-26
+- Require google-chrome-bin so the default desktop install ships the
+  Google Chrome vendor bundle (156.0.8078.79) as its web browser.  The
+  bundle installs under /opt with the /usr/bin entry points and desktop
+  file; its upstream appstream defect remains the documented waiver in
+  the freedesktop audit.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 4.20-25
 - Require xfce4-pulseaudio-plugin so the panel has volume/mute control and
   device selection on a default desktop; PulseAudio arrives through the

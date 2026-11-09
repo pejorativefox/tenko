@@ -13,6 +13,9 @@ BASE_PACKAGES = ("lsof", "strace", "nano", "libblockdev", "udisks2", "fwupd")
 # Requested desktop-profile packages: panel volume control and VA-API.
 DESKTOP_PACKAGES = ("xfce4-pulseaudio-plugin", "libva")
 
+# User-requested desktop application: the Chrome vendor bundle.
+DESKTOP_APPS = ("google-chrome-bin",)
+
 # User-requested base console tools.  These are requires-extra entries
 # rather than base.json membership, but both install metas must carry them.
 BASE_TOOLS = ("curl", "wget", "rsync", "pciutils", "usbutils", "which",
@@ -78,8 +81,16 @@ class BaseStackDefaultsTest(unittest.TestCase):
                 has_require(lines, name),
                 "xfce-desktop must require %s" % name)
 
+    def test_desktop_profile_requires_default_apps(self):
+        lines = spec_lines("xfce-desktop/xfce-desktop.spec")
+        for name in DESKTOP_APPS:
+            self.assertTrue(
+                has_require(lines, name),
+                "xfce-desktop must require %s" % name)
+
     def test_every_default_package_has_a_spec(self):
-        for name in BASE_PACKAGES + DESKTOP_PACKAGES + BASE_TOOLS:
+        for name in (BASE_PACKAGES + DESKTOP_PACKAGES + BASE_TOOLS
+                     + DESKTOP_APPS):
             spec = os.path.join(SPECS, name, name + ".spec")
             self.assertTrue(os.path.isfile(spec), "missing spec for " + name)
 
