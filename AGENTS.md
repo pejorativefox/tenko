@@ -3,6 +3,14 @@
 Packaging conventions (third-party `/opt` bundles, `profile.d` snippets,
 `/etc/skel` defaults, tests) live in [`docs/rules.md`](docs/rules.md).
 
+## Do work in worktrees
+
+Do work in a git worktree, not in the main checkout. Create worktrees under
+`.worktrees/` in this repository (for example `.worktrees/<task-name>`), never
+in an ad-hoc location such as `/tmp`. The directory is git-ignored, so it stays
+out of `git status`; remove each worktree with `git worktree remove` once its
+work is merged or discarded.
+
 ## Base package set and versions
 
 The base package set lives in
@@ -82,12 +90,9 @@ packages they were built with until such a rebuild.
 This tree involves long downloads, uploads, compiles, and checks. Use
 subagents to run that work in parallel whenever the tasks are independent:
 
-- Give each subagent its own git worktree and branch off the current commit.
-- Create worktrees under `.worktrees/` in this repository (for example
-  `.worktrees/<task-name>`), never inside the main checkout and never in an
-  ad-hoc location such as `/tmp`. The directory is git-ignored, so it stays
-  out of `git status`; remove each worktree with `git worktree remove` when
-  the subagent's work is merged or discarded.
+- Give each subagent its own git worktree under `.worktrees/` (see
+  [Do work in worktrees](#do-work-in-worktrees)) and branch off the current
+  commit.
 - Keep file ownership disjoint: a subagent must not edit files the main
   session is changing.
 - Let the main session own integration: review, merge, rebuild the repo,
