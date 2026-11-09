@@ -1,10 +1,14 @@
 Name:       xfwm4
 Version:    4.20.0
-Release:    3
+Release:    5
 Summary:    Xfce's window manager
 License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
+Patch0:     xfwm4-4.20.0-workspace-flash.patch
 Prefix:     /usr
+
+BuildRequires: libxpresent
+BuildRequires: xorgproto
 
 %description
 Xfce's window manager
@@ -18,6 +22,7 @@ Translations for xfwm4.
 
 %prep
 %setup
+%patch -P 0 -p1
 
 %build
 %configure
@@ -33,6 +38,20 @@ mkdir -p %{buildroot}/etc
 
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 4.20.0-5
+- Add xfwm4-4.20.0-workspace-flash.patch: keep the outgoing workspace's
+  windows mapped until the incoming windows have painted (tracked with
+  XDamage on the client windows), so switching workspaces no longer flashes
+  the root wallpaper for a frame (upstream issue #314).  Fallback timeout is
+  100 ms and the old immediate behaviour is kept when the compositor is
+  inactive.
+
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 4.20.0-4
+- Build with libXpresent (plus presentproto from xorgproto) so the compositor
+  offers the XPresent vblank method.  Upstream enables it by default when
+  pkg-config finds xpresent; the previous build image lacked it.
+- Rebuild of the same upstream version: no source change.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.0-3
 - Replace the legacy short licence name with the verified SPDX expression
   (GPL-2.0-or-later): COPYING (issue #8).
