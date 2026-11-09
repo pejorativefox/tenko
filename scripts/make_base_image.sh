@@ -40,7 +40,7 @@ REPO_URL=${REPO_URL:-https://tenko.pjfox.xyz/packages/6/}
 IMAGE=${IMAGE:-localhost/tenko/base:r6-$DATE}
 TAG_STABLE=${TAG_STABLE:-1}
 DEVEL_PACKAGES=${DEVEL_PACKAGES:-"cryptsetup python3-pyelftools liblzo2"}
-PACKAGES=${PACKAGES:-tenko-base tenko-build $DEVEL_PACKAGES}
+PACKAGES=${PACKAGES:-tenko-base tenko-base-build tenko-build $DEVEL_PACKAGES}
 ROOTFS=${ROOTFS:-build/base-rootfs}
 TARBALL=${TARBALL:-build/tenko-rootfs.tar.gz}
 FROM_TARBALL=${FROM_TARBALL:-}
@@ -55,15 +55,9 @@ rootfs_abs=$(cd "$(dirname "$ROOTFS")" && pwd)/$(basename "$ROOTFS")
 tarball_abs=$(cd "$(dirname "$TARBALL")" && pwd)/$(basename "$TARBALL")
 mkdir -p "$(dirname "$rootfs_abs")" "$(dirname "$tarball_abs")"
 
-if [ -n "$FROM_TARBALL" ]; then
-    [ -f "$FROM_TARBALL" ] || { echo "missing tarball: $FROM_TARBALL" >&2; exit 1; }
-    tarball_abs=$(cd "$(dirname "$FROM_TARBALL")" && pwd)/$(basename "$FROM_TARBALL")
-    echo "importing $tarball_abs"
-else
-    rm -rf "$rootfs_abs" "$tarball_abs"
-    mkdir -p "$rootfs_abs"
-
-    echo "installing $PACKAGES into $rootfs_abs from $REPO_URL"
+# Install packages into the staging rootfs, in the image when it has dnf and
+# with a rootless installroot otherwise.
+rootfs_install() {
     if tool_image_has dnf; then
         podman run --rm --network=host \
             -v "$(dirname "$rootfs_abs"):/out:rw,z" \
@@ -72,7 +66,7 @@ else
                 --disablerepo='*' --repofrompath=tenko,"$REPO_URL" \
                 --setopt=install_weak_deps=False \
                 --setopt=tsflags=noscripts \
-                install $PACKAGES
+                install "$@"
     else
         echo "dnf (host, rootless): no image with dnf; using unshare -r" >&2
         unshare -r dnf -y --nogpgcheck \
@@ -80,7 +74,40 @@ else
             --disablerepo='*' --repofrompath=tenko,"$REPO_URL" \
             --setopt=install_weak_deps=False \
             --setopt=tsflags=noscripts \
-            install $PACKAGES
+            install "$@"
+    fi
+}
+
+if [ -n "$FROM_TARBALL" ]; then
+    [ -f "$FROM_TARBALL" ] || { echo "missing tarball: $FROM_TARBALL" >&2; exit 1; }
+    tarball_abs=$(cd "$(dirname "$FROM_TARBALL")" && pwd)/$(basename "$FROM_TARBALL")
+    echo "importing $tarball_abs"
+else
+    rm -rf "$rootfs_abs" "$tarball_abs"
+    mkdir -p "$rootfs_abs"
+
+    # tenko-basefs owns the /bin, /sbin, /lib and /lib64 usr-merge symlinks.
+    # Install it in its own transaction first: if the packages that create
+    # those directories land in the same transaction, rpm fails with
+    # "File from package already exists as a directory in system".
+    echo "installing tenko-basefs into $rootfs_abs from $REPO_URL"
+    rootfs_install tenko-basefs
+
+    echo "installing $PACKAGES into $rootfs_abs from $REPO_URL"
+    rootfs_install $PACKAGES
+
+    # dnf --installroot uses the host's %_dbpath.  On a host without
+    # tenko-rpm-config that is /var/lib/rpm, while the image's rpm
+    # (macros.tenko) expects /usr/lib/sysimage/rpm, which leaves rpm -qa
+    # empty inside the image.  tenko-osdev installs tenko-rpm-config on the
+    # host; this relocation keeps the script working on other hosts too.
+    if [ -d "$rootfs_abs/var/lib/rpm" ] && \
+       [ ! -d "$rootfs_abs/usr/lib/sysimage/rpm" ]; then
+        echo "relocating the RPM database to /usr/lib/sysimage/rpm"
+        mkdir -p "$rootfs_abs/usr/lib/sysimage/rpm"
+        find "$rootfs_abs/var/lib/rpm" -mindepth 1 -maxdepth 1 \
+            -exec mv {} "$rootfs_abs/usr/lib/sysimage/rpm/" \;
+        rmdir "$rootfs_abs/var/lib/rpm"
     fi
 
     # The install ran with tsflags=noscripts, so run the offline setup that
