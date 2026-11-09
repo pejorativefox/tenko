@@ -1,4 +1,5 @@
 import os
+import re
 import unittest
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -61,7 +62,11 @@ class LiveVentoyTest(unittest.TestCase):
         self.assertIn("95tenko-ventoy.module-setup.sh", spec)
         self.assertIn("95tenko-ventoy.iso-scan.sh", spec)
         self.assertIn("95tenko-ventoy.rules", spec)
-        self.assertIn("Release:    12", spec)
+        # The Ventoy module landed in 6-12; later installer fixes may bump the
+        # release further, so only require that it has not gone backwards.
+        release = re.search(r"^Release:\s+(\d+)", spec, re.MULTILINE)
+        self.assertIsNotNone(release)
+        self.assertGreaterEqual(int(release.group(1)), 12)
         self.assertIn("#49", spec)
 
     def test_module_files_exist(self):

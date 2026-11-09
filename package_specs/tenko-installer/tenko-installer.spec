@@ -1,6 +1,6 @@
 Name:       tenko-installer
 Version:    6
-Release:    12
+Release:    13
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
@@ -105,6 +105,16 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Mon Nov 09 2026 tenko <build@tenko.invalid> 6-13
+- Force a full curses repaint on every screen, and redraw idle prompts on
+  a one-second timer.  The installer runs on the kernel console (tty1),
+  so printk messages from mkfs, mount and udev overwrote the header and
+  footer.  curses never repainted cells it believed were unchanged, which
+  is why the screen stayed corrupt after filesystem creation.  The
+  progress pane repaints in full on every step change and at least every
+  half second, so console damage heals promptly without flickering on
+  every burst of command output.
+
 * Mon Nov 09 2026 tenko <build@tenko.invalid> 6-11
 - Run nmtui with LC_ALL=C.UTF-8.  nmtui converts label text from UTF-8 to
   the process locale and turns the row into an empty string when that

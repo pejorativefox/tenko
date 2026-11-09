@@ -20,6 +20,21 @@ from typing import Callable, Sequence
 MIN_ROWS = 24
 MIN_COLS = 80
 
+# The installer owns the kernel console (tty1/fbcon) on the live medium, so
+# printk messages (filesystem, mount and udev notices) are written straight
+# over the curses screen.  curses cannot see those writes: it believes its
+# own cells are still on the terminal and a plain refresh() leaves the
+# damage in place.  Every frame therefore asks curses to clear and repaint
+# the whole screen, and idle prompts redraw on a timer so a message that
+# arrives while nobody is typing heals by itself.
+REDRAW_INTERVAL_MS = 1000
+
+# The progress pane can receive output in fast bursts.  Rewriting the whole
+# screen for every burst would flicker on fbcon, so full repaints are
+# throttled; incremental updates are enough between them, and any console
+# damage is repaired by the next full draw (at most this many seconds later).
+PROGRESS_FULL_REDRAW_S = 0.5
+
 QUIT = -1
 RESCAN = -2
 BACK = -3
@@ -103,8 +118,19 @@ class CursesUI:
                 self.cols, self.rows, MIN_COLS, MIN_ROWS
             )
             self._safe_add(self.rows // 2, max(0, (self.cols - len(msg)) // 2), msg)
+            try:
+                self.screen.clearok(True)
+            except curses.error:
+                pass
             self.screen.refresh()
-            key = self.screen.getch()
+            try:
+                self.screen.timeout(REDRAW_INTERVAL_MS)
+                key = self.screen.getch()
+            finally:
+                try:
+                    self.screen.timeout(-1)
+                except curses.error:
+                    pass
             if key in (ord("q"), 27):
                 return False
 
@@ -122,8 +148,24 @@ class CursesUI:
     def _center(self, text: str) -> int:
         return max(0, (self.cols - len(text)) // 2)
 
-    def _frame(self, title: str, subtitle: str = "", footer: str = "") -> None:
+    def _frame(
+        self,
+        title: str,
+        subtitle: str = "",
+        footer: str = "",
+        *,
+        full_redraw: bool = True,
+    ) -> None:
         self.screen.erase()
+        if full_redraw:
+            # Force the next refresh() to clear the terminal and repaint
+            # every cell.  Without this, printk output on the kernel
+            # console (common from mkfs, mount and udev) leaves stale text
+            # in cells that curses thinks it already drew correctly.
+            try:
+                self.screen.clearok(True)
+            except curses.error:
+                pass
         header = curses.A_REVERSE
         self._safe_add(0, 0, " " * (self.cols - 1), header)
         self._safe_add(
@@ -140,7 +182,20 @@ class CursesUI:
             )
 
     def _wait(self) -> int:
-        return self.screen.getch()
+        """Wait for a key, but wake up periodically to repaint the screen.
+
+        Returns -1 on a timeout; callers treat that as "redraw and wait
+        again" rather than as input.
+        """
+
+        try:
+            self.screen.timeout(REDRAW_INTERVAL_MS)
+            return self.screen.getch()
+        finally:
+            try:
+                self.screen.timeout(-1)
+            except curses.error:
+                pass
 
     # ------------------------------------------------------------------
     # Menus and messages
@@ -219,6 +274,10 @@ class CursesUI:
                     )
             self.screen.refresh()
             key = self._wait()
+            if key == -1:
+                # Timeout: repaint the frame in case the console was
+                # overwritten by kernel output while we were waiting.
+                continue
             if key in (ord("q"), 27) and not allow_back:
                 return QUIT
             if key in (ord("q"), 27) and allow_back:
@@ -257,28 +316,24 @@ class CursesUI:
         footer: str = "Press any key to continue",
         subtitle: str = "",
     ) -> int:
-        self._ensure_size()
-        self._frame(title, subtitle, footer)
-        y = 3
-        for line in lines:
-            for wrapped in textwrap.wrap(str(line), max(20, self.cols - 6)) or [""]:
-                if y >= self.rows - 2:
-                    break
-                self._safe_add(y, 3, wrapped)
-                y += 1
-        self.screen.refresh()
-        key = self._wait()
-        while key == curses.KEY_RESIZE:
+        def draw() -> None:
             self._ensure_size()
             self._frame(title, subtitle, footer)
             y = 3
             for line in lines:
-                for wrapped in textwrap.wrap(str(line), max(20, self.cols - 6)) or [""]:
+                for wrapped in textwrap.wrap(
+                    str(line), max(20, self.cols - 6)
+                ) or [""]:
                     if y >= self.rows - 2:
                         break
                     self._safe_add(y, 3, wrapped)
                     y += 1
             self.screen.refresh()
+
+        draw()
+        key = self._wait()
+        while key in (curses.KEY_RESIZE, -1):
+            draw()
             key = self._wait()
         return key
 
@@ -365,6 +420,8 @@ class CursesUI:
                 except curses.error:
                     pass
             key = self._wait()
+            if key == -1:
+                continue
             if key == 27:
                 return None
             if key in (curses.KEY_UP, curses.KEY_BTAB):
@@ -420,18 +477,21 @@ class ProgressView:
         self.step_name = "Starting"
         self.lines: deque[str] = deque(maxlen=2000)
         self._last_draw = 0.0
+        self._last_full_draw = 0.0
         self._pending = 0
         try:
             curses.curs_set(0)
         except curses.error:
             pass
-        self.draw()
+        self.draw(force_full=True)
 
     def set_step(self, index: int, total: int, name: str) -> None:
         self.index = index
         self.total = max(1, total)
         self.step_name = name
-        self.draw()
+        # A new step usually follows disk or mount activity, which is when
+        # kernel messages overwrite the frame; repaint it in full at once.
+        self.draw(force_full=True)
 
     def line(self, text: str) -> None:
         if not text:
@@ -442,11 +502,18 @@ class ProgressView:
         if self._pending >= 8 or now - self._last_draw > 0.15:
             self.draw()
 
-    def draw(self) -> None:
+    def draw(self, *, force_full: bool = False) -> None:
         if not self.ui._ensure_size():
             return
         ui = self.ui
-        ui._frame(self.title, "", "Please wait; do not power off or remove the media")
+        now = time.monotonic()
+        full = force_full or now - self._last_full_draw >= PROGRESS_FULL_REDRAW_S
+        ui._frame(
+            self.title,
+            "",
+            "Please wait; do not power off or remove the media",
+            full_redraw=full,
+        )
         step_text = "[{}/{}] {}".format(self.index, self.total, self.step_name)
         ui._safe_add(2, 2, step_text[: ui.cols - 4], curses.A_BOLD)
         bar_width = max(10, ui.cols - 8)
@@ -460,7 +527,9 @@ class ProgressView:
             ui._safe_add(y, 2, line[-max(1, ui.cols - 4) :])
             y += 1
         ui.screen.refresh()
-        self._last_draw = time.monotonic()
+        self._last_draw = now
+        if full:
+            self._last_full_draw = now
         self._pending = 0
 
     def pump(self) -> int:
@@ -475,8 +544,8 @@ class ProgressView:
             except curses.error:
                 pass
         if key == curses.KEY_RESIZE:
-            self.draw()
+            self.draw(force_full=True)
         return key
 
     def finish(self) -> None:
-        self.draw()
+        self.draw(force_full=True)
