@@ -1,0 +1,76 @@
+Name:       tenko-osdev
+Version:    6
+Release:    1
+Epoch:      1
+Summary:    Tenko Linux OS development environment
+License:    MIT
+Prefix:     /usr
+
+# Full base plus the compile/package toolchain (tenko-base-build) and the
+# repository assembly tools (tenko-build pulls dnf and createrepo_c).
+Requires:   tenko-base
+Requires:   tenko-base-build
+Requires:   tenko-build
+
+# Container runtime used by build_specs.sh, build_iso_uefi.sh and
+# make_base_image.sh.
+Requires:   podman-bin
+
+# Publishing to R2 and the LAN mirror.
+Requires:   rclone
+Requires:   rsync
+Requires:   openssh
+
+# Source and release downloads.
+Requires:   git
+Requires:   curl
+Requires:   wget
+
+# ISO authoring tools.  build_iso_uefi.sh installs these into its tools
+# container from a staged local repository, so having them on the host also
+# makes the individual steps usable directly.
+Requires:   libisoburn
+Requires:   squashfs-tools
+Requires:   mtools
+Requires:   dosfstools
+
+# Initramfs and image/VM testing.
+Requires:   dracut
+Requires:   cpio
+Requires:   zstd
+Requires:   qemu
+Requires:   edk2-ovmf
+
+%description
+The Tenko OS development environment: everything needed on a Tenko host to
+build packages, assemble the RPM repository, produce the installer ISO and
+container rootfs, and publish the results.
+
+It pulls in the full base system, the compiler and RPM packaging toolchain
+(tenko-base-build), dnf/createrepo_c (tenko-build), the static podman bundle,
+rclone and OpenSSH for publishing, the ISO authoring tools (libisoburn,
+squashfs-tools, mtools, dosfstools), dracut/cpio for the live initramfs, and
+QEMU with OVMF for boot testing.
+
+tenko-rpm-config arrives through tenko-base-build; keeping it installed on
+the host makes dnf --installroot write the RPM database to the same path the
+generated images expect (/usr/lib/sysimage/rpm).
+
+%prep
+
+%build
+
+%install
+mkdir -p %{buildroot}/usr/share/tenko
+touch %{buildroot}/usr/share/tenko/osdev
+
+%files
+/usr/share/tenko/osdev
+
+%changelog
+* Mon Nov 09 2026 browneye <build@browneye.invalid> 6-1
+- New meta-package for OS development on Tenko: full base, the build and
+  RPM/repodata toolchain, podman, publish clients, ISO authoring tools and
+  QEMU/OVMF for image testing.  This is the environment the ISO and rootfs
+  build scripts expect, including tenko-rpm-config for a consistent RPM
+  database path between host and installroot.
