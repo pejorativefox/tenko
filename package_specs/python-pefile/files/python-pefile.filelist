@@ -1,0 +1,29 @@
+%dir /usr/lib
+%dir /usr/lib64
+%dir /usr/lib64/python3.15
+%dir /usr/lib64/python3.15/site-packages
+%dir /usr/lib64/python3.15/site-packages/__pycache__
+/usr/lib64/python3.15/site-packages/__pycache__/pefile.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/__pycache__/peutils.cpython-315.pyc
+%dir /usr/lib64/python3.15/site-packages/ordlookup
+/usr/lib64/python3.15/site-packages/ordlookup/__init__.py
+%dir /usr/lib64/python3.15/site-packages/ordlookup/__pycache__
+/usr/lib64/python3.15/site-packages/ordlookup/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/ordlookup/__pycache__/oleaut32.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/ordlookup/__pycache__/ws2_32.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/ordlookup/__pycache__/wsock32.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/ordlookup/oleaut32.py
+/usr/lib64/python3.15/site-packages/ordlookup/ws2_32.py
+/usr/lib64/python3.15/site-packages/ordlookup/wsock32.py
+%dir /usr/lib64/python3.15/site-packages/pefile-2024.8.26.dist-info
+/usr/lib64/python3.15/site-packages/pefile-2024.8.26.dist-info/INSTALLER
+/usr/lib64/python3.15/site-packages/pefile-2024.8.26.dist-info/METADATA
+/usr/lib64/python3.15/site-packages/pefile-2024.8.26.dist-info/RECORD
+/usr/lib64/python3.15/site-packages/pefile-2024.8.26.dist-info/REQUESTED
+/usr/lib64/python3.15/site-packages/pefile-2024.8.26.dist-info/WHEEL
+/usr/lib64/python3.15/site-packages/pefile-2024.8.26.dist-info/direct_url.json
+%dir /usr/lib64/python3.15/site-packages/pefile-2024.8.26.dist-info/licenses
+/usr/lib64/python3.15/site-packages/pefile-2024.8.26.dist-info/licenses/LICENSE
+/usr/lib64/python3.15/site-packages/pefile-2024.8.26.dist-info/top_level.txt
+/usr/lib64/python3.15/site-packages/pefile.py
+/usr/lib64/python3.15/site-packages/peutils.py
