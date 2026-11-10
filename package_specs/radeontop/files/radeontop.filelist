@@ -1,0 +1,13 @@
+/usr/bin/radeontop
+/usr/lib64/libradeontop_xcb.so
+/usr/share/locale/cs/LC_MESSAGES/radeontop.mo
+/usr/share/locale/de/LC_MESSAGES/radeontop.mo
+/usr/share/locale/el/LC_MESSAGES/radeontop.mo
+/usr/share/locale/es/LC_MESSAGES/radeontop.mo
+/usr/share/locale/fi/LC_MESSAGES/radeontop.mo
+/usr/share/locale/fr/LC_MESSAGES/radeontop.mo
+/usr/share/locale/ru/LC_MESSAGES/radeontop.mo
+/usr/share/locale/sl/LC_MESSAGES/radeontop.mo
+/usr/share/locale/tr/LC_MESSAGES/radeontop.mo
+/usr/share/locale/zh_CN/LC_MESSAGES/radeontop.mo
+%doc /usr/share/man/man1/radeontop.1.gz
