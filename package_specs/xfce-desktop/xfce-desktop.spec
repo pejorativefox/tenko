@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    27
+Release:    28
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -122,6 +122,10 @@ Requires:   linux-firmware-base
 # a desktop install runs on real hardware and must have it even when the
 # install is done with install_weak_deps=False.
 Requires:   systemd-hwdb
+# Game controller and Steam hardware permissions.  Without the udev rules the
+# Steam Flatpak warns that /dev/uinput is not accessible, and controllers are
+# unusable in Steam, SteamVR, Wine and other launchers.
+Requires:   steam-devices
 # Weak dependencies: a normal install still gets every vendor pack, while
 # --setopt=install_weak_deps=False (image builds, VMs) installs only base.
 Recommends: linux-firmware-intel-wifi
@@ -157,6 +161,11 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-28
+- Require steam-devices so a desktop install ships Valve's controller udev
+  rules.  Without them /dev/uinput is root-only and the Steam Flatpak warns
+  that the steam-devices package is missing.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-27
 - Require bluez and pulseaudio-bluez: the desktop now has the Bluetooth
   daemon, bluetoothctl, and the PulseAudio A2DP/HFP modules behind the

@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    16
+Release:    17
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -22,6 +22,10 @@ Requires:   flatpak
 Requires:   xfce-polkit
 Requires:   xdg-desktop-portal
 Requires:   xdg-desktop-portal-gtk
+# Game controller and Steam hardware permissions, matching the full desktop
+# profile.  The Steam Flatpak checks /dev/uinput before it warns that
+# steam-devices is missing.
+Requires:   steam-devices
 # AppImage type-2 runtimes are built against FUSE 2 and dlopen
 # libfuse.so.2 at startup; fuse3 ships a different soname and cannot
 # satisfy them.
@@ -115,6 +119,11 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-17
+- Require steam-devices so the core profile also ships Valve's controller
+  udev rules.  Without them /dev/uinput is root-only and the Steam Flatpak
+  warns that the steam-devices package is missing.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20-16
 - Require font-noto-color-emoji for color emoji in GUI applications and the
   desktop terminal.  The base system keeps the monochrome Noto Emoji face
