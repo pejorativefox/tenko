@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    17
+Release:    18
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -72,11 +72,12 @@ Requires:   libcanberra
 Requires:   libsecret
 # Desktop entry, MIME and icon metadata: xdg-utils provides the xdg-*
 # tools, desktop-file-utils validates/updates the entry database (and now
-# owns the file trigger), and mpv is the default media handler in
-# /etc/xdg/mimeapps.list.
+# owns the file trigger), mpv handles audio/video and ristretto is the
+# default image viewer in /etc/xdg/mimeapps.list.
 Requires:   xdg-utils
 Requires:   desktop-file-utils
 Requires:   mpv
+Requires:   ristretto
 Requires:   libxfce4util
 Requires:   xfconf
 Requires:   libxfce4ui
@@ -119,6 +120,10 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-18
+- Require ristretto so the image defaults in /etc/xdg/mimeapps.list
+  resolve on the core profile as well.  mpv stays for audio and video.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-17
 - Require steam-devices so the core profile also ships Valve's controller
   udev rules.  Without them /dev/uinput is root-only and the Steam Flatpak

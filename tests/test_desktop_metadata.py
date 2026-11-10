@@ -114,6 +114,24 @@ class DesktopMetadataTest(unittest.TestCase):
                     self.assertIn(desktop_id, shipped,
                                   "%s points at %s" % (mime, desktop_id))
 
+    def test_image_mime_defaults_use_ristretto(self):
+        text = read("package_specs/tenko-desktop-config/files/mimeapps.list")
+        parser = configparser.ConfigParser(strict=False, interpolation=None)
+        parser.read_string(text)
+        defaults = parser["Default Applications"]
+        # Every image type Ristretto's desktop file advertises must open in
+        # Ristretto, not in the media player.
+        for mime in ("image/png", "image/jpeg", "image/gif", "image/webp",
+                     "image/bmp", "image/tiff", "image/svg+xml",
+                     "image/x-pixmap", "image/x-xpixmap"):
+            self.assertEqual(defaults.get(mime), "org.xfce.ristretto.desktop", mime)
+        for mime in ("audio/mpeg", "audio/ogg", "audio/x-wav", "audio/flac",
+                     "video/mp4", "video/webm", "video/x-matroska",
+                     "video/x-msvideo"):
+            self.assertEqual(defaults.get(mime), "mpv.desktop", mime)
+        for mime in ("xfce-desktop", "xfce-desktop-core"):
+            self.assertIn("Requires:   ristretto", spec_text(mime), mime)
+
     def test_help_layout_and_handler_are_installed(self):
         spec = spec_text("tenko-desktop-config")
         self.assertIn("%{_datadir}/help/tenko/index.html", spec)

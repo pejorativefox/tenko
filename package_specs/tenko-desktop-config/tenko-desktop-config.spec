@@ -1,6 +1,6 @@
 Name:       tenko-desktop-config
 Version:    6
-Release:    7
+Release:    8
 Epoch:      1
 Summary:    Tenko X11/XFCE session configuration
 License:    MIT
@@ -205,6 +205,13 @@ EOF
 %config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 6-8
+- Make Ristretto the default image viewer in /etc/xdg/mimeapps.list for
+  every image type its desktop file handles: PNG, JPEG, GIF, WebP, BMP,
+  TIFF, SVG, XPM and X pixmap.  mpv keeps the audio and video defaults.
+  The file is %config(noreplace); an unmodified installed copy is replaced
+  on upgrade, while a locally edited one is kept.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-7
 - Give the systemd-activated xdg-desktop-portal-gtk service a DISPLAY and
   XAUTHORITY.  The user manager does not inherit the LightDM session's
