@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    28
+Release:    29
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -23,6 +23,11 @@ Requires:   tumbler
 Requires:   xfce4-notifyd
 Requires:   xfce4-appfinder
 Requires:   xfce4-terminal
+# Image viewing and manipulation: Ristretto is the default image viewer
+# (registered for image MIME types by its desktop file), ImageMagick ships
+# the command-line convert/magick tools and format delegates.
+Requires:   ristretto
+Requires:   imagemagick
 Requires:   mpv
 # Default web browser: the Google Chrome vendor bundle under /opt, with its
 # /usr/bin entry points and desktop file as required for repackaged bundles.
@@ -161,6 +166,10 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-29
+- Require ristretto, the Xfce image viewer, and imagemagick for image
+  viewing and command-line image manipulation on a default desktop.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-28
 - Require steam-devices so a desktop install ships Valve's controller udev
   rules.  Without them /dev/uinput is root-only and the Steam Flatpak warns
