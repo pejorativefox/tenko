@@ -1,0 +1,64 @@
+%dir /usr/lib64/python3.15/site-packages/pyudev
+%dir /usr/lib64/python3.15/site-packages/pyudev-0.24.5.dist-info
+/usr/lib64/python3.15/site-packages/pyudev-0.24.5.dist-info/INSTALLER
+/usr/lib64/python3.15/site-packages/pyudev-0.24.5.dist-info/METADATA
+/usr/lib64/python3.15/site-packages/pyudev-0.24.5.dist-info/RECORD
+/usr/lib64/python3.15/site-packages/pyudev-0.24.5.dist-info/REQUESTED
+/usr/lib64/python3.15/site-packages/pyudev-0.24.5.dist-info/WHEEL
+/usr/lib64/python3.15/site-packages/pyudev-0.24.5.dist-info/direct_url.json
+%dir /usr/lib64/python3.15/site-packages/pyudev-0.24.5.dist-info/licenses
+/usr/lib64/python3.15/site-packages/pyudev-0.24.5.dist-info/licenses/COPYING
+/usr/lib64/python3.15/site-packages/pyudev-0.24.5.dist-info/top_level.txt
+/usr/lib64/python3.15/site-packages/pyudev/__init__.py
+%dir /usr/lib64/python3.15/site-packages/pyudev/__pycache__
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/_errors.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/_qt_base.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/_util.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/core.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/discover.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/glib.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/monitor.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/pyqt5.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/pyside.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/pyside6.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/version.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/__pycache__/wx.cpython-315.pyc
+%dir /usr/lib64/python3.15/site-packages/pyudev/_ctypeslib
+/usr/lib64/python3.15/site-packages/pyudev/_ctypeslib/__init__.py
+%dir /usr/lib64/python3.15/site-packages/pyudev/_ctypeslib/__pycache__
+/usr/lib64/python3.15/site-packages/pyudev/_ctypeslib/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/_ctypeslib/__pycache__/_errorcheckers.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/_ctypeslib/__pycache__/libc.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/_ctypeslib/__pycache__/libudev.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/_ctypeslib/__pycache__/utils.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/_ctypeslib/_errorcheckers.py
+/usr/lib64/python3.15/site-packages/pyudev/_ctypeslib/libc.py
+/usr/lib64/python3.15/site-packages/pyudev/_ctypeslib/libudev.py
+/usr/lib64/python3.15/site-packages/pyudev/_ctypeslib/utils.py
+/usr/lib64/python3.15/site-packages/pyudev/_errors.py
+%dir /usr/lib64/python3.15/site-packages/pyudev/_os
+/usr/lib64/python3.15/site-packages/pyudev/_os/__init__.py
+%dir /usr/lib64/python3.15/site-packages/pyudev/_os/__pycache__
+/usr/lib64/python3.15/site-packages/pyudev/_os/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/_os/__pycache__/pipe.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/_os/__pycache__/poll.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/_os/pipe.py
+/usr/lib64/python3.15/site-packages/pyudev/_os/poll.py
+/usr/lib64/python3.15/site-packages/pyudev/_qt_base.py
+/usr/lib64/python3.15/site-packages/pyudev/_util.py
+/usr/lib64/python3.15/site-packages/pyudev/core.py
+%dir /usr/lib64/python3.15/site-packages/pyudev/device
+/usr/lib64/python3.15/site-packages/pyudev/device/__init__.py
+%dir /usr/lib64/python3.15/site-packages/pyudev/device/__pycache__
+/usr/lib64/python3.15/site-packages/pyudev/device/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/device/__pycache__/_device.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/pyudev/device/_device.py
+/usr/lib64/python3.15/site-packages/pyudev/discover.py
+/usr/lib64/python3.15/site-packages/pyudev/glib.py
+/usr/lib64/python3.15/site-packages/pyudev/monitor.py
+/usr/lib64/python3.15/site-packages/pyudev/pyqt5.py
+/usr/lib64/python3.15/site-packages/pyudev/pyside.py
+/usr/lib64/python3.15/site-packages/pyudev/pyside6.py
+/usr/lib64/python3.15/site-packages/pyudev/version.py
+/usr/lib64/python3.15/site-packages/pyudev/wx.py

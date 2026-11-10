@@ -1,0 +1,16 @@
+/usr/sbin/biosdecode
+/usr/sbin/dmidecode
+/usr/sbin/ownership
+/usr/sbin/vpddecode
+/usr/share/bash-completion/completions/biosdecode
+/usr/share/bash-completion/completions/dmidecode
+/usr/share/bash-completion/completions/ownership
+/usr/share/bash-completion/completions/vpddecode
+%dir /usr/share/doc/dmidecode
+%doc /usr/share/doc/dmidecode/AUTHORS
+%doc /usr/share/doc/dmidecode/NEWS
+%doc /usr/share/doc/dmidecode/README
+%doc /usr/share/man/man8/biosdecode.8.gz
+%doc /usr/share/man/man8/dmidecode.8.gz
+%doc /usr/share/man/man8/ownership.8.gz
+%doc /usr/share/man/man8/vpddecode.8.gz

@@ -1,0 +1,2 @@
+/usr/sbin/hdparm
+%doc /usr/share/man/man8/hdparm.8.gz

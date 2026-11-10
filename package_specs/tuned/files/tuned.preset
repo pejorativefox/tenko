@@ -1,0 +1,3 @@
+# Enable TuneD by default; the service applies the balanced profile after
+# boot and tuned-adm can switch profiles at run time.
+enable tuned.service

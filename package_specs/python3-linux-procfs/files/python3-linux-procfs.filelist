@@ -1,0 +1,19 @@
+/usr/bin/pflags
+%dir /usr/lib64/python3.15/site-packages/procfs
+/usr/lib64/python3.15/site-packages/procfs/__init__.py
+%dir /usr/lib64/python3.15/site-packages/procfs/__pycache__
+/usr/lib64/python3.15/site-packages/procfs/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/procfs/__pycache__/procfs.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/procfs/__pycache__/utilist.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/procfs/procfs.py
+/usr/lib64/python3.15/site-packages/procfs/utilist.py
+%dir /usr/lib64/python3.15/site-packages/python_linux_procfs-0.7.4.dist-info
+/usr/lib64/python3.15/site-packages/python_linux_procfs-0.7.4.dist-info/INSTALLER
+/usr/lib64/python3.15/site-packages/python_linux_procfs-0.7.4.dist-info/METADATA
+/usr/lib64/python3.15/site-packages/python_linux_procfs-0.7.4.dist-info/RECORD
+/usr/lib64/python3.15/site-packages/python_linux_procfs-0.7.4.dist-info/REQUESTED
+/usr/lib64/python3.15/site-packages/python_linux_procfs-0.7.4.dist-info/WHEEL
+/usr/lib64/python3.15/site-packages/python_linux_procfs-0.7.4.dist-info/direct_url.json
+%dir /usr/lib64/python3.15/site-packages/python_linux_procfs-0.7.4.dist-info/licenses
+/usr/lib64/python3.15/site-packages/python_linux_procfs-0.7.4.dist-info/licenses/COPYING
+/usr/lib64/python3.15/site-packages/python_linux_procfs-0.7.4.dist-info/top_level.txt

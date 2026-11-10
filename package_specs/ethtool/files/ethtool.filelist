@@ -1,0 +1,4 @@
+/usr/bin/ethtool
+/usr/share/bash-completion/completions/ethtool
+%doc /usr/share/man/man8/ethtool.8.gz
+/usr/share/metainfo/org.kernel.software.network.ethtool.metainfo.xml

@@ -1,0 +1,5 @@
+/usr/bin/virt-what
+/usr/bin/virt-what-cvm
+/usr/libexec/virt-what-cpuid-helper
+%doc /usr/share/man/man1/virt-what-cvm.1.gz
+%doc /usr/share/man/man1/virt-what.1.gz

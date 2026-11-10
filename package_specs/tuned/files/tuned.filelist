@@ -1,0 +1,294 @@
+/etc/grub.d/00_tuned
+%config(noreplace) /etc/modprobe.d/tuned.conf
+%config(noreplace) /etc/systemd/system.conf.d/00-tuned.conf
+%dir /etc/tuned
+/etc/tuned/active_profile
+%config(noreplace) /etc/tuned/bootcmdline
+%config(noreplace) /etc/tuned/cpu-partitioning-powersave-variables.conf
+%config(noreplace) /etc/tuned/cpu-partitioning-variables.conf
+/etc/tuned/post_loaded_profile
+/etc/tuned/ppd_base_profile
+/etc/tuned/profile_mode
+%dir /etc/tuned/profiles
+%config(noreplace) /etc/tuned/realtime-variables.conf
+%config(noreplace) /etc/tuned/realtime-virtual-guest-variables.conf
+%config(noreplace) /etc/tuned/realtime-virtual-host-variables.conf
+%dir /etc/tuned/recommend.d
+%config(noreplace) /etc/tuned/tuned-main.conf
+/usr/bin/powertop2tuned
+/usr/lib/kernel/install.d/92-tuned.install
+/usr/lib/systemd/system-preset/40-tenko-tuned.preset
+/usr/lib/systemd/system/tuned.service
+/usr/lib/tmpfiles.d/tuned.conf
+%dir /usr/lib/tuned
+/usr/lib/tuned/functions
+%dir /usr/lib/tuned/profiles
+%dir /usr/lib/tuned/profiles/accelerator-performance
+/usr/lib/tuned/profiles/accelerator-performance/tuned.conf
+%dir /usr/lib/tuned/profiles/atomic-guest
+/usr/lib/tuned/profiles/atomic-guest/tuned.conf
+%dir /usr/lib/tuned/profiles/atomic-host
+/usr/lib/tuned/profiles/atomic-host/tuned.conf
+%dir /usr/lib/tuned/profiles/aws
+/usr/lib/tuned/profiles/aws/tuned.conf
+%dir /usr/lib/tuned/profiles/balanced
+%dir /usr/lib/tuned/profiles/balanced-battery
+/usr/lib/tuned/profiles/balanced-battery/tuned.conf
+/usr/lib/tuned/profiles/balanced/tuned.conf
+%dir /usr/lib/tuned/profiles/cpu-partitioning
+%dir /usr/lib/tuned/profiles/cpu-partitioning-powersave
+/usr/lib/tuned/profiles/cpu-partitioning-powersave/tuned.conf
+/usr/lib/tuned/profiles/cpu-partitioning/00-tuned-pre-udev.sh
+/usr/lib/tuned/profiles/cpu-partitioning/script.sh
+/usr/lib/tuned/profiles/cpu-partitioning/tuned.conf
+%dir /usr/lib/tuned/profiles/default
+/usr/lib/tuned/profiles/default/tuned.conf
+%dir /usr/lib/tuned/profiles/desktop
+%dir /usr/lib/tuned/profiles/desktop-powersave
+/usr/lib/tuned/profiles/desktop-powersave/tuned.conf
+/usr/lib/tuned/profiles/desktop/tuned.conf
+%dir /usr/lib/tuned/profiles/enterprise-storage
+/usr/lib/tuned/profiles/enterprise-storage/tuned.conf
+%dir /usr/lib/tuned/profiles/hpc-compute
+/usr/lib/tuned/profiles/hpc-compute/tuned.conf
+%dir /usr/lib/tuned/profiles/intel-sst
+/usr/lib/tuned/profiles/intel-sst/tuned.conf
+%dir /usr/lib/tuned/profiles/laptop-ac-powersave
+/usr/lib/tuned/profiles/laptop-ac-powersave/script.sh
+/usr/lib/tuned/profiles/laptop-ac-powersave/tuned.conf
+%dir /usr/lib/tuned/profiles/laptop-battery-powersave
+/usr/lib/tuned/profiles/laptop-battery-powersave/tuned.conf
+%dir /usr/lib/tuned/profiles/latency-performance
+/usr/lib/tuned/profiles/latency-performance/tuned.conf
+%dir /usr/lib/tuned/profiles/mssql
+/usr/lib/tuned/profiles/mssql/tuned.conf
+%dir /usr/lib/tuned/profiles/network-latency
+/usr/lib/tuned/profiles/network-latency/tuned.conf
+%dir /usr/lib/tuned/profiles/network-throughput
+/usr/lib/tuned/profiles/network-throughput/tuned.conf
+%dir /usr/lib/tuned/profiles/openshift
+%dir /usr/lib/tuned/profiles/openshift-control-plane
+/usr/lib/tuned/profiles/openshift-control-plane/tuned.conf
+%dir /usr/lib/tuned/profiles/openshift-node
+/usr/lib/tuned/profiles/openshift-node/tuned.conf
+/usr/lib/tuned/profiles/openshift/tuned.conf
+%dir /usr/lib/tuned/profiles/optimize-serial-console
+/usr/lib/tuned/profiles/optimize-serial-console/tuned.conf
+%dir /usr/lib/tuned/profiles/oracle
+/usr/lib/tuned/profiles/oracle/tuned.conf
+%dir /usr/lib/tuned/profiles/postgresql
+/usr/lib/tuned/profiles/postgresql/tuned.conf
+%dir /usr/lib/tuned/profiles/powersave
+/usr/lib/tuned/profiles/powersave/script.sh
+/usr/lib/tuned/profiles/powersave/tuned.conf
+%dir /usr/lib/tuned/profiles/realtime
+%dir /usr/lib/tuned/profiles/realtime-virtual-guest
+/usr/lib/tuned/profiles/realtime-virtual-guest/tuned.conf
+%dir /usr/lib/tuned/profiles/realtime-virtual-host
+/usr/lib/tuned/profiles/realtime-virtual-host/script.sh
+/usr/lib/tuned/profiles/realtime-virtual-host/tuned.conf
+/usr/lib/tuned/profiles/realtime/tuned.conf
+%dir /usr/lib/tuned/profiles/sap-hana
+%dir /usr/lib/tuned/profiles/sap-hana-kvm-guest
+/usr/lib/tuned/profiles/sap-hana-kvm-guest/tuned.conf
+/usr/lib/tuned/profiles/sap-hana/tuned.conf
+%dir /usr/lib/tuned/profiles/sap-netweaver
+/usr/lib/tuned/profiles/sap-netweaver/tuned.conf
+%dir /usr/lib/tuned/profiles/server-powersave
+/usr/lib/tuned/profiles/server-powersave/tuned.conf
+%dir /usr/lib/tuned/profiles/spectrumscale-ece
+/usr/lib/tuned/profiles/spectrumscale-ece/tuned.conf
+%dir /usr/lib/tuned/profiles/spindown-disk
+/usr/lib/tuned/profiles/spindown-disk/script.sh
+/usr/lib/tuned/profiles/spindown-disk/tuned.conf
+%dir /usr/lib/tuned/profiles/throughput-performance
+/usr/lib/tuned/profiles/throughput-performance/tuned.conf
+%dir /usr/lib/tuned/profiles/virtual-guest
+/usr/lib/tuned/profiles/virtual-guest/tuned.conf
+%dir /usr/lib/tuned/profiles/virtual-host
+/usr/lib/tuned/profiles/virtual-host/tuned.conf
+%dir /usr/lib/tuned/recommend.d
+/usr/lib/tuned/recommend.d/50-tuned.conf
+%dir /usr/lib64/python3.15/site-packages/tuned
+/usr/lib64/python3.15/site-packages/tuned/__init__.py
+%dir /usr/lib64/python3.15/site-packages/tuned/admin
+/usr/lib64/python3.15/site-packages/tuned/admin/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/admin/admin.py
+/usr/lib64/python3.15/site-packages/tuned/admin/dbus_controller.py
+/usr/lib64/python3.15/site-packages/tuned/admin/exceptions.py
+/usr/lib64/python3.15/site-packages/tuned/consts.py
+%dir /usr/lib64/python3.15/site-packages/tuned/daemon
+/usr/lib64/python3.15/site-packages/tuned/daemon/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/daemon/application.py
+/usr/lib64/python3.15/site-packages/tuned/daemon/controller.py
+/usr/lib64/python3.15/site-packages/tuned/daemon/daemon.py
+/usr/lib64/python3.15/site-packages/tuned/exceptions.py
+%dir /usr/lib64/python3.15/site-packages/tuned/exports
+/usr/lib64/python3.15/site-packages/tuned/exports/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/exports/controller.py
+/usr/lib64/python3.15/site-packages/tuned/exports/dbus_exporter.py
+/usr/lib64/python3.15/site-packages/tuned/exports/dbus_exporter_with_properties.py
+/usr/lib64/python3.15/site-packages/tuned/exports/interfaces.py
+/usr/lib64/python3.15/site-packages/tuned/exports/unix_socket_exporter.py
+%dir /usr/lib64/python3.15/site-packages/tuned/gtk
+/usr/lib64/python3.15/site-packages/tuned/gtk/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/gtk/gui_plugin_loader.py
+/usr/lib64/python3.15/site-packages/tuned/gtk/gui_profile_deleter.py
+/usr/lib64/python3.15/site-packages/tuned/gtk/gui_profile_loader.py
+/usr/lib64/python3.15/site-packages/tuned/gtk/gui_profile_saver.py
+/usr/lib64/python3.15/site-packages/tuned/gtk/managerException.py
+/usr/lib64/python3.15/site-packages/tuned/gtk/tuned_dialog.py
+%dir /usr/lib64/python3.15/site-packages/tuned/hardware
+/usr/lib64/python3.15/site-packages/tuned/hardware/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/hardware/device_matcher.py
+/usr/lib64/python3.15/site-packages/tuned/hardware/device_matcher_udev.py
+/usr/lib64/python3.15/site-packages/tuned/hardware/inventory.py
+/usr/lib64/python3.15/site-packages/tuned/logs.py
+%dir /usr/lib64/python3.15/site-packages/tuned/monitors
+/usr/lib64/python3.15/site-packages/tuned/monitors/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/monitors/base.py
+/usr/lib64/python3.15/site-packages/tuned/monitors/monitor_disk.py
+/usr/lib64/python3.15/site-packages/tuned/monitors/monitor_load.py
+/usr/lib64/python3.15/site-packages/tuned/monitors/monitor_net.py
+/usr/lib64/python3.15/site-packages/tuned/monitors/repository.py
+/usr/lib64/python3.15/site-packages/tuned/patterns.py
+%dir /usr/lib64/python3.15/site-packages/tuned/plugins
+/usr/lib64/python3.15/site-packages/tuned/plugins/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/base.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/decorators.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/exceptions.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/hotplug.py
+%dir /usr/lib64/python3.15/site-packages/tuned/plugins/instance
+/usr/lib64/python3.15/site-packages/tuned/plugins/instance/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/instance/factory.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/instance/instance.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_acpi.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_audio.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_bootloader.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_cpu.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_disk.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_eeepc_she.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_irq.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_irqbalance.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_modules.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_mounts.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_net.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_rtentsk.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_scheduler.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_script.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_scsi_host.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_selinux.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_service.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_sysctl.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_sysfs.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_systemd.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_uncore.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_usb.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_video.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/plugin_vm.py
+/usr/lib64/python3.15/site-packages/tuned/plugins/repository.py
+%dir /usr/lib64/python3.15/site-packages/tuned/ppd
+/usr/lib64/python3.15/site-packages/tuned/ppd/config.py
+/usr/lib64/python3.15/site-packages/tuned/ppd/controller.py
+/usr/lib64/python3.15/site-packages/tuned/ppd/dbus.conf
+/usr/lib64/python3.15/site-packages/tuned/ppd/ppd.conf
+/usr/lib64/python3.15/site-packages/tuned/ppd/tuned-ppd.dbus.service
+/usr/lib64/python3.15/site-packages/tuned/ppd/tuned-ppd.policy
+/usr/lib64/python3.15/site-packages/tuned/ppd/tuned-ppd.service
+%dir /usr/lib64/python3.15/site-packages/tuned/profiles
+/usr/lib64/python3.15/site-packages/tuned/profiles/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/exceptions.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/factory.py
+%dir /usr/lib64/python3.15/site-packages/tuned/profiles/functions
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/base.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_assertion.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_assertion_non_equal.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_calc_isolated_cores.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_check_net_queue_count.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_cpuinfo_check.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_cpulist2devs.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_cpulist2hex.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_cpulist2hex_invert.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_cpulist_invert.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_cpulist_online.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_cpulist_pack.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_cpulist_present.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_cpulist_unpack.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_exec.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_hex2cpulist.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_intel_recommended_pstate.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_kb2s.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_log.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_lscpu_check.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_package2cpus.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_package2uncores.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_regex_search_ternary.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_s2kb.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_strip.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/function_virt_check.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/parser.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/functions/repository.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/loader.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/locator.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/merger.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/profile.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/unit.py
+/usr/lib64/python3.15/site-packages/tuned/profiles/variables.py
+%dir /usr/lib64/python3.15/site-packages/tuned/storage
+/usr/lib64/python3.15/site-packages/tuned/storage/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/storage/factory.py
+/usr/lib64/python3.15/site-packages/tuned/storage/interfaces.py
+/usr/lib64/python3.15/site-packages/tuned/storage/pickle_provider.py
+/usr/lib64/python3.15/site-packages/tuned/storage/storage.py
+%dir /usr/lib64/python3.15/site-packages/tuned/units
+/usr/lib64/python3.15/site-packages/tuned/units/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/units/manager.py
+%dir /usr/lib64/python3.15/site-packages/tuned/utils
+/usr/lib64/python3.15/site-packages/tuned/utils/__init__.py
+/usr/lib64/python3.15/site-packages/tuned/utils/class_loader.py
+/usr/lib64/python3.15/site-packages/tuned/utils/commands.py
+/usr/lib64/python3.15/site-packages/tuned/utils/config_parser.py
+/usr/lib64/python3.15/site-packages/tuned/utils/global_config.py
+/usr/lib64/python3.15/site-packages/tuned/utils/nettool.py
+/usr/lib64/python3.15/site-packages/tuned/utils/polkit.py
+/usr/lib64/python3.15/site-packages/tuned/utils/profile_recommender.py
+/usr/lib64/python3.15/site-packages/tuned/version.py
+%dir /usr/libexec/tuned
+/usr/libexec/tuned/defirqaffinity.py
+/usr/libexec/tuned/pmqos-static.py
+/usr/sbin/tuned
+/usr/sbin/tuned-adm
+/usr/share/bash-completion/completions/tuned-adm
+/usr/share/dbus-1/system.d/com.redhat.tuned.conf
+%dir /usr/share/doc/tuned
+%doc /usr/share/doc/tuned/AUTHORS
+%doc /usr/share/doc/tuned/COPYING
+%doc /usr/share/doc/tuned/README.NFV
+%doc /usr/share/doc/tuned/README.md
+%doc /usr/share/doc/tuned/README.scomes
+%doc /usr/share/doc/tuned/README.utils
+%doc /usr/share/doc/tuned/TIPS.txt
+/usr/share/icons/hicolor/scalable/apps/tuned.svg
+%dir /usr/share/man/man5
+%doc /usr/share/man/man5/tuned-main.conf.5.gz
+%doc /usr/share/man/man5/tuned.conf.5.gz
+%dir /usr/share/man/man7
+%doc /usr/share/man/man7/tuned-profiles-atomic.7.gz
+%doc /usr/share/man/man7/tuned-profiles-compat.7.gz
+%doc /usr/share/man/man7/tuned-profiles-cpu-partitioning.7.gz
+%doc /usr/share/man/man7/tuned-profiles-mssql.7.gz
+%doc /usr/share/man/man7/tuned-profiles-nfv-guest.7.gz
+%doc /usr/share/man/man7/tuned-profiles-nfv-host.7.gz
+%doc /usr/share/man/man7/tuned-profiles-openshift.7.gz
+%doc /usr/share/man/man7/tuned-profiles-oracle.7.gz
+%doc /usr/share/man/man7/tuned-profiles-postgresql.7.gz
+%doc /usr/share/man/man7/tuned-profiles-realtime.7.gz
+%doc /usr/share/man/man7/tuned-profiles-sap-hana.7.gz
+%doc /usr/share/man/man7/tuned-profiles-sap.7.gz
+%doc /usr/share/man/man7/tuned-profiles-spectrumscale-ece.7.gz
+%doc /usr/share/man/man7/tuned-profiles.7.gz
+%dir /usr/share/man/man8
+%doc /usr/share/man/man8/tuned-adm.8.gz
+%doc /usr/share/man/man8/tuned.8.gz
+/usr/share/polkit-1/actions/com.redhat.tuned.policy
