@@ -57,11 +57,21 @@ class BluetoothStackTest(unittest.TestCase):
                        "module-bluez5-discover", "module-bluez5-device",
                        "libbluez5-util"):
             self.assertIn(module, body)
+        self.assertIn("default.pa.d/50-bluez.pa", body)
         # The main pulseaudio build keeps bluez5 off: the same module files
         # cannot be owned by two packages.
         main = spec_body("pulseaudio/pulseaudio.spec")
         self.assertIn("-D bluez5=disabled", main)
         self.assertNotIn("module-bluez5-device", main)
+
+    def test_bluez_snippet_loads_the_modules(self):
+        snippet = read("pulseaudio-bluez/files/50-bluez.pa")
+        for line in ("load-module module-bluetooth-policy",
+                     "load-module module-bluetooth-discover"):
+            self.assertIn(line, snippet)
+        # The installed pulseaudio default.pa has no Bluetooth block, so the
+        # snippet is the only thing that loads the modules on a normal boot.
+        self.assertEqual(snippet.count(".ifexists"), 2)
 
     def test_desktop_requires_the_stack(self):
         body = spec_body("xfce-desktop/xfce-desktop.spec")

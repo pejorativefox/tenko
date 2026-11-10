@@ -1,6 +1,6 @@
 Name:       pulseaudio-bluez
 Version:    17.0
-Release:    1
+Release:    2
 Summary:    PulseAudio Bluetooth audio modules (A2DP/HFP)
 License:    LGPL-2.1-or-later
 Prefix:     /usr
@@ -13,9 +13,9 @@ Requires:   bluez
 
 %description
 The PulseAudio BlueZ 5 backend: module-bluetooth-policy,
-module-bluetooth-discover, module-bluez5-discover and module-bluez5-device.
-default.pa loads the policy and discover modules when their files exist,
-which turns paired A2DP sinks and HFP headsets into ordinary PulseAudio
+module-bluetooth-discover, module-bluez5-discover and module-bluez5-device,
+plus the default.pa.d snippet that loads the policy and discover modules.
+Paired A2DP sinks and HFP headsets then appear as ordinary PulseAudio
 devices.
 
 The modules are built from the pulseaudio source but shipped separately: the
@@ -48,6 +48,9 @@ pushd build
 DESTDIR=%{buildroot}/stage ninja install
 popd
 install -vdm755 %{buildroot}%{_libdir}/pulseaudio/modules
+install -vdm755 %{buildroot}%{_sysconfdir}/pulse/default.pa.d
+install -vm644 %{_sourcedir}/50-bluez.pa \
+    %{buildroot}%{_sysconfdir}/pulse/default.pa.d/50-bluez.pa
 for module in module-bluetooth-discover module-bluetooth-policy \
               module-bluez5-discover module-bluez5-device \
               libbluez5-util; do
@@ -57,6 +60,8 @@ done
 rm -rf %{buildroot}/stage
 
 %files
+%dir %{_sysconfdir}/pulse/default.pa.d
+%config(noreplace) %{_sysconfdir}/pulse/default.pa.d/50-bluez.pa
 %{_libdir}/pulseaudio/modules/libbluez5-util.so
 %{_libdir}/pulseaudio/modules/module-bluetooth-discover.so
 %{_libdir}/pulseaudio/modules/module-bluetooth-policy.so
@@ -64,6 +69,12 @@ rm -rf %{buildroot}/stage
 %{_libdir}/pulseaudio/modules/module-bluez5-device.so
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 17.0-2
+- Ship /etc/pulse/default.pa.d/50-bluez.pa so the modules are actually
+  loaded.  The pulseaudio package is built with bluez5=disabled, so its
+  generated default.pa has no Bluetooth block; installing the modules alone
+  left them unused.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 17.0-1
 - New package: the PulseAudio BlueZ 5 modules, built from pulseaudio 17.0
   (latest stable upstream) with bluez5=enabled and the native headset
