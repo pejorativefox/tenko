@@ -1,6 +1,6 @@
 Name:       tenko-sysconfig
 Version:    6
-Release:    7
+Release:    8
 Epoch:      1
 Summary:    Base configuration for Tenko Linux
 License:    MIT
@@ -17,6 +17,7 @@ Base configuration files for Tenko Linux.
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc %{buildroot}/etc/systemd/system/getty.target.wants
 mkdir -p %{buildroot}/etc/systemd/journald.conf.d %{buildroot}/etc/systemd/network
+mkdir -p %{buildroot}/etc/systemd/logind.conf.d
 mkdir -p %{buildroot}/etc/dracut.conf.d %{buildroot}/etc/skel
 ln -sf /usr/lib/systemd/system/multi-user.target %{buildroot}/etc/systemd/system/default.target
 ln -sf /usr/lib/systemd/system/serial-getty@ttyS0.service %{buildroot}/etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
@@ -35,6 +36,21 @@ cat > %{buildroot}/etc/systemd/journald.conf.d/10-tenko.conf <<'EOF2'
 Storage=persistent
 SystemMaxUse=512M
 RuntimeMaxUse=64M
+EOF2
+
+# Lid policy belongs to logind, not the desktop.  A desktop power manager that
+# claims handle-lid-switch makes logind ignore this action entirely, so the
+# default XFCE lid action (lock screen, and no locker is installed) left the
+# laptop awake.  xfce4-power-manager 4.20.1-4 defaults
+# logind-handle-lid-switch to TRUE, which lets logind follow HandleLidSwitch
+# for every desktop and for console-only sessions.  Suspend on AC and battery;
+# a real dock stays awake (logind does not treat an external monitor as a
+# dock).
+cat > %{buildroot}/etc/systemd/logind.conf.d/10-lid-switch.conf <<'EOF2'
+[Login]
+HandleLidSwitch=suspend
+HandleLidSwitchExternalPower=suspend
+HandleLidSwitchDocked=ignore
 EOF2
 
 # Generic initramfs: the installed image must boot hardware other than the
@@ -183,6 +199,8 @@ chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 %config(noreplace) /etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
 %config(noreplace) /etc/systemd/journald.conf.d/10-tenko.conf
 %dir /etc/systemd/journald.conf.d
+%dir /etc/systemd/logind.conf.d
+%config(noreplace) /etc/systemd/logind.conf.d/10-lid-switch.conf
 %dir /etc/dracut.conf.d
 %config(noreplace) /etc/dracut.conf.d/10-tenko.conf
 %config(noreplace) /etc/systemd/network/10-dhcp.network
@@ -202,6 +220,18 @@ chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 %config(noreplace) /etc/machine-id
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 6-8
+- Ship /etc/systemd/logind.conf.d/10-lid-switch.conf so closing the lid
+  suspends the machine on AC and battery from logind itself, independent of
+  the desktop.  Previously xfce4-power-manager claimed handle-lid-switch
+  with a block inhibitor and logind ignored the lid; the XFCE default lid
+  action is "lock screen", and no screen locker is installed, so the laptop
+  stayed awake.  xfce4-power-manager 4.20.1-4 stops claiming the switch.
+  HandleLidSwitchDocked=ignore keeps a real dock awake; logind does not
+  count an external monitor as docked, so closing the lid with a monitor
+  attached suspends.  Takes effect at the next boot or after
+  "systemctl restart systemd-logind" (no per-user setting).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-7
 - Put /usr/local/sbin, /usr/sbin and /sbin back on PATH in /etc/bashrc when
   they are missing.  login(1) starts a non-root session with the

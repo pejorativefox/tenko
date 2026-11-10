@@ -1,0 +1,25 @@
+Default logind-handle-lid-switch to TRUE
+
+Tenko owns lid policy in systemd-logind (see the 10-lid-switch.conf drop-in
+from tenko-sysconfig), so the power manager must not claim handle-lid-switch
+with a block inhibitor.  Claiming it makes logind stand down before it looks
+at the configured HandleLidSwitch action, which leaves the lid doing nothing
+outside XFCE's own settings.  With this default XFCE sessions inherit the
+same desktop-independent suspend policy as any other session.
+
+The setting stays overridable per user with
+
+  xfconf-query -c xfce4-power-manager \
+    -p /xfce4-power-manager/logind-handle-lid-switch -n -t bool -s false
+
+--- a/common/xfpm-config.h
++++ b/common/xfpm-config.h
+@@ -95,7 +95,7 @@
+ #define LOGIND_HANDLE_HIBERNATE_KEY "logind-handle-hibernate-key"
+ #define DEFAULT_LOGIND_HANDLE_HIBERNATE_KEY FALSE
+ #define LOGIND_HANDLE_LID_SWITCH "logind-handle-lid-switch"
+-#define DEFAULT_LOGIND_HANDLE_LID_SWITCH FALSE
++#define DEFAULT_LOGIND_HANDLE_LID_SWITCH TRUE
+ 
+ #define BRIGHTNESS_ON_AC "brightness-on-ac"
+ #define MIN_BRIGHTNESS_ON_AC 9

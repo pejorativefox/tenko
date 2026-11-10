@@ -1,9 +1,10 @@
 Name:       xfce4-power-manager
 Version:    4.20.1
-Release:    3
+Release:    4
 Summary:    Power manager for Xfce desktop
 License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
+Patch0:     %{name}-%{version}-logind-lid-switch.patch
 Prefix:     /usr
 
 %description
@@ -17,7 +18,8 @@ Requires:   xfce4-power-manager = %{version}-%{release}
 Translations for xfce4-power-manager.
 
 %prep
-%setup
+%setup -q
+%patch -P 0 -p1
 
 %build
 %configure
@@ -33,6 +35,20 @@ mkdir -p %{buildroot}/etc
 
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20.1-4
+- Default logind-handle-lid-switch to TRUE.  Tenko owns the lid policy in
+  systemd-logind (/etc/systemd/logind.conf.d/10-lid-switch.conf from
+  tenko-sysconfig), but xfce4-power-manager was claiming handle-lid-switch
+  with a block inhibitor, and logind stands down as soon as a block
+  inhibitor is present.  Closing the lid therefore only ran the XFCE lid
+  action, whose built-in default is "lock screen" (and no screen locker is
+  installed), so the laptop never slept.  The setting is still overridable
+  per user with "xfconf-query -c xfce4-power-manager -p
+  /xfce4-power-manager/logind-handle-lid-switch -n -t bool -s false"; the
+  XFCE lid action only applies again with that override.  The change takes
+  effect when the power manager restarts at the next login (or with
+  "xfce4-power-manager --restart").
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.1-3
 - Replace the legacy short licence name with the verified SPDX expression
   (GPL-2.0-or-later): COPYING (issue #8).
