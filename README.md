@@ -100,6 +100,7 @@ Everything is driven from this checkout:
 | rebuild a package and publish it | [`docs/build.md`](docs/build.md) |
 | boot/install tests, QEMU and OVMF | [`docs/testing.md`](docs/testing.md) |
 | recovery and rescue | [`docs/recovery.md`](docs/recovery.md) |
+| suspend/resume policy and diagnostics | [`docs/suspend.md`](docs/suspend.md) |
 | version policy and base manifest | [`docs/versions.md`](docs/versions.md) |
 | packaging conventions (`/opt`, `profile.d`, `/etc/skel`) | [`docs/rules.md`](docs/rules.md) |
 | systemd-boot conversion notes | [`docs/systemd-boot.md`](docs/systemd-boot.md) |

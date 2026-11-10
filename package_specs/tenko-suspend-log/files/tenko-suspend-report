@@ -1,0 +1,215 @@
+#!/bin/bash
+# Collect the diagnostics needed to debug a suspend/resume failure.
+#
+# The journal lines emitted by 50-tenko-suspend-log and tenko-resume-probe,
+# the kernel PM messages and the firmware/GPU/wakeup state end up in one
+# tarball that can be attached to a bug report.
+set -u
+
+usage() {
+    cat <<'EOF'
+usage: tenko-suspend-report [OUTPUT.tar.gz]
+
+Collect suspend/resume diagnostics (journal, suspend_stats, wakeup sources,
+Xorg log, dmesg, firmware versions, pstore archive) into a tarball.  Run as
+root for the complete set; without root, dmesg/dmidecode/pstore are skipped.
+
+Without an argument the file is written to
+/var/tmp/tenko-suspend-report-<host>-<utc>.tar.gz.
+EOF
+}
+
+case ${1:-} in
+    -h|--help) usage; exit 0 ;;
+esac
+[ "$#" -le 1 ] || { usage >&2; exit 2; }
+
+host=$(hostnamectl --static 2>/dev/null || hostname 2>/dev/null || echo tenko)
+out=${1:-/var/tmp/tenko-suspend-report-$host-$(date -u +%Y%m%dT%H%M%SZ).tar.gz}
+case $out in
+    /*) ;;
+    *) out=$(pwd)/$out ;;
+esac
+
+tmp=$(mktemp -d "${TMPDIR:-/tmp}/tenko-suspend-report.XXXXXX") || exit 1
+cleanup() {
+    rm -rf "$tmp"
+}
+trap cleanup EXIT
+
+have() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+run() { # file description command...
+    local file=$1 desc=$2
+    shift 2
+    {
+        printf '### %s\n### %s\n\n' "$desc" "$*"
+        "$@" 2>&1 || printf '\n(command exited with status %s)\n' "$?"
+    } >"$tmp/$file"
+}
+
+filtered_journal() { # file journal arguments...
+    local file=$1
+    shift
+    {
+        printf '### journalctl %s\n\n' "$*"
+        journalctl "$@" -o short-monotonic --no-pager 2>&1 |
+            grep -iE 'PM:|suspend|resume|amdgpu|ACPI|backlight|i2c|atkbd|nvme|systemd-sleep|systemd-logind|xfce4-power|lightdm|tenko-suspend' ||
+            printf '(no matching entries)\n'
+    } >"$tmp/$file"
+}
+
+xstate() {
+    local session= disp= auth= leader= type= state= envval
+    while read -r session _; do
+        [ -n "$session" ] || continue
+        type=$(loginctl show-session "$session" -p Type --value 2>/dev/null)
+        [ "$type" = x11 ] || continue
+        state=$(loginctl show-session "$session" -p State --value 2>/dev/null)
+        [ "$state" = active ] || continue
+        disp=$(loginctl show-session "$session" -p Display --value 2>/dev/null)
+        leader=$(loginctl show-session "$session" -p Leader --value 2>/dev/null)
+        if [ -n "$leader" ] && [ -r "/proc/$leader/environ" ]; then
+            envval=$(tr '\0' '\n' <"/proc/$leader/environ" |
+                sed -n 's/^DISPLAY=//p' | head -1)
+            [ -n "$envval" ] && disp=$envval
+            envval=$(tr '\0' '\n' <"/proc/$leader/environ" |
+                sed -n 's/^XAUTHORITY=//p' | head -1)
+            [ -n "$envval" ] && auth=$envval
+        fi
+        break
+    done < <(loginctl list-sessions --no-legend 2>/dev/null)
+
+    printf 'session=%s display=%s\n\n' "${session:-none}" "${disp:-none}"
+    if [ -z "$disp" ] || ! have xset; then
+        printf '(no X session or xset missing)\n'
+        return 0
+    fi
+    if [ -n "${auth:-}" ]; then
+        DISPLAY="$disp" XAUTHORITY="$auth" xset q 2>&1
+    else
+        DISPLAY="$disp" xset q 2>&1
+    fi
+}
+
+{
+    printf '### collected\n'; date -u
+    printf '\n### host\n'; uname -a
+    printf '\n### os-release\n'; cat /etc/os-release 2>&1
+    printf '\n### kernel cmdline\n'; cat /proc/cmdline 2>&1
+    printf '\n### uptime\n'; cat /proc/uptime 2>&1
+    printf '\n### dmidecode (system/bios)\n'
+    if have dmidecode; then dmidecode -t system -t bios 2>&1; else echo '(dmidecode missing)'; fi
+    printf '\n### firmware devices\n'
+    if have fwupdmgr; then timeout 20 fwupdmgr get-devices 2>&1; else echo '(fwupdmgr missing)'; fi
+    printf '\n### pci (gpu/storage/usb controllers)\n'
+    if have lspci; then lspci -nn 2>&1; else echo '(lspci missing)'; fi
+    printf '\n### run as root\n'
+    if [ "$(id -u)" -eq 0 ]; then echo yes; else echo no; fi
+} >"$tmp/meta.txt"
+
+{
+    printf '### suspend_stats\n'
+    for f in /sys/power/suspend_stats/*; do
+        [ -r "$f" ] || continue
+        printf '%s = %s\n' "$(basename "$f")" "$(cat "$f" 2>/dev/null)"
+    done
+    printf '\n### power\n'
+    for f in /sys/power/mem_sleep /sys/power/wakeup_count \
+        /sys/power/pm_wakeup_irq /sys/power/pm_debug_messages \
+        /sys/power/pm_print_times /sys/power/state; do
+        [ -r "$f" ] && printf '%s = %s\n' "$f" "$(cat "$f" 2>/dev/null)"
+    done
+    printf '\n### backlight\n'
+    for d in /sys/class/backlight/*; do
+        [ -d "$d" ] || continue
+        printf '%s brightness=%s max=%s\n' "$(basename "$d")" \
+            "$(cat "$d/brightness" 2>/dev/null)" \
+            "$(cat "$d/max_brightness" 2>/dev/null)"
+    done
+    printf '\n### lid\n'
+    cat /proc/acpi/button/lid/*/state 2>&1
+    printf '\n### battery\n'
+    for d in /sys/class/power_supply/*; do
+        [ -r "$d/type" ] || continue
+        printf '%s type=%s status=%s capacity=%s online=%s\n' "$(basename "$d")" \
+            "$(cat "$d/type" 2>/dev/null)" "$(cat "$d/status" 2>/dev/null)" \
+            "$(cat "$d/capacity" 2>/dev/null)" "$(cat "$d/online" 2>/dev/null)"
+    done
+} >"$tmp/suspend.txt"
+
+{
+    printf '### /proc/acpi/wakeup\n'
+    cat /proc/acpi/wakeup 2>&1
+    printf '\n### /sys/class/wakeup\n'
+    for d in /sys/class/wakeup/*; do
+        [ -d "$d" ] || continue
+        printf '%s name=%s count=%s active=%s\n' "$(basename "$d")" \
+            "$(cat "$d/name" 2>/dev/null)" \
+            "$(cat "$d/wakeup_count" 2>/dev/null)" \
+            "$(cat "$d/wakeup_active_count" 2>/dev/null)"
+    done
+} >"$tmp/wakeups.txt"
+
+filtered_journal journal-current.txt -b
+filtered_journal journal-previous.txt -b -1
+
+{
+    printf '### platform persistent storage\n'
+    printf '\n### /var/lib/systemd/pstore\n'
+    ls -lR /var/lib/systemd/pstore 2>&1
+    printf '\n### /sys/fs/pstore\n'
+    ls -lR /sys/fs/pstore 2>&1
+} >"$tmp/pstore.txt"
+
+if [ -r /var/log/Xorg.0.log ]; then
+    tail -n 400 /var/log/Xorg.0.log >"$tmp/xorg.txt" 2>&1
+else
+    echo '(no /var/log/Xorg.0.log)' >"$tmp/xorg.txt"
+fi
+
+{
+    printf '### list-sessions\n'
+    loginctl list-sessions --no-legend 2>&1
+    for s in $(loginctl list-sessions --no-legend 2>/dev/null | awk '{ print $1 }'); do
+        printf '\n### %s\n' "$s"
+        loginctl show-session "$s" 2>&1
+    done
+} >"$tmp/sessions.txt"
+
+xstate >"$tmp/xstate.txt" 2>&1
+if have dmesg; then
+    dmesg >"$tmp/dmesg.txt" 2>&1
+else
+    echo '(dmesg missing)' >"$tmp/dmesg.txt"
+fi
+
+cat >"$tmp/README.txt" <<'EOF'
+Tenko suspend/resume report
+
+- journal-current.txt / journal-previous.txt: kernel PM, ACPI, GPU, input,
+  logind, lightdm, xfce4-power-manager and tenko-suspend lines.
+- meta.txt: kernel, OS, BIOS/EC firmware and PCI inventory.
+- suspend.txt: suspend_stats, mem_sleep, wakeup IRQ, backlight, lid, battery.
+- wakeups.txt: ACPI and sysfs wakeup sources with their counters.
+- pstore.txt: kernel crash archives (EFI pstore, /var/lib/systemd/pstore).
+- xorg.txt, xstate.txt, sessions.txt, dmesg.txt.
+
+The tenko-suspend journal lines use "action=start" (before suspend),
+"action=resume" (kernel and userspace back) and "action=probe" (desktop
+answered after resume).  A start without a matching probe, or a boot warning
+from tenko-suspend-check, marks a cycle that did not complete.
+
+Journal excerpts can contain Wi-Fi SSIDs; review before publishing.
+EOF
+
+if ! tar -czf "$out" -C "$tmp" .; then
+    echo "failed to write $out" >&2
+    exit 1
+fi
+chmod 600 "$out"
+
+echo "wrote $out"
+echo "attach it to the Gitea issue (https://pjfox.xyz/git/daspork/tenko/issues)"

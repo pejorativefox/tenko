@@ -1,0 +1,12 @@
+[Unit]
+Description=Report an unclean suspend/resume cycle
+Documentation=man:tenko-suspend-report(8)
+After=systemd-journald.service systemd-journal-flush.service
+ConditionPathIsDirectory=/var/log/journal
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/tenko/tenko-suspend-check
+
+[Install]
+WantedBy=multi-user.target

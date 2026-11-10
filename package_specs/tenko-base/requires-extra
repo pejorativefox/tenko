@@ -1,7 +1,7 @@
 # Extra requirements of tenko-base that are not base package-set entries.
 #
 # - tenko-*: distro glue (filesystem layout, sysconfig, release file,
-#   first-boot policy, RPM macros)
+#   first-boot policy, RPM macros, suspend/resume instrumentation)
 # - glibc-locales, gcc-lto: payload split out of the toolchain
 # - linux-api-headers, linux-pam, libtirpc: headers/runtime the base needs
 # - make-ca: CA trust store (/etc/pki/tls/certs/ca-bundle.crt and the
@@ -22,6 +22,7 @@ tenko-basefs
 tenko-sysconfig
 tenko-release
 tenko-firstboot
+tenko-suspend-log
 glibc-locales
 gcc-lto
 linux-api-headers

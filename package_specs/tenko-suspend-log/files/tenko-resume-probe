@@ -1,0 +1,112 @@
+#!/bin/bash
+# User-space resume probe for Tenko.
+#
+# Started by 50-tenko-suspend-log in the post phase, after user.slice is
+# thawed.  It waits a few seconds, then records whether the X session answers
+# and what the monitor/DPMS and backlight state look like.  The action=probe
+# line is the completion marker for the suspend cycle; tenko-suspend-check
+# warns at the next boot when a start has no matching probe.
+set -u
+
+STATE=/run/tenko-suspend
+TAG=tenko-suspend
+DEBUG_FLAG=/etc/tenko/suspend-debug
+DELAY=${TENKO_RESUME_PROBE_DELAY:-5}
+
+log() {
+    local priority=${2:-info}
+    logger -t "$TAG" -p "$priority" -- "$1"
+}
+
+read_or() {
+    if [ -r "$1" ]; then
+        cat "$1" 2>/dev/null
+    else
+        printf '%s' "${2:-unknown}"
+    fi
+}
+
+lid_state() {
+    local state
+    state=$(awk '{ print $2; exit }' /proc/acpi/button/lid/*/state 2>/dev/null)
+    printf '%s' "${state:-unknown}"
+}
+
+backlight() {
+    local f
+    for f in /sys/class/backlight/*; do
+        [ -r "$f/brightness" ] || continue
+        printf '%s=%s/%s' "$(basename "$f")" \
+            "$(cat "$f/brightness" 2>/dev/null)" \
+            "$(read_or "$f/max_brightness" 0)"
+        return
+    done
+    printf 'none'
+}
+
+x_probe() {
+    local session= user= disp= auth= leader= type= state= out rc monitor=unknown
+    local dpms=unknown forced=no envval
+    while read -r session _; do
+        [ -n "$session" ] || continue
+        type=$(loginctl show-session "$session" -p Type --value 2>/dev/null)
+        [ "$type" = x11 ] || continue
+        state=$(loginctl show-session "$session" -p State --value 2>/dev/null)
+        [ "$state" = active ] || continue
+        user=$(loginctl show-session "$session" -p Name --value 2>/dev/null)
+        disp=$(loginctl show-session "$session" -p Display --value 2>/dev/null)
+        leader=$(loginctl show-session "$session" -p Leader --value 2>/dev/null)
+        if [ -n "$leader" ] && [ -r "/proc/$leader/environ" ]; then
+            envval=$(tr '\0' '\n' <"/proc/$leader/environ" |
+                sed -n 's/^DISPLAY=//p' | head -1)
+            [ -n "$envval" ] && disp=$envval
+            envval=$(tr '\0' '\n' <"/proc/$leader/environ" |
+                sed -n 's/^XAUTHORITY=//p' | head -1)
+            [ -n "$envval" ] && auth=$envval
+        fi
+        break
+    done < <(loginctl list-sessions --no-legend 2>/dev/null)
+
+    x_ok=no
+    if [ -n "$disp" ] && command -v xset >/dev/null 2>&1; then
+        if [ -n "${auth:-}" ]; then
+            out=$(DISPLAY="$disp" XAUTHORITY="$auth" timeout 5 xset q 2>&1)
+        else
+            out=$(DISPLAY="$disp" timeout 5 xset q 2>&1)
+        fi
+        rc=$?
+        if [ "$rc" -eq 0 ]; then
+            x_ok=yes
+            monitor=$(printf '%s\n' "$out" |
+                awk '/Monitor is/ { sub(/^ +Monitor is /, ""); print; exit }')
+            dpms=$(printf '%s\n' "$out" |
+                awk '/DPMS is/ { print $3; exit }')
+            # Diagnostic only until the failure mode is understood: turning
+            # the display back on can mask a real driver bug.
+            if [ -e "$DEBUG_FLAG" ] && [ "${monitor:-unknown}" != On ]; then
+                if [ -n "${auth:-}" ]; then
+                    DISPLAY="$disp" XAUTHORITY="$auth" \
+                        timeout 5 xset dpms force on >/dev/null 2>&1
+                else
+                    DISPLAY="$disp" timeout 5 xset dpms force on >/dev/null 2>&1
+                fi
+                forced=yes
+            fi
+        else
+            monitor="probe-failed-$rc"
+        fi
+    else
+        monitor=no-x-session
+    fi
+
+    printf 'session=%s user=%s display=%s x_ok=%s monitor=%s dpms=%s forced_dpms_on=%s' \
+        "${session:-none}" "${user:-none}" "${disp:-none}" \
+        "$x_ok" "${monitor:-unknown}" "${dpms:-unknown}" "$forced"
+}
+
+sleep "$DELAY"
+
+id=$(read_or "$STATE/current" unknown)
+log "id=$id action=probe time=$(date -u +%FT%TZ) uptime=$(cut -d. -f1 /proc/uptime 2>/dev/null || echo unknown) $(x_probe) lid=$(lid_state) backlight=$(backlight)"
+
+exit 0

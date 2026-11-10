@@ -1,0 +1,182 @@
+#!/bin/bash
+# Tenko suspend/resume instrumentation.
+#
+# systemd-sleep runs this with $1 = pre|post and $2 = suspend|hibernate|
+# hybrid-sleep|suspend-then-hibernate.  One structured line per phase goes to
+# the journal under the "tenko-suspend" tag; the matching user-space probe
+# (tenko-resume-probe.service) logs "action=probe" when the desktop is back.
+#
+# A "start" line without a later "probe" line with the same id means the cycle
+# never finished; tenko-suspend-check.service reports that at the next boot.
+set -u
+
+ACTION=${1:-unknown}
+OPERATION=${2:-unknown}
+STATE=/run/tenko-suspend
+TAG=tenko-suspend
+DEBUG_FLAG=/etc/tenko/suspend-debug
+PM_DEBUG=/sys/power/pm_debug_messages
+PM_TIMES=/sys/power/pm_print_times
+
+log() {
+    local priority=${2:-info}
+    logger -t "$TAG" -p "$priority" -- "$1"
+}
+
+read_or() {
+    if [ -r "$1" ]; then
+        cat "$1" 2>/dev/null
+    else
+        printf '%s' "${2:-unknown}"
+    fi
+}
+
+lid_state() {
+    local state
+    state=$(awk '{ print $2; exit }' /proc/acpi/button/lid/*/state 2>/dev/null)
+    printf '%s' "${state:-unknown}"
+}
+
+power_state() {
+    local f ac=unknown cap=unknown status=unknown
+    for f in /sys/class/power_supply/*; do
+        [ -r "$f/type" ] || continue
+        case $(cat "$f/type" 2>/dev/null) in
+            Mains) ac=$(read_or "$f/online" unknown) ;;
+            Battery)
+                cap=$(read_or "$f/capacity" unknown)
+                status=$(read_or "$f/status" unknown)
+                ;;
+        esac
+    done
+    printf 'ac=%s battery=%s%%(%s)' "$ac" "$cap" "$status"
+}
+
+backlight() {
+    local f
+    for f in /sys/class/backlight/*; do
+        [ -r "$f/brightness" ] || continue
+        printf '%s=%s/%s' "$(basename "$f")" \
+            "$(cat "$f/brightness" 2>/dev/null)" \
+            "$(read_or "$f/max_brightness" 0)"
+        return
+    done
+    printf 'none'
+}
+
+enabled_wakeups() {
+    awk '$3 == "*enabled" { printf "%s ", $1 }' /proc/acpi/wakeup 2>/dev/null |
+        sed 's/ $//'
+}
+
+wakeup_snapshot() {
+    local d name count
+    for d in /sys/class/wakeup/*; do
+        [ -r "$d/wakeup_count" ] || continue
+        name=$(read_or "$d/name" "$(basename "$d")")
+        count=$(cat "$d/wakeup_count" 2>/dev/null)
+        printf '%s\t%s\n' "$name" "$count"
+    done
+}
+
+wakeup_risers() {
+    local name count old out=
+    while IFS=$'\t' read -r name count; do
+        case $count in
+            ''|*[!0-9]*) continue ;;
+        esac
+        old=$(awk -F'\t' -v n="$name" '$1 == n { print $2; exit }' \
+            "$STATE/wakeup.before" 2>/dev/null)
+        case $old in
+            ''|*[!0-9]*) continue ;;
+        esac
+        if [ "$count" -gt "$old" ]; then
+            out="$out $name=$((count - old))"
+        fi
+    done < <(wakeup_snapshot)
+    printf '%s' "${out:-none}"
+}
+
+stats_snapshot() {
+    local f
+    for f in /sys/power/suspend_stats/*; do
+        [ -r "$f" ] || continue
+        printf '%s=%s\n' "$(basename "$f")" "$(cat "$f" 2>/dev/null)"
+    done
+}
+
+stats_line() {
+    printf 'success=%s fail=%s last_failed_dev=%s last_failed_errno=%s last_failed_step=%s' \
+        "$(read_or /sys/power/suspend_stats/success 0)" \
+        "$(read_or /sys/power/suspend_stats/fail 0)" \
+        "$(read_or /sys/power/suspend_stats/last_failed_dev none)" \
+        "$(read_or /sys/power/suspend_stats/last_failed_errno 0)" \
+        "$(read_or /sys/power/suspend_stats/last_failed_step none)"
+}
+
+stat_delta() {
+    local key=$1 before now
+    before=$(awk -F= -v k="$key" '$1 == k { print $2; exit }' \
+        "$STATE/stats.before" 2>/dev/null)
+    now=$(read_or "/sys/power/suspend_stats/$key" 0)
+    case $before:$now in
+        *[!0-9:]*|:*) printf '%s' unknown ;;
+        *) printf '%s' "$((now - before))" ;;
+    esac
+}
+
+mkdir -p "$STATE"
+
+case $ACTION in
+pre)
+    boot=$(read_or /proc/sys/kernel/random/boot_id unknown)
+    count=$(read_or "$STATE/counter" 0)
+    case $count in
+        ''|*[!0-9]*) count=0 ;;
+    esac
+    count=$((count + 1))
+    printf '%s\n' "$count" >"$STATE/counter"
+    id="$boot-$count"
+    printf '%s\n' "$id" >"$STATE/current"
+    date -u +%FT%TZ >"$STATE/started"
+    cut -d. -f1 /proc/uptime >"$STATE/uptime"
+    backlight >"$STATE/backlight.before"
+    stats_snapshot >"$STATE/stats.before"
+    wakeup_snapshot >"$STATE/wakeup.before"
+
+    if [ -e "$DEBUG_FLAG" ]; then
+        read_or "$PM_DEBUG" 0 >"$STATE/pm_debug.before"
+        read_or "$PM_TIMES" 0 >"$STATE/pm_times.before"
+        printf '1' >"$PM_DEBUG" 2>/dev/null || :
+        printf '1' >"$PM_TIMES" 2>/dev/null || :
+    fi
+
+    log "id=$id action=start operation=$OPERATION time=$(read_or "$STATE/started" unknown) uptime=$(read_or "$STATE/uptime" unknown) mem_sleep=$(read_or /sys/power/mem_sleep unknown) wakeup_count=$(read_or /sys/power/wakeup_count unknown) pm_wakeup_irq=$(read_or /sys/power/pm_wakeup_irq unknown) lid=$(lid_state) $(power_state) backlight=$(backlight) $(stats_line) wakeups=$(enabled_wakeups)"
+    ;;
+post)
+    id=$(read_or "$STATE/current" unknown)
+    started=$(read_or "$STATE/started" unknown)
+    pre_uptime=$(read_or "$STATE/uptime" 0)
+    now_uptime=$(cut -d. -f1 /proc/uptime 2>/dev/null)
+    case $pre_uptime:$now_uptime in
+        *[!0-9:]*) elapsed=unknown ;;
+        *) elapsed=$((now_uptime - pre_uptime)) ;;
+    esac
+
+    log "id=$id action=resume operation=$OPERATION time=$(date -u +%FT%TZ) started=$started elapsed=${elapsed}s uptime=${now_uptime:-unknown} pm_wakeup_irq=$(read_or /sys/power/pm_wakeup_irq unknown) lid=$(lid_state) $(power_state) backlight=$(backlight) before=$(read_or "$STATE/backlight.before" unknown) $(stats_line) d_success=$(stat_delta success) d_fail=$(stat_delta fail) wake_sources=$(wakeup_risers)"
+
+    if [ -e "$DEBUG_FLAG" ]; then
+        read_or "$STATE/pm_debug.before" 0 >"$PM_DEBUG" 2>/dev/null || :
+        read_or "$STATE/pm_times.before" 0 >"$PM_TIMES" 2>/dev/null || :
+    fi
+
+    # The probe runs after user.slice is thawed and logs action=probe, the
+    # marker tenko-suspend-check looks for.
+    systemctl start --no-block tenko-resume-probe.service >/dev/null 2>&1 || :
+    ;;
+*)
+    log "unknown action '$ACTION' operation=$OPERATION" warning
+    ;;
+esac
+
+exit 0

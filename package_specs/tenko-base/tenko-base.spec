@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    6
-Release:    8
+Release:    9
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
@@ -108,6 +108,7 @@ Requires:   tenko-basefs
 Requires:   tenko-sysconfig
 Requires:   tenko-release
 Requires:   tenko-firstboot
+Requires:   tenko-suspend-log
 Requires:   glibc-locales
 Requires:   gcc-lto
 Requires:   linux-api-headers
@@ -155,6 +156,13 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 6-9
+- Require tenko-suspend-log so every base install records suspend/resume
+  cycles.  A lid-suspend test that failed to bring the desktop back on the
+  first resume could only be reconstructed from raw kernel messages; the new
+  package logs the cycle, the wakeup source and the post-resume X state, and
+  ships tenko-suspend-report for a bug report.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 6-8
 - Promote tuned into the base package set (packages and rebuild order),
   so every base install runs the dynamic system tuning daemon.  The

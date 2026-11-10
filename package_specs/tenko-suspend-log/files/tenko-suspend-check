@@ -1,0 +1,36 @@
+#!/bin/bash
+# Report a suspend/resume cycle that never finished.
+#
+# Runs at boot.  Persistent journals keep the previous boot's "action=start"
+# line; when no "action=probe" with the same id follows, the machine either
+# hung during resume, lost power or failed to bring userspace back.
+set -u
+
+TAG=tenko-suspend
+
+log() {
+    local priority=${2:-warning}
+    logger -t "$TAG" -p "$priority" -- "$1"
+}
+
+# A volatile journal cannot describe an earlier boot.
+[ -d /var/log/journal ] || exit 0
+command -v journalctl >/dev/null 2>&1 || exit 0
+
+previous=$(journalctl -b -1 -t "$TAG" -o cat --no-pager 2>/dev/null)
+[ -n "$previous" ] || exit 0
+
+start=$(printf '%s\n' "$previous" |
+    grep -E '(^| )action=start( |$)' | tail -1)
+[ -n "$start" ] || exit 0
+
+id=$(printf '%s\n' "$start" | sed -n 's/.*\bid=\([^ ]*\).*/\1/p')
+[ -n "$id" ] || exit 0
+
+if printf '%s\n' "$previous" | grep -q "id=$id action=probe"; then
+    exit 0
+fi
+
+log "previous suspend cycle did not complete: id=$id has no resume probe; expect a hard hang, a failed userspace resume or a power loss (inspect: journalctl -b -1 -t $TAG; run: tenko-suspend-report)"
+
+exit 0

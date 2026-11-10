@@ -1,0 +1,9 @@
+[Unit]
+Description=Probe the desktop after resume from suspend
+Documentation=man:tenko-suspend-report(8)
+After=systemd-suspend.service systemd-hybrid-sleep.service systemd-suspend-then-hibernate.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/tenko/tenko-resume-probe
+TimeoutStartSec=60

@@ -1,0 +1,34 @@
+.TH TENKO-SUSPEND-REPORT 8 "2026-11-10" "Tenko Linux" "System Administration"
+.SH NAME
+tenko-suspend-report \- collect suspend/resume diagnostics
+.SH SYNOPSIS
+.B tenko-suspend-report
+.RI [ output.tar.gz ]
+.SH DESCRIPTION
+.B tenko-suspend-report
+collects the state needed to debug a suspend or resume failure into a tarball:
+the kernel PM, ACPI, GPU and input journal messages, the
+.B tenko-suspend
+cycle lines, suspend statistics, wakeup sources, the Xorg log, dmesg, the
+X session and DPMS state, BIOS/EC firmware versions and the pstore crash
+archives.
+.PP
+Run it as root for the complete set.  Without root, dmesg, dmidecode and the
+pstore archive are skipped.
+.PP
+Without an argument the report is written to
+.IR /var/tmp/tenko-suspend-report- \fIhost\fR - \fIutc\fR .tar.gz
+and mode 0600 is applied because journal excerpts can contain Wi-Fi names.
+.SH FILES
+.TP
+.I /run/tenko-suspend
+State shared between the sleep hook and the resume probe for the current
+cycle.
+.TP
+.I /etc/tenko/suspend-debug
+When present, the next suspend cycle enables the kernel PM debug messages
+and the resume probe turns the display back on when it is off.
+.SH SEE ALSO
+.BR systemd-sleep (8),
+.BR logind.conf (5),
+.BR journalctl (1)
