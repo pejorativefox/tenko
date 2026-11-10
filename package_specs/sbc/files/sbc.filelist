@@ -1,0 +1,11 @@
+/usr/bin/sbcdec
+/usr/bin/sbcenc
+/usr/bin/sbcinfo
+%dir /usr/include/sbc
+/usr/include/sbc/sbc.h
+%dir /usr/lib64
+/usr/lib64/libsbc.so
+/usr/lib64/libsbc.so.1
+/usr/lib64/libsbc.so.1.3.2
+%dir /usr/lib64/pkgconfig
+/usr/lib64/pkgconfig/sbc.pc

@@ -1,0 +1,6 @@
+# Start the Bluetooth daemon on boot.  The unit has
+# ConditionPathIsDirectory=/sys/class/bluetooth, so machines without an
+# adapter (or without the btusb/btuart modules) skip it harmlessly.
+# bluetooth.service also owns bluetooth.target, which input and audio devices
+# wait for.
+enable bluetooth.service

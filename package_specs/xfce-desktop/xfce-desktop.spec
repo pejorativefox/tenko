@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    26
+Release:    27
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -35,6 +35,13 @@ Requires:   xfce4-power-manager
 # GLX backend brings in libGL.
 Requires:   xfce4-pulseaudio-plugin
 Requires:   libva
+# Bluetooth: bluez ships the daemon, bluetoothctl and the systemd/D-Bus
+# integration; pulseaudio-bluez adds the A2DP/HFP modules so paired audio
+# devices become normal sinks the panel plugin can select.  Vendor Bluetooth
+# firmware stays a weak recommendation here (hard requirement of
+# xfce-desktop-hardware), matching the rest of the firmware split.
+Requires:   bluez
+Requires:   pulseaudio-bluez
 Requires:   dbus-daemon
 Requires:   dbus-x11
 Requires:   xorg-server
@@ -150,6 +157,13 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-27
+- Require bluez and pulseaudio-bluez: the desktop now has the Bluetooth
+  daemon, bluetoothctl, and the PulseAudio A2DP/HFP modules behind the
+  panel's volume control.  Bluetooth firmware is still a weak
+  recommendation of this meta and a hard requirement of
+  xfce-desktop-hardware.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 4.20-26
 - Require google-chrome-bin so the default desktop install ships the
   Google Chrome vendor bundle (156.0.8078.79) as its web browser.  The
