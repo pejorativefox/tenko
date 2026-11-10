@@ -1,6 +1,6 @@
 Name:       tenko-base-runtime
 Version:    6
-Release:    6
+Release:    7
 Epoch:      1
 Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
@@ -19,6 +19,8 @@ Requires:   bzip2
 Requires:   xz
 Requires:   lz4
 Requires:   zstd
+Requires:   zip
+Requires:   unzip
 Requires:   file
 Requires:   readline
 Requires:   pcre2
@@ -140,6 +142,12 @@ touch %{buildroot}/usr/share/tenko/base-runtime
 /usr/share/tenko/base-runtime
 
 %changelog
+* Tue Nov 10 2026 browneye <build@browneye.invalid> 6-7
+- Require zip and unzip.  They are base-set members now, and the
+  installer and live media install this runtime meta instead of
+  tenko-base, so listing them here is what puts both archive tools on a
+  fresh base-only install as well as a desktop install.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 6-6
 - Require the user-requested base console tools: curl, wget, rsync,
   pciutils, usbutils, which, htop, bwm-ng and ncdu.  The installer and

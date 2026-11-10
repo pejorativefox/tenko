@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    6
-Release:    6
+Release:    7
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
@@ -18,6 +18,8 @@ Requires:   bzip2
 Requires:   xz
 Requires:   lz4
 Requires:   zstd
+Requires:   zip
+Requires:   unzip
 Requires:   file
 Requires:   readline
 Requires:   pcre2
@@ -152,6 +154,12 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Tue Nov 10 2026 browneye <build@browneye.invalid> 6-7
+- Promote zip and unzip into the base package set (packages and rebuild
+  order) so every Tenko system can create and extract .zip archives, not
+  just read them.  The RPMs were already published (zip 3.0-1, unzip
+  6.0-1); base membership puts them on new installs and upgrades.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 6-6
 - Add the user-requested base console tools through requires-extra: curl,
   wget, rsync, pciutils, usbutils, which, htop, bwm-ng and ncdu.  They
