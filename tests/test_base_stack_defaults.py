@@ -8,10 +8,14 @@ SPECS = os.path.join(REPO_ROOT, "package_specs")
 
 # Requested base OS packages: storage (udisks2 + its libblockdev backend),
 # firmware updates and the diagnostic/editor tools.
-BASE_PACKAGES = ("lsof", "strace", "nano", "libblockdev", "udisks2", "fwupd")
+BASE_PACKAGES = ("lsof", "strace", "nano", "libblockdev", "udisks2", "fwupd",
+                 "tuned")
 
 # Requested desktop-profile packages: panel volume control and VA-API.
 DESKTOP_PACKAGES = ("xfce4-pulseaudio-plugin", "libva")
+
+# Command-line desktop tools carried by both X11 desktop profiles.
+DESKTOP_TOOLS = ("xsel",)
 
 # User-requested desktop application: the Chrome vendor bundle.
 DESKTOP_APPS = ("google-chrome-bin",)
@@ -88,9 +92,18 @@ class BaseStackDefaultsTest(unittest.TestCase):
                 has_require(lines, name),
                 "xfce-desktop must require %s" % name)
 
+    def test_desktop_profiles_require_clipboard_tool(self):
+        for spec in ("xfce-desktop/xfce-desktop.spec",
+                     "xfce-desktop-core/xfce-desktop-core.spec"):
+            lines = spec_lines(spec)
+            for name in DESKTOP_TOOLS:
+                self.assertTrue(
+                    has_require(lines, name),
+                    "%s must require %s" % (spec, name))
+
     def test_every_default_package_has_a_spec(self):
         for name in (BASE_PACKAGES + DESKTOP_PACKAGES + BASE_TOOLS
-                     + DESKTOP_APPS):
+                     + DESKTOP_APPS + DESKTOP_TOOLS):
             spec = os.path.join(SPECS, name, name + ".spec")
             self.assertTrue(os.path.isfile(spec), "missing spec for " + name)
 

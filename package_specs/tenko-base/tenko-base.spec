@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    6
-Release:    7
+Release:    8
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
@@ -102,6 +102,7 @@ Requires:   nano
 Requires:   libblockdev
 Requires:   udisks2
 Requires:   fwupd
+Requires:   tuned
 Requires:   tenko-rpm-config
 Requires:   tenko-basefs
 Requires:   tenko-sysconfig
@@ -154,6 +155,12 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 6-8
+- Promote tuned into the base package set (packages and rebuild order),
+  so every base install runs the dynamic system tuning daemon.  The
+  runtime meta lists it too because the installer and live media install
+  tenko-base-runtime instead of tenko-base.
+
 * Tue Nov 10 2026 browneye <build@browneye.invalid> 6-7
 - Promote zip and unzip into the base package set (packages and rebuild
   order) so every Tenko system can create and extract .zip archives, not

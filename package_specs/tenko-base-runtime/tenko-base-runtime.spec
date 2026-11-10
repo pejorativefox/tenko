@@ -1,6 +1,6 @@
 Name:       tenko-base-runtime
 Version:    6
-Release:    7
+Release:    8
 Epoch:      1
 Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
@@ -79,6 +79,9 @@ Requires:   nano
 Requires:   libblockdev
 Requires:   udisks2
 Requires:   fwupd
+# Dynamic system tuning.  The installer and live media install this runtime
+# meta, so tuned has to be listed here as well as in the base set.
+Requires:   tuned
 Requires:   libseccomp
 Requires:   libbsd
 Requires:   libmd
@@ -142,6 +145,11 @@ touch %{buildroot}/usr/share/tenko/base-runtime
 /usr/share/tenko/base-runtime
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 6-8
+- Require tuned.  It is now a base-set member and this is the meta the
+  installer and live media install, so a fresh base-only system gets the
+  tuning daemon as well as a desktop install.
+
 * Tue Nov 10 2026 browneye <build@browneye.invalid> 6-7
 - Require zip and unzip.  They are base-set members now, and the
   installer and live media install this runtime meta instead of

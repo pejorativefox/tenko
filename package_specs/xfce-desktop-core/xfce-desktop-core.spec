@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    18
+Release:    19
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 Prefix:     /usr
@@ -93,6 +93,8 @@ Requires:   thunar
 Requires:   xfce4-notifyd
 Requires:   xfce4-appfinder
 Requires:   xfce4-terminal
+# Command-line X selection access for scripts and terminal users.
+Requires:   xsel
 Requires:   xfdesktop
 Requires:   tenko-desktop-config
 
@@ -120,6 +122,10 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 /usr/share/tenko/xfce-desktop-core
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-19
+- Require xsel so the lean VM/headless desktop profile also has
+  command-line access to the X selections.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-18
 - Require ristretto so the image defaults in /etc/xdg/mimeapps.list
   resolve on the core profile as well.  mpv stays for audio and video.

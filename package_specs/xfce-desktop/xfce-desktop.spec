@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    29
+Release:    30
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -23,6 +23,8 @@ Requires:   tumbler
 Requires:   xfce4-notifyd
 Requires:   xfce4-appfinder
 Requires:   xfce4-terminal
+# Command-line X selection access for scripts and terminal users.
+Requires:   xsel
 # Image viewing and manipulation: Ristretto is the default image viewer
 # (registered for image MIME types by its desktop file), ImageMagick ships
 # the command-line convert/magick tools and format delegates.
@@ -166,6 +168,10 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-30
+- Require xsel so a default desktop install has command-line access to
+  the X PRIMARY, SECONDARY and CLIPBOARD selections.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-29
 - Require ristretto, the Xfce image viewer, and imagemagick for image
   viewing and command-line image manipulation on a default desktop.

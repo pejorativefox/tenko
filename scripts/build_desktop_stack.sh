@@ -101,7 +101,7 @@ elif [ "$PHASE" = "desktop" ]; then
              xf86-video-vesa \
              xrdb xset xmodmap xhost xwininfo xwd hicolor-icon-theme \
              xdg-desktop-portal xdg-desktop-portal-gtk \
-             tenko-desktop-config xfce-desktop; do
+             xsel tenko-desktop-config xfce-desktop; do
         build "$p" "$p" || exit 1
     done
 elif [ "$PHASE" = "net" ]; then

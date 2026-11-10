@@ -90,7 +90,8 @@
     "nano",
     "libblockdev",
     "udisks2",
-    "fwupd"
+    "fwupd",
+    "tuned"
   ],
   "aliases": {
     "flit-core": "python-flit-core",
@@ -205,6 +206,7 @@
     "libblockdev",
     "udisks2",
     "fwupd",
+    "tuned",
     "tenko-rpm-config",
     "tenko-basefs",
     "tenko-sysconfig",
