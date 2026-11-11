@@ -4,7 +4,7 @@ Release:    10
 Epoch:      1
 Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
 
 # The Tenko base system without the compiler/toolchain, development

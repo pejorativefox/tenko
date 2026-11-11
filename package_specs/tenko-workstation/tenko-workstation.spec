@@ -4,7 +4,7 @@ Release:    1
 Epoch:      1
 Summary:    Tenko developer workstation (Node.js, SSH, git, agent tools)
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
 
 Requires:   tenko-base

@@ -4,7 +4,7 @@ Release:    8
 Epoch:      1
 Summary:    Base configuration for Tenko Linux
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
 
 %description

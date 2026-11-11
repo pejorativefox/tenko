@@ -3,7 +3,7 @@ Version:    4.20
 Release:    19
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
 
 # Self-contained runtime desktop: runtime base, kernel, X11 server and the

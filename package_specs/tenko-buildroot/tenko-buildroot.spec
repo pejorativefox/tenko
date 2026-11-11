@@ -4,7 +4,7 @@ Release:    1
 Epoch:      1
 Summary:    Tenko Linux minimal RPM buildroot (toolchain baseline)
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
 
 # The toolchain baseline every package build starts from (issue #58).

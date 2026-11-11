@@ -212,4 +212,4 @@ fi
 chmod 600 "$out"
 
 echo "wrote $out"
-echo "attach it to the Gitea issue (https://pjfox.xyz/git/daspork/tenko/issues)"
+echo "attach it to the GitHub issue (https://github.com/pejorativefox/tenko/issues)"

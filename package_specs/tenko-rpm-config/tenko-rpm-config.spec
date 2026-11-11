@@ -4,7 +4,7 @@ Release:    4
 Epoch:      1
 Summary:    RPM build macros for Tenko packages
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
 
 Requires: rpm

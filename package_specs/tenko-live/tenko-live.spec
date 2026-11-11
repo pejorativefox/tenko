@@ -4,7 +4,7 @@ Release:    3
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) live installer environment (meta-package)
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 BuildArch:  noarch
 Prefix:     /usr
 

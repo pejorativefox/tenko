@@ -4,7 +4,7 @@ Release:    8
 Epoch:      1
 Summary:    Tenko X11/XFCE session configuration
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
 
 Requires:   xinit

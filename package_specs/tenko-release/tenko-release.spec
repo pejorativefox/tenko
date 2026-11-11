@@ -1,9 +1,9 @@
 Name:       tenko-release
 Version:    6
-Release:    4
+Release:    5
 Summary:    Tenko Linux release file
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
 
 Provides: system-release
@@ -29,9 +29,9 @@ VARIANT="Workstation"
 VARIANT_ID=workstation
 RELEASE_TYPE=stable
 HOME_URL="https://tenko.pjfox.xyz/"
-BUG_REPORT_URL="https://pjfox.xyz/git/daspork/tenko/issues"
-SUPPORT_URL="https://pjfox.xyz/git/daspork/tenko"
-DOCUMENTATION_URL="https://pjfox.xyz/git/daspork/tenko/src/branch/main/docs"
+BUG_REPORT_URL="https://github.com/pejorativefox/tenko/issues"
+SUPPORT_URL="https://github.com/pejorativefox/tenko"
+DOCUMENTATION_URL="https://github.com/pejorativefox/tenko/tree/main/docs"
 ANSI_COLOR="0;34"
 OSR
 ln -sf ../usr/lib/os-release %{buildroot}/etc/os-release
@@ -53,6 +53,10 @@ install -Dpm644 %{_sourcedir}/org.tenko.Tenko.metainfo.xml \
 %files -f %{_sourcedir}/tenko-release.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-5
+- Point BUG_REPORT_URL, SUPPORT_URL, DOCUMENTATION_URL and the AppStream
+  metainfo links at the public GitHub repository.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-4
 - Ship an AppStream operating-system component
   (/usr/share/metainfo/org.tenko.Tenko.metainfo.xml) so appstreamcli and

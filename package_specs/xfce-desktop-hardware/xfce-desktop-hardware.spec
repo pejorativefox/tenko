@@ -3,7 +3,7 @@ Version:    4.20
 Release:    3
 Summary:    Hardware extras for the Tenko XFCE desktop
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
 
 # D25: the firmware vendor packs are the hardware-dependent part of a

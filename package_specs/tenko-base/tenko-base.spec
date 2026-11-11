@@ -4,7 +4,7 @@ Release:    12
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
 
 %include %{_sourcedir}/devel-obsoletes.inc

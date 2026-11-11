@@ -25,9 +25,9 @@ VARIANT="Workstation"
 VARIANT_ID=workstation
 RELEASE_TYPE=stable
 HOME_URL="https://tenko.pjfox.xyz/"
-BUG_REPORT_URL="https://pjfox.xyz/git/daspork/tenko/issues"
-SUPPORT_URL="https://pjfox.xyz/git/daspork/tenko"
-DOCUMENTATION_URL="https://pjfox.xyz/git/daspork/tenko/src/branch/main/docs"
+BUG_REPORT_URL="https://github.com/pejorativefox/tenko/issues"
+SUPPORT_URL="https://github.com/pejorativefox/tenko"
+DOCUMENTATION_URL="https://github.com/pejorativefox/tenko/tree/main/docs"
 ANSI_COLOR="0;34"
 ```
 

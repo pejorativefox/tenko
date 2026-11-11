@@ -1,9 +1,9 @@
 Name:       tenko-suspend-log
 Version:    6
-Release:    1
+Release:    2
 Summary:    Suspend/resume instrumentation for Tenko
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
 
 Requires:   systemd
@@ -69,6 +69,9 @@ fi
 %files -f %{_sourcedir}/tenko-suspend-log.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-2
+- tenko-suspend-report points to the GitHub issue tracker.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 6-1
 - New package: instrument suspend/resume so a failed wake can be debugged.
   The first lid-suspend test on the ThinkPad suspended correctly but did

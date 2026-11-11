@@ -13,8 +13,8 @@
     </p>
   </description>
   <url type="homepage">https://tenko.pjfox.xyz/</url>
-  <url type="bugtracker">https://pjfox.xyz/git/daspork/tenko/issues</url>
-  <url type="help">https://pjfox.xyz/git/daspork/tenko/src/branch/main/docs</url>
+  <url type="bugtracker">https://github.com/pejorativefox/tenko/issues</url>
+  <url type="help">https://github.com/pejorativefox/tenko/tree/main/docs</url>
   <metadata_license>MIT</metadata_license>
   <project_license>MIT</project_license>
   <releases>

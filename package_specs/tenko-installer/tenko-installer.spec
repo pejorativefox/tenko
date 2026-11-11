@@ -4,7 +4,7 @@ Release:    16
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
-URL:        https://pjfox.xyz/git/daspork/tenko
+URL:        https://github.com/pejorativefox/tenko
 BuildArch:  noarch
 Prefix:     /usr
 
