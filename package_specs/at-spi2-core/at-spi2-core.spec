@@ -15,6 +15,8 @@ BuildRequires: libxtst
 BuildRequires: xorgproto
 BuildRequires: gobject-introspection
 BuildRequires: dbus-libs
+BuildRequires: libxfixes
+BuildRequires: libxext
 %description
 AT-SPI (Assistive Technology Service Provider Interface) is the core of an
 accessibility stack for free software systems. It provides the D-Bus
