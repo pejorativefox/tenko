@@ -3,7 +3,8 @@
 #
 # Prerequisites:
 #   - build/rootfs exists and was installed with tenko-base
-#   - kernel RPMs for $KVER are in ~/rpmbuild/RPMS/x86_64
+#   - kernel RPMs for $KVER are in $KERNEL_RPM_DIR (default
+#     ~/rpmbuild/RPMS/x86_64)
 #
 # The script installs linux + linux-modules (and dracut/cpio) into the rootfs,
 # creates a raw ext4 image from it, generates the initramfs, boots it with
@@ -14,6 +15,7 @@ KVER="${KVER:-7.3.1}"
 ROOTFS="${ROOTFS:-$PWD/build/rootfs}"
 IMG="${IMG:-$PWD/build/rootfs.img}"
 LOG="${LOG:-$PWD/build/qemu-boot.log}"
+KERNEL_RPM_DIR="${KERNEL_RPM_DIR:-$HOME/rpmbuild/RPMS/x86_64}"
 # Prefer the single base+desktop repo: the kernel now requires dracut, which
 # only exists in repo-all.  build/repo is the historical bootstrap repo.
 REPO="${REPO:-https://tenko.pjfox.xyz/packages/6/}"
@@ -23,12 +25,15 @@ case "$REPO" in
 esac
 
 [ -x "$ROOTFS/usr/bin/bash" ] || { echo "missing rootfs: $ROOTFS" >&2; exit 1; }
-ls ~/rpmbuild/RPMS/x86_64/linux-kernel-"$KVER"-*.rpm ~/rpmbuild/RPMS/x86_64/linux-modules-"$KVER"-*.rpm >/dev/null 2>&1 || {
-    echo "missing kernel RPMs for $KVER; run: ./bbuild build linux" >&2; exit 1
+ls "$KERNEL_RPM_DIR"/linux-kernel-"$KVER"-*.rpm "$KERNEL_RPM_DIR"/linux-modules-"$KVER"-*.rpm >/dev/null 2>&1 || {
+    echo "missing kernel RPMs for $KVER in $KERNEL_RPM_DIR" >&2
+    echo "build them with: IMAGE=localhost/tenko/base:r6 OUT=build/kernel scripts/build_specs.sh linux/linux.spec" >&2
+    echo "then set KERNEL_RPM_DIR=build/kernel/build/linux/RPMS/x86_64" >&2
+    exit 1
 }
 
 # Make the kernel available to the rootfs transaction.
-cp ~/rpmbuild/RPMS/x86_64/linux-kernel-"$KVER"-*.rpm ~/rpmbuild/RPMS/x86_64/linux-modules-"$KVER"-*.rpm "$REPO"/
+cp "$KERNEL_RPM_DIR"/linux-kernel-"$KVER"-*.rpm "$KERNEL_RPM_DIR"/linux-modules-"$KVER"-*.rpm "$REPO"/
 createrepo_c --quiet --update "$REPO"
 
 unshare -r dnf -y --nogpgcheck \

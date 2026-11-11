@@ -62,6 +62,11 @@ for f in package_specs/*/files/*; do
 done
 echo "staged $staged spec-side files into $HOME/rpmbuild/SOURCES"
 
+# rpmbuild runs with --network=none, so fetch the md5-verified sources listed
+# in each spec's sources file before starting the container.  Packages with a
+# nosources marker (metas, binary-only packages) are skipped.
+python3 scripts/fetch_sources.py --dest "$HOME/rpmbuild/SOURCES" "${specs[@]}"
+
 podman run --rm --network=none \
     -e JOBS="$JOBS" -e MAKE_JOBS="$MAKE_JOBS" \
     -v "$PWD/package_specs:/specs:ro,z" \

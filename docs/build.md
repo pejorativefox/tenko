@@ -32,11 +32,12 @@ scripts/build_specs.sh curl/curl.spec
 - Builds are incremental: a package whose status file says `ok` is skipped, so
   re-running the same `OUT` retries only failures.
 
-`rpmbuild` runs with `--network=none`.  Put tarballs in `~/rpmbuild/SOURCES`
-first (the `sources` file gives the URL and md5), or pre-populate them with
-`bbuild`.  `bbuild build <name>` is a host-side convenience for one-off builds
-and source staging — **it is not the release path**; release builds go through
-the container scripts.
+`rpmbuild` runs with `--network=none`.  Before starting the container,
+`build_specs.sh` downloads the tarballs listed in each spec's `sources` file,
+verifies their md5 and stages them in `~/rpmbuild/SOURCES`; a package with a
+`nosources` marker (metas, binary-only packages) is skipped.  Run
+`scripts/fetch_sources.py <spec-or-package>` by hand to populate the cache
+without building.
 
 ## Build image profiles
 
