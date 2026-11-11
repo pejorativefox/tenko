@@ -130,6 +130,8 @@ def log_caps(log):
                 name = name.replace("/", "::")
             if label == "cmake FindPackage":
                 name = name.lower()
+                # FindSWIG, FindPerl, ... look for a program, not a library.
+                caps.setdefault("/usr/bin/" + name, set()).add(label)
             caps.setdefault(template.format(name), set()).add(label)
             if template == "/usr/bin/{}":
                 caps.setdefault("/usr/sbin/" + name, set()).add(label)

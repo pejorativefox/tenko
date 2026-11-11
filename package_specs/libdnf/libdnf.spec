@@ -6,6 +6,7 @@ License:    LGPL-2.1-or-later AND LGPL-3.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 BuildRequires: openssl
+BuildRequires: swig
 
 %description
 libdnf is the library that provides the package-management engine used by
