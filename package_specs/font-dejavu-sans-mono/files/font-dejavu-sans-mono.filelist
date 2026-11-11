@@ -1,0 +1,12 @@
+%dir /etc/fonts
+%dir /etc/fonts/conf.d
+%dir /usr/share/doc
+%dir /usr/share/doc/font-dejavu-sans-mono
+%dir /usr/share/fonts
+%dir /usr/share/fonts/dejavu-sans-mono
+/etc/fonts/conf.d/69-tenko-dejavu-sans-mono.conf
+/usr/share/doc/font-dejavu-sans-mono/LICENSE
+/usr/share/fonts/dejavu-sans-mono/DejaVuSansMono-Bold.ttf
+/usr/share/fonts/dejavu-sans-mono/DejaVuSansMono-BoldOblique.ttf
+/usr/share/fonts/dejavu-sans-mono/DejaVuSansMono-Oblique.ttf
+/usr/share/fonts/dejavu-sans-mono/DejaVuSansMono.ttf

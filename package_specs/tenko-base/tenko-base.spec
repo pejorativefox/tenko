@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    6
-Release:    9
+Release:    10
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
@@ -78,6 +78,7 @@ Requires:   groff
 Requires:   gzip
 Requires:   iproute2
 Requires:   kbd
+Requires:   font-dejavu-sans-mono
 Requires:   font-noto-cjk
 Requires:   font-noto-emoji
 Requires:   font-nerd-symbols
@@ -156,6 +157,13 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-10
+- Promote font-dejavu-sans-mono into the base package set (packages and
+  rebuild order).  DejaVu Sans Mono covers the Dingbats, Miscellaneous
+  Symbols and Geometric Shapes characters that Terminus, Noto CJK, Noto Emoji
+  and Symbols Nerd Font Mono lack, so TUIs no longer render them as tofu or
+  as double-width CJK glyphs.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 6-9
 - Require tenko-suspend-log so every base install records suspend/resume
   cycles.  A lid-suspend test that failed to bring the desktop back on the

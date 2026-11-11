@@ -32,8 +32,8 @@ class BaseMembershipTest(unittest.TestCase):
 
     def test_fonts_are_base_membership_and_in_rebuild_order(self):
         base = json.loads(read("package_specs/base.json"))
-        for name in ("font-noto-cjk", "font-noto-emoji",
-                     "font-nerd-symbols"):
+        for name in ("font-dejavu-sans-mono", "font-noto-cjk",
+                     "font-noto-emoji", "font-nerd-symbols"):
             self.assertIn(name, base["packages"])
             self.assertIn(name, base["build_order"])
 
@@ -41,8 +41,9 @@ class BaseMembershipTest(unittest.TestCase):
         # The installer and live media install tenko-base-runtime, not
         # tenko-base; base membership alone does not reach a fresh install.
         runtime = spec("tenko-base-runtime")
-        for name in ("kmscon", "libtsm", "font-noto-cjk",
-                     "font-noto-emoji", "font-nerd-symbols"):
+        for name in ("kmscon", "libtsm", "font-dejavu-sans-mono",
+                     "font-noto-cjk", "font-noto-emoji",
+                     "font-nerd-symbols"):
             self.assertIn("Requires:   " + name, runtime)
 
     def test_base_meta_requires_kmscon(self):
@@ -61,6 +62,7 @@ class FontConfigTest(unittest.TestCase):
 
     def test_font_packages_ship_a_fontconfig_snippet(self):
         expected = {
+            "font-dejavu-sans-mono": "DejaVu Sans Mono",
             "font-noto-cjk": "Noto Sans Mono CJK SC",
             "font-noto-emoji": "Noto Emoji",
             "font-nerd-symbols": "Symbols Nerd Font Mono",
@@ -77,10 +79,33 @@ class FontConfigTest(unittest.TestCase):
             # would replace the user's terminal font.
             self.assertIn('mode="append" binding="weak"', read(path))
 
+    def test_dejavu_fallback_precedes_cjk_and_emoji(self):
+        # DejaVu supplies Dingbats/Misc Symbols and keeps a single-cell
+        # metric for characters Noto CJK also covers (for example U+25D1).
+        # It must be appended before the CJK and emoji snippets, whose
+        # filenames sort after it.
+        snippet = "69-tenko-dejavu-sans-mono.conf"
+        for later in ("69-tenko-nerd-symbols.conf", "69-tenko-noto-cjk.conf",
+                      "69-tenko-noto-color-emoji.conf",
+                      "69-tenko-noto-emoji.conf"):
+            self.assertLess(snippet, later)
+
+    def test_dejavu_fallback_covers_concrete_monospace_families(self):
+        # A terminal that requests "Terminus (TTF)" never matches the
+        # generic "monospace" family, so the snippet also appends the face
+        # to any pattern that declares monospaced spacing.
+        text = read("package_specs/font-dejavu-sans-mono/files/"
+                    "69-tenko-dejavu-sans-mono.conf")
+        self.assertIn('<test name="spacing" compare="eq">'
+                      '<const>mono</const></test>', text)
+
     def test_console_family_prefers_the_monochrome_emoji_face(self):
         text = read("package_specs/kmscon/files/69-tenko-console.conf")
         root = ET.fromstring(text)
         values = [value.text for value in root.iter("string")]
+        self.assertIn("DejaVu Sans Mono", values)
+        self.assertLess(values.index("DejaVu Sans Mono"),
+                        values.index("Noto Emoji"))
         self.assertLess(values.index("Noto Emoji"),
                         values.index("Symbols Nerd Font Mono"))
         self.assertNotIn("Noto Color Emoji", values)

@@ -1,6 +1,6 @@
 Name:       tenko-base-runtime
 Version:    6
-Release:    8
+Release:    9
 Epoch:      1
 Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
@@ -56,6 +56,7 @@ Requires:   gzip
 Requires:   iproute2
 Requires:   libtirpc
 Requires:   kbd
+Requires:   font-dejavu-sans-mono
 Requires:   font-noto-cjk
 Requires:   font-noto-emoji
 Requires:   font-nerd-symbols
@@ -145,6 +146,12 @@ touch %{buildroot}/usr/share/tenko/base-runtime
 /usr/share/tenko/base-runtime
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-9
+- Require font-dejavu-sans-mono.  It is now a base-set member and this is the
+  meta the installer and live media install, so a fresh base-only system and
+  a desktop install both get the Dingbats/Miscellaneous Symbols fallback that
+  keeps TUIs from drawing tofu or double-width CJK glyphs.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 6-8
 - Require tuned.  It is now a base-set member and this is the meta the
   installer and live media install, so a fresh base-only system gets the
