@@ -1,6 +1,6 @@
 Name:       xfce4-screensaver
 Version:    4.20.2
-Release:    1
+Release:    2
 Summary:    Screensaver and session locker for Xfce
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL:        https://docs.xfce.org/apps/xfce4-screensaver/start
@@ -14,7 +14,7 @@ BuildRequires: ninja
 BuildRequires: pkgconf
 BuildRequires: gtk+
 BuildRequires: glib
-BuildRequires: dbus
+BuildRequires: dbus-daemon
 BuildRequires: dbus-glib
 BuildRequires: xfconf
 BuildRequires: libxfce4ui
@@ -30,7 +30,7 @@ BuildRequires: systemd
 
 Requires:   gtk+
 Requires:   glib
-Requires:   dbus
+Requires:   dbus-daemon
 Requires:   dbus-glib
 Requires:   xfconf
 Requires:   libxfce4ui
@@ -84,6 +84,12 @@ popd
 %files lang -f %{_sourcedir}/xfce4-screensaver-lang.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 4.20.2-2
+- Require dbus-daemon instead of the nonexistent "dbus" binary package;
+  the distro splits dbus into dbus-daemon, dbus-libs and dbus-x11.  The
+  bad requirement made the package uninstallable (dbus-1.pc and the
+  session bus both come from dbus-daemon).
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 4.20.2-1
 - Initial package.  xfce4-screensaver is not in the base set.
 - Version 4.20.2 is the latest stable upstream release (2026-03-02).
