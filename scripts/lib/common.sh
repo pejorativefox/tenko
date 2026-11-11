@@ -46,7 +46,7 @@ abspath() {
 #   <main>/build/sources     md5-verified source tarballs
 # Locally built RPMs stay per checkout, so a branch cannot leak into another:
 #   build/repo               RPMs built here, preferred over the mirror
-_main=$(git -C "$TENKO_ROOT" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+_main=$(git -C "$TENKO_ROOT" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)
 TENKO_CACHE_ROOT=${TENKO_CACHE_ROOT:-${_main:+$(dirname "$_main")/build}}
 TENKO_CACHE_ROOT=${TENKO_CACHE_ROOT:-$TENKO_ROOT/build}
 TENKO_REPO_CACHE=${TENKO_REPO_CACHE:-$TENKO_CACHE_ROOT/cache/repo}
