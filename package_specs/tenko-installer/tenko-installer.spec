@@ -1,6 +1,6 @@
 Name:       tenko-installer
 Version:    6
-Release:    15
+Release:    16
 Epoch:      1
 Summary:    Tenko Linux 6 (Workstation) installer (Python + ncurses)
 License:    MIT
@@ -108,6 +108,9 @@ install -vm644 %{_sourcedir}/README.tenko-installer \
 %{_docdir}/tenko-installer/README
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-16
+- README: describe ./tenko installer-sim, the answer-file search locations, --repo/--target/--reboot, and the package set the installer actually installs (tenko-base-runtime, tzdb, openssh, git); point to docs/installer.md.
+
 * Mon Nov 09 2026 tenko <build@tenko.invalid> 6-15
 - Make btrfs the first and default choice on the guided filesystem screen;
   ext4 moves to second place.  The review screen and install pipeline are

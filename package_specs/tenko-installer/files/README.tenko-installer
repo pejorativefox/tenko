@@ -31,15 +31,22 @@ Running
                                      and data partition
   tenko-installer --no-self-update  never check the repository for a newer
                                      installer and restart
+  tenko-installer --repo URL|PATH   repository to install from
+                                     (default https://tenko.pjfox.xyz/packages/6/)
+  tenko-installer --target DIR      mount point for the new system
+                                     (default /mnt/tenko)
+  tenko-installer --reboot | --no-reboot
+                                     reboot (or never reboot) after a
+                                     non-interactive install
 
 `--simulate` is for UI development: it runs the real curses flow, planner
 and install pipeline against in-memory disks.  No block device is opened or
 modified; all mutating commands go to `plan.sh` in the simulation directory
 (default `/tmp/tenko-installer-sim`, override with `TENKO_SIM_DIR`).
-From a checkout, use:
+From a repository checkout, use:
 
-  scripts/run_installer_sim.sh
-  scripts/run_installer_sim.sh --simulate-scenario mixed
+  ./tenko installer-sim
+  ./tenko installer-sim --simulate-scenario mixed
 
 The kernel command line can supply:
 
@@ -86,13 +93,20 @@ space" never deletes an existing partition and adopts an existing ESP
 without formatting it.
 
 The advanced path keeps the full multi-disk editor.  Selecting a partition
-row now opens that partition's actions directly (assign/edit, delete, keep);
+row opens that partition's actions directly (assign/edit, delete, keep);
 there is no need to type a partition number.  Sizes in the new-partition
 form are entered in GiB (a bare number is GiB; `512M`, `20G` and `20GiB` are
 also accepted).
 
 Answer file
 -----------
+
+Without --answer (or tenko.answer=), the installer looks for an answer file
+at, in order:
+
+  /run/initramfs/live/answer.json         the root of the ISO
+  fw_cfg opt/tenko/answer.json            QEMU -fw_cfg
+  answer.json on a filesystem labelled TENKO-ANSWER (mounted read-only)
 
 The file is JSON.  Version 2 describes one layout with a list of disks;
 version 3 is the guided form (mode + disk).  Each disk has a path and an
@@ -246,8 +260,9 @@ Install flow
      create and enable a swapfile when selected, enable swap partitions,
      bind /dev /proc /sys /run, efivarfs
   4. dnf --installroot: tenko-basefs in its own first transaction
-  5. dnf --installroot: tenko-base + xfce-desktop + kernel/modules +
-     dracut + efibootmgr + dosfstools + btrfs-progs + sudo + dnf
+  5. dnf --installroot: tenko-base-runtime + xfce-desktop (desktop set
+     only) + linux-kernel/linux-modules + tzdb + dracut + efibootmgr +
+     dosfstools + btrfs-progs + sudo + openssh + git + dnf
   6. fstab by UUID for every mount and swap area, hostname, admin user in
      wheel and kvm, root locked, first-boot marker, systemd presets and
      graphical.target
@@ -280,3 +295,6 @@ From the repository root, without root and without touching a disk:
   python3 -m unittest discover -s package_specs/tenko-installer/tests -v
 
 The planner tests use the JSON fixtures in tests/fixtures/.
+
+The full reference, including every answer-file key and its default, is
+docs/installer.md in the Tenko repository.
