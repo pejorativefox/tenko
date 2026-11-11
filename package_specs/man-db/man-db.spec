@@ -6,6 +6,7 @@ License:    GPL-2.0-or-later AND GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 BuildRequires: libpipeline
+BuildRequires: groff
 
 %description
 The Man-DB package contains programs for finding and viewing man pages.

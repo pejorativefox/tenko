@@ -49,8 +49,14 @@ LOG_PATTERNS = [
     (r"(?:^|\s)([\w.+-]+): (?:command )?not found", "/usr/bin/{}", "command"),
     (r"/usr/bin/env: '([\w.+-]+)': No such file", "/usr/bin/{}", "command"),
     (r"Can't locate ([\w/]+)\.pm in @INC", "perl({})", "perl module"),
-    (r"No module named '([\w.]+)'", None, "python module"),
+    (r"No module named '([\w.]+)'", "python:{}", "python module"),
+    (r"python3? -c 'import ([\w.]+)[;']", "python:{}", "python module"),
+    (r"python3? is missing modules: ([\w.]+)", "python:{}", "python module"),
 ]
+
+
+PYTHON_PACKAGES = {"jinja2": "python-jinja", "yaml": "python-pyyaml",
+                   "flit_core": "python-flit-core", "elftools": "python3-pyelftools"}
 
 
 def run(cmd, **kw):
@@ -111,6 +117,13 @@ def log_caps(log):
             name = match.group(1)
             if template is None:
                 hints.add("{}: {}".format(label, name))
+                continue
+            if template == "python:{}":
+                # Tenko has no python3dist() provides; packages are named
+                # python-<module> (with a few renames).
+                module = name.split(".")[0]
+                name = PYTHON_PACKAGES.get(module, "python-" + module.replace("_", "-"))
+                caps.setdefault(name, set()).add(label)
                 continue
             if label == "perl module":
                 name = name.replace("/", "::")
@@ -207,6 +220,8 @@ def main():
                 twin = cap.replace("/usr/bin/", "/usr/sbin/", 1)
                 if twin != cap and providers.get(twin):
                     continue
+                if cap.startswith("/usr/sbin/"):
+                    continue  # reported once, as its /usr/bin twin
                 if "rpm requires" not in sources:
                     unresolved.append("{} ({})".format(cap, ", ".join(sorted(sources))))
                 continue

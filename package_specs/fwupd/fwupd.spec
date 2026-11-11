@@ -44,6 +44,7 @@ Requires:   readline
 Prefix:     /usr
 BuildRequires: openssl
 BuildRequires: shadow
+BuildRequires: python-markupsafe
 
 %description
 fwupd is a system daemon and set of command-line tools for updating firmware

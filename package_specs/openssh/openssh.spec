@@ -19,6 +19,7 @@ Requires:   systemd
 BuildRequires: linux-pam
 BuildRequires: libmd
 BuildRequires: openssl
+BuildRequires: groff
 
 %description
 OpenSSH is the premier connectivity tool for remote login with the SSH

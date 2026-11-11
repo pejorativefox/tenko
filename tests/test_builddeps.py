@@ -26,6 +26,7 @@ Program gperf found: NO
 /usr/bin/env: 'python2': No such file or directory
 Can't locate XML/Parser.pm in @INC (you may need to install the XML::Parser module)
 ModuleNotFoundError: No module named 'mako'
+../meson.build:832:9: ERROR: Command `/usr/bin/python3 -c 'import jinja2; print(jinja2.__version__)'` failed
 """
 
 
@@ -41,7 +42,8 @@ class LogCapsTest(unittest.TestCase):
                     "/usr/bin/python2", "perl(XML::Parser)", "/usr/bin/gperf"):
             self.assertIn(cap, caps)
         self.assertIn("meson (optional)", caps["pkgconfig(libsystemd)"])
-        self.assertIn("python module: mako", hints)
+        self.assertIn("python-mako", caps)
+        self.assertIn("python-jinja", caps)
         self.assertTrue(any(h.startswith("configure: Package requirements")
                             for h in hints))
 

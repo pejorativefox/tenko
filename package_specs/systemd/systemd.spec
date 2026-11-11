@@ -14,6 +14,14 @@ Requires: linux-pam
 # while desktop installs still get it by default.
 Recommends: systemd-hwdb = %{version}-%{release}
 BuildRequires: gperf
+BuildRequires: python-jinja
+BuildRequires: dbus-daemon
+BuildRequires: kmod
+BuildRequires: gnutls
+BuildRequires: libxkbcommon
+BuildRequires: p11-kit
+BuildRequires: polkit
+BuildRequires: python-markupsafe
 
 %description
 The systemd package contains programs for controlling the startup, running, and shutdown of the system.

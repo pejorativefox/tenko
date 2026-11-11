@@ -18,6 +18,7 @@ Requires:   libblockdev
 Requires:   libgudev
 Requires:   polkit
 BuildRequires: shadow
+BuildRequires: gobject-introspection
 
 %description
 udisks2 is a D-Bus service that exposes storage devices to desktop

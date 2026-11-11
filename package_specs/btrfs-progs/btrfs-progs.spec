@@ -7,6 +7,7 @@ Source0:    %{name}-v%{version}.tar.xz
 Prefix:     /usr
 BuildRequires: e2fsprogs
 BuildRequires: liblzo2
+BuildRequires: python-setuptools
 
 %description
 The btrfs-progs package contains administration and debugging tools for
