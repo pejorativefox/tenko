@@ -1,10 +1,11 @@
 Name:       gobject-introspection
 Version:    1.86.0
-Release:    6
+Release:    7
 Summary:    GObject API introspection tools and library
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+Requires: python-setuptools
 
 %description
 GObject Introspection describes the APIs of GObject-based libraries and
@@ -43,6 +44,9 @@ language bindings need it.
 %files gir -f %{_sourcedir}/gobject-introspection-gir.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 1.86.0-7
+- Require python-setuptools: g-ir-scanner imports distutils, which only setuptools provides on Python 3.12+.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.86.0-6
 - Replace the TODO summary/description and record the verified license
   (GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT): COPYING (issue #8).

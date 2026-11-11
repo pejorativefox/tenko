@@ -2,7 +2,7 @@
 
 Name:       python
 Version:    3.15.2
-Release:    2
+Release:    3
 Summary:    The Python programming language
 License:    PSF-2.0
 Source0:    Python-%{version}.tar.xz
@@ -15,7 +15,10 @@ Prefix:     /usr
 
 Provides: /bin/python3, /bin/python
 
-AutoReq: no
+# Generate the shared-library requirements of the interpreter and its
+# compiled modules (lib-dynload), but do not scan the pure-Python standard
+# library: shebangs in it name interpreters that are not packaged.
+%global __requires_exclude_from ^%{_libdir}/python3\\.[0-9]+/.*\\.py$
 BuildRequires: openssl
 BuildRequires: mpdecimal
 BuildRequires: bzip2
@@ -122,6 +125,12 @@ find %{buildroot}/usr/lib64/python3.15 \
 %files tkinter -f %{_sourcedir}/python-tkinter.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 3.15.2-3
+- Generate the main package's library requirements (openssl-libs,
+  mpdecimal, libffi, sqlite, expat, ...); AutoReq was off, so a minimal
+  install could lack the libraries the compiled modules link against.
+  The pure-Python standard library is excluded from scanning.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.15.2-2
 - Record the verified license (PSF-2.0): LICENSE (issue #8).
 

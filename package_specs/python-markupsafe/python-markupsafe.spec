@@ -1,11 +1,12 @@
 Name:       python-markupsafe
 Version:    3.0.4
-Release:    2
+Release:    3
 Summary:    Safely add untrusted strings to HTML/XML markup.
 License:    BSD-3-Clause
 Source0:    markupsafe-3.0.4.tar.gz
 Prefix:     /usr
 BuildRequires: python-setuptools
+Requires: python
 
 %description
 Safely add untrusted strings to HTML/XML markup.
@@ -27,6 +28,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 3.0.4-3
+- Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.0.4-2
 - Replace the legacy short licence name with the verified SPDX expression
   (BSD-3-Clause): LICENSE.txt (issue #8).

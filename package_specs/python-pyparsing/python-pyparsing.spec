@@ -1,10 +1,11 @@
 Name:       python-pyparsing
 Version:    3.3.3
-Release:    1
+Release:    2
 Summary:    Python module for creating parsers
 License:    MIT
 Source0:    pyparsing-%{version}.tar.gz
 Prefix:     /usr
+Requires: python
 
 %description
 pyparsing is a general parsing module for Python.  Flatpak's build uses it
@@ -27,6 +28,9 @@ fi
 %files -f %{_sourcedir}/python-pyparsing.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 3.3.3-2
+- Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 3.3.3-1
 - Update from 2.4.5 to 3.3.3, synced with the base set.  Flatpak 1.18.4
   requires the pyparsing module at build time.

@@ -1,10 +1,11 @@
 Name:       python-pyyaml
 Version:    6.0.3
-Release:    1
+Release:    2
 Summary:    Python YAML parser and emitter
 License:    MIT
 Prefix:     /usr
 Source0:    pyyaml-6.0.3.tar.gz
+Requires: python
 
 %description
 PyYAML is a YAML 1.1 parser and emitter for Python.  Mesa's build requires
@@ -32,6 +33,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6.0.3-2
+- Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
+
 * Sun Nov 08 2026 browneye <build@browneye.invalid> 6.0.3-1
 - Initial package: PyYAML 6.0.3, the latest stable upstream release.  Mesa's
   meson build requires the yaml module when it reads its configuration files

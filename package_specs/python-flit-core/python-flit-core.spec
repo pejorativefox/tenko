@@ -1,10 +1,11 @@
 Name:       python-flit-core
 Version:    4.2.0
-Release:    2
+Release:    3
 Summary:    Python packaging utility (core)
 License:    BSD-3-Clause AND MIT
 Source0:    flit_core-%{version}.tar.gz
 Prefix:     /usr
+Requires: python
 
 %description
 Flit is a simple way to put Python packages and modules on PyPI. 
@@ -26,6 +27,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 4.2.0-3
+- Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.2.0-2
 - Replace the legacy short licence name with the verified SPDX expression
   (BSD-3-Clause AND MIT): LICENSE (issue #8).

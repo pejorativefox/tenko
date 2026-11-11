@@ -1,11 +1,12 @@
 Name:       python-packaging
 Version:    26.3
-Release:    3
+Release:    4
 Summary:    Core utilities for Python packages
 License:    Apache-2.0 OR BSD-2-Clause
 Source0:    packaging-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: python-flit-core
+Requires: python
 
 %description
 Core utilities for Python packages
@@ -27,6 +28,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 26.3-4
+- Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 26.3-3
 - Replace the legacy short licence name with the verified SPDX expression
   (Apache-2.0 OR BSD-2-Clause): LICENSE (issue #8).

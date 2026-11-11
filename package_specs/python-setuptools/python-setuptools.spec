@@ -1,10 +1,11 @@
 Name:       python-setuptools
 Version:    84.2.1
-Release:    2
+Release:    3
 Summary:    Python setuptools build system.
 License:    MIT AND LGPL-3.0-or-later AND Apache-2.0
 Source0:    setuptools-%{version}.tar.gz
 Prefix:     /usr
+Requires: python
 
 %description
 Python setuptools build system. 
@@ -26,6 +27,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 84.2.1-3
+- Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 84.2.1-2
 - Replace the legacy short licence name with the verified SPDX expression
   (MIT AND LGPL-3.0-or-later AND Apache-2.0): LICENSE (issue #8).

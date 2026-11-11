@@ -1,11 +1,13 @@
 Name:       python-jinja
 Version:    3.1.6
-Release:    2
+Release:    3
 Summary:    Python templating language
 License:    Custom
 Source0:    jinja2-3.1.6.tar.gz
 Prefix:     /usr
 BuildRequires: python-flit-core
+Requires: python
+Requires: python-markupsafe
 
 %description
 Jinja is a modern and designer-friendly templating language for Python, modelled after Django’s templates.
@@ -27,6 +29,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 3.1.6-3
+- Require python and python-markupsafe: jinja2 imports markupsafe, and the package shipped without any runtime requirement (no Python dependency generator).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 3.1.6-2
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
 

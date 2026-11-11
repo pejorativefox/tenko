@@ -1,6 +1,6 @@
 Name:       python-pefile
 Version:    2024.8.26
-Release:    1
+Release:    2
 Summary:    Python module for reading and writing Portable Executable files
 License:    MIT
 URL:        https://github.com/erocarrera/pefile
@@ -9,6 +9,7 @@ BuildRequires: python
 BuildRequires: python-setuptools
 BuildRequires: python-wheel
 Prefix:     /usr
+Requires: python
 
 %description
 pefile is a pure-Python module for reading and writing Portable Executable
@@ -32,6 +33,9 @@ fi
 %files -f %{_sourcedir}/python-pefile.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 2024.8.26-2
+- Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 2024.8.26-1
 - Initial package: latest stable upstream release 2024.8.26.  Build-only
   dependency of fwupd-efi, which needs it to mark the UEFI binary NX.

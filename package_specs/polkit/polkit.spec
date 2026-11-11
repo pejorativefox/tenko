@@ -1,10 +1,11 @@
 Name:       polkit
 Version:    128
-Release:    3
+Release:    4
 Summary:    Authorization toolkit for unprivileged processes
 License:    LGPL-2.0-or-later
 Prefix:     /usr
 Source0:    polkit-128.tar.gz
+Requires(pre): shadow
 
 %description
 polkit is a toolkit for defining and handling authorizations. It allows
@@ -47,6 +48,9 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/polkit-gir.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 128-4
+- Add Requires(pre): shadow; the %pre scriptlet runs groupadd/useradd, which failed in a minimal root.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 128-3
 - Replace the TODO summary/description and record the verified license
   (LGPL-2.0-or-later): meson.build (issue #8).

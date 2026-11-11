@@ -1,11 +1,13 @@
 Name:       python-wheel
 Version:    0.48.0
-Release:    3
+Release:    4
 Summary:    The official binary distribution format for Python 
 License:    MIT
 Source0:    wheel-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: python-flit-core
+Requires: python
+Requires: python-packaging
 
 %description
 The official binary distribution format for Python 
@@ -26,6 +28,9 @@ fi
 %files -f %{_sourcedir}/python-wheel.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 0.48.0-4
+- Require python and python-packaging (wheel >= 0.46 depends on packaging).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.48.0-3
 - Replace the legacy short licence name with the verified SPDX expression
   (MIT): LICENSE.txt (issue #8).
