@@ -50,10 +50,9 @@ checkout's `build/` and every worktree shares them.
 ```
 
 `tenko build` runs the sync and image steps itself when they are needed,
-so the explicit calls only show what happens on a fresh host.  The LAN
-mirror is tried before the public site.  Plan for at least 10 GiB of free
-space: the mirror (~3 GiB), the two images (~2 GiB), source tarballs and
-build output.
+so the explicit calls only show what happens on a fresh host.  Plan for at
+least 10 GiB of free space: the mirror (~3 GiB), the two images (~2 GiB),
+source tarballs and build output.
 
 ## 5. Publishing credentials
 
@@ -64,11 +63,6 @@ Only needed on a host that publishes (see
   provider) in `~/.config/rclone/rclone.conf` with write access to the
   `tenko` bucket.  Check it with `rclone lsf r2_tenko:tenko/packages/6/ |
   head`.
-- **LAN mirror:** passwordless SSH to `daspork@192.168.31.9` (key-based):
-  `ssh daspork@192.168.31.9 true`.
-- **Issue tracker:** `tea login add` for <https://pjfox.xyz/git> (login
-  name `pjfox.xyz`), used for `tea issues ...` as described in
-  [AGENTS.md](../AGENTS.md).
 
 Run `DRY_RUN=1 ./tenko publish rpm some.rpm` to check a publish setup
 without uploading.

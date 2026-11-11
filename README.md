@@ -8,8 +8,7 @@ the ISO carries no packages.  The distro release is 6; package versions roll
 independently and keep their own versions.
 
 - Public repository: <https://tenko.pjfox.xyz/packages/6/>
-- LAN mirror: <http://192.168.31.9/~daspork/tenko/>
-- Issue tracker: <https://pjfox.xyz/git/daspork/tenko/issues>
+- Source and issues: <https://github.com/pejorativefox/tenko>
 
 ## Quick start
 
@@ -20,9 +19,6 @@ curl -LO https://tenko.pjfox.xyz/iso/tenko-installer.iso
 curl -LO https://tenko.pjfox.xyz/iso/tenko-installer.iso.sha256
 sha256sum -c tenko-installer.iso.sha256
 ```
-
-On the LAN the mirror carries the same files:
-`http://192.168.31.9/~daspork/tenko/iso/`.
 
 ### 2. Write it to a USB stick
 
@@ -36,7 +32,7 @@ sudo dd if=tenko-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync
 
 - The media is **UEFI-only**; legacy/CSM boot is not supported.
 - **Disable Secure Boot.**  The bootloader is unsigned, and the installer
-  refuses to run while Secure Boot is enabled (signing: issues #2 and #3).
+  refuses to run while Secure Boot is enabled.
 
 ### 4. Install
 

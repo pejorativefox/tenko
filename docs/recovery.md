@@ -1,12 +1,11 @@
 # Boot layout, recovery and rescue
 
 This runbook uses the same commands `tenko-installer` runs, but it has not
-been validated end to end yet (issue #27); treat it as a checklist.
+been validated end to end yet; treat it as a checklist.
 
 ## How Tenko boots
 
-Tenko is UEFI-only and boots with systemd-boot.  Secure Boot must be off
-(issues #2 and #3).
+Tenko is UEFI-only and boots with systemd-boot.  Secure Boot must be off.
 
 The ESP (FAT32, label `TENKOESP`, 1 GiB on a new install) is mounted at
 `/boot`, and the kernel and initramfs are flat files on it.  Loader entries
@@ -218,8 +217,8 @@ the previous boot if the system still reaches a login.
 
 ## Limits
 
-- **No encrypted installs**, so there is no LUKS unlock step (issue #21).
+- **No encrypted installs**, so there is no LUKS unlock step.
 - **No BIOS/legacy boot.**  The media and installed system are UEFI-only.
-- **Secure Boot must be off** (issues #2 and #3).
+- **Secure Boot must be off.**
 - **The ESP has no journal.**  Keep at least one known-good kernel/initramfs
   pair on it, and prune old kernels on a small reused ESP.

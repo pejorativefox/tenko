@@ -71,5 +71,5 @@ sudo tenko-suspend-report [output.tar.gz]
 The tarball contains the current and previous boot journals (filtered to PM,
 ACPI, GPU, input, logind, LightDM, XFCE and `tenko-suspend` lines),
 `suspend_stats`, wakeup sources, the Xorg log, dmesg, session/X/DPMS state,
-BIOS/EC and firmware versions and the pstore listing.  Attach it to the
-Gitea issue.  Journal excerpts can contain Wi-Fi names.
+BIOS/EC and firmware versions and the pstore listing.  Attach it to a
+GitHub issue.  Journal excerpts can contain Wi-Fi names.

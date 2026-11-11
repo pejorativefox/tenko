@@ -41,7 +41,7 @@ A build runs these steps; each is a no-op when there is nothing to do:
 1. **Mirror** (`tenko sync`): the published repository is mirrored into
    `build/cache/repo` (about 3 GiB).  Each RPM is downloaded once; later
    syncs fetch only `repomd.xml` when nothing changed and only new packages
-   when something did.  The LAN mirror is tried first, then the public site.
+   when something did.
    `OFFLINE=1` skips the sync and uses the existing mirror.
 2. **Build image** (`tenko image build [--strict]`): a root filesystem
    installed from the mirror.  `localhost/tenko/build:r6` holds `tenko-base`
@@ -69,7 +69,7 @@ shared by every worktree; `build/repo` is per checkout.  Delete
 `build/repo` to drop local builds.
 
 **Declared vs. undeclared build dependencies.**  Not every spec declares
-all of its `BuildRequires` yet (issue #58).  By default (`STRICT=0`) the
+all of its `BuildRequires` yet.  By default (`STRICT=0`) the
 builder uses the full build image, installs the declared ones that resolve
 and runs `rpmbuild --nodeps`.  `STRICT=1` builds in the `tenko-buildroot`
 image, requires every `BuildRequires` to resolve and drops `--nodeps`, so the
@@ -187,21 +187,18 @@ The distro repository is `tenko-6` (`/etc/yum.repos.d/tenko-6.repo`,
 of the distro release.
 
 `tenko publish rpm` merges new RPMs into the published metadata with
-`mergerepo_c --method nvr`, uploads them, regenerates the package index, and
-refreshes the LAN mirror.  It refuses a repeated NEVRA with different content,
-so bump `Release` when rebuilding the same version.
+`mergerepo_c --method nvr`, uploads them and regenerates the package index.
+It refuses a repeated NEVRA with different content, so bump `Release` when
+rebuilding the same version.
 
 ```sh
 PRUNE=1 ./tenko publish rpm build/wave/*.rpm   # also delete superseded RPMs
 DRY_RUN=1 ./tenko publish rpm build/wave/*.rpm # stage/merge, upload nothing
-MIRROR=0 ./tenko publish rpm ...               # public only (not for releases)
 ```
 
 - The publish commands need `rclone`, `createrepo_c`, `mergerepo_c`, `zstd`,
   `rsync` and `ssh` (all in `tenko-osdev`).  Targets are set in
   `scripts/lib/publish.sh`.
-- Everything is published twice: the public site and the LAN mirror
-  (`daspork@192.168.31.9`).  Do not publish to only one.
 
 Other publishers:
 

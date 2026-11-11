@@ -2,7 +2,7 @@
 
 Package-spec conventions: how to write a spec, and the rules for base
 membership, `/opt` bundles, `profile.d`, `/etc/skel` and `/etc`.  Agent
-workflow, publishing and LAN-mirror rules live in [`AGENTS.md`](../AGENTS.md);
+workflow and publishing rules live in [`AGENTS.md`](../AGENTS.md);
 build and publish commands live in [`build.md`](build.md).  Do not duplicate
 those here; link.
 
@@ -28,7 +28,7 @@ package_specs/<name>/
   `blfs/svn`, which rotate).  Give the local filename as the third field when
   the URL does not end in it (`.../download`, `?raw=1`).
 - Every tarball a spec unpacks needs a URL.  Bundles you generate yourself
-  (vendored Rust/Go dependencies) must be reproducible; see issue #59.
+  (vendored Rust/Go dependencies) must be reproducible.
 
 ### Header
 
