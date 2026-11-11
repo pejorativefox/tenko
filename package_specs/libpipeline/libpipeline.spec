@@ -21,13 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/pipeline.h
-/usr/lib64/libpipeline.so
-/usr/lib64/libpipeline.so.1
-/usr/lib64/pkgconfig/libpipeline.pc
-/usr/lib64/libpipeline.so.%{version}
-/usr/share/man/
+%files -f %{_sourcedir}/libpipeline.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.5.8-2

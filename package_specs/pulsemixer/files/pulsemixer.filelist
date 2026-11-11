@@ -1,0 +1,3 @@
+/usr/bin/pulsemixer
+/usr/share/doc/pulsemixer-%{version}/LICENSE
+/usr/share/doc/pulsemixer-%{version}/README.md

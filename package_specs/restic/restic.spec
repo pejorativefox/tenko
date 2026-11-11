@@ -56,15 +56,7 @@ install -Dm644 README.md %{buildroot}%{_docdir}/restic/README.md
 install -Dm644 CHANGELOG.md %{buildroot}%{_docdir}/restic/CHANGELOG.md
 install -Dm644 LICENSE %{buildroot}%{_licensedir}/restic/LICENSE
 
-%files
-%{_bindir}/restic
-%{_mandir}/man1/restic*.1*
-/usr/share/bash-completion/completions/restic
-/usr/share/zsh/site-functions/_restic
-/usr/share/fish/vendor_completions.d/restic.fish
-%{_docdir}/restic/README.md
-%{_docdir}/restic/CHANGELOG.md
-%{_licensedir}/restic/LICENSE
+%files -f %{_sourcedir}/restic.filelist
 
 %changelog
 * Tue Nov 10 2026 browneye <build@browneye.invalid> 0.19.1-1

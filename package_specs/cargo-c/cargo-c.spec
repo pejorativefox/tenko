@@ -42,11 +42,7 @@ install -m755 target/release/cargo-cbuild  %{buildroot}%{_bindir}/
 install -m755 target/release/cargo-cinstall %{buildroot}%{_bindir}/
 install -m755 target/release/cargo-ctest   %{buildroot}%{_bindir}/
 
-%files
-%{_bindir}/cargo-capi
-%{_bindir}/cargo-cbuild
-%{_bindir}/cargo-cinstall
-%{_bindir}/cargo-ctest
+%files -f %{_sourcedir}/cargo-c.filelist
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.10.26-1

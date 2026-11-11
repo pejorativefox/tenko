@@ -25,14 +25,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/ndptool
-/usr/include/ndp.h
-/usr/lib64/libndp.so
-/usr/lib64/libndp.so.0
-/usr/lib64/libndp.so.0.3.0
-/usr/lib64/pkgconfig/libndp.pc
-/usr/share/man/man8/ndptool.8.gz
+%files -f %{_sourcedir}/libndp.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.9-2

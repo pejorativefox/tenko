@@ -1,0 +1,3 @@
+%{_datadir}/edk2/ovmf/OVMF_CODE.fd
+%{_datadir}/edk2/ovmf/OVMF_VARS.fd
+%{_datadir}/edk2/ovmf/OVMF.fd

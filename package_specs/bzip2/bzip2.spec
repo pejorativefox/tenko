@@ -32,24 +32,7 @@ for i in %{buildroot}/usr/bin/{bzcat,bunzip2}; do
 done
 rm -rf %{buildroot}/usr/lib
 
-%files
-/usr/bin/bunzip2
-/usr/bin/bzcat
-/usr/bin/bzcmp
-/usr/bin/bzdiff
-/usr/bin/bzegrep
-/usr/bin/bzfgrep
-/usr/bin/bzgrep
-/usr/bin/bzip2
-/usr/bin/bzip2recover
-/usr/bin/bzless
-/usr/bin/bzmore
-/usr/lib64/libbz2.so
-/usr/lib64/libbz2.so.1.0
-/usr/lib64/libbz2.so.1
-/usr/lib64/libbz2.so.1.0.8
-/usr/include/bzlib.h
-/usr/share/man
+%files -f %{_sourcedir}/bzip2.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.8-2

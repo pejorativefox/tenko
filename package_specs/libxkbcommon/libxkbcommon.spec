@@ -5,12 +5,13 @@ Summary:    library for handling of keyboard descriptions
 License:    MIT AND MIT-open-group AND HPND AND HPND-sell-variant AND ISC AND LicenseRef-digital-equipment-corporation
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+Patch0:     libxkbcommon-1.13.2-upstream_fix-1.patch
 %description
 library for handling of keyboard descriptions
 
 %prep
 %setup -q
-patch -Np1 -i %{_sourcedir}/libxkbcommon-1.13.2-upstream_fix-1.patch
+%patch -P 0 -p1
 
 %build
 mkdir build &&

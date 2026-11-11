@@ -25,15 +25,7 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/lib64/atkmm-1.6/include/atkmmconfig.h
-/usr/lib64/atkmm-1.6/proc/m4/convert.m4
-/usr/lib64/atkmm-1.6/proc/m4/convert_atk.m4
-/usr/lib64/libatkmm-1.6.so
-/usr/lib64/libatkmm-1.6.so.1
-/usr/lib64/libatkmm-1.6.so.1.1.0
-/usr/lib64/pkgconfig/atkmm-1.6.pc
-/usr/include/atkmm-1.6/
+%files -f %{_sourcedir}/atkmm.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.28.5-2

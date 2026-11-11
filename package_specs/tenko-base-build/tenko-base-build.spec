@@ -49,8 +49,7 @@ are BuildRequires of the specs that need them, not part of this profile.
 mkdir -p %{buildroot}/usr/share/tenko
 touch %{buildroot}/usr/share/tenko/base-build
 
-%files
-/usr/share/tenko/base-build
+%files -f %{_sourcedir}/tenko-base-build.filelist
 
 %changelog
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-4

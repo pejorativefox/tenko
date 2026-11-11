@@ -43,8 +43,7 @@ Apache-2.0 license is recorded in this spec.
 rm -rf %{buildroot}
 install -D -m 0755 %{SOURCE0} %{buildroot}%{_bindir}/herdr
 
-%files
-%{_bindir}/herdr
+%files -f %{_sourcedir}/herdr.filelist
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 0.9.5

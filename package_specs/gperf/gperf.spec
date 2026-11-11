@@ -21,11 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/gperf
-/usr/share/doc/gperf-%{version}/gperf.html
-/usr/share/info/gperf.info.gz
-/usr/share/man/man1/gperf.1.gz
+%files -f %{_sourcedir}/gperf.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.3-2

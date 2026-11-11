@@ -23,13 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/ass/ass.h
-/usr/include/ass/ass_types.h
-/usr/lib64/libass.so
-/usr/lib64/libass.so.9
-/usr/lib64/libass.so.9.4.2
-/usr/lib64/pkgconfig/libass.pc
+%files -f %{_sourcedir}/libass.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.17.5-2

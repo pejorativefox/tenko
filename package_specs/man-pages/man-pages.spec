@@ -19,19 +19,7 @@ rm -v man3/crypt*
 rm -rf %{buildroot}
 make -R install DESTDIR=%{buildroot} prefix=/usr GIT=false
 
-%files
-/usr/bin/diffman-git
-/usr/bin/git-bisect-rebase
-/usr/bin/git-bisect-rebase--callback
-/usr/bin/git-bisect-rebase--continue
-/usr/bin/grepc
-/usr/bin/grepc_c
-/usr/bin/grepc_mk
-/usr/bin/mansect
-/usr/bin/mansectf
-/usr/bin/pdfman
-/usr/bin/sortman
-/usr/share/man
+%files -f %{_sourcedir}/man-pages.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 6.20-2

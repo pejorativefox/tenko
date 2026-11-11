@@ -51,11 +51,7 @@ rm %{buildroot}/opt/go/src/make.rc
 rm %{buildroot}/opt/go/src/clean.rc
 rm %{buildroot}/opt/go/src/all.rc
 
-%files
-/opt/go/*
-/etc/profile.d/go_path.sh
-%{_bindir}/go
-%{_bindir}/gofmt
+%files -f %{_sourcedir}/go-bin.filelist
 
 %changelog
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 1.27.3-2

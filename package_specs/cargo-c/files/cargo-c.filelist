@@ -1,0 +1,4 @@
+%{_bindir}/cargo-capi
+%{_bindir}/cargo-cbuild
+%{_bindir}/cargo-cinstall
+%{_bindir}/cargo-ctest

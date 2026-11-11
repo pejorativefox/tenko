@@ -87,12 +87,7 @@ for size in 16 32 48 64 128; do
         %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/firefox.png
 done
 
-%files
-%dir /opt/firefox
-/opt/firefox/*
-%{_bindir}/firefox
-%{_datadir}/applications/firefox.desktop
-%{_datadir}/icons/hicolor/*/apps/firefox.png
+%files -f %{_sourcedir}/firefox-bin.filelist
 
 %changelog
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 159.0-2

@@ -21,20 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/aclocal
-/usr/bin/aclocal-1.19
-/usr/bin/automake
-/usr/bin/automake-1.19
-/usr/share/aclocal/README
-/usr/share/aclocal-1.19/
-/usr/share/automake-1.19/
-/usr/share/doc/automake-%{version}/amhello-1.0.tar.gz
-/usr/share/info/automake-history.info.gz
-/usr/share/info/automake.info-1.gz
-/usr/share/info/automake.info-2.gz
-/usr/share/info/automake.info.gz
-/usr/share/man/
+%files -f %{_sourcedir}/automake.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.19-2

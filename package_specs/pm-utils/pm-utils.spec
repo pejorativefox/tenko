@@ -4,7 +4,7 @@ Release:    1
 Summary:    Power Management Utilities
 License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.gz
-Source1:    %{name}-%{version}-bugfixes-1.patch
+Patch0:     %{name}-%{version}-bugfixes-1.patch
 Prefix:     /usr
 
 %description
@@ -12,7 +12,7 @@ The Power Management Utilities provide simple shell command line tools to suspen
 
 %prep
 %setup -q
-patch -Np1 -i %{SOURCE1}
+%patch -P 0 -p1
 
 %build
 ./configure --prefix=/usr                          \
@@ -34,54 +34,7 @@ ln -sv pm-action.8 %{buildroot}%{_mandir}/man8/pm-suspend.8
 ln -sv pm-action.8 %{buildroot}%{_mandir}/man8/pm-hibernate.8
 ln -sv pm-action.8 %{buildroot}%{_mandir}/man8/pm-suspend-hybrid.8
 
-%files
-/usr/bin/on_ac_power
-/usr/bin/pm-is-supported
-/usr/lib/pkgconfig/pm-utils.pc
-/usr/lib/pm-utils/bin/pm-action
-/usr/lib/pm-utils/bin/pm-pmu
-/usr/lib/pm-utils/bin/pm-reset-swap
-/usr/lib/pm-utils/bin/service
-/usr/lib/pm-utils/defaults
-/usr/lib/pm-utils/functions
-/usr/lib/pm-utils/module.d/kernel
-/usr/lib/pm-utils/module.d/tuxonice
-/usr/lib/pm-utils/module.d/uswsusp
-/usr/lib/pm-utils/pm-functions
-/usr/lib/pm-utils/power.d/disable_wol
-/usr/lib/pm-utils/power.d/hal-cd-polling
-/usr/lib/pm-utils/power.d/harddrive
-/usr/lib/pm-utils/power.d/intel-audio-powersave
-/usr/lib/pm-utils/power.d/journal-commit
-/usr/lib/pm-utils/power.d/laptop-mode
-/usr/lib/pm-utils/power.d/pcie_aspm
-/usr/lib/pm-utils/power.d/readahead
-/usr/lib/pm-utils/power.d/sata_alpm
-/usr/lib/pm-utils/power.d/sched-powersave
-/usr/lib/pm-utils/power.d/wireless
-/usr/lib/pm-utils/power.d/xfs_buffer
-/usr/lib/pm-utils/sleep.d/00logging
-/usr/lib/pm-utils/sleep.d/00powersave
-/usr/lib/pm-utils/sleep.d/01grub
-/usr/lib/pm-utils/sleep.d/49bluetooth
-/usr/lib/pm-utils/sleep.d/55NetworkManager
-/usr/lib/pm-utils/sleep.d/75modules
-/usr/lib/pm-utils/sleep.d/90clock
-/usr/lib/pm-utils/sleep.d/94cpufreq
-/usr/lib/pm-utils/sleep.d/95led
-/usr/lib/pm-utils/sleep.d/98video-quirk-db-handler
-/usr/lib/pm-utils/sleep.d/99video
-/usr/sbin/pm-hibernate
-/usr/sbin/pm-powersave
-/usr/sbin/pm-suspend
-/usr/sbin/pm-suspend-hybrid
-/usr/share/doc/pm-utils-1.4.1/HOWTO.hooks
-/usr/share/doc/pm-utils-1.4.1/HOWTO.modules
-/usr/share/doc/pm-utils-1.4.1/README
-/usr/share/doc/pm-utils-1.4.1/README.debugging
-/usr/share/doc/pm-utils-1.4.1/README.distributions
-/usr/share/man/man1/*
-/usr/share/man/man8/*
+%files -f %{_sourcedir}/pm-utils.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.4.1-1

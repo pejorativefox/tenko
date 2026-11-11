@@ -1,0 +1,4 @@
+/usr/lib64/python3.15/site-packages/elftools/
+/usr/lib64/python3.15/site-packages/pyelftools-%{version}.dist-info/
+/usr/bin/readelf.py
+/usr/bin/__pycache__/

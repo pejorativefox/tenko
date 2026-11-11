@@ -49,12 +49,7 @@ REPO
 install -Dpm644 %{_sourcedir}/org.tenko.Tenko.metainfo.xml \
     %{buildroot}%{_datadir}/metainfo/org.tenko.Tenko.metainfo.xml
 
-%files
-/etc/os-release
-/usr/lib/os-release
-%config(noreplace) /etc/yum.repos.d/tenko-6.repo
-%dir %{_datadir}/metainfo
-%{_datadir}/metainfo/org.tenko.Tenko.metainfo.xml
+%files -f %{_sourcedir}/tenko-release.filelist
 
 %changelog
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-4

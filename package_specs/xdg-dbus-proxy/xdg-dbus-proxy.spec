@@ -25,8 +25,7 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/bin/xdg-dbus-proxy
+%files -f %{_sourcedir}/xdg-dbus-proxy.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.1.9-2

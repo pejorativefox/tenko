@@ -118,8 +118,7 @@ xfce-desktop-full for the complete hardware desktop.
 mkdir -p %{buildroot}/usr/share/tenko
 touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 
-%files
-/usr/share/tenko/xfce-desktop-core
+%files -f %{_sourcedir}/xfce-desktop-core.filelist
 
 %changelog
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-19

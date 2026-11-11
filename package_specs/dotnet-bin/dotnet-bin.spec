@@ -110,24 +110,7 @@ export PATH="$PATH:/opt/dotnet"
 export DOTNET_OPENSSL_VERSION_OVERRIDE=4
 EOF
 
-%files
-%dir /opt/dotnet-%{version}
-%license /opt/dotnet-%{version}/LICENSE.txt
-/opt/dotnet-%{version}/ThirdPartyNotices.txt
-/opt/dotnet-%{version}/dotnet
-/opt/dotnet-%{version}/dnx
-/opt/dotnet-%{version}/host
-/opt/dotnet-%{version}/packs
-/opt/dotnet-%{version}/sdk
-/opt/dotnet-%{version}/sdk-manifests
-/opt/dotnet-%{version}/shared
-/opt/dotnet-%{version}/templates
-/opt/dotnet
-%{_bindir}/dotnet
-%{_bindir}/dnx
-%dir %{_sysconfdir}/dotnet
-%{_sysconfdir}/dotnet/install_location
-%{_sysconfdir}/profile.d/dotnet.sh
+%files -f %{_sourcedir}/dotnet-bin.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 10.0.403-1

@@ -34,24 +34,7 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-%config(noreplace) /etc/fuse.conf
-%attr(4755,root,root) /usr/bin/fusermount3
-/usr/include/fuse3/cuse_lowlevel.h
-/usr/include/fuse3/fuse.h
-/usr/include/fuse3/fuse_common.h
-/usr/include/fuse3/fuse_log.h
-/usr/include/fuse3/fuse_lowlevel.h
-/usr/include/fuse3/fuse_opt.h
-/usr/include/fuse3/libfuse_config.h
-/usr/lib/udev/rules.d/99-fuse3.rules
-/usr/lib64/libfuse3.so
-/usr/lib64/libfuse3.so.3.18.3
-/usr/lib64/libfuse3.so.4
-/usr/lib64/pkgconfig/fuse3.pc
-/usr/sbin/mount.fuse3
-/usr/share/man/man1/fusermount3.1.gz
-/usr/share/man/man8/mount.fuse3.8.gz
+%files -f %{_sourcedir}/fuse3.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 3.18.3-2

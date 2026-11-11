@@ -1,0 +1,7 @@
+/usr/bin/rclone
+%{_mandir}/man1/rclone.1.gz
+/usr/share/bash-completion/completions/rclone
+/usr/share/zsh/site-functions/_rclone
+%{_docdir}/rclone/README.md
+%{_docdir}/rclone/MANUAL.md
+%{_licensedir}/rclone/COPYING

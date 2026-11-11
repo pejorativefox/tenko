@@ -29,8 +29,7 @@ is the one-shot profile for a laptop or workstation.
 mkdir -p %{buildroot}/usr/share/tenko
 touch %{buildroot}/usr/share/tenko/xfce-desktop-full
 
-%files
-/usr/share/tenko/xfce-desktop-full
+%files -f %{_sourcedir}/xfce-desktop-full.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-3

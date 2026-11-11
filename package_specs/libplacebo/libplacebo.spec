@@ -57,48 +57,7 @@ popd
 rm -rf %{buildroot}
 DESTDIR=%{buildroot} ninja -C build install
 
-%files
-%dir /usr/include/libplacebo
-/usr/include/libplacebo/cache.h
-/usr/include/libplacebo/colorspace.h
-/usr/include/libplacebo/common.h
-/usr/include/libplacebo/compositor.h
-/usr/include/libplacebo/config.h
-/usr/include/libplacebo/d3d11.h
-/usr/include/libplacebo/dispatch.h
-/usr/include/libplacebo/dither.h
-/usr/include/libplacebo/dummy.h
-/usr/include/libplacebo/filters.h
-/usr/include/libplacebo/gamut_mapping.h
-/usr/include/libplacebo/gpu.h
-/usr/include/libplacebo/log.h
-/usr/include/libplacebo/opengl.h
-/usr/include/libplacebo/options.h
-/usr/include/libplacebo/renderer.h
-%dir /usr/include/libplacebo/shaders
-/usr/include/libplacebo/shaders/colorspace.h
-/usr/include/libplacebo/shaders/custom.h
-/usr/include/libplacebo/shaders/deinterlacing.h
-/usr/include/libplacebo/shaders/dithering.h
-/usr/include/libplacebo/shaders/film_grain.h
-/usr/include/libplacebo/shaders/icc.h
-/usr/include/libplacebo/shaders/lut.h
-/usr/include/libplacebo/shaders/sampling.h
-/usr/include/libplacebo/shaders.h
-/usr/include/libplacebo/swapchain.h
-/usr/include/libplacebo/tone_mapping.h
-%dir /usr/include/libplacebo/utils
-/usr/include/libplacebo/utils/dav1d.h
-/usr/include/libplacebo/utils/dav1d_internal.h
-/usr/include/libplacebo/utils/dolbyvision.h
-/usr/include/libplacebo/utils/frame_queue.h
-/usr/include/libplacebo/utils/libav.h
-/usr/include/libplacebo/utils/libav_internal.h
-/usr/include/libplacebo/utils/upload.h
-/usr/include/libplacebo/vulkan.h
-/usr/lib64/libplacebo.so
-/usr/lib64/libplacebo.so.387
-/usr/lib64/pkgconfig/libplacebo.pc
+%files -f %{_sourcedir}/libplacebo.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 7.387.0-1

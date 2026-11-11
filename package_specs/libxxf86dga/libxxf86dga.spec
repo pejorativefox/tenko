@@ -21,15 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/extensions/Xxf86dga.h
-/usr/include/X11/extensions/xf86dga1.h
-/usr/lib64/libXxf86dga.a
-/usr/lib64/libXxf86dga.so
-/usr/lib64/libXxf86dga.so.1
-/usr/lib64/libXxf86dga.so.1.0.0
-/usr/lib64/pkgconfig/xxf86dga.pc
-/usr/share/man/
+%files -f %{_sourcedir}/libxxf86dga.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.7-2

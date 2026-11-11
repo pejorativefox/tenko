@@ -21,15 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/xcb/xcb_bitops.h
-/usr/include/xcb/xcb_image.h
-/usr/include/xcb/xcb_pixel.h
-/usr/lib64/libxcb-image.a
-/usr/lib64/libxcb-image.so
-/usr/lib64/libxcb-image.so.0
-/usr/lib64/libxcb-image.so.0.0.0
-/usr/lib64/pkgconfig/xcb-image.pc
+%files -f %{_sourcedir}/xcb-util-image.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.4.1-4

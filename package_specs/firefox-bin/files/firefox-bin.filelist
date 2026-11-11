@@ -1,0 +1,5 @@
+%dir /opt/firefox
+/opt/firefox/*
+%{_bindir}/firefox
+%{_datadir}/applications/firefox.desktop
+%{_datadir}/icons/hicolor/*/apps/firefox.png

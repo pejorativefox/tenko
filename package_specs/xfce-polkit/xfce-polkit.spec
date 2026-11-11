@@ -31,10 +31,7 @@ system connections, and so on) fails immediately.
 rm -rf %{buildroot}
 %make_install
 
-%files
-%dir /etc/xdg/autostart
-/etc/xdg/autostart/xfce-polkit.desktop
-/usr/libexec/xfce-polkit
+%files -f %{_sourcedir}/xfce-polkit.filelist
 
 %changelog
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 0.3-1

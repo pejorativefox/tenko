@@ -32,46 +32,7 @@ ln -sf usr/lib  %{buildroot}/lib
 ln -sf usr/lib64 %{buildroot}/lib64
 ln -sf usr/sbin %{buildroot}/sbin
 
-%files
-/bin
-/lib
-/lib64
-/sbin
-/etc
-/usr/bin
-/usr/lib
-/usr/lib64
-/usr/sbin
-/usr/include
-/usr/libexec
-/usr/share
-/usr/src
-/usr/local/bin
-/usr/local/etc
-/usr/local/games
-/usr/local/include
-/usr/local/lib
-/usr/local/man
-/usr/local/sbin
-/usr/local/share
-/usr/local/src
-/var/cache
-/var/log
-/var/mail
-/var/local
-/var/opt
-/var/spool
-/var/tmp
-/var/lib
-/run
-/tmp
-/root
-/boot
-/home
-/mnt
-/opt
-/srv
-/media
+%files -f %{_sourcedir}/tenko-basefs.filelist
 
 %changelog
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 1.0-4

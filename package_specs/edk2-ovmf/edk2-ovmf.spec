@@ -67,10 +67,7 @@ install -m 0644 Build/OvmfX64/RELEASE_GCC/FV/OVMF_CODE.fd %{buildroot}%{_datadir
 install -m 0644 Build/OvmfX64/RELEASE_GCC/FV/OVMF_VARS.fd %{buildroot}%{_datadir}/edk2/ovmf/
 install -m 0644 Build/OvmfX64/RELEASE_GCC/FV/OVMF.fd      %{buildroot}%{_datadir}/edk2/ovmf/
 
-%files
-%{_datadir}/edk2/ovmf/OVMF_CODE.fd
-%{_datadir}/edk2/ovmf/OVMF_VARS.fd
-%{_datadir}/edk2/ovmf/OVMF.fd
+%files -f %{_sourcedir}/edk2-ovmf.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 202608-2

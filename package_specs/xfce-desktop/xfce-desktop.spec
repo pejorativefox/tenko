@@ -163,8 +163,7 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/tenko
 touch %{buildroot}/usr/share/tenko/xfce-desktop
 
-%files
-/usr/share/tenko/xfce-desktop
+%files -f %{_sourcedir}/xfce-desktop.filelist
 
 %post
 # The base system boots to multi-user.target.  A desktop profile should come

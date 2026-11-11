@@ -94,18 +94,7 @@ install -vdm755 %{buildroot}%{_docdir}/tenko-installer
 install -vm644 %{_sourcedir}/README.tenko-installer \
     %{buildroot}%{_docdir}/tenko-installer/README
 
-%files
-%dir /usr/lib/tenko-installer
-/usr/lib/tenko-installer/*.py
-%{_bindir}/tenko-installer
-%{_unitdir}/tenko-installer.service
-/usr/lib/systemd/system-preset/45-tenko-live.preset
-/usr/lib/dracut/dracut.conf.d/20-tenko-live.conf
-%dir /usr/lib/dracut/modules.d/95tenko-ventoy
-/usr/lib/dracut/modules.d/95tenko-ventoy/module-setup.sh
-/usr/lib/dracut/modules.d/95tenko-ventoy/tenko-ventoy-iso.sh
-/usr/lib/dracut/modules.d/95tenko-ventoy/tenko-ventoy.rules
-%{_docdir}/tenko-installer/README
+%files -f %{_sourcedir}/tenko-installer.filelist
 
 %changelog
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-16

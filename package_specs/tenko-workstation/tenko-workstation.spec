@@ -36,8 +36,7 @@ exception to the pinned 26.9.0 version (D17).
 mkdir -p %{buildroot}/usr/share/tenko
 touch %{buildroot}/usr/share/tenko/workstation
 
-%files
-/usr/share/tenko/workstation
+%files -f %{_sourcedir}/tenko-workstation.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6-1

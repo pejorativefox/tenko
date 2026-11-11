@@ -20,27 +20,7 @@ rm -rf %{buildroot}
 make DESTDIR=%{buildroot} PREFIX=/usr SHARED=yes LIBDIR=%{_libdir} \
     install install-lib
 
-%files
-%dir /usr/include/pci
-/usr/include/pci/config.h
-/usr/include/pci/header.h
-/usr/include/pci/pci.h
-/usr/include/pci/types.h
-/usr/lib64/libpci.so
-/usr/lib64/libpci.so.3
-/usr/lib64/libpci.so.3.15.0
-/usr/lib64/pkgconfig/libpci.pc
-/usr/bin/lspci
-/usr/sbin/pcilmr
-/usr/sbin/setpci
-/usr/sbin/update-pciids
-/usr/share/man/man5/pci.ids.5.gz
-/usr/share/man/man7/pcilib.7.gz
-/usr/share/man/man8/lspci.8.gz
-/usr/share/man/man8/pcilmr.8.gz
-/usr/share/man/man8/setpci.8.gz
-/usr/share/man/man8/update-pciids.8.gz
-/usr/share/pci.ids.gz
+%files -f %{_sourcedir}/pciutils.filelist
 
 %changelog
 * Wed Nov 11 2026 browneye <build@browneye.invalid> 3.15.0-3

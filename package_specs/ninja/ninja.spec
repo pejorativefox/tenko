@@ -32,10 +32,7 @@ install -vm755 ninja %{buildroot}/usr/bin/
 install -vDm644 misc/bash-completion %{buildroot}/usr/share/bash-completion/completions/ninja
 install -vDm644 misc/zsh-completion  %{buildroot}/usr/share/zsh/site-functions/_ninja
 
-%files
-/usr/bin/ninja
-/usr/share/bash-completion/completions/ninja
-/usr/share/zsh/site-functions/_ninja
+%files -f %{_sourcedir}/ninja.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.13.2-2

@@ -29,9 +29,7 @@ as the version-policy exception.
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/bin/bwm-ng
-/usr/share/man/man1/bwm-ng.1.gz
+%files -f %{_sourcedir}/bwm-ng.filelist
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 0.6.3-1

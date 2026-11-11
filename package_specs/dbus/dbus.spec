@@ -43,50 +43,21 @@ Summary:        D-BUS message bus
 %description daemon
 The DBUS daemon
 
-%files daemon
-/etc/dbus-1/session.conf
-/etc/dbus-1/system.conf
-/usr/bin/dbus-cleanup-sockets
-/usr/bin/dbus-daemon
-/usr/bin/dbus-monitor
-/usr/bin/dbus-run-session
-/usr/bin/dbus-send
-/usr/bin/dbus-test-tool
-/usr/bin/dbus-update-activation-environment
-/usr/bin/dbus-uuidgen
-/usr/include/dbus-1.0/*
-/usr/lib/systemd/
-/usr/lib/sysusers.d/
-/usr/lib/tmpfiles.d/
-/usr/lib64/cmake/DBus1/DBus1Config.cmake
-/usr/lib64/cmake/DBus1/DBus1ConfigVersion.cmake
-/usr/lib64/dbus-1.0/include/dbus/dbus-arch-deps.h
-/usr/lib64/pkgconfig/dbus-1.pc
-/usr/libexec/dbus-daemon-launch-helper
-/usr/share/dbus-1/session.conf
-/usr/share/dbus-1/system.conf
-/usr/share/doc/dbus/
-/usr/share/xml/dbus-1/busconfig.dtd
-/usr/share/xml/dbus-1/introspect.dtd
-/usr/share/xml/dbus-1/catalog.xml
+%files daemon -f %{_sourcedir}/dbus-daemon.filelist
 
 %package x11
 Summary:  x11 addons for D-BUS
 %description x11
 D-BUS contains some tools that require Xlib to be installed
 
-%files x11
-/usr/bin/dbus-launch
+%files x11 -f %{_sourcedir}/dbus-x11.filelist
 
 %package libs
 Summary: D-BUS libraries
 %description libs
 This package contains libraries for accessing D-BUS.
 
-%files libs
-/usr/lib64/libdbus-1.so
-/usr/lib64/libdbus-1.so.3
-/usr/lib64/libdbus-1.so.3.38.3
+%files libs -f %{_sourcedir}/dbus-libs.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.16.2-2

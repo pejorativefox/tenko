@@ -1,0 +1,2 @@
+/boot/System.map-%{version}
+/boot/config-%{version}

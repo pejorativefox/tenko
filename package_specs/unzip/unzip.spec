@@ -17,8 +17,8 @@ non-MSDOS functionality.
 
 %prep
 %setup -q -n unzip60
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 %build
 # The upstream sources are K&R C and declare gmtime()/localtime() with an

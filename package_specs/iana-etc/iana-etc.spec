@@ -19,9 +19,7 @@ rm -rf %{buildroot}
 mkdir -pv %{buildroot}/etc
 cp services protocols %{buildroot}/etc
 
-%files
-/etc/protocols
-/etc/services
+%files -f %{_sourcedir}/iana-etc.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 20261015-2

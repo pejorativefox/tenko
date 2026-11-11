@@ -29,12 +29,7 @@ pushd build
 make DESTDIR=%{buildroot} install
 popd
 
-%files
-/usr/include/libptytty.h
-/usr/lib64/libptytty.so
-/usr/lib64/libptytty.so.0
-/usr/lib64/pkgconfig/libptytty.pc
-/usr/share/man/man3/libptytty.3.gz
+%files -f %{_sourcedir}/libptytty.filelist
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.0-1

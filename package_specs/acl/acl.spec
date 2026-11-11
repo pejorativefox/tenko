@@ -23,19 +23,7 @@ define more fine-grained discretionary access rights for files and directories.
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/bin/chacl
-/usr/bin/getfacl
-/usr/bin/setfacl
-/usr/include/acl/libacl.h
-/usr/include/sys/acl.h
-/usr/lib64/libacl.so
-/usr/lib64/libacl.so.1
-/usr/lib64/libacl.so.1.2.2400
-/usr/lib64/pkgconfig/libacl.pc
-/usr/share/doc/acl-%{version}/
-/usr/share/locale/
-/usr/share/man/
+%files -f %{_sourcedir}/acl.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.4.0-2

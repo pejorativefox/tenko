@@ -25,10 +25,7 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/bin/bwrap
-/usr/share/bash-completion/completions/bwrap
-/usr/share/zsh/site-functions/_bwrap
+%files -f %{_sourcedir}/bubblewrap.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.13.1-2

@@ -20,14 +20,7 @@ popt command line option parsing library.
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/include/popt.h
-/usr/lib64/libpopt.so
-/usr/lib64/libpopt.so.0
-/usr/lib64/libpopt.so.0.0.2
-/usr/lib64/pkgconfig/popt.pc
-/usr/share/locale/
-/usr/share/man/man3/popt.3.gz
+%files -f %{_sourcedir}/popt.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.19-2

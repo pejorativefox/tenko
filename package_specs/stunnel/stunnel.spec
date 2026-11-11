@@ -29,39 +29,7 @@ cp %{SOURCE1} %{buildroot}/etc/finit.d/available/stunnel.conf
 cp %{SOURCE2} %{buildroot}/etc/service.d/
 
 
-%files
-/etc/finit.d/available/stunnel.conf
-/etc/service.d/stunnel.service
-/etc/stunnel/stunnel.conf-sample
-/usr/bin/stunnel
-/usr/bin/stunnel3
-/usr/lib64/stunnel/libstunnel.so
-/usr/share/doc/stunnel/AUTHORS.md
-/usr/share/doc/stunnel/BUGS.md
-/usr/share/doc/stunnel/COPYING.md
-/usr/share/doc/stunnel/COPYRIGHT.md
-/usr/share/doc/stunnel/CREDITS.md
-/usr/share/doc/stunnel/INSTALL.FIPS.md
-/usr/share/doc/stunnel/INSTALL.W32.md
-/usr/share/doc/stunnel/INSTALL.WCE.md
-/usr/share/doc/stunnel/NEWS.md
-/usr/share/doc/stunnel/PORTS.md
-/usr/share/doc/stunnel/README.md
-/usr/share/doc/stunnel/TODO.md
-/usr/share/doc/stunnel/examples/ca.html
-/usr/share/doc/stunnel/examples/ca.pl
-/usr/share/doc/stunnel/examples/importCA.html
-/usr/share/doc/stunnel/examples/importCA.sh
-/usr/share/doc/stunnel/examples/script.sh
-/usr/share/doc/stunnel/examples/stunnel.init
-/usr/share/doc/stunnel/examples/stunnel.logrotate
-/usr/share/doc/stunnel/examples/stunnel.rh.init
-/usr/share/doc/stunnel/examples/stunnel.service
-/usr/share/doc/stunnel/examples/stunnel.spec
-/usr/share/doc/stunnel/stunnel.html
-/usr/share/doc/stunnel/stunnel.pl.html
-/usr/share/man/man8/stunnel.8.gz
-/usr/share/man/man8/stunnel.pl.8.gz
+%files -f %{_sourcedir}/stunnel.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 5.82-2

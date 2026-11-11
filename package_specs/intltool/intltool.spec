@@ -21,15 +21,7 @@ sed -i 's:\\\${:\\\$\\{:' intltool-update.in
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/bin/intltool-extract
-/usr/bin/intltool-merge
-/usr/bin/intltool-prepare
-/usr/bin/intltool-update
-/usr/bin/intltoolize
-/usr/share/aclocal/intltool.m4
-/usr/share/intltool/Makefile.in.in
-/usr/share/man/*
+%files -f %{_sourcedir}/intltool.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.51.0-2

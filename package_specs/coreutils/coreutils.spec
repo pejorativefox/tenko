@@ -4,6 +4,7 @@ Release:    2
 Summary:    GNU operating system tools
 License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
+Patch0:     coreutils-9.12-i18n-1.patch
 Prefix:     /usr
 
 %description
@@ -18,7 +19,7 @@ Translations for coreutils.
 
 %prep
 %setup -q
-patch -Np1 -i %{_sourcedir}/coreutils-9.12-i18n-1.patch
+%patch -P 0 -p1
 # The i18n patch touches tests/local.mk.  The tarball's Makefile.in was
 # generated with automake 1.18; refreshing its timestamp avoids an
 # unnecessary automake run (the patched file only feeds the test harness).

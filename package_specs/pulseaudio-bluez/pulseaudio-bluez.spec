@@ -59,14 +59,7 @@ for module in module-bluetooth-discover module-bluetooth-policy \
 done
 rm -rf %{buildroot}/stage
 
-%files
-%dir %{_sysconfdir}/pulse/default.pa.d
-%config(noreplace) %{_sysconfdir}/pulse/default.pa.d/50-bluez.pa
-%{_libdir}/pulseaudio/modules/libbluez5-util.so
-%{_libdir}/pulseaudio/modules/module-bluetooth-discover.so
-%{_libdir}/pulseaudio/modules/module-bluetooth-policy.so
-%{_libdir}/pulseaudio/modules/module-bluez5-discover.so
-%{_libdir}/pulseaudio/modules/module-bluez5-device.so
+%files -f %{_sourcedir}/pulseaudio-bluez.filelist
 
 %changelog
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 17.0-2

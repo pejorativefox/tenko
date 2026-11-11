@@ -23,20 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/gmp.h
-/usr/include/gmpxx.h
-/usr/lib64/libgmp.so
-/usr/lib64/libgmp.so.10
-/usr/lib64/libgmp.so.10.5.0
-/usr/lib64/libgmpxx.so
-/usr/lib64/libgmpxx.so.4
-/usr/lib64/libgmpxx.so.4.7.0
-/usr/lib64/pkgconfig/gmp.pc
-/usr/lib64/pkgconfig/gmpxx.pc
-/usr/share/info/gmp.info-1.gz
-/usr/share/info/gmp.info-2.gz
-/usr/share/info/gmp.info.gz
+%files -f %{_sourcedir}/gmp.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 6.3.0-2

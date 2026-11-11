@@ -29,17 +29,7 @@ rm -f %{buildroot}/usr/bin/{nis,yp}domainname
 rm -f %{buildroot}/usr/bin/{hostname,dnsdomainname,domainname,ifconfig}
 rm -rf %{buildroot}/usr/share/man
 
-%files
-/usr/bin/arp
-/usr/bin/ipmaddr
-/usr/bin/iptunnel
-/usr/bin/mii-tool
-/usr/bin/nameif
-/usr/bin/netstat
-/usr/bin/plipconfig
-/usr/bin/rarp
-/usr/bin/route
-/usr/bin/slattach
+%files -f %{_sourcedir}/net-tools.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.10-2

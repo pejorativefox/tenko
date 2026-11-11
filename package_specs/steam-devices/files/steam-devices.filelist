@@ -1,0 +1,3 @@
+%license LICENSE
+%{_udevrulesdir}/60-steam-input.rules
+%{_udevrulesdir}/60-steam-vr.rules

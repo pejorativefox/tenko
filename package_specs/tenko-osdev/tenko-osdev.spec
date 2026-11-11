@@ -68,8 +68,7 @@ to an existing system does not move the RPM database.
 mkdir -p %{buildroot}/usr/share/tenko
 touch %{buildroot}/usr/share/tenko/osdev
 
-%files
-/usr/share/tenko/osdev
+%files -f %{_sourcedir}/tenko-osdev.filelist
 
 %changelog
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-4

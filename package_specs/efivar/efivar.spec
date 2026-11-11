@@ -12,7 +12,7 @@ Tools and libraries to work with EFI variables
 
 %prep
 %setup -q
-%patch 0 -p1
+%patch -P 0 -p1
 
 %build
 %make_build ENABLE_DOCS=0 ERRORS=

@@ -1,0 +1,12 @@
+/usr/bin/chacl
+/usr/bin/getfacl
+/usr/bin/setfacl
+/usr/include/acl/libacl.h
+/usr/include/sys/acl.h
+/usr/lib64/libacl.so
+/usr/lib64/libacl.so.1
+/usr/lib64/libacl.so.1.2.2400
+/usr/lib64/pkgconfig/libacl.pc
+/usr/share/doc/acl-%{version}/
+/usr/share/locale/
+/usr/share/man/

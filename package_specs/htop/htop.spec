@@ -36,12 +36,7 @@ the version-policy exception.
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/bin/htop
-/usr/share/applications/htop.desktop
-/usr/share/man/man1/htop.1.gz
-/usr/share/pixmaps/htop.png
-/usr/share/icons/hicolor/scalable/apps/htop.svg
+%files -f %{_sourcedir}/htop.filelist
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 3.5.3-1

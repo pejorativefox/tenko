@@ -47,10 +47,7 @@ if [ -x /usr/bin/udevadm ]; then
         --sysname-match=uinput >/dev/null 2>&1 || :
 fi
 
-%files
-%license LICENSE
-%{_udevrulesdir}/60-steam-input.rules
-%{_udevrulesdir}/60-steam-vr.rules
+%files -f %{_sourcedir}/steam-devices.filelist
 
 %changelog
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 20260625-1

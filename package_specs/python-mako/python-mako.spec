@@ -27,9 +27,7 @@ if [ -d %{buildroot}/usr/lib/python3.15 ]; then
   mv %{buildroot}/usr/lib/python3.15 %{buildroot}/usr/lib64/
 fi
 
-%files
-/usr/bin/mako-render
-/usr/lib64/python3.15/site-packages/
+%files -f %{_sourcedir}/python-mako.filelist
 
 %changelog
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 1.4.3-3

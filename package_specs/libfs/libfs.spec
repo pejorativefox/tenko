@@ -22,14 +22,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/fonts/FSlib.h
-/usr/lib64/libFS.a
-/usr/lib64/libFS.so
-/usr/lib64/libFS.so.6
-/usr/lib64/libFS.so.6.0.0
-/usr/lib64/pkgconfig/libfs.pc
-/usr/share/doc/libFS/FSlib.txt
+%files -f %{_sourcedir}/libfs.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.10-2

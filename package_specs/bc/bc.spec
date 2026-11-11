@@ -27,12 +27,7 @@ install -Dm755 bin/dc %{buildroot}%{_bindir}/dc
 install -Dm644 manuals/bc.1 %{buildroot}%{_mandir}/man1/bc.1
 install -Dm644 manuals/dc.1 %{buildroot}%{_mandir}/man1/dc.1
 
-%files
-/usr/bin/bc
-/usr/bin/dc
-/usr/share/man/man1/bc.1.gz
-/usr/share/man/man1/dc.1.gz
-/usr/share/locale/
+%files -f %{_sourcedir}/bc.filelist
 
 
 %changelog

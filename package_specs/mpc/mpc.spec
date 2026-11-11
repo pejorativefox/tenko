@@ -23,13 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/mpc.h
-/usr/lib64/libmpc.so
-/usr/lib64/libmpc.so.3
-/usr/lib64/libmpc.so.3.4.1
-/usr/lib64/pkgconfig/mpc.pc
-/usr/share/info/mpc.info.gz
+%files -f %{_sourcedir}/mpc.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.4.1-2

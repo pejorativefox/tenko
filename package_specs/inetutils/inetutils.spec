@@ -31,19 +31,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/talk
-/usr/bin/dnsdomainname
-/usr/bin/ftp
-/usr/bin/hostname
-/usr/bin/ifconfig
-/usr/bin/ping
-/usr/bin/ping6
-/usr/bin/telnet
-/usr/bin/tftp
-/usr/bin/traceroute
-/usr/share/info/inetutils.info.gz
-/usr/share/man/
+%files -f %{_sourcedir}/inetutils.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.8-2

@@ -18,8 +18,7 @@ A terminal based graphical activity monitor inspired by gtop and vtop.
 rm -rf %{buildroot}
 install -Dm755 gotop %{buildroot}%{_bindir}/gotop
 
-%files
-%{_bindir}/gotop
+%files -f %{_sourcedir}/gotop.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.2.0-1

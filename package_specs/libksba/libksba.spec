@@ -21,14 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -rf %{buildroot}/usr/share/info/dir
 
-%files
-/usr/include/ksba.h
-/usr/lib64/libksba.so
-/usr/lib64/libksba.so.8
-/usr/lib64/libksba.so.8.16.1
-/usr/lib64/pkgconfig/ksba.pc
-/usr/share/aclocal/ksba.m4
-/usr/share/info/ksba.info.gz
+%files -f %{_sourcedir}/libksba.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.8.1-2

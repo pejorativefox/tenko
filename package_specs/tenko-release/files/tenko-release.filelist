@@ -1,0 +1,5 @@
+/etc/os-release
+/usr/lib/os-release
+%config(noreplace) /etc/yum.repos.d/tenko-6.repo
+%dir %{_datadir}/metainfo
+%{_datadir}/metainfo/org.tenko.Tenko.metainfo.xml

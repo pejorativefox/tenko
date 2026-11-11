@@ -21,8 +21,7 @@ if [ -d %{buildroot}/usr/lib/python3.15 ]; then
   mv %{buildroot}/usr/lib/python3.15 %{buildroot}/usr/lib64/
 fi
 
-%files
-/usr/lib64/python3.15/site-packages/
+%files -f %{_sourcedir}/python-setuptools.filelist
 
 %changelog
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 84.2.1-4

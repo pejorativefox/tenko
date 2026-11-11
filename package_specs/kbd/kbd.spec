@@ -4,7 +4,7 @@ Release:    3
 Summary:    Utilities for managing Linux console
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
-Patch:      kbd-2.10.0-backspace-1.patch
+Patch0:      kbd-2.10.0-backspace-1.patch
 Prefix:     /usr
 
 %description
@@ -19,7 +19,7 @@ Translations for kbd.
 
 %prep
 %setup -q 
-patch -Np1 -i %{_sourcedir}/kbd-2.10.0-backspace-1.patch
+%patch -P 0 -p1
 
 %build
 sed -i 's/\(RESIZECONS_PROGS=\)yes/\1no/g' configure

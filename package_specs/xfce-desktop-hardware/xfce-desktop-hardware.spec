@@ -39,8 +39,7 @@ and can be added to a xfce-desktop-core install with
 mkdir -p %{buildroot}/usr/share/tenko
 touch %{buildroot}/usr/share/tenko/xfce-desktop-hardware
 
-%files
-/usr/share/tenko/xfce-desktop-hardware
+%files -f %{_sourcedir}/xfce-desktop-hardware.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-3

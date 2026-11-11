@@ -22,11 +22,7 @@ sed -i '/install.*libaio.a/s/^/#/' src/Makefile
 rm -rf %{buildroot}
 %make_install prefix=%{_prefix} libdir=%{_libdir}
 
-%files
-/usr/include/libaio.h
-/usr/lib64/libaio.so
-/usr/lib64/libaio.so.1
-/usr/lib64/libaio.so.1.0.2
+%files -f %{_sourcedir}/libaio.filelist
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.3.113-1

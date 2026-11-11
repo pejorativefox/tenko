@@ -1,0 +1,3 @@
+%dir /etc/xdg/autostart
+/etc/xdg/autostart/xfce-polkit.desktop
+/usr/libexec/xfce-polkit

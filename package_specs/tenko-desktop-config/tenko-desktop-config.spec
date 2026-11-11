@@ -175,34 +175,7 @@ cat > "$xfconfdir/xfce4-panel.xml" <<'EOF'
 </channel>
 EOF
 
-%files
-%dir /var/lib/xkb
-%{_bindir}/tenko-help
-%dir %{_datadir}/applications
-%{_datadir}/applications/tenko-help.desktop
-%dir %{_datadir}/help
-%dir %{_datadir}/help/tenko
-%{_datadir}/help/tenko/index.html
-%dir %{_datadir}/help/C
-%dir %{_datadir}/help/C/tenko
-%{_datadir}/help/C/tenko/index.html
-%dir %{_sysconfdir}/xdg
-%config(noreplace) %{_sysconfdir}/xdg/mimeapps.list
-%dir %{_sysconfdir}/xdg/autostart
-%config(noreplace) %{_sysconfdir}/xdg/autostart/xfce-graphical-session.desktop
-/usr/lib/systemd/user/xfce-session.target
-/usr/lib/systemd/user/xfce-session-watch.service
-%dir /usr/lib/systemd/user/xdg-desktop-portal-gtk.service.d
-/usr/lib/systemd/user/xdg-desktop-portal-gtk.service.d/10-tenko-x11.conf
-%config /etc/skel/.xinitrc
-%dir %{_sysconfdir}/skel/.config
-%dir %{_sysconfdir}/skel/.config/xfce4
-%dir %{_sysconfdir}/skel/.config/xfce4/xfconf
-%dir %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml
-%config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
-%config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
-%config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-terminal.xml
-%config(noreplace) %{_sysconfdir}/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+%files -f %{_sourcedir}/tenko-desktop-config.filelist
 
 %changelog
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 6-8

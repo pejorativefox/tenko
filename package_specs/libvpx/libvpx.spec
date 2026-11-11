@@ -35,25 +35,7 @@ pushd libvpx-build
 popd
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/vpxdec
-/usr/bin/vpxenc
-/usr/include/vpx/vp8.h
-/usr/include/vpx/vp8cx.h
-/usr/include/vpx/vp8dx.h
-/usr/include/vpx/vpx_codec.h
-/usr/include/vpx/vpx_decoder.h
-/usr/include/vpx/vpx_encoder.h
-/usr/include/vpx/vpx_ext_ratectrl.h
-/usr/include/vpx/vpx_frame_buffer.h
-/usr/include/vpx/vpx_image.h
-/usr/include/vpx/vpx_integer.h
-/usr/include/vpx/vpx_tpl.h
-/usr/lib64/libvpx.so
-/usr/lib64/libvpx.so.12
-/usr/lib64/libvpx.so.12.1
-/usr/lib64/libvpx.so.12.1.0
-/usr/lib64/pkgconfig/vpx.pc
+%files -f %{_sourcedir}/libvpx.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.17.0-2

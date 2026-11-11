@@ -46,12 +46,7 @@ if command -v systemctl >/dev/null 2>&1; then
         >/dev/null 2>&1 || true
 fi
 
-%files
-/usr/libexec/tenko-firstboot-root-password
-/usr/lib/systemd/system/tenko-firstboot-root-password.service
-/usr/lib/systemd/system-preset/90-tenko-firstboot.preset
-/usr/share/doc/tenko-firstboot/README
-%dir /var/lib/tenko
+%files -f %{_sourcedir}/tenko-firstboot.filelist
 
 %changelog
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 6-3

@@ -20,11 +20,7 @@ imlib2 is a general image loading and rendering library
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/share/
-/usr/lib64/
-/usr/include/
-/usr/bin/
+%files -f %{_sourcedir}/imlib2.filelist
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.12.7-1

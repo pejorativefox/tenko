@@ -21,15 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/mpf2mpfr.h
-/usr/include/mpfr.h
-/usr/lib64/libmpfr.so
-/usr/lib64/libmpfr.so.6
-/usr/lib64/libmpfr.so.6.2.2
-/usr/lib64/pkgconfig/mpfr.pc
-/usr/share/doc/mpfr-%{version}/
-/usr/share/info/mpfr.info.gz
+%files -f %{_sourcedir}/mpfr.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.2.2-2

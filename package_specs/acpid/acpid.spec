@@ -32,22 +32,7 @@ cp %{SOURCE3} %{buildroot}/etc/acpi/events
 mkdir -pv %{buildroot}/etc/finit.d/available
 cp %{SOURCE4} %{buildroot}/etc/finit.d/available/
 
-%files
-/etc/acpi/events/brightnessdown
-/etc/acpi/events/brightnessup
-/etc/acpi/events/lidclose
-/etc/finit.d/available/acpid.conf
-/usr/bin/acpi_listen
-/usr/bin/acpid
-/usr/bin/kacpimon
-/usr/share/doc/acpid/COPYING
-/usr/share/doc/acpid/Changelog
-/usr/share/doc/acpid/README
-/usr/share/doc/acpid/TESTPLAN
-/usr/share/doc/acpid/TODO
-/usr/share/man/man8/acpi_listen.8.gz
-/usr/share/man/man8/acpid.8.gz
-/usr/share/man/man8/kacpimon.8.gz
+%files -f %{_sourcedir}/acpid.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.0.34-2

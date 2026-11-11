@@ -45,13 +45,7 @@ for b in node npm npx corepack; do
     fi
 done
 
-%files
-%dir /opt
-/opt/node-v%{version}-linux-x64/
-/opt/node
-/usr/bin/node
-/usr/bin/npm
-/usr/bin/npx
+%files -f %{_sourcedir}/nodejs.filelist
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 26.13.0-2

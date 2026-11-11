@@ -4,6 +4,8 @@ Release:    5
 Summary:    GNU C Library
 License:    LGPL-2.1-or-later AND GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
+Patch0:     glibc-fhs-1.patch
+Patch1:     glibc-2.44-upstream_fixes-3.patch
 Prefix:     /usr
 
 Provides: rtld(GNU_HASH)
@@ -68,8 +70,8 @@ archive and everything tenko-base depends on stays installed).
 export CFLAGS="-O2 -g"
 export CXXFLAGS="-O2 -g"
 export LDFLAGS=""
-patch -Np1 -i %{_sourcedir}/glibc-fhs-1.patch
-patch -Np1 -i %{_sourcedir}/glibc-2.44-upstream_fixes-3.patch
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 mkdir build
 pushd build
@@ -194,9 +196,7 @@ touch %{buildroot}/etc/ld.so.conf.d/.keep
 %files i18n -f %{_sourcedir}/glibc-i18n.filelist
 %files doc -f %{_sourcedir}/glibc-doc.filelist
 
-%files locales
-%dir /usr/lib/locale
-/usr/lib/locale/locale-archive
+%files locales -f %{_sourcedir}/glibc-locales.filelist
 
 %files locales-extra -f %{_sourcedir}/glibc-locales-extra.filelist
 

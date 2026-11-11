@@ -24,14 +24,7 @@ The Libxcrypt package contains a modern library for one-way hashing of passwords
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/include/crypt.h
-/usr/lib64/libcrypt.so
-/usr/lib64/libcrypt.so.2
-/usr/lib64/libcrypt.so.2.0.0
-/usr/lib64/pkgconfig/libcrypt.pc
-/usr/lib64/pkgconfig/libxcrypt.pc
-/usr/share/man/
+%files -f %{_sourcedir}/libxcrypt.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.5.2-2

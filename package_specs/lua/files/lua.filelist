@@ -1,0 +1,11 @@
+/usr/bin/lua
+/usr/bin/luac
+/usr/include/lauxlib.h
+/usr/include/lua.h
+/usr/include/lua.hpp
+/usr/include/luaconf.h
+/usr/include/lualib.h
+/usr/lib64/liblua.so.5.4
+/usr/lib64/liblua.so.5.4.8
+/usr/lib64/liblua.so
+/usr/lib64/pkgconfig/lua.pc

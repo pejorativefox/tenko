@@ -59,8 +59,7 @@ Requires:   linux-modules = %{version}-%{release}
 %description kernel
 Linux kernel image (vmlinuz).
 
-%files kernel
-/boot/vmlinuz-%{version}
+%files kernel -f %{_sourcedir}/linux-kernel.filelist
 
 %post kernel
 # systemd-boot reads loader entries from the ESP, which the installer mounts
@@ -97,9 +96,7 @@ The System.map and .config that belong to the installed kernel image.  They
 are split out because they are only needed for debugging and driver builds,
 not for booting.
 
-%files kernel-debug
-/boot/System.map-%{version}
-/boot/config-%{version}
+%files kernel-debug -f %{_sourcedir}/linux-kernel-debug.filelist
 
 %package modules
 Summary:    Linux kernel modules
@@ -110,8 +107,7 @@ Requires(post): dracut
 %description modules
 Linux kernel modules.
 
-%files modules
-/usr/lib/modules/%{version}/
+%files modules -f %{_sourcedir}/linux-modules.filelist
 
 %post modules
 depmod %{version} >/dev/null 2>&1 || :

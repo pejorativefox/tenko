@@ -1,0 +1,4 @@
+/usr/bin/gperf
+/usr/share/doc/gperf-%{version}/gperf.html
+/usr/share/info/gperf.info.gz
+/usr/share/man/man1/gperf.1.gz

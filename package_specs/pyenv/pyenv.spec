@@ -71,12 +71,7 @@ install -d -m755 %{buildroot}%{_datadir}/doc/pyenv-%{version}
 install -m644 LICENSE README.md COMMANDS.md CHANGELOG.md \
     %{buildroot}%{_datadir}/doc/pyenv-%{version}/
 
-%files
-%{_bindir}/pyenv
-%{_datadir}/pyenv/
-%config(noreplace) %{_sysconfdir}/profile.d/pyenv.sh
-%{_mandir}/man1/pyenv.1*
-%{_datadir}/doc/pyenv-%{version}/
+%files -f %{_sourcedir}/pyenv.filelist
 
 %changelog
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 2.8.14-1

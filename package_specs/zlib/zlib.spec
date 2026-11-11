@@ -21,14 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -fv %{buildroot}/usr/lib64/libz.a
 
-%files
-/usr/include/zconf.h
-/usr/include/zlib.h
-/usr/lib64/libz.so
-/usr/lib64/libz.so.1
-/usr/lib64/libz.so.1.3.2
-/usr/lib64/pkgconfig/zlib.pc
-/usr/share/man/man3/zlib.3.gz
+%files -f %{_sourcedir}/zlib.filelist
 
 
 %changelog

@@ -25,15 +25,7 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/bin/lsusb
-/usr/bin/lsusb.py
-/usr/bin/usb-devices
-/usr/bin/usbhid-dump
-/usr/share/man/man1/lsusb.py.1.gz
-/usr/share/man/man1/usb-devices.1.gz
-/usr/share/man/man8/lsusb.8.gz
-/usr/share/man/man8/usbhid-dump.8.gz
+%files -f %{_sourcedir}/usbutils.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 020-2

@@ -23,13 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/xcb/xcb_xrm.h
-/usr/lib64/libxcb-xrm.a
-/usr/lib64/libxcb-xrm.so
-/usr/lib64/libxcb-xrm.so.0
-/usr/lib64/libxcb-xrm.so.0.0.0
-/usr/lib64/pkgconfig/xcb-xrm.pc
+%files -f %{_sourcedir}/xcb-util-xrm.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.3-4

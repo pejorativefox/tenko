@@ -22,23 +22,7 @@ sed -i '/install -m.*STA/d' libcap/Makefile
 rm -rf %{buildroot}
 %make_install prefix=/usr
 	
-%files
-/usr/include/sys/capability.h
-/usr/include/sys/psx_syscall.h
-/usr/lib64/libcap.so
-/usr/lib64/libcap.so.2
-/usr/lib64/libcap.so.2.78
-/usr/lib64/libpsx.so
-/usr/lib64/libpsx.so.2
-/usr/lib64/libpsx.so.2.78
-/usr/lib64/pkgconfig/libcap.pc
-/usr/lib64/pkgconfig/libpsx.pc
-/usr/sbin/capsh
-/usr/sbin/getcap
-/usr/sbin/getpcaps
-/usr/sbin/setcap
-/usr/share/man/
-/usr/lib64/security/pam_cap.so
+%files -f %{_sourcedir}/libcap.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.78-3

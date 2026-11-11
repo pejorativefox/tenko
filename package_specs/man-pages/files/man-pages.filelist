@@ -1,0 +1,12 @@
+/usr/bin/diffman-git
+/usr/bin/git-bisect-rebase
+/usr/bin/git-bisect-rebase--callback
+/usr/bin/git-bisect-rebase--continue
+/usr/bin/grepc
+/usr/bin/grepc_c
+/usr/bin/grepc_mk
+/usr/bin/mansect
+/usr/bin/mansectf
+/usr/bin/pdfman
+/usr/bin/sortman
+/usr/share/man

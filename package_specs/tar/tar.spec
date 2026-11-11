@@ -4,6 +4,7 @@ Release:    3
 Summary:    GNU tar utility
 License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
+Patch0:     tar-1.35-acl_fix-1.patch
 Prefix:     /usr
 
 %description
@@ -18,7 +19,7 @@ Translations for tar.
 
 %prep
 %setup -q
-patch -Np1 -i %{_sourcedir}/tar-1.35-acl_fix-1.patch
+%patch -P 0 -p1
 
 %build
 export FORCE_UNSAFE_CONFIGURE=1

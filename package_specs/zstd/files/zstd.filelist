@@ -1,0 +1,14 @@
+/usr/bin/unzstd
+/usr/bin/zstd
+/usr/bin/zstdcat
+/usr/bin/zstdgrep
+/usr/bin/zstdless
+/usr/bin/zstdmt
+/usr/include/zdict.h
+/usr/include/zstd.h
+/usr/include/zstd_errors.h
+/usr/lib64/libzstd.so
+/usr/lib64/libzstd.so.1
+/usr/lib64/libzstd.so.1.5.7
+/usr/lib64/pkgconfig/libzstd.pc
+/usr/share/man/

@@ -189,35 +189,7 @@ EOF2
 chmod 644 %{buildroot}/etc/bashrc
 chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 
-%files
-%config(noreplace) /etc/bashrc
-%dir /etc/skel
-%config(noreplace) /etc/skel/.bash_profile
-%config(noreplace) /etc/skel/.bashrc
-%config(noreplace) /etc/fstab
-%config(noreplace) /etc/systemd/system/default.target
-%config(noreplace) /etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
-%config(noreplace) /etc/systemd/journald.conf.d/10-tenko.conf
-%dir /etc/systemd/journald.conf.d
-%dir /etc/systemd/logind.conf.d
-%config(noreplace) /etc/systemd/logind.conf.d/10-lid-switch.conf
-%dir /etc/dracut.conf.d
-%config(noreplace) /etc/dracut.conf.d/10-tenko.conf
-%config(noreplace) /etc/systemd/network/10-dhcp.network
-%config(noreplace) /etc/hosts
-%dir /etc/polkit-1
-%dir /etc/polkit-1/rules.d
-%config(noreplace) /etc/polkit-1/rules.d/50-tenko-wheel.rules
-%config(noreplace) /etc/shells
-%config(noreplace) /etc/inputrc
-%config(noreplace) /etc/vimrc
-%config(noreplace) /etc/subuid
-%config(noreplace) /etc/subgid
-%config(noreplace) /etc/profile
-%config(noreplace) /etc/locale.conf
-%config(noreplace) /etc/vconsole.conf
-%config(noreplace) /etc/resolv.conf
-%config(noreplace) /etc/machine-id
+%files -f %{_sourcedir}/tenko-sysconfig.filelist
 
 %changelog
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 6-8

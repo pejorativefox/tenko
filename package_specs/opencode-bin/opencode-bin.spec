@@ -47,8 +47,7 @@ file; the MIT license is recorded in this spec.
 rm -rf %{buildroot}
 install -D -m 0755 opencode %{buildroot}%{_bindir}/opencode
 
-%files
-%{_bindir}/opencode
+%files -f %{_sourcedir}/opencode-bin.filelist
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 2.2.5

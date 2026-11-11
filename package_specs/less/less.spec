@@ -22,13 +22,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/less
-/usr/libexec/lessecho
-/usr/libexec/less-osc8-open
-/usr/share/man/man1/less.1.gz
-/usr/share/man/man1/lessecho.1.gz
-/usr/share/man/man5/lesskey.5.gz
+%files -f %{_sourcedir}/less.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 710-2

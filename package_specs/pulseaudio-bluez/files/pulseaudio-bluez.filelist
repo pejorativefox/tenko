@@ -1,0 +1,7 @@
+%dir %{_sysconfdir}/pulse/default.pa.d
+%config(noreplace) %{_sysconfdir}/pulse/default.pa.d/50-bluez.pa
+%{_libdir}/pulseaudio/modules/libbluez5-util.so
+%{_libdir}/pulseaudio/modules/module-bluetooth-discover.so
+%{_libdir}/pulseaudio/modules/module-bluetooth-policy.so
+%{_libdir}/pulseaudio/modules/module-bluez5-discover.so
+%{_libdir}/pulseaudio/modules/module-bluez5-device.so

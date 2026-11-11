@@ -51,21 +51,7 @@ for b in rustc cargo rustdoc rustfmt cargo-clippy cargo-fmt clippy-driver \
     fi
 done
 
-%files
-%dir /opt
-/opt/rust-%{version}-x86_64-unknown-linux-gnu/
-/opt/rust
-/usr/bin/rustc
-/usr/bin/cargo
-/usr/bin/rustdoc
-/usr/bin/rustfmt
-/usr/bin/cargo-clippy
-/usr/bin/cargo-fmt
-/usr/bin/clippy-driver
-/usr/bin/rust-analyzer
-/usr/bin/rust-gdb
-/usr/bin/rust-gdbgui
-/usr/bin/rust-lldb
+%files -f %{_sourcedir}/rust.filelist
 
 %changelog
 * Sun Nov 01 2026 browneye <build@browneye.invalid> 1.99.0-1

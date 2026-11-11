@@ -27,16 +27,7 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/include/pangomm-1.4/
-/usr/lib64/libpangomm-1.4.so
-/usr/lib64/libpangomm-1.4.so.1
-/usr/lib64/libpangomm-1.4.so.1.0.30
-/usr/lib64/pangomm-1.4/include/pangommconfig.h
-/usr/lib64/pangomm-1.4/proc/m4/convert.m4
-/usr/lib64/pangomm-1.4/proc/m4/convert_pango.m4
-/usr/lib64/pangomm-1.4/proc/m4/convert_pangomm.m4
-/usr/lib64/pkgconfig/pangomm-1.4.pc
+%files -f %{_sourcedir}/pangomm.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.46.5-2

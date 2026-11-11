@@ -143,8 +143,7 @@ build-capable system.
 mkdir -p %{buildroot}/usr/share/tenko
 touch %{buildroot}/usr/share/tenko/base-runtime
 
-%files
-/usr/share/tenko/base-runtime
+%files -f %{_sourcedir}/tenko-base-runtime.filelist
 
 %changelog
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-10

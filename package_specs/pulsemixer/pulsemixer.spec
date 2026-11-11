@@ -29,10 +29,7 @@ install -d -m755 %{buildroot}%{_docdir}/pulsemixer-%{version}
 install -m644 LICENSE README.md \
     %{buildroot}%{_docdir}/pulsemixer-%{version}/
 
-%files
-/usr/bin/pulsemixer
-/usr/share/doc/pulsemixer-%{version}/LICENSE
-/usr/share/doc/pulsemixer-%{version}/README.md
+%files -f %{_sourcedir}/pulsemixer.filelist
 
 %changelog
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 1.5.1-2

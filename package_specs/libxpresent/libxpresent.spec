@@ -29,21 +29,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/extensions/Xpresent.h
-/usr/lib64/libXpresent.so
-/usr/lib64/libXpresent.so.1
-/usr/lib64/libXpresent.so.1.0.0
-/usr/lib64/pkgconfig/xpresent.pc
-/usr/share/man/man3/XPresentFreeInput.3.gz
-/usr/share/man/man3/XPresentNotifyMSC.3.gz
-/usr/share/man/man3/XPresentPixmap.3.gz
-/usr/share/man/man3/XPresentQueryCapabilities.3.gz
-/usr/share/man/man3/XPresentQueryExtension.3.gz
-/usr/share/man/man3/XPresentQueryVersion.3.gz
-/usr/share/man/man3/XPresentSelectInput.3.gz
-/usr/share/man/man3/XPresentVersion.3.gz
-/usr/share/man/man3/Xpresent.3.gz
+%files -f %{_sourcedir}/libxpresent.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 1.0.2-1

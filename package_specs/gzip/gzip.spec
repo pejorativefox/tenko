@@ -23,23 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/gunzip
-/usr/bin/gzexe
-/usr/bin/gzip
-/usr/bin/uncompress
-/usr/bin/zcat
-/usr/bin/zcmp
-/usr/bin/zdiff
-/usr/bin/zegrep
-/usr/bin/zfgrep
-/usr/bin/zforce
-/usr/bin/zgrep
-/usr/bin/zless
-/usr/bin/zmore
-/usr/bin/znew
-/usr/share/info/gzip.info.gz
-/usr/share/man/
+%files -f %{_sourcedir}/gzip.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.15-2

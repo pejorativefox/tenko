@@ -21,9 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/patch
-/usr/share/man/man1/patch.1.gz
+%files -f %{_sourcedir}/patch.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.8.1-2

@@ -25,8 +25,7 @@ that misdetect the running window manager.
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot} PREFIX=/usr
 
-%files
-/usr/bin/wmname
+%files -f %{_sourcedir}/wmname.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.1-1

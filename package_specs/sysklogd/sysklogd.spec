@@ -45,25 +45,7 @@ secure_mode 2
 # End /etc/syslog.conf
 EOF
 
-%files
-/etc/syslog.conf
-/usr/bin/syslogd
-/usr/include/syslog/syslog.h
-/usr/lib/systemd/system/syslogd.service
-/usr/lib64/libsyslog.so
-/usr/lib64/libsyslog.so.0
-/usr/lib64/libsyslog.so.0.2.0
-/usr/lib64/pkgconfig/libsyslog.pc
-/usr/share/doc/sysklogd-2.8.0/ChangeLog.md
-/usr/share/doc/sysklogd-2.8.0/LICENSE
-/usr/share/doc/sysklogd-2.8.0/README.md
-/usr/share/doc/sysklogd-2.8.0/example/README.md
-/usr/share/doc/sysklogd-2.8.0/example/example.c
-/usr/share/doc/sysklogd-2.8.0/example/example.mk
-/usr/share/doc/sysklogd-2.8.0/syslog.conf
-/usr/share/man/man3/syslogp.3.gz
-/usr/share/man/man5/syslog.conf.5.gz
-/usr/share/man/man8/syslogd.8.gz
+%files -f %{_sourcedir}/sysklogd.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.8.0-2

@@ -27,12 +27,7 @@ rm -rf %{buildroot}
 %make_install
 make install-config DESTDIR=%{buildroot}
 
-%files
-%config(noreplace) /etc/proxychains.conf
-/usr/bin/proxychains4
-/usr/bin/proxychains4-daemon
-/usr/lib64/libproxychains4.so
-%doc README COPYING AUTHORS
+%files -f %{_sourcedir}/proxychains-ng.filelist
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 4.17-1

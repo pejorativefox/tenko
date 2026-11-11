@@ -21,29 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -rf %{buildroot}/usr/share/info/dir
 
-%files
-/usr/bin/screen
-/usr/bin/screen-5.0.2
-/usr/share/info/screen.info.gz
-/usr/share/man/man1/screen.1.gz
-/usr/share/screen/utf8encodings/01
-/usr/share/screen/utf8encodings/02
-/usr/share/screen/utf8encodings/03
-/usr/share/screen/utf8encodings/04
-/usr/share/screen/utf8encodings/18
-/usr/share/screen/utf8encodings/19
-/usr/share/screen/utf8encodings/a1
-/usr/share/screen/utf8encodings/a3
-/usr/share/screen/utf8encodings/bf
-/usr/share/screen/utf8encodings/c2
-/usr/share/screen/utf8encodings/c3
-/usr/share/screen/utf8encodings/c4
-/usr/share/screen/utf8encodings/c6
-/usr/share/screen/utf8encodings/c7
-/usr/share/screen/utf8encodings/c8
-/usr/share/screen/utf8encodings/cc
-/usr/share/screen/utf8encodings/cd
-/usr/share/screen/utf8encodings/d6
+%files -f %{_sourcedir}/screen.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 5.0.2-2

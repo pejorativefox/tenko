@@ -20,15 +20,7 @@ A file type guesser
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/bin/file
-/usr/lib64/libmagic.so
-/usr/lib64/libmagic.so.1
-/usr/lib64/libmagic.so.1.0.0
-/usr/include/magic.h
-/usr/lib64/pkgconfig/libmagic.pc
-/usr/share/man/
-/usr/share/misc/magic.mgc
+%files -f %{_sourcedir}/file.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 5.48-2

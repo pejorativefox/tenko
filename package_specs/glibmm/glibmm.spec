@@ -25,22 +25,7 @@ pushd glibmm-build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/include/giomm-2.4/
-/usr/include/glibmm-2.4/
-/usr/lib64/giomm-2.4/
-/usr/lib64/glibmm-2.4/
-/usr/lib64/libgiomm-2.4.so
-/usr/lib64/libgiomm-2.4.so.1
-/usr/lib64/libgiomm-2.4.so.1.3.0
-/usr/lib64/libglibmm-2.4.so
-/usr/lib64/libglibmm-2.4.so.1
-/usr/lib64/libglibmm-2.4.so.1.3.0
-/usr/lib64/libglibmm_generate_extra_defs-2.4.so
-/usr/lib64/libglibmm_generate_extra_defs-2.4.so.1
-/usr/lib64/libglibmm_generate_extra_defs-2.4.so.1.3.0
-/usr/lib64/pkgconfig/giomm-2.4.pc
-/usr/lib64/pkgconfig/glibmm-2.4.pc
+%files -f %{_sourcedir}/glibmm.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.66.10-2

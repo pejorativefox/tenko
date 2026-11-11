@@ -29,12 +29,7 @@ pushd build
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/include/GL/glu.h
-/usr/lib64/libGLU.so
-/usr/lib64/libGLU.so.1
-/usr/lib64/libGLU.so.1.3.1
-/usr/lib64/pkgconfig/glu.pc
+%files -f %{_sourcedir}/libglu.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 9.0.3-2

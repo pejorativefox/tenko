@@ -20,13 +20,7 @@ POSIX/ANSI-C Scheduling library
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/include/npth.h
-/usr/lib64/libnpth.so
-/usr/lib64/libnpth.so.0
-/usr/lib64/libnpth.so.0.3.0
-/usr/lib64/pkgconfig/npth.pc
-/usr/share/aclocal/npth.m4
+%files -f %{_sourcedir}/npth.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.8-2

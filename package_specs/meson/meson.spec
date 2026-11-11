@@ -27,17 +27,7 @@ install -D -m644 data/shell-completions/bash/meson \
 install -D -m644 data/shell-completions/zsh/_meson \
     %{buildroot}/usr/share/zsh/site-functions/_meson
 
-%files
-/usr/bin/meson
-/usr/lib64/python3.15/site-packages/
-%dir /usr/share/bash-completion
-%dir /usr/share/bash-completion/completions
-/usr/share/bash-completion/completions/meson
-/usr/share/man/man1/meson.1.gz
-/usr/share/polkit-1/actions/com.mesonbuild.install.policy
-%dir /usr/share/zsh
-%dir /usr/share/zsh/site-functions
-/usr/share/zsh/site-functions/_meson
+%files -f %{_sourcedir}/meson.filelist
 
 %changelog
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 1.12.1-4

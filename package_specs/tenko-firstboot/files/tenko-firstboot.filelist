@@ -1,0 +1,5 @@
+/usr/libexec/tenko-firstboot-root-password
+/usr/lib/systemd/system/tenko-firstboot-root-password.service
+/usr/lib/systemd/system-preset/90-tenko-firstboot.preset
+/usr/share/doc/tenko-firstboot/README
+%dir /var/lib/tenko

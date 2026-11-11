@@ -27,10 +27,7 @@ install -m 644 %{_sourcedir}/macros.tenko %{buildroot}%{_rpmmacrodir}/macros.ten
 install -D -m 644 %{_sourcedir}/python.attr %{buildroot}%{_fileattrsdir}/python.attr
 install -D -m 755 %{_sourcedir}/tenko-pythondeps.sh %{buildroot}%{_rpmconfigdir}/tenko-pythondeps.sh
 
-%files
-%{_rpmmacrodir}/macros.tenko
-%{_fileattrsdir}/python.attr
-%{_rpmconfigdir}/tenko-pythondeps.sh
+%files -f %{_sourcedir}/tenko-rpm-config.filelist
 
 %changelog
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-4

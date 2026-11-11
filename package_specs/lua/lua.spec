@@ -5,6 +5,7 @@ Summary:    Lua High-level programming language
 License:    MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+Patch0:     lua-5.4.8-shared_library-1.patch
 
 Provides: liblua.so.5.4()(64bit)
 
@@ -38,7 +39,7 @@ Libs: -L${libdir} -llua -lm -ldl
 Cflags: -I${includedir}
 EOF
 
-patch -Np1 -i %{_sourcedir}/lua-5.4.8-shared_library-1.patch 
+%patch -P 0 -p1
 make linux
 
 %install    
@@ -56,18 +57,7 @@ mkdir -pv %{buildroot}/usr/lib/pkgconfig/
 install -v -m644 -D lua.pc %{buildroot}/usr/lib64/pkgconfig/lua.pc
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/lua
-/usr/bin/luac
-/usr/include/lauxlib.h
-/usr/include/lua.h
-/usr/include/lua.hpp
-/usr/include/luaconf.h
-/usr/include/lualib.h
-/usr/lib64/liblua.so.5.4
-/usr/lib64/liblua.so.5.4.8
-/usr/lib64/liblua.so
-/usr/lib64/pkgconfig/lua.pc
+%files -f %{_sourcedir}/lua.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 5.4.8-3

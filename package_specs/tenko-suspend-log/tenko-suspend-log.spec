@@ -65,16 +65,7 @@ if [ -x /usr/bin/systemctl ]; then
     systemctl daemon-reload >/dev/null 2>&1 || :
 fi
 
-%files
-/usr/lib/systemd/system-sleep/50-tenko-suspend-log
-%dir /usr/libexec/tenko
-/usr/libexec/tenko/tenko-resume-probe
-/usr/libexec/tenko/tenko-suspend-check
-%{_bindir}/tenko-suspend-report
-/usr/lib/systemd/system/tenko-suspend-check.service
-/usr/lib/systemd/system/tenko-resume-probe.service
-/usr/lib/systemd/system-preset/40-tenko-suspend-log.preset
-%{_mandir}/man8/tenko-suspend-report.8*
+%files -f %{_sourcedir}/tenko-suspend-log.filelist
 
 %changelog
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 6-1

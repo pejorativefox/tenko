@@ -4,7 +4,7 @@ Release:    2
 Summary:    ALSA sound interface plugins.
 License:    LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 Source0:    %{name}-%{version}.tar.bz2
-Source1:    %{name}-%{version}-ffmpeg-9.0.patch
+Patch0:     %{name}-%{version}-ffmpeg-9.0.patch
 Prefix:     /usr
 
 %description
@@ -12,7 +12,7 @@ Prefix:     /usr
 
 %prep
 %setup -q
-patch -Np1 -i %{SOURCE1}
+%patch -P 0 -p1
 
 %build
 %configure --sysconfdir=/etc
@@ -22,34 +22,7 @@ patch -Np1 -i %{SOURCE1}
 rm -rf %{buildroot}
 %make_install
 
-%files
-/etc/alsa/conf.d/10-speexrate.conf
-/etc/alsa/conf.d/50-arcam-av-ctl.conf
-/etc/alsa/conf.d/50-oss.conf
-/etc/alsa/conf.d/50-pulseaudio.conf
-/etc/alsa/conf.d/60-upmix.conf
-/etc/alsa/conf.d/60-vdownmix.conf
-/etc/alsa/conf.d/98-usb-stream.conf
-/etc/alsa/conf.d/99-pulseaudio-default.conf.example
-/usr/lib64/alsa-lib/libasound_module_conf_pulse.so
-/usr/lib64/alsa-lib/libasound_module_ctl_arcam_av.so
-/usr/lib64/alsa-lib/libasound_module_ctl_oss.so
-/usr/lib64/alsa-lib/libasound_module_ctl_pulse.so
-/usr/lib64/alsa-lib/libasound_module_pcm_oss.so
-/usr/lib64/alsa-lib/libasound_module_pcm_pulse.so
-/usr/lib64/alsa-lib/libasound_module_pcm_upmix.so
-/usr/lib64/alsa-lib/libasound_module_pcm_usb_stream.so
-/usr/lib64/alsa-lib/libasound_module_pcm_vdownmix.so
-/usr/lib64/alsa-lib/libasound_module_rate_speexrate.so
-/usr/lib64/alsa-lib/libasound_module_rate_speexrate_best.so
-/usr/lib64/alsa-lib/libasound_module_rate_speexrate_medium.so
-/usr/share/alsa/alsa.conf.d/10-speexrate.conf
-/usr/share/alsa/alsa.conf.d/50-arcam-av-ctl.conf
-/usr/share/alsa/alsa.conf.d/50-oss.conf
-/usr/share/alsa/alsa.conf.d/50-pulseaudio.conf
-/usr/share/alsa/alsa.conf.d/60-upmix.conf
-/usr/share/alsa/alsa.conf.d/60-vdownmix.conf
-/usr/share/alsa/alsa.conf.d/98-usb-stream.conf
+%files -f %{_sourcedir}/alsa-plugins.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.2.12-2

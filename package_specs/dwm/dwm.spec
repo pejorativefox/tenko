@@ -25,9 +25,7 @@ dynamically.  This package is built with the default upstream config.h.
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot} PREFIX=/usr MANPREFIX=/usr/share/man
 
-%files
-/usr/bin/dwm
-/usr/share/man/man1/dwm.1.gz
+%files -f %{_sourcedir}/dwm.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 6.5-1

@@ -23,21 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/etc/xattr.conf
-/usr/bin/attr
-/usr/bin/getfattr
-/usr/bin/setfattr
-/usr/include/attr/attributes.h
-/usr/include/attr/error_context.h
-/usr/include/attr/libattr.h
-/usr/lib64/libattr.so
-/usr/lib64/libattr.so.1
-/usr/lib64/libattr.so.1.1.2600
-/usr/lib64/pkgconfig/libattr.pc
-/usr/share/doc/
-/usr/share/locale/
-/usr/share/man/
+%files -f %{_sourcedir}/attr.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.6.0-2

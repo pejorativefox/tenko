@@ -21,7 +21,7 @@ RPM database and run transactions through librpm.
 
 %prep
 %setup -q
-%patch 0 -p1
+%patch -P 0 -p1
 
 %build
 export ac_cv_header_elfutils_libdwelf_h=no

@@ -28,42 +28,7 @@ make PREFIX=/usr DESTDIR=%{buildroot} install
 rm -vf %{buildroot}/usr/lib/libluajit-5.1.a
 rm -rf %{buildroot}/usr/lib/lua %{buildroot}/usr/share/lua
 
-%files
-%dir /usr/include/luajit-2.1
-/usr/include/luajit-2.1/lauxlib.h
-/usr/include/luajit-2.1/lua.h
-/usr/include/luajit-2.1/lua.hpp
-/usr/include/luajit-2.1/luaconf.h
-/usr/include/luajit-2.1/luajit.h
-/usr/include/luajit-2.1/lualib.h
-/usr/bin/luajit
-/usr/bin/luajit-2.1.ROLLING
-/usr/lib/libluajit-5.1.so
-/usr/lib/libluajit-5.1.so.2
-/usr/lib/libluajit-5.1.so.2.1.ROLLING
-/usr/lib/pkgconfig/luajit.pc
-%dir /usr/share/luajit-2.1
-%dir /usr/share/luajit-2.1/jit
-/usr/share/luajit-2.1/jit/bc.lua
-/usr/share/luajit-2.1/jit/bcsave.lua
-/usr/share/luajit-2.1/jit/dis_arm.lua
-/usr/share/luajit-2.1/jit/dis_arm64.lua
-/usr/share/luajit-2.1/jit/dis_arm64be.lua
-/usr/share/luajit-2.1/jit/dis_mips.lua
-/usr/share/luajit-2.1/jit/dis_mips64.lua
-/usr/share/luajit-2.1/jit/dis_mips64el.lua
-/usr/share/luajit-2.1/jit/dis_mips64r6.lua
-/usr/share/luajit-2.1/jit/dis_mips64r6el.lua
-/usr/share/luajit-2.1/jit/dis_mipsel.lua
-/usr/share/luajit-2.1/jit/dis_ppc.lua
-/usr/share/luajit-2.1/jit/dis_x64.lua
-/usr/share/luajit-2.1/jit/dis_x86.lua
-/usr/share/luajit-2.1/jit/dump.lua
-/usr/share/luajit-2.1/jit/p.lua
-/usr/share/luajit-2.1/jit/v.lua
-/usr/share/luajit-2.1/jit/vmdef.lua
-/usr/share/luajit-2.1/jit/zone.lua
-/usr/share/man/man1/luajit.1.gz
+%files -f %{_sourcedir}/luajit.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 20260213-1

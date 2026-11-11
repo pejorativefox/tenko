@@ -31,41 +31,7 @@ pushd bld
 DESTDIR=%{buildroot} ninja install
 popd
 
-%files
-/usr/include/cairomm-1.0/cairomm/cairomm.h
-/usr/include/cairomm-1.0/cairomm/context.h
-/usr/include/cairomm-1.0/cairomm/device.h
-/usr/include/cairomm-1.0/cairomm/enums.h
-/usr/include/cairomm-1.0/cairomm/exception.h
-/usr/include/cairomm-1.0/cairomm/fontface.h
-/usr/include/cairomm-1.0/cairomm/fontoptions.h
-/usr/include/cairomm-1.0/cairomm/matrix.h
-/usr/include/cairomm-1.0/cairomm/path.h
-/usr/include/cairomm-1.0/cairomm/pattern.h
-/usr/include/cairomm-1.0/cairomm/quartz_font.h
-/usr/include/cairomm-1.0/cairomm/quartz_surface.h
-/usr/include/cairomm-1.0/cairomm/refptr.h
-/usr/include/cairomm-1.0/cairomm/region.h
-/usr/include/cairomm-1.0/cairomm/scaledfont.h
-/usr/include/cairomm-1.0/cairomm/script.h
-/usr/include/cairomm-1.0/cairomm/script_surface.h
-/usr/include/cairomm-1.0/cairomm/surface.h
-/usr/include/cairomm-1.0/cairomm/types.h
-/usr/include/cairomm-1.0/cairomm/win32_font.h
-/usr/include/cairomm-1.0/cairomm/win32_surface.h
-/usr/include/cairomm-1.0/cairomm/xlib_surface.h
-/usr/lib64/cairomm-1.0/include/cairommconfig.h
-/usr/lib64/libcairomm-1.0.so
-/usr/lib64/libcairomm-1.0.so.1
-/usr/lib64/libcairomm-1.0.so.1.4.0
-/usr/lib64/pkgconfig/cairomm-1.0.pc
-/usr/lib64/pkgconfig/cairomm-ft-1.0.pc
-/usr/lib64/pkgconfig/cairomm-pdf-1.0.pc
-/usr/lib64/pkgconfig/cairomm-png-1.0.pc
-/usr/lib64/pkgconfig/cairomm-ps-1.0.pc
-/usr/lib64/pkgconfig/cairomm-svg-1.0.pc
-/usr/lib64/pkgconfig/cairomm-xlib-1.0.pc
-/usr/lib64/pkgconfig/cairomm-xlib-xrender-1.0.pc
+%files -f %{_sourcedir}/cairomm.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.14.6-2

@@ -1,0 +1,5 @@
+%{_bindir}/pyenv
+%{_datadir}/pyenv/
+%config(noreplace) %{_sysconfdir}/profile.d/pyenv.sh
+%{_mandir}/man1/pyenv.1*
+%{_datadir}/doc/pyenv-%{version}/

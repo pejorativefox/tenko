@@ -30,8 +30,7 @@ cat > %{buildroot}/usr/share/tenko/nmtui <<'EOF'
 nmtui is provided by the NetworkManager package.
 EOF
 
-%files
-/usr/share/tenko/nmtui
+%files -f %{_sourcedir}/nmtui.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 1.58.1-1

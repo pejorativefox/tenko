@@ -24,24 +24,7 @@ rm -rf %{buildroot}
 ln -sv pkgconf   %{buildroot}/usr/bin/pkg-config
 ln -sv pkgconf.1 %{buildroot}/usr/share/man/man1/pkg-config.1
 
-%files
-/usr/bin/bomtool
-/usr/bin/pccritic
-/usr/bin/pkg-config
-/usr/bin/pkgconf
-/usr/bin/spdxtool
-/usr/include/pkgconf/libpkgconf/bsdstubs.h
-/usr/include/pkgconf/libpkgconf/iter.h
-/usr/include/pkgconf/libpkgconf/libpkgconf-api.h
-/usr/include/pkgconf/libpkgconf/libpkgconf.h
-/usr/include/pkgconf/libpkgconf/stdinc.h
-/usr/lib64/libpkgconf.so
-/usr/lib64/libpkgconf.so.8
-/usr/lib64/libpkgconf.so.8.0.0
-/usr/lib64/pkgconfig/libpkgconf.pc
-/usr/share/aclocal/pkg.m4
-/usr/share/doc/pkgconf-%{version}/
-/usr/share/man/
+%files -f %{_sourcedir}/pkgconf.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.0.10-2

@@ -23,11 +23,7 @@ rm -rf %{buildroot}
 %make_install
 find %{buildroot} -name perllocal.pod -delete
 
-%files
-%{_bindir}/yapp
-/usr/lib64/perl5/5.44.0/vendor_perl/Parse
-%{_mandir}/man1/yapp.1.gz
-%{_mandir}/man3/Parse::Yapp.3.gz
+%files -f %{_sourcedir}/parse-yapp.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 1.21-1

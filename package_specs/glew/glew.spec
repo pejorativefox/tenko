@@ -19,16 +19,7 @@ GLEW is the OpenGL Extension Wrangler Library.
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/local/include/GL/eglew.h
-/usr/local/include/GL/glew.h
-/usr/local/include/GL/glxew.h
-/usr/local/include/GL/wglew.h
-/usr/local/lib/pkgconfig/glew.pc
-/usr/local/lib64/libGLEW.a
-/usr/local/lib64/libGLEW.so
-/usr/local/lib64/libGLEW.so.2.3
-/usr/local/lib64/libGLEW.so.2.3.1
+%files -f %{_sourcedir}/glew.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.3.1-2

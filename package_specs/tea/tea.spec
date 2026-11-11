@@ -42,8 +42,7 @@ MIT license is recorded in this spec.
 rm -rf %{buildroot}
 install -D -m 0755 %{SOURCE0} %{buildroot}%{_bindir}/tea
 
-%files
-%{_bindir}/tea
+%files -f %{_sourcedir}/tea.filelist
 
 %changelog
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.14.2

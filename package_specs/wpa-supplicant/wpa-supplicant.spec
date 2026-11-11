@@ -72,13 +72,7 @@ sed 's|@BINDIR@|/sbin|g' systemd/wpa_supplicant.service.in \
 chmod 644 %{buildroot}/usr/lib/systemd/system/wpa_supplicant.service
 popd
 
-%files
-/etc/dbus-1/system.d/wpa_supplicant.conf
-/sbin/wpa_cli
-/sbin/wpa_passphrase
-/sbin/wpa_supplicant
-/usr/lib/systemd/system/wpa_supplicant.service
-/usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service
+%files -f %{_sourcedir}/wpa-supplicant.filelist
 
 %changelog
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 2.12-3

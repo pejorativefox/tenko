@@ -23,15 +23,7 @@ make -C generate/unix %{?_smp_mflags}
 rm -rf %{buildroot}
 make -C generate/unix install DESTDIR=%{buildroot} PREFIX=/usr
 
-%files
-/usr/bin/acpibin
-/usr/bin/acpidump
-/usr/bin/acpiexamples
-/usr/bin/acpiexec
-/usr/bin/acpihelp
-/usr/bin/acpisrc
-/usr/bin/acpixtract
-/usr/bin/iasl
+%files -f %{_sourcedir}/acpica.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 20260930-1

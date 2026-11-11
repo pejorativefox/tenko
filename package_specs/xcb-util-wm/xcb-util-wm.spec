@@ -21,19 +21,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/xcb/xcb_ewmh.h
-/usr/include/xcb/xcb_icccm.h
-/usr/lib64/libxcb-ewmh.a
-/usr/lib64/libxcb-ewmh.so
-/usr/lib64/libxcb-ewmh.so.2
-/usr/lib64/libxcb-ewmh.so.2.0.0
-/usr/lib64/libxcb-icccm.a
-/usr/lib64/libxcb-icccm.so
-/usr/lib64/libxcb-icccm.so.4
-/usr/lib64/libxcb-icccm.so.4.0.0
-/usr/lib64/pkgconfig/xcb-ewmh.pc
-/usr/lib64/pkgconfig/xcb-icccm.pc
+%files -f %{_sourcedir}/xcb-util-wm.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.4.2-4

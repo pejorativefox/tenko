@@ -23,11 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/bin/nasm
-/usr/bin/ndisasm
-/usr/share/man/man1/nasm.1.gz
-/usr/share/man/man1/ndisasm.1.gz
+%files -f %{_sourcedir}/nasm.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.02-2

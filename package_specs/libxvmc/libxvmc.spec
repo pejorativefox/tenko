@@ -23,20 +23,7 @@ rm -rf %{buildroot}
 %make_install
 rm -vf %{buildroot}%{_infodir}/dir*
 
-%files
-/usr/include/X11/extensions/vldXvMC.h
-/usr/include/X11/extensions/XvMClib.h
-/usr/lib64/libXvMC.a
-/usr/lib64/libXvMC.so
-/usr/lib64/libXvMC.so.1
-/usr/lib64/libXvMC.so.1.0.0
-/usr/lib64/libXvMCW.a
-/usr/lib64/libXvMCW.so
-/usr/lib64/libXvMCW.so.1
-/usr/lib64/libXvMCW.so.1.0.0
-/usr/lib64/pkgconfig/xvmc.pc
-/usr/lib64/pkgconfig/xvmc-wrapper.pc
-/usr/share/doc/libXvMC/XvMC_API.txt
+%files -f %{_sourcedir}/libxvmc.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.0.15-2

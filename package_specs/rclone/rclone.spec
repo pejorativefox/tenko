@@ -44,14 +44,7 @@ install -Dm644 README.md %{buildroot}%{_docdir}/rclone/README.md
 install -Dm644 MANUAL.md %{buildroot}%{_docdir}/rclone/MANUAL.md
 install -Dm644 COPYING %{buildroot}%{_licensedir}/rclone/COPYING
 
-%files
-/usr/bin/rclone
-%{_mandir}/man1/rclone.1.gz
-/usr/share/bash-completion/completions/rclone
-/usr/share/zsh/site-functions/_rclone
-%{_docdir}/rclone/README.md
-%{_docdir}/rclone/MANUAL.md
-%{_licensedir}/rclone/COPYING
+%files -f %{_sourcedir}/rclone.filelist
 
 %changelog
 * Fri Nov 06 2026 browneye <build@browneye.invalid> 1.75.2-1

@@ -20,10 +20,7 @@ The libevent API provides a mechanism to execute a callback function when a spec
 rm -rf %{buildroot}
 %make_install
 
-%files
-/usr/include/
-/usr/lib64
-/usr/bin/event_rpcgen.py
+%files -f %{_sourcedir}/libevent.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.1.13-2

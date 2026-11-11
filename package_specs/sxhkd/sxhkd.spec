@@ -24,17 +24,7 @@ describing key bindings and executes the associated commands.
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot} PREFIX=/usr
 
-%files
-/usr/bin/sxhkd
-/usr/share/doc/sxhkd/examples/background_shell/profile
-/usr/share/doc/sxhkd/examples/background_shell/shell
-/usr/share/doc/sxhkd/examples/background_shell/sxhkdrc
-/usr/share/doc/sxhkd/examples/background_shell/xinitrc
-/usr/share/doc/sxhkd/examples/notification/autostart
-/usr/share/doc/sxhkd/examples/notification/pam_environment
-/usr/share/doc/sxhkd/examples/notification/sxhkd_notify
-/usr/share/doc/sxhkd/examples/notification/xinitrc
-/usr/share/man/man1/sxhkd.1.gz
+%files -f %{_sourcedir}/sxhkd.filelist
 
 %changelog
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.6.3-1
