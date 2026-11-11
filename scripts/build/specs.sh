@@ -27,10 +27,12 @@
 #   OUT         output directory (default build/specs-YYYYMMDD-HHMMSS)
 #   JOBS        packages built in parallel (default 4)
 #   MAKE_JOBS   make -j per package (default 4)
-#   STRICT      1 = BuildRequires must resolve and rpmbuild runs without
-#               --nodeps (default 0; see scripts/build/in_container.sh)
+#   STRICT      1 = build in the toolchain buildroot (BUILDROOT_IMAGE,
+#               tenko-buildroot) with only the declared
+#               BuildRequires added, and rpmbuild without --nodeps
+#               (default 0: full build image, --nodeps; issue #58)
 #   OFFLINE     1 = do not sync the mirror (it must already exist)
-#   BUILD_IMAGE build image tag (default localhost/tenko/build:r6)
+#   BUILD_IMAGE, BUILDROOT_IMAGE   image tags (localhost/tenko/{build,buildroot}:r6)
 #
 # Results: OUT/status/<pkg> (ok/fail), OUT/logs/<pkg>.log and
 # OUT/build/<pkg>/RPMS; successful RPMs are also in build/repo.
@@ -107,14 +109,20 @@ else
     bash scripts/build/sync.sh
 fi
 
-# 2. Build image.
-bash scripts/image/build.sh
+# 2. Build image: the full one, or the toolchain buildroot for STRICT=1.
+if [ "$STRICT" = 1 ]; then
+    IMAGE=$BUILDROOT_IMAGE
+    bash scripts/image/build.sh --strict
+else
+    IMAGE=$BUILD_IMAGE
+    bash scripts/image/build.sh
+fi
 
 # 3. Local repository of our own builds.
 mkdir -p "$TENKO_LOCAL_REPO"
 if [ ! -f "$TENKO_LOCAL_REPO/repodata/repomd.xml" ]; then
     podman run --rm --network=none -v "$TENKO_LOCAL_REPO:/repo:rw,z" \
-        "$BUILD_IMAGE" createrepo_c --quiet /repo
+        "$IMAGE" createrepo_c --quiet /repo
 fi
 
 mkdir -p "$OUT"/{build,logs,status}
@@ -125,7 +133,7 @@ printf '%s\n' "${specs[@]}" >"$OUT/packages.txt"
 python3 scripts/build/fetch_sources.py --dest "$TENKO_SOURCES_DIR" \
     --stage-root "$OUT/build" "${specs[@]}"
 
-echo "building ${#specs[@]} specs in $BUILD_IMAGE -> $OUT (JOBS=$JOBS STRICT=$STRICT)"
+echo "building ${#specs[@]} specs in $IMAGE -> $OUT (JOBS=$JOBS STRICT=$STRICT)"
 
 # add_to_local_repo DIR: copy DIR's RPMs into build/repo and refresh it.
 add_to_local_repo() {
@@ -133,7 +141,7 @@ add_to_local_repo() {
         flock 9
         find "$1" -name '*.rpm' -exec cp -f {} "$TENKO_LOCAL_REPO/" \;
         podman run --rm --network=none -v "$TENKO_LOCAL_REPO:/repo:rw,z" \
-            "$BUILD_IMAGE" createrepo_c --quiet --update /repo
+            "$IMAGE" createrepo_c --quiet --update /repo
     ) 9>"$TENKO_LOCAL_REPO/.lock"
 }
 
@@ -154,7 +162,7 @@ build_one() {
         -v "$TENKO_LOCAL_REPO:/repo/local:ro,z" \
         -v "$TENKO_REPO_CACHE:/repo/cache:ro,z" \
         -v "$PWD/scripts/build/in_container.sh:/in_container.sh:ro,z" \
-        "$BUILD_IMAGE" /usr/bin/bash /in_container.sh "$rel" \
+        "$IMAGE" /usr/bin/bash /in_container.sh "$rel" \
         >"$OUT/logs/$pkg.log" 2>&1 && rc=0 || rc=$?
     rpms=$(find "$top/RPMS" -type f -name '*.rpm' -printf '%f ' 2>/dev/null || true)
     if [ "$rc" -eq 0 ]; then

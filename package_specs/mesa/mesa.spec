@@ -11,7 +11,7 @@ Source0:    %{name}-%{version}.tar.xz
 # time, plus Mako and PyYAML for Mesa's generated tables.  These are build-only
 # dependencies and are not runtime requirements of this package.
 BuildRequires: libx11, libxext, libxfixes, libxrandr, libxxf86vm
-BuildRequires: libxcb, libxshmfence, libdrm, llvm-devel
+BuildRequires: libxcb, libxshmfence, libdrm, llvm-devel, llvm, llvm-static
 BuildRequires: xorgproto
 BuildRequires: spirv-llvm-translator, spirv-tools
 BuildRequires: clang-libs, clang-resource-filesystem, clang-devel

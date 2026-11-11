@@ -1,20 +1,22 @@
 Name:       tenko-osdev
 Version:    6
-Release:    2
+Release:    3
 Epoch:      1
 Summary:    Tenko Linux OS development environment
 License:    MIT
 Prefix:     /usr
 
-# Full base plus the compile/package toolchain (tenko-base-build) and the
-# repository assembly tools (tenko-build pulls dnf and createrepo_c).
+# The full base, which includes the development environment
+# (tenko-base-build) and the toolchain baseline with dnf and createrepo_c
+# (tenko-buildroot).
 Requires:   tenko-base
-Requires:   tenko-base-build
-Requires:   tenko-build
 
-# Container runtime used by build_specs.sh, build_iso_uefi.sh and
-# make_base_image.sh.
+# Container runtime: every `tenko build`, `tenko image` and QEMU helper
+# runs in podman.
 Requires:   podman-bin
+
+# Network debugging (moved out of tenko-base 6-12).
+Requires:   ncat
 
 # Publishing to R2 and the LAN mirror.
 Requires:   rclone
@@ -26,7 +28,7 @@ Requires:   git
 Requires:   curl
 Requires:   wget
 
-# ISO authoring tools.  build_iso_uefi.sh installs these into its tools
+# ISO authoring tools.  `tenko image iso` installs these into its tools
 # container from a staged local repository, so having them on the host also
 # makes the individual steps usable directly.
 Requires:   libisoburn
@@ -47,7 +49,8 @@ build packages, assemble the RPM repository, produce the installer ISO and
 container rootfs, and publish the results.
 
 It pulls in the full base system, the compiler and RPM packaging toolchain
-(tenko-base-build), dnf/createrepo_c (tenko-build), the static podman bundle,
+(tenko-base-build on tenko-buildroot, with dnf/createrepo_c), the static
+podman bundle, ncat,
 rclone and OpenSSH for publishing, the ISO authoring tools (libisoburn,
 squashfs-tools, mtools, dosfstools), dracut/cpio for the live initramfs, and
 QEMU with OVMF for boot testing.
@@ -68,6 +71,12 @@ touch %{buildroot}/usr/share/tenko/osdev
 /usr/share/tenko/osdev
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-3
+- Drop the tenko-base-build and tenko-build requirements: tenko-base now
+  requires tenko-base-build, which layers on tenko-buildroot (the new home
+  of dnf and createrepo_c).
+- Require ncat, moved out of tenko-base.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 6-2
 - Rebuild against tenko-rpm-config 6-2: the RPM database path is now
   /var/lib/rpm (the installed-system default), so installing this meta no

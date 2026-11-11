@@ -20,8 +20,8 @@
 # Environment:
 #   REPO       repository to install from (default: the published Tenko repo)
 #   IMAGE      image tag (default: localhost/tenko/base:r6-YYYYMMDD)
-#   PACKAGES   packages to install (default: tenko-base tenko-build
-#              plus DEVEL_PACKAGES)
+#   PACKAGES   packages to install (default: tenko-base, which carries
+#              tenko-base-build and tenko-buildroot, plus DEVEL_PACKAGES)
 #   DEVEL_PACKAGES  extra build-time packages: cryptsetup (libcryptsetup
 #              for systemd-cryptsetup), python3-pyelftools (sd-boot) and
 #              liblzo2 (btrfs-progs).  Headers and .pc files ship in the
@@ -32,6 +32,7 @@
 #   TARBALL    exported tarball (default: build/tenko-rootfs.tar.gz)
 #   FROM_TARBALL  import this tarball instead of running dnf
 #   TOOL_IMAGE if it provides dnf, use it for the install/finalize/tar steps
+#   VERIFY_RPM package the finished image must contain (default tenko-base)
 set -euo pipefail
 . "$(dirname "$0")/../lib/common.sh"
 . scripts/lib/rootfs.sh
@@ -41,7 +42,7 @@ REPO=${REPO:-$TENKO_REPO_URL}
 IMAGE=${IMAGE:-$BASE_IMAGE-$DATE}
 TAG_STABLE=${TAG_STABLE:-1}
 DEVEL_PACKAGES=${DEVEL_PACKAGES:-"cryptsetup python3-pyelftools liblzo2"}
-PACKAGES=${PACKAGES:-tenko-base tenko-base-build tenko-build $DEVEL_PACKAGES}
+PACKAGES=${PACKAGES:-tenko-base $DEVEL_PACKAGES}
 ROOTFS=${ROOTFS:-build/base-rootfs}
 TARBALL=${TARBALL:-build/tenko-rootfs.tar.gz}
 FROM_TARBALL=${FROM_TARBALL:-}
@@ -117,10 +118,10 @@ EOF
 )
 
 echo "verifying $IMAGE"
-podman run --rm --network=none "$IMAGE" /usr/bin/bash -lc '
+podman run --rm --network=none -e VERIFY_RPM="${VERIFY_RPM:-tenko-base}" "$IMAGE" /usr/bin/bash -lc '
     set -e
     echo "packages: $(rpm -qa | wc -l)"
-    rpm -q tenko-base
+    rpm -q $VERIFY_RPM
     for bin in gcc rpmbuild make python3 meson perl; do
         printf "%-9s " "$bin"
         command -v "$bin" || { echo missing; exit 1; }

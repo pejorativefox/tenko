@@ -54,4 +54,6 @@ TENKO_SOURCES_DIR=${TENKO_SOURCES_DIR:-$TENKO_CACHE_ROOT/sources}
 TENKO_LOCAL_REPO=${TENKO_LOCAL_REPO:-$TENKO_ROOT/build/repo}
 # Image every package is built in; created and refreshed by `tenko build`.
 BUILD_IMAGE=${BUILD_IMAGE:-localhost/tenko/build:r$TENKO_RELEASE}
+# Minimal toolchain buildroot for STRICT=1 builds (the tenko-buildroot meta).
+BUILDROOT_IMAGE=${BUILDROOT_IMAGE:-localhost/tenko/buildroot:r$TENKO_RELEASE}
 export TENKO_REPO_CACHE TENKO_LOCAL_REPO TENKO_SOURCES_DIR

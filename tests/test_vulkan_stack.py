@@ -76,9 +76,11 @@ class VulkanStackTest(unittest.TestCase):
         required = requires(spec_body("vulkan-loader/vulkan-loader.spec"))
         self.assertIn("vulkan-headers", required)
 
-    def test_build_environment_carries_the_headers(self):
+    def test_build_environment_does_not_hide_the_headers(self):
+        """vulkan-loader declares vulkan-headers itself; the development
+        meta must not mask a missing BuildRequires (issue #58)."""
         required = requires(spec_body("tenko-base-build/tenko-base-build.spec"))
-        self.assertIn("vulkan-headers", required)
+        self.assertNotIn("vulkan-headers", required)
 
     def test_mesa_builds_the_vulkan_drivers(self):
         match = re.search(r"-Dvulkan-drivers=([^\s\\]+)",

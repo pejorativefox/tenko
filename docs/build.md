@@ -45,7 +45,7 @@ A build runs these steps; each is a no-op when there is nothing to do:
    `OFFLINE=1` skips the sync and uses the existing mirror.
 2. **Build image** (`tenko image build`): `localhost/tenko/build:r6` is a
    root filesystem installed from the mirror (`tenko-base`,
-   `tenko-base-build`, `tenko-build` and the extra build packages).  It is
+   `tenko-base-build`, `tenko-buildroot` and the extra build packages).  It is
    created when missing and rebuilt when the mirror has newer versions of
    its packages; `--force` rebuilds it unconditionally.
 3. **Sources**: tarballs from each spec's `sources` file are fetched once and
@@ -72,34 +72,41 @@ image's full toolchain.  `STRICT=1` requires every `BuildRequires` to
 resolve and drops `--nodeps`, so the spec must declare everything it needs.
 New and updated specs should build with `STRICT=1`.
 
-## Build image profiles
+## Metapackage layering
 
-`tenko-base-build` is the build-environment meta: `tenko-base-runtime` plus
-the compiler, autotools, meson/ninja/cmake and the RPM packaging macros.
-Derive a build image with it instead of the runtime `tenko-base`.
+```
+tenko-basefs          filesystem layout
+tenko-base-runtime    the installed system (what the installer and live media use)
+tenko-buildroot       toolchain baseline: core utilities, rpm + tenko-rpm-config,
+                      gcc, binutils, make, patch, pkgconf, autotools, libtool,
+                      bison, flex, gettext, meson/ninja/cmake, kernel headers,
+                      python, glibc-locales, dnf, createrepo_c
+tenko-base-build      tenko-base-runtime + tenko-buildroot + development extras
+                      (gcc-lto, gperf, texinfo, tcl/expect/dejagnu, glibc-i18n,
+                      Python build backends, man pages)
+tenko-base            tenko-base-runtime + tenko-base-build + the base package
+                      set (package_specs/base.json + requires-extra)
+tenko-osdev           tenko-base + podman, publish clients, ISO tools, QEMU/OVMF
+tenko-workstation     tenko-base + Node.js, podman, SSH, git, agent tools
+```
 
-It now also carries the build-only chain for Mesa's Intel CLC (`mesa_clc`):
-`llvm-devel`, `llvm`, `llvm-static`, `clang-libs`, `clang-devel`,
-`clang-resource-filesystem`, `spirv-headers`, `spirv-tools`,
-`spirv-llvm-translator`, `python-mako` and `python-pyyaml`, plus
-`vulkan-headers` for the Vulkan loader.  These provide
-`llvm-config`, `LLVMSPIRVLib.pc`, `SPIRV-Tools.pc`, `libclang-cpp`,
-`clang/Config/config.h`, `opencl-c.h`, the Vulkan headers and the Python
-modules Mesa's build requires.
+`tenko-buildroot` is what package builds start from: `STRICT=1` builds run
+in an image holding only it, plus the BuildRequires the spec declares.
+Package-specific inputs are BuildRequires, not metapackage contents.  For
+example, Mesa's Intel CLC (`mesa_clc`) needs `llvm-devel`, `llvm`,
+`llvm-static`, `clang-libs`, `clang-devel`, `clang-resource-filesystem`,
+`spirv-tools`, `spirv-llvm-translator`, `python-mako` and `python-pyyaml`,
+and `mesa.spec` declares them.
 
 Do not recreate the old local-workaround image with zero-length LLVM `.a`
 files or a stub `llvm-tblgen`.  `LLVMExports.cmake` references every installed
-archive and tool binary; the build profile installs the real `llvm` and
-`llvm-static` packages (the published `llvm-devel` does not pull them in) so
-the CMake package check succeeds without placeholders.
+archive and tool binary, so consumers BuildRequire the real `llvm` and
+`llvm-static` packages (the published `llvm-devel` does not pull them in).
 
-The host-side counterpart is `tenko-osdev`.  It installs `tenko-base`,
-`tenko-base-build`, `tenko-build`, `podman-bin`, the publish clients
-(`rclone`, `rsync`, `openssh`), the ISO authoring tools and QEMU/OVMF.
-Install it on a fresh Tenko system before running the build, image and
-publish scripts.  `tenko-rpm-config` keeps the RPM database at the
-installed-system default (`/var/lib/rpm`), so adding the development meta
-to a running system does not move it.
+Install `tenko-osdev` on a fresh Tenko system before running the build, image
+and publish commands.  `tenko-rpm-config` keeps the RPM database at the
+installed-system default (`/var/lib/rpm`), so adding the development meta to
+a running system does not move it.
 
 `tenko image base` installs `tenko-basefs` in its own first transaction
 (so the `/bin`, `/sbin`, `/lib` and `/lib64` usr-merge symlinks win over the
@@ -207,7 +214,7 @@ Other publishers:
   zstd squashfs).  `ISO_AUTO=1` plus `ISO_ANSWER=tests/installer-answer.json`
   makes it unattended.
 - Rootfs: `tenko image base` with
-  `PACKAGES="tenko-base tenko-build python3-pyelftools"
+  `PACKAGES="tenko-base python3-pyelftools"
   TARBALL=build/tenko-rootfs.tar.gz`.
 
 The image artifacts keep the unversioned `tenko-installer.iso` and

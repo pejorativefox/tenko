@@ -1,38 +1,23 @@
 Name:       tenko-base-build
 Version:    6
-Release:    3
+Release:    4
 Epoch:      1
-Summary:    Tenko Linux build environment (runtime base + toolchain)
+Summary:    Tenko Linux development environment (runtime base + toolchain)
 License:    MIT
 Prefix:     /usr
 
-# tenko-base-runtime (runtime half) plus everything needed to compile
-# and package RPMs, including headers and static libraries.  Provision a
-# build container/image with this meta instead of the monolithic
-# tenko-base.
+# tenko-base-runtime plus the toolchain baseline (tenko-buildroot) plus the
+# development extras a build host or interactive developer expects.
+# Package builds do not rely on this meta: they start from tenko-buildroot
+# and add their spec's BuildRequires (issue #58).
 Requires:   tenko-base-runtime
-Requires:   gcc
+Requires:   tenko-buildroot
 Requires:   gcc-lto
-Requires:   binutils
-Requires:   make
-Requires:   patch
-Requires:   pkgconf
-Requires:   m4
-Requires:   autoconf
-Requires:   automake
-Requires:   libtool
-Requires:   bison
-Requires:   flex
 Requires:   gperf
-Requires:   gettext
 Requires:   texinfo
 Requires:   tcl
 Requires:   expect
 Requires:   dejagnu
-Requires:   ninja
-Requires:   meson
-Requires:   cmake
-Requires:   linux-api-headers
 Requires:   glibc-i18n
 Requires:   python-setuptools
 Requires:   python-wheel
@@ -40,40 +25,21 @@ Requires:   python-flit-core
 Requires:   python-packaging
 Requires:   python-markupsafe
 Requires:   python-jinja
-Requires:   python-mako
-Requires:   python-pyyaml
-Requires:   llvm-devel
-Requires:   llvm
-Requires:   llvm-static
-Requires:   clang-libs
-Requires:   clang-resource-filesystem
-Requires:   clang-devel
-Requires:   spirv-headers
-Requires:   spirv-tools
-Requires:   spirv-llvm-translator
-Requires:   vulkan-headers
-Requires:   tenko-rpm-config
 Requires:   groff
 Requires:   man-db
 Requires:   man-pages
 
 %description
-The Tenko base build environment: tenko-base-runtime plus the
-GCC toolchain (including the LTO parts and static libraries), binutils,
-the autotools, gettext tools, texinfo, tcl/expect/dejagnu,
-meson/ninja/cmake, kernel headers, glibc locale sources for localedef,
-the Python build backends and the RPM packaging macros.  Development
-headers and .pc files ship in the runtime packages themselves.
+The Tenko development environment: tenko-base-runtime plus the toolchain
+baseline from tenko-buildroot (GCC, binutils, autotools, gettext,
+meson/ninja/cmake, kernel headers, rpm and the Tenko macros) and common
+development extras: the GCC LTO plugin, gperf, texinfo, tcl/expect/dejagnu
+for test suites, glibc locale sources for localedef, the Python build
+backends and the manual pages.  Development headers and .pc files ship in
+the runtime packages themselves.
 
-It also carries the build-only chain for Mesa's Intel CLC (mesa_clc):
-LLVM, Clang libraries, headers and resource files, SPIRV-Headers,
-SPIRV-Tools, SPIRV-LLVM-Translator, Mako and PyYAML, and the Khronos
-Vulkan headers for the Vulkan loader.  Those are build-time inputs; the
-Mesa RPM carries only the SPIRV-Tools shared library for its Vulkan
-drivers.
-
-Use this profile for a build container or CI image.  tenko-base stays
-available unchanged for existing installs.
+Package-specific build inputs (for example Mesa's LLVM/Clang/SPIR-V chain)
+are BuildRequires of the specs that need them, not part of this profile.
 
 %prep
 
@@ -87,6 +53,14 @@ touch %{buildroot}/usr/share/tenko/base-build
 /usr/share/tenko/base-build
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-4
+- Layer on tenko-buildroot instead of listing the toolchain directly.
+- Drop the Mesa CLC chain (llvm, llvm-devel, llvm-static, clang-libs,
+  clang-devel, clang-resource-filesystem, spirv-headers, spirv-tools,
+  spirv-llvm-translator, python-mako, python-pyyaml) and vulkan-headers:
+  mesa.spec and vulkan-loader.spec declare them as BuildRequires, so a
+  build installs them when needed (issue #58).
+
 * Mon Nov 09 2026 tenko <build@tenko.invalid> 6-3
 - Carry vulkan-headers: the Vulkan loader builds from the Khronos
   headers, and Mesa installs Vulkan ICDs that the loader loads.

@@ -30,10 +30,10 @@ SPEC_PACKAGES = {
 }
 
 # Mesa links the installed SPIRV libraries and reads clang's resource files;
-# it does not use the SPIRV headers or the LLVM tool binaries directly.
-MESA_BUILD_PACKAGES = CLC_BUILD_PACKAGES - {
-    "spirv-headers", "llvm", "llvm-static",
-}
+# it does not use the SPIRV headers directly.  It does need the llvm tools
+# and static archives: find_package(LLVM) loads LLVMExports.cmake, which
+# checks every installed tool binary and archive.
+MESA_BUILD_PACKAGES = CLC_BUILD_PACKAGES - {"spirv-headers"}
 
 
 def spec_path(relative):
@@ -82,13 +82,11 @@ class MesaClcBuildDepsTest(unittest.TestCase):
                 read("%s/sources" % package).strip(),
                 "%s/sources must record provenance" % package)
 
-    def test_build_environment_carries_the_chain(self):
+    def test_build_environment_does_not_carry_the_chain(self):
+        """The chain is Mesa's build input, declared in mesa.spec; the
+        development meta must not hide a missing BuildRequires (#58)."""
         required = requires(spec_body("tenko-base-build/tenko-base-build.spec"))
-        missing = CLC_BUILD_PACKAGES - required
-        self.assertEqual(
-            missing, set(),
-            "tenko-base-build must require the Mesa CLC build chain: %s"
-            % ", ".join(sorted(missing)))
+        self.assertEqual(CLC_BUILD_PACKAGES & required, set())
 
     def test_mesa_declares_the_build_chain(self):
         required = requires(spec_body("mesa/mesa.spec"))
@@ -98,8 +96,8 @@ class MesaClcBuildDepsTest(unittest.TestCase):
             "mesa.spec must BuildRequire the CLC build chain: %s"
             % ", ".join(sorted(missing)))
 
-    def test_build_environment_carries_real_llvm_files(self):
-        required = requires(spec_body("tenko-base-build/tenko-base-build.spec"))
+    def test_mesa_builds_against_real_llvm_files(self):
+        required = requires(spec_body("mesa/mesa.spec"))
         self.assertIn(
             "llvm-static", required,
             "LLVMExports.cmake verifies the static archives, and the published "

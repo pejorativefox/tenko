@@ -1,12 +1,17 @@
 Name:       tenko-base
 Version:    6
-Release:    11
+Release:    12
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
 Prefix:     /usr
 
 %include %{_sourcedir}/devel-obsoletes.inc
+
+# Layering: the base system is the installed runtime plus the development
+# environment, then the base package set below.
+Requires:   tenko-base-runtime
+Requires:   tenko-base-build
 
 # BEGIN GENERATED REQUIRES: generated from package_specs/base.json + requires-extra
 # Run ./tenko base-requires after changing either file.
@@ -132,12 +137,9 @@ Requires:   rsync
 Requires:   pciutils
 Requires:   usbutils
 Requires:   which
-Requires:   ncat
 Requires:   ncdu
 Requires:   htop
 Requires:   bwm-ng
-Requires:   nodejs
-Requires:   podman-bin
 Requires:   NetworkManager
 Requires:   wpa-supplicant
 Requires:   nmtui
@@ -158,6 +160,15 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-12
+- Require tenko-base-runtime and tenko-base-build, so the base system is
+  a strict superset of both instead of a separate flat list (it was
+  missing gcc-libs and gettext-libs from the runtime set).
+- Move nodejs, podman-bin and ncat out of the base: they belong to the
+  developer profiles (tenko-workstation and tenko-osdev already carry
+  nodejs/podman-bin; tenko-osdev now carries ncat).  Existing installs keep
+  them until removed; `dnf autoremove` may offer to drop them.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-11
 - Promote font-ttf-unifont into the base package set (packages and rebuild
   order).  Its fontconfig snippet is the final monospace fallback and covers

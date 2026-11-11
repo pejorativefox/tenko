@@ -8,10 +8,10 @@
 #   /etc/ssl/certs links) used by curl, git, OpenSSL and derived images
 # - openssh, git: SSH client/server and version control in the base install
 # - libseccomp/libbsd/libmd, rpm/popt/libarchive/lua: RPM toolchain
-# - curl, wget, rsync, pciutils, usbutils, which, ncat, ncdu, htop,
-#   bwm-ng, nodejs, podman-bin: user-requested additions to the base
-#   install (base-packages-additions.md).  podman-bin provides the podman
-#   package name.
+# - curl, wget, rsync, pciutils, usbutils, which, ncdu, htop, bwm-ng:
+#   user-requested additions to the base install
+#   (base-packages-additions.md).  nodejs, podman-bin and ncat moved to the
+#   developer profiles (tenko-workstation, tenko-osdev) in tenko-base 6-12.
 # - NetworkManager, wpa-supplicant, nmtui, linux-firmware-base: wired and
 #   wireless networking.  NetworkManager owns the interfaces (its preset
 #   disables systemd-networkd), wpa-supplicant provides WPA/WPA2/WPA3,
@@ -44,12 +44,9 @@ rsync
 pciutils
 usbutils
 which
-ncat
 ncdu
 htop
 bwm-ng
-nodejs
-podman-bin
 NetworkManager
 wpa-supplicant
 nmtui
