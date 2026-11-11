@@ -1,6 +1,6 @@
 Name:       meson
 Version:    1.12.1
-Release:    3
+Release:    4
 Summary:    Meson build system
 License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
@@ -40,6 +40,9 @@ install -D -m644 data/shell-completions/zsh/_meson \
 /usr/share/zsh/site-functions/_meson
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 1.12.1-4
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 1.12.1-3
 - Install the upstream bash and zsh completions from data/shell-completions;
   setup.py installs the Python package but not the shell completion files.

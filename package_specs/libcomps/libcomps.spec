@@ -1,6 +1,6 @@
 Name:       libcomps
 Version:    0.1.24
-Release:    7
+Release:    8
 Summary:    Comps XML file manipulation library
 License:    GPL-2.0-or-later
 Prefix:     /usr
@@ -34,6 +34,9 @@ popd
 
 %files -f %{_sourcedir}/libcomps.filelist
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 0.1.24-8
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.1.24-7
 - Replace the legacy short licence name with the verified SPDX expression
   (GPL-2.0-or-later): COPYING, plus libcomps/src/*.c "either version 2 ... or any later version" (issue #8).

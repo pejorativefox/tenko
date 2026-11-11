@@ -1,6 +1,6 @@
 Name:       python3-dbus
 Version:    1.5.1
-Release:    1
+Release:    2
 Summary:    Python bindings for D-Bus
 License:    MIT
 URL:        https://gitlab.freedesktop.org/dbus/dbus-python
@@ -39,6 +39,9 @@ fi
 %files -f %{_sourcedir}/python3-dbus.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 1.5.1-2
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 1.5.1-1
 - New package: dbus-python 1.5.1 (latest stable upstream).  Not in the base
   set; TuneD's D-Bus service and tuned-adm client require it.

@@ -1,6 +1,6 @@
 Name:       python3-docutils
 Version:    0.23
-Release:    2
+Release:    3
 Summary:    Python text processing system (docutils, rst2man)
 License:    public domain / BSD / GPL
 Prefix:     /usr
@@ -29,6 +29,9 @@ fi
 %files -f %{_sourcedir}/python3-docutils.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 0.23-3
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.23-2
 - Rebuild for Python 3.15 (3.14 site-packages are gone); 3 paths updated.
 

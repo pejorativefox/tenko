@@ -1,6 +1,6 @@
 Name:       at-spi2-core
 Version:    2.62.1
-Release:    5
+Release:    6
 Summary:    Assistive Technology Service Provider Interface core
 License:    LGPL-2.1-or-later
 Prefix:     /usr
@@ -55,6 +55,9 @@ The .gir XML needed for building stays in the main package.
 %files gir -f %{_sourcedir}/at-spi2-core-gir.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 2.62.1-6
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.62.1-5
 - Replace the TODO summary/description and record the verified license
   (LGPL-2.1-or-later): COPYING (issue #8).

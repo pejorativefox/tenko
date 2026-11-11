@@ -1,6 +1,6 @@
 Name:       newt
 Version:    0.52.25
-Release:    2
+Release:    3
 Summary:    Newt is a programming library for color text mode
 License:    LGPL-2.0-only
 Prefix:     /usr
@@ -113,6 +113,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 /usr/share/man/man1/whiptail.1.gz
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 0.52.25-3
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.52.25-2
 - Record the verified license (LGPL-2.0-only): README (issue #8).
 

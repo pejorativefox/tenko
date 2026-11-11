@@ -1,11 +1,10 @@
 Name:       python-pyparsing
 Version:    3.3.3
-Release:    2
+Release:    3
 Summary:    Python module for creating parsers
 License:    MIT
 Source0:    pyparsing-%{version}.tar.gz
 Prefix:     /usr
-Requires: python
 BuildRequires: python-flit-core
 
 %description
@@ -29,6 +28,9 @@ fi
 %files -f %{_sourcedir}/python-pyparsing.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 3.3.3-3
+- Rebuild with tenko-rpm-config 6-4: python(abi) = 3.15 is generated, so drop the explicit Requires: python.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 3.3.3-2
 - Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
 

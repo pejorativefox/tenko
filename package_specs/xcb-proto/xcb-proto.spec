@@ -1,6 +1,6 @@
 Name:       xcb-proto
 Version:    1.17.0
-Release:    3
+Release:    4
 Summary:    XML-XCB protocol library
 License:    MIT
 Source0:    %{name}-%{version}.tar.xz
@@ -33,6 +33,9 @@ fi
 
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 1.17.0-4
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.17.0-3
 - Record the verified license (MIT): COPYING (issue #8).
 

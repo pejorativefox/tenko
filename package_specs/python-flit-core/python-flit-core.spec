@@ -1,12 +1,10 @@
 Name:       python-flit-core
 Version:    4.2.0
-Release:    3
+Release:    4
 Summary:    Python packaging utility (core)
 License:    BSD-3-Clause AND MIT
 Source0:    flit_core-%{version}.tar.gz
 Prefix:     /usr
-Requires: python
-
 %description
 Flit is a simple way to put Python packages and modules on PyPI. 
 
@@ -27,6 +25,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 4.2.0-4
+- Rebuild with tenko-rpm-config 6-4: python(abi) = 3.15 is generated, so drop the explicit Requires: python.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 4.2.0-3
 - Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
 

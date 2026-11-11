@@ -1,6 +1,6 @@
 Name:       tuned
 Version:    2.28.0
-Release:    1
+Release:    2
 Summary:    Dynamic adaptive system tuning daemon
 License:    GPL-2.0-or-later AND CC-BY-SA-3.0
 URL:        https://tuned-project.org/
@@ -102,6 +102,9 @@ fi
 %files -f %{_sourcedir}/tuned.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 2.28.0-2
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 2.28.0-1
 - New package: TuneD 2.28.0 (latest stable upstream, released 2026-08-22).
   Built from the upstream GitHub archive for the v2.28.0 tag because the

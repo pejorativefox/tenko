@@ -1,6 +1,6 @@
 Name:       python3-gobject
 Version:    3.58.1
-Release:    1
+Release:    2
 Summary:    Python bindings for GObject Introspection
 License:    LGPL-2.1-or-later
 URL:        https://pygobject.gnome.org/
@@ -46,6 +46,9 @@ fi
 %files -f %{_sourcedir}/python3-gobject.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 3.58.1-2
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 3.58.1-1
 - New package: PyGObject 3.58.1 (latest stable upstream).  Not in the base
   set; dbus-python's GLib main loop and TuneD require the gi module.

@@ -1,6 +1,6 @@
 Name:       python3-lxml
 Version:    6.1.3
-Release:    2
+Release:    3
 Summary:    Python bindings for libxml2 and libxslt
 License:    BSD-3-Clause AND PSF-2.0 AND MIT
 Source0:    lxml-%{version}.tar.gz
@@ -27,6 +27,9 @@ fi
 %files -f %{_sourcedir}/python3-lxml.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6.1.3-3
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 6.1.3-2
 - Replace the legacy short licence name with the verified SPDX expression
   (BSD-3-Clause AND PSF-2.0 AND MIT): LICENSE.txt (issue #8).

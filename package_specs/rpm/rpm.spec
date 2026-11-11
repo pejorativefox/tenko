@@ -1,6 +1,6 @@
 Name:       rpm
 Version:    4.18.1
-Release:    8
+Release:    9
 Summary:    RPM package manager
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
@@ -50,6 +50,9 @@ rmdir %{buildroot}/var 2>/dev/null || true
 %files -f %{_sourcedir}/rpm.filelist
 %files -n python3-rpm -f %{_sourcedir}/rpm-python.filelist
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 4.18.1-9
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.18.1-8
 - Record the verified license (GPL-2.0-or-later AND LGPL-2.0-or-later): COPYING (issue #8).
 

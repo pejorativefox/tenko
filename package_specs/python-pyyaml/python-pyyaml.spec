@@ -1,11 +1,10 @@
 Name:       python-pyyaml
 Version:    6.0.3
-Release:    2
+Release:    3
 Summary:    Python YAML parser and emitter
 License:    MIT
 Prefix:     /usr
 Source0:    pyyaml-6.0.3.tar.gz
-Requires: python
 BuildRequires: python-setuptools
 
 %description
@@ -34,6 +33,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6.0.3-3
+- Rebuild with tenko-rpm-config 6-4: python(abi) = 3.15 is generated, so drop the explicit Requires: python.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6.0.3-2
 - Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
 

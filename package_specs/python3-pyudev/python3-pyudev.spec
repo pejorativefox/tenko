@@ -1,6 +1,6 @@
 Name:       python3-pyudev
 Version:    0.24.5
-Release:    1
+Release:    2
 Summary:    Python libudev binding
 License:    LGPL-2.1-or-later
 URL:        https://github.com/pyudev/pyudev
@@ -33,6 +33,9 @@ fi
 %files -f %{_sourcedir}/python3-pyudev.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 0.24.5-2
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 0.24.5-1
 - New package: pyudev 0.24.5 (latest stable upstream).  Not in the base
   set; TuneD imports pyudev from its daemon, hardware inventory and net

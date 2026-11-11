@@ -1,13 +1,11 @@
 Name:       python-markupsafe
 Version:    3.0.4
-Release:    3
+Release:    4
 Summary:    Safely add untrusted strings to HTML/XML markup.
 License:    BSD-3-Clause
 Source0:    markupsafe-3.0.4.tar.gz
 Prefix:     /usr
 BuildRequires: python-setuptools
-Requires: python
-
 %description
 Safely add untrusted strings to HTML/XML markup.
 
@@ -28,6 +26,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 3.0.4-4
+- Rebuild with tenko-rpm-config 6-4: python(abi) = 3.15 is generated, so drop the explicit Requires: python.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 3.0.4-3
 - Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
 

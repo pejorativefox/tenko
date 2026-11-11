@@ -1,6 +1,6 @@
 Name:       libxslt
 Version:    1.1.45
-Release:    5
+Release:    6
 Summary:    XSLT processor based on libxml2
 License:    MIT
 Prefix:     /usr
@@ -34,6 +34,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libxslt.filelist
 %files doc -f %{_sourcedir}/libxslt-doc.filelist
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 1.1.45-6
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.1.45-5
 - Replace the TODO summary/description and record the verified license
   (MIT): Copyright (issue #8).

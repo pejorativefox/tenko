@@ -2,7 +2,7 @@
 
 Name:       python
 Version:    3.15.2
-Release:    3
+Release:    4
 Summary:    The Python programming language
 License:    PSF-2.0
 Source0:    Python-%{version}.tar.xz
@@ -125,6 +125,9 @@ find %{buildroot}/usr/lib64/python3.15 \
 %files tkinter -f %{_sourcedir}/python-tkinter.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 3.15.2-4
+- Rebuild with tenko-rpm-config 6-4: /usr/bin/python3.15 provides python(abi) = 3.15, which every Python module package now requires.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 3.15.2-3
 - Generate the main package's library requirements (openssl-libs,
   mpdecimal, libffi, sqlite, expat, ...); AutoReq was off, so a minimal

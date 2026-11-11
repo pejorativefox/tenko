@@ -1,6 +1,6 @@
 Name:       libdnf
 Version:    0.76.0
-Release:    7
+Release:    8
 Summary:    Library providing a simplified C and Python API to libsolv
 License:    LGPL-2.1-or-later AND LGPL-3.0-or-later
 Prefix:     /usr
@@ -39,6 +39,9 @@ popd
 
 %files -f %{_sourcedir}/libdnf.filelist
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 0.76.0-8
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.76.0-7
 - Replace the legacy short licence name with the verified SPDX expression
   (LGPL-2.1-or-later AND LGPL-3.0-or-later): COPYING, plus libdnf/utils/bgettext/bgettext.c, which is LGPLv3+ (issue #8).

@@ -1,6 +1,6 @@
 Name:       python3-pyelftools
 Version:    0.33
-Release:    1
+Release:    2
 Summary:    Pure-Python library for parsing ELF files and DWARF debugging data
 License:    Public Domain
 Source0:    pyelftools-%{version}.tar.gz
@@ -41,6 +41,9 @@ fi
 /usr/bin/__pycache__/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 0.33-2
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 0.33-1
 - New package.  Not in the base set; the base build only lists pyelftools as
   an optional build dependency of systemd.  systemd 262.1 needs it for

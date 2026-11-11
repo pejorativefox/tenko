@@ -1,12 +1,10 @@
 Name:       python-setuptools
 Version:    84.2.1
-Release:    3
+Release:    4
 Summary:    Python setuptools build system.
 License:    MIT AND LGPL-3.0-or-later AND Apache-2.0
 Source0:    setuptools-%{version}.tar.gz
 Prefix:     /usr
-Requires: python
-
 %description
 Python setuptools build system. 
 
@@ -27,6 +25,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 84.2.1-4
+- Rebuild with tenko-rpm-config 6-4: python(abi) = 3.15 is generated, so drop the explicit Requires: python.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 84.2.1-3
 - Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
 

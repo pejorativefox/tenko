@@ -1,6 +1,6 @@
 Name:       python3-linux-procfs
 Version:    0.7.4
-Release:    1
+Release:    2
 Summary:    Linux /proc abstraction classes
 License:    GPL-2.0-only
 URL:        https://www.kernel.org/pub/software/libs/python/python-linux-procfs
@@ -33,6 +33,9 @@ fi
 %files -f %{_sourcedir}/python3-linux-procfs.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 0.7.4-2
+- Rebuild with tenko-rpm-config 6-4 for the generated python(abi) = 3.15 requirement on its Python modules.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 0.7.4-1
 - New package: python-linux-procfs 0.7.4 (latest stable upstream).  Not in
   the base set; TuneD's scheduler plugin and profile recommender import

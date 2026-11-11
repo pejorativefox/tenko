@@ -1,12 +1,11 @@
 Name:       python-wheel
 Version:    0.48.0
-Release:    4
+Release:    5
 Summary:    The official binary distribution format for Python 
 License:    MIT
 Source0:    wheel-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: python-flit-core
-Requires: python
 Requires: python-packaging
 
 %description
@@ -28,6 +27,9 @@ fi
 %files -f %{_sourcedir}/python-wheel.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 0.48.0-5
+- Rebuild with tenko-rpm-config 6-4: python(abi) = 3.15 is generated, so drop the explicit Requires: python.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 0.48.0-4
 - Require python and python-packaging (wheel >= 0.46 depends on packaging).
 

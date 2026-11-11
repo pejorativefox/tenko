@@ -1,13 +1,11 @@
 Name:       python-packaging
 Version:    26.3
-Release:    4
+Release:    5
 Summary:    Core utilities for Python packages
 License:    Apache-2.0 OR BSD-2-Clause
 Source0:    packaging-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: python-flit-core
-Requires: python
-
 %description
 Core utilities for Python packages
 
@@ -28,6 +26,9 @@ fi
 /usr/lib64/python3.15/site-packages/
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 26.3-5
+- Rebuild with tenko-rpm-config 6-4: python(abi) = 3.15 is generated, so drop the explicit Requires: python.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 26.3-4
 - Require python: Tenko has no Python dependency generator, so the module package shipped without any runtime requirement.
 
