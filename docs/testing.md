@@ -1,8 +1,9 @@
 # Testing images and installs
 
-Every test runs the real UEFI path: QEMU with the OVMF firmware and a
-GPT/ESP disk.  There is no BIOS path — the media and installed system are
-UEFI-only.
+Boot and install tests run under QEMU with the OVMF firmware and a GPT/ESP
+disk, the same UEFI path as real hardware (only `tenko qemu boot` uses a
+direct kernel boot).  There is no BIOS path — the media and installed system
+are UEFI-only.
 
 ## Prerequisites
 
@@ -62,7 +63,9 @@ layout on `/dev/vda` with a 1 GiB ESP + 2 GiB swap + ext4 root, installs the
 `desktop` set, sets hostname `tenko-test` and admin `admin` (test-only
 password).  Add another entry to `layout.disks` for a second disk, for
 example a btrfs or ext4 data partition mounted at `/home`.
-That image is a test artifact — do not use it on real hardware.
+That image is a test artifact — do not use it on real hardware.  Give a
+desktop install at least 8 GiB of guest RAM: the live overlay and the DNF
+cache share tmpfs, and 4 GiB runs out during the package step.
 
 To exercise the installed disk yourself, boot the same disk with a fresh
 OVMF variable store (`OVMF_VARS` copied from `OVMF_VARS_SRC`) and
@@ -70,118 +73,6 @@ OVMF variable store (`OVMF_VARS` copied from `OVMF_VARS_SRC`) and
 the serial console.  `tests/serial_login.py [user] [password]` can drive that
 login over a `-serial unix:...` socket and checks for the login prompt,
 password prompt, shell prompt and requested commands.
-
-## Tenko 6 ISO verification (2026-11-06)
-
-Artifact: published `tenko-installer.iso`, 520,159,232 B, SHA-256
-`f69c0be0efdd68377b5bcd5e2491fa91ed2d2b9d3cb4e9799955155d93766931`.
-Environment: QEMU 11.1.3 with KVM and OVMF, 8 GiB guest RAM, a blank 20 GiB
-virtio disk and a fresh OVMF variable store.
-
-| check | result | evidence |
-|---|---|---|
-| stock ISO boots under OVMF | **PASS** | systemd-boot entry, `Tenko Linux 6 (Workstation)`, kernel 7.3.1, `Started Tenko Linux installer` |
-| unattended desktop install | **PASS** | all 9 steps, `TENKO-INSTALL: OK`; 1 GiB ESP + 2 GiB swap + ext4 root on `/dev/vda` |
-| installed disk boots with fresh NVRAM | **PASS** | systemd-boot menu, kernel 7.3.1, `tenko-test login:` |
-| login and system state | **PASS** | admin login; `systemctl is-system-running` = `running`; `systemctl --failed` empty |
-| graphical target | **PASS** | `graphical.target` and `lightdm` active; greeter captured in `build/installed-screen.png` |
-| storage and swap | **PASS** | `/dev/vda3` ext4 on `/`, `/dev/vda1` vfat on `/boot`, `/dev/vda2` 2 GiB swap active |
-| public package repository | **PASS** | installed `tenko-6.repo` points at `https://tenko.pjfox.xyz/packages/6/`; `dnf makecache` and `repolist` succeed |
-
-The unattended install used a local remaster of the published ISO that only
-adds `/answer.json` and the `tenko.auto=1` kernel option; the live squashfs,
-kernel and initrd are unchanged.  The 8 GiB auto run was stopped after the
-public mirror proved too slow, and the same installer was then run
-non-interactively on the serial console with `--repo` set to the LAN mirror.
-After installation the target repository file was switched to the public URL
-and verified.  The auto path was also exercised directly: with only 4 GiB
-guest RAM the package step failed with `curl` error 23 as the live overlay and
-DNF cache exhausted tmpfs.  Desktop install tests should use at least 8 GiB.
-
-`sshd-keygen.service` initially failed on first boot because a zero-length
-host key made `ssh-keygen` prompt for overwrite.  This is fixed in
-`openssh-10.6p1-3` (published); the reinstalled system reports no failed
-units.
-
-Not covered by this run: USB/`dd` boot and reuse of an existing small ESP
-(issue #14), and Secure Boot (out of scope).  Local evidence:
-`build/installer-serial.log`, `build/manual-install.log`,
-`build/installed-serial.log`, `build/installed-screen.png`, plus the 4 GiB
-failure log `build/auto-serial-fail-4g.log`.
-
-### 2026-11-07 rebuild boot check
-
-Artifact: published `tenko-installer.iso`, 520,372,224 B, SHA-256
-`2ba9dc4fddf6f769ab519aaa3497a98de1ac348d00df13ec9351986fd890b2d5`.
-
-Environment: QEMU 11.1.3 and OVMF 202608-2, 4 GiB guest RAM, a blank 20 GiB
-virtio disk and a fresh OVMF variable store.  The host's `/dev/kvm` is
-root-only, so this run used QEMU TCG (`-accel tcg,thread=multi -cpu max`)
-rather than KVM.
-
-| check | result | evidence |
-|---|---|---|
-| stock ISO boots under OVMF | **PASS** | systemd-boot entry, `Tenko Linux 6 (Workstation)`, kernel 7.3.1, dracut live root |
-| installer service starts | **PASS** | `Started Tenko Linux installer` |
-| system reaches multi-user | **PASS** | `Reached target Multi-User System`, `localhost login:` |
-| failed units / emergency mode | **PASS** | no `Failed to start` or emergency lines |
-
-Evidence: `build/installer-serial-tcg.log` and
-`build/installer-screen-tcg.ppm`.  The full unattended install and graphical
-checks above were not repeated for this rebuild; they remain the 2026-11-06
-record.
-
-### 2026-11-08 rebuild boot check
-
-Artifact: published `tenko-installer.iso`, 573,976,576 B, SHA-256
-`c8f7b4e288a7f39a6af3fd9f35731d5555f33cba6e383edf54367d5fc5a348ca`.
-
-Environment: QEMU 11.1.3 and OVMF 202608-2, 4 GiB guest RAM, a blank 20 GiB
-virtio disk and a fresh OVMF variable store.  The rebuild includes the
-`2026-11-08` console stack (kmscon plus the Noto/Nerd font fallbacks).
-
-| check | result | evidence |
-|---|---|---|
-| stock ISO boots under OVMF | **PASS** | systemd-boot entry, `Tenko Linux 6 (Workstation)`, kernel 7.3.1, dracut live root |
-| installer service starts | **PASS** | `Started Tenko Linux installer` |
-| kmscon replaces fbcon on tty1 | **PASS** | `Started KMS System Console on tty1` |
-| system reaches multi-user | **PASS** | `Reached target Multi-User System`, `localhost login:` |
-| failed units / emergency mode | **PASS** | no `Failed to start` or emergency lines |
-
-Evidence: `build/installer-serial.log` and `build/installer-screen.ppm`.  The
-full unattended install and graphical checks above were not repeated for this
-rebuild; they remain the 2026-11-06 record.
-
-### 2026-11-09 rebuild boot check
-
-Artifact: published `tenko-installer.iso`, 824,487,936 B, SHA-256
-`30e2d49a11a99001c9347e53dcc6fe70de8fafbd66e04af899d11a8045ff014d`.
-
-Environment: QEMU 11.1.3 and OVMF 202608-2, 4 GiB guest RAM, a blank 20 GiB
-virtio disk, a fresh OVMF variable store and either the default user-mode
-e1000 NIC or `-nic none`.  The rebuild includes `tenko-installer-6-12`
-(network setup screen, nmtui retry, live-console fix and UTF-8 nmtui) and
-`tenko-live-6-3` (Wi-Fi/NIC firmware packs); the live root is now 247 MiB
-of firmware.
-
-| check | result | evidence |
-|---|---|---|
-| stock ISO boots under OVMF | **PASS** | systemd-boot entry, `Tenko Linux 6 (Workstation)`, kernel 7.3.1, dracut live root |
-| installer owns tty1 | **PASS** | the curses welcome screen is visible; kmscon and firstboot-root-password are masked |
-| installer service starts | **PASS** | `Started Tenko Linux installer` |
-| no-network path | **PASS** | `-nic none` shows the "Network required" screen with nmtui and retry |
-| nmtui console | **PASS** | nmtui runs in kmscon on tty3 with `LC_ALL=C.UTF-8` and returns to the installer |
-| passwordless rescue shell | **PASS** | tty2 getty and `serial-getty@ttyS0` autologin as root |
-| system reaches multi-user | **PASS** | `Reached target Multi-User System` |
-| failed units / emergency mode | **PASS** | no `Failed to start` or emergency lines |
-| firmware packs in the live root | **PASS** | `linux-firmware-{intel-wifi,ath,mediatek,other,nic}-20261019-3` |
-
-Evidence: `build/iso-smoke-issue50-console.log`,
-`build/installer-screen.png`, `build/nonet-screen.png`,
-`build/nmtui4-nm.png` and `build/nmtui4-back.png`.  The no-network screen
-and the kmscon nmtui round trip were exercised; an actual Wi-Fi association
-and a Chinese SSID on real Intel/Realtek hardware are still outstanding.
-The full unattended install and graphical checks were not repeated.
 
 ## Graphical tests
 
@@ -192,7 +83,13 @@ SKIP_INSTALL=1 ./tenko qemu desktop
 ./tenko qemu login              # first boot + LightDM
 SKIP_INSTALL=1 ./tenko qemu login
 BUILD_ONLY=1 ./tenko qemu login
+
+./tenko qemu run                # boot the login test image interactively
 ```
+
+Both install from the published repository (`REPO`, default public URL) into
+`build/rootfs-*`, build an ext4 image, boot it and capture the screen.  Logs
+and screenshots are written under `build/`.
 
 For the freedesktop desktop-level gate, run the same install plus the
 in-guest session checks (notifications, portal, Secret Service, sound, trash,
@@ -211,8 +108,8 @@ logind session with a systemd user manager and
 `DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus`.  This is the same
 D-Bus activation path as a real login: the portal check waits for
 `graphical-session.target` and `xfce-session.target`, then confirms that
-`xdg-desktop-portal.service` is active under the user manager (the issue #48
-fix).  A private `unix:path=/tmp/dbus-*` bus is never accepted as a pass.
+`xdg-desktop-portal.service` is active under the user manager.
+A private `unix:path=/tmp/dbus-*` bus is never accepted as a pass.
 
 The guest writes `build/qemu-share/fdo-check.txt` and the script exits:
 
@@ -220,7 +117,7 @@ The guest writes `build/qemu-share/fdo-check.txt` and the script exits:
 |---|---|
 | `0` | every check passed; hardware-only checks may be `SKIP` |
 | `1` | a packaged component failed its check (`FAIL`) |
-| `2` | harness failure (`HARNESS-FAIL`): no usable login session, wrong bus, or missing #48 units; LightDM/Xorg/journal diagnostics are in `fdo-check.txt` |
+| `2` | harness failure (`HARNESS-FAIL`): no usable login session, wrong bus, or missing session-target units; LightDM/Xorg/journal diagnostics are in `fdo-check.txt` |
 
 The script fails before booting if the installed `tenko-desktop-config` is
 older than 6-6 (no `xfce-session.target`) or if a required desktop package is
@@ -245,12 +142,8 @@ Secret Service session collection.  The PAM hooks themselves are checked in
 greeter unlock end to end, disable the autologin drop-in in a test image, log
 in at the LightDM greeter with the test password, and confirm that
 `secret-tool lookup service tenko key test` returns without the manual
-unlock.  The #48 evidence in that manual greeter login is recorded on the
-issue tracker.
+unlock.
 
-Both install from the published repository (`REPO`, default public URL) into
-`build/rootfs-*`, build an ext4 image, boot it and capture the screen.  Logs
-and screenshots are written under `build/`.
 
 ## Session integration check
 
@@ -260,8 +153,8 @@ inside a live XFCE/X11 session.  It is network-free and read-only, needs
 one `PASS`/`FAIL`/`SKIP` line per check.  It requires the systemd user manager
 bus (`XDG_RUNTIME_DIR/bus`): a private `dbus-launch` bus cannot activate the
 portal, so it is reported as a failure rather than a pass.  It also verifies
-that `graphical-session.target` and `xfce-session.target` are active, which
-covers the issue #48 autostart entry:
+that `graphical-session.target` and `xfce-session.target` are active (the
+session-target autostart entry from `tenko-desktop-config`):
 
 ```sh
 # run as the logged-in user inside the guest
@@ -291,11 +184,11 @@ tree to validate the real autostart payload instead of skipping it.
 python3 -m unittest discover -s tests -v
 ```
 
-The command runs the top-level tests (build database, the no-`-devel` rule,
-repository index generation, the freedesktop audit fixtures) and the installer
-suite under `package_specs/tenko-installer/tests/` (planner, probe, answer
-file, dry-run install and simulation).  It needs no QEMU, root, network or
-block devices.
+It runs the top-level tests under `tests/` (packaging defaults, the
+no-`-devel` rule, build and publish tooling, the freedesktop audit fixtures)
+and, through `tests/test_installer_suite.py`, the installer suite under
+`package_specs/tenko-installer/tests/` (planner, probe, answer file, dry-run
+install and guided UI).  It needs no QEMU, root, network or block devices.
 
 `tenko check` is the local/CI entry point: it runs the unit tests,
 `tenko base-requires --check` and the static freedesktop audit.
@@ -326,7 +219,6 @@ The full RPM audit needs `desktop-file-utils`, `appstream`, `rpm`,
 minute for the current repository.  `--json` adds a machine-readable report.
 Set `--rpm-dir` to a staging directory (for example a wave output) to audit
 freshly built packages before they are published.
-
 
 ## Notes
 

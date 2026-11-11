@@ -1,9 +1,9 @@
 # Freedesktop compliance
 
 Tenko tracks its conformance with the [freedesktop.org specifications][specs]
-and the companion standards the XFCE desktop relies on.  This document is the
-durable record: every specification has a version, a disposition, and either
-evidence or a linked work issue.  The tracker is Gitea issue #32.
+and the companion standards the XFCE desktop relies on.  Every specification
+has a version, a disposition, and either evidence or a linked work issue.
+`tenko audit` parses the matrix below, so keep its table format.
 
 [specs]: https://specifications.freedesktop.org/
 
@@ -12,14 +12,13 @@ evidence or a linked work issue.  The tracker is Gitea issue #32.
 Tenko ships XFCE on X11.  Most protocol implementations come from XFCE, GTK,
 GLib, gvfs and systemd; distro work is packaging, desktop-profile membership,
 configuration, database triggers and verification.  Upstream implementation
-bugs are reported upstream and recorded in the relevant issue.
+bugs are reported upstream.
 
 Repackaged vendor bundles under `/opt` are audited, but upstream metadata
 defects inside those bundles do not block the distro's own compliance; they
 are listed as allowed upstream findings in the audit.
 
-Wayland-only and draft specifications are N/A for this release.  Revisit them
-only if a Wayland session is adopted.
+Wayland-only and draft specifications are N/A for this release.
 
 ## Dispositions
 
@@ -42,8 +41,8 @@ open without weakening the end state.
   keys that the distro does not own; the audit prints a warning count.
 - `appstreamcli validate --no-net` must report no errors.  Warnings and
   informational messages are allowed.  A vendor bundle may be listed in
-  `UPSTREAM_APPSTREAM_ERRORS` in `tenko audit` with an issue number;
-  today only the Chrome bundle has such an entry (#42).
+  `UPSTREAM_APPSTREAM_ERRORS` in `scripts/check/fdo_audit.py` with an issue
+  number; the Chrome bundle is the only entry (#42).
 - Icon themes must inherit only themes that are installed, and every `Icon=`
   in an application or autostart entry must resolve in hicolor, an installed
   theme, or `/usr/share/pixmaps`.
@@ -60,63 +59,47 @@ open without weakening the end state.
 | Spec | Version | Disposition | Evidence / work |
 |---|---|---|---|
 | `appstream` | current docs | implemented | appstreamcli in the desktop profiles; distro OS metainfo; validation in the audit |
-| `autostart` | 0.5 | implemented | xfce4-session reads /etc/xdg/autostart; verification in #36 |
-| `basedir` | 0.8 | implemented | XDG base directories honoured; ~/.local/bin in PATH for login and interactive shells; runtime check in #32 |
+| `autostart` | 0.5 | implemented | xfce4-session reads /etc/xdg/autostart |
+| `basedir` | 0.8 | implemented | XDG base directories honoured; ~/.local/bin in PATH for login and interactive shells; runtime check in `tenko qemu fdo` |
 | `clipboard` | 1.0 | N/A | Wayland data-device protocol; X11 uses X selections |
 | `clipboard-extensions` | 1.0 | N/A | Wayland-only |
-| `dbus` | current spec | implemented | dbus-daemon/dbus-x11 in base and desktop; policy audit in #40 |
-| `desktop-entry` | 1.5 | implemented | Entries validate with no errors; update-desktop-database file trigger; build-time audit in #33 |
+| `dbus` | current spec | implemented | dbus-daemon/dbus-x11 in base and desktop; policy files parsed by the audit |
+| `desktop-entry` | 1.5 | implemented | Entries validate with no errors; update-desktop-database file trigger; checked by the audit |
 | `fhs` | 3.0 | implemented | Merged-/usr layout plus /media, /var/local and the /usr/local subdirectories; /var/run and /var/lock via systemd tmpfiles |
 | `global-shortcuts` | draft | N/A | Portal/Wayland; no Wayland session |
 | `help-system` | current spec | implemented | /usr/share/help layout plus the tenko-help handler; documented browser fallback |
 | `icon-naming` | 0.8.90 | implemented | Kora and Adwaita inherit hicolor; every application Icon= resolves |
-| `icon-theme` | 0.13 | implemented | Theme inheritance corrected; gtk-update-icon-cache file trigger |
+| `icon-theme` | 0.13 | implemented | Themes inherit only installed themes; gtk-update-icon-cache file trigger |
 | `idle-inhibit` | 0.1 | N/A | Wayland protocol; X11 uses XScreenSaver |
 | `intent-apps` | 1.0.0 | N/A | New spec with no XFCE-stack implementation; revisit later |
 | `menu` | 1.1 | implemented | garcon xfce-applications.menu and xfce-settings-manager.menu validate |
 | `mime-apps` | 1.0.1 | implemented | /etc/xdg/mimeapps.list defaults; xdg-utils and desktop-file-utils in the desktop profiles |
 | `mpris` | current spec | N/A | Application responsibility (media players); no distro service |
 | `notification` | 1.3 | implemented | xfce4-notifyd 0.9.7 in the desktop profiles; dunst remains the non-XFCE alternative |
-| `polkit` | current docs | implemented | polkitd, xfce-polkit agent and the wheel admin rule; policy audit in #33 |
-| `recent-files` | 0.3 | implemented | gvfsd-recent via gvfs (required by Thunar); recent:// verified in #32 |
+| `polkit` | current docs | implemented | polkitd, xfce-polkit agent and the wheel admin rule; policy files parsed by the audit |
+| `recent-files` | 0.3 | implemented | gvfsd-recent via gvfs (required by Thunar); recent:// checked in `tenko qemu fdo` |
 | `secret-service` | 0.2 | implemented | gnome-keyring 50.0 Secret Service, PAM login unlock and portal Secret backend |
 | `shortcuts` | draft | N/A | Portal/Wayland; no Wayland session |
 | `shared-mime-info` | 0.22 | implemented | MIME database packaged; update-mime-database file trigger |
 | `sound-naming` | 0.2 | implemented | freedesktop stereo event sounds; XSettings default in tenko-desktop-config |
 | `sound-theme` | 0.2 | implemented | sound-theme-freedesktop 0.8 with a valid index.theme; desktop profiles require it |
-| `startup-notification` | 0.2 | implemented | Library and xfwm4 support packaged; verification in #36 |
-| `status-notifier-item` | 0.1 draft | N/A | Draft; no maintained XFCE SNI host is packaged (see the tray section); optional work in #44 |
-| `systemtray` | 0.3 | implemented | xfce4-panel systray plugin in the default panel; _NET_SYSTEM_TRAY_S0 check in #44 |
+| `startup-notification` | 0.2 | implemented | Library and xfwm4 support packaged; checked in the session check |
+| `status-notifier-item` | 0.1 draft | N/A | Draft; no maintained XFCE SNI host is packaged (see the tray section) |
+| `systemtray` | 0.3 | implemented | xfce4-panel systray plugin in the default panel; _NET_SYSTEM_TRAY_S0 checked in the session check |
 | `terminal-intent` | draft | N/A | Draft/Wayland-oriented; no implementation |
 | `thumbnail` | 0.8.0/0.9.0 | implemented | tumbler covers, desktop files, fonts, JPEG and pixbuf; video/audio unsupported and documented below |
 | `trash` | 1.0 | implemented | gvfsd-trash via gvfs; home layout tested; cross-filesystem limitation documented below |
-| `wm` | 1.5 | implemented | xfwm4; EWMH atom verification in #36 |
-| `xembed` | 0.5 | implemented | xfce4-panel systray plugin (XEmbed host); session check in #44 |
-| `xsettings` | 0.5 | implemented | xfsettingsd; verification in #36 |
-| `XDG user dirs` | current spec | implemented | xdg-user-dirs 0.20 in the desktop profiles; the autostart entry creates ~/.config/user-dirs.dirs and the standard directories; verification in #34 |
-| `xdg-desktop-portal` | 1.22 | implemented | portal, GTK backend and Flatpak in the desktop profiles; xfce-portals.conf defaults to gtk; xfce-session.target starts graphical-session.target, verified in a real LightDM login (issue #48); unsupported interfaces documented |
-
-## Work issues
-
-- #33 — compliance audit harness and CI hook
-- #34 — XDG base directories, user dirs and FHS layout
-- #35 — desktop entries, menu, MIME, icons and help
-- #36 — autostart, startup notification, XSettings and EWMH
-- #37 — desktop notifications service
-- #38 — trash, recent files and thumbnails
-- #39 — Secret Service provider
-- #40 — polkit agent and D-Bus policy
-- #41 — portals and Flatpak integration
-- #42 — AppStream metadata and catalogue
-- #43 — sound theme and sound naming
-- #44 — system tray, XEmbed and StatusNotifierItem
+| `wm` | 1.5 | implemented | xfwm4; EWMH atoms checked in the session check |
+| `xembed` | 0.5 | implemented | xfce4-panel systray plugin (XEmbed host); checked in the session check |
+| `xsettings` | 0.5 | implemented | xfsettingsd; checked in the session check |
+| `XDG user dirs` | current spec | implemented | xdg-user-dirs 0.20 in the desktop profiles; the autostart entry creates ~/.config/user-dirs.dirs and the standard directories |
+| `xdg-desktop-portal` | 1.22 | implemented | portal, GTK backend and Flatpak in the desktop profiles; xfce-portals.conf defaults to gtk; xfce-session.target starts graphical-session.target, checked in a real LightDM login by `tenko qemu fdo`; unsupported interfaces documented |
 
 ## XDG base directory exceptions
 
 The XDG Base Directory specification covers application data, configuration,
-cache and state.  The distro audit found no application writing outside those
-directories except the cases below.  Each is deliberate or owned by an
-upstream application.
+cache and state.  Applications keep to those directories except in the cases
+below; each is deliberate or owned by an upstream application.
 
 | Path | Owner | Rationale |
 |---|---|---|
@@ -152,8 +135,7 @@ some system-internal mounts (it reports "system internal mounts" or "across
 filesystem boundaries" instead of creating a top-directory trash).  This is
 an upstream GLib limitation, not a distro configuration choice.  Files on
 the same filesystem as the home trash, including the common `/home` case,
-are handled; the limitation is recorded here so the behaviour is not
-mistaken for a silent data-loss bug.
+are handled; this cross-filesystem behaviour is not a data-loss bug.
 
 ## Thumbnail support
 
@@ -180,7 +162,7 @@ flatpak, polkit itself).
 
 The audit parses every `/usr/share/dbus-1` and `/etc/dbus-1` configuration
 file and the polkit `.policy` XML.  The runtime prompt is exercised by the
-final QEMU desktop test; the system bus must start without policy parse
+QEMU desktop test; the system bus must start without policy parse
 errors.
 
 ## AppStream
@@ -226,7 +208,7 @@ history; this is an upstream implementation detail rather than a missing
 distro component.
 
 `dunst` 1.13.2 remains packaged as the non-XFCE alternative and is not part
-of the desktop profile.  The final QEMU check runs `notify-send`, a
+of the desktop profile.  The QEMU check runs `notify-send`, a
 notification with an action, and introspects the service owner.
 
 ## Secret Service
@@ -243,7 +225,7 @@ gnome-keyring also ships `gnome-keyring.portal`, so
 `/etc/xdg/mimeapps.list`-independent portal configuration selects
 `org.freedesktop.impl.portal.Secret=gnome-keyring` and sandboxed
 applications reach the same keyring through the portal.  `libsecret`'s
-`secret-tool` is the command-line check used by the final QEMU test
+`secret-tool` is the command-line check used by the QEMU test
 (store/lookup round-trip, collections, aliases and locked-keyring prompt).
 
 ## Portals and Flatpak
@@ -266,7 +248,7 @@ the Secret Service section above.  Applications using the unsupported
 interfaces get the portal's normal "not supported" reply rather than a
 broken activation.
 
-The final QEMU check introspects `org.freedesktop.portal.Desktop`, opens a
+The QEMU check introspects `org.freedesktop.portal.Desktop`, opens a
 file chooser and OpenURI, sends a notification and confirms the document
 portal and permission store activate.  It runs from a LightDM autologin
 session with a systemd user manager, waits for `graphical-session.target` and
@@ -301,22 +283,21 @@ default panel can carry both.
 
 ## Runtime verification
 
-Some protocol rows can only be checked in a running session.  Those checks are
-owned by #36 (autostart, startup notification, XSettings, EWMH), #37
-(notification delivery), #38 (trash/recent/thumbnails), #40 (polkit prompt),
-#41 (portal request), #43 (sound events) and #44 (tray/SNI).  The static
-harness verifies that the components are packaged and configured; the final
-QEMU install in #32 records the desktop-level evidence.
+The static audit checks that components are packaged and configured.  The
+protocol rows that need a running session (autostart, startup notification,
+XSettings, EWMH, notifications, trash/recent, polkit, portals, sound, tray)
+are checked by `tenko qemu fdo` in a real login session; see
+[`testing.md`](testing.md).
 
 ## Allowed upstream findings
 
 These findings belong to upstream or vendor bundles and do not block the
-distro's own compliance.  Each entry names the owning issue so it is revisited
-when the bundle or upstream metadata changes.
+distro's own compliance.  Revisit an entry when the bundle or upstream
+metadata changes.
 
-| Finding | Owner | Rationale |
+| Finding | Issue | Rationale |
 |---|---|---|
 | `google-chrome.appdata.xml`: `type-property-required` | #42 | Google Chrome vendor bundle metadata; fixed by the bundle or replaced by distro metadata |
-| XFCE helper `.desktop` files under `/usr/share/xfce4/helpers` | #35 | XFCE private helper format, not Desktop Entry; not validated as application entries |
-| GTK module `.desktop` files under `/usr/lib64/gnome-settings-daemon-3.0` | #35 | GTK module descriptor format, not Desktop Entry |
-| Xsession `.desktop` files under `/usr/share/xsessions` | #36 | Xsession format, not an application entry; verified in the session checks |
+| XFCE helper `.desktop` files under `/usr/share/xfce4/helpers` | — | XFCE private helper format, not Desktop Entry; not validated as application entries |
+| GTK module `.desktop` files under `/usr/lib64/gnome-settings-daemon-3.0` | — | GTK module descriptor format, not Desktop Entry |
+| Xsession `.desktop` files under `/usr/share/xsessions` | — | Xsession format, not an application entry; verified in the session checks |

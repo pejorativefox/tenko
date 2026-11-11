@@ -43,14 +43,17 @@ A build runs these steps; each is a no-op when there is nothing to do:
    syncs fetch only `repomd.xml` when nothing changed and only new packages
    when something did.  The LAN mirror is tried first, then the public site.
    `OFFLINE=1` skips the sync and uses the existing mirror.
-2. **Build image** (`tenko image build`): `localhost/tenko/build:r6` is a
-   root filesystem installed from the mirror (`tenko-base`,
-   `tenko-base-build`, `tenko-buildroot` and the extra build packages).  It is
-   created when missing and rebuilt when the mirror has newer versions of
-   its packages; `--force` rebuilds it unconditionally.
+2. **Build image** (`tenko image build [--strict]`): a root filesystem
+   installed from the mirror.  `localhost/tenko/build:r6` holds `tenko-base`
+   (with `tenko-base-build` and `tenko-buildroot`) plus the extra build
+   packages and is used by default; `localhost/tenko/buildroot:r6`
+   (`--strict`) holds only `tenko-buildroot` and is used for `STRICT=1`.
+   An image is created when missing and rebuilt when the mirror has newer
+   versions of its packages; `--force` rebuilds it unconditionally.
 3. **Sources**: tarballs from each spec's `sources` file are fetched once and
-   md5-verified into `build/sources` (a tarball already in the old
-   `~/rpmbuild/SOURCES` is hard-linked instead of downloaded), then each
+   md5-verified into `build/sources` (a tarball found in
+   `TENKO_SOURCES_SEED`, default `~/rpmbuild/SOURCES`, is hard-linked
+   instead of downloaded), then each
    package gets its own `SOURCES/` with links to just its tarballs and
    `files/`.  `tenko fetch <spec-or-package>` fills the cache without
    building.
@@ -65,12 +68,13 @@ The mirror and the source cache live in the main checkout's `build/` and are
 shared by every worktree; `build/repo` is per checkout.  Delete
 `build/repo` to drop local builds.
 
-**Declared vs. undeclared build dependencies.**  Many specs do not list
-their `BuildRequires` yet.  By default (`STRICT=0`) the builder installs the
-declared ones that resolve and still runs `rpmbuild --nodeps` against the
-image's full toolchain.  `STRICT=1` requires every `BuildRequires` to
-resolve and drops `--nodeps`, so the spec must declare everything it needs.
-New and updated specs should build with `STRICT=1`.
+**Declared vs. undeclared build dependencies.**  Not every spec declares
+all of its `BuildRequires` yet (issue #58).  By default (`STRICT=0`) the
+builder uses the full build image, installs the declared ones that resolve
+and runs `rpmbuild --nodeps`.  `STRICT=1` builds in the `tenko-buildroot`
+image, requires every `BuildRequires` to resolve and drops `--nodeps`, so the
+spec must declare everything it needs.  New and updated specs should build
+with `STRICT=1`.
 
 `./tenko builddeps PKG` suggests the missing lines.  It maps the package's
 built RPMs (linked libraries, `pkgconfig(...)`, `perl(...)`) and, with
@@ -107,12 +111,10 @@ Package-specific inputs are BuildRequires, not metapackage contents.  For
 example, Mesa's Intel CLC (`mesa_clc`) needs `llvm-devel`, `llvm`,
 `llvm-static`, `clang-libs`, `clang-devel`, `clang-resource-filesystem`,
 `spirv-tools`, `spirv-llvm-translator`, `python-mako` and `python-pyyaml`,
-and `mesa.spec` declares them.
-
-Do not recreate the old local-workaround image with zero-length LLVM `.a`
-files or a stub `llvm-tblgen`.  `LLVMExports.cmake` references every installed
-archive and tool binary, so consumers BuildRequire the real `llvm` and
-`llvm-static` packages (the published `llvm-devel` does not pull them in).
+and `mesa.spec` declares them.  `LLVMExports.cmake` references every
+installed LLVM archive and tool binary, so LLVM consumers BuildRequire the
+real `llvm` and `llvm-static` packages (`llvm-devel` does not pull them in);
+do not stub them out with empty files.
 
 Install `tenko-osdev` on a fresh Tenko system before running the build, image
 and publish commands.  `tenko-rpm-config` keeps the RPM database at the
@@ -137,14 +139,12 @@ The list lives in `files/<spec>.filelist`.  It is static so package contents
 cannot silently change when upstream installs a new file; a build that installs
 an unlisted file fails with "Installed (but unpackaged) file(s) found".
 
-Optional payload can still disappear the other way: if the build image lacks a
-detected dependency, configure/meson simply does not install it and the
-regenerated filelist records the smaller tree.  Bash completion is the common
-case.  `tenko-base` now pulls in `bash-completion`, and packages whose build
-system looks for it should require it explicitly (`BuildRequires:
-bash-completion`) or set the install directory directly (`-Dbashcompdir=...`,
-`-Dbash_completion=...`) so a minimal image cannot silently drop the files.
-Check the rebuilt RPM with `rpm -qlp ... | grep completion` after a regen.
+Optional payload can still disappear the other way: if the build lacks a
+detected dependency (`bash-completion`, GObject introspection, ...),
+configure/meson silently installs less and a regenerated filelist records the
+smaller tree.  Declare those `BuildRequires` (or set the install directory
+directly, e.g. `-Dbashcompdir=...`), build with `STRICT=1` before
+regenerating, and check the result (`rpm -qlp ... | grep completion`).
 
 Regenerate after a version bump or when adding/removing packages:
 
@@ -168,17 +168,10 @@ Adding a subpackage means adding both the `%package` section and its filelist
 distro: headers, `.pc` files and unversioned `.so` links stay in the runtime
 package.  The only intentional split is `llvm-devel`/`clang-devel`.
 
-Regenerate filelists from a build whose dependencies were all present:
-when a detected dependency (`bash-completion`, GObject introspection, ...)
-is missing, the build silently installs less and the regenerated list drops
-completion files or GIR typelibs.  Declaring the `BuildRequires` and building
-with `STRICT=1` prevents that.
-
 ## Version bumps
 
-Packages track the latest stable upstream release; see
-[`docs/versions.md`](versions.md) and [`AGENTS.md`](../AGENTS.md).  When you
-bump a package:
+Packages track the latest stable upstream release (policy in
+[`AGENTS.md`](../AGENTS.md)).  When you bump a package:
 
 1. update `Version:` (and `Release:` back to 1, or bump the release for a
    rebuild),
@@ -205,8 +198,7 @@ MIRROR=0 ./tenko publish rpm ...               # public only (not for releases)
 ```
 
 - The publish commands need `rclone`, `createrepo_c`, `mergerepo_c`, `zstd`,
-  `rsync` and `ssh` (all in `tenko-osdev`, or the
-  `localhost/tenko/publish-tools:r6` image).  Targets are set in
+  `rsync` and `ssh` (all in `tenko-osdev`).  Targets are set in
   `scripts/lib/publish.sh`.
 - Everything is published twice: the public site and the LAN mirror
   (`daspork@192.168.31.9`).  Do not publish to only one.
@@ -216,21 +208,19 @@ Other publishers:
 - `REPO=dir tenko publish repo` — replace the whole repository with the RPMs
   in `dir`, plus the overview page.  Use it only for a deliberate full
   republish; it deletes anything not in `dir`.
-- `tenko publish iso` — installer ISO (787 MiB) + fresh `.sha256`.
-- `tenko publish rootfs` — container rootfs (407 MiB) + fresh `.sha256`.
+- `tenko publish iso` — installer ISO + fresh `.sha256`.
+- `tenko publish rootfs` — container rootfs tarball + fresh `.sha256`.
 
 ## Images
 
 - ISO: `tenko image iso` (live root from the repo, systemd-boot ESP,
-  zstd squashfs).  `ISO_AUTO=1` plus `ISO_ANSWER=tests/installer-answer.json`
-  makes it unattended.
-- Rootfs: `tenko image base` with
-  `PACKAGES="tenko-base python3-pyelftools"
-  TARBALL=build/tenko-rootfs.tar.gz`.
+  zstd squashfs; layout in [`recovery.md`](recovery.md#how-tenko-boots)).
+  `ISO_AUTO=1` plus `ISO_ANSWER=tests/installer-answer.json` makes it
+  unattended.
+- Rootfs: `tenko image base` writes `build/tenko-rootfs.tar.gz` (override
+  with `TARBALL`), installing `tenko-base` plus `DEVEL_PACKAGES` by default.
 
-The image artifacts keep the unversioned `tenko-installer.iso` and
-`tenko-rootfs.tar.gz` names for now.  A future image rebuild may also publish
-`tenko-installer-6.iso` and `tenko-rootfs-6.tar.gz`, with the unversioned
-names kept as aliases.
+The published names are `iso/tenko-installer.iso` and
+`rootfs/tenko-rootfs.tar.gz`.
 
 Images are rebuilt only on request (see [`AGENTS.md`](../AGENTS.md)).

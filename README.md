@@ -21,10 +21,8 @@ curl -LO https://tenko.pjfox.xyz/iso/tenko-installer.iso.sha256
 sha256sum -c tenko-installer.iso.sha256
 ```
 
-The ISO is 787 MiB.  On the LAN the mirror carries the same bytes:
-`http://192.168.31.9/~daspork/tenko/iso/`.  Images are rebuilt only on
-request; a future rebuild may also publish versioned `tenko-installer-6.iso`
-and `tenko-rootfs-6.tar.gz`, with the unversioned names kept as aliases.
+On the LAN the mirror carries the same files:
+`http://192.168.31.9/~daspork/tenko/iso/`.
 
 ### 2. Write it to a USB stick
 
@@ -38,8 +36,7 @@ sudo dd if=tenko-installer.iso of=/dev/sdX bs=4M status=progress oflag=sync
 
 - The media is **UEFI-only**; legacy/CSM boot is not supported.
 - **Disable Secure Boot.**  The bootloader is unsigned, and the installer
-  refuses to run while Secure Boot is enabled.  This is expected until the
-  signing work in issue #2/#3 lands.
+  refuses to run while Secure Boot is enabled (signing: issues #2 and #3).
 
 ### 4. Install
 
@@ -78,8 +75,8 @@ sudo dnf upgrade
 
 ## Container rootfs
 
-A 407 MiB rootfs tarball with the build toolchain is published for use as a
-container/build image:
+A rootfs tarball with the build toolchain (`tenko-base`) is published for use
+as a container/build image:
 
 ```sh
 curl -LO https://tenko.pjfox.xyz/rootfs/tenko-rootfs.tar.gz
@@ -88,24 +85,23 @@ sha256sum -c tenko-rootfs.tar.gz.sha256
 podman import tenko-rootfs.tar.gz localhost/tenko/rootfs:6
 ```
 
-The pre-rename container tags stay valid until the image rebuild; see
-[`docs/build.md`](docs/build.md) for the build-image tag.
+Package builds do not need it: `tenko build` creates its own build images
+from the repository (see [`docs/build.md`](docs/build.md)).
 
 ## Working on Tenko
 
-Everything is driven from this checkout:
+Everything is driven from this checkout through `./tenko` (`./tenko help`):
 
 | task | document |
 |---|---|
 | rebuild a package and publish it | [`docs/build.md`](docs/build.md) |
-| boot/install tests, QEMU and OVMF | [`docs/testing.md`](docs/testing.md) |
-| recovery and rescue | [`docs/recovery.md`](docs/recovery.md) |
+| boot/install tests, QEMU and OVMF, unit tests | [`docs/testing.md`](docs/testing.md) |
+| boot layout, recovery and rescue | [`docs/recovery.md`](docs/recovery.md) |
 | suspend/resume policy and diagnostics | [`docs/suspend.md`](docs/suspend.md) |
-| version policy and base manifest | [`docs/versions.md`](docs/versions.md) |
+| freedesktop compliance matrix | [`docs/freedesktop.md`](docs/freedesktop.md) |
+| release identity and base manifest | [`docs/versions.md`](docs/versions.md) |
 | packaging conventions (`/opt`, `profile.d`, `/etc/skel`) | [`docs/rules.md`](docs/rules.md) |
-| systemd-boot conversion notes | [`docs/systemd-boot.md`](docs/systemd-boot.md) |
 
-The rules for agents and maintainers (including the "every base package must
-be at least the pinned version" policy and the publishing/mirror requirements)
-live in [`AGENTS.md`](AGENTS.md); packaging conventions live in
-[`docs/rules.md`](docs/rules.md).  Do not duplicate them elsewhere; link to them.
+The rules for agents and maintainers (version policy, publishing to both
+sites, worktrees, documentation) live in [`AGENTS.md`](AGENTS.md).  Do not
+duplicate them elsewhere; link to them.

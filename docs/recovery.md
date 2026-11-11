@@ -1,12 +1,39 @@
-# Recovery and rescue
+# Boot layout, recovery and rescue
 
-Status: runbook based on the current installer layout.  The commands are the
-same ones `tenko-installer` runs, but the full sequence has not yet been
-exercised end to end on hardware.  Treat it as a checklist, not a guarantee.
+This runbook uses the same commands `tenko-installer` runs, but it has not
+been validated end to end yet (issue #27); treat it as a checklist.
 
-Tenko is UEFI-only, the ESP is mounted at `/boot`, and the kernel and initramfs
-are flat files on that ESP.  Secure Boot must be off until signing lands
-(issue #3).
+## How Tenko boots
+
+Tenko is UEFI-only and boots with systemd-boot.  Secure Boot must be off
+(issues #2 and #3).
+
+The ESP (FAT32, label `TENKOESP`, 1 GiB on a new install) is mounted at
+`/boot`, and the kernel and initramfs are flat files on it.  Loader entries
+are Boot Loader Specification Type #1 entries (separate kernel and initrd,
+no UKIs):
+
+```
+firmware
+  └─ /boot/EFI/systemd/systemd-bootx64.efi   (NVRAM entry "Tenko Linux")
+     or /boot/EFI/BOOT/BOOTX64.EFI           (removable fallback, same binary)
+        └─ /boot/loader/loader.conf
+           └─ /boot/loader/entries/tenko-<kver>.conf
+              ├─ linux  /vmlinuz-<kver>
+              └─ initrd /initramfs-<kver>.img
+```
+
+- The installer runs `bootctl install`, writes `loader.conf`, the first entry
+  and `/etc/kernel/cmdline`, and adds the `efibootmgr` entry.
+- `linux-modules` `%post` builds `/boot/initramfs-<kver>.img` with dracut.
+- `linux-kernel` `%post` writes `loader/entries/tenko-<kver>.conf` from
+  `/etc/kernel/cmdline`; `%preun` removes it.  `kernel-install` is not used.
+- The installer refuses to reuse an existing ESP with less than 256 MiB free.
+
+On the installer ISO, systemd-boot cannot read ISO9660, so the El Torito
+image `boot/efiboot.img` (96 MiB FAT32, also appended as the GPT ESP) holds
+`EFI/BOOT/BOOTX64.EFI`, `loader/loader.conf`, the live entry, `vmlinuz` and
+`initrd.img`; the live root is `LiveOS/squashfs.img` on the ISO9660 side.
 
 ## 1. Boot the live media
 
@@ -26,16 +53,17 @@ blkid
 parted -l
 ```
 
-The default layout is:
+A guided install on an erased disk creates:
 
-| Partition | Role | Typical mount |
+| Partition | Role | Mount |
 |---|---|---|
 | 1 | EFI System Partition (vfat, label `TENKOESP`) | `/boot` |
-| 2 | swap partition or swapfile on root | — |
-| 3 | root filesystem (ext4 or btrfs) | `/` |
+| 2 | swap partition, only when chosen instead of the swapfile | — |
+| last | root filesystem (ext4 or btrfs) | `/` |
 
-A swapfile lives at `/swapfile` on the root filesystem; there may be no swap
-partition at all.  Note the root partition and the ESP.
+The default swapfile is `/swapfile` on the root filesystem, in which case
+root is partition 2.  Custom layouts may differ; note the root partition and
+the ESP.
 
 ## 3. Mount the installed system
 
@@ -56,8 +84,8 @@ mount -t efivarfs efivarfs /mnt/tenko/sys/firmware/efi/efivars 2>/dev/null || tr
 chroot /mnt/tenko /bin/bash
 ```
 
-If the root filesystem is btrfs and was installed with subvolumes by a future
-version, add `-o subvol=@`; the current installer uses a plain btrfs root.
+A btrfs root is a plain filesystem without subvolumes, so no `subvol=`
+option is needed.
 
 ## 4. Repair systemd-boot and the firmware entry
 
@@ -190,9 +218,8 @@ the previous boot if the system still reaches a login.
 
 ## Limits
 
-- **No LUKS rescue path yet.**  Encrypted installs are not implemented
-  (issue #21); when they are, unlock the volume before the chroot.
+- **No encrypted installs**, so there is no LUKS unlock step (issue #21).
 - **No BIOS/legacy boot.**  The media and installed system are UEFI-only.
-- **Secure Boot is off by design.**  See issue #3 for signing work.
+- **Secure Boot must be off** (issues #2 and #3).
 - **The ESP has no journal.**  Keep at least one known-good kernel/initramfs
-  pair; the installer requires at least 256 MiB free on an reused ESP.
+  pair on it, and prune old kernels on a small reused ESP.
