@@ -1,0 +1,57 @@
+%dir /etc/pam.d
+%config(noreplace) /etc/pam.d/xfce4-screensaver
+%dir /etc/xdg
+%dir /etc/xdg/autostart
+/etc/xdg/autostart/xfce4-screensaver.desktop
+%dir /etc/xdg/menus
+/etc/xdg/menus/xfce4-screensavers.menu
+%dir /usr/bin
+/usr/bin/xfce4-screensaver
+/usr/bin/xfce4-screensaver-command
+/usr/bin/xfce4-screensaver-preferences
+%dir /usr/libexec
+%dir /usr/libexec/xfce4-screensaver
+/usr/libexec/xfce4-screensaver-configure.py
+/usr/libexec/xfce4-screensaver-dialog
+/usr/libexec/xfce4-screensaver/floaters
+/usr/libexec/xfce4-screensaver/popsquares
+/usr/libexec/xfce4-screensaver/slideshow
+%dir /usr/share
+%dir /usr/share/applications
+%dir /usr/share/applications/screensavers
+/usr/share/applications/screensavers/xfce-floaters.desktop
+/usr/share/applications/screensavers/xfce-personal-slideshow.desktop
+/usr/share/applications/screensavers/xfce-popsquares.desktop
+/usr/share/applications/xfce4-screensaver-preferences.desktop
+%dir /usr/share/dbus-1
+%dir /usr/share/dbus-1/services
+/usr/share/dbus-1/services/org.xfce.ScreenSaver.service
+%dir /usr/share/desktop-directories
+/usr/share/desktop-directories/xfce4-screensaver.directory
+%dir /usr/share/icons
+%dir /usr/share/icons/hicolor
+%dir /usr/share/icons/hicolor/128x128
+%dir /usr/share/icons/hicolor/128x128/apps
+/usr/share/icons/hicolor/128x128/apps/org.xfce.ScreenSaver.png
+%dir /usr/share/icons/hicolor/16x16
+%dir /usr/share/icons/hicolor/16x16/apps
+/usr/share/icons/hicolor/16x16/apps/org.xfce.ScreenSaver.png
+%dir /usr/share/icons/hicolor/24x24
+%dir /usr/share/icons/hicolor/24x24/apps
+/usr/share/icons/hicolor/24x24/apps/org.xfce.ScreenSaver.png
+%dir /usr/share/icons/hicolor/32x32
+%dir /usr/share/icons/hicolor/32x32/apps
+/usr/share/icons/hicolor/32x32/apps/org.xfce.ScreenSaver.png
+%dir /usr/share/icons/hicolor/48x48
+%dir /usr/share/icons/hicolor/48x48/apps
+/usr/share/icons/hicolor/48x48/apps/org.xfce.ScreenSaver.png
+%dir /usr/share/icons/hicolor/scalable
+%dir /usr/share/icons/hicolor/scalable/apps
+/usr/share/icons/hicolor/scalable/apps/org.xfce.ScreenSaver.svg
+%dir /usr/share/man
+%dir /usr/share/man/man1
+/usr/share/man/man1/xfce4-screensaver-command.1.gz
+/usr/share/man/man1/xfce4-screensaver-preferences.1.gz
+/usr/share/man/man1/xfce4-screensaver.1.gz
+%dir /usr/share/pixmaps
+/usr/share/pixmaps/xfce-logo-white.svg

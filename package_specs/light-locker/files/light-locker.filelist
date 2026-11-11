@@ -1,0 +1,14 @@
+%dir /etc/xdg
+%dir /etc/xdg/autostart
+/etc/xdg/autostart/light-locker.desktop
+%dir /usr/bin
+/usr/bin/light-locker
+/usr/bin/light-locker-command
+%dir /usr/share
+%dir /usr/share/glib-2.0
+%dir /usr/share/glib-2.0/schemas
+/usr/share/glib-2.0/schemas/apps.light-locker.gschema.xml
+%dir /usr/share/man
+%dir /usr/share/man/man1
+%doc /usr/share/man/man1/light-locker-command.1.gz
+%doc /usr/share/man/man1/light-locker.1.gz
