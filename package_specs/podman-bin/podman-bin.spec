@@ -16,7 +16,7 @@
 
 Name:       podman-bin
 Version:    6.1.4
-Release:    5
+Release:    6
 Summary:    Podman container engine and helpers (static upstream bundle)
 License:    Apache-2.0 AND GPL-2.0-or-later
 URL:        https://github.com/mgoltzsche/podman-static
@@ -145,6 +145,9 @@ install -m644 README.md %{buildroot}%{_docdir}/%{name}-%{version}/README.md
 %files -f %{_sourcedir}/podman-bin.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6.1.4-6
+- Add /opt/podman/bin to helper_binaries_dir: pasta and passt ship there, so rootless containers with the default network failed with 'could not find pasta'.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 6.1.4-5
 - Link the bundle's bash, fish and zsh completions into the standard
   completion directories.  They were only present under /opt, which the
