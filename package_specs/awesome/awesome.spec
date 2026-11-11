@@ -37,6 +37,7 @@ BuildRequires: xcb-util-renderutil
 BuildRequires: xorgproto
 BuildRequires: imagemagick
 BuildRequires: dbus-daemon
+BuildRequires: lgi
 
 %description
 awesome is a highly configurable, next generation framework window
