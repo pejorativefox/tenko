@@ -94,7 +94,9 @@ Everything is driven from this checkout through `./tenko` (`./tenko help`):
 
 | task | document |
 |---|---|
+| set up a build host | [`docs/build-host.md`](docs/build-host.md) |
 | rebuild a package and publish it | [`docs/build.md`](docs/build.md) |
+| installer flows, options and answer files | [`docs/installer.md`](docs/installer.md) |
 | boot/install tests, QEMU and OVMF, unit tests | [`docs/testing.md`](docs/testing.md) |
 | boot layout, recovery and rescue | [`docs/recovery.md`](docs/recovery.md) |
 | suspend/resume policy and diagnostics | [`docs/suspend.md`](docs/suspend.md) |

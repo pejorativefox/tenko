@@ -117,7 +117,8 @@ real `llvm` and `llvm-static` packages (`llvm-devel` does not pull them in);
 do not stub them out with empty files.
 
 Install `tenko-osdev` on a fresh Tenko system before running the build, image
-and publish commands.  `tenko-rpm-config` keeps the RPM database at the
+and publish commands; [build-host.md](build-host.md) walks through the whole
+setup.  `tenko-rpm-config` keeps the RPM database at the
 installed-system default (`/var/lib/rpm`), so adding the development meta to
 a running system does not move it.
 

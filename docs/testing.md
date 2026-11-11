@@ -49,21 +49,16 @@ a screendump and quits.  Logs: `build/installer-serial.log`,
 `screenshot`: `build/installer-screen.ppm` (converted to `.png` when
 ImageMagick is installed).
 
-Interactive UI without an ISO: `tenko installer-sim` runs the real
-curses installer against synthetic in-memory disks, forces dry-run, and
-needs no root, UEFI firmware, network or block device.  Use
-`--simulate-scenario mixed` to test adopting an existing ESP/data partition.
-Every mutating command is written to `/tmp/tenko-installer-sim/plan.sh`
-(override with `TENKO_SIM_DIR`).  This is the fast loop for installer UI
-changes; boot the ISO only after the flow is correct.
+For installer UI changes, iterate with `./tenko installer-sim` first and
+boot the ISO only once the flow is right (see
+[installer.md](installer.md#developing-the-installer)).
 
 Unattended install: build the ISO with `ISO_AUTO=1` and
-`ISO_ANSWER=tests/installer-answer.json`.  The version 2 answer file writes a
-layout on `/dev/vda` with a 1 GiB ESP + 2 GiB swap + ext4 root, installs the
-`desktop` set, sets hostname `tenko-test` and admin `admin` (test-only
-password).  Add another entry to `layout.disks` for a second disk, for
-example a btrfs or ext4 data partition mounted at `/home`.
-That image is a test artifact — do not use it on real hardware.  Give a
+`ISO_ANSWER=tests/installer-answer.json`.  That answer file erases
+`/dev/vda` (1 GiB ESP, 2 GiB swap, ext4 root), installs the `desktop` set as
+hostname `tenko-test` with admin `admin` and a test-only password; the
+format is described in [installer.md](installer.md#answer-files).  The
+image is a test artifact — do not use it on real hardware.  Give a
 desktop install at least 8 GiB of guest RAM: the live overlay and the DNF
 cache share tmpfs, and 4 GiB runs out during the package step.
 
