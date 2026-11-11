@@ -1,6 +1,6 @@
 Name:       tenko-rpm-config
 Version:    6
-Release:    3
+Release:    4
 Epoch:      1
 Summary:    RPM build macros for Tenko packages
 License:    MIT
@@ -12,7 +12,9 @@ Requires: file
 
 %description
 RPM macros and library paths used to build Tenko packages inside the base
-container.
+container, and the Python dependency generator: files under
+/usr/lib*/pythonX.Y/ require python(abi) = X.Y, which the interpreter
+provides.
 
 %prep
 
@@ -22,11 +24,21 @@ container.
 rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_rpmmacrodir}
 install -m 644 %{_sourcedir}/macros.tenko %{buildroot}%{_rpmmacrodir}/macros.tenko
+install -D -m 644 %{_sourcedir}/python.attr %{buildroot}%{_fileattrsdir}/python.attr
+install -D -m 755 %{_sourcedir}/tenko-pythondeps.sh %{buildroot}%{_rpmconfigdir}/tenko-pythondeps.sh
 
 %files
 %{_rpmmacrodir}/macros.tenko
+%{_fileattrsdir}/python.attr
+%{_rpmconfigdir}/tenko-pythondeps.sh
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-4
+- Add a python(abi) dependency generator (fileattrs/python.attr and
+  tenko-pythondeps.sh): files under /usr/lib*/pythonX.Y/ require
+  python(abi) = X.Y and /usr/bin/pythonX.Y provides it.  Module packages
+  shipped without any requirement on the interpreter.
+
 * Mon Nov 09 2026 tenko <build@tenko.invalid> 6-3
 - Drop the vendored strip helper and the %strip / %__spec_install_post
   overrides.  rpm's platform macros load after macros.tenko and already

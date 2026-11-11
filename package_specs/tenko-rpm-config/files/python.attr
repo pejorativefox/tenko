@@ -1,0 +1,11 @@
+# Python dependencies (tenko-rpm-config).
+#
+# Every file under /usr/lib*/pythonX.Y/ requires python(abi) = X.Y, and the
+# interpreter /usr/bin/pythonX.Y provides it.  Module packages therefore
+# require the interpreter they were built for, and become uninstallable
+# (instead of silently broken) when Python moves to a new X.Y without them
+# being rebuilt.  Dependencies between Python modules are not generated;
+# specs declare them (tests/test_python_requires.py checks them).
+%__python_provides	%{_rpmconfigdir}/tenko-pythondeps.sh --provides
+%__python_requires	%{_rpmconfigdir}/tenko-pythondeps.sh --requires
+%__python_path	^(/usr/lib(64)?/python[0-9]+\.[0-9]+/.+|%{_bindir}/python[0-9]+\.[0-9]+)$
