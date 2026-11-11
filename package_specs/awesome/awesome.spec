@@ -42,8 +42,9 @@ BuildRequires: glib-gir
 BuildRequires: gobject-introspection-gir
 BuildRequires: pango-gir
 BuildRequires: gdk-pixbuf-gir
+BuildRequires: harfbuzz-gir
 # awesome loads these typelibs through lgi at startup.
-Requires:   lgi, glib-gir, gobject-introspection-gir, pango-gir, gdk-pixbuf-gir
+Requires:   lgi, glib-gir, gobject-introspection-gir, pango-gir, gdk-pixbuf-gir, harfbuzz-gir
 
 %description
 awesome is a highly configurable, next generation framework window
@@ -81,7 +82,7 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %changelog
 * Thu Nov 12 2026 tenko <build@tenko.invalid> 4.3-2
 - Require lgi and the GObject typelibs awesome loads at startup (GLib,
-  cairo, Pango, GdkPixbuf); without them it fails before the first frame.
+  cairo, Pango, HarfBuzz, GdkPixbuf); without them it fails before the first frame.
 
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.3-1
 - Update to 4.3; not in the base set, latest upstream stable

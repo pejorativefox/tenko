@@ -8,6 +8,7 @@ Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: dbus-libs
 BuildRequires: libnl
+BuildRequires: dbus-daemon
 
 %description
 libpcap provides functions for user-level packet capture, used in low-level
