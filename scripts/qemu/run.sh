@@ -88,6 +88,7 @@ case "$VGA" in
         else
             echo "note: virtio-vga-gl needs an OpenGL display backend" \
                  "($DISPLAY_MODE has none); using virtio-vga" >&2
+            VGA=virtio-vga
             vga=(-device virtio-vga)
         fi
         ;;
