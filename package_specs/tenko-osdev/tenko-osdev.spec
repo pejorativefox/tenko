@@ -1,6 +1,6 @@
 Name:       tenko-osdev
 Version:    6
-Release:    3
+Release:    4
 Epoch:      1
 Summary:    Tenko Linux OS development environment
 License:    MIT
@@ -15,8 +15,9 @@ Requires:   tenko-base
 # runs in podman.
 Requires:   podman-bin
 
-# Network debugging (moved out of tenko-base 6-12).
+# Network debugging and talking to QEMU monitor/serial sockets.
 Requires:   ncat
+Requires:   socat
 
 # Publishing to R2 and the LAN mirror.
 Requires:   rclone
@@ -71,6 +72,9 @@ touch %{buildroot}/usr/share/tenko/osdev
 /usr/share/tenko/osdev
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-4
+- Require socat (new package) for QEMU monitor and serial sockets.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-3
 - Drop the tenko-base-build and tenko-build requirements: tenko-base now
   requires tenko-base-build, which layers on tenko-buildroot (the new home

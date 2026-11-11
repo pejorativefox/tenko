@@ -1,7 +1,9 @@
 # Agent rules for Tenko
 
-Packaging conventions (third-party `/opt` bundles, `profile.d` snippets,
-`/etc/skel` defaults, tests) live in [`docs/rules.md`](docs/rules.md).
+How to write a spec and the packaging conventions (sources, BuildRequires,
+filelists, subpackages, changelogs, `/opt` bundles, `profile.d`, `/etc/skel`,
+tests) live in [`docs/rules.md`](docs/rules.md).  Follow them instead of
+copying another spec: older specs predate some of the rules.
 
 ## Tooling entry point
 

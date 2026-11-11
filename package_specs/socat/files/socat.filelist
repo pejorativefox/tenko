@@ -1,0 +1,9 @@
+/usr/bin/filan
+/usr/bin/procan
+/usr/bin/socat
+/usr/bin/socat-broker.sh
+/usr/bin/socat-chain.sh
+/usr/bin/socat-mux.sh
+/usr/bin/socat1
+%doc /usr/share/man/man1/socat.1.gz
+%doc /usr/share/man/man1/socat1.1.gz

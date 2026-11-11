@@ -102,7 +102,7 @@ Everything is driven from this checkout through `./tenko` (`./tenko help`):
 | suspend/resume policy and diagnostics | [`docs/suspend.md`](docs/suspend.md) |
 | freedesktop compliance matrix | [`docs/freedesktop.md`](docs/freedesktop.md) |
 | release identity and base manifest | [`docs/versions.md`](docs/versions.md) |
-| packaging conventions (`/opt`, `profile.d`, `/etc/skel`) | [`docs/rules.md`](docs/rules.md) |
+| writing a spec, packaging conventions | [`docs/rules.md`](docs/rules.md) |
 
 The rules for agents and maintainers (version policy, publishing to both
 sites, worktrees, documentation) live in [`AGENTS.md`](AGENTS.md).  Do not

@@ -1,8 +1,115 @@
 # Tenko packaging rules
 
-Package-spec conventions.  Agent workflow, publishing and LAN-mirror rules
-live in [`AGENTS.md`](../AGENTS.md); build and publish commands live in
-[`build.md`](build.md).  Do not duplicate those here — link.
+Package-spec conventions: how to write a spec, and the rules for base
+membership, `/opt` bundles, `profile.d`, `/etc/skel` and `/etc`.  Agent
+workflow, publishing and LAN-mirror rules live in [`AGENTS.md`](../AGENTS.md);
+build and publish commands live in [`build.md`](build.md).  Do not duplicate
+those here; link.
+
+## Writing a spec
+
+### Layout
+
+```
+package_specs/<name>/
+├── <name>.spec
+├── sources       # <md5> <url> [local-filename], one line per tarball/patch download
+├── nosources     # instead of sources: metapackages and packages with no download
+└── files/        # patches, units, config, static filelists; linked into SOURCES
+```
+
+- `sources` URLs must be stable archive URLs: release tarballs, the LFS/BLFS
+  `patches/downloads/<pkg>/` archive (never `lfs/development` or
+  `blfs/svn`, which rotate).  Give the local filename as the third field when
+  the URL does not end in it (`.../download`, `?raw=1`).
+- Every tarball a spec unpacks needs a URL.  Bundles you generate yourself
+  (vendored Rust/Go dependencies) must be reproducible; see issue #59.
+
+### Header
+
+```spec
+Name:       socat
+Version:    1.8.1.3
+Release:    1
+Summary:    Multipurpose relay for bidirectional data transfer
+License:    GPL-2.0-only WITH openvpn-openssl-exception
+URL:        http://www.dest-unreach.org/socat/
+Source0:    %{name}-%{version}.tar.gz
+# Why the patch is needed, in one or two lines.
+Patch0:     %{name}-%{version}-openssl4.patch
+Prefix:     /usr
+
+BuildRequires: openssl
+BuildRequires: readline
+```
+
+- `License` is an SPDX expression.  `Release` starts at 1 and is bumped for
+  every change that alters the binary RPM.  Only the `tenko-*` glue packages
+  carry `Epoch: 1`.
+- Patch files are named `<name>-<version>-<what>.patch`, live in `files/`,
+  and are applied with `%patch -P N -p1` after `%setup -q`.
+
+### Build dependencies
+
+- Builds start from `tenko-buildroot` (the toolchain baseline in
+  [build.md](build.md#metapackage-layering)).  Declare every other package
+  the build uses, including headers (`openssl`, not just `openssl-libs`),
+  tools (`texinfo`, `groff`, `gperf`), Python build backends
+  (`python-setuptools`, `python-flit-core`) and the whole pkg-config chain a
+  `.pc` file pulls in (`.pc` files generate no RPM requirements here).
+- New and changed specs must build with `STRICT=1 ./tenko build <name>`.
+  `./tenko builddeps --out OUT <name>` proposes missing lines from a failed
+  log and the built RPMs.
+- An optional dependency the package can use should be declared so the
+  feature is not dropped silently; pin build-host-dependent paths (cron, unit
+  and udev directories) with explicit configure options.
+
+### Build and install
+
+- autotools: `%configure`, `%make_build`; `%install` starts with
+  `rm -rf %{buildroot}` then `%make_install`.
+- meson: `meson setup .. --prefix=/usr --buildtype=release` in a `build/`
+  directory, `ninja`, then `DESTDIR=%{buildroot} ninja install`.
+- Remove generated junk such as `%{_infodir}/dir` in `%install`.
+
+### Files and subpackages
+
+- `%files -f %{_sourcedir}/<name>.filelist`: a static list in `files/`,
+  generated with `./tenko filelist --rpm` or `--tree` (see
+  [build.md](build.md#static-filelists)).  No globs.
+- Do not own directories that `tenko-basefs` or the shared documentation
+  trees own (`/usr/bin`, `/usr/share`, `/usr/share/man/man1`, ...);
+  `tenko filelist` leaves them out.
+- No `-devel` subpackages: headers, `.pc` files and unversioned `.so` links
+  stay in the runtime package (`llvm-devel`/`clang-devel` are the only
+  split).  Accepted splits are `-lang` (translations), `-doc` and `-gir`
+  (introspection data), each requiring
+  `%{name} = %{version}-%{release}`.
+
+### Runtime requirements
+
+rpm generates requirements for shared libraries, perl modules, script
+interpreters and `python(abi)` (files under `/usr/lib*/pythonX.Y/`).
+Declare by hand what it cannot see:
+
+- Python module dependencies (`Requires-Dist` in the package's `.dist-info`;
+  `tests/test_python_requires.py` checks them),
+- tools scriptlets run: `Requires(pre): shadow` for `useradd`/`groupadd`,
+- libraries opened with `dlopen()` and commands called from scripts.
+
+### Changelog
+
+```
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 1.8.1.3-1
+- New package, not in the base set: latest upstream stable release
+  (1.8.1.3, checked 2026-11-11).
+```
+
+State the version basis: latest upstream stable (with the date checked), a
+required patch level, or a user-approved exception.  A change that only
+adds `BuildRequires` does not alter the RPM and needs no Release bump; any
+other rebuild of the same version needs one, because publishing refuses a
+repeated NEVRA with different content.
 
 ## Base membership
 
@@ -83,11 +190,3 @@ publishing run:
 
 It runs the unit tests, `tenko base-requires --check` and the
 freedesktop audit; see [`testing.md`](testing.md) for the audit modes.
-
-## Versions and changelogs
-
-Record the version and its basis in `%changelog`: latest stable upstream, a
-required patch level, or a user-approved exception.  Source URLs and hashes
-live in `package_specs/<name>/sources`.  Rebuilding the same version requires
-a `Release:` bump; publishing refuses a repeated NEVRA with different
-content.

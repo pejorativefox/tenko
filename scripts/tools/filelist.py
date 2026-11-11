@@ -31,10 +31,44 @@ import sys
 
 RPM_QUERY = "[%{FILENAMES}\\t%{FILEFLAGS:fflags}\\t%{FILEMODES:perms}\\n]"
 
-# Directories owned by the filesystem layout rather than a package; never
-# emit %dir for them.
-SKIP_DIRS = {"/", "/usr", "/etc", "/var", "/var/lib", "/var/log",
-             "/var/cache", "/var/run"}
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))))
+
+# Shared directories no package should claim: the layout tenko-basefs owns
+# (read from its spec) and the common documentation trees.
+COMMON_DIRS = {"/", "/usr", "/var/run", "/usr/share/man", "/usr/share/info",
+               "/usr/share/doc", "/usr/share/licenses", "/usr/share/locale",
+               "/usr/lib64/pkgconfig", "/usr/share/pkgconfig",
+               "/usr/share/applications", "/usr/share/icons",
+               "/usr/share/icons/hicolor"}
+COMMON_DIRS |= {"/usr/share/man/man" + s for s in "123456789n"}
+
+
+def basefs_dirs():
+    spec = os.path.join(REPO_ROOT, "package_specs", "tenko-basefs",
+                        "tenko-basefs.spec")
+    dirs = set()
+    try:
+        with open(spec, encoding="utf-8") as handle:
+            in_files = False
+            for line in handle:
+                line = line.strip()
+                if line.startswith("%files"):
+                    in_files = True
+                    continue
+                if in_files and line.startswith("%") and not line.startswith(
+                        ("%dir", "%attr", "%config")):
+                    in_files = False
+                if in_files:
+                    path = line.split()[-1] if line else ""
+                    if path.startswith("/"):
+                        dirs.add(path)
+    except OSError:
+        pass
+    return dirs
+
+
+SKIP_DIRS = COMMON_DIRS | basefs_dirs()
 
 
 def quote_path(path):

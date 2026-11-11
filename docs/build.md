@@ -165,9 +165,8 @@ Regenerate after a version bump or when adding/removing packages:
 ```
 
 Adding a subpackage means adding both the `%package` section and its filelist
-(and the `%files -f` reference).  There are no `-devel` subpackages in this
-distro: headers, `.pc` files and unversioned `.so` links stay in the runtime
-package.  The only intentional split is `llvm-devel`/`clang-devel`.
+(and the `%files -f` reference).  Which splits are allowed, and the rest of
+the spec conventions, are in [rules.md](rules.md#writing-a-spec).
 
 ## Version bumps
 
