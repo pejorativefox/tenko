@@ -1,6 +1,6 @@
 Name:       lgi
 Version:    0.9.2
-Release:    1
+Release:    2
 Summary:    Lua bindings for GObject Introspection
 License:    MIT
 Prefix:     /usr
@@ -9,6 +9,8 @@ Source0:    %{name}-%{version}.tar.gz
 Patch1:     %{name}-%{version}-lua54.patch
 Patch2:     %{name}-%{version}-glib286-enums.patch
 BuildRequires: gobject-introspection
+# lgi loads the GObject typelib at import time.
+Requires:   glib-gir
 
 %description
 LGI is a gobject-introspection based dynamic Lua binding for GObject
@@ -30,6 +32,10 @@ make install PREFIX=/usr LUA_VERSION=5.4 DESTDIR=%{buildroot}
 %files -f %{_sourcedir}/lgi.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 0.9.2-2
+- Require glib-gir: lgi needs GObject-2.0.typelib at import time, and
+  without it `require "lgi"` fails in ffi.lua.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 0.9.2-1
 - Update to 0.9.2; not in the base set, latest upstream
   stable 2026-11-05 (latest tag 0.9.2).

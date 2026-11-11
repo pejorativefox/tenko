@@ -38,6 +38,7 @@ BuildRequires: xorgproto
 BuildRequires: imagemagick
 BuildRequires: dbus-daemon
 BuildRequires: lgi
+BuildRequires: glib-gir
 
 %description
 awesome is a highly configurable, next generation framework window
