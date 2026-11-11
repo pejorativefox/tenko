@@ -83,6 +83,11 @@ class HardRulesTest(unittest.TestCase):
                if OLD_PATCH.search(preamble_and_body(spec))]
         self.assertEqual(old, [], "declare PatchN: and apply it with %patch -P N -p1")
 
+    def test_every_spec_has_a_url(self):
+        missing = [name for name, spec in specs()
+                   if not re.search(r"^URL:", preamble_and_body(spec), re.M)]
+        self.assertEqual(missing, [], "add URL: with the upstream project page")
+
     def test_file_lists_are_static_files(self):
         inline = {name: inline_file_lists(preamble_and_body(spec))
                   for name, spec in specs()}
@@ -105,10 +110,6 @@ class AllowListedRulesTest(unittest.TestCase):
         self.assertEqual(sorted(allowed - breaking), [],
                          "these specs follow the %s rule now: remove them from "
                          "tests/spec_rules/%s.txt" % (rule, rule))
-
-    def test_url(self):
-        self.check("url", lambda spec: not re.search(
-            r"^URL:", preamble_and_body(spec), re.M))
 
     def test_filelists_do_not_own_shared_directories(self):
         self.check("shared-dirs", lambda spec: owns_shared_dir(spec.parent))

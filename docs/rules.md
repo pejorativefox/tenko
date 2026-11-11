@@ -51,6 +51,8 @@ BuildRequires: readline
 - `License` is an SPDX expression.  `Release` starts at 1 and is bumped for
   every change that alters the binary RPM.  Only the `tenko-*` glue packages
   carry `Epoch: 1`.
+- `URL` is the upstream project page (the source repository when the
+  project has no homepage); glue packages use the Tenko repository.
 - Patch files are named `<name>-<version>-<what>.patch`, live in `files/`,
   and are applied with `%patch -P N -p1` after `%setup -q`.
 
