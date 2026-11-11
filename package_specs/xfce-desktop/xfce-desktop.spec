@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    30
+Release:    31
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 Prefix:     /usr
@@ -37,6 +37,12 @@ Requires:   mpv
 Requires:   google-chrome-bin
 Requires:   xfdesktop
 Requires:   xfce4-power-manager
+# Xfce's native screen locker.  It owns org.xfce.ScreenSaver (the D-Bus
+# interface xfce4-session and libxfce4ui use for Lock), autostarts with the
+# session, and takes a logind sleep delay lock from PrepareForSleep so the
+# session is locked before suspend.  light-locker is deliberately not also
+# installed: two lockers would autostart and race for the same D-Bus name.
+Requires:   xfce4-screensaver
 # Panel volume control and VA-API video acceleration.  The plugin pulls
 # PulseAudio at runtime; libva is the API used by the video stack and its
 # GLX backend brings in libGL.
@@ -168,6 +174,12 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 4.20-31
+- Require xfce4-screensaver so a default desktop has a screen locker.
+  It owns org.xfce.ScreenSaver for xfce4-session's Lock method and locks
+  on logind's PrepareForSleep before suspend.  light-locker is not added
+  as well because both autostart and claim the same D-Bus name (#55).
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-30
 - Require xsel so a default desktop install has command-line access to
   the X PRIMARY, SECONDARY and CLIPBOARD selections.

@@ -97,6 +97,14 @@ class DesktopMetadataTest(unittest.TestCase):
             self.assertIn("Requires:   desktop-file-utils", text, name)
         self.assertIn("Requires:   mpv", spec_text("xfce-desktop-core"))
 
+    def test_full_desktop_profile_ships_one_screen_locker(self):
+        text = spec_text("xfce-desktop")
+        # xfce4-screensaver provides org.xfce.ScreenSaver and locks on
+        # logind PrepareForSleep.  Installing light-locker too would make
+        # two lockers autostart and race for the same D-Bus name.
+        self.assertIn("Requires:   xfce4-screensaver", text)
+        self.assertNotIn("Requires:   light-locker", text)
+
     def test_default_mimeapps_file_is_complete(self):
         text = read("package_specs/tenko-desktop-config/files/mimeapps.list")
         parser = configparser.ConfigParser(strict=False, interpolation=None)
