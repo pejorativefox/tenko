@@ -6,6 +6,7 @@ License:    IJG AND BSD-3-Clause AND Zlib
 URL:        https://libjpeg-turbo.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: nasm
 %description
 libjpeg-turbo is a fork of the original IJG libjpeg which uses SIMD to accelerate baseline JPEG compression and decompression.
 

@@ -105,7 +105,6 @@ libfyaml
 libgpg-error
 libidn2
 libisofs
-libjpeg-turbo
 libksba
 liblzo2
 libmd

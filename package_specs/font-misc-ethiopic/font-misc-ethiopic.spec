@@ -9,6 +9,7 @@ Source0:    font-misc-ethiopic-1.0.5.tar.xz
 BuildRequires: util-macros
 BuildRequires: mkfontscale
 BuildRequires: font-util
+BuildRequires: fontconfig
 
 
 

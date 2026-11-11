@@ -10,6 +10,7 @@ BuildRequires: fontconfig
 BuildRequires: freetype
 BuildRequires: fribidi
 BuildRequires: harfbuzz
+BuildRequires: nasm
 
 %description
 libass is a portable subtitle renderer for the ASS/SSA (Advanced

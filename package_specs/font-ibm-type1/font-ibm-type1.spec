@@ -9,6 +9,7 @@ Source0:    font-ibm-type1-1.0.4.tar.xz
 BuildRequires: util-macros
 BuildRequires: mkfontscale
 BuildRequires: font-util
+BuildRequires: fontconfig
 
 
 

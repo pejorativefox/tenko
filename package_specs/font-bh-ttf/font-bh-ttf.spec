@@ -8,6 +8,7 @@ Prefix:     /usr
 Source0:    font-bh-ttf-1.0.4.tar.xz
 BuildRequires: util-macros
 BuildRequires: mkfontscale
+BuildRequires: fontconfig
 
 %description
 The Bigelow & Holmes Luxi TrueType fonts (Bitstream Vera family).

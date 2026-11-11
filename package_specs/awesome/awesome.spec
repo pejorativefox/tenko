@@ -1,6 +1,6 @@
 Name:       awesome
 Version:    4.3
-Release:    1
+Release:    2
 Summary:    Highly configurable X11 window manager
 License:    GPL-2.0-or-later
 Prefix:     /usr
@@ -39,6 +39,11 @@ BuildRequires: imagemagick
 BuildRequires: dbus-daemon
 BuildRequires: lgi
 BuildRequires: glib-gir
+BuildRequires: gobject-introspection-gir
+BuildRequires: pango-gir
+BuildRequires: gdk-pixbuf-gir
+# awesome loads these typelibs through lgi at startup.
+Requires:   lgi, glib-gir, gobject-introspection-gir, pango-gir, gdk-pixbuf-gir
 
 %description
 awesome is a highly configurable, next generation framework window
@@ -74,6 +79,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/awesome.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 4.3-2
+- Require lgi and the GObject typelibs awesome loads at startup (GLib,
+  cairo, Pango, GdkPixbuf); without them it fails before the first frame.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.3-1
 - Update to 4.3; not in the base set, latest upstream stable
   2026-11-05 (4.3 is the latest tagged release).

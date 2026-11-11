@@ -16,6 +16,15 @@ BuildRequires: libpng
 BuildRequires: libx11
 BuildRequires: libxext
 BuildRequires: pango
+BuildRequires: fribidi
+BuildRequires: libXdmcp
+BuildRequires: liblzo2
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxft
+BuildRequires: libxrender
+BuildRequires: pixman
+BuildRequires: xorgproto
 %description
 ImageMagick is a free, open-source software suite, used for editing and manipulating digital images.
 
