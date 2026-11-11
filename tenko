@@ -17,6 +17,7 @@ COMMANDS="
 build             | build/specs.sh         | build specs in the base container (--base for the whole base set)
 sync              | build/sync.sh          | mirror the published repository into build/cache/repo
 fetch             | build/fetch_sources.py | download and verify the sources for specs
+builddeps         | build/builddeps.py     | suggest missing BuildRequires from built RPMs and build logs
 filelist          | tools/filelist.py      | generate a static %files list from an RPM or buildroot
 check             | check/run.sh           | run the pre-publish checks (unit tests, base requires, fdo audit)
 audit             | check/fdo_audit.py     | freedesktop compliance audit over specs, RPMs or a rootfs

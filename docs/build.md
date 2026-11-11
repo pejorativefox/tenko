@@ -72,6 +72,17 @@ image's full toolchain.  `STRICT=1` requires every `BuildRequires` to
 resolve and drops `--nodeps`, so the spec must declare everything it needs.
 New and updated specs should build with `STRICT=1`.
 
+`./tenko builddeps PKG` suggests the missing lines.  It maps the package's
+built RPMs (linked libraries, `pkgconfig(...)`, `perl(...)`) and, with
+`--out OUT`, the failed build log (pkg-config, meson, CMake, missing
+commands and Perl modules) to providers in the mirror, and leaves out what
+the buildroot or the spec already covers:
+
+```sh
+STRICT=1 OUT=build/x ./tenko build xsetroot
+./tenko builddeps --out build/x xsetroot
+```
+
 ## Metapackage layering
 
 ```
