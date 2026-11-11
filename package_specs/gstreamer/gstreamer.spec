@@ -45,6 +45,7 @@ BuildRequires: libxxf86vm
 BuildRequires: mesa
 BuildRequires: pango
 BuildRequires: pixman
+BuildRequires: rust
 
 %description
 Streaming multimedia framework

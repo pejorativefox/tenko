@@ -7,6 +7,7 @@ URL:        https://github.com/alsa-project/alsa-utils
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 BuildRequires: alsa-lib
+BuildRequires: python3-docutils
 
 %description
 The ALSA Utilities package contains various utilities which are useful for controlling your sound card. 

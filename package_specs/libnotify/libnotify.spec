@@ -10,6 +10,7 @@ BuildRequires: gdk-pixbuf
 BuildRequires: shared-mime-info
 BuildRequires: libjpeg-turbo
 BuildRequires: libpng
+BuildRequires: gobject-introspection
 
 %description
 libnotify is a library for sending desktop notifications to a notification

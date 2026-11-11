@@ -6,6 +6,7 @@ License:    GPL-2.0-or-later AND LGPL-3.0-or-later
 URL:        https://www.lysator.liu.se/~nisse/nettle/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: texinfo
 
 %description
 Nettle is a low-level cryptographic library that is designed to fit easily

@@ -83,6 +83,22 @@ class HardRulesTest(unittest.TestCase):
                if OLD_PATCH.search(preamble_and_body(spec))]
         self.assertEqual(old, [], "declare PatchN: and apply it with %patch -P N -p1")
 
+    def test_patches_are_applied_in_prep(self):
+        # rpm expands %patch only in %prep; elsewhere the shell runs it
+        # as a job-control command and the build fails.
+        late = []
+        for name, spec in specs():
+            section = None
+            for line in preamble_and_body(spec).splitlines():
+                if re.match(r"^%prep\b", line):
+                    section = "prep"
+                elif re.match(r"^%(build|install|check)(\s|$)", line):
+                    section = "other"
+                elif line.startswith("%patch") and section == "other":
+                    late.append(name)
+                    break
+        self.assertEqual(late, [], "move %patch into %prep")
+
     def test_every_spec_has_a_url(self):
         missing = [name for name, spec in specs()
                    if not re.search(r"^URL:", preamble_and_body(spec), re.M)]

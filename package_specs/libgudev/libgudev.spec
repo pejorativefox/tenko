@@ -19,7 +19,7 @@ be part of udev and then systemd, and is now a project on its own.
 %build
 mkdir build
 pushd build
-meson setup .. --prefix=/usr --buildtype=release
+meson setup .. --prefix=/usr --buildtype=release -Dvapi=disabled
 ninja
 popd
 

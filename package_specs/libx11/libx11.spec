@@ -11,6 +11,7 @@ BuildRequires: util-macros
 BuildRequires: libXdmcp
 BuildRequires: libxau
 BuildRequires: xorgproto
+BuildRequires: xtrans
 %description
 X Window System protocol client library 
 

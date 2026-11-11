@@ -68,7 +68,9 @@ pushd build
 meson setup ..               \
       --prefix=/usr          \
       --buildtype=release    \
-      --wrap-mode=nodownload
+      --wrap-mode=nodownload \
+      -Dopus=disabled        \
+      -Dtheora=disabled
 ninja
 popd
 

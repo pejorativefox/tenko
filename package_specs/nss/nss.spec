@@ -19,9 +19,9 @@ PKCS #12, S/MIME and X.509 v3 certificates.
 
 %prep
 %setup -q
+%patch -P 0 -p1
 
 %build
-%patch -P 0 -p1
 pushd nss
 %make_build BUILD_OPT=1                  \
   NSPR_INCLUDE_DIR=/usr/include/nspr  \

@@ -6,6 +6,7 @@ License:    LGPL-2.1-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2)
 URL:        https://vala.dev/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: gobject-introspection
 
 %description
 Vala is a new programming language that aims to bring modern programming language features to GNOME developers without imposing any additional runtime requirements and without using a different ABI compared to applications and libraries written in C. 

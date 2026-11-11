@@ -6,6 +6,7 @@ License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:        https://docs.xfce.org/xfce/libxfce4util/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: gobject-introspection
 
 %description
 Basic utility library for Xfce4.

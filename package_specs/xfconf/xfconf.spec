@@ -7,6 +7,7 @@ URL:        https://docs.xfce.org/xfce/xfconf/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 BuildRequires: libxfce4util
+BuildRequires: gobject-introspection
 
 %description
 Flexible, easy-to-use configuration management system

@@ -6,6 +6,7 @@ License:    GPM
 URL:        https://github.com/libsdl-org/sdl2-compat
 Source0:    sdl2-compat-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: sdl3
 
 %description
 Simple DirectMedia Layer is a cross-platform development library designed to 

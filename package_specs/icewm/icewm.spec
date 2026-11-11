@@ -1,6 +1,6 @@
 Name:       icewm
 Version:    4.1.0
-Release:    2
+Release:    3
 Summary:    A small win9x like window manager
 License:    LGPL-2.0-or-later
 URL:        https://ice-wm.org/
@@ -50,11 +50,18 @@ popd
 rm -rf %{buildroot}
 pushd build
 %make_install
-popd 
+popd
+# CMake installs the playground translations under the absolute build path.
+rm -rf %{buildroot}%{_builddir}
+rmdir -p --ignore-fail-on-non-empty "$(dirname %{buildroot}%{_builddir})"
 
 %files -f %{_sourcedir}/icewm.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 4.1.0-3
+- Stop shipping the playground translations that CMake installed under
+  the absolute build directory (/out/build/...).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.1.0-2
 - Replace the legacy short licence name with the verified SPDX expression
   (LGPL-2.0-or-later): COPYING, GNU Library GPL v2, plus src/MwmUtil.h "or any later version" (issue #8).

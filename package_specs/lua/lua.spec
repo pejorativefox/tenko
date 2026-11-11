@@ -15,6 +15,7 @@ Lua is a lightweight, high-level, multi-paradigm programming language designed p
 
 %prep
 %setup -q
+%patch -P 0 -p1
 
 %build
 cat > lua.pc << "EOF"
@@ -40,7 +41,6 @@ Libs: -L${libdir} -llua -lm -ldl
 Cflags: -I${includedir}
 EOF
 
-%patch -P 0 -p1
 make linux
 
 %install    

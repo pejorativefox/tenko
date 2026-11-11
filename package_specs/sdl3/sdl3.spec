@@ -25,6 +25,7 @@ BuildRequires: libxext
 BuildRequires: libxfixes
 BuildRequires: libxxf86vm
 BuildRequires: xorgproto
+BuildRequires: libxscrnsaver
 
 %description
 Simple DirectMedia Layer is a cross-platform development library

@@ -66,13 +66,13 @@ archive and everything tenko-base depends on stays installed).
 
 %prep
 %setup -q
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 %build
 export CFLAGS="-O2 -g"
 export CXXFLAGS="-O2 -g"
 export LDFLAGS=""
-%patch -P 0 -p1
-%patch -P 1 -p1
 
 mkdir build
 pushd build

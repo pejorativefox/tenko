@@ -46,6 +46,7 @@ BuildRequires: libxxf86vm
 BuildRequires: mesa
 BuildRequires: pango
 BuildRequires: pixman
+BuildRequires: gsettings-desktop-schemas
 
 %description
 The GTK implementation of the xdg-desktop-portal interfaces.  Flatpak

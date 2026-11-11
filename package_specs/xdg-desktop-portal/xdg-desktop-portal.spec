@@ -32,6 +32,7 @@ BuildRequires: libxxf86vm
 BuildRequires: mesa
 BuildRequires: polkit
 BuildRequires: xorgproto
+BuildRequires: python3-docutils
 
 %description
 Desktop integration portal 

@@ -8,6 +8,7 @@ Prefix:     /usr
 Source0:    encodings-1.1.0.tar.xz
 BuildRequires: util-macros
 BuildRequires: mkfontscale
+BuildRequires: font-util
 
 %description
 The X.org font encoding data.

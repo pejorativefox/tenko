@@ -35,6 +35,7 @@ BuildRequires: shared-mime-info
 BuildRequires: xcb-util-image
 BuildRequires: xcb-util-renderutil
 BuildRequires: xorgproto
+BuildRequires: imagemagick
 
 %description
 awesome is a highly configurable, next generation framework window

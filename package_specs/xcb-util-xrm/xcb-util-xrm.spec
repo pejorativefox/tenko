@@ -11,6 +11,8 @@ BuildRequires: xcb-util
 BuildRequires: xorgproto
 BuildRequires: libXdmcp
 BuildRequires: libxau
+BuildRequires: libx11
+BuildRequires: util-macros
 
 %description
 The XCB util-xrm module provides utility functions for the X resource

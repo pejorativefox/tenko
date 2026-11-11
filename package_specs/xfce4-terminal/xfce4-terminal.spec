@@ -48,6 +48,7 @@ BuildRequires: libxres
 BuildRequires: libxtst
 BuildRequires: libxxf86vm
 BuildRequires: pixman
+BuildRequires: libxslt
 Requires:   libxfce4ui
 Requires:   vte
 

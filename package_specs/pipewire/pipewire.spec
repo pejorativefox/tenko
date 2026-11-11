@@ -55,6 +55,8 @@ BuildRequires: mesa
 BuildRequires: pango
 BuildRequires: pixman
 BuildRequires: shared-mime-info
+BuildRequires: gst-plugins-base
+BuildRequires: libgudev
 
 %description
 PipeWire is a server and user space API to deal with multimedia

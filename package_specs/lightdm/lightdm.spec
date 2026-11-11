@@ -48,6 +48,7 @@ BuildRequires: mesa
 BuildRequires: pango
 BuildRequires: pixman
 BuildRequires: shared-mime-info
+BuildRequires: xml-parser
 
 # The greeter is packaged separately but is what lightdm starts.
 Requires:      xorg-server

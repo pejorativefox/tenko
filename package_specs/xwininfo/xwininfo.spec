@@ -11,6 +11,7 @@ BuildRequires: util-macros
 BuildRequires: xorgproto
 BuildRequires: libXdmcp
 BuildRequires: libxau
+BuildRequires: libx11
 
 
 

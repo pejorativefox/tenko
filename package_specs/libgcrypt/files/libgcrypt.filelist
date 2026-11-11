@@ -9,7 +9,6 @@
 %dir /usr/share/man/man1
 /usr/bin/dumpsexp
 /usr/bin/hmac256
-/usr/bin/libgcrypt-config
 /usr/bin/mpicalc
 /usr/include/gcrypt.h
 /usr/lib64/libgcrypt.so

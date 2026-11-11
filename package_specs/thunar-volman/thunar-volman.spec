@@ -48,6 +48,7 @@ BuildRequires: mesa
 BuildRequires: pixman
 BuildRequires: shared-mime-info
 BuildRequires: xorgproto
+BuildRequires: exo
 
 %description
 Automatic management of removeable devices in Thunar

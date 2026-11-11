@@ -44,6 +44,9 @@ BuildRequires: libxxf86vm
 BuildRequires: mesa
 BuildRequires: pixman
 BuildRequires: shared-mime-info
+BuildRequires: gobject-introspection
+BuildRequires: iso-codes
+BuildRequires: libxkbcommon
 %description
 GTK is a multi-platform toolkit for creating graphical user interfaces. It
 offers a complete set of widgets and is suitable for projects ranging from

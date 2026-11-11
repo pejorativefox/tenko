@@ -21,6 +21,7 @@ BuildRequires: libxcb
 BuildRequires: libxext
 BuildRequires: libxrender
 BuildRequires: pixman
+BuildRequires: python3-docutils
 
 %description
 libdrm provides a userspace library for the kernel Direct Rendering Manager.

@@ -7,6 +7,7 @@ URL:        https://github.com/rhboot/efibootmgr
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: efivar
+BuildRequires: gcc-lto
 
 %description
 This is efibootmgr, a Linux user-space application to modify the Intel Extensible Firmware Interface (EFI) Boot Manager. This application can create and destroy boot entries, change the boot order, change the next running boot option, and more.

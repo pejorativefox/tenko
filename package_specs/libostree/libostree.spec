@@ -9,6 +9,7 @@ Prefix:     /usr
 BuildRequires: e2fsprogs
 BuildRequires: fuse3
 BuildRequires: openssl
+BuildRequires: gobject-introspection
 
 %description
 libostree is a tool and library for deploying and managing bootable,

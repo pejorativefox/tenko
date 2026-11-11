@@ -9,6 +9,7 @@ Source0:    linux-%{version}.tar.xz
 Source1:    linux-%{version}.config
 BuildRequires: xz
 BuildRequires: bc
+BuildRequires: openssl
 
 %description
 General-purpose Linux kernel for Tenko Linux.  The configuration is

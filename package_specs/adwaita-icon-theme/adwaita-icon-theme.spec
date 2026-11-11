@@ -6,6 +6,7 @@ License:    LGPL-3.0-only OR CC-BY-SA-3.0
 URL:        https://gitlab.gnome.org/GNOME/adwaita-icon-theme
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: gtk+
 
 
 %description

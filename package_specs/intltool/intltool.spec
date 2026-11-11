@@ -6,6 +6,7 @@ License:    GPL-2.0-or-later
 URL:        https://launchpad.net/intltool
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: xml-parser
 
 %description
 intltool is a set of tools to centralize translation of many different file formats using GNU gettext-compatible PO files.

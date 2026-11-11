@@ -10,6 +10,7 @@ BuildArch:  noarch
 Requires:   python3-lxml
 Requires:   docbook-xml
 Prefix:     /usr
+BuildRequires: python3-lxml
 
 %description
 itstool extracts translatable messages from XML documents and merges

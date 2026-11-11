@@ -45,6 +45,7 @@ BuildRequires: libxxf86vm
 BuildRequires: mesa
 BuildRequires: pixman
 BuildRequires: xorgproto
+BuildRequires: gperf
 
 %description
 Glib AppStream metadata support.

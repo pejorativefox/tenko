@@ -49,6 +49,7 @@ BuildRequires: mesa
 BuildRequires: pixman
 BuildRequires: shared-mime-info
 BuildRequires: xorgproto
+BuildRequires: gobject-introspection
 
 %description
 Commonly used Xfce widgets among Xfce applications

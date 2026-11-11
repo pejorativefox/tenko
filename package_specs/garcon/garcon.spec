@@ -47,6 +47,7 @@ BuildRequires: pixman
 BuildRequires: shared-mime-info
 BuildRequires: xfconf
 BuildRequires: xorgproto
+BuildRequires: gobject-introspection
 
 %description
 Implementation of the freedesktop.org menu specification

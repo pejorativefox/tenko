@@ -52,6 +52,7 @@ BuildRequires: pixman
 BuildRequires: shared-mime-info
 BuildRequires: startup-notification
 BuildRequires: xorgproto
+BuildRequires: gobject-introspection
 
 %description
 Panel for the Xfce desktop environment

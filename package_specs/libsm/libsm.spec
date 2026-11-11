@@ -10,6 +10,7 @@ Source0:    libSM-1.2.6.tar.xz
 BuildRequires: libice
 BuildRequires: util-macros
 BuildRequires: xorgproto
+BuildRequires: xtrans
 
 %description
 X Session Management Library

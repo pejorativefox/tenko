@@ -1,6 +1,6 @@
 Name:       libgcrypt
 Version:    1.12.4
-Release:    1
+Release:    2
 Summary:    GnuPG crypto library
 License:    LGPL-2.1-or-later
 URL:        https://gnupg.org/software/libgcrypt/
@@ -28,6 +28,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/libgcrypt.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 1.12.4-2
+- Drop libgcrypt-config from the payload: with gpgrt-config available,
+  upstream no longer installs it (use pkg-config or gpgrt-config).
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 1.12.4-1
 - Update to the pinned version (1.12.4, was 1.10.2) for lightdm
 - Use a generated static filelist: the libtool version changed, so the

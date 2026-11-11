@@ -11,6 +11,7 @@ BuildRequires: libfyaml
 BuildRequires: libxmlb
 BuildRequires: openssl
 BuildRequires: wayland
+BuildRequires: gobject-introspection
 
 %description
 AppStream provides a library and tool for retrieving software metadata.

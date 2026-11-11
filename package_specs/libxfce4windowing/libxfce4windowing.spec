@@ -47,6 +47,7 @@ BuildRequires: pixman
 BuildRequires: shared-mime-info
 BuildRequires: startup-notification
 BuildRequires: xorgproto
+BuildRequires: gobject-introspection
 
 %description
 Libxfce4windowing is an abstraction library that attempts to present windowing concepts (screens, toplevel windows, workspaces, etc.) in a windowing-system-independent manner.

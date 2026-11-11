@@ -46,6 +46,7 @@ BuildRequires: libxtst
 BuildRequires: libxxf86vm
 BuildRequires: mesa
 BuildRequires: pixman
+BuildRequires: gobject-introspection
 
 %description
 Library to manage X windows and workspaces (via pagers, tasklists, etc.)

@@ -15,6 +15,7 @@ BuildRequires: libxau
 BuildRequires: libxcb
 BuildRequires: libxext
 BuildRequires: libxfixes
+BuildRequires: iso-codes
 
 %description
 High-level API for X Keyboard Extension

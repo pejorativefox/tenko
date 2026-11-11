@@ -56,6 +56,7 @@ BuildRequires: mesa
 BuildRequires: pixman
 BuildRequires: shared-mime-info
 BuildRequires: xorgproto
+BuildRequires: gobject-introspection
 
 %description
 Modern file manager for Xfce
