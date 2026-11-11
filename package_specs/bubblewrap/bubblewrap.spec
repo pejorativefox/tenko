@@ -3,6 +3,7 @@ Version:    0.13.1
 Release:    2
 Summary:    Unprivileged sandboxing tool 
 License:    LGPL-2.0-or-later
+URL:        https://github.com/containers/bubblewrap
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

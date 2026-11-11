@@ -3,6 +3,7 @@ Version:    1.0.7
 Release:    1
 Summary:    Query and modify the X11 colour raster database
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xcmsdb
 Prefix:     /usr
 Source0:    xcmsdb-1.0.7.tar.xz
 

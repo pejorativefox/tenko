@@ -3,6 +3,7 @@ Version:    1.5.5
 Release:    1
 Summary:    Khronos SPIR-V headers and registry files
 License:    MIT
+URL:        https://github.com/KhronosGroup/SPIRV-Headers
 Prefix:     /usr
 Source0:    SPIRV-Headers-cb42dec3830d3ac67fa449ecdc0c0f73d5e74498.tar.gz
 

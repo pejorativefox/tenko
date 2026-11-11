@@ -3,6 +3,7 @@ Version:    20261015
 Release:    2
 Summary:    Authoritative list of internet protocals
 License:    MIT
+URL:        https://github.com/Mic92/iana-etc
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

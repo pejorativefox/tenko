@@ -3,6 +3,7 @@ Version:    4.20
 Release:    31
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
+URL:        https://pjfox.xyz/git/daspork/tenko
 Prefix:     /usr
 
 Requires:   libxfce4util

@@ -3,6 +3,7 @@ Version:    4.2
 Release:    1
 Summary:    dosfstools consists of the programs needed to create, check and label file systems of the FAT family. 
 License:    GPL-3.0
+URL:        https://github.com/dosfstools/dosfstools
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

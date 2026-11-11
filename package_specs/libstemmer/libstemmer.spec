@@ -3,6 +3,7 @@ Version:    3.2.0
 Release:    1
 Summary:    Snowball stemming algorithms
 License:    BSD-3-Clause
+URL:        https://snowballstem.org/
 Source0:    libstemmer_c-%{version}.tar.gz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    0.23
 Release:    3
 Summary:    Python text processing system (docutils, rst2man)
 License:    public domain / BSD / GPL
+URL:        https://docutils.sourceforge.io/
 Prefix:     /usr
 Source0:    docutils-%{version}.tar.gz
 BuildRequires: python-flit-core

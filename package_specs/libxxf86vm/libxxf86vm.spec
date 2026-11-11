@@ -3,6 +3,7 @@ Version:    1.1.7
 Release:    4
 Summary:    XFree86-VidMode X extension
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxxf86vm
 Prefix:     /usr
 Source0:    libXxf86vm-%{version}.tar.xz
 %description

@@ -3,6 +3,7 @@ Version:    3.4.18
 Release:    1
 Summary:    Simple DirectMedia Layer 3, a cross-platform multimedia library
 License:    Zlib
+URL:        https://www.libsdl.org/
 Source0:    SDL3-%{version}.tar.gz
 Patch0:     SDL3-%{version}-upstream_fixes-1.patch
 Prefix:     /usr

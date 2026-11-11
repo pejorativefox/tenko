@@ -3,6 +3,7 @@ Version:    1.3.0
 Release:    4
 Summary:    Message digest library
 License:    BSD-3-Clause
+URL:        https://www.hadrons.org/software/libmd/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

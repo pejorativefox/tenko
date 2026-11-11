@@ -3,6 +3,7 @@ Version:    1.4.3
 Release:    3
 Summary:    Python templating language
 License:    MIT
+URL:        https://www.makotemplates.org/
 Prefix:     /usr
 Source0:    mako-1.4.3.tar.gz
 

@@ -3,6 +3,7 @@ Version:    2.0.9
 Release:    4
 Summary:    X font handling library for server & utilities.
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxfont
 Prefix:     /usr
 Source0:    libXfont2-%{version}.tar.xz
 

@@ -3,6 +3,7 @@ Version:    2.0.0
 Release:    1
 Summary:    Rofi application launcher.
 License:    MIT
+URL:        https://github.com/davatorium/rofi
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    4.1.0
 Release:    4
 Summary:    OpenSSL software library
 License:    Apache-2.0
+URL:        https://www.openssl.org/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    2.3.1
 Release:    2
 Summary:    GLEW is the OpenGL Extension Wrangler Library. 
 License:    BSD-3-Clause AND MIT
+URL:        https://glew.sourceforge.net/
 Source0:    %{name}-%{version}.tgz
 Prefix:     /usr
 

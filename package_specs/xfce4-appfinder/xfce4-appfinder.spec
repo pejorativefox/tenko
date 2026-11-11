@@ -3,6 +3,7 @@ Version:    4.20.0
 Release:    3
 Summary:    An application finder for Xfce
 License:    GPL-2.0-or-later
+URL:        https://docs.xfce.org/xfce/xfce4-appfinder/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

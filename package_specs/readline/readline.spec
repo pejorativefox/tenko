@@ -3,6 +3,7 @@ Version:    8.3
 Release:    4
 Summary:    Library for command line editing
 License:    GPL-3.0-or-later
+URL:        https://tiswww.case.edu/php/chet/readline/rltop.html
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

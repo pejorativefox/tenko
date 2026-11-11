@@ -3,6 +3,7 @@ Version:    1.2.0
 Release:    3
 Summary:    Xfce terminal emulator
 License:    GPL-2.0-or-later
+URL:        https://docs.xfce.org/apps/xfce4-terminal/start
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

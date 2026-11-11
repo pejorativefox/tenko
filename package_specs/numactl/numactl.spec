@@ -3,6 +3,7 @@ Version:    2.0.19
 Release:    1
 Summary:    Library and tools for NUMA policy control
 License:    GPL-2.0-only AND LGPL-2.1-only
+URL:        https://github.com/numactl/numactl
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

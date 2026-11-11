@@ -3,6 +3,7 @@ Version:    5.4.8
 Release:    3
 Summary:    Lua High-level programming language
 License:    MIT
+URL:        https://www.lua.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 Patch0:     lua-5.4.8-shared_library-1.patch

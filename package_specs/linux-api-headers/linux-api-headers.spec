@@ -3,6 +3,7 @@ Version:    7.3.1
 Release:    1
 Summary:    Linux userspace API headers
 License:    GPL-2.0-only WITH Linux-syscall-note
+URL:        https://www.kernel.org/
 Prefix:     /usr
 Source0:    linux-%{version}.tar.xz
 

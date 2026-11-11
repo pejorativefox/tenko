@@ -3,6 +3,7 @@ Version:    4.4.1
 Release:    3
 Summary:    GNU make
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/make/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

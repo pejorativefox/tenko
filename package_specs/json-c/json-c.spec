@@ -3,6 +3,7 @@ Version:    0.19
 Release:    3
 Summary:    JSON implementation in C
 License:    MIT
+URL:        https://github.com/json-c/json-c
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

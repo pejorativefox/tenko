@@ -3,6 +3,7 @@ Version:    0.10.26
 Release:    1
 Summary:    C-ABI compatible library builder for cargo
 License:    MIT
+URL:        https://github.com/lu-zero/cargo-c
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 Source1:    Cargo.lock

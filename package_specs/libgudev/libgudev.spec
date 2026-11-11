@@ -3,6 +3,7 @@ Version:    238
 Release:    5
 Summary:    GObject bindings for libudev
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/libgudev
 Prefix:     /usr
 Source0:    libgudev-238.tar.xz
 

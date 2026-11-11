@@ -3,6 +3,7 @@ Version:    4.20.1
 Release:    4
 Summary:    Power manager for Xfce desktop
 License:    GPL-2.0-or-later
+URL:        https://docs.xfce.org/xfce/xfce4-power-manager/start
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     %{name}-%{version}-logind-lid-switch.patch
 Prefix:     /usr

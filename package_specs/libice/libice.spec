@@ -3,6 +3,7 @@ Version:    1.1.2
 Release:    4
 Summary:    Inter-Client Exchange Library.
 License:    MIT-open-group
+URL:        https://gitlab.freedesktop.org/xorg/lib/libice
 Prefix:     /usr
 Source0:    libICE-1.1.2.tar.xz
 

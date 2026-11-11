@@ -3,6 +3,7 @@ Version:    1.0.10
 Release:    2
 Summary:    X window image dump utility
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xwd
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

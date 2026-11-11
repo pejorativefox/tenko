@@ -3,6 +3,7 @@ Version:    20250815
 Release:    1
 Summary:    H.264/MPEG-4 AVC video encoder library
 License:    GPL-2.0-or-later
+URL:        https://www.videolan.org/developers/x264.html
 Source0:    x264-%{version}.tar.xz
 Prefix:     /usr
 

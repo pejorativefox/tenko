@@ -3,6 +3,7 @@ Version:    6.6
 Release:    4
 Summary:    Text based user interface library
 License:    X11
+URL:        https://invisible-island.net/ncurses/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 Provides:   libtinfo.so.6()(64bit)

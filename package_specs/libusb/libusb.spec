@@ -3,6 +3,7 @@ Version:    1.0.30
 Release:    4
 Summary:    Cross-platform USB device access library
 License:    LGPL-2.1-or-later
+URL:        https://libusb.info/
 Prefix:     /usr
 Source0:    libusb-1.0.30.tar.bz2
 

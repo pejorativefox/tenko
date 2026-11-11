@@ -3,6 +3,7 @@ Version:    1.19
 Release:    2
 Summary:    popt command line option parsing library.
 License:    MIT
+URL:        https://github.com/rpm-software-management/popt
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

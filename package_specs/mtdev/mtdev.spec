@@ -3,6 +3,7 @@ Version:    1.1.7
 Release:    3
 Summary:    Multitouch protocol translation library
 License:    MIT
+URL:        https://bitmath.se/org/code/mtdev/
 Prefix:     /usr
 Source0:    mtdev-1.1.7.tar.bz2
 

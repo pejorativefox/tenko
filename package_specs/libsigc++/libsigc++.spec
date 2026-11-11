@@ -3,6 +3,7 @@ Version:    2.12.1
 Release:    2
 Summary:    libsigc++ provides a typesafe (at compile time) callback system for standard C++.
 License:    LGPL-2.1-or-later
+URL:        https://libsigcplusplus.github.io/libsigcplusplus/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

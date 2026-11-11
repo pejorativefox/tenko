@@ -3,6 +3,7 @@ Version:    1.2.12
 Release:    2
 Summary:    ALSA sound interface plugins.
 License:    LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
+URL:        https://github.com/alsa-project/alsa-plugins
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     %{name}-%{version}-ffmpeg-9.0.patch
 Prefix:     /usr

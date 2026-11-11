@@ -3,6 +3,7 @@ Version:    5.45.4
 Release:    1
 Summary:    Automation tool
 License:    Public Domain
+URL:        https://core.tcl-lang.org/expect/
 Source0:    %{name}%{version}.tar.gz
 Patch0:     expect-5.45.4-gcc15-1.patch
 Prefix:     /usr

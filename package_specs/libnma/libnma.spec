@@ -3,6 +3,7 @@ Version:    1.10.6
 Release:    1
 Summary:    NetworkManager GUI library
 License:    LGPL-2.1
+URL:        https://gitlab.gnome.org/GNOME/libnma
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

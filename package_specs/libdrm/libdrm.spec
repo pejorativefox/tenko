@@ -3,6 +3,7 @@ Version:    2.4.134
 Release:    3
 Summary:    Userspace interface to kernel DRM services
 License:    MIT
+URL:        https://gitlab.freedesktop.org/mesa/libdrm
 Prefix:     /usr
 Source0:    libdrm-2.4.134.tar.xz
 

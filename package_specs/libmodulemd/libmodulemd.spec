@@ -3,6 +3,7 @@ Version:    2.15.3
 Release:    6
 Summary:    C library for manipulating module metadata files
 License:    MIT
+URL:        https://github.com/fedora-modularity/libmodulemd
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

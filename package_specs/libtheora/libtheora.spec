@@ -3,6 +3,7 @@ Version:    1.1.1
 Release:    1
 Summary:    Theora video codec library
 License:    BSD-3-Clause
+URL:        https://github.com/xiph/theora
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

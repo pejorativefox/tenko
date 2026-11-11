@@ -3,6 +3,7 @@ Version:    4.20.1
 Release:    5
 Summary:    Basic utility library for Xfce4.
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later
+URL:        https://docs.xfce.org/xfce/libxfce4util/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

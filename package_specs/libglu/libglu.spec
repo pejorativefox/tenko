@@ -3,6 +3,7 @@ Version:    9.0.3
 Release:    2
 Summary:    This package provides the Mesa OpenGL Utility library. 
 License:    SGI-B-1.1 AND SGI-B-2.0 AND MIT
+URL:        https://gitlab.freedesktop.org/mesa/glu
 Source0:    glu-%{version}.tar.xz
 Prefix:     /usr
 

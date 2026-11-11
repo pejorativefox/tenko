@@ -3,6 +3,7 @@ Version:    1.2.1
 Release:    1
 Summary:    Print X11 window dumps
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xpr
 Prefix:     /usr
 Source0:    xpr-1.2.1.tar.xz
 

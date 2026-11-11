@@ -3,6 +3,7 @@ Version:    9.12
 Release:    2
 Summary:    GNU operating system tools
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/coreutils/
 Source0:    %{name}-%{version}.tar.xz
 Patch0:     coreutils-9.12-i18n-1.patch
 Prefix:     /usr

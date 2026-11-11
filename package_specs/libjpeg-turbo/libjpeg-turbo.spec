@@ -3,6 +3,7 @@ Version:    3.2.1
 Release:    3
 Summary:    JPEG library
 License:    IJG AND BSD-3-Clause AND Zlib
+URL:        https://libjpeg-turbo.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 %description

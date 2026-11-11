@@ -3,6 +3,7 @@ Version:    17.0
 Release:    2
 Summary:    PulseAudio Bluetooth audio modules (A2DP/HFP)
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.freedesktop.org/pulseaudio/pulseaudio
 Prefix:     /usr
 Source0:    pulseaudio-%{version}.tar.xz
 BuildRequires: libsndfile

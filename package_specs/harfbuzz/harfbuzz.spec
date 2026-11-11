@@ -3,6 +3,7 @@ Version:    15.0.0
 Release:    3
 Summary:    Text shaping engine
 License:    MIT
+URL:        https://harfbuzz.github.io/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

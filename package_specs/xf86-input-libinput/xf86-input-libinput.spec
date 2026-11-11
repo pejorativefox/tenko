@@ -3,6 +3,7 @@ Version:    1.5.0
 Release:    1
 Summary:    Xorg libinput input driver
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/driver/xf86-input-libinput
 Prefix:     /usr
 Source0:    xf86-input-libinput-1.5.0.tar.xz
 

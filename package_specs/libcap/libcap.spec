@@ -3,6 +3,7 @@ Version:    2.78
 Release:    3
 Summary:    POSIX 1003.1e capabilities
 License:    BSD-3-Clause OR GPL-2.0-only
+URL:        https://sites.google.com/site/fullycapable/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

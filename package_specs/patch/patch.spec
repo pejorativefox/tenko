@@ -3,6 +3,7 @@ Version:    2.8.1
 Release:    2
 Summary:    GNU patch utility
 License:    GPL-3.0-or-later
+URL:        https://savannah.gnu.org/projects/patch/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    4.5
 Release:    1
 Summary:    DocBook XML 4.5 DTD and catalog
 License:    MIT
+URL:        https://docbook.org/
 BuildArch:  noarch
 Prefix:     /usr
 Source0:    docbook-xml-4.5.zip

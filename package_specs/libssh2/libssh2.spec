@@ -3,6 +3,7 @@ Version:    1.11.1
 Release:    2
 Summary:    SSH2 protocol library
 License:    BSD-3-Clause
+URL:        https://libssh2.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

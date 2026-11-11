@@ -3,6 +3,7 @@ Version:    0.9.13
 Release:    3
 Summary:    Render Extension to the X11 protocol.
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxrender
 Prefix:     /usr
 Source0:    libXrender-%{version}.tar.xz
 %description

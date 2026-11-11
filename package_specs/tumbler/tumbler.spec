@@ -3,6 +3,7 @@ Version:    4.20.2
 Release:    4
 Summary:    D-Bus service for applications to request thumbnails
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later
+URL:        https://docs.xfce.org/xfce/tumbler/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

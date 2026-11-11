@@ -3,6 +3,7 @@ Version:    0.33
 Release:    2
 Summary:    Pure-Python library for parsing ELF files and DWARF debugging data
 License:    Public Domain
+URL:        https://github.com/eliben/pyelftools
 Source0:    pyelftools-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: python-setuptools

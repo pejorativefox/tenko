@@ -3,6 +3,7 @@ Version:    1.25.0
 Release:    2
 Summary:    Non-interactive network downloader
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/wget/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

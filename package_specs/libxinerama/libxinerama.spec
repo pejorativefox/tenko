@@ -3,6 +3,7 @@ Version:    1.1.6
 Release:    4
 Summary:    Xlib API for Xinerama extension to X11 Protocol
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxinerama
 Prefix:     /usr
 Source0:    libXinerama-%{version}.tar.xz
 %description

@@ -3,6 +3,7 @@ Version:    4.20.0
 Release:    5
 Summary:    Xfce's window manager
 License:    GPL-2.0-or-later
+URL:        https://docs.xfce.org/xfce/xfwm4/start
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     xfwm4-4.20.0-workspace-flash.patch
 Prefix:     /usr

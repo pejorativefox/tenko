@@ -3,6 +3,7 @@ Version:    020
 Release:    2
 Summary:    Utilities for Linux USB devices
 License:    GPL-2.0-or-later
+URL:        https://github.com/gregkh/usbutils
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

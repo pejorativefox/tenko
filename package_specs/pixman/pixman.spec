@@ -3,6 +3,7 @@ Version:    0.46.4
 Release:    4
 Summary:    Low-level image libraary
 License:    MIT
+URL:        https://gitlab.freedesktop.org/pixman/pixman
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 %description

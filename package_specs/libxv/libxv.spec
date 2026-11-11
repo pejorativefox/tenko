@@ -3,6 +3,7 @@ Version:    1.0.13
 Release:    1
 Summary:    Xlib-based library for the Xv extension
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxv
 Prefix:     /usr
 Source0:    libXv-1.0.13.tar.xz
 

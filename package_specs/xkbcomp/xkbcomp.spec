@@ -3,6 +3,7 @@ Version:    1.5.0
 Release:    4
 Summary:    XKB keyboard description compiler
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xkbcomp
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

@@ -3,6 +3,7 @@ Version:    13.4.0
 Release:    1
 Summary:    Xorg VMware video driver
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/driver/xf86-video-vmware
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

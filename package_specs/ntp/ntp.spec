@@ -3,6 +3,7 @@ Version:    4.2.8p18
 Release:    3
 Summary:    NTP time sync daemon
 License:    NTP
+URL:        https://www.ntp.org/
 Source0:    %{name}-%{version}.tar.gz
 Source1:    ntp.conf
 Source2:    ntpd.conf

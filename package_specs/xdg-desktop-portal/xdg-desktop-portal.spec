@@ -3,6 +3,7 @@ Version:    1.22.1
 Release:    2
 Summary:    Desktop integration portal 
 License:    LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-2.0-or-later
+URL:        https://flatpak.github.io/xdg-desktop-portal/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

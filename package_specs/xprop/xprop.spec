@@ -3,6 +3,7 @@ Version:    1.2.8
 Release:    1
 Summary:    Display window and font properties of an X server
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xprop
 Prefix:     /usr
 Source0:    xprop-1.2.8.tar.xz
 

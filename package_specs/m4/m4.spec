@@ -3,6 +3,7 @@ Version:    1.4.21
 Release:    4
 Summary:    M4 macro processor
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/m4/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    1.26.0
 Release:    3
 Summary:    Wayland protocol libraries and reference compositor
 License:    MIT
+URL:        https://wayland.freedesktop.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

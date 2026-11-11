@@ -3,6 +3,7 @@ Version:    2.28.5
 Release:    2
 Summary:    atkmm is the C++ binding for the ATK library. 
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/atkmm
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    2.3.9
 Release:    4
 Summary:    Xorg font rendering library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxft
 Prefix:     /usr
 Source0:    libXft-%{version}.tar.xz
 %description

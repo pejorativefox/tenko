@@ -3,6 +3,7 @@ Version:    2.10
 Release:    2
 Summary:    Various networking tools
 License:    GPL-2.0-or-later
+URL:        https://sourceforge.net/projects/net-tools/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

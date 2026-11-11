@@ -3,6 +3,7 @@ Version:    1.1.7
 Release:    2
 Summary:    X window information utility
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xwininfo
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

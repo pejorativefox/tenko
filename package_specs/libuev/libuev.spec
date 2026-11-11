@@ -3,6 +3,7 @@ Version:    2.4.1
 Release:    1
 Summary:    Simple event loop for Linux
 License:    MIT
+URL:        https://github.com/troglobit/libuev
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

@@ -3,6 +3,7 @@ Version:    1.47.4
 Release:    4
 Summary:    ext filesystem utilities
 License:    GPL-2.0-only AND LGPL-2.0-only AND BSD-3-Clause AND MIT
+URL:        https://e2fsprogs.sourceforge.net/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: texinfo

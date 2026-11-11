@@ -3,6 +3,7 @@ Version:    5.44.0
 Release:    6
 Summary:    Perl programming language
 License:    Artistic-1.0-Perl OR GPL-1.0-or-later
+URL:        https://www.perl.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

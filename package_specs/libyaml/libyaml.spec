@@ -3,6 +3,7 @@ Version:    0.2.5
 Release:    3
 Summary:    YAML 1.1 parser and emitter written in C
 License:    MIT
+URL:        https://pyyaml.org/wiki/LibYAML
 Prefix:     /usr
 Source0:    yaml-%{version}.tar.gz
 

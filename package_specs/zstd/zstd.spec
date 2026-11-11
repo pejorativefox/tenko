@@ -3,6 +3,7 @@ Version:    1.5.7
 Release:    2
 Summary:    Fast real-time compression algorith
 License:    BSD-3-Clause OR GPL-2.0-only
+URL:        https://facebook.github.io/zstd/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

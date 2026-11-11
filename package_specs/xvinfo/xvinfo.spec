@@ -3,6 +3,7 @@ Version:    1.1.6
 Release:    1
 Summary:    Query the X11 Video extension (Xv)
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xvinfo
 Prefix:     /usr
 Source0:    xvinfo-1.1.6.tar.xz
 

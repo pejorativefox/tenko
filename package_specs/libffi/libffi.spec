@@ -3,6 +3,7 @@ Version:    3.8.0
 Release:    2
 Summary:    Foreign Function Interface library
 License:    MIT
+URL:        https://sourceware.org/libffi/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

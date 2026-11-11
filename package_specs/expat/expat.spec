@@ -3,6 +3,7 @@ Version:    2.9.0
 Release:    3
 Summary:    stream-oriented XML parser
 License:    MIT
+URL:        https://libexpat.github.io/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    1.22
 Release:    1
 Summary:    NCurses disk usage analyzer
 License:    MIT
+URL:        https://dev.yorhel.nl/ncdu
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

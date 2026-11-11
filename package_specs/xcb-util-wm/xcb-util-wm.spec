@@ -3,6 +3,7 @@ Version:    0.4.2
 Release:    4
 Summary:    XCB window manager utilities
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxcb-wm
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

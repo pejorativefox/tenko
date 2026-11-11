@@ -3,6 +3,7 @@ Version:    1.58.1
 Release:    1
 Summary:    NetworkManager text user interface
 License:    MIT
+URL:        https://networkmanager.dev/
 Prefix:     /usr
 BuildArch:  noarch
 

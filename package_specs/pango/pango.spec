@@ -3,6 +3,7 @@ Version:    1.58.2
 Release:    5
 Summary:    text layout library
 License:    LGPL-2.1-or-later
+URL:        https://www.gtk.org/docs/architecture/pango
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: fontconfig >= 2.13.1

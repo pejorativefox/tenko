@@ -3,6 +3,7 @@ Version:    1.0.5
 Release:    2
 Summary:    XFree86 cursor Type1 font for X11
 License:    X11
+URL:        https://gitlab.freedesktop.org/xorg/font/xfree86-type1
 Prefix:     /usr
 Source0:    font-xfree86-type1-1.0.5.tar.xz
 

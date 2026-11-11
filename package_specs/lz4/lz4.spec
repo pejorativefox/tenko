@@ -3,6 +3,7 @@ Version:    1.10.0
 Release:    4
 Summary:    Extremely fast compression algorithm
 License:    BSD-2-Clause AND GPL-2.0-or-later
+URL:        https://lz4.org/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

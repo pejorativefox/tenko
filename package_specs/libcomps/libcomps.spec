@@ -3,6 +3,7 @@ Version:    0.1.24
 Release:    8
 Summary:    Comps XML file manipulation library
 License:    GPL-2.0-or-later
+URL:        https://github.com/rpm-software-management/libcomps
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 BuildRequires: python-setuptools

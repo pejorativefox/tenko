@@ -3,6 +3,7 @@ Version:    1.49.3
 Release:    1
 Summary:    help2man produces simple manual pages from the ‘--help’ and ‘--version’ output of other commands.
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/help2man/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

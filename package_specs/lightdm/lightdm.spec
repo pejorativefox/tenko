@@ -3,6 +3,7 @@ Version:    1.33.1
 Release:    6
 Summary:    Lightweight cross-desktop display manager
 License:    GPL-3.0-or-later
+URL:        https://github.com/ubuntu/lightdm
 Source0:    lightdm-1.33.1.tar.gz
 Source1:    lightdm.service
 Source2:    50-lightdm.preset

@@ -3,6 +3,7 @@ Version:    3.0
 Release:    1
 Summary:    Info-ZIP zip
 License:    Info-ZIP
+URL:        https://infozip.sourceforge.net/Zip.html
 Prefix:     /usr
 Source0:    zip30.tar.gz
 

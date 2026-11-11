@@ -3,6 +3,7 @@ Version:    4.20.0
 Release:    5
 Summary:    Flexible, easy-to-use configuration management system
 License:    GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only
+URL:        https://docs.xfce.org/xfce/xfconf/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

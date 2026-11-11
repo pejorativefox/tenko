@@ -4,6 +4,7 @@ Release:    3
 Epoch:      1
 Summary:    First-boot root account policy for Tenko Linux
 License:    MIT
+URL:        https://pjfox.xyz/git/daspork/tenko
 Prefix:     /usr
 Requires:   shadow
 Requires:   systemd

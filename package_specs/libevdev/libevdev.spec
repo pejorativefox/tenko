@@ -3,6 +3,7 @@ Version:    1.14.0
 Release:    3
 Summary:    Wrapper library for evdev devices
 License:    MIT
+URL:        https://gitlab.freedesktop.org/libevdev/libevdev
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

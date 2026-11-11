@@ -3,6 +3,7 @@ Version:    3.24.52
 Release:    7
 Summary:    Multi-platform toolkit for creating graphical user interfaces
 License:    LGPL-2.1-or-later
+URL:        https://www.gtk.org/
 Prefix:     /usr
 Source0:    gtk-%{version}.tar.xz
 

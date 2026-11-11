@@ -3,6 +3,7 @@ Version:    412
 Release:    1
 Summary:    X11 terminal emulator
 License:    MIT
+URL:        https://invisible-island.net/xterm/
 Prefix:     /usr
 Source0:    xterm-412.tgz
 

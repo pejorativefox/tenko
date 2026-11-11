@@ -3,6 +3,7 @@ Version:    6.3.0
 Release:    2
 Summary:    The GMP math libraries
 License:    LGPL-3.0-or-later OR GPL-2.0-or-later
+URL:        https://gmplib.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

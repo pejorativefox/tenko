@@ -3,6 +3,7 @@ Version:    0.19
 Release:    1
 Summary:    X.org PCI access library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libpciaccess
 Prefix:     /usr
 Source0:    libpciaccess-0.19.tar.xz
 

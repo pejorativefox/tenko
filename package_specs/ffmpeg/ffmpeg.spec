@@ -3,6 +3,7 @@ Version:    9.0.2
 Release:    3
 Summary:    Multimedia framework for audio and video processing
 License:    GPL-3.0-or-later
+URL:        https://ffmpeg.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 Patch0:     %{name}-%{version}-chromium_method-1.patch

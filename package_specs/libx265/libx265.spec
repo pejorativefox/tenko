@@ -3,6 +3,7 @@ Version:    4.3
 Release:    1
 Summary:    H.265/HEVC video encoder library
 License:    GPL-2.0-or-later
+URL:        https://github.com/Multicorewareinc/x265
 Source0:    x265_%{version}.tar.gz
 Prefix:     /usr
 

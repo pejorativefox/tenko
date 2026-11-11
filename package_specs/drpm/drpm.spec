@@ -3,6 +3,7 @@ Version:    0.5.3
 Release:    1
 Summary:    A library for making, reading and applying deltarpm packages
 License:    LGPL-2.1-or-later
+URL:        https://github.com/rpm-software-management/drpm
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: cmake

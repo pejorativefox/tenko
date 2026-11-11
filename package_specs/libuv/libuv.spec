@@ -3,6 +3,7 @@ Version:    1.53.0
 Release:    4
 Summary:    Multi-platform asynchronous I/O library
 License:    MIT
+URL:        https://libuv.org/
 Prefix:     /usr
 Source0:    %{name}-v%{version}.tar.gz
 

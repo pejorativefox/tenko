@@ -3,6 +3,7 @@ Version:    1.4.4
 Release:    1
 Summary:    X Window System initializer
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xinit
 Prefix:     /usr
 Source0:    xinit-1.4.4.tar.xz
 

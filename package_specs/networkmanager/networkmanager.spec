@@ -3,6 +3,7 @@ Version:    1.58.1
 Release:    3
 Summary:    Network configuration tool suite.
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
+URL:        https://networkmanager.dev/
 Prefix:     /usr
 Source0:    NetworkManager-%{version}.tar.xz
 Source1:    NetworkManager.conf

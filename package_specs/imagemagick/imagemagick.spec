@@ -3,6 +3,7 @@ Version:    7.1.2
 Release:    3
 Summary:    OSS image manipulation toolkit
 License:    ImageMagick
+URL:        https://imagemagick.org/
 Prefix:     /usr
 Source0:    ImageMagick-7.1.2-13.tar.gz
 %description

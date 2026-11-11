@@ -3,6 +3,7 @@ Version:    1.6.0
 Release:    2
 Summary:    X Window System Protocols Transport layer
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxtrans
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 %description

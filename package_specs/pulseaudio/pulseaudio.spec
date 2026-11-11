@@ -3,6 +3,7 @@ Version:    17.0
 Release:    2
 Summary:    Networked low-latency sound server
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.freedesktop.org/pulseaudio/pulseaudio
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

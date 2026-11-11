@@ -3,6 +3,7 @@ Version:    1.1.4
 Release:    1
 Summary:    Core X11 bitmap image data
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/data/bitmaps
 Prefix:     /usr
 Source0:    xbitmaps-1.1.4.tar.xz
 

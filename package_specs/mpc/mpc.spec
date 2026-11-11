@@ -3,6 +3,7 @@ Version:    1.4.1
 Release:    2
 Summary:    Complex floating-point library with exact rounding
 License:    LGPL-3.0-or-later
+URL:        https://www.multiprecision.org/mpc/
 Source0:    mpc-1.4.1.tar.xz
 Prefix:     /usr
 

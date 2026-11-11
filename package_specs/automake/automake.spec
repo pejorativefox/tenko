@@ -3,6 +3,7 @@ Version:    1.19
 Release:    2
 Summary:    Tool for producing inputs for autoconf
 License:    GPL-2.0-or-later
+URL:        https://www.gnu.org/software/automake/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

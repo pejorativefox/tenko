@@ -3,6 +3,7 @@ Version:    4.5.2
 Release:    2
 Summary:    Password hashing library
 License:    LGPL-2.1-or-later
+URL:        https://github.com/besser82/libxcrypt
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    2.8.12
 Release:    1
 Summary:    SDL_image is an image file loading library
 License:    zlib
+URL:        https://github.com/libsdl-org/SDL_image
 Source0:    SDL2_image-%{version}.tar.gz
 Prefix:     /usr
 

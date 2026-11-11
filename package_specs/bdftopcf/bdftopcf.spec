@@ -3,6 +3,7 @@ Version:    1.1.1
 Release:    2
 Summary:    bdftopcf font conversion
 License:    X11
+URL:        https://gitlab.freedesktop.org/xorg/util/bdftopcf
 Source0:    bdftopcf-1.1.1.tar.xz
 Prefix:     /usr
 

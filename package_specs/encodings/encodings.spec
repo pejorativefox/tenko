@@ -3,6 +3,7 @@ Version:    1.1.0
 Release:    2
 Summary:    X.org font encodings
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/font/encodings
 Prefix:     /usr
 Source0:    encodings-1.1.0.tar.xz
 

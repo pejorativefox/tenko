@@ -3,6 +3,7 @@ Version:    2.66.10
 Release:    2
 Summary:    glibmm is the official C++ interface for the popular cross-platform library Glib. 
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/glibmm
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

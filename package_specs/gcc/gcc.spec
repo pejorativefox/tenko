@@ -3,6 +3,7 @@ Version:    16.2.0
 Release:    6
 Summary:    The GNU Compiler Collection
 License:    GPL-3.0-or-later WITH GCC-exception-3.1
+URL:        https://gcc.gnu.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 Requires:   gcc-libs = %{version}-%{release}

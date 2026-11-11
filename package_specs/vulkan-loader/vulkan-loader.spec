@@ -3,6 +3,7 @@ Version:    1.4.363.0
 Release:    1
 Summary:    Khronos Vulkan loader library
 License:    Apache-2.0
+URL:        https://github.com/KhronosGroup/Vulkan-Loader
 Prefix:     /usr
 Source0:    Vulkan-Loader-vulkan-sdk-1.4.363.0.tar.gz
 

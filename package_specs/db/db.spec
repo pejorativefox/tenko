@@ -3,6 +3,7 @@ Version:    6.2.32
 Release:    1
 Summary:    Berkeley DB embedded database library
 License:    AGPL-3.0-only
+URL:        https://www.oracle.com/database/technologies/related/berkeleydb.html
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

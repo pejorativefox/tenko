@@ -3,6 +3,7 @@ Version:    1.3.0
 Release:    2
 Summary:    Complete rewrite of the NASM assembler
 License:    BSD-2-Clause AND BSD-3-Clause AND (Artistic-1.0-Perl OR GPL-2.0-or-later OR LGPL-2.0-or-later)
+URL:        https://github.com/yasm/yasm
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

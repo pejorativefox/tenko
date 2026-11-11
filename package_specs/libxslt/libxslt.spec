@@ -3,6 +3,7 @@ Version:    1.1.45
 Release:    6
 Summary:    XSLT processor based on libxml2
 License:    MIT
+URL:        https://gitlab.gnome.org/GNOME/libxslt
 Prefix:     /usr
 Source0:    libxslt-1.1.45.tar.xz
 

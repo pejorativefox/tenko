@@ -3,6 +3,7 @@ Version:    1.18.4
 Release:    7
 Summary:    Application sandboxing and distribution framework
 License:    LGPL-2.1-or-later
+URL:        https://flatpak.org/
 Source0:    %{name}-%{version}.tar.xz
 Requires:   bubblewrap
 Requires:   xdg-dbus-proxy

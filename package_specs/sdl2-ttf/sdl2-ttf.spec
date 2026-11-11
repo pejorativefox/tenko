@@ -3,6 +3,7 @@ Version:    2.24.0
 Release:    1
 Summary:    SDL2 True type font library
 License:    zlib
+URL:        https://github.com/libsdl-org/SDL_ttf
 Source0:    SDL2_ttf-%{version}.tar.gz
 Prefix:     /usr
 

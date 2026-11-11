@@ -3,6 +3,7 @@ Version:    1.2.2
 Release:    2
 Summary:    Library for reading and writing sampled audio files
 License:    LGPL-2.1-or-later AND Apache-2.0
+URL:        https://libsndfile.github.io/libsndfile/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

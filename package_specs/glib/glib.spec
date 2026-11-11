@@ -3,6 +3,7 @@ Version:    2.90.1
 Release:    4
 Summary:    Glib low level system libraries
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/glib
 Prefix:     /usr
 
 %{!?glib_introspection:%global glib_introspection enabled}

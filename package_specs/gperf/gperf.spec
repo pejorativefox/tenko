@@ -3,6 +3,7 @@ Version:    3.3
 Release:    2
 Summary:    GNU hash function generator
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/gperf/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    2.44
 Release:    5
 Summary:    GNU C Library
 License:    LGPL-2.1-or-later AND GPL-2.0-or-later
+URL:        https://www.gnu.org/software/libc/
 Source0:    %{name}-%{version}.tar.xz
 Patch0:     glibc-fhs-1.patch
 Patch1:     glibc-2.44-upstream_fixes-3.patch

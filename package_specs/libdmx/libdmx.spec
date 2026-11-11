@@ -3,6 +3,7 @@ Version:    1.1.5
 Release:    2
 Summary:    X11 Distributed Multihead extension library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libdmx
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

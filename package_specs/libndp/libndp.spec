@@ -3,6 +3,7 @@ Version:    1.9
 Release:    2
 Summary:    Library for the IPv6 Neighbor Discovery Protocol
 License:    LGPL-2.1-or-later
+URL:        http://libndp.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

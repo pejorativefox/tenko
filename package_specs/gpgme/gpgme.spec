@@ -3,6 +3,7 @@ Version:    2.2.0
 Release:    8
 Summary:    High-level crypto API for GnuPG
 License:    LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT
+URL:        https://gnupg.org/software/gpgme/
 Prefix:     /usr
 Recommends: gnupg
 Source0:    %{name}-%{version}.tar.bz2

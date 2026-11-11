@@ -3,6 +3,7 @@ Version:    2.12
 Release:    3
 Summary:    WPA/WPA2 supplicant for wireless networks
 License:    BSD-3-Clause
+URL:        https://w1.fi/wpa_supplicant/
 Prefix:     /usr
 Source0:    wpa_supplicant-%{version}.tar.gz
 

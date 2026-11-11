@@ -3,6 +3,7 @@ Version:    2.0
 Release:    1
 Summary:    OS independent and secure pty/tty and utmp/wtmp/lastlog handling library
 License:    GPL-2.0-or-later
+URL:        http://software.schmorp.de/pkg/libptytty.html
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

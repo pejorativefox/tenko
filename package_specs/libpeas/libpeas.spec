@@ -3,6 +3,7 @@ Version:    1.38.1
 Release:    2
 Summary:    libpeas is a GObject based plugins engine, and is targeted at giving every application the chance to assume its own extensibility. 
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/libpeas
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

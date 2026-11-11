@@ -3,6 +3,7 @@ Version:    6.1.3
 Release:    2
 Summary:    Library for loading and manipulationg GIF images
 License:    MIT
+URL:        https://giflib.sourceforge.net/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

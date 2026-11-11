@@ -3,6 +3,7 @@ Version:    3.8.2
 Release:    3
 Summary:    GNU parser generator
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/bison/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

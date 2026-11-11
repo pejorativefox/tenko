@@ -3,6 +3,7 @@ Version:    0.3.113
 Release:    1
 Summary:    Linux-native asynchronous I/O facility
 License:    LGPL-2.1-or-later
+URL:        https://pagure.io/libaio
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

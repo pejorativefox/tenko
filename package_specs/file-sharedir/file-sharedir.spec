@@ -3,6 +3,7 @@ Version:    1.118
 Release:    1
 Summary:    Locate per-dist and per-module shared files (Perl)
 License:    GPL+ or Artistic
+URL:        https://metacpan.org/dist/File-ShareDir
 Source0:    File-ShareDir-1.118.tar.gz
 Prefix:     /usr
 

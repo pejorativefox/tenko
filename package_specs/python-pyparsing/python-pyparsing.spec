@@ -3,6 +3,7 @@ Version:    3.3.3
 Release:    3
 Summary:    Python module for creating parsers
 License:    MIT
+URL:        https://github.com/pyparsing/pyparsing
 Source0:    pyparsing-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: python-flit-core

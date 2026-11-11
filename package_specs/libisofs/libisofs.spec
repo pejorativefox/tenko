@@ -3,6 +3,7 @@ Version:    1.5.8.pl02
 Release:    1
 Summary:    Library to create ISO-9660 filesystems with RockRidge and Joliet
 License:    GPL-2.0-or-later
+URL:        https://dev.lovelyhq.com/libburnia/web/wiki
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

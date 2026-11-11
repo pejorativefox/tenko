@@ -3,6 +3,7 @@ Version:    8.6.18
 Release:    3
 Summary:    The tcl programming language
 License:    Tcl/Tk
+URL:        https://www.tcl-lang.org/
 Source0:    %{name}%{version}-src.tar.gz
 Prefix:     /usr
 

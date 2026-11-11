@@ -9,6 +9,7 @@ Version:    2019.02.18
 Release:    2
 Summary:    Iconic bitmap font for use as a terminal/status-line font
 License:    GPL-2.0-only
+URL:        https://github.com/stark/siji
 Prefix:     /usr
 Source0:    siji-master.tar.gz
 

@@ -3,6 +3,7 @@ Version:    1.0.5
 Release:    2
 Summary:    Goha-Tibeb Zemen Ethiopic fonts for X11
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/font/misc-ethiopic
 Prefix:     /usr
 Source0:    font-misc-ethiopic-1.0.5.tar.xz
 

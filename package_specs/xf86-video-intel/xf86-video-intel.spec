@@ -3,6 +3,7 @@ Version:    20230223
 Release:    1
 Summary:    Xorg Intel video driver
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

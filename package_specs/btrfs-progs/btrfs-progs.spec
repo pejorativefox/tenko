@@ -3,6 +3,7 @@ Version:    7.3
 Release:    2
 Summary:    B-tree filesystem administration and debugging tools
 License:    GPL-2.0-only AND LGPL-2.1-or-later
+URL:        https://btrfs.readthedocs.io/en/latest/
 Source0:    %{name}-v%{version}.tar.xz
 Prefix:     /usr
 BuildRequires: e2fsprogs

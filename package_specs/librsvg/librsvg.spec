@@ -3,6 +3,7 @@ Version:    2.63.4
 Release:    3
 Summary:    SVG rendering library
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/librsvg
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 Source1:    %{name}-%{version}-vendor.tar.xz

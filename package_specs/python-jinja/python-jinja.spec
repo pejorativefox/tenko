@@ -3,6 +3,7 @@ Version:    3.1.6
 Release:    4
 Summary:    Python templating language
 License:    Custom
+URL:        https://palletsprojects.com/projects/jinja/
 Source0:    jinja2-3.1.6.tar.gz
 Prefix:     /usr
 BuildRequires: python-flit-core

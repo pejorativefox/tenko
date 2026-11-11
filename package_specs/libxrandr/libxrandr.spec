@@ -3,6 +3,7 @@ Version:    1.5.5
 Release:    4
 Summary:    Xlib Resize, Rotate and Reflection (RandR) extension library.
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxrandr
 Prefix:     /usr
 Source0:    libXrandr-%{version}.tar.xz
 %description

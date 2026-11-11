@@ -3,6 +3,7 @@ Version:    1.12.7
 Release:    1
 Summary:    imlib2 is a general image loading and rendering library
 License:    imlib2
+URL:        https://git.enlightenment.org/old/legacy-imlib2
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

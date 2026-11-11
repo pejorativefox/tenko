@@ -3,6 +3,7 @@ Version:    1.8.13
 Release:    2
 Summary:    Firewall tool
 License:    GPL-2.0-or-later
+URL:        https://www.netfilter.org/projects/iptables/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

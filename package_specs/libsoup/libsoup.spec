@@ -3,6 +3,7 @@ Version:    2.74.3
 Release:    1
 Summary:    The libsoup is a HTTP client/server library for GNOME.
 License:    LGPL-2.0-or-later
+URL:        https://gitlab.gnome.org/GNOME/libsoup
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    3.8.0
 Release:    2
 Summary:    GLUT is a window system independent toolkit for writing OpenGL programs
 License:    X11 AND MIT
+URL:        https://freeglut.sourceforge.net/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

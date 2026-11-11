@@ -3,6 +3,7 @@ Version:    4.20.0
 Release:    5
 Summary:    Implementation of the freedesktop.org menu specification
 License:    LGPL-2.0-or-later
+URL:        https://docs.xfce.org/xfce/garcon/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

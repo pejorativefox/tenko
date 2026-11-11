@@ -3,6 +3,7 @@ Version:    2.0.9
 Release:    3
 Summary:    GTK+ greeter for LightDM
 License:    GPL-3.0-or-later
+URL:        https://github.com/Xubuntu/lightdm-gtk-greeter
 Source0:    lightdm-gtk-greeter-2.0.9.tar.gz
 Source1:    lightdm-gtk-greeter.conf
 Prefix:     /usr

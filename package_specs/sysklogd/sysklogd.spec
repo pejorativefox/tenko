@@ -3,6 +3,7 @@ Version:    2.8.0
 Release:    2
 Summary:    System and kernel logging daemons
 License:    BSD-3-Clause
+URL:        https://github.com/troglobit/sysklogd
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

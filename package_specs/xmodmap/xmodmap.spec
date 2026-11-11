@@ -3,6 +3,7 @@ Version:    1.0.12
 Release:    2
 Summary:    X keymap and pointer button mapping utility
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xmodmap
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

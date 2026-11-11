@@ -3,6 +3,7 @@ Version:    1.8.4
 Release:    3
 Summary:    Library for the X Input Extension.
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxi
 Prefix:     /usr
 Source0:    libXi-%{version}.tar.xz
 %description

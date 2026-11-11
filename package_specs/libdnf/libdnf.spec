@@ -3,6 +3,7 @@ Version:    0.76.0
 Release:    8
 Summary:    Library providing a simplified C and Python API to libsolv
 License:    LGPL-2.1-or-later AND LGPL-3.0-or-later
+URL:        https://github.com/rpm-software-management/libdnf
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 BuildRequires: openssl

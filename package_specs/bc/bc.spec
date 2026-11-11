@@ -3,6 +3,7 @@ Version:    7.0.3
 Release:    2
 Summary:    Arbitrary precision numeric processing language
 License:    BSD-2-Clause
+URL:        https://github.com/gavinhoward/bc
 Source0:    bc-7.0.3.tar.xz
 Prefix:     /usr
 

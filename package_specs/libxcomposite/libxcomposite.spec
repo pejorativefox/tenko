@@ -3,6 +3,7 @@ Version:    0.4.7
 Release:    4
 Summary:    Xorg composite ext library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxcomposite
 Prefix:     /usr
 Source0:    libXcomposite-%{version}.tar.xz
 BuildRequires: libxfixes

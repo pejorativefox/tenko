@@ -11,6 +11,7 @@ Version:    4.49.1
 Release:    1
 Summary:    Terminus Font: fixed-width bitmap + TrueType set (X11 + console)
 License:    OFL
+URL:        https://terminus-font.sourceforge.net/
 Prefix:     /usr
 Source0:    terminus-font-%{version}.tar.gz
 Source1:    terminus-ttf-4.49.3.tar.gz

@@ -3,6 +3,7 @@ Version:    6
 Release:    1
 Summary:    Suspend/resume instrumentation for Tenko
 License:    MIT
+URL:        https://pjfox.xyz/git/daspork/tenko
 Prefix:     /usr
 
 Requires:   systemd

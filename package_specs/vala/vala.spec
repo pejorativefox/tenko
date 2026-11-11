@@ -3,6 +3,7 @@ Version:    0.56.19
 Release:    2
 Summary:    Vala programming language.
 License:    LGPL-2.1-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2)
+URL:        https://vala.dev/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

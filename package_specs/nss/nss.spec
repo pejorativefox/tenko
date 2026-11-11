@@ -3,6 +3,7 @@ Version:    3.132
 Release:    2
 Summary:    Network Security Services libraries
 License:    MPL-2.0
+URL:        https://firefox-source-docs.mozilla.org/security/nss/index.html
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

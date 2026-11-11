@@ -3,6 +3,7 @@ Version:    1.26
 Release:    2
 Summary:    GNU database library
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/gdbm/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

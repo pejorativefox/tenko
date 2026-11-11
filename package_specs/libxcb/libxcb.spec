@@ -3,6 +3,7 @@ Version:    1.17.0
 Release:    4
 Summary:    X11 client library
 License:    MIT
+URL:        https://xcb.freedesktop.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

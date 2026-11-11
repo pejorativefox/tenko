@@ -3,6 +3,7 @@ Version:    1.4.0
 Release:    1
 Summary:    Display information about an X server
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xdpyinfo
 Prefix:     /usr
 Source0:    xdpyinfo-1.4.0.tar.xz
 

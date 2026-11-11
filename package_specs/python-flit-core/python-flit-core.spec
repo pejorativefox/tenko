@@ -3,6 +3,7 @@ Version:    4.2.0
 Release:    4
 Summary:    Python packaging utility (core)
 License:    BSD-3-Clause AND MIT
+URL:        https://github.com/pypa/flit
 Source0:    flit_core-%{version}.tar.gz
 Prefix:     /usr
 %description

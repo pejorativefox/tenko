@@ -3,6 +3,7 @@ Version:    1.3.1
 Release:    4
 Summary:    X Toolkit Intrinsics library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxt
 Prefix:     /usr
 Source0:    libXt-%{version}.tar.xz
 

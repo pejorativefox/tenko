@@ -3,6 +3,7 @@ Version:    1.2.6
 Release:    4
 Summary:    X Session Management Library
 License:    MIT AND MIT-open-group
+URL:        https://gitlab.freedesktop.org/xorg/lib/libsm
 Prefix:     /usr
 Source0:    libSM-1.2.6.tar.xz
 

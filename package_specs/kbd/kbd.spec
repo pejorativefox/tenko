@@ -3,6 +3,7 @@ Version:    2.10.0
 Release:    3
 Summary:    Utilities for managing Linux console
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later
+URL:        https://kbd-project.org/
 Source0:    %{name}-%{version}.tar.xz
 Patch0:      kbd-2.10.0-backspace-1.patch
 Prefix:     /usr

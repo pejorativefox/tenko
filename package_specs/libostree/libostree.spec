@@ -3,6 +3,7 @@ Version:    2026.6
 Release:    4
 Summary:    Operating system and container binary deployment and upgrades
 License:    LGPL-2.0-or-later
+URL:        https://ostreedev.github.io/ostree/
 Source0:    libostree-%{version}.tar.xz
 Prefix:     /usr
 

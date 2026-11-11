@@ -3,6 +3,7 @@ Version:    0.6.26
 Release:    4
 Summary:    EXIF metadata library
 License:    LGPL2
+URL:        https://libexif.github.io/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 

@@ -3,6 +3,7 @@ Version:    1.3.3
 Release:    2
 Summary:    X SyncFence library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxshmfence
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

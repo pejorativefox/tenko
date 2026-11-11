@@ -3,6 +3,7 @@ Version:    26.3
 Release:    5
 Summary:    Core utilities for Python packages
 License:    Apache-2.0 OR BSD-2-Clause
+URL:        https://github.com/pypa/packaging
 Source0:    packaging-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: python-flit-core

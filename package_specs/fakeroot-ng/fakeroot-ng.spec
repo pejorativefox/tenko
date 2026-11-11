@@ -3,6 +3,7 @@ Version:    0.18
 Release:    1
 Summary:    Tool to simulate a root user for package builds.
 License:    GPL-2.0-or-later
+URL:        https://sourceforge.net/projects/fakerootng/
 Source0:    %{name}-%{version}.tar.gz
 Patch0:     fakeroot-ng-0.18-sched.patch
 Prefix:     /usr

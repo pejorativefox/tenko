@@ -4,6 +4,7 @@ Release:    4
 Epoch:      1
 Summary:    Tenko Linux development environment (runtime base + toolchain)
 License:    MIT
+URL:        https://pjfox.xyz/git/daspork/tenko
 Prefix:     /usr
 
 # tenko-base-runtime plus the toolchain baseline (tenko-buildroot) plus the

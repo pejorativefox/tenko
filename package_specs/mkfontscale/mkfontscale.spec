@@ -3,6 +3,7 @@ Version:    1.2.4
 Release:    1
 Summary:    Create index of scalable font files
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/mkfontscale
 Prefix:     /usr
 Source0:    mkfontscale-1.2.4.tar.xz
 

@@ -3,6 +3,7 @@ Version:    1.3.6
 Release:    4
 Summary:    Ogg bitstream container library
 License:    BSD-3-Clause
+URL:        https://github.com/xiph/ogg
 Prefix:     /usr
 Source0:    libogg-1.3.6.tar.xz
 

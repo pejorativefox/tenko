@@ -3,6 +3,7 @@ Version:    3.8
 Release:    1
 Summary:    tmux terminal multiplexer
 License:    ISC
+URL:        https://github.com/tmux/tmux
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

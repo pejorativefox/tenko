@@ -3,6 +3,7 @@ Version:    1.2.5
 Release:    2
 Summary:    X11 screensaver library
 License:    X11
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxscrnsaver
 Prefix:     /usr
 Source0:    libXScrnSaver-%{version}.tar.xz
 

@@ -3,6 +3,7 @@ Version:    262.1
 Release:    5
 Summary:    The systemd package contains programs for controlling the startup, running, and shutdown of the system.
 License:    LGPL-2.1-or-later AND GPL-2.0-or-later
+URL:        https://systemd.io/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: linux-pam

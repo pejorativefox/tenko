@@ -3,6 +3,7 @@ Version:    2.7.8
 Release:    1
 Summary:    Open source VPN client
 License:    GPL-2.0-only WITH OpenSSL-exception
+URL:        https://openvpn.net/community/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

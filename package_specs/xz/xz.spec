@@ -3,6 +3,7 @@ Version:    5.8.4
 Release:    4
 Summary:    Free general-purpose data compression software
 License:    0BSD AND LGPL-2.1-or-later AND GPL-2.0-or-later
+URL:        https://tukaani.org/xz/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

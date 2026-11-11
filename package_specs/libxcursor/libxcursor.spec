@@ -3,6 +3,7 @@ Version:    1.2.3
 Release:    4
 Summary:    Xlib-based Cursor management library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxcursor
 Prefix:     /usr
 Source0:    libXcursor-%{version}.tar.xz
 BuildRequires: libxrender

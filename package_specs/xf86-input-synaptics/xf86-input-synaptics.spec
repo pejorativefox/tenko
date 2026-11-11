@@ -3,6 +3,7 @@ Version:    1.10.0
 Release:    1
 Summary:    Synaptics touchpad driver
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/driver/xf86-input-synaptics
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

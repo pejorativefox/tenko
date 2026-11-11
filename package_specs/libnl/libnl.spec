@@ -3,6 +3,7 @@ Version:    3.12.0
 Release:    2
 Summary:    Netlink socket libraries for Linux
 License:    LGPL-2.1-only
+URL:        https://github.com/thom311/libnl
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

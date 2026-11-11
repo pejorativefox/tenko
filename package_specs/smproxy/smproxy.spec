@@ -3,6 +3,7 @@ Version:    1.0.8
 Release:    1
 Summary:    X11 session manager proxy
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/smproxy
 Prefix:     /usr
 Source0:    smproxy-1.0.8.tar.xz
 

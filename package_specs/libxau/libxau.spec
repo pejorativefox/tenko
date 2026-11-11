@@ -3,6 +3,7 @@ Version:    1.0.12
 Release:    4
 Summary:    X11 authorisation library
 License:    MIT-open-group
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxau
 Source0:    libXau-%{version}.tar.xz
 Prefix:     /usr
 

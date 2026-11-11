@@ -3,6 +3,7 @@ Version:    1.36
 Release:    1
 Summary:    Get information about a class and its structure (Perl)
 License:    GPL+ or Artistic
+URL:        https://metacpan.org/dist/Class-Inspector
 Source0:    Class-Inspector-1.36.tar.gz
 Prefix:     /usr
 

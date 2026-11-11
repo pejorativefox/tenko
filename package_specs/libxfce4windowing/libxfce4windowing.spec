@@ -3,6 +3,7 @@ Version:    4.20.7
 Release:    5
 Summary:    Abstraction library for windowing concepts
 License:    LGPL-2.1-or-later
+URL:        https://docs.xfce.org/xfce/libxfce4windowing/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

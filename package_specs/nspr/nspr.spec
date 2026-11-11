@@ -3,6 +3,7 @@ Version:    4.40
 Release:    2
 Summary:    Netscape Portable Runtime
 License:    MPL-2.0
+URL:        https://firefox-source-docs.mozilla.org/nspr/index.html
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

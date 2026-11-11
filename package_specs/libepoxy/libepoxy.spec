@@ -3,6 +3,7 @@ Version:    1.5.10
 Release:    6
 Summary:    OpenGL function management
 License:    MIT
+URL:        https://github.com/anholt/libepoxy
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: mesa

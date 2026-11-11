@@ -3,6 +3,7 @@ Version:    2.15.4
 Release:    4
 Summary:    XML parsing library
 License:    MIT
+URL:        https://gitlab.gnome.org/GNOME/libxml2
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 %description

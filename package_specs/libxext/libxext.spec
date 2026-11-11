@@ -3,6 +3,7 @@ Version:    1.3.7
 Release:    4
 Summary:    Library for common extensions to the X11 protocol
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxext
 Prefix:     /usr
 Source0:    libXext-%{version}.tar.xz
 %description

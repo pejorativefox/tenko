@@ -3,6 +3,7 @@ Version:    1.0.4
 Release:    2
 Summary:    IBM Type1 fonts for X11
 License:    IBM/MIT X Consortium Courier Typefont agreement
+URL:        https://gitlab.freedesktop.org/xorg/font/ibm-type1
 Prefix:     /usr
 Source0:    font-ibm-type1-1.0.4.tar.xz
 

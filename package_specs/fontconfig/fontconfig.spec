@@ -3,6 +3,7 @@ Version:    2.18.3
 Release:    4
 Summary:    Font access library
 License:    HPND
+URL:        https://gitlab.freedesktop.org/fontconfig/fontconfig
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: freetype >= 2.13.1

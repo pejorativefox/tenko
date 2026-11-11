@@ -3,6 +3,7 @@ Version:    1.2.6
 Release:    2
 Summary:    X user preference utility
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xset
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

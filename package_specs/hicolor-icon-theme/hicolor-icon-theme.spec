@@ -3,6 +3,7 @@ Version:    0.18
 Release:    2
 Summary:    Gnome hicolor icon theme.
 License:    GPL-2.0-only
+URL:        https://gitlab.freedesktop.org/xdg/default-icon-theme
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

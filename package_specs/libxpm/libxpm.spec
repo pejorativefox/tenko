@@ -3,6 +3,7 @@ Version:    3.5.20
 Release:    1
 Summary:    XPM file format
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxpm
 Prefix:     /usr
 Source0:    libXpm-3.5.20.tar.xz
 

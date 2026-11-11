@@ -3,6 +3,7 @@ Version:    1.0.7
 Release:    1
 Summary:    Default X11 cursor themes
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/data/cursors
 Prefix:     /usr
 Source0:    xcursor-themes-1.0.7.tar.xz
 

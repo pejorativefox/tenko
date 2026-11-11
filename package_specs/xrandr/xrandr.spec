@@ -3,6 +3,7 @@ Version:    1.5.4
 Release:    1
 Summary:    Command line interface to the X11 RandR extension
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xrandr
 Prefix:     /usr
 Source0:    xrandr-1.5.4.tar.xz
 

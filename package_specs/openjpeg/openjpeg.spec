@@ -3,6 +3,7 @@ Version:    2.5.4
 Release:    1
 Summary:    An open-source JPEG 2000 codec written in C
 License:    BSD-2-Clause
+URL:        https://www.openjpeg.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

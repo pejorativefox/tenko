@@ -3,6 +3,7 @@ Version:    43.3
 Release:    5
 Summary:    Library to manage X windows and workspaces (via pagers, tasklists, etc.)
 License:    LGPL-2.0-or-later
+URL:        https://gitlab.gnome.org/GNOME/libwnck
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    2.15.0
 Release:    3
 Summary:    TrueType font library
 License:    FTL OR GPL-2.0-or-later
+URL:        https://freetype.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: harfbuzz >= 8.1.1

@@ -3,6 +3,7 @@ Version:    0.48.0
 Release:    5
 Summary:    The official binary distribution format for Python 
 License:    MIT
+URL:        https://github.com/pypa/wheel
 Source0:    wheel-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: python-flit-core

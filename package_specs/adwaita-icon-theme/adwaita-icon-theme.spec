@@ -3,6 +3,7 @@ Version:    51.0
 Release:    3
 Summary:    Gnome standard icon set.
 License:    LGPL-3.0-only OR CC-BY-SA-3.0
+URL:        https://gitlab.gnome.org/GNOME/adwaita-icon-theme
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

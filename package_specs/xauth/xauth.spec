@@ -3,6 +3,7 @@ Version:    1.1.5
 Release:    1
 Summary:    X authority file utility
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xauth
 Prefix:     /usr
 Source0:    xauth-1.1.5.tar.xz
 

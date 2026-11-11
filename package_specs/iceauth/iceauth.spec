@@ -3,6 +3,7 @@ Version:    1.0.11
 Release:    2
 Summary:    X11 ICE authorization file editor
 License:    X11
+URL:        https://gitlab.freedesktop.org/xorg/app/iceauth
 Prefix:     /usr
 Source0:    iceauth-1.0.11.tar.xz
 

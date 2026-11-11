@@ -3,6 +3,7 @@ Version:    2.6.2
 Release:    2
 Summary:    Generic library support script
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
+URL:        https://www.gnu.org/software/libtool/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

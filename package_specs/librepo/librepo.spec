@@ -3,6 +3,7 @@ Version:    1.21.3
 Release:    7
 Summary:    Library for downloading and reading RPM repository metadata
 License:    LGPL-2.1-or-later
+URL:        https://github.com/rpm-software-management/librepo
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

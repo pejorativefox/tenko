@@ -3,6 +3,7 @@ Version:    0.4.1
 Release:    4
 Summary:    XCB image utilities
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxcb-image
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

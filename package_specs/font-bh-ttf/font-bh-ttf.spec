@@ -3,6 +3,7 @@ Version:    1.0.4
 Release:    2
 Summary:    Bigelow & Holmes TrueType fonts
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/font/bh-ttf
 Prefix:     /usr
 Source0:    font-bh-ttf-1.0.4.tar.xz
 

@@ -3,6 +3,7 @@ Version:    2.0.34
 Release:    2
 Summary:    The acpid (Advanced Configuration and Power Interface event daemon)
 License:    GPL-2.0-or-later
+URL:        https://sourceforge.net/projects/acpid2/
 Source0:    %{name}-%{version}.tar.xz
 Source1:    lidclose
 Source2:    brightnessup

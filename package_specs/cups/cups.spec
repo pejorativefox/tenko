@@ -3,6 +3,7 @@ Version:    2.4.20
 Release:    4
 Summary:    Open source printing system
 License:    Apache
+URL:        https://openprinting.github.io/cups/
 Source0:    %{name}-%{version}-source.tar.gz
 Patch0:     %{name}-%{version}-upstream_fix-1.patch
 Prefix:     /usr

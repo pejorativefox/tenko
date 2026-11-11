@@ -3,6 +3,7 @@ Version:    1.0.8
 Release:    1
 Summary:    Display an X11 image dumped by xwd
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xwud
 Prefix:     /usr
 Source0:    xwud-1.0.8.tar.xz
 

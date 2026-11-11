@@ -3,6 +3,7 @@ Version:    7.3.1
 Release:    4
 Summary:    Linux kernel
 License:    GPL-2.0-only
+URL:        https://www.kernel.org/
 Prefix:     /usr
 Source0:    linux-%{version}.tar.xz
 Source1:    linux-%{version}.config

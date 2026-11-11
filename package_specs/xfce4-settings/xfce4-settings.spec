@@ -3,6 +3,7 @@ Version:    4.20.5
 Release:    3
 Summary:    Settings manager of the Xfce desktop
 License:    GPL-2.0-or-later AND GPL-2.0-only AND LGPL-2.0-or-later
+URL:        https://docs.xfce.org/xfce/xfce4-settings/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

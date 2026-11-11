@@ -3,6 +3,7 @@ Version:    0.51.0
 Release:    2
 Summary:    gettext file processor
 License:    GPL-2.0-or-later
+URL:        https://launchpad.net/intltool
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    4.20.4
 Release:    5
 Summary:    A session manager for Xfce
 License:    GPL-2.0-or-later AND GPL-2.0-only
+URL:        https://docs.xfce.org/xfce/xfce4-session/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

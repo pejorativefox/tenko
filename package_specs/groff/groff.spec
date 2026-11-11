@@ -3,6 +3,7 @@ Version:    1.24.2
 Release:    2
 Summary:    GNU typesetting system
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/groff/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 Recommends: groff-perl = %{version}-%{release}

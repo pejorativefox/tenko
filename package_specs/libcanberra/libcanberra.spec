@@ -3,6 +3,7 @@ Version:    0.30
 Release:    4
 Summary:    libcanberra is an implementation of the XDG Sound Theme and Name Specifications
 License:    LGPL-2.1-or-later
+URL:        https://0pointer.de/lennart/projects/libcanberra/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

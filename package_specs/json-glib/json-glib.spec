@@ -3,6 +3,7 @@ Version:    1.10.8
 Release:    2
 Summary:    Glib json support.
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/json-glib
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

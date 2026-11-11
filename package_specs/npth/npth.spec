@@ -3,6 +3,7 @@ Version:    1.8
 Release:    2
 Summary:    POSIX/ANSI-C Scheduling library
 License:    LGPL-2.1-or-later
+URL:        https://gnupg.org/software/npth/
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

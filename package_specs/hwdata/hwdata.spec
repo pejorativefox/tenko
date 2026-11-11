@@ -3,6 +3,7 @@ Version:    0.412
 Release:    2
 Summary:    Hardware identification and configuration data
 License:    GPL-2.0-or-later
+URL:        https://github.com/vcrhonek/hwdata
 Prefix:     /usr
 Source0:    hwdata-%{version}.tar.gz
 

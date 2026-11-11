@@ -3,6 +3,7 @@ Version:    1.34.0
 Release:    2
 Summary:    NetworkManager GUI applet and connection editor
 License:    GPL-2.0-or-later
+URL:        https://gitlab.gnome.org/GNOME/network-manager-applet
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

@@ -3,6 +3,7 @@ Version:    1.2.7
 Release:    1
 Summary:    Print the content of X11 events
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xev
 Prefix:     /usr
 Source0:    xev-1.2.7.tar.xz
 
