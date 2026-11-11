@@ -8,6 +8,11 @@ those here; link.
 
 ## Writing a spec
 
+`tests/test_spec_rules.py` (part of `./tenko check`) enforces the measurable
+rules below.  Rules that older specs do not meet yet keep an allow-list in
+`tests/spec_rules/`; a list may only shrink, so take a package off it when
+you fix its spec.
+
 ### Layout
 
 ```
