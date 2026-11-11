@@ -18,6 +18,8 @@ Package 'xproto', required by 'virtual:world', not found
 No package 'gtk+-3.0' found
 Run-time dependency libsystemd found: NO (tried pkgconfig)
 ERROR: Dependency "wayland-client" not found, tried pkgconfig
+Program gperf found: NO
+../meson.build:633:9: ERROR: Program 'xsltproc' not found or not executable
   Could not find a package configuration file provided by "Qt6Core" with
   Could NOT find PNG (missing: PNG_LIBRARY)
 /bin/sh: line 1: xsltproc: command not found
@@ -36,7 +38,7 @@ class LogCapsTest(unittest.TestCase):
         for cap in ("pkgconfig(xmuu)", "pkgconfig(xproto)", "pkgconfig(gtk+-3.0)",
                     "pkgconfig(libsystemd)", "pkgconfig(wayland-client)",
                     "cmake(Qt6Core)", "pkgconfig(png)", "/usr/bin/xsltproc",
-                    "/usr/bin/python2", "perl(XML::Parser)"):
+                    "/usr/bin/python2", "perl(XML::Parser)", "/usr/bin/gperf"):
             self.assertIn(cap, caps)
         self.assertIn("meson (optional)", caps["pkgconfig(libsystemd)"])
         self.assertIn("python module: mako", hints)

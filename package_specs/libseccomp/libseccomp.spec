@@ -5,6 +5,7 @@ Summary:    Seccomp userspace library
 License:    LGPL-2.1-only
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: gperf
 
 %description
 Userspace library for the Linux seccomp filter.

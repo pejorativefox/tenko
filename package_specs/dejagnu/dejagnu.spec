@@ -5,6 +5,7 @@ Summary:    GNU Test framework
 License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: texinfo
 
 %description
 DejaGnu is a framework for testing other programs.

@@ -19,6 +19,15 @@ Requires:   util-linux
 Requires:   btrfs-progs
 Requires:   mdadm
 Requires:   dosfstools
+BuildRequires: LVM2
+BuildRequires: cryptsetup
+BuildRequires: e2fsprogs
+BuildRequires: json-glib
+BuildRequires: keyutils
+BuildRequires: kmod
+BuildRequires: libatasmart
+BuildRequires: libbytesize
+BuildRequires: libnvme
 
 %description
 libblockdev is a C library that provides a stable interface for low-level

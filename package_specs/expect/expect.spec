@@ -5,6 +5,7 @@ Summary:    Automation tool
 License:    Public Domain
 Source0:    %{name}%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: tcl
 
 %description
 Expect is a tool for automating interactive applications.

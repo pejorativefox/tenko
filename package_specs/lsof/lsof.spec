@@ -8,6 +8,7 @@ Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 BuildRequires: libtirpc
+BuildRequires: groff
 
 %description
 lsof (list open files) reports information about files opened by processes:

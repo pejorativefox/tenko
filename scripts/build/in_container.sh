@@ -31,7 +31,7 @@ defines=(--define "_topdir /work" --define "_sourcedir /work/SOURCES"
          --define "_smp_mflags -j$MAKE_JOBS"
          --define "_smp_build_ncpus $MAKE_JOBS")
 
-echo "=== $rel (STRICT=$STRICT) in $(. /etc/os-release; echo "$PRETTY_NAME")"
+echo "=== $rel (STRICT=$STRICT) in $(rpm -q --qf "%{name}-%{version}-%{release}" tenko-buildroot tenko-base 2>/dev/null | grep -v "not installed" | head -1)"
 
 if ! mapfile -t reqs < <(rpmspec -q --buildrequires "${defines[@]}" "$spec"); then
     echo "error: rpmspec could not parse $rel" >&2

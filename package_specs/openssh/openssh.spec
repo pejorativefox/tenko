@@ -17,6 +17,8 @@ Prefix:     /usr
 Requires:   linux-pam
 Requires:   systemd
 BuildRequires: linux-pam
+BuildRequires: libmd
+BuildRequires: openssl
 
 %description
 OpenSSH is the premier connectivity tool for remote login with the SSH

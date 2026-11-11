@@ -5,6 +5,7 @@ Summary:    Meson build system
 License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: python-setuptools
 
 %description
 Meson build system

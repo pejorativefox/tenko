@@ -7,6 +7,7 @@ Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 Provides: rtld(GNU_HASH)
+BuildRequires: texinfo
 
 %description
 The GNU C Library is the standard system C library for all GNU systems. It

@@ -42,6 +42,8 @@ LOG_PATTERNS = [
     (r"No package '([^']+)' found", "pkgconfig({})", "pkg-config"),
     (r'Dependency "?([\w.+-]+)"? (?:\(tried [^)]*\) )?not found', "pkgconfig({})", "meson"),
     (r"(?:Run-time|Build-time) dependency ([\w.+-]+) found: NO", "pkgconfig({})", "meson (optional)"),
+    (r"ERROR: Program '([\w.+-]+)' not found", "/usr/bin/{}", "meson program"),
+    (r"^Program ([\w.+-]+) found: NO", "/usr/bin/{}", "meson program (optional)"),
     (r'Could not find a package configuration file provided by "([\w.+-]+)"', "cmake({})", "cmake"),
     (r"Could NOT find ([\w.+-]+)", "pkgconfig({})", "cmake FindPackage"),
     (r"(?:^|\s)([\w.+-]+): (?:command )?not found", "/usr/bin/{}", "command"),
@@ -115,6 +117,8 @@ def log_caps(log):
             if label == "cmake FindPackage":
                 name = name.lower()
             caps.setdefault(template.format(name), set()).add(label)
+            if template == "/usr/bin/{}":
+                caps.setdefault("/usr/sbin/" + name, set()).add(label)
     for match in re.finditer(r"configure: error: (.+)", text):
         hints.add("configure: " + match.group(1).strip())
     return caps, hints
@@ -180,6 +184,17 @@ def main():
             caps.setdefault(cap, set()).update(sources)
 
         providers = resolve(sorted(set(caps) | set(declared_caps)))
+        # A soname provided by a split <name>-libs package means the build
+        # needed <name> too: the headers and .pc files live there.
+        headers = {}
+        for cap in caps:
+            for provider in providers.get(cap, ()):
+                if ".so" in cap and provider.endswith("-libs"):
+                    headers.setdefault(provider[:-len("-libs")], set()).add(cap)
+        for base, base_providers in resolve(sorted(headers)).items():
+            for cap in headers[base]:
+                caps[cap] = caps[cap] | {"headers: " + base}
+                providers[cap] = providers.get(cap, set()) | base_providers
         declared = set()
         for cap in declared_caps:
             declared.add(cap)
@@ -189,15 +204,25 @@ def main():
         for cap, sources in sorted(caps.items()):
             found = providers.get(cap, set()) - own
             if not found:
+                twin = cap.replace("/usr/bin/", "/usr/sbin/", 1)
+                if twin != cap and providers.get(twin):
+                    continue
                 if "rpm requires" not in sources:
                     unresolved.append("{} ({})".format(cap, ", ".join(sorted(sources))))
                 continue
-            if found & (baseline | declared):
+            # A -libs package in the buildroot does not bring the headers;
+            # only count the header package as present.
+            wanted = {p for p in found if not p.endswith("-libs")} or found
+            if wanted & (baseline | declared):
                 continue
-            for provider in sorted(found):
+            for provider in sorted(wanted - baseline - declared):
                 suggestions.setdefault(provider, set()).add(
                     "{} [{}]".format(cap, ", ".join(sorted(sources))))
 
+        with open(spec, encoding="utf-8", errors="replace") as handle:
+            if re.search(r"^AutoReq:\s*(no|0)", handle.read(), re.M | re.I):
+                hints.add("AutoReq is disabled: the RPMs carry no library "
+                          "requirements, so only the build log is evidence")
         print("# {}: {} declared, evidence from {} RPM(s){}".format(
             pkg, len(declared_caps), len(rpms),
             " and the build log" if args.out else ""))

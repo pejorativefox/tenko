@@ -5,6 +5,7 @@ Summary:    Core utilities for Python packages
 License:    Apache-2.0 OR BSD-2-Clause
 Source0:    packaging-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: python-flit-core
 
 %description
 Core utilities for Python packages

@@ -6,6 +6,7 @@ License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     rpm-4.18.1-sqlite-global-log.patch
 Prefix:     /usr
+BuildRequires: openssl
 
 %description
 Programs to manage, build and install using the RPM package format.

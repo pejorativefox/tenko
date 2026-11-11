@@ -5,6 +5,7 @@ Summary:    Python templating language
 License:    Custom
 Source0:    jinja2-3.1.6.tar.gz
 Prefix:     /usr
+BuildRequires: python-flit-core
 
 %description
 Jinja is a modern and designer-friendly templating language for Python, modelled after Django’s templates.

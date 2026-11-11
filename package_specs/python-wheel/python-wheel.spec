@@ -5,6 +5,7 @@ Summary:    The official binary distribution format for Python
 License:    MIT
 Source0:    wheel-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: python-flit-core
 
 %description
 The official binary distribution format for Python 

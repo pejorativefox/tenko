@@ -5,6 +5,7 @@ Summary:    Shadow password format tools
 License:    BSD-3-Clause AND BSD-2-Clause AND 0BSD AND Unlicense AND GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: libbsd
 
 %description
 The shadow-utils package includes the necessary programs for converting UNIX password files to the shadow password format.

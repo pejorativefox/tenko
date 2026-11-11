@@ -5,6 +5,7 @@ Summary:    Safely add untrusted strings to HTML/XML markup.
 License:    BSD-3-Clause
 Source0:    markupsafe-3.0.4.tar.gz
 Prefix:     /usr
+BuildRequires: python-setuptools
 
 %description
 Safely add untrusted strings to HTML/XML markup.

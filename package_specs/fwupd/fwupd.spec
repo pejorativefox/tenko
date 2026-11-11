@@ -42,6 +42,8 @@ Requires:   zlib
 Requires:   xz
 Requires:   readline
 Prefix:     /usr
+BuildRequires: openssl
+BuildRequires: shadow
 
 %description
 fwupd is a system daemon and set of command-line tools for updating firmware

@@ -5,6 +5,7 @@ Summary:    BSD compatibility library
 License:    BSD-3-Clause
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: libmd
 
 %description
 BSD compatibility library used by shadow (readpassphrase).

@@ -5,6 +5,7 @@ Summary:    Man page utilities
 License:    GPL-2.0-or-later AND GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: libpipeline
 
 %description
 The Man-DB package contains programs for finding and viewing man pages.

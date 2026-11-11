@@ -16,6 +16,19 @@ Prefix:     /usr
 Provides: /bin/python3, /bin/python
 
 AutoReq: no
+BuildRequires: openssl
+BuildRequires: mpdecimal
+BuildRequires: bzip2
+BuildRequires: libffi
+BuildRequires: ncurses
+BuildRequires: gdbm
+BuildRequires: xz
+BuildRequires: sqlite
+BuildRequires: util-linux
+BuildRequires: zstd
+BuildRequires: expat
+BuildRequires: readline
+BuildRequires: zlib
 
 %description
 The Python programming language

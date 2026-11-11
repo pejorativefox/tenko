@@ -5,6 +5,7 @@ Summary:    ext filesystem utilities
 License:    GPL-2.0-only AND LGPL-2.0-only AND BSD-3-Clause AND MIT
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: texinfo
 
 %description
 The E2fsprogs package contains the utilities for handling the ext2 file system. It also supports the ext3 and ext4 journaling file systems. 
@@ -36,7 +37,10 @@ pushd build
              --disable-libuuid       \
              --disable-uuidd         \
              --disable-fsck          \
-             --disable-fuse2fs
+             --disable-fuse2fs       \
+             --with-crond-dir=/etc/cron.d \
+             --with-systemd-unit-dir=/usr/lib/systemd/system \
+             --with-udev-rules-dir=/usr/lib/udev/rules.d
 %make_build
 popd
 

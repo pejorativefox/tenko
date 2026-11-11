@@ -7,6 +7,7 @@ Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 Requires:   gcc-libs = %{version}-%{release}
 Recommends: gcc-lto = %{version}-%{release}
+BuildRequires: texinfo
 
 %description
 The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran, Ada, Go, and D, as well as libraries for these languages

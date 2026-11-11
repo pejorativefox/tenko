@@ -5,6 +5,8 @@ Summary:    B-tree filesystem administration and debugging tools
 License:    GPL-2.0-only AND LGPL-2.1-or-later
 Source0:    %{name}-v%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: e2fsprogs
+BuildRequires: liblzo2
 
 %description
 The btrfs-progs package contains administration and debugging tools for

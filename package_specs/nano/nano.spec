@@ -9,6 +9,7 @@ Prefix:     /usr
 
 BuildRequires: ncurses
 BuildRequires: gettext
+BuildRequires: groff
 
 %description
 GNU nano is a small, friendly text editor inspired by Pico.  It provides

@@ -13,6 +13,7 @@ Requires: linux-pam
 # other minimal installs can omit it (dnf --setopt=install_weak_deps=False)
 # while desktop installs still get it by default.
 Recommends: systemd-hwdb = %{version}-%{release}
+BuildRequires: gperf
 
 %description
 The systemd package contains programs for controlling the startup, running, and shutdown of the system.

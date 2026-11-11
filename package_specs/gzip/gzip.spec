@@ -5,6 +5,7 @@ Summary:    GNU data compression program
 License:    GPL-3.0-or-later
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: less
 
 %description
 Gzip is a popular data compression program originally written by Jean-loup Gailly for the GNU project. 
