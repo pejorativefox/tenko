@@ -11,6 +11,22 @@ live in `scripts/<group>/`, with shared shell code in `scripts/lib/`.  Add new
 tooling as a command in the `tenko` table rather than as a loose script, and
 delete one-off helpers once their wave is done.
 
+## Documentation
+
+Docs describe the system as it is now and how to use it; they are not a
+project history.  Git commit messages hold the history (and `%changelog`
+for packages, as below).
+
+- No changelogs, dated status reports, phase or "done" tables, test-run
+  logs, "what we tried" notes or issue-by-issue narratives in docs.
+- No "was", "used to", "now", "previously" or "renamed from": describe the
+  current state only.  A short pointer to an open issue for a known
+  limitation is fine.
+- When behaviour changes, rewrite the affected doc to describe the new
+  state instead of appending to it.  Delete docs (and fix links to them)
+  that describe tooling, plans or features that no longer exist.
+- One doc per topic; link to it instead of repeating its content.
+
 ## Do work in worktrees
 
 Do work in a git worktree, not in the main checkout. Create worktrees under
@@ -44,10 +60,10 @@ message (and in the Gitea issue if the change belongs to one).
 
 ## Distro release vs package versions
 
-The distribution release is **Tenko 6 (Workstation)**; `tenko-release-6-2`
-carries the release identity.  Upstream package versions roll independently
-and keep their own versions; the `tenko-*` glue packages track the distro
-release and are rebased as a group.
+The distribution release is **Tenko 6 (Workstation)**; `tenko-release`
+(version 6) carries the release identity.  Upstream package versions roll
+independently and keep their own versions; the `tenko-*` glue packages track
+the distro release and are rebased as a group.
 
 The distro repository is `tenko-6`: `/etc/yum.repos.d/tenko-6.repo`, id
 `tenko-6`, at <https://tenko.pjfox.xyz/packages/6/>.  See
