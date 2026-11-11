@@ -1,6 +1,6 @@
 Name:       pciutils
 Version:    3.15.0
-Release:    2
+Release:    3
 Summary:    The PCI Utilities
 License:    GPL-2.0-or-later
 Source0:    %{name}-%{version}.tar.gz
@@ -13,13 +13,23 @@ The PCI Utilities
 %setup
 
 %build
-%make_build PREFIX=/usr
+%make_build PREFIX=/usr SHARED=yes LIBDIR=%{_libdir}
 
 %install
 rm -rf %{buildroot}
-%make_install PREFIX=/usr
+make DESTDIR=%{buildroot} PREFIX=/usr SHARED=yes LIBDIR=%{_libdir} \
+    install install-lib
 
 %files
+%dir /usr/include/pci
+/usr/include/pci/config.h
+/usr/include/pci/header.h
+/usr/include/pci/pci.h
+/usr/include/pci/types.h
+/usr/lib64/libpci.so
+/usr/lib64/libpci.so.3
+/usr/lib64/libpci.so.3.15.0
+/usr/lib64/pkgconfig/libpci.pc
 /usr/bin/lspci
 /usr/sbin/pcilmr
 /usr/sbin/setpci
@@ -33,6 +43,11 @@ rm -rf %{buildroot}
 /usr/share/pci.ids.gz
 
 %changelog
+* Wed Nov 11 2026 browneye <build@browneye.invalid> 3.15.0-3
+- Build and ship the shared libpci library, its headers and libpci.pc in
+  the runtime package (no -devel subpackage).  PowerTOP uses libpci for
+  its PCI device power information.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 3.15.0-2
 - Replace the legacy short licence name with the verified SPDX expression
   (GPL-2.0-or-later): README (issue #8).

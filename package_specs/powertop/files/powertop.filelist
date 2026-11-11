@@ -1,0 +1,44 @@
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+%dir /usr/share/locale
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+%dir /usr/share/locale/cs_CZ
+%dir /usr/share/locale/cs_CZ/LC_MESSAGES
+%dir /usr/share/locale/de_DE
+%dir /usr/share/locale/de_DE/LC_MESSAGES
+%dir /usr/share/locale/en_GB
+%dir /usr/share/locale/en_GB/LC_MESSAGES
+%dir /usr/share/locale/en_US
+%dir /usr/share/locale/en_US/LC_MESSAGES
+%dir /usr/share/locale/es_ES
+%dir /usr/share/locale/es_ES/LC_MESSAGES
+%dir /usr/share/locale/hu_HU
+%dir /usr/share/locale/hu_HU/LC_MESSAGES
+%dir /usr/share/locale/id_ID
+%dir /usr/share/locale/id_ID/LC_MESSAGES
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+%dir /usr/share/locale/nl_NL
+%dir /usr/share/locale/nl_NL/LC_MESSAGES
+%dir /usr/share/locale/pt_PT
+%dir /usr/share/locale/pt_PT/LC_MESSAGES
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+%dir /usr/share/man
+%dir /usr/share/man/man8
+/usr/bin/powertop
+/usr/share/bash-completion/completions/powertop
+/usr/share/locale/ca/LC_MESSAGES/powertop.mo
+/usr/share/locale/cs_CZ/LC_MESSAGES/powertop.mo
+/usr/share/locale/de_DE/LC_MESSAGES/powertop.mo
+/usr/share/locale/en_GB/LC_MESSAGES/powertop.mo
+/usr/share/locale/en_US/LC_MESSAGES/powertop.mo
+/usr/share/locale/es_ES/LC_MESSAGES/powertop.mo
+/usr/share/locale/hu_HU/LC_MESSAGES/powertop.mo
+/usr/share/locale/id_ID/LC_MESSAGES/powertop.mo
+/usr/share/locale/ka/LC_MESSAGES/powertop.mo
+/usr/share/locale/nl_NL/LC_MESSAGES/powertop.mo
+/usr/share/locale/pt_PT/LC_MESSAGES/powertop.mo
+/usr/share/locale/zh_TW/LC_MESSAGES/powertop.mo
+/usr/share/man/man8/powertop.8.gz

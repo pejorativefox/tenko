@@ -1,0 +1,8 @@
+%dir /usr/include/libtracefs
+/usr/bin/sqlhist
+/usr/include/libtracefs/tracefs.h
+/usr/lib64/libtracefs.so
+/usr/lib64/libtracefs.so.1
+/usr/lib64/libtracefs.so.1.8.4
+/usr/lib64/pkgconfig/libtracefs.pc
+/usr/share/bash-completion/completions/tracefs_sql.bash

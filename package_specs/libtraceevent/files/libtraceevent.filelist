@@ -1,0 +1,25 @@
+%dir /usr/include/traceevent
+%dir /usr/lib64/traceevent
+%dir /usr/lib64/traceevent/plugins
+/usr/include/traceevent/event-parse.h
+/usr/include/traceevent/event-utils.h
+/usr/include/traceevent/kbuffer.h
+/usr/include/traceevent/trace-seq.h
+/usr/lib64/libtraceevent.so
+/usr/lib64/libtraceevent.so.1
+/usr/lib64/libtraceevent.so.1.9.1
+/usr/lib64/pkgconfig/libtraceevent.pc
+/usr/lib64/traceevent/plugins/libtraceevent-dynamic-list
+/usr/lib64/traceevent/plugins/plugin_cfg80211.so
+/usr/lib64/traceevent/plugins/plugin_function.so
+/usr/lib64/traceevent/plugins/plugin_futex.so
+/usr/lib64/traceevent/plugins/plugin_hrtimer.so
+/usr/lib64/traceevent/plugins/plugin_jbd2.so
+/usr/lib64/traceevent/plugins/plugin_kmem.so
+/usr/lib64/traceevent/plugins/plugin_kvm.so
+/usr/lib64/traceevent/plugins/plugin_mac80211.so
+/usr/lib64/traceevent/plugins/plugin_net.so
+/usr/lib64/traceevent/plugins/plugin_sched_switch.so
+/usr/lib64/traceevent/plugins/plugin_scsi.so
+/usr/lib64/traceevent/plugins/plugin_tlb.so
+/usr/lib64/traceevent/plugins/plugin_xen.so
