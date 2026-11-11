@@ -7,6 +7,8 @@ URL:        https://vala.dev/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 BuildRequires: gobject-introspection
+BuildRequires: libxslt
+BuildRequires: docbook-xsl-nons
 
 %description
 Vala is a new programming language that aims to bring modern programming language features to GNOME developers without imposing any additional runtime requirements and without using a different ABI compared to applications and libraries written in C. 

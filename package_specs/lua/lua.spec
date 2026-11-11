@@ -15,7 +15,7 @@ Lua is a lightweight, high-level, multi-paradigm programming language designed p
 
 %prep
 %setup -q
-%patch -P 0 -p1
+%patch -P 0 -p1 -F2
 
 %build
 cat > lua.pc << "EOF"

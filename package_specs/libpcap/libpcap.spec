@@ -6,6 +6,8 @@ License:    BSD-3-Clause
 URL:        https://www.tcpdump.org/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: dbus-libs
+BuildRequires: libnl
 
 %description
 libpcap provides functions for user-level packet capture, used in low-level

@@ -42,7 +42,7 @@ A small win9x like window manager
 %build
 mkdir build
 pushd build
-cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DICESOUND=none
 %make_build
 popd
 

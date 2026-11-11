@@ -19,7 +19,7 @@ PKCS #12, S/MIME and X.509 v3 certificates.
 
 %prep
 %setup -q
-%patch -P 0 -p1
+%patch -P 0 -p1 -F2
 
 %build
 pushd nss

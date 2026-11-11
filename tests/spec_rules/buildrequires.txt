@@ -45,7 +45,6 @@ file-sharedir
 file-sharedir-install
 findutils
 firefox-bin
-flac
 flex
 font-alias
 font-dejavu-sans-mono
@@ -79,7 +78,6 @@ htop
 hwdata
 iana-etc
 icu4c
-imagemagick
 inetutils
 iproute2
 iptables
@@ -116,14 +114,12 @@ libmodulemd
 libndp
 libnl
 libogg
-libpcap
 libpciaccess
 libpipeline
 libpsl
 libptytty
 libsigc++
 libslirp
-libsndfile
 libstemmer
 libtasn1
 libtirpc
@@ -168,7 +164,6 @@ openssl
 parse-yapp
 passt
 patch
-pciutils
 pcre
 pcre2
 perl

@@ -23,6 +23,7 @@ Prefix:     /usr
 # separate sources and unpacked into the matching paths below.
 BuildRequires: nasm
 BuildRequires: gcc-lto
+BuildRequires: acpica
 
 %description
 OVMF is the Open Virtual Machine Firmware build of EDK2, providing a UEFI

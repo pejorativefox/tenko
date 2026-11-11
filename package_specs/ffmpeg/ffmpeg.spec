@@ -41,7 +41,7 @@ and Intel GPUs and the libx264 software H.264 encoder.
 
 %prep
 %setup -q
-%patch -P 0 -p1
+%patch -P 0 -p1 -F2
 
 %build
 ./configure --prefix=/usr             \

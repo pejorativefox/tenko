@@ -6,6 +6,7 @@ License:    GPL-2.0-or-later
 URL:        https://mj.ucw.cz/sw/pciutils/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: kmod
 
 %description
 The PCI Utilities

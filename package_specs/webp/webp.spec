@@ -21,6 +21,7 @@ BuildRequires: libxext
 BuildRequires: libxfixes
 BuildRequires: libxxf86vm
 BuildRequires: xorgproto
+BuildRequires: libglu
 
 %description
 A new image format for the Web

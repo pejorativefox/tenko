@@ -49,6 +49,7 @@ BuildRequires: libxtst
 BuildRequires: libxxf86vm
 BuildRequires: pixman
 BuildRequires: libxslt
+BuildRequires: docbook-xsl-nons
 Requires:   libxfce4ui
 Requires:   vte
 

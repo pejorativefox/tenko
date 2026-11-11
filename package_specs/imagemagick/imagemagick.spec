@@ -6,6 +6,16 @@ License:    ImageMagick
 URL:        https://imagemagick.org/
 Prefix:     /usr
 Source0:    ImageMagick-7.1.2-13.tar.gz
+BuildRequires: cairo
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: glib
+BuildRequires: harfbuzz
+BuildRequires: libjpeg-turbo
+BuildRequires: libpng
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: pango
 %description
 ImageMagick is a free, open-source software suite, used for editing and manipulating digital images.
 

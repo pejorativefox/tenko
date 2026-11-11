@@ -27,6 +27,7 @@ BuildRequires: libjpeg-turbo
 BuildRequires: libpng
 BuildRequires: shared-mime-info
 BuildRequires: gobject-introspection
+BuildRequires: python-pyparsing
 
 %description
 Flatpak is a system for building, distributing and running sandboxed desktop

@@ -71,7 +71,8 @@ pushd build
 meson setup ..                 \
       --prefix=/usr            \
       --buildtype=release      \
-      -D session-managers="[]"
+      -D session-managers="[]" \
+      -D bluez5=disabled
 ninja
 popd
 

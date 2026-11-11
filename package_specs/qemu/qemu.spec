@@ -57,6 +57,7 @@ BuildRequires: shared-mime-info
 BuildRequires: xorgproto
 BuildRequires: python-setuptools
 BuildRequires: python-wheel
+BuildRequires: curl
 
 # The generic brp-strip pass also walks qemu's non-x86 firmware blobs
 # (palcode-clipper, hppa-firmware*.img); the x86 strip binary cannot parse

@@ -6,6 +6,7 @@ License:    BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:        https://github.com/xiph/flac
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: libogg
 
 
 %description

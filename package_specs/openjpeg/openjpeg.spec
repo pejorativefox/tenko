@@ -8,6 +8,7 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
 BuildRequires: cmake
+BuildRequires: libpng
 
 %description
 OpenJPEG is an open-source JPEG 2000 codec written in C.  It can
