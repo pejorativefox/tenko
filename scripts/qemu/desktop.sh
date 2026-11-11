@@ -11,13 +11,9 @@
 #   SKIP_INSTALL=1 tenko qemu desktop   # reuse the rootfs/image
 set -euo pipefail
 . "$(dirname "$0")/../lib/common.sh"
-KVER=${KVER:-7.3.1}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-desktop}
-REPO=${REPO:-https://tenko.pjfox.xyz/packages/6/}
-case "$REPO" in
-    http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
-    *) REPOPATH="file://$REPO" ;;
-esac
+REPO=${REPO:-$TENKO_REPO_URL}
+REPOPATH=$(repo_url "$REPO")
 IMG=${IMG:-$PWD/build/rootfs-desktop.img}
 SERIAL=${SERIAL:-$PWD/build/qemu-graphical-serial.log}
 MON=${MON:-$PWD/build/qemu-graphical-monitor.sock}
@@ -54,13 +50,13 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     # Lay down the merged-/usr symlinks before DNF creates /lib as a real
     # directory in the installroot; otherwise tenko-basefs cannot unpack.
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$ROOTFS" --releasever=6 \
+        --installroot "$ROOTFS" --releasever="$TENKO_RELEASE" \
         --disablerepo='*' --repofrompath=desktop,$REPOPATH \
         --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
         install tenko-basefs
 
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$ROOTFS" --releasever=6 \
+        --installroot "$ROOTFS" --releasever="$TENKO_RELEASE" \
         --disablerepo='*' --repofrompath=desktop,$REPOPATH \
         --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
         install tenko-base xfce-desktop linux-kernel linux-modules \

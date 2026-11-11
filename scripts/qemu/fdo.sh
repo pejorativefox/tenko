@@ -34,7 +34,6 @@ set -euo pipefail
 . "$(dirname "$0")/../lib/common.sh"
 
 REPO=${REPO:-build/publish-check}
-KVER=${KVER:-7.3.1}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-fdo}
 IMG=${IMG:-$PWD/build/fdo-desktop.img}
 SERIAL=${SERIAL:-$PWD/build/fdo-serial.log}
@@ -125,7 +124,7 @@ if [ "$install_rootfs" = 1 ]; then
     # tenko-basefs must be installed first: its scriptlets create the
     # merged-/usr layout that every later scriptlet needs.
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$ROOTFS" --releasever=6 \
+        --installroot "$ROOTFS" --releasever="$TENKO_RELEASE" \
         --disablerepo='*' --repofrompath=desktop,"$REPOPATH" \
         --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
         install tenko-basefs
@@ -134,7 +133,7 @@ if [ "$install_rootfs" = 1 ]; then
     # user/group in %pre and its state directories in %post, which a root
     # XFCE session did not need.
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$ROOTFS" --releasever=6 \
+        --installroot "$ROOTFS" --releasever="$TENKO_RELEASE" \
         --disablerepo='*' --repofrompath=desktop,"$REPOPATH" \
         --setopt=install_weak_deps=False \
         install tenko-base xfce-desktop linux-kernel linux-modules \

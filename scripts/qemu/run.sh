@@ -20,7 +20,6 @@ set -euo pipefail
 
 IMG=${IMG:-$PWD/build/login-test.img}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-login-test}
-KVER=${KVER:-7.3.1}
 MEM=${MEM:-3072}
 SMP=${SMP:-4}
 SNAPSHOT=${SNAPSHOT:-1}

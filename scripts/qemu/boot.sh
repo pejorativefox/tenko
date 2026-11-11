@@ -11,18 +11,12 @@
 # virtio-blk/serial, and writes the serial log to build/qemu-boot.log.
 set -euo pipefail
 . "$(dirname "$0")/../lib/common.sh"
-KVER="${KVER:-7.3.1}"
 ROOTFS="${ROOTFS:-$PWD/build/rootfs}"
 IMG="${IMG:-$PWD/build/rootfs.img}"
 LOG="${LOG:-$PWD/build/qemu-boot.log}"
 KERNEL_RPM_DIR="${KERNEL_RPM_DIR:-$HOME/rpmbuild/RPMS/x86_64}"
-# Prefer the single base+desktop repo: the kernel now requires dracut, which
-# only exists in repo-all.  build/repo is the historical bootstrap repo.
-REPO="${REPO:-https://tenko.pjfox.xyz/packages/6/}"
-case "$REPO" in
-    http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
-    *) REPOPATH="file://$REPO" ;;
-esac
+REPO=${REPO:-$TENKO_REPO_URL}
+REPOPATH=$(repo_url "$REPO")
 
 [ -x "$ROOTFS/usr/bin/bash" ] || { echo "missing rootfs: $ROOTFS" >&2; exit 1; }
 ls "$KERNEL_RPM_DIR"/linux-kernel-"$KVER"-*.rpm "$KERNEL_RPM_DIR"/linux-modules-"$KVER"-*.rpm >/dev/null 2>&1 || {
@@ -37,7 +31,7 @@ cp "$KERNEL_RPM_DIR"/linux-kernel-"$KVER"-*.rpm "$KERNEL_RPM_DIR"/linux-modules-
 createrepo_c --quiet --update "$REPO"
 
 unshare -r dnf -y --nogpgcheck \
-  --installroot "$ROOTFS" --releasever=6 \
+  --installroot "$ROOTFS" --releasever="$TENKO_RELEASE" \
   --disablerepo='*' --repofrompath=tenko,$REPOPATH \
   --setopt=install_weak_deps=False --setopt=tsflags=noscripts \
   install linux-kernel linux-modules

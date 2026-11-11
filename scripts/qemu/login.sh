@@ -17,14 +17,10 @@
 set -euo pipefail
 . "$(dirname "$0")/../lib/common.sh"
 
-KVER=${KVER:-7.3.1}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-login-test}
 IMG=${IMG:-$PWD/build/login-test.img}
-REPO=${REPO:-https://tenko.pjfox.xyz/packages/6/}
-case "$REPO" in
-    http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
-    *) REPOPATH="file://$REPO" ;;
-esac
+REPO=${REPO:-$TENKO_REPO_URL}
+REPOPATH=$(repo_url "$REPO")
 SERIAL=${SERIAL:-$PWD/build/login-serial.log}
 MON=${MON:-$PWD/build/login-monitor.sock}
 SHOT=${SHOT:-$PWD/build/login-screenshot.png}
@@ -57,13 +53,13 @@ if [ "$SKIP_INSTALL" != "1" ]; then
     # /bin/sh, which only exists once tenko-basefs has created the merged
     # /usr symlinks.  This is what an installer does before anything else.
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$ROOTFS" --releasever=6 \
+        --installroot "$ROOTFS" --releasever="$TENKO_RELEASE" \
         --disablerepo='*' --repofrompath=tenko,$REPOPATH \
         --setopt=install_weak_deps=False \
         install tenko-basefs
 
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$ROOTFS" --releasever=6 \
+        --installroot "$ROOTFS" --releasever="$TENKO_RELEASE" \
         --disablerepo='*' --repofrompath=tenko,$REPOPATH \
         --setopt=install_weak_deps=False \
         install tenko-base xfce-desktop linux-kernel linux-modules \
