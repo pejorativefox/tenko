@@ -345,8 +345,9 @@ class Auditor:
                 path = line.strip()
                 if not path or path.startswith("#"):
                     continue
-                path = re.sub(r"^%(doc|config|attr|verify|dir|defattr)\b[^ ]*\s*", "", path)
+                path = re.sub(r"^%(doc|config|attr|verify|dir|defattr|license)\b[^ ]*\s*", "", path)
                 path = re.sub(r"^%attr\([^)]*\)\s*", "", path)
+                path = normalize_macro(path)
                 if path.startswith("/"):
                     self.static_paths.add(path)
 

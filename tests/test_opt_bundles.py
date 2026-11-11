@@ -2,13 +2,15 @@ import os
 import re
 import unittest
 
+from specutil import expand_if_spec as _expand_spec
+
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SPECS = os.path.join(REPO_ROOT, "package_specs")
 
 
 def read(relative):
     with open(os.path.join(SPECS, relative), encoding="utf-8") as handle:
-        return handle.read()
+        return _expand_spec(handle.read(), os.path.join(SPECS, relative))
 
 
 def before_changelog(text):

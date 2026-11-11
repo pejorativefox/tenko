@@ -2,6 +2,8 @@ import os
 import re
 import unittest
 
+from specutil import expand_if_spec as _expand_spec
+
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INSTALLER = os.path.join(REPO_ROOT, "package_specs", "tenko-installer")
 MODULE = os.path.join(INSTALLER, "files")
@@ -9,7 +11,7 @@ MODULE = os.path.join(INSTALLER, "files")
 
 def read(relative):
     with open(os.path.join(REPO_ROOT, relative), encoding="utf-8") as handle:
-        return handle.read()
+        return _expand_spec(handle.read(), os.path.join(REPO_ROOT, relative))
 
 
 class LiveVentoyTest(unittest.TestCase):

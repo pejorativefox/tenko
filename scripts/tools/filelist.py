@@ -45,24 +45,16 @@ COMMON_DIRS |= {"/usr/share/man/man" + s for s in "123456789n"}
 
 
 def basefs_dirs():
-    spec = os.path.join(REPO_ROOT, "package_specs", "tenko-basefs",
-                        "tenko-basefs.spec")
+    """Paths tenko-basefs owns, from its filelist."""
+    path = os.path.join(REPO_ROOT, "package_specs", "tenko-basefs", "files",
+                        "tenko-basefs.filelist")
     dirs = set()
     try:
-        with open(spec, encoding="utf-8") as handle:
-            in_files = False
+        with open(path, encoding="utf-8") as handle:
             for line in handle:
-                line = line.strip()
-                if line.startswith("%files"):
-                    in_files = True
-                    continue
-                if in_files and line.startswith("%") and not line.startswith(
-                        ("%dir", "%attr", "%config")):
-                    in_files = False
-                if in_files:
-                    path = line.split()[-1] if line else ""
-                    if path.startswith("/"):
-                        dirs.add(path)
+                entry = line.split()[-1] if line.strip() else ""
+                if entry.startswith("/"):
+                    dirs.add(entry)
     except OSError:
         pass
     return dirs

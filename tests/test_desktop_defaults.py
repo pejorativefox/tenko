@@ -3,6 +3,8 @@ import re
 import unittest
 import xml.etree.ElementTree as ET
 
+from specutil import expand_if_spec as _expand_spec
+
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SPEC = os.path.join(REPO_ROOT, "package_specs", "tenko-desktop-config",
                     "tenko-desktop-config.spec")
@@ -10,7 +12,7 @@ SPEC = os.path.join(REPO_ROOT, "package_specs", "tenko-desktop-config",
 
 def spec_text():
     with open(SPEC, encoding="utf-8") as handle:
-        return handle.read()
+        return _expand_spec(handle.read(), SPEC)
 
 
 def xfconf_default(text, name):

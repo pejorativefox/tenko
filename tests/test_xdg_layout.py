@@ -6,13 +6,15 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from specutil import expand_if_spec as _expand_spec
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SPECS = REPO_ROOT / "package_specs"
 
 
 def read(relative):
     with open(REPO_ROOT / relative, encoding="utf-8") as handle:
-        return handle.read()
+        return _expand_spec(handle.read(), REPO_ROOT / relative)
 
 
 def heredoc(text, path, marker="EOF2"):
