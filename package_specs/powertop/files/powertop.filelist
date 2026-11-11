@@ -28,6 +28,7 @@
 %dir /usr/share/man
 %dir /usr/share/man/man8
 /usr/bin/powertop
+/usr/lib/systemd/system/powertop.service
 /usr/share/bash-completion/completions/powertop
 /usr/share/locale/ca/LC_MESSAGES/powertop.mo
 /usr/share/locale/cs_CZ/LC_MESSAGES/powertop.mo
