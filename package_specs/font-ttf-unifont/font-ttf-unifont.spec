@@ -11,6 +11,7 @@ Version:    17.0.03
 Release:    2
 Summary:    GNU Unifont: bitmap+outline coverage of the Unicode code points
 License:    OFL
+URL:        https://unifoundry.com/unifont/
 Prefix:     /usr
 Source0:    unifont-%{version}.otf
 Source1:    unifont_upper-%{version}.otf

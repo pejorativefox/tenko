@@ -3,6 +3,7 @@ Version:    0.5.1
 Release:    1
 Summary:    Xorg framebuffer (fbdev) video driver
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/driver/xf86-video-fbdev
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

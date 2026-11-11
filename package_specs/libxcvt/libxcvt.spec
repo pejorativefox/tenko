@@ -3,6 +3,7 @@ Version:    0.1.3
 Release:    1
 Summary:    VESA CVT modeline library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxcvt
 Prefix:     /usr
 Source0:    libxcvt-0.1.3.tar.xz
 

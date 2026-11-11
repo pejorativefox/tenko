@@ -3,6 +3,7 @@ Version:    23.1.3
 Release:    1
 Summary:    LLVM IR to SPIR-V translator
 License:    NCSA
+URL:        https://github.com/KhronosGroup/SPIRV-LLVM-Translator
 Prefix:     /usr
 Source0:    SPIRV-LLVM-Translator-v23.1.3.tar.gz
 

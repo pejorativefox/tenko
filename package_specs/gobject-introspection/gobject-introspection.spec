@@ -3,6 +3,7 @@ Version:    1.86.0
 Release:    7
 Summary:    GObject API introspection tools and library
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
+URL:        https://gi.readthedocs.io/en/latest/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 Requires: python-setuptools

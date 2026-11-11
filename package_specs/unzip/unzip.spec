@@ -3,6 +3,7 @@ Version:    6.0
 Release:    1
 Summary:    Info-ZIP unzip
 License:    Info-ZIP
+URL:        https://infozip.sourceforge.net/UnZip.html
 Prefix:     /usr
 Source0:    unzip60.tar.gz
 Patch0:     unzip-6.0-consolidated_fixes-1.patch

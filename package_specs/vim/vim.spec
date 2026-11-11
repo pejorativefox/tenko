@@ -3,6 +3,7 @@ Version:    9.2.1225
 Release:    3
 Summary:    vi Improved Text editor
 License:    Vim
+URL:        https://www.vim.org/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

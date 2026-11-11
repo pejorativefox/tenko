@@ -3,6 +3,7 @@ Version:    1.6.1
 Release:    2
 Summary:    X11 server performance test program
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/test/x11perf
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 

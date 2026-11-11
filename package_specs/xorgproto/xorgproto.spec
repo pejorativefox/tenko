@@ -3,6 +3,7 @@ Version:    2026.1
 Release:    2
 Summary:    Xorg Protocols
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/proto/xorgproto
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

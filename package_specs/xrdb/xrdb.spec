@@ -3,6 +3,7 @@ Version:    1.2.3
 Release:    2
 Summary:    X server resource database utility
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xrdb
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

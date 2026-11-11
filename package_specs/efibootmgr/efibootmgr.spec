@@ -3,6 +3,7 @@ Version:    18
 Release:    1
 Summary:    The efibootmgr package provides tools and libraries to manipulate EFI variables.
 License:    GPL-2.0
+URL:        https://github.com/rhboot/efibootmgr
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

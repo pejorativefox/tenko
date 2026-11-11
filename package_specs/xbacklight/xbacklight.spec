@@ -3,6 +3,7 @@ Version:    1.2.4
 Release:    1
 Summary:    Adjust backlight brightness using RandR extension
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xbacklight
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

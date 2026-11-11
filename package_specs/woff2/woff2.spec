@@ -3,6 +3,7 @@ Version:    1.0.2
 Release:    1
 Summary:    Font format library
 License:    MIT
+URL:        https://github.com/google/woff2
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

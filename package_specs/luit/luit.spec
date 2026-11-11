@@ -3,6 +3,7 @@ Version:    20260907
 Release:    1
 Summary:    Encoding converter for X11 terminals
 License:    MIT
+URL:        https://invisible-island.net/luit/
 Prefix:     /usr
 Source0:    luit-20260907.tgz
 

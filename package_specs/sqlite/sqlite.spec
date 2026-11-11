@@ -3,6 +3,7 @@ Version:    3.54.1
 Release:    4
 Summary:    SQLite database engine
 License:    Public Domain
+URL:        https://sqlite.org/
 Source0:    sqlite-autoconf-3540100.tar.gz
 Prefix:     /usr
 Provides:   libsqlite3.so()(64bit)

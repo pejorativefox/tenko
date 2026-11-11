@@ -3,6 +3,7 @@ Version:    1.3.7
 Release:    4
 Summary:    Ogg Vorbis audio codec library
 License:    BSD-3-Clause
+URL:        https://github.com/xiph/vorbis
 Prefix:     /usr
 Source0:    libvorbis-1.3.7.tar.xz
 

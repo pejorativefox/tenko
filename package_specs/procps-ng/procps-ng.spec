@@ -3,6 +3,7 @@ Version:    4.0.7
 Release:    4
 Summary:    Process monitoring utilities
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
+URL:        https://gitlab.com/procps-ng/procps
 Source0:    procps-ng-%{version}.tar.xz
 Prefix:     /usr
 

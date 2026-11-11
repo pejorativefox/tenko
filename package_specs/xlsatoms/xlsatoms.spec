@@ -3,6 +3,7 @@ Version:    1.1.5
 Release:    1
 Summary:    List interned X atoms
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xlsatoms
 Prefix:     /usr
 Source0:    xlsatoms-1.1.5.tar.xz
 

@@ -3,6 +3,7 @@ Version:    2026f
 Release:    3
 Summary:    The Time Zone Database
 License:    Public Domain
+URL:        https://www.iana.org/time-zones
 Source0:    tzcode%{version}.tar.gz
 Source1:    tzdata%{version}.tar.gz
 Prefix:     /usr

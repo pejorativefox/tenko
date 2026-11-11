@@ -3,6 +3,7 @@ Version:    21.1.25
 Release:    2
 Summary:    Xorg X11 server
 License:    MIT
+URL:        https://www.x.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

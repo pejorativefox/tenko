@@ -3,6 +3,7 @@ Version:    1.35
 Release:    3
 Summary:    GNU tar utility
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/tar/
 Source0:    %{name}-%{version}.tar.xz
 Patch0:     tar-1.35-acl_fix-1.patch
 Prefix:     /usr

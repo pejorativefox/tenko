@@ -3,6 +3,7 @@ Version:    0.8.9
 Release:    3
 Summary:    Desktop notification library
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/libnotify
 Prefix:     /usr
 Source0:    libnotify-0.8.9.tar.xz
 

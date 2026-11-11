@@ -3,6 +3,7 @@ Version:    4.11.0
 Release:    3
 Summary:    GNU find utilities
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/findutils/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

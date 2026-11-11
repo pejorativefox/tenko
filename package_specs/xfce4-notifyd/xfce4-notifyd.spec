@@ -3,6 +3,7 @@ Version:    0.9.7
 Release:    1
 Summary:    Notification daemon for the Xfce desktop
 License:    GPL-2.0-only AND GPL-2.0-or-later
+URL:        https://docs.xfce.org/apps/notifyd/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    2.8.21
 Release:    2
 Summary:    Spell check library
 License:    LGPL-2.1-or-later
+URL:        https://rrthomas.github.io/enchant/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

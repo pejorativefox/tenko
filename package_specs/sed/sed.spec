@@ -3,6 +3,7 @@ Version:    4.10
 Release:    3
 Summary:    The sed stream editor
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/sed/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

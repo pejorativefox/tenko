@@ -3,6 +3,7 @@ Version:    0.1.6
 Release:    4
 Summary:    XCB cursor utilities
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxcb-cursor
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

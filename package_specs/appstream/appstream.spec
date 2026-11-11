@@ -3,6 +3,7 @@ Version:    1.2.2
 Release:    5
 Summary:    Library and tool for software metadata
 License:    LGPL-2.1-or-later AND FSFAP
+URL:        https://github.com/ximion/appstream
 Source0:    AppStream-%{version}.tar.xz
 Prefix:     /usr
 BuildRequires: bash-completion

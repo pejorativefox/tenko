@@ -3,6 +3,7 @@ Version:    4.24.0
 Release:    5
 Summary:    Package manager for RPM based distributions
 License:    GPL-2.0-or-later
+URL:        https://github.com/rpm-software-management/dnf
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

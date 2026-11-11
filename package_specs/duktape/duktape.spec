@@ -3,6 +3,7 @@ Version:    2.7.0
 Release:    3
 Summary:    Embeddable JavaScript engine
 License:    MIT
+URL:        https://duktape.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

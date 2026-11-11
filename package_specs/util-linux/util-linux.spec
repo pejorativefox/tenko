@@ -3,6 +3,7 @@ Version:    2.42.4
 Release:    3
 Summary:    util-linux is a random collection of Linux utilities
 License:    GPL-2.0-or-later AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND EUPL-1.2 AND ISC AND 0BSD
+URL:        https://github.com/util-linux/util-linux
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    1.3.2
 Release:    2
 Summary:    zlib compression library
 License:    Zlib
+URL:        https://zlib.net/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

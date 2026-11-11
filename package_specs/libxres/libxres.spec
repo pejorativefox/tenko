@@ -3,6 +3,7 @@ Version:    1.2.3
 Release:    4
 Summary:    X-Resource extension client library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxres
 Prefix:     /usr
 Source0:    libXres-1.2.3.tar.xz
 

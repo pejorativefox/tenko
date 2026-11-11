@@ -3,6 +3,7 @@ Version:    1.5
 Release:    4
 Summary:    GNU Unicode string library
 License:    LGPL-3.0-or-later OR GPL-2.0-or-later
+URL:        https://www.gnu.org/software/libunistring/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

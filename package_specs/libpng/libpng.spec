@@ -3,6 +3,7 @@ Version:    1.6.59
 Release:    4
 Summary:    PNG reference library
 License:    libpng-2.0
+URL:        http://www.libpng.org/pub/png/libpng.html
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

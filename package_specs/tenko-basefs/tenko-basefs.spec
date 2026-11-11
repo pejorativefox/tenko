@@ -3,6 +3,7 @@ Version:    1.0
 Release:    4
 Summary:    Base filesystem layout for Tenko Linux
 License:    MIT
+URL:        https://pjfox.xyz/git/daspork/tenko
 Prefix:     /
 Provides:   filesystem(unmerged-sbin-symlinks)
 Provides:   cmake-filesystem

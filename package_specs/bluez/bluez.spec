@@ -3,6 +3,7 @@ Version:    5.88
 Release:    1
 Summary:    Bluetooth protocol stack for Linux
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
+URL:        https://github.com/bluez/bluez
 Prefix:     /usr
 Source0:    bluez-%{version}.tar.xz
 BuildRequires: glib

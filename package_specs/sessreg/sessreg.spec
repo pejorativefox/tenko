@@ -3,6 +3,7 @@ Version:    1.1.4
 Release:    1
 Summary:    Register user sessions in utmp/wtmp
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/sessreg
 Prefix:     /usr
 Source0:    sessreg-1.1.4.tar.xz
 

@@ -3,6 +3,7 @@ Version:    4.0.9
 Release:    1
 Summary:    Ruby programming language
 License:    BSDL
+URL:        https://www.ruby-lang.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

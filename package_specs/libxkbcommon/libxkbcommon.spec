@@ -3,6 +3,7 @@ Version:    1.13.2
 Release:    4
 Summary:    library for handling of keyboard descriptions
 License:    MIT AND MIT-open-group AND HPND AND HPND-sell-variant AND ISC AND LicenseRef-digital-equipment-corporation
+URL:        https://xkbcommon.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 Patch0:     libxkbcommon-1.13.2-upstream_fix-1.patch

@@ -3,6 +3,7 @@ Version:    2.47
 Release:    4
 Summary:    GNU binutils
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/binutils/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 %description

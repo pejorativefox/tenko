@@ -3,6 +3,7 @@ Version:    23.7
 Release:    3
 Summary:    procfs tools
 License:    GPL-2.0-or-later
+URL:        https://gitlab.com/psmisc/psmisc
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

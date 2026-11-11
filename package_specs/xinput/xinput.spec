@@ -3,6 +3,7 @@ Version:    1.6.4
 Release:    1
 Summary:    Configure and test X11 input devices
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xinput
 Prefix:     /usr
 Source0:    xinput-1.6.4.tar.xz
 

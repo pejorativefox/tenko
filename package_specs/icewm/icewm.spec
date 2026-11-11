@@ -3,6 +3,7 @@ Version:    4.1.0
 Release:    2
 Summary:    A small win9x like window manager
 License:    LGPL-2.0-or-later
+URL:        https://ice-wm.org/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

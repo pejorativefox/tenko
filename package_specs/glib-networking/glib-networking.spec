@@ -3,6 +3,7 @@ Version:    2.90.1
 Release:    2
 Summary:    Network related gio modules for GLib. 
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/glib-networking
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

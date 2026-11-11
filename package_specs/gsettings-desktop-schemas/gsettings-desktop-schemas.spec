@@ -3,6 +3,7 @@ Version:    51.0
 Release:    1
 Summary:    Shared GSettings schemas for the GNOME desktop
 License:    LGPL-2.1
+URL:        https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

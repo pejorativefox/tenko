@@ -3,6 +3,7 @@ Version:    2.3.8
 Release:    4
 Summary:    Internationalized domain name library
 License:    GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later)
+URL:        https://www.gnu.org/software/libidn/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

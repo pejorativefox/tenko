@@ -3,6 +3,7 @@ Version:    1.0.16
 Release:    3
 Summary:    Xt widget set
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxaw
 Prefix:     /usr
 Source0:    libXaw-1.0.16.tar.xz
 

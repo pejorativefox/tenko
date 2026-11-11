@@ -3,6 +3,7 @@ Version:    1.28.8
 Release:    2
 Summary:    Base gstreamer plugins
 License:    LGPL-2.1-or-later AND BSD-3-Clause
+URL:        https://gstreamer.freedesktop.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

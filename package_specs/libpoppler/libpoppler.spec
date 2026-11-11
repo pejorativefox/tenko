@@ -3,6 +3,7 @@ Version:    26.10.0
 Release:    1
 Summary:    PDF rendering library based on the xpdf-3.0 code base
 License:    GPL-2.0-or-later
+URL:        https://poppler.freedesktop.org/
 Source0:    poppler-%{version}.tar.xz
 Prefix:     /usr
 

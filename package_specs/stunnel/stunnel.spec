@@ -3,6 +3,7 @@ Version:    5.82
 Release:    2
 Summary:    TLS proxy daemon.
 License:    GPL-2.0-or-later WITH stunnel-exception
+URL:        https://www.stunnel.org/
 Source0:    %{name}-%{version}.tar.gz
 Source1:    stunnel-service.conf
 Source2:    stunnel.service

@@ -3,6 +3,7 @@ Version:    2.5.1
 Release:    4
 Summary:    Shared MIME database and update tool
 License:    GPL-2.0-or-later
+URL:        https://gitlab.freedesktop.org/xdg/shared-mime-info
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 %description

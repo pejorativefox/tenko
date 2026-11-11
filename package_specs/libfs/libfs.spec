@@ -3,6 +3,7 @@ Version:    1.0.10
 Release:    2
 Summary:    X Font Service client library
 License:    MIT-open-group
+URL:        https://gitlab.freedesktop.org/xorg/lib/libfs
 Prefix:     /usr
 Source0:    libFS-%{version}.tar.xz
 

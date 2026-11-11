@@ -3,6 +3,7 @@ Version:    1.1.5
 Release:    3
 Summary:    X Display Manager Control Protocol library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxdmcp
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

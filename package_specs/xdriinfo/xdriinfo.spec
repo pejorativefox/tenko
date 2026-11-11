@@ -3,6 +3,7 @@ Version:    1.0.8
 Release:    1
 Summary:    Query DRI drivers on an X server
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xdriinfo
 Prefix:     /usr
 Source0:    xdriinfo-1.0.8.tar.xz
 

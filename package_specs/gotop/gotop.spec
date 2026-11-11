@@ -3,6 +3,7 @@ Version:    4.2.0
 Release:    1
 Summary:    A terminal based graphical activity monitor inspired by gtop and vtop
 License:    AGPL-3.0-only
+URL:        https://github.com/xxxserxxx/gotop
 Source0:    %{name}_v%{version}_linux_amd64.tgz
 Prefix:     /usr
 

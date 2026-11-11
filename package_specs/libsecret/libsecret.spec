@@ -3,6 +3,7 @@ Version:    0.21.8.2
 Release:    3
 Summary:    GObject secret service library
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/libsecret
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

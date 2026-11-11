@@ -3,6 +3,7 @@ Version:    6.1.3
 Release:    3
 Summary:    Python bindings for libxml2 and libxslt
 License:    BSD-3-Clause AND PSF-2.0 AND MIT
+URL:        https://lxml.de/
 Source0:    lxml-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: libxslt

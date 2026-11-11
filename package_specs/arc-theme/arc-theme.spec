@@ -3,6 +3,7 @@ Version:    20221218
 Release:    1
 Summary:    Flat theme with transparent elements for GTK and Xfce
 License:    GPL-3.0-only
+URL:        https://github.com/gooroom/arc-theme
 Prefix:     /usr
 BuildArch:  noarch
 Source0:    arc-theme-gooroom-%{version}-1-grm4u1.tar.gz

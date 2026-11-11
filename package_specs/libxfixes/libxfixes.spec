@@ -3,6 +3,7 @@ Version:    6.0.2
 Release:    4
 Summary:    Xlib-based library for the XFIXES Extension.
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxfixes
 Prefix:     /usr
 Source0:    libXfixes-%{version}.tar.xz
 %description

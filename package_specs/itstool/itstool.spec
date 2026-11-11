@@ -3,6 +3,7 @@ Version:    2.0.7
 Release:    2
 Summary:    Translate XML documents with PO files
 License:    GPL-3.0-or-later
+URL:        https://itstool.org/
 Source0:    %{name}-%{version}.tar.gz
 Patch0:     %{name}-%{version}-lxml-1.patch
 BuildArch:  noarch

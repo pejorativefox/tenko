@@ -3,6 +3,7 @@ Version:    3.8.11
 Release:    6
 Summary:    Library for various archive formats
 License:    BSD-2-Clause AND BSD-3-Clause AND 0BSD AND (CC0-1.0 OR OpenSSL OR Apache-2.0)
+URL:        https://libarchive.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

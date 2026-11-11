@@ -3,6 +3,7 @@ Version:    4.4.5
 Release:    2
 Summary:    Cross-platform build system generator
 License:    BSD-3-Clause
+URL:        https://cmake.org/
 Prefix:     /usr
 Source0:    cmake-%{version}.tar.gz
 

@@ -3,6 +3,7 @@ Version:    26.2.3
 Release:    8
 Summary:    Mesa 3D Graphics Library
 License:    MIT
+URL:        https://mesa3d.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

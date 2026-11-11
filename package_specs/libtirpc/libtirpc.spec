@@ -3,6 +3,7 @@ Version:    1.3.8
 Release:    5
 Summary:    Transport-independent RPC library
 License:    BSD-3-Clause
+URL:        https://sourceforge.net/projects/libtirpc/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 

@@ -3,6 +3,7 @@ Version:    0.12.2
 Release:    6
 Summary:    BSD compatibility library
 License:    BSD-3-Clause
+URL:        https://libbsd.freedesktop.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 BuildRequires: libmd

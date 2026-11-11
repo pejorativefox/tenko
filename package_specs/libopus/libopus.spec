@@ -3,6 +3,7 @@ Version:    1.6.1
 Release:    1
 Summary:    Audio compression format
 License:    BSD-3-Clause
+URL:        https://github.com/xiph/opus
 Prefix:     /usr
 Source0:    opus-%{version}.tar.gz
 

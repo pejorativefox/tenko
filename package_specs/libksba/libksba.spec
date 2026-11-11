@@ -3,6 +3,7 @@ Version:    1.8.1
 Release:    2
 Summary:    X.509 certificate library
 License:    (LGPL-3.0-or-later OR GPL-2.0-or-later) AND GPL-3.0-or-later
+URL:        https://gnupg.org/software/libksba/
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

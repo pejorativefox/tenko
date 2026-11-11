@@ -3,6 +3,7 @@ Version:    1.20.2
 Release:    1
 Summary:    X.org autotools macros
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/util/macros
 Prefix:     /usr
 Source0:    util-macros-1.20.2.tar.xz
 

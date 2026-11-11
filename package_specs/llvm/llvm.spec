@@ -3,6 +3,7 @@ Version:    23.1.0
 Release:    3
 Summary:    The LLVM Project is a collection of modular and reusable compiler and toolchain technologies. 
 License:    UIUC
+URL:        https://llvm.org/
 Source0:    llvm-project-%{version}.src.tar.xz
 Prefix:     /usr
 

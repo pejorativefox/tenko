@@ -3,6 +3,7 @@ Version:    1.0.10
 Release:    2
 Summary:    X server access control program
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xhost
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

@@ -3,6 +3,7 @@ Version:    10.49
 Release:    3
 Summary:    Perl-compatible regular expression library
 License:    BSD-3-Clause WITH PCRE2-exception
+URL:        https://github.com/PCRE2Project/pcre2
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 

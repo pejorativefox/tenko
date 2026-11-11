@@ -3,6 +3,7 @@ Version:    0.7.41
 Release:    7
 Summary:    Library for solving packages and reading repositories
 License:    BSD-3-Clause
+URL:        https://github.com/openSUSE/libsolv
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

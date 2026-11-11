@@ -3,6 +3,7 @@ Version:    6.0.3
 Release:    3
 Summary:    Python YAML parser and emitter
 License:    MIT
+URL:        https://pyyaml.org/
 Prefix:     /usr
 Source0:    pyyaml-6.0.3.tar.gz
 BuildRequires: python-setuptools

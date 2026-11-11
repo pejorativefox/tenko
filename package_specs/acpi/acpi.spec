@@ -3,6 +3,7 @@ Version:    1.8
 Release:    2
 Summary:    Client for battery, power, and thermal readings
 License:    GPL-2.0-or-later
+URL:        https://sourceforge.net/projects/acpiclient/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

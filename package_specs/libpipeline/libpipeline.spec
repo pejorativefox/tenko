@@ -3,6 +3,7 @@ Version:    1.5.8
 Release:    2
 Summary:    Subprocess manipulation library
 License:    GPL-3.0-or-later
+URL:        https://libpipeline.gitlab.io/libpipeline/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

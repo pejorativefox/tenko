@@ -3,6 +3,7 @@ Version:    8.23.0
 Release:    3
 Summary:    Command line tool and library for transferring data with URLs
 License:    curl
+URL:        https://curl.se/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

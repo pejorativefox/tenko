@@ -3,6 +3,7 @@ Version:    0.4.0
 Release:    3
 Summary:    EDID and DisplayID library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/emersion/libdisplay-info
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

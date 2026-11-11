@@ -3,6 +3,7 @@ Version:    7.3.0
 Release:    2
 Summary:    kernel networking tool
 License:    GPL-2.0-or-later
+URL:        https://git.kernel.org/pub/scm/network/iproute2/iproute2.git/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

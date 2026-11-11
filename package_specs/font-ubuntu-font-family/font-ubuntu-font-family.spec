@@ -10,6 +10,7 @@ Version:    0.83
 Release:    1
 Summary:    The Ubuntu UI font family (User/packaging .ttfs, 0.83)
 License:    Ubuntu-UFL
+URL:        https://design.ubuntu.com/font
 Prefix:     /usr
 Source0:    ubuntu-font-family-sources_0.83.orig.tar.gz
 

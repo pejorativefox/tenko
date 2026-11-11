@@ -3,6 +3,7 @@ Version:    2.6.4
 Release:    2
 Summary:    Fast lexical analyzer generator
 License:    BSD-3-Clause
+URL:        https://github.com/westes/flex
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

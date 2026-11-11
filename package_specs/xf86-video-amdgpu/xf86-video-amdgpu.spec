@@ -3,6 +3,7 @@ Version:    23.0.0
 Release:    1
 Summary:    Xorg AMDGPU video driver
 License:    Historical Permission Notice and Disclaimer
+URL:        https://gitlab.freedesktop.org/xorg/driver/xf86-video-amdgpu
 Prefix:     /usr
 Source0:    xf86-video-amdgpu-23.0.0.tar.xz
 

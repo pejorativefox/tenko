@@ -3,6 +3,7 @@ Version:    2.0.6
 Release:    2
 Summary:    Kora SVG icon theme
 License:    GPL-3.0-only
+URL:        https://github.com/bikass/kora
 Prefix:     /usr
 BuildArch:  noarch
 Source0:    kora-%{version}.tar.gz

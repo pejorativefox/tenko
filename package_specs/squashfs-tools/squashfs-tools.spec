@@ -3,6 +3,7 @@ Version:    4.7.5
 Release:    2
 Summary:    Tools to create and extract Squashfs filesystems
 License:    GPL-2.0-or-later
+URL:        https://github.com/plougher/squashfs-tools
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

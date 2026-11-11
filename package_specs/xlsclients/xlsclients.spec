@@ -3,6 +3,7 @@ Version:    1.1.6
 Release:    1
 Summary:    List the clients connected to an X server
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xlsclients
 Prefix:     /usr
 Source0:    xlsclients-1.1.6.tar.xz
 

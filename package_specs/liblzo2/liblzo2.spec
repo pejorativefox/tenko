@@ -3,6 +3,7 @@ Version:    2.10
 Release:    2
 Summary:    LZO is a portable lossless data compression library written in ANSI C.
 License:    GPL-2.0-or-later
+URL:        https://www.oberhumer.com/opensource/lzo/
 Source0:    lzo-%{version}.tar.gz
 Prefix:     /usr
 

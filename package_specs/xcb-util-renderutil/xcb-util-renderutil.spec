@@ -3,6 +3,7 @@ Version:    0.3.10
 Release:    4
 Summary:    XCB render utilities
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxcb-render-util
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

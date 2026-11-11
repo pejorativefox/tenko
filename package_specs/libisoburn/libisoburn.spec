@@ -3,6 +3,7 @@ Version:    1.5.8.pl02
 Release:    1
 Summary:    Frontend for libburn and libisofs (xorriso, xorrisofs, osirrox)
 License:    GPL-2.0-or-later
+URL:        https://dev.lovelyhq.com/libburnia/web/wiki
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

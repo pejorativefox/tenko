@@ -3,6 +3,7 @@ Version:    2.2
 Release:    1
 Summary:    Bluetooth SBC audio codec library
 License:    LGPL-2.1-or-later
+URL:        https://git.kernel.org/pub/scm/bluetooth/sbc.git/
 Prefix:     /usr
 Source0:    sbc-%{version}.tar.xz
 

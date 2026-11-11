@@ -3,6 +3,7 @@ Version:    0.60.8.3
 Release:    1
 Summary:    Spell checker library and command line tool
 License:    LGPL-2.1
+URL:        http://aspell.net/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

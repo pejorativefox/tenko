@@ -3,6 +3,7 @@ Version:    1.1.4
 Release:    1
 Summary:    Set the X11 root window background and cursor
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xsetroot
 Prefix:     /usr
 Source0:    xsetroot-1.1.4.tar.xz
 

@@ -3,6 +3,7 @@ Version:    1.0.15
 Release:    2
 Summary:    Xlib-based X-Video Motion Compensation API.
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxvmc
 Prefix:     /usr
 Source0:    libXvMC-%{version}.tar.xz
 

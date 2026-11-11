@@ -3,6 +3,7 @@ Version:    5.3
 Release:    4
 Summary:    Bourne Again SHell
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/bash/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    2.6.0
 Release:    2
 Summary:    Commands for Manipulating Filesystem Extended Attributes
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
+URL:        https://savannah.nongnu.org/projects/attr/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    0.9.1
 Release:    2
 Summary:    Flatpak portal library 
 License:    LGPL-3.0-only
+URL:        https://github.com/flatpak/libportal
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

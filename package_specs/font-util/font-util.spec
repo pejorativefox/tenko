@@ -3,6 +3,7 @@ Version:    1.4.2
 Release:    2
 Summary:    X.org font utility macros
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/font/util
 Prefix:     /usr
 Source0:    font-util-1.4.2.tar.xz
 

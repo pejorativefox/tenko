@@ -5,6 +5,7 @@ Version:    1.16.2
 Release:    2
 Summary:    D-BUS message bus
 License:    AFL-2.1 OR GPL-2.0-or-later
+URL:        https://gitlab.freedesktop.org/dbus/dbus
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

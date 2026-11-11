@@ -3,6 +3,7 @@ Version:    0.9.6
 Release:    3
 Summary:    Fully feature complete YAML parser and emitter
 License:    MIT
+URL:        https://github.com/pantoniou/libfyaml
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

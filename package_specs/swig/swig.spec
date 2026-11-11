@@ -3,6 +3,7 @@ Version:    4.5.1
 Release:    2
 Summary:    Simplified Wrapper and Interface Generator
 License:    GPL-3.0-or-later AND BSD-3-Clause
+URL:        https://www.swig.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

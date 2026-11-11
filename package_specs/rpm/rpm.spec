@@ -3,6 +3,7 @@ Version:    4.18.1
 Release:    9
 Summary:    RPM package manager
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later
+URL:        https://rpm.org/
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     rpm-4.18.1-sqlite-global-log.patch
 Prefix:     /usr

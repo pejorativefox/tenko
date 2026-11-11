@@ -3,6 +3,7 @@ Version:    1.1.11
 Release:    1
 Summary:    cdrkit is a collection of computer programs for CD and DVD authoring
 License:    GPL-2.0-or-later
+URL:        https://salsa.debian.org/debian/cdrkit
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 Patch0:     cdrkit-1.1.11-gcc10.patch

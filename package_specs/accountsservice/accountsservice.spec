@@ -3,6 +3,7 @@ Version:    26.27.3
 Release:    3
 Summary:    D-Bus service for querying and manipulating user accounts
 License:    GPL-3.0-or-later
+URL:        https://gitlab.freedesktop.org/accountsservice/accountsservice
 Source0:    accountsservice-26.27.3.tar.bz2
 Source1:    40-adm.rules
 Prefix:     /usr

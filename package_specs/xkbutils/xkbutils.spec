@@ -3,6 +3,7 @@ Version:    1.0.7
 Release:    1
 Summary:    X11 keyboard utility programs
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xkbutils
 Prefix:     /usr
 Source0:    xkbutils-1.0.7.tar.xz
 

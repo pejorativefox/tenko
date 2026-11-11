@@ -4,6 +4,7 @@ Release:    4
 Epoch:      1
 Summary:    Tenko Linux OS development environment
 License:    MIT
+URL:        https://pjfox.xyz/git/daspork/tenko
 Prefix:     /usr
 
 # The full base, which includes the development environment

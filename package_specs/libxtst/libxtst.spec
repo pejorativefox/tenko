@@ -3,6 +3,7 @@ Version:    1.2.6
 Release:    3
 Summary:    Xlib-based library for XTEST & RECORD
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxtst
 Prefix:     /usr
 Source0:    libXtst-%{version}.tar.xz
 

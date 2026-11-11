@@ -3,6 +3,7 @@ Version:    710
 Release:    2
 Summary:    open-source file pager. 
 License:    GPL-3.0-or-later OR BSD-2-Clause
+URL:        https://www.greenwoodsoftware.com/less/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

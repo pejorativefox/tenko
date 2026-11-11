@@ -3,6 +3,7 @@ Version:    1.0.8
 Release:    1
 Summary:    Set the X11 gamma correction
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xgamma
 Prefix:     /usr
 Source0:    xgamma-1.0.8.tar.xz
 

@@ -3,6 +3,7 @@ Version:    1.1.1
 Release:    1
 Summary:    Refresh the X11 screen
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xrefresh
 Prefix:     /usr
 Source0:    xrefresh-1.1.1.tar.xz
 

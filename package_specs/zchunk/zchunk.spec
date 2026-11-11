@@ -3,6 +3,7 @@ Version:    1.5.5
 Release:    6
 Summary:    A file format designed for highly efficient deltas while maintaining good compression
 License:    BSD-2-Clause AND BSD-3-Clause
+URL:        https://github.com/zchunk/zchunk
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

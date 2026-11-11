@@ -3,6 +3,7 @@ Version:    2.32.74
 Release:    1
 Summary:    Simple Direct Media Layer 2
 License:    GPM
+URL:        https://github.com/libsdl-org/sdl2-compat
 Source0:    sdl2-compat-%{version}.tar.gz
 Prefix:     /usr
 

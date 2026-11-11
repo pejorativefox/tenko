@@ -3,6 +3,7 @@ Version:    1.0.7
 Release:    1
 Summary:    Ask an X server to terminate a client
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xkill
 Prefix:     /usr
 Source0:    xkill-1.0.7.tar.xz
 

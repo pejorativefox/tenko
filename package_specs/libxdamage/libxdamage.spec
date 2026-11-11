@@ -3,6 +3,7 @@ Version:    1.1.7
 Release:    4
 Summary:    X Damage Extension library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxdamage
 Prefix:     /usr
 Source0:    libXdamage-%{version}.tar.xz
 %description

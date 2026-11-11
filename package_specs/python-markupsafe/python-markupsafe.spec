@@ -3,6 +3,7 @@ Version:    3.0.4
 Release:    4
 Summary:    Safely add untrusted strings to HTML/XML markup.
 License:    BSD-3-Clause
+URL:        https://palletsprojects.com/projects/markupsafe/
 Source0:    markupsafe-3.0.4.tar.gz
 Prefix:     /usr
 BuildRequires: python-setuptools

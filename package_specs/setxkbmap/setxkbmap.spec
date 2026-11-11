@@ -3,6 +3,7 @@ Version:    1.3.5
 Release:    1
 Summary:    Set the X11 keyboard layout
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/setxkbmap
 Prefix:     /usr
 Source0:    setxkbmap-1.3.5.tar.xz
 

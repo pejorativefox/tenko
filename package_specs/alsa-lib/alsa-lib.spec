@@ -3,6 +3,7 @@ Version:    1.2.16.1
 Release:    3
 Summary:    ALSA sound interface library
 License:    LGPL-2.1-or-later
+URL:        https://github.com/alsa-project/alsa-lib
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

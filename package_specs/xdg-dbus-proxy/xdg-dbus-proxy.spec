@@ -3,6 +3,7 @@ Version:    0.1.9
 Release:    2
 Summary:    filtering proxy for D-Bus connections
 License:    LGPL-2.1-or-later AND LGPL-2.0-or-later
+URL:        https://github.com/flatpak/xdg-dbus-proxy
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

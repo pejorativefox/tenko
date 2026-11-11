@@ -3,6 +3,7 @@ Version:    5.48
 Release:    2
 Summary:    A file type guesser
 License:    BSD-2-Clause
+URL:        https://github.com/file/file
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

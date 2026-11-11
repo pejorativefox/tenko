@@ -3,6 +3,7 @@ Version:    2.1.13
 Release:    2
 Summary:    Provides callback functions for file descriptors.
 License:    BSD-3-Clause
+URL:        https://libevent.org/
 Source0:    %{name}-%{version}-stable.tar.gz
 Prefix:     /usr
 

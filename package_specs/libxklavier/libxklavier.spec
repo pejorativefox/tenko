@@ -3,6 +3,7 @@ Version:    5.4
 Release:    5
 Summary:    High-level API for X Keyboard Extension
 License:    LGPL-2.0-or-later
+URL:        https://gitlab.freedesktop.org/archived-projects/libxklavier
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

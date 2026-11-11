@@ -3,6 +3,7 @@ Version:    3.15.0
 Release:    3
 Summary:    The PCI Utilities
 License:    GPL-2.0-or-later
+URL:        https://mj.ucw.cz/sw/pciutils/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    4.20.1
 Release:    3
 Summary:    ISO standards code lists and translations
 License:    LGPL-2.1-or-later
+URL:        https://salsa.debian.org/iso-codes-team/iso-codes
 Prefix:     /usr
 Source0:    iso-codes-v4.20.1.tar.gz
 

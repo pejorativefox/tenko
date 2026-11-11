@@ -3,6 +3,7 @@ Version:    3.41.2
 Release:    1
 Summary:    GNOME crypto services library and object framework
 License:    LGPL-2.1
+URL:        https://gitlab.gnome.org/GNOME/gcr
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    3.6.2
 Release:    1
 Summary:    Command-line Sass compiler
 License:    MIT
+URL:        https://github.com/sass/sassc
 Prefix:     /usr
 Source0:    sassc-3.6.2.tar.gz
 Source1:    libsass-3.6.6.tar.gz

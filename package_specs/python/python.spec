@@ -5,6 +5,7 @@ Version:    3.15.2
 Release:    4
 Summary:    The Python programming language
 License:    PSF-2.0
+URL:        https://www.python.org/
 Source0:    Python-%{version}.tar.xz
 Prefix:     /usr
 

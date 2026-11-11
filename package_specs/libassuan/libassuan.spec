@@ -3,6 +3,7 @@ Version:    3.0.2
 Release:    6
 Summary:    IPC library used by GnuPG and related components
 License:    LGPL-2.1-or-later
+URL:        https://gnupg.org/software/libassuan/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 

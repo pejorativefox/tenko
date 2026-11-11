@@ -3,6 +3,7 @@ Version:    0.197
 Release:    3
 Summary:    ELF file handling library
 License:    GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later)
+URL:        https://sourceware.org/elfutils/
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

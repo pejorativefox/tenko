@@ -3,6 +3,7 @@ Version:    1.17.0
 Release:    2
 Summary:    VP8/VP9 video codec library
 License:    BSD-3-Clause
+URL:        https://www.webmproject.org/code/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

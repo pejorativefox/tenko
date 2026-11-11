@@ -3,6 +3,7 @@ Version:    1.2.16
 Release:    2
 Summary:    Alsa Utilities
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause
+URL:        https://github.com/alsa-project/alsa-utils
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

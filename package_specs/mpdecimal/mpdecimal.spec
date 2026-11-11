@@ -3,6 +3,7 @@ Version:    4.0.1
 Release:    4
 Summary:    Decimal floating point library
 License:    BSD-2-Clause
+URL:        https://www.bytereef.org/mpdecimal/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

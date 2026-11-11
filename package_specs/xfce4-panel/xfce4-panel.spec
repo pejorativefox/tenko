@@ -3,6 +3,7 @@ Version:    4.20.8
 Release:    5
 Summary:    Panel for the Xfce desktop environment
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
+URL:        https://docs.xfce.org/xfce/xfce4-panel/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

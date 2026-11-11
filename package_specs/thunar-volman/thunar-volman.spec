@@ -3,6 +3,7 @@ Version:    4.20.0
 Release:    3
 Summary:    Automatic management of removeable devices in Thunar
 License:    GPL-2.0-or-later
+URL:        https://docs.xfce.org/xfce/thunar/thunar-volman
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

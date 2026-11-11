@@ -3,6 +3,7 @@ Version:    4.20.3
 Release:    4
 Summary:    Shadow password format tools
 License:    BSD-3-Clause AND BSD-2-Clause AND 0BSD AND Unlicense AND GPL-2.0-or-later
+URL:        https://github.com/shadow-maint/shadow
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 BuildRequires: libbsd

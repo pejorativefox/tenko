@@ -3,6 +3,7 @@ Version:    34.3
 Release:    3
 Summary:    Kernel module utilities
 License:    LGPL-2.1-or-later AND GPL-2.0-or-later
+URL:        https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

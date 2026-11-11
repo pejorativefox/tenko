@@ -3,6 +3,7 @@ Version:    1.13.2
 Release:    2
 Summary:    Ninja is a small build system with a focus on speed
 License:    Apache-2.0
+URL:        https://ninja-build.org/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

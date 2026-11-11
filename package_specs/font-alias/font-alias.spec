@@ -3,6 +3,7 @@ Version:    1.0.6
 Release:    2
 Summary:    X.org font aliases
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/font/alias
 Prefix:     /usr
 Source0:    font-alias-1.0.6.tar.xz
 

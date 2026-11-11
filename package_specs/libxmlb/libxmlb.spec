@@ -3,6 +3,7 @@ Version:    0.3.29
 Release:    4
 Summary:    Library for querying compressed XML metadata
 License:    LGPL-2.1-or-later
+URL:        https://github.com/hughsie/libxmlb
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

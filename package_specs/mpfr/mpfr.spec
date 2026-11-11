@@ -3,6 +3,7 @@ Version:    4.2.2
 Release:    2
 Summary:    Library for multiple-precision floating-point computation
 License:    LGPL-3.0-or-later
+URL:        https://www.mpfr.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

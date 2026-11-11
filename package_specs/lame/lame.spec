@@ -3,6 +3,7 @@ Version:    3.100
 Release:    2
 Summary:    mp3 encoder
 License:    LGPL-2.0-or-later
+URL:        https://lame.sourceforge.io/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

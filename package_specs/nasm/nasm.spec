@@ -3,6 +3,7 @@ Version:    3.02
 Release:    2
 Summary:    Netwide Assembler for x86 and x86-64
 License:    BSD-2-Clause
+URL:        https://www.nasm.us/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

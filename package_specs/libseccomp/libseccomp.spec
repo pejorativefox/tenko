@@ -3,6 +3,7 @@ Version:    2.6.1
 Release:    4
 Summary:    Seccomp userspace library
 License:    LGPL-2.1-only
+URL:        https://github.com/seccomp/libseccomp
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: gperf

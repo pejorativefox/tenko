@@ -3,6 +3,7 @@ Version:    0.52.25
 Release:    3
 Summary:    Newt is a programming library for color text mode
 License:    LGPL-2.0-only
+URL:        https://pagure.io/newt
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 BuildRequires: slang

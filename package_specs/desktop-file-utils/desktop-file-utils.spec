@@ -3,6 +3,7 @@ Version:    0.28
 Release:    3
 Summary:    Utilities for working with desktop entries
 License:    GPL-2.0-or-later
+URL:        https://gitlab.freedesktop.org/xdg/desktop-file-utils
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

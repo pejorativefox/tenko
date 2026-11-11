@@ -3,6 +3,7 @@ Version:    2.46.5
 Release:    2
 Summary:    pangomm is the official C++ interface for the Pango font layout library. 
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/pangomm
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

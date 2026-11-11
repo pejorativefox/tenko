@@ -3,6 +3,7 @@ Version:    2.62.1
 Release:    6
 Summary:    Assistive Technology Service Provider Interface core
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/at-spi2-core
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

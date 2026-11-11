@@ -3,6 +3,7 @@ Version:    2.15
 Release:    2
 Summary:    GNU cpio copies files into or out of a cpio or tar archive
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/cpio/
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 

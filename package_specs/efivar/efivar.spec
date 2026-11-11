@@ -3,6 +3,7 @@ Version:    39
 Release:    5
 Summary:    Tools and libraries to manipulate EFI variables
 License:    LGPL-2.1
+URL:        https://github.com/rhboot/efivar
 Source0:    %{name}-%{version}.tar.gz
 Patch0:     efivar-39-upstream_fixes-1.patch
 Prefix:     /usr

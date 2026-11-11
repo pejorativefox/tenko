@@ -3,6 +3,7 @@ Version:    3.5.1
 Release:    2
 Summary:    Fast incremental file transfer tool
 License:    GPL-3.0-or-later
+URL:        https://rsync.samba.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

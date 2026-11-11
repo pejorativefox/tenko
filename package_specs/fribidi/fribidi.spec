@@ -3,6 +3,7 @@ Version:    1.0.18
 Release:    4
 Summary:    GNU FriBidi 
 License:    LGPL-2.1-or-later
+URL:        https://github.com/fribidi/fribidi
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 Provides: pkgconfig(fribidi)

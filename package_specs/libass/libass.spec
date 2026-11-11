@@ -3,6 +3,7 @@ Version:    0.17.5
 Release:    2
 Summary:    Portable ASS/SSA subtitle renderer
 License:    ISC
+URL:        https://github.com/libass/libass
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

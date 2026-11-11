@@ -3,6 +3,7 @@ Version:    6
 Release:    4
 Summary:    Tenko Linux release file
 License:    MIT
+URL:        https://pjfox.xyz/git/daspork/tenko
 Prefix:     /usr
 
 Provides: system-release

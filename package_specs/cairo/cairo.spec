@@ -3,6 +3,7 @@ Version:    1.18.6
 Release:    4
 Summary:    2D graphics library
 License:    LGPL-2.1-only OR MPL-1.1
+URL:        https://www.cairographics.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: pkgconfig(freetype2)

@@ -3,6 +3,7 @@ Version:    0.23.3
 Release:    5
 Summary:    Public Suffix List library
 License:    MIT
+URL:        https://github.com/rockdaboot/libpsl
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

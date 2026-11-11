@@ -3,6 +3,7 @@ Version:    1.91.5
 Release:    3
 Summary:    Abstraction for enumerating power devices, listening to device events and querying history and statistics
 License:    GPL-2.0-or-later
+URL:        https://upower.freedesktop.org/
 Source0:    upower-v%{version}.tar.bz2
 Prefix:     /usr
 

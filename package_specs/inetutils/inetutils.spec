@@ -3,6 +3,7 @@ Version:    2.8
 Release:    2
 Summary:    Collection of common network programs.
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/inetutils/
 Source0:    inetutils-2.8.tar.gz
 Prefix:     /usr
 

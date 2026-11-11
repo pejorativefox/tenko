@@ -3,6 +3,7 @@ Version:    2.3.3
 Release:    2
 Summary:    S-Lang interpreter and programmer's library
 License:    GPL-2.0-or-later
+URL:        https://www.jedsoft.org/slang/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 

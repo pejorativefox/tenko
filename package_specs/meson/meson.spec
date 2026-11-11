@@ -3,6 +3,7 @@ Version:    1.12.1
 Release:    4
 Summary:    Meson build system
 License:    Apache-2.0
+URL:        https://mesonbuild.com/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 BuildRequires: python-setuptools

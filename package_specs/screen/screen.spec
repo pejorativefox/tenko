@@ -3,6 +3,7 @@ Version:    5.0.2
 Release:    2
 Summary:    Screen is a full-screen window manager that multiplexes a physical terminal between several processes
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/screen/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

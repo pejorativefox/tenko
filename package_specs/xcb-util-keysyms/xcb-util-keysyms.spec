@@ -3,6 +3,7 @@ Version:    0.4.1
 Release:    4
 Summary:    XCB key symbols
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxcb-keysyms
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

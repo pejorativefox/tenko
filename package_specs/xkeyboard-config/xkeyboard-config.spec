@@ -3,6 +3,7 @@ Version:    2.48
 Release:    2
 Summary:    X keyboard configuration data
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config
 Prefix:     /usr
 Source0:    xkeyboard-config-2.48.tar.xz
 

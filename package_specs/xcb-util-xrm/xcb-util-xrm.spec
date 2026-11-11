@@ -3,6 +3,7 @@ Version:    1.3
 Release:    4
 Summary:    XCB utility functions for the X resource manager
 License:    MIT
+URL:        https://github.com/Airblader/xcb-util-xrm
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 

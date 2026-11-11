@@ -3,6 +3,7 @@ Version:    1.0
 Release:    3
 Summary:    GNU Internationalization utilities
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/gettext/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

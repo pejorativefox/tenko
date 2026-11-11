@@ -3,6 +3,7 @@ Version:    1.79.2
 Release:    3
 Summary:    XSL stylesheets for transforming DocBook XML
 License:    MIT AND BSD-3-Clause AND Apache-2.0
+URL:        https://github.com/docbook/xslt10-stylesheets
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     docbook-xsl-nons-1.79.2-stack_fix-1.patch

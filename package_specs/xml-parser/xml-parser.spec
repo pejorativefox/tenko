@@ -3,6 +3,7 @@ Version:    2.59
 Release:    2
 Summary:    Perl module for parsing XML documents
 License:    GPL+ or Artistic
+URL:        https://metacpan.org/dist/XML-Parser
 Source0:    XML-Parser-2.59.tar.gz
 Prefix:     /usr
 

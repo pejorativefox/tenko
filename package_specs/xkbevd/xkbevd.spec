@@ -3,6 +3,7 @@ Version:    1.1.6
 Release:    1
 Summary:    X11 keyboard event daemon
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xkbevd
 Prefix:     /usr
 Source0:    xkbevd-1.1.6.tar.xz
 

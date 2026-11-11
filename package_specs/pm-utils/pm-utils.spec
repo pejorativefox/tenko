@@ -3,6 +3,7 @@ Version:    1.4.1
 Release:    1
 Summary:    Power Management Utilities
 License:    GPL-2.0-or-later
+URL:        https://pm-utils.freedesktop.org/wiki/
 Source0:    %{name}-%{version}.tar.gz
 Patch0:     %{name}-%{version}-bugfixes-1.patch
 Prefix:     /usr

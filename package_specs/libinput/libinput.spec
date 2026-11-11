@@ -3,6 +3,7 @@ Version:    1.32.0
 Release:    1
 Summary:    Input device library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/libinput/libinput
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

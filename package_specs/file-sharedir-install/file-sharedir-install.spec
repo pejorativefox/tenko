@@ -3,6 +3,7 @@ Version:    0.14
 Release:    1
 Summary:    Install shared files for Perl distributions
 License:    GPL+ or Artistic
+URL:        https://metacpan.org/dist/File-ShareDir-Install
 Source0:    File-ShareDir-Install-0.14.tar.gz
 Prefix:     /usr
 

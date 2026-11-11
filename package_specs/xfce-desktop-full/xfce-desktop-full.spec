@@ -3,6 +3,7 @@ Version:    4.20
 Release:    3
 Summary:    Tenko XFCE 4.20 full desktop (session + all hardware extras)
 License:    MIT
+URL:        https://pjfox.xyz/git/daspork/tenko
 Prefix:     /usr
 
 # The complete install: the existing xfce-desktop meta (session, X11,

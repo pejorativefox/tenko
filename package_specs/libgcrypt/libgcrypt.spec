@@ -3,6 +3,7 @@ Version:    1.12.4
 Release:    1
 Summary:    GnuPG crypto library
 License:    LGPL-2.1-or-later
+URL:        https://gnupg.org/software/libgcrypt/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 

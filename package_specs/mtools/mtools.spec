@@ -3,6 +3,7 @@ Version:    4.0.50
 Release:    1
 Summary:    Utilities to access MS-DOS disks from GNU and Unix without mounting them
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/mtools/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 

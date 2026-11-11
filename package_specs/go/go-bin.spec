@@ -3,6 +3,7 @@ Version:    1.27.3
 Release:    2
 Summary:    The go programming language (golang)
 License:    BSD-3-Clause
+URL:        https://go.dev/
 Source0:    go%{version}.linux-amd64.tar.gz
 Prefix:     /usr
 

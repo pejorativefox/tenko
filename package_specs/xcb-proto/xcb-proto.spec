@@ -3,6 +3,7 @@ Version:    1.17.0
 Release:    4
 Summary:    XML-XCB protocol library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/proto/xcbproto
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

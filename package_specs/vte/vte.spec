@@ -3,6 +3,7 @@ Version:    0.84.1
 Release:    4
 Summary:    Virtual Terminal Emulator library
 License:    LGPL-3.0-or-later
+URL:        https://gitlab.gnome.org/GNOME/vte
 Source0:    %{name}-%{version}.tar.gz
 # Bundled subproject sources, matching vte-0.84.1's subprojects/*.wrap.
 # Source1: simdutf v8.2.0

@@ -3,6 +3,7 @@ Version:    1.8.14
 Release:    3
 Summary:    X11 protocol library
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libx11
 Prefix:     /usr
 Source0:    libX11-%{version}.tar.xz
 %description

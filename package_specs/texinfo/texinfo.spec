@@ -3,6 +3,7 @@ Version:    7.3
 Release:    3
 Summary:    GNU texinfo utility
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/texinfo/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

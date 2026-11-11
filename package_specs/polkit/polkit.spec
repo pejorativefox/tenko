@@ -3,6 +3,7 @@ Version:    128
 Release:    4
 Summary:    Authorization toolkit for unprivileged processes
 License:    LGPL-2.0-or-later
+URL:        https://github.com/polkit-org/polkit
 Prefix:     /usr
 Source0:    polkit-128.tar.gz
 Requires(pre): shadow

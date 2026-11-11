@@ -3,6 +3,7 @@ Version:    5.4.1
 Release:    3
 Summary:    GNU pattern scanner
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/gawk/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

@@ -3,6 +3,7 @@ Version:    1.2.6
 Release:    5
 Summary:    Creates a common metadata repository
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
+URL:        https://github.com/rpm-software-management/createrepo_c
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 

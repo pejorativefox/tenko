@@ -3,6 +3,7 @@ Version:    1.3.1
 Release:    4
 Summary:    Xlib misc utilities
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxmu
 Prefix:     /usr
 Source0:    libXmu-%{version}.tar.xz
 

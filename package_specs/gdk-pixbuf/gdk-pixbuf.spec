@@ -3,6 +3,7 @@ Version:    2.44.8
 Release:    6
 Summary:    Image loading library
 License:    LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/gdk-pixbuf
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 

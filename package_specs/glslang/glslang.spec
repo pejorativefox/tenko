@@ -3,6 +3,7 @@ Version:    16.6.0
 Release:    1
 Summary:    Khronos reference compiler and validator for GLSL and HLSL
 License:    Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT AND AML-glslang
+URL:        https://github.com/KhronosGroup/glslang
 Prefix:     /usr
 Source0:    glslang-16.6.0.tar.gz
 

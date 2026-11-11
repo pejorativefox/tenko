@@ -3,6 +3,7 @@ Version:    1.2.0
 Release:    4
 Summary:    library to parse the XKB configuration data files
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/lib/libxkbfile
 Prefix:     /usr
 Source0:    libxkbfile-1.2.0.tar.xz
 

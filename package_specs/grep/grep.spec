@@ -3,6 +3,7 @@ Version:    3.12
 Release:    3
 Summary:    Text searching cli tool
 License:    GPL-3.0-or-later
+URL:        https://www.gnu.org/software/grep/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

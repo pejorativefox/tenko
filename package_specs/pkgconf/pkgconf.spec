@@ -3,6 +3,7 @@ Version:    3.0.10
 Release:    2
 Summary:    Successor to pkg-config
 License:    ISC
+URL:        https://github.com/pkgconf/pkgconf
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 

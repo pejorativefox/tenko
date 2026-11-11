@@ -3,6 +3,7 @@ Version:    2026.4
 Release:    1
 Summary:    API and command-line tools for processing SPIR-V modules
 License:    Apache-2.0
+URL:        https://github.com/KhronosGroup/SPIRV-Tools
 Prefix:     /usr
 Source0:    SPIRV-Tools-v2026.4.tar.gz
 

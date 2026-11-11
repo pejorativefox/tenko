@@ -3,6 +3,7 @@ Version:    1.0.9
 Release:    1
 Summary:    Generate X11 cursor files from PNGs
 License:    MIT
+URL:        https://gitlab.freedesktop.org/xorg/app/xcursorgen
 Prefix:     /usr
 Source0:    xcursorgen-1.0.9.tar.xz
 
