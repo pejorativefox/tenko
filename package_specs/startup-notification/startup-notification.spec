@@ -9,6 +9,9 @@ Source0:    %{name}-%{version}.tar.gz
 BuildRequires: libx11
 BuildRequires: libxcb
 BuildRequires: xcb-util
+BuildRequires: libXdmcp
+BuildRequires: libxau
+BuildRequires: xorgproto
 
 %description
 The startup notification protocol allows a desktop environment to track

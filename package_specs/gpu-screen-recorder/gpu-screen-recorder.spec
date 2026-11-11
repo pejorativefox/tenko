@@ -26,6 +26,13 @@ BuildRequires: libxfixes
 BuildRequires: libxrandr
 BuildRequires: vulkan-headers
 BuildRequires: xorgproto
+BuildRequires: dbus-daemon
+BuildRequires: libXdmcp
+BuildRequires: libpciaccess
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxrender
 
 # gpu-screen-recorder selects the FFmpeg h264_vaapi/hevc_vaapi encoders and
 # the Mesa VA driver at runtime; the old packages have neither.  libjpeg-turbo

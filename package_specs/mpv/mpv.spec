@@ -33,6 +33,19 @@ BuildRequires: git
 BuildRequires: libxfixes
 BuildRequires: libxpresent
 BuildRequires: openssl
+BuildRequires: sdl2
+BuildRequires: xorgproto
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libpciaccess
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: libxrender
+BuildRequires: libxxf86vm
 
 %description
 mpv is a free media player for the command line.  It supports a wide

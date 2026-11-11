@@ -21,6 +21,37 @@ BuildRequires: libxext
 BuildRequires: libxfce4ui
 BuildRequires: pango
 BuildRequires: xfconf
+BuildRequires: dbus-daemon
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libepoxy
+BuildRequires: libjpeg-turbo
+BuildRequires: liblzo2
+BuildRequires: libpciaccess
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxcomposite
+BuildRequires: libxcursor
+BuildRequires: libxdamage
+BuildRequires: libxfixes
+BuildRequires: libxft
+BuildRequires: libxi
+BuildRequires: libxinerama
+BuildRequires: libxrandr
+BuildRequires: libxrender
+BuildRequires: libxres
+BuildRequires: libxtst
+BuildRequires: libxxf86vm
+BuildRequires: mesa
+BuildRequires: pixman
+BuildRequires: shared-mime-info
+BuildRequires: startup-notification
+BuildRequires: xorgproto
 
 %description
 Panel for the Xfce desktop environment

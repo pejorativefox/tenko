@@ -20,6 +20,21 @@ BuildRequires: xcb-util-cursor
 BuildRequires: xcb-util-keysyms
 BuildRequires: xcb-util-wm
 BuildRequires: xcb-util-xrm
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libjpeg-turbo
+BuildRequires: liblzo2
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: libxext
+BuildRequires: libxrender
+BuildRequires: pixman
+BuildRequires: shared-mime-info
+BuildRequires: xcb-util-image
+BuildRequires: xcb-util-renderutil
+BuildRequires: xorgproto
 
 %description
 awesome is a highly configurable, next generation framework window

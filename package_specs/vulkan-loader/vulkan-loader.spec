@@ -14,6 +14,11 @@ BuildRequires: pkgconf
 BuildRequires: vulkan-headers
 BuildRequires: libx11, libxcb, libxrandr
 BuildRequires: git
+BuildRequires: libXdmcp
+BuildRequires: libxau
+BuildRequires: libxext
+BuildRequires: libxrender
+BuildRequires: xorgproto
 
 %description
 The Khronos Vulkan loader, the libvulkan library that an application

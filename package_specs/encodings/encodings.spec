@@ -7,6 +7,7 @@ URL:        https://gitlab.freedesktop.org/xorg/font/encodings
 Prefix:     /usr
 Source0:    encodings-1.1.0.tar.xz
 BuildRequires: util-macros
+BuildRequires: mkfontscale
 
 %description
 The X.org font encoding data.

@@ -23,6 +23,39 @@ BuildRequires: libxtst
 BuildRequires: openssl
 BuildRequires: sbc
 BuildRequires: xml-parser
+BuildRequires: shared-mime-info
+BuildRequires: xorgproto
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: gdk-pixbuf
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libepoxy
+BuildRequires: libgudev
+BuildRequires: libjpeg-turbo
+BuildRequires: liblzo2
+BuildRequires: libpciaccess
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: libxcomposite
+BuildRequires: libxcursor
+BuildRequires: libxdamage
+BuildRequires: libxext
+BuildRequires: libxfixes
+BuildRequires: libxft
+BuildRequires: libxi
+BuildRequires: libxinerama
+BuildRequires: libxrandr
+BuildRequires: libxrender
+BuildRequires: libxres
+BuildRequires: libxxf86vm
+BuildRequires: mesa
+BuildRequires: pango
+BuildRequires: pixman
 
 %description
 PulseAudio is a networked low-latency sound server for Linux, POSIX and

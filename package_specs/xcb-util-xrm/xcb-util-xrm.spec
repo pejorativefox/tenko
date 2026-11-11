@@ -8,6 +8,9 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 BuildRequires: libxcb
 BuildRequires: xcb-util
+BuildRequires: xorgproto
+BuildRequires: libXdmcp
+BuildRequires: libxau
 
 %description
 The XCB util-xrm module provides utility functions for the X resource

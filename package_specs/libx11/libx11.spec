@@ -8,6 +8,9 @@ Prefix:     /usr
 Source0:    libX11-%{version}.tar.xz
 BuildRequires: libxcb
 BuildRequires: util-macros
+BuildRequires: libXdmcp
+BuildRequires: libxau
+BuildRequires: xorgproto
 %description
 X Window System protocol client library 
 

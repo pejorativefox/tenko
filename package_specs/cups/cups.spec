@@ -10,6 +10,7 @@ Prefix:     /usr
 Requires(pre): shadow
 BuildRequires: dbus-libs
 BuildRequires: openssl
+BuildRequires: dbus-daemon
 
 %description
 CUPS is a standards-based, open source printing system developed by Apple Inc.

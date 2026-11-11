@@ -7,6 +7,7 @@ URL:        https://gitlab.freedesktop.org/xorg/font/misc-ethiopic
 Prefix:     /usr
 Source0:    font-misc-ethiopic-1.0.5.tar.xz
 BuildRequires: util-macros
+BuildRequires: mkfontscale
 
 
 

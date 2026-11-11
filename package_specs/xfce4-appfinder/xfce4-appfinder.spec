@@ -13,6 +13,40 @@ BuildRequires: gtk+
 BuildRequires: libxfce4ui
 BuildRequires: libxfce4util
 BuildRequires: xfconf
+BuildRequires: at-spi2-core
+BuildRequires: dbus-daemon
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libepoxy
+BuildRequires: libjpeg-turbo
+BuildRequires: liblzo2
+BuildRequires: libpciaccess
+BuildRequires: libpng
+BuildRequires: libx11
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxcomposite
+BuildRequires: libxcursor
+BuildRequires: libxdamage
+BuildRequires: libxext
+BuildRequires: libxfixes
+BuildRequires: libxft
+BuildRequires: libxi
+BuildRequires: libxinerama
+BuildRequires: libxrandr
+BuildRequires: libxrender
+BuildRequires: libxres
+BuildRequires: libxtst
+BuildRequires: libxxf86vm
+BuildRequires: mesa
+BuildRequires: pango
+BuildRequires: pixman
+BuildRequires: shared-mime-info
+BuildRequires: xorgproto
 
 %description
 An application finder for Xfce

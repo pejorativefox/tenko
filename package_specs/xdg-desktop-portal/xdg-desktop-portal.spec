@@ -14,6 +14,24 @@ BuildRequires: gstreamer
 BuildRequires: json-glib
 BuildRequires: libgudev
 BuildRequires: pipewire
+BuildRequires: openssl
+BuildRequires: shared-mime-info
+BuildRequires: dconf
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libjpeg-turbo
+BuildRequires: libostree
+BuildRequires: libpciaccess
+BuildRequires: libpng
+BuildRequires: libx11
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxfixes
+BuildRequires: libxxf86vm
+BuildRequires: mesa
+BuildRequires: polkit
+BuildRequires: xorgproto
 
 %description
 Desktop integration portal 

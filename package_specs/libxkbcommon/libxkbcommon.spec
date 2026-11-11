@@ -9,6 +9,9 @@ Source0:    %{name}-%{version}.tar.gz
 Patch0:     libxkbcommon-1.13.2-upstream_fix-1.patch
 BuildRequires: libxcb
 BuildRequires: xkeyboard-config
+BuildRequires: xorgproto
+BuildRequires: libXdmcp
+BuildRequires: libxau
 %description
 library for handling of keyboard descriptions
 

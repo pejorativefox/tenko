@@ -29,6 +29,41 @@ BuildRequires: lz4
 BuildRequires: at-spi2-core
 BuildRequires: cairo
 BuildRequires: pango
+BuildRequires: xorgproto
+BuildRequires: dbus-daemon
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: gdk-pixbuf
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libepoxy
+BuildRequires: libjpeg-turbo
+BuildRequires: liblzo2
+BuildRequires: libpciaccess
+BuildRequires: libpng
+BuildRequires: libtasn1
+BuildRequires: libx11
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxcomposite
+BuildRequires: libxcursor
+BuildRequires: libxdamage
+BuildRequires: libxext
+BuildRequires: libxfixes
+BuildRequires: libxft
+BuildRequires: libxi
+BuildRequires: libxinerama
+BuildRequires: libxrandr
+BuildRequires: libxrender
+BuildRequires: libxres
+BuildRequires: libxtst
+BuildRequires: libxxf86vm
+BuildRequires: mesa
+BuildRequires: nettle
+BuildRequires: p11-kit
+BuildRequires: pixman
+BuildRequires: shared-mime-info
 
 %description
 Virtual Terminal Emulator library.

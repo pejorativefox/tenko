@@ -14,6 +14,21 @@ BuildRequires: libxinerama
 BuildRequires: libxrandr
 BuildRequires: libxscrnsaver
 BuildRequires: pango
+BuildRequires: xorgproto
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libjpeg-turbo
+BuildRequires: liblzo2
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxft
+BuildRequires: libxrender
+BuildRequires: pixman
+BuildRequires: shared-mime-info
 
 %description
 Dunst is a lightweight replacement for the notification daemons

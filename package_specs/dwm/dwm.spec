@@ -10,6 +10,14 @@ Prefix:     /usr
 BuildRequires: gcc, make
 BuildRequires: libx11, libxinerama, fontconfig, freetype
 BuildRequires: libxft
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxrender
+BuildRequires: xorgproto
 
 %description
 dwm is a dynamic window manager for X.  It manages windows in tiled,

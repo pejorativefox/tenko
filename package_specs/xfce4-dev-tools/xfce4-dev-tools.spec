@@ -6,6 +6,7 @@ License:    GPL-2.0-or-later
 URL:        https://docs.xfce.org/xfce/xfce4-dev-tools/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: libxslt
 
 %description
 The Xfce development tools are a collection of tools and macros for Xfce developers and people that want to build Xfce from Git In addition it contains the Xfce developer's handbook.

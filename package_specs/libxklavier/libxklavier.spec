@@ -9,6 +9,12 @@ Prefix:     /usr
 BuildRequires: libx11
 BuildRequires: libxi
 BuildRequires: libxkbfile
+BuildRequires: xorgproto
+BuildRequires: libXdmcp
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxfixes
 
 %description
 High-level API for X Keyboard Extension

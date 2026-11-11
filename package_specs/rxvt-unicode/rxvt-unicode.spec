@@ -17,6 +17,16 @@ BuildRequires: libxmu
 BuildRequires: libxrender
 BuildRequires: libxt
 BuildRequires: startup-notification
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libice
+BuildRequires: libjpeg-turbo
+BuildRequires: libpng
+BuildRequires: libsm
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: shared-mime-info
+BuildRequires: xorgproto
 
 %description
 rxvt-unicode is a fork of the well known terminal emulator rxvt.

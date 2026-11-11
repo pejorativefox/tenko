@@ -21,6 +21,15 @@ BuildRequires: libvpx
 BuildRequires: libx11
 BuildRequires: libxcb
 BuildRequires: openssl
+BuildRequires: fontconfig
+BuildRequires: fribidi
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libogg
+BuildRequires: libpciaccess
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: xorgproto
 
 %description
 FFmpeg is a collection of libraries and tools to process multimedia content

@@ -18,6 +18,36 @@ BuildRequires: libxfce4util
 BuildRequires: pango
 BuildRequires: xfce4-panel
 BuildRequires: xfconf
+BuildRequires: dbus-daemon
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libepoxy
+BuildRequires: libjpeg-turbo
+BuildRequires: liblzo2
+BuildRequires: libpciaccess
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxcomposite
+BuildRequires: libxcursor
+BuildRequires: libxdamage
+BuildRequires: libxext
+BuildRequires: libxfixes
+BuildRequires: libxft
+BuildRequires: libxi
+BuildRequires: libxinerama
+BuildRequires: libxrandr
+BuildRequires: libxrender
+BuildRequires: libxres
+BuildRequires: libxtst
+BuildRequires: libxxf86vm
+BuildRequires: mesa
+BuildRequires: pixman
+BuildRequires: shared-mime-info
+BuildRequires: xorgproto
 
 %description
 xfce4-notifyd is a notification daemon for the Xfce desktop.  It implements

@@ -10,6 +10,15 @@ BuildRequires: libx11
 BuildRequires: libxaw
 BuildRequires: libxt
 BuildRequires: util-macros
+BuildRequires: xorgproto
+BuildRequires: libXdmcp
+BuildRequires: libice
+BuildRequires: libsm
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxmu
+BuildRequires: libxpm
 
 
 

@@ -25,6 +25,25 @@ BuildRequires: libxi
 BuildRequires: libxinerama
 BuildRequires: libxrandr
 BuildRequires: pango
+BuildRequires: xorgproto
+BuildRequires: dbus-daemon
+BuildRequires: freetype
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libjpeg-turbo
+BuildRequires: liblzo2
+BuildRequires: libpciaccess
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxft
+BuildRequires: libxrender
+BuildRequires: libxres
+BuildRequires: libxtst
+BuildRequires: libxxf86vm
+BuildRequires: mesa
+BuildRequires: pixman
+BuildRequires: shared-mime-info
 %description
 GTK is a multi-platform toolkit for creating graphical user interfaces. It
 offers a complete set of widgets and is suitable for projects ranging from

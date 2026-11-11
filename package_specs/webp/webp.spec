@@ -11,6 +11,16 @@ BuildRequires: giflib
 BuildRequires: libjpeg-turbo
 BuildRequires: libpng
 BuildRequires: mesa
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libpciaccess
+BuildRequires: libx11
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxfixes
+BuildRequires: libxxf86vm
+BuildRequires: xorgproto
 
 %description
 A new image format for the Web

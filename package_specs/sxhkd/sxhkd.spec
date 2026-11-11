@@ -9,6 +9,10 @@ Prefix:     /usr
 
 BuildRequires: gcc, make, pkgconf
 BuildRequires: libxcb, xcb-util-keysyms
+BuildRequires: libXdmcp
+BuildRequires: libxau
+BuildRequires: xorgproto
+BuildRequires: xcb-util
 
 %description
 sxhkd is a simple X hotkey daemon: it reads a configuration file

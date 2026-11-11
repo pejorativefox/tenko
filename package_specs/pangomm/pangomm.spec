@@ -11,6 +11,22 @@ BuildRequires: glibmm
 BuildRequires: cairomm
 BuildRequires: libsigc++
 BuildRequires: pango
+BuildRequires: xorgproto
+BuildRequires: cairo
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: liblzo2
+BuildRequires: libpng
+BuildRequires: libx11
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxft
+BuildRequires: libxrender
+BuildRequires: pixman
 
 %description
 pangomm is the official C++ interface for the Pango font layout library. 

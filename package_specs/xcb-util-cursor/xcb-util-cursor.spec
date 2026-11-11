@@ -9,6 +9,9 @@ Source0:    %{name}-%{version}.tar.xz
 BuildRequires: libxcb
 BuildRequires: xcb-util-image
 BuildRequires: xcb-util-renderutil
+BuildRequires: xorgproto
+BuildRequires: libXdmcp
+BuildRequires: libxau
 
 %description
 XCB cursor utilities

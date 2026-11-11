@@ -7,6 +7,9 @@ URL:        https://gitlab.freedesktop.org/xorg/lib/libxcb-render-util
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: libxcb
+BuildRequires: xorgproto
+BuildRequires: libXdmcp
+BuildRequires: libxau
 
 %description
 XCB render utilities

@@ -15,6 +15,18 @@ BuildRequires: librsvg
 BuildRequires: libx11
 BuildRequires: libxcb
 BuildRequires: libxext
+BuildRequires: fontconfig
+BuildRequires: fribidi
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: liblzo2
+BuildRequires: libxau
+BuildRequires: libxft
+BuildRequires: libxrender
+BuildRequires: pango
+BuildRequires: pixman
+BuildRequires: shared-mime-info
+BuildRequires: xorgproto
 
 %description
 imlib2 is a general image loading and rendering library

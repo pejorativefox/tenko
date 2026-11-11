@@ -7,6 +7,9 @@ URL:        https://gitlab.gnome.org/GNOME/libnotify
 Prefix:     /usr
 Source0:    libnotify-0.8.9.tar.xz
 BuildRequires: gdk-pixbuf
+BuildRequires: shared-mime-info
+BuildRequires: libjpeg-turbo
+BuildRequires: libpng
 
 %description
 libnotify is a library for sending desktop notifications to a notification

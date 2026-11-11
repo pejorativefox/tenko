@@ -33,6 +33,26 @@ BuildRequires: libxres
 BuildRequires: pango
 BuildRequires: startup-notification
 BuildRequires: xfconf
+BuildRequires: dbus-daemon
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libjpeg-turbo
+BuildRequires: liblzo2
+BuildRequires: libpciaccess
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxcursor
+BuildRequires: libxft
+BuildRequires: libxi
+BuildRequires: libxtst
+BuildRequires: libxxf86vm
+BuildRequires: mesa
+BuildRequires: pixman
+BuildRequires: shared-mime-info
 
 %description
 Xfce's window manager

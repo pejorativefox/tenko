@@ -7,6 +7,16 @@ URL:        https://gitlab.freedesktop.org/mesa/glu
 Source0:    glu-%{version}.tar.xz
 Prefix:     /usr
 BuildRequires: mesa
+BuildRequires: libxfixes
+BuildRequires: xorgproto
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libpciaccess
+BuildRequires: libx11
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxxf86vm
 
 %description
 This package provides the Mesa OpenGL Utility library. 

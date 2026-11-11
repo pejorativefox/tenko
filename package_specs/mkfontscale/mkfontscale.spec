@@ -9,6 +9,9 @@ Source0:    mkfontscale-1.2.4.tar.xz
 BuildRequires: freetype
 BuildRequires: libfontenc
 BuildRequires: util-macros
+BuildRequires: xorgproto
+BuildRequires: harfbuzz
+BuildRequires: libpng
 
 %description
 mkfontscale creates the fonts.scale index for X font directories.

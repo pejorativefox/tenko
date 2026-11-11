@@ -24,6 +24,32 @@ BuildRequires: libxklavier
 BuildRequires: libxrandr
 BuildRequires: pango
 BuildRequires: xfconf
+BuildRequires: dbus-daemon
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: libepoxy
+BuildRequires: libjpeg-turbo
+BuildRequires: liblzo2
+BuildRequires: libpciaccess
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxcomposite
+BuildRequires: libxdamage
+BuildRequires: libxfixes
+BuildRequires: libxft
+BuildRequires: libxinerama
+BuildRequires: libxrender
+BuildRequires: libxres
+BuildRequires: libxtst
+BuildRequires: libxxf86vm
+BuildRequires: mesa
+BuildRequires: pixman
+BuildRequires: shared-mime-info
+BuildRequires: xorgproto
 
 %description
 Settings manager of the Xfce desktop

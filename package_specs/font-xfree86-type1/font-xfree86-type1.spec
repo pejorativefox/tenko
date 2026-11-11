@@ -7,6 +7,7 @@ URL:        https://gitlab.freedesktop.org/xorg/font/xfree86-type1
 Prefix:     /usr
 Source0:    font-xfree86-type1-1.0.5.tar.xz
 BuildRequires: util-macros
+BuildRequires: mkfontscale
 
 
 

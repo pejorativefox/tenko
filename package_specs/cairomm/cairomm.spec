@@ -9,6 +9,19 @@ Prefix:     /usr
 
 BuildRequires: libsigc++
 BuildRequires: cairo
+BuildRequires: xorgproto
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: liblzo2
+BuildRequires: libpng
+BuildRequires: libx11
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxrender
+BuildRequires: pixman
 
 %description
 The Cairomm package provides a C++ interface to Cairo. 

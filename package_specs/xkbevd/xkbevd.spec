@@ -9,6 +9,10 @@ Source0:    xkbevd-1.1.6.tar.xz
 BuildRequires: libx11
 BuildRequires: libxkbfile
 BuildRequires: util-macros
+BuildRequires: xorgproto
+BuildRequires: libXdmcp
+BuildRequires: libxau
+BuildRequires: libxcb
 
 
 

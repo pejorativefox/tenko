@@ -8,6 +8,19 @@ Prefix:     /usr
 Source0:    libdrm-2.4.134.tar.xz
 BuildRequires: cairo
 BuildRequires: libpciaccess
+BuildRequires: xorgproto
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: liblzo2
+BuildRequires: libpng
+BuildRequires: libx11
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxrender
+BuildRequires: pixman
 
 %description
 libdrm provides a userspace library for the kernel Direct Rendering Manager.

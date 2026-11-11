@@ -11,6 +11,8 @@ BuildRequires: libgudev
 BuildRequires: libusb
 BuildRequires: systemd
 BuildRequires: polkit
+BuildRequires: gobject-introspection
+BuildRequires: libxslt
 
 %description
 Abstraction for enumerating power devices, listening to device events and querying history and statistics

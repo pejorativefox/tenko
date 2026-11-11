@@ -18,6 +18,7 @@ BuildRequires: newt
 BuildRequires: nspr
 BuildRequires: nss
 BuildRequires: slang
+BuildRequires: polkit
 
 %description
 NetworkManager is the standard Linux network configuration tool suite.

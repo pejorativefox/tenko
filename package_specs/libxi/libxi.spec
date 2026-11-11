@@ -10,6 +10,10 @@ BuildRequires: libx11
 BuildRequires: libxext
 BuildRequires: util-macros
 BuildRequires: xorgproto
+BuildRequires: libxfixes
+BuildRequires: libXdmcp
+BuildRequires: libxau
+BuildRequires: libxcb
 %description
 Library for the X Input Extension.
 

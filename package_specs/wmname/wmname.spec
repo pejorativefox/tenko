@@ -9,6 +9,10 @@ Prefix:     /usr
 
 BuildRequires: gcc, make
 BuildRequires: libx11
+BuildRequires: libXdmcp
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: xorgproto
 
 %description
 wmname prints or sets the window manager name property of the root

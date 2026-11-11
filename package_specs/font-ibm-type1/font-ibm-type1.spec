@@ -7,6 +7,7 @@ URL:        https://gitlab.freedesktop.org/xorg/font/ibm-type1
 Prefix:     /usr
 Source0:    font-ibm-type1-1.0.4.tar.xz
 BuildRequires: util-macros
+BuildRequires: mkfontscale
 
 
 

@@ -9,6 +9,8 @@ Source0:    %{name}-%{version}.tar.xz
 
 BuildRequires: libxslt
 BuildRequires: libgcrypt
+BuildRequires: dbus-daemon
+BuildRequires: gobject-introspection
 
 %description
 The libsecret package contains a GObject based library for accessing the Secret Service API.

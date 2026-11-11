@@ -8,6 +8,10 @@ Prefix:     /usr
 Source0:    xcmsdb-1.0.7.tar.xz
 BuildRequires: libx11
 BuildRequires: util-macros
+BuildRequires: xorgproto
+BuildRequires: libXdmcp
+BuildRequires: libxau
+BuildRequires: libxcb
 
 
 

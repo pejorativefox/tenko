@@ -24,6 +24,38 @@ BuildRequires: libx11
 BuildRequires: mesa
 BuildRequires: pipewire
 BuildRequires: vte
+BuildRequires: at-spi2-core
+BuildRequires: dbus-daemon
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libdrm
+BuildRequires: liblzo2
+BuildRequires: libpciaccess
+BuildRequires: libtasn1
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxcomposite
+BuildRequires: libxcursor
+BuildRequires: libxdamage
+BuildRequires: libxext
+BuildRequires: libxfixes
+BuildRequires: libxft
+BuildRequires: libxi
+BuildRequires: libxinerama
+BuildRequires: libxrandr
+BuildRequires: libxrender
+BuildRequires: libxres
+BuildRequires: libxtst
+BuildRequires: libxxf86vm
+BuildRequires: nettle
+BuildRequires: p11-kit
+BuildRequires: pango
+BuildRequires: shared-mime-info
+BuildRequires: xorgproto
+BuildRequires: python-setuptools
 
 # The generic brp-strip pass also walks qemu's non-x86 firmware blobs
 # (palcode-clipper, hppa-firmware*.img); the x86 strip binary cannot parse

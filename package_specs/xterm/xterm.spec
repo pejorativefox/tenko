@@ -17,6 +17,14 @@ BuildRequires: libxinerama
 BuildRequires: libxmu
 BuildRequires: libxpm
 BuildRequires: libxt
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libpng
+BuildRequires: libsm
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxrender
+BuildRequires: xorgproto
 
 
 

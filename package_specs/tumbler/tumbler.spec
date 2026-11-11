@@ -11,6 +11,8 @@ BuildRequires: gdk-pixbuf
 BuildRequires: libjpeg-turbo
 BuildRequires: libpng
 BuildRequires: libxfce4util
+BuildRequires: harfbuzz
+BuildRequires: shared-mime-info
 
 %description
 D-Bus service for applications to request thumbnails

@@ -9,6 +9,7 @@ Source0:    %{name}-%{version}.tar.xz
 BuildRequires: libdrm
 BuildRequires: libpciaccess
 BuildRequires: pixman
+BuildRequires: util-macros
 
 %description
 The Intel video driver for Xorg.

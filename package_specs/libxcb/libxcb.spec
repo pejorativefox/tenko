@@ -10,6 +10,7 @@ BuildRequires: libXdmcp
 BuildRequires: libxau
 BuildRequires: util-macros
 BuildRequires: xcb-proto
+BuildRequires: xorgproto
 
 %description
 X11 client library

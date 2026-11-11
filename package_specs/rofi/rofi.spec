@@ -25,6 +25,21 @@ BuildRequires: xcb-util-cursor
 BuildRequires: xcb-util-xrm
 BuildRequires: startup-notification
 BuildRequires: xorgproto
+BuildRequires: shared-mime-info
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: harfbuzz
+BuildRequires: libXdmcp
+BuildRequires: libjpeg-turbo
+BuildRequires: liblzo2
+BuildRequires: libpng
+BuildRequires: libx11
+BuildRequires: libxau
+BuildRequires: libxext
+BuildRequires: libxft
+BuildRequires: libxrender
+BuildRequires: pixman
 
 %description
 Rofi application launcher

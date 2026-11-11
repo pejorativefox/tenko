@@ -16,6 +16,14 @@ BuildRequires: harfbuzz
 BuildRequires: libx11
 BuildRequires: libxft
 BuildRequires: libxrender
+BuildRequires: xorgproto
+BuildRequires: libXdmcp
+BuildRequires: liblzo2
+BuildRequires: libpng
+BuildRequires: libxau
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: pixman
 
 Provides: pkgconfig(pango)
 Provides: pkgconfig(pangocairo)

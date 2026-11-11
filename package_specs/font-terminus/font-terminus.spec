@@ -24,6 +24,10 @@ AutoReq: no
 BuildRequires: bdftopcf
 BuildRequires: mkfontscale
 BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: harfbuzz
+BuildRequires: libpng
+BuildRequires: unzip
 
 %description
 Terminus Font is a clean, sharp fixed-width bitmap font family designed for
