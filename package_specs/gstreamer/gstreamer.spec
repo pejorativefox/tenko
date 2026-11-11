@@ -46,6 +46,7 @@ BuildRequires: mesa
 BuildRequires: pango
 BuildRequires: pixman
 BuildRequires: rust
+BuildRequires: gcc-lto
 
 %description
 Streaming multimedia framework

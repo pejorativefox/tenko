@@ -30,6 +30,7 @@ BuildRequires: libpciaccess
 BuildRequires: libpng
 BuildRequires: libxau
 BuildRequires: xorgproto
+BuildRequires: nasm
 
 %description
 FFmpeg is a collection of libraries and tools to process multimedia content

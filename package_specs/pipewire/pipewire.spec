@@ -72,7 +72,11 @@ meson setup ..                 \
       --prefix=/usr            \
       --buildtype=release      \
       -D session-managers="[]" \
-      -D bluez5=disabled
+      -D bluez5=disabled         \
+      -D gstreamer=disabled      \
+      -D libpulse=disabled       \
+      -D sndfile=disabled        \
+      -D pw-cat=disabled
 ninja
 popd
 

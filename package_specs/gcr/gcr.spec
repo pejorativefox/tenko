@@ -49,6 +49,7 @@ BuildRequires: gnupg
 BuildRequires: libsecret
 BuildRequires: openssh
 BuildRequires: gobject-introspection
+BuildRequires: vala
 
 %description
 GCR is a library for displaying certificates and crypto UI, and accessing

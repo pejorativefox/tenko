@@ -16,6 +16,7 @@ BuildRequires: libxcb
 BuildRequires: libxext
 BuildRequires: libxfixes
 BuildRequires: iso-codes
+BuildRequires: gobject-introspection
 
 %description
 High-level API for X Keyboard Extension
