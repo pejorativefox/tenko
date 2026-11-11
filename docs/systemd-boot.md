@@ -52,7 +52,7 @@ they are kept as history, not as current guidance.
 | Kernel | `linux-7.3.1`, `CONFIG_EFI_STUB=y`, bzImage at `/boot/vmlinuz-7.3.1`; `linux-modules` `%post` runs `dracut --force --kver 7.3.1 /boot/initramfs-7.3.1.img` |
 | systemd | 262.1, built with `-D ukify=disabled`; `bootctl` and `kernel-install` are present |
 | systemd-boot | **not built**: RPM and `build/rootfs-publish` have no `/usr/lib/systemd/boot/efi/systemd-bootx64.efi` |
-| ISO | `scripts/build_iso_uefi.sh`: RPM-built live root → squashfs → `grub-mkstandalone` → 12 MiB FAT16 El Torito image + `-append_partition 2 0xef` GPT ESP; UEFI only |
+| ISO | `tenko image iso`: RPM-built live root → squashfs → `grub-mkstandalone` → 12 MiB FAT16 El Torito image + `-append_partition 2 0xef` GPT ESP; UEFI only |
 | Live root package set | requires `grub`, `dracut`, `efibootmgr`, `efivar`, `dosfstools`, `LVM2` (`browneye-live.spec`) |
 
 Measured from the current `build/browneye-installer.iso` (xorriso `lsdl`):
@@ -226,7 +226,7 @@ Sizing: kernel 15.3 + initramfs 32.3 MiB ≈ 48 MiB today, so 96 MiB (FAT32,
 35 MiB against today's 323 MiB. If that is unacceptable, the alternative is to
 drop the ISO9660 copies only (already planned) and shrink to 64 MiB.
 
-`scripts/build_iso_uefi.sh` changes:
+`tenko image iso` changes:
 
 - copy `<live>/usr/lib/systemd/boot/efi/systemd-bootx64.efi` to
   `efiboot.img:/EFI/BOOT/BOOTX64.EFI` instead of running `grub-mkstandalone`;
@@ -305,13 +305,13 @@ Source0 URL: `https://files.pythonhosted.org/packages/source/p/pyelftools/pyelft
   `systemd-sysupdate-notify-bootctl.*`, their `.wants` links and the
   generator)
 
-The build image needs the module too: `scripts/make_base_image.sh` now lists
+The build image needs the module too: `tenko image base` now lists
 `python3-pyelftools` in its `DEVEL_PACKAGES` default, so a base image rebuilt
 from the published repo can rebuild systemd.
 
 Order of work: add pyelftools → build and publish it → rebuild systemd
 262.1-3 → verify the loader in the RPM and in a fresh live root → rebuild and
-publish anything that depends on it. `scripts/publish_rpm.sh` publishes to the
+publish anything that depends on it. `tenko publish rpm` publishes to the
 public site and the LAN mirror together.
 
 ## Phases (pre-rename implementation record)
@@ -323,7 +323,7 @@ phase was completed; they are kept as history.
 |---|---|---|
 | P0 | pyelftools spec; systemd rebuild/publish | **done**: `python3-pyelftools-0.33-1` and `systemd-262.1-3` published; `rpm -qpl` shows `systemd-bootx64.efi` (UEFI architectures: x64, SBAT distro `browneye`) |
 | P1 | installer, kernel entry scriptlets, fstab/mount, probe, tests | **done**: `browneye-installer-13.1-14`, `linux-7.3.1-2`; unit tests pass; unattended OVMF install reaches all 9 steps and writes the sd-boot entry |
-| P2 | ISO rework, retire legacy GRUB/syslinux paths | **done**: `scripts/build_iso_uefi.sh` builds a FAT32 ESP with sd-boot; legacy scripts/configs removed; the test ISO boots in OVMF and installs |
+| P2 | ISO rework, retire legacy GRUB/syslinux paths | **done**: `tenko image iso` builds a FAT32 ESP with sd-boot; legacy scripts/configs removed; the test ISO boots in OVMF and installs |
 | P3 | cleanup: drop `grub` requirements, README/docs, decide `grub` spec fate | requirements dropped from `browneye-installer`/`browneye-live`; the `grub` spec itself is kept (open question 2) |
 
 Per `AGENTS.md`, the ISO is rebuilt and republished only when requested, so P2
@@ -367,7 +367,7 @@ qemu-system-x86_64 ... -cdrom build/test-iso-skeleton.iso
      (expected: the dummy kernel is zero-filled)
 
 # full ISO with ISO_AUTO=1 and tests/installer-answer.json
-scripts/build_iso_uefi.sh  (build/browneye-installer-systemd.iso, 421 MiB)
+./tenko image iso  (build/browneye-installer-systemd.iso, 421 MiB)
   -> BROWNEY-INSTALL: STEP 1..9, then OK
   -> bootctl --esp-path=/boot --no-variables install (rc=0)
   -> efibootmgr: Boot0008 "Browneye Linux" \EFI\systemd\systemd-bootx64.efi

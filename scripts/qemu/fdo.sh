@@ -15,10 +15,10 @@
 # the portal cannot be activated by the user manager on such a bus.
 #
 # Usage:
-#   REPO=build/publish-check scripts/qemu_fdo_verify.sh
-#   REBUILD_ROOTFS=1 scripts/qemu_fdo_verify.sh  # force a fresh install
-#   SKIP_BUILD=1 scripts/qemu_fdo_verify.sh      # reuse any existing rootfs
-#   KEEP=1 scripts/qemu_fdo_verify.sh            # leave QEMU running
+#   REPO=build/publish-check tenko qemu fdo
+#   REBUILD_ROOTFS=1 tenko qemu fdo  # force a fresh install
+#   SKIP_BUILD=1 tenko qemu fdo      # reuse any existing rootfs
+#   KEEP=1 tenko qemu fdo            # leave QEMU running
 #
 # The installed rootfs is reused while the repository's repomd.xml is
 # unchanged, so repeated runs do not download the full desktop set again.
@@ -31,7 +31,7 @@
 #   2  the harness could not create a usable session; the reason and the
 #      LightDM/Xorg/journal logs are written to build/qemu-share/fdo-check.txt
 set -euo pipefail
-cd "$(dirname "$0")/.."
+. "$(dirname "$0")/../lib/common.sh"
 
 REPO=${REPO:-build/publish-check}
 KVER=${KVER:-7.3.1}
@@ -170,7 +170,7 @@ if [ "$install_rootfs" = 1 ]; then
     # The kernel %post is skipped by some scriptlet paths; make sure the
     # image carries the initramfs it would have built.
     if [ ! -f "$ROOTFS/boot/initramfs-$KVER.img" ] && [ -x "$ROOTFS/usr/bin/dracut" ]; then
-        "$PWD/scripts/make_initramfs.sh" "$ROOTFS" "$KVER"
+        "$PWD/scripts/image/initramfs.sh" "$ROOTFS" "$KVER"
     fi
 
     # Remember which repository produced this install so the next run can
@@ -795,7 +795,7 @@ ln -sf ../fdo-check.service \
     "$ROOTFS/etc/systemd/system/graphical.target.wants/fdo-check.service"
 
 # The checker script itself is shared with the standalone session check.
-install -m 0755 scripts/fdo_session_check.sh \
+install -m 0755 scripts/qemu/fdo_session_check.sh \
     "$ROOTFS/usr/local/bin/fdo_session_check.sh"
 
 # tenko-firstboot is ordered before display-manager.service and blocks it

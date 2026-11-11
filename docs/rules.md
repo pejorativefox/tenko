@@ -12,7 +12,7 @@ live in [`AGENTS.md`](../AGENTS.md); build and publish commands live in
 - `package_specs/tenko-base/requires-extra` is for requirements that are not
   base membership (distro glue, payload splits, user-requested extras).
 - Changing either file is a policy change: run
-  `scripts/gen_base_requires.py` and commit the regenerated block.
+  `tenko base-requires` and commit the regenerated block.
 
 ## Third-party bundles under `/opt`
 
@@ -78,10 +78,10 @@ Every default that can silently regress gets a `unittest` under `tests/`
 publishing run:
 
 ```sh
-scripts/run_checks.sh
+./tenko check
 ```
 
-It runs the unit tests, `scripts/gen_base_requires.py --check` and the
+It runs the unit tests, `tenko base-requires --check` and the
 freedesktop audit; see [`testing.md`](testing.md) for the audit modes.
 
 ## Versions and changelogs

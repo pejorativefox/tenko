@@ -13,32 +13,24 @@
 # partial local tree would.
 #
 # Usage:
-#   scripts/publish_rpm.sh ~/rpmbuild/RPMS/x86_64/htop-3.5.3-1.x86_64.rpm
-#   PRUNE=1 scripts/publish_rpm.sh podman-bin-6.1.4-2.x86_64.rpm
+#   tenko publish rpm ~/rpmbuild/RPMS/x86_64/htop-3.5.3-1.x86_64.rpm
+#   PRUNE=1 tenko publish rpm podman-bin-6.1.4-2.x86_64.rpm
 #       also delete RPM files the merged metadata no longer references
 #       (superseded releases); off by default.
-#   DRY_RUN=1 scripts/publish_rpm.sh foo.rpm
+#   DRY_RUN=1 tenko publish rpm foo.rpm
 #       stage and merge locally, print the plan, upload nothing.
 #
 # Requires createrepo_c, mergerepo_c, rclone, zstd and python3 on the host;
-# the LAN mirror step additionally needs rsync and ssh.
+# the LAN mirror step additionally needs rsync and ssh.  MIRROR=0 skips
+# the mirror (deliberate local-only tests only).
 set -euo pipefail
-cd "$(dirname "$0")/.."
+. "$(dirname "$0")/../lib/common.sh"
+. scripts/lib/publish.sh
 
-TENKO_RELEASE=${TENKO_RELEASE:-6}
-# Cloudflare R2 (S3) target.
-R2=${R2:-r2_tenko:tenko}
-R2_PATH=${R2_PATH:-packages/$TENKO_RELEASE}
-# LAN mirror (also refreshed by publish_repo.sh); set MIRROR=0 to skip.
-MIRROR=${MIRROR:-daspork@192.168.31.9}
-MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/tenko}
-URL=${URL:-https://tenko.pjfox.xyz/packages/$TENKO_RELEASE/}
-REPO_ID=tenko-$TENKO_RELEASE
 STAGE=${STAGE:-build/publish-rpm}
 PRUNE=${PRUNE:-0}
-DRY_RUN=${DRY_RUN:-0}
 
-[ "$#" -gt 0 ] || { echo "usage: $0 RPM..." >&2; exit 2; }
+[ "$#" -gt 0 ] || die "usage: tenko publish rpm RPM..."
 
 rpms=()
 for arg in "$@"; do
@@ -52,10 +44,10 @@ rm -rf "$STAGE"
 mkdir -p "$STAGE"/{new,merged}
 mkdir -p "$STAGE/old/repodata"
 
-echo "fetching published repodata from $R2/$R2_PATH"
-rclone copy "$R2/$R2_PATH/repodata" "$STAGE/old/repodata"
+echo "fetching published repodata from $R2/$REPO_PATH"
+rclone copy "$R2/$REPO_PATH/repodata" "$STAGE/old/repodata"
 [ -f "$STAGE/old/repodata/repomd.xml" ] || {
-    echo "error: no published repodata in $R2/$R2_PATH" >&2; exit 1; }
+    echo "error: no published repodata in $R2/$REPO_PATH" >&2; exit 1; }
 
 for rpm in "${rpms[@]}"; do
     cp -p "$rpm" "$STAGE/new/"
@@ -114,7 +106,7 @@ if grep -q 'xml:base=' "$STAGE"/strip/*.xml; then
 fi
 
 # The published repository is sometimes regenerated from the full file
-# listing (publish_repo.sh), so its metadata can list superseded NEVRAs that
+# listing (tenko publish repo), so its metadata can list superseded NEVRAs that
 # mergerepo_c --method nvr intentionally collapses to the highest release.
 # Compare the distinct (name, arch) sets instead of raw entry counts: a merge
 # must never lose a package, but a smaller entry count is expected.
@@ -226,58 +218,58 @@ fi
 
 echo "uploading RPMs"
 for rpm in "${rpms[@]}"; do
-    rclone copy "$rpm" "$R2/$R2_PATH/" --s3-no-check-bucket
+    rclone copy "$rpm" "$R2/$REPO_PATH/" --s3-no-check-bucket
 done
 
 echo "uploading merged metadata"
-rclone sync "$STAGE/merged/repodata" "$R2/$R2_PATH/repodata" --s3-no-check-bucket
+rclone sync "$STAGE/merged/repodata" "$R2/$REPO_PATH/repodata" --s3-no-check-bucket
 
 if [ "$PRUNE" = 1 ]; then
     echo "pruning RPMs the merged metadata does not reference"
     zstd -dc "$STAGE/merged"/repodata/*primary.xml.zst |
         grep -o 'href="[^"]*\.rpm"' | cut -d'"' -f2 | sort -u > "$STAGE/keep.txt"
-    rclone lsf "$R2/$R2_PATH" --files-only | grep '\.rpm$' |
+    rclone lsf "$R2/$REPO_PATH" --files-only | grep '\.rpm$' |
         while read -r name; do
             grep -qxF "$name" "$STAGE/keep.txt" || echo "$name"
         done > "$STAGE/drop.txt"
     if [ -s "$STAGE/drop.txt" ]; then
         sed 's/^/  drop /' "$STAGE/drop.txt"
-        rclone delete "$R2/$R2_PATH" --files-from "$STAGE/drop.txt"
+        rclone delete "$R2/$REPO_PATH" --files-from "$STAGE/drop.txt"
     else
         echo "  nothing to prune"
     fi
 fi
 
 echo "regenerating index.html"
-rclone lsf "$R2/$R2_PATH" --files-only --format "ps" --separator " " |
+rclone lsf "$R2/$REPO_PATH" --files-only --format "ps" --separator " " |
     grep '\.rpm ' > "$STAGE/files.txt"
-python3 scripts/gen_repo_index.py "$STAGE/files.txt" "$STAGE/index.html" \
+python3 scripts/publish/repo_index.py "$STAGE/files.txt" "$STAGE/index.html" \
     "$TENKO_RELEASE" "$URL" "$REPO_ID"
-rclone copyto "$STAGE/index.html" "$R2/$R2_PATH/index.html" --s3-no-check-bucket
+rclone copyto "$STAGE/index.html" "$R2/$REPO_PATH/index.html" --s3-no-check-bucket
 
-if [ "$MIRROR" != "0" ]; then
-    echo "mirroring to $MIRROR:$MIRROR_PUBLIC/packages/$TENKO_RELEASE/"
-    ssh "$MIRROR" "mkdir -p $MIRROR_PUBLIC/packages/$TENKO_RELEASE/repodata"
-    rsync -av -e "ssh" "${rpms[@]}" "$MIRROR:$MIRROR_PUBLIC/packages/$TENKO_RELEASE/"
+if mirror_enabled; then
+    echo "mirroring to $MIRROR:$MIRROR_PUBLIC/$REPO_PATH/"
+    mirror_mkdir "$REPO_PATH/repodata"
+    rsync -av -e "ssh" "${rpms[@]}" "$MIRROR:$MIRROR_PUBLIC/$REPO_PATH/"
     if [ "$PRUNE" = 1 ] && [ -s "$STAGE/keep.txt" ]; then
         echo "pruning mirror RPMs the merged metadata does not reference"
-        ssh "$MIRROR" "cd $MIRROR_PUBLIC/packages/$TENKO_RELEASE && ls *.rpm" |
+        ssh "$MIRROR" "cd $MIRROR_PUBLIC/$REPO_PATH && ls *.rpm" |
             while read -r name; do
                 grep -qxF "$name" "$STAGE/keep.txt" || echo "$name"
             done > "$STAGE/mirror-drop.txt"
         if [ -s "$STAGE/mirror-drop.txt" ]; then
             sed 's/^/  drop /' "$STAGE/mirror-drop.txt"
             ssh "$MIRROR" \
-                "cd $MIRROR_PUBLIC/packages/$TENKO_RELEASE && xargs rm -f" \
+                "cd $MIRROR_PUBLIC/$REPO_PATH && xargs rm -f" \
                 < "$STAGE/mirror-drop.txt"
         else
             echo "  nothing to prune"
         fi
     fi
     rsync -av --delete -e "ssh" "$STAGE/merged/repodata/" \
-        "$MIRROR:$MIRROR_PUBLIC/packages/$TENKO_RELEASE/repodata/"
+        "$MIRROR:$MIRROR_PUBLIC/$REPO_PATH/repodata/"
     rsync -av -e "ssh" "$STAGE/index.html" \
-        "$MIRROR:$MIRROR_PUBLIC/packages/$TENKO_RELEASE/index.html"
+        "$MIRROR:$MIRROR_PUBLIC/$REPO_PATH/index.html"
 fi
 
 echo

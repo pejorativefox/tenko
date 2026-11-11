@@ -8,7 +8,7 @@ import unittest
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SCRIPT = REPO_ROOT / "scripts" / "fdo_audit.py"
+SCRIPT = REPO_ROOT / "scripts" / "check" / "fdo_audit.py"
 REAL_DOC = REPO_ROOT / "docs" / "freedesktop.md"
 SPEC_INDEX = (
     "appstream",

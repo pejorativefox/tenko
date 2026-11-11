@@ -7,10 +7,10 @@
 # screendump of the VGA output.
 #
 # Usage:
-#   scripts/qemu_boot_graphical.sh            # full run
-#   SKIP_INSTALL=1 scripts/qemu_boot_graphical.sh   # reuse the rootfs/image
+#   tenko qemu desktop            # full run
+#   SKIP_INSTALL=1 tenko qemu desktop   # reuse the rootfs/image
 set -euo pipefail
-cd "$(dirname "$0")/.."
+. "$(dirname "$0")/../lib/common.sh"
 KVER=${KVER:-7.3.1}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-desktop}
 REPO=${REPO:-https://tenko.pjfox.xyz/packages/6/}
@@ -97,7 +97,7 @@ fi
 # The kernel %post is skipped during rootfs assembly; make sure the image
 # carries the initramfs it would have built.
 if [ ! -f "$ROOTFS/boot/initramfs-$KVER.img" ] && [ -x "$ROOTFS/usr/bin/dracut" ]; then
-    "$PWD/scripts/make_initramfs.sh" "$ROOTFS" "$KVER"
+    "$PWD/scripts/image/initramfs.sh" "$ROOTFS" "$KVER"
 fi
 
 # One-shot X session for the test: root, tty1, no login required.  The
@@ -218,7 +218,7 @@ fi
 
 if [ "${BUILD_ONLY:-0}" = "1" ]; then
     echo "image ready: $IMG"
-    echo "boot it with: scripts/qemu_run_desktop.sh"
+    echo "boot it with: tenko qemu run"
     exit 0
 fi
 

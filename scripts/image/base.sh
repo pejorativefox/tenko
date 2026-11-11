@@ -7,17 +7,18 @@
 # available), finalizes it, imports it with podman, and verifies the result.
 # The follow-up script then works against the image it produces:
 #
-#   IMAGE=<image> OUT=build/container-rebuild scripts/verify_base_in_container.sh
+#   tenko build --base
 #
 # Usage:
-#   scripts/make_base_image.sh
-#   PACKAGES="tenko-base" IMAGE=localhost/tenko/base:r6-runtime \
-#       scripts/make_base_image.sh
+#   tenko image base
+#   PACKAGES="tenko-base" IMAGE=localhost/tenko/base:r6-runtime tenko image base
 #   FROM_TARBALL=build/rootfs.tar.gz IMAGE=localhost/tenko/base:imported \
-#       scripts/make_base_image.sh
+#       tenko image base
+#
+# The tarball it writes is what `tenko publish rootfs` uploads.
 #
 # Environment:
-#   REPO_URL   published repo (default: the Tenko 6 repo)
+#   REPO       repository to install from (default: the published Tenko repo)
 #   IMAGE      image tag (default: localhost/tenko/base:r6-YYYYMMDD)
 #   PACKAGES   packages to install (default: tenko-base tenko-build
 #              plus DEVEL_PACKAGES)
@@ -25,19 +26,19 @@
 #              for systemd-cryptsetup), python3-pyelftools (sd-boot) and
 #              liblzo2 (btrfs-progs).  Headers and .pc files ship in the
 #              runtime packages after the -devel subpackages were removed.
-#   TAG_STABLE set to 0 to keep the dated tag only (e.g. for a lean E2 image
-#              that must not replace the dnf-capable base:r13.1)
+#   TAG_STABLE set to 0 to keep the dated tag only instead of also tagging
+#              it as BASE_IMAGE
 #   ROOTFS     staging rootfs directory (default: build/base-rootfs)
-#   TARBALL    exported tarball (default: build/base-rootfs.tar.gz)
+#   TARBALL    exported tarball (default: build/tenko-rootfs.tar.gz)
 #   FROM_TARBALL  import this tarball instead of running dnf
 #   TOOL_IMAGE if it provides dnf, use it for the install/finalize/tar steps
 set -euo pipefail
-cd "$(dirname "$0")/.."
-. scripts/repo_tools.sh
+. "$(dirname "$0")/../lib/common.sh"
+. scripts/lib/rootfs.sh
 
 DATE=${DATE:-$(date +%Y%m%d)}
-REPO_URL=${REPO_URL:-https://tenko.pjfox.xyz/packages/6/}
-IMAGE=${IMAGE:-localhost/tenko/base:r6-$DATE}
+REPO=${REPO:-$TENKO_REPO_URL}
+IMAGE=${IMAGE:-$BASE_IMAGE-$DATE}
 TAG_STABLE=${TAG_STABLE:-1}
 DEVEL_PACKAGES=${DEVEL_PACKAGES:-"cryptsetup python3-pyelftools liblzo2"}
 PACKAGES=${PACKAGES:-tenko-base tenko-base-build tenko-build $DEVEL_PACKAGES}
@@ -45,42 +46,13 @@ ROOTFS=${ROOTFS:-build/base-rootfs}
 TARBALL=${TARBALL:-build/tenko-rootfs.tar.gz}
 FROM_TARBALL=${FROM_TARBALL:-}
 
-case "${1:-}" in
-    -h|--help) sed -n '2,35p' "$0"; exit 0 ;;
-    "") ;;
-    *) echo "usage: $0 [--help]" >&2; exit 2 ;;
-esac
-
-rootfs_abs=$(cd "$(dirname "$ROOTFS")" && pwd)/$(basename "$ROOTFS")
-tarball_abs=$(cd "$(dirname "$TARBALL")" && pwd)/$(basename "$TARBALL")
-mkdir -p "$(dirname "$rootfs_abs")" "$(dirname "$tarball_abs")"
-
-# Install packages into the staging rootfs, in the image when it has dnf and
-# with a rootless installroot otherwise.
-rootfs_install() {
-    if tool_image_has dnf; then
-        podman run --rm --network=host \
-            -v "$(dirname "$rootfs_abs"):/out:rw,z" \
-            "$TOOL_IMAGE" dnf -y --nogpgcheck \
-                --installroot "/out/$(basename "$rootfs_abs")" --releasever=6 \
-                --disablerepo='*' --repofrompath=tenko,"$REPO_URL" \
-                --setopt=install_weak_deps=False \
-                --setopt=tsflags=noscripts \
-                install "$@"
-    else
-        echo "dnf (host, rootless): no image with dnf; using unshare -r" >&2
-        unshare -r dnf -y --nogpgcheck \
-            --installroot "$rootfs_abs" --releasever=6 \
-            --disablerepo='*' --repofrompath=tenko,"$REPO_URL" \
-            --setopt=install_weak_deps=False \
-            --setopt=tsflags=noscripts \
-            install "$@"
-    fi
-}
+mkdir -p "$(dirname "$ROOTFS")" "$(dirname "$TARBALL")"
+rootfs_abs=$(abspath "$ROOTFS")
+tarball_abs=$(abspath "$TARBALL")
 
 if [ -n "$FROM_TARBALL" ]; then
     [ -f "$FROM_TARBALL" ] || { echo "missing tarball: $FROM_TARBALL" >&2; exit 1; }
-    tarball_abs=$(cd "$(dirname "$FROM_TARBALL")" && pwd)/$(basename "$FROM_TARBALL")
+    tarball_abs=$(abspath "$FROM_TARBALL")
     echo "importing $tarball_abs"
 else
     rm -rf "$rootfs_abs" "$tarball_abs"
@@ -90,18 +62,15 @@ else
     # Install it in its own transaction first: if the packages that create
     # those directories land in the same transaction, rpm fails with
     # "File from package already exists as a directory in system".
-    echo "installing tenko-basefs into $rootfs_abs from $REPO_URL"
-    rootfs_install tenko-basefs
+    dnf_install "$REPO" "$rootfs_abs" tenko-basefs
 
-    echo "installing $PACKAGES into $rootfs_abs from $REPO_URL"
-    rootfs_install $PACKAGES
+    # shellcheck disable=SC2086  # PACKAGES is a word list
+    dnf_install "$REPO" "$rootfs_abs" $PACKAGES
 
-    # Compatibility for images built with tenko-rpm-config < 6-2, which
-    # expected /usr/lib/sysimage/rpm: dnf --installroot uses the host's
-    # %_dbpath, so a host on /var/lib/rpm leaves rpm -qa empty in such an
-    # image.  Current hosts and images both use /var/lib/rpm, so this is a
-    # no-op there.
-    if [ -d "$rootfs_abs/var/lib/rpm" ] && \
+    # dnf --installroot writes the RPM database to the host's %_dbpath.  The
+    # image keeps it in /usr/lib/sysimage/rpm (/var/lib/rpm is a symlink), so
+    # move a database that landed in a real /var/lib/rpm.
+    if [ -d "$rootfs_abs/var/lib/rpm" ] && [ ! -L "$rootfs_abs/var/lib/rpm" ] && \
        [ ! -d "$rootfs_abs/usr/lib/sysimage/rpm" ]; then
         echo "relocating the RPM database to /usr/lib/sysimage/rpm"
         mkdir -p "$rootfs_abs/usr/lib/sysimage/rpm"
@@ -160,10 +129,10 @@ podman run --rm --network=none "$IMAGE" /usr/bin/bash -lc '
     fi
 '
 
-if [ "$TAG_STABLE" = 1 ] && [ "$IMAGE" != "localhost/tenko/base:r6" ]; then
-    podman tag "$IMAGE" localhost/tenko/base:r6
-    echo "tagged localhost/tenko/base:r6"
+if [ "$TAG_STABLE" = 1 ] && [ "$IMAGE" != "$BASE_IMAGE" ]; then
+    podman tag "$IMAGE" "$BASE_IMAGE"
+    echo "tagged $BASE_IMAGE"
 fi
 
 echo "created $IMAGE"
-echo "next: IMAGE=$IMAGE OUT=build/container-rebuild scripts/verify_base_in_container.sh"
+echo "next: BASE_IMAGE=$IMAGE tenko build --base"

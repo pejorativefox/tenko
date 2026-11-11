@@ -20,12 +20,12 @@ refuses to proceed when Secure Boot is enabled.
 
 | what | script | pass means |
 |---|---|---|
-| installer media | `scripts/qemu_test_installer.sh` | systemd-boot menu, kernel + initrd boot, `Started Tenko Linux installer`, multi-user and a console login prompt |
-| unattended install | `ISO_AUTO=1 ISO_ANSWER=tests/installer-answer.json scripts/build_iso_uefi.sh` then boot the ISO | installer reports steps 1–9 and `OK`, `bootctl install` succeeds, disk boots to `tenko-test login:` |
+| installer media | `tenko qemu installer` | systemd-boot menu, kernel + initrd boot, `Started Tenko Linux installer`, multi-user and a console login prompt |
+| unattended install | `ISO_AUTO=1 ISO_ANSWER=tests/installer-answer.json tenko image iso` then boot the ISO | installer reports steps 1–9 and `OK`, `bootctl install` succeeds, disk boots to `tenko-test login:` |
 | installed disk | QEMU with `-drive file=build/installer-test.img,if=virtio` and a fresh OVMF NVRAM | systemd-boot menu → kernel → login prompt |
-| graphical session | `scripts/qemu_boot_graphical.sh` | X starts on tty1, screenshot captured in `build/xfce-screenshot.png` |
-| first boot + greeter | `scripts/qemu_boot_login.sh` | first-boot password flow, LightDM greeter captured (guest `xwd` or screendump fallback) |
-| direct kernel boot | `scripts/qemu_boot.sh` | serial login prompt from the installed rootfs (no UEFI) |
+| graphical session | `tenko qemu desktop` | X starts on tty1, screenshot captured in `build/xfce-screenshot.png` |
+| first boot + greeter | `tenko qemu login` | first-boot password flow, LightDM greeter captured (guest `xwd` or screendump fallback) |
+| direct kernel boot | `tenko qemu boot` | serial login prompt from the installed rootfs (no UEFI) |
 
 Pass criteria for a booted system:
 
@@ -38,7 +38,7 @@ Pass criteria for a booted system:
 ## Installer test
 
 ```sh
-scripts/qemu_test_installer.sh
+./tenko qemu installer
 ```
 
 Environment: `ISO`, `DISK`, `DISKSIZE` (20G), `WAIT` (90 s), `MEM` (4096),
@@ -48,7 +48,7 @@ a screendump and quits.  Logs: `build/installer-serial.log`,
 `screenshot`: `build/installer-screen.ppm` (converted to `.png` when
 ImageMagick is installed).
 
-Interactive UI without an ISO: `scripts/run_installer_sim.sh` runs the real
+Interactive UI without an ISO: `tenko installer-sim` runs the real
 curses installer against synthetic in-memory disks, forces dry-run, and
 needs no root, UEFI firmware, network or block device.  Use
 `--simulate-scenario mixed` to test adopting an existing ESP/data partition.
@@ -186,12 +186,12 @@ The full unattended install and graphical checks were not repeated.
 ## Graphical tests
 
 ```sh
-scripts/qemu_boot_graphical.sh          # installs base + xfce-desktop
-SKIP_INSTALL=1 scripts/qemu_boot_graphical.sh
+./tenko qemu desktop          # installs base + xfce-desktop
+SKIP_INSTALL=1 ./tenko qemu desktop
 
-scripts/qemu_boot_login.sh              # first boot + LightDM
-SKIP_INSTALL=1 scripts/qemu_boot_login.sh
-BUILD_ONLY=1 scripts/qemu_boot_login.sh
+./tenko qemu login              # first boot + LightDM
+SKIP_INSTALL=1 ./tenko qemu login
+BUILD_ONLY=1 ./tenko qemu login
 ```
 
 For the freedesktop desktop-level gate, run the same install plus the
@@ -200,11 +200,11 @@ tray, XSettings and EWMH).  Prefer the LAN mirror when it is reachable:
 
 ```sh
 REPO=http://192.168.31.9/~daspork/tenko/packages/6/ \
-    scripts/qemu_fdo_verify.sh
-REPO=build/repo-all scripts/qemu_fdo_verify.sh   # local repository
+    ./tenko qemu fdo
+REPO=path/to/local/repo ./tenko qemu fdo   # local repository
 ```
 
-`scripts/qemu_fdo_verify.sh` installs a fresh rootfs (or reuses a cached one,
+`tenko qemu fdo` installs a fresh rootfs (or reuses a cached one,
 see below) and logs in through LightDM autologin as an ordinary test account,
 so the checks run in a real
 logind session with a systemd user manager and
@@ -254,7 +254,7 @@ and screenshots are written under `build/`.
 
 ## Session integration check
 
-`scripts/fdo_session_check.sh` checks the freedesktop session protocols from
+`scripts/qemu/fdo_session_check.sh` checks the freedesktop session protocols from
 inside a live XFCE/X11 session.  It is network-free and read-only, needs
 `DISPLAY` and a reachable session bus (`DBUS_SESSION_BUS_ADDRESS`), and prints
 one `PASS`/`FAIL`/`SKIP` line per check.  It requires the systemd user manager
@@ -265,7 +265,7 @@ covers the issue #48 autostart entry:
 
 ```sh
 # run as the logged-in user inside the guest
-sh scripts/fdo_session_check.sh
+scripts/qemu/fdo_session_check.sh
 ```
 
 The graphical QEMU test should run it inside the session after login (for
@@ -297,8 +297,8 @@ suite under `package_specs/tenko-installer/tests/` (planner, probe, answer
 file, dry-run install and simulation).  It needs no QEMU, root, network or
 block devices.
 
-`scripts/run_checks.sh` is the local/CI entry point: it runs the unit tests,
-`scripts/gen_base_requires.py --check` and the static freedesktop audit.
+`tenko check` is the local/CI entry point: it runs the unit tests,
+`tenko base-requires --check` and the static freedesktop audit.
 
 ## Freedesktop audit
 
@@ -309,16 +309,16 @@ rows: findings in a row marked `implemented` are fatal, while findings in
 
 ```sh
 # Built repository (validates desktop entries, AppStream, menus, MIME and icons)
-python3 scripts/fdo_audit.py --rpm-dir build/repo-publish/6 --verbose
+./tenko audit --rpm-dir build/repo-publish/6 --verbose
 
 # An extracted or mounted root tree
-python3 scripts/fdo_audit.py --root build/rootfs-xfce
+./tenko audit --root build/rootfs-xfce
 
 # Static checks from a clean checkout (specs and file lists only)
-python3 scripts/fdo_audit.py --no-rpm
+./tenko audit --no-rpm
 
 # One or more rows while iterating
-python3 scripts/fdo_audit.py --rpm-dir build/repo-publish/6 --only desktop-entry,icons
+./tenko audit --rpm-dir build/repo-publish/6 --only desktop-entry,icons
 ```
 
 The full RPM audit needs `desktop-file-utils`, `appstream`, `rpm`,

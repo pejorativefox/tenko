@@ -6,15 +6,15 @@
 # scripts must run the same dracut invocation explicitly.
 #
 # Usage:
-#   scripts/make_initramfs.sh [ROOTFS] [KVER]
+#   tenko image initramfs [ROOTFS] [KVER]
 #
 # Environment:
 #   OUT   initramfs path inside the rootfs (default /boot/initramfs-$KVER.img)
 set -euo pipefail
-cd "$(dirname "$0")/.."
+. "$(dirname "$0")/../lib/common.sh"
 
 ROOTFS=${1:-build/rootfs-desktop}
-KVER=${2:-7.3.1}
+KVER=${2:-$KVER}
 OUT=${OUT:-/boot/initramfs-$KVER.img}
 
 [ -d "$ROOTFS" ] || { echo "missing rootfs: $ROOTFS" >&2; exit 1; }

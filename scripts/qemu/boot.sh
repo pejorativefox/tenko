@@ -10,7 +10,7 @@
 # creates a raw ext4 image from it, generates the initramfs, boots it with
 # virtio-blk/serial, and writes the serial log to build/qemu-boot.log.
 set -euo pipefail
-cd "$(dirname "$0")/.."
+. "$(dirname "$0")/../lib/common.sh"
 KVER="${KVER:-7.3.1}"
 ROOTFS="${ROOTFS:-$PWD/build/rootfs}"
 IMG="${IMG:-$PWD/build/rootfs.img}"
@@ -27,7 +27,7 @@ esac
 [ -x "$ROOTFS/usr/bin/bash" ] || { echo "missing rootfs: $ROOTFS" >&2; exit 1; }
 ls "$KERNEL_RPM_DIR"/linux-kernel-"$KVER"-*.rpm "$KERNEL_RPM_DIR"/linux-modules-"$KVER"-*.rpm >/dev/null 2>&1 || {
     echo "missing kernel RPMs for $KVER in $KERNEL_RPM_DIR" >&2
-    echo "build them with: IMAGE=localhost/tenko/base:r6 OUT=build/kernel scripts/build_specs.sh linux/linux.spec" >&2
+    echo "build them with: OUT=build/kernel tenko build linux/linux.spec" >&2
     echo "then set KERNEL_RPM_DIR=build/kernel/build/linux/RPMS/x86_64" >&2
     exit 1
 }
@@ -67,7 +67,7 @@ depmod -b "$ROOTFS" "$KVER" || true
 USE_INITRD=${USE_INITRD:-1}
 initrd=()
 if [ -x "$ROOTFS/usr/bin/dracut" ]; then
-    "$PWD/scripts/make_initramfs.sh" "$ROOTFS" "$KVER"
+    "$PWD/scripts/image/initramfs.sh" "$ROOTFS" "$KVER"
     if [ "$USE_INITRD" = 1 ]; then
         initrd=(-initrd "$ROOTFS/boot/initramfs-$KVER.img")
     fi

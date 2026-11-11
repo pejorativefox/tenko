@@ -14,7 +14,7 @@
 # the issue #48 session targets, not merely "some bus".
 #
 # Usage:
-#   sh scripts/fdo_session_check.sh
+#   sh scripts/qemu/fdo_session_check.sh
 #
 set -u
 

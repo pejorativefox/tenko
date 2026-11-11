@@ -11,7 +11,7 @@ class LiveFirmwareTest(unittest.TestCase):
     def test_wifi_and_nic_firmware_are_real_requires(self):
         with open(SPEC, encoding="utf-8") as handle:
             spec = handle.read()
-        # build_iso_uefi.sh installs with install_weak_deps=False, so a
+        # tenko image iso installs with install_weak_deps=False, so a
         # Recommends here would leave Wi-Fi without firmware on the media.
         for package in (
             "linux-firmware-intel-wifi",

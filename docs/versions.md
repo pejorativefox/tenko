@@ -66,8 +66,8 @@ changing `base.json` or `package_specs/tenko-base/requires-extra`, regenerate
 the Requires block:
 
 ```sh
-scripts/gen_base_requires.py            # rewrite the spec in place
-scripts/gen_base_requires.py --check    # exit 1 if the block is stale
+./tenko base-requires            # rewrite the spec in place
+./tenko base-requires --check    # exit 1 if the block is stale
 ```
 
 ## Rebuild order

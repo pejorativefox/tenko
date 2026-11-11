@@ -10,33 +10,38 @@ package_specs/curl/
                        # copied into ~/rpmbuild/SOURCES by the driver
 ```
 
-`build_specs.sh` builds RPMs inside a container image; the host only needs
+Everything below goes through `./tenko` at the repository root; run
+`./tenko help` for the command list and `./tenko COMMAND --help` for each
+command's settings.  The implementations live in `scripts/` (one directory
+per command group, shared shell code in `scripts/lib/`).
+
+`tenko build` builds RPMs inside a container image; the host only needs
 podman and `~/rpmbuild/SOURCES` for the tarballs.
 
 ## One package
 
 ```sh
-IMAGE=localhost/tenko/base:r6 \
-OUT=build/my-wave \
-JOBS=2 MAKE_JOBS=4 \
-scripts/build_specs.sh curl/curl.spec
+OUT=build/my-wave JOBS=2 MAKE_JOBS=4 ./tenko build curl
 ```
 
-- Paths are relative to `package_specs/`.
-- `IMAGE` is the build environment.  `localhost/tenko/base:r6` is the
-  usual one; packages with extra requirements are built in derived images (see
-  `scripts/make_base_image.sh`).
-- `OUT` must be a relative path.  Results are in `$OUT/build/<pkg>/RPMS/` and
-  logs in `$OUT/logs/`.
+- Arguments are package directories (`curl`) or spec paths relative to
+  `package_specs/` (`curl/curl.spec`).
+- `BASE_IMAGE` is the build environment, default `localhost/tenko/base:r6`
+  (created by `tenko image base`); packages with extra requirements are built
+  in derived images.
+- Results are in `$OUT/build/<pkg>/RPMS/` and logs in `$OUT/logs/`; the
+  command exits non-zero and lists the failures if any package failed.
 - `--from-file list.txt` builds a list instead of arguments.
+- `--base` builds the whole base set from `package_specs/base.json` (the
+  self-hosting check).
 - Builds are incremental: a package whose status file says `ok` is skipped, so
   re-running the same `OUT` retries only failures.
 
 `rpmbuild` runs with `--network=none`.  Before starting the container,
-`build_specs.sh` downloads the tarballs listed in each spec's `sources` file,
+`tenko build` downloads the tarballs listed in each spec's `sources` file,
 verifies their md5 and stages them in `~/rpmbuild/SOURCES`; a package with a
 `nosources` marker (metas, binary-only packages) is skipped.  Run
-`scripts/fetch_sources.py <spec-or-package>` by hand to populate the cache
+`tenko fetch <spec-or-package>` by hand to populate the cache
 without building.
 
 ## Build image profiles
@@ -68,11 +73,11 @@ publish scripts.  `tenko-rpm-config` keeps the RPM database at the
 installed-system default (`/var/lib/rpm`), so adding the development meta
 to a running system does not move it.
 
-`make_base_image.sh` installs `tenko-basefs` in its own first transaction
+`tenko image base` installs `tenko-basefs` in its own first transaction
 (so the `/bin`, `/sbin`, `/lib` and `/lib64` usr-merge symlinks win over the
-directories created by the rest of the transaction) and relocates the RPM
-database for images built before `tenko-rpm-config` 6-2 (which used
-`/usr/lib/sysimage/rpm`).
+directories created by the rest of the transaction) and moves an RPM database
+that `dnf --installroot` wrote to a real `/var/lib/rpm` into
+`/usr/lib/sysimage/rpm`, where the image keeps it.
 
 ## Static filelists
 
@@ -99,13 +104,17 @@ Regenerate after a version bump or when adding/removing packages:
 
 ```sh
 # from an existing RPM
-scripts/gen_filelist.py --rpm path/to/pkg.rpm \
+./tenko filelist --rpm path/to/pkg.rpm \
     --output package_specs/pkg/files/pkg.filelist
 
-# or from a built BUILDROOT tree (single-%files specs only; --write edits
-# the spec in place, otherwise the new list is printed)
-scripts/regen_files.py --spec package_specs/pkg/pkg.spec \
-    --buildroot build/wave/build/pkg/BUILDROOT/pkg-<ver>-<rel>.x86_64
+# or from a built BUILDROOT tree
+./tenko filelist --tree build/wave/build/pkg/BUILDROOT/pkg-<ver>-<rel>.x86_64 \
+    --output package_specs/pkg/files/pkg.filelist
+
+# or rewrite a spec's single inline %files section (prints a diff; --write
+# edits the spec; --no-dirs omits %dir entries)
+./tenko filelist --tree build/wave/build/pkg/BUILDROOT/... \
+    --spec package_specs/pkg/pkg.spec --write
 ```
 
 Adding a subpackage means adding both the `%package` section and its filelist
@@ -113,10 +122,9 @@ Adding a subpackage means adding both the `%package` section and its filelist
 distro: headers, `.pc` files and unversioned `.so` links stay in the runtime
 package.  The only intentional split is `llvm-devel`/`clang-devel`.
 
-Build one-off waves with `IMAGE=localhost/tenko/base:r6`; the older
-`base:r13.1` image predates `bash-completion` and the desktop build
-dependencies, so a filelist regenerated there can lose completion files and
-GIR typelibs.
+Regenerate filelists from builds in a current `localhost/tenko/base:r6`
+image: an image without `bash-completion` or the desktop build dependencies
+silently drops completion files and GIR typelibs from the list.
 
 ## Version bumps
 
@@ -137,35 +145,38 @@ The distro repository is `tenko-6` (`/etc/yum.repos.d/tenko-6.repo`,
 <https://tenko.pjfox.xyz/packages/6/>); package versions are independent
 of the distro release.
 
-`publish_rpm.sh` merges new RPMs into the published metadata with
+`tenko publish rpm` merges new RPMs into the published metadata with
 `mergerepo_c --method nvr`, uploads them, regenerates the package index, and
 refreshes the LAN mirror.  It refuses a repeated NEVRA with different content,
 so bump `Release` when rebuilding the same version.
 
 ```sh
-PRUNE=1 scripts/publish_rpm.sh build/wave/*.rpm   # also delete superseded RPMs
-DRY_RUN=1 scripts/publish_rpm.sh build/wave/*.rpm # stage/merge, upload nothing
-MIRROR=0 scripts/publish_rpm.sh ...               # public only (not for releases)
+PRUNE=1 ./tenko publish rpm build/wave/*.rpm   # also delete superseded RPMs
+DRY_RUN=1 ./tenko publish rpm build/wave/*.rpm # stage/merge, upload nothing
+MIRROR=0 ./tenko publish rpm ...               # public only (not for releases)
 ```
 
-- `REMOTE`/`PORT` default to `tomfool8@tomfool.8bit.ca:53211`.  The hostname is
-  deliberate: `~/.ssh/config` routes it through the local proxy.  Do not
-  replace it with the raw IP.
+- The publish commands need `rclone`, `createrepo_c`, `mergerepo_c`, `zstd`,
+  `rsync` and `ssh` (all in `tenko-osdev`, or the
+  `localhost/tenko/publish-tools:r6` image).  Targets are set in
+  `scripts/lib/publish.sh`.
 - Everything is published twice: the public site and the LAN mirror
   (`daspork@192.168.31.9`).  Do not publish to only one.
 
 Other publishers:
 
-- `scripts/publish_repo.sh` — whole repository + overview page.
-- `scripts/publish_iso.sh` — installer ISO (787 MiB) + fresh `.sha256`.
-- `scripts/publish_rootfs.sh` — container rootfs (407 MiB) + fresh `.sha256`.
+- `REPO=dir tenko publish repo` — replace the whole repository with the RPMs
+  in `dir`, plus the overview page.  Use it only for a deliberate full
+  republish; it deletes anything not in `dir`.
+- `tenko publish iso` — installer ISO (787 MiB) + fresh `.sha256`.
+- `tenko publish rootfs` — container rootfs (407 MiB) + fresh `.sha256`.
 
 ## Images
 
-- ISO: `scripts/build_iso_uefi.sh` (live root from the repo, systemd-boot ESP,
+- ISO: `tenko image iso` (live root from the repo, systemd-boot ESP,
   zstd squashfs).  `ISO_AUTO=1` plus `ISO_ANSWER=tests/installer-answer.json`
   makes it unattended.
-- Rootfs: `scripts/make_base_image.sh` with
+- Rootfs: `tenko image base` with
   `PACKAGES="tenko-base tenko-build python3-pyelftools"
   TARBALL=build/tenko-rootfs.tar.gz`.
 

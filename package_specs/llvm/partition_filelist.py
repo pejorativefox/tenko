@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Partition a full LLVM filelist into the Fedora-style subpackage lists.
 
-The input is the output of ``gen_filelist_tree.py`` for the LLVM buildroot
+The input is the output of ``tenko filelist --tree`` for the LLVM buildroot
 (version 23.1.0, libraries in /usr/lib64).  Every entry is assigned to
 exactly one package; llvm-all is a meta-package with no payload.
 
@@ -20,7 +20,7 @@ Layout (as close as this build allows to Fedora F44's llvm src.rpm):
   compiler-rt                /usr/lib64/clang/23/lib runtimes (non-.a)
 
 Usage:
-    ./scripts/partition_llvm_filelist.py --input full.filelist \
+    package_specs/llvm/partition_filelist.py --input full.filelist \
         --output-dir package_specs/llvm/files [--check]
 """
 

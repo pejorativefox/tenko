@@ -17,13 +17,23 @@
 # installer then installs the target packages from the network repository
 # (https://tenko.pjfox.xyz/packages/6/ by default), so the media
 # itself carries no RPMs.
+#
+# Usage:
+#   tenko image iso
+#   ISO_AUTO=1 ISO_ANSWER=tests/installer-answer.json tenko image iso
+#
+# Environment:
+#   REPO        repository for the live root (directory or URL)
+#   ISO         output image (default build/tenko-installer.iso)
+#   ISO_LABEL   volume label (default TENKO)
+#   ISO_AUTO    1 boots the installer unattended with ISO_ANSWER
+#   SKIP_LIVE   1 reuses the live root in LIVE (default build/live-root)
+#   STAGE, TOOLREPO, TOOLS   staging, tool repo and ISO tool packages
+#   BASE_IMAGE, KVER         see scripts/lib/common.sh
 set -euo pipefail
-cd "$(dirname "$0")/.."
-. scripts/repo_tools.sh
+. "$(dirname "$0")/../lib/common.sh"
 
-IMG=${IMG:-$(pick_image localhost/tenko/base:r6 localhost/tenko/base:r13.1)}
-REPO=${REPO:-https://tenko.pjfox.xyz/packages/6/}
-KVER=${KVER:-7.3.1}
+REPO=${REPO:-$TENKO_REPO_URL}
 LIVE=${LIVE:-$PWD/build/live-root}
 STAGE=${STAGE:-$PWD/build/iso-stage}
 # Keep the unversioned name until the image is rebuilt; a later build can
@@ -36,13 +46,7 @@ SKIP_LIVE=${SKIP_LIVE:-0}
 ISO_AUTO=${ISO_AUTO:-0}
 ISO_ANSWER=${ISO_ANSWER:-}
 
-case "$REPO" in
-    http://*|https://*|ftp://*) REPOPATH="$REPO" ;;
-    *) REPOPATH="file://$REPO" ;;
-esac
-if [ "$REPOPATH" != "$REPO" ]; then
-    [ -d "$REPO" ] || { echo "missing repo: $REPO" >&2; exit 1; }
-fi
+REPOPATH=$(repo_url "$REPO")
 
 if [ "$SKIP_LIVE" != "1" ]; then
     echo "building the live root with tenko-live"
@@ -52,13 +56,13 @@ if [ "$SKIP_LIVE" != "1" ]; then
     for dev in null zero random urandom; do : > "$LIVE/dev/$dev"; done
 
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$LIVE" --releasever=6 \
+        --installroot "$LIVE" --releasever="$TENKO_RELEASE" \
         --disablerepo='*' --repofrompath=tenko,"$REPOPATH" \
         --setopt=install_weak_deps=False \
         install tenko-basefs
 
     unshare -r dnf -y --nogpgcheck \
-        --installroot "$LIVE" --releasever=6 \
+        --installroot "$LIVE" --releasever="$TENKO_RELEASE" \
         --disablerepo='*' --repofrompath=tenko,"$REPOPATH" \
         --setopt=install_weak_deps=False \
         install tenko-live
@@ -131,7 +135,7 @@ EOF
     # shells are immediately usable.  The target system's root stays locked.
     unshare -r sed -i 's|^root:[^:]*:|root::|' "$LIVE/etc/shadow"
 
-    "$PWD/scripts/make_initramfs.sh" "$LIVE" "$KVER"
+    "$PWD/scripts/image/initramfs.sh" "$LIVE" "$KVER"
 fi
 
 [ -f "$LIVE/boot/vmlinuz-$KVER" ] || { echo "missing kernel" >&2; exit 1; }
@@ -150,7 +154,7 @@ echo "starting the ISO tools container"
 podman run -d --name "$TOOLS" --network=none \
     -v "$PWD/build:/work:z" \
     -v "$TOOLREPO:/repo:ro,z" \
-    "$IMG" sleep infinity >/dev/null
+    "$BASE_IMAGE" sleep infinity >/dev/null
 podman exec "$TOOLS" /usr/bin/bash -c '
     rpm -Uvh --nodeps --replacepkgs \
         /repo/libburn-*.rpm /repo/libisofs-*.rpm /repo/libisoburn-*.rpm \

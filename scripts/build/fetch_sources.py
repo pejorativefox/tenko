@@ -2,7 +2,7 @@
 """Download and md5-verify the sources listed in package_specs/<pkg>/sources.
 
 Release builds run rpmbuild with --network=none inside a container, so every
-tarball must already be in ~/rpmbuild/SOURCES.  scripts/build_specs.sh calls
+tarball must already be in ~/rpmbuild/SOURCES.  `tenko build` calls
 this helper for each spec before starting the container.
 
 A package directory with no `sources` file, or with a `nosources` marker, is
@@ -12,10 +12,10 @@ and are written to a .part file, verified against the md5 and only then
 renamed, so a failed or corrupted transfer cannot poison the cache.
 
 Usage:
-    scripts/fetch_sources.py curl/curl.spec
-    scripts/fetch_sources.py package_specs/curl
-    scripts/fetch_sources.py curl
-    scripts/fetch_sources.py --dest /tmp/SOURCES curl/curl.spec
+    tenko fetch curl/curl.spec
+    tenko fetch package_specs/curl
+    tenko fetch curl
+    tenko fetch --dest /tmp/SOURCES curl/curl.spec
 """
 
 import argparse
@@ -26,7 +26,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SPECS_DIR = os.path.join(REPO_ROOT, "package_specs")
 DEFAULT_SOURCES_DIR = os.environ.get(
     "TENKO_SOURCES_DIR", os.path.expanduser("~/rpmbuild/SOURCES"))

@@ -7,7 +7,7 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILES = os.path.join(REPO_ROOT, "package_specs", "tenko-installer", "files")
 SPEC = os.path.join(
     REPO_ROOT, "package_specs", "tenko-installer", "tenko-installer.spec")
-BUILD = os.path.join(REPO_ROOT, "scripts", "build_iso_uefi.sh")
+BUILD = os.path.join(REPO_ROOT, "scripts", "image", "iso.sh")
 
 
 def read(path):

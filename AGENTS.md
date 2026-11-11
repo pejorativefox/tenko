@@ -3,6 +3,14 @@
 Packaging conventions (third-party `/opt` bundles, `profile.d` snippets,
 `/etc/skel` defaults, tests) live in [`docs/rules.md`](docs/rules.md).
 
+## Tooling entry point
+
+Build, check, image, QEMU and publish tasks all go through `./tenko`
+(`./tenko help`; `./tenko COMMAND --help` for settings).  Its implementations
+live in `scripts/<group>/`, with shared shell code in `scripts/lib/`.  Add new
+tooling as a command in the `tenko` table rather than as a loose script, and
+delete one-off helpers once their wave is done.
+
 ## Do work in worktrees
 
 Do work in a git worktree, not in the main checkout. Create worktrees under
@@ -26,7 +34,7 @@ in the `%changelog`.  Source URLs and hashes live in
 There is no global version lock.
 
 Adding or removing a base package or changing `build_order` is a policy
-change: update `base.json` and run `scripts/gen_base_requires.py`.  Packages
+change: update `base.json` and run `tenko base-requires`.  Packages
 outside the base set may be added normally; if upstream has no stable release
 or you need a non-latest version, say why in the changelog.
 
@@ -58,15 +66,18 @@ URL or use the web UI when `tea` can do the work.
 ## Publishing also updates the LAN mirror
 
 Every publish must reach the local-network mirror as well as the public
-site.  The publish scripts already do it (`MIRROR`, default
+site.  The publish commands already do it (`MIRROR`, default
 `daspork@192.168.31.9`, `MIRROR_PUBLIC=public_html/tenko`; set
 `MIRROR=0` only for a deliberate local-only test):
 
-- `scripts/publish_rpm.sh` mirrors the RPM, the merged repodata and the
+- `tenko publish rpm` mirrors the RPM, the merged repodata and the
   package index.
-- `scripts/publish_repo.sh` mirrors the whole repository and the overview
+- `tenko publish repo` mirrors the whole repository and the overview
   page.
-- `scripts/publish_iso.sh` uploads an ISO plus a fresh `.sha256` to both.
+- `tenko publish iso` / `tenko publish rootfs` upload the image plus a
+  fresh `.sha256` to both.
+
+The targets are defined once, in `scripts/lib/publish.sh`.
 
 The public bucket is `r2_tenko:tenko` (served at <https://tenko.pjfox.xyz/>).
 The mirror is served at <http://192.168.31.9/~daspork/tenko/>.  Never publish

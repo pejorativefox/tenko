@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCRIPT = os.path.join(REPO_ROOT, "scripts", "gen_repo_index.py")
+SCRIPT = os.path.join(REPO_ROOT, "scripts", "publish", "repo_index.py")
 
 
 class GenRepoIndexTest(unittest.TestCase):

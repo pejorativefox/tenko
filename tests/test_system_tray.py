@@ -27,7 +27,7 @@ class SystemTrayTest(unittest.TestCase):
         self.assertNotIn('value="statusnotifier', spec)
 
     def test_session_check_covers_the_tray(self):
-        script = read("scripts/fdo_session_check.sh")
+        script = read("scripts/qemu/fdo_session_check.sh")
         self.assertIn("_NET_SYSTEM_TRAY_S0", script)
         self.assertIn("tray-selection", script)
         self.assertIn("tray-plugin", script)

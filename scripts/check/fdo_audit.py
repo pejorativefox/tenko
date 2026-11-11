@@ -17,11 +17,11 @@ That keeps the harness usable while the programme is in progress without
 weakening the end state.
 
 Usage:
-    scripts/fdo_audit.py
-    scripts/fdo_audit.py --rpm-dir build/repo-publish/6
-    scripts/fdo_audit.py --root build/rootfs-xfce
-    scripts/fdo_audit.py --only desktop-entry,icons
-    scripts/fdo_audit.py --json
+    tenko audit
+    tenko audit --rpm-dir build/repo-publish/6
+    tenko audit --root build/rootfs-xfce
+    tenko audit --only desktop-entry,icons
+    tenko audit --json
 """
 from __future__ import annotations
 
@@ -1479,7 +1479,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     )
     parser.add_argument(
         "--repo-root",
-        default=Path(__file__).resolve().parent.parent,
+        default=Path(__file__).resolve().parents[2],
         type=Path,
         help="repository checkout root (default: parent of this script)",
     )

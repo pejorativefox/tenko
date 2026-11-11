@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+# tenko: build, test and publish Tenko Linux.
+#
+# Usage: ./tenko COMMAND [ARGS...]
+#        ./tenko help [COMMAND]
+#
+# Every command reads its settings from the environment (OUT=..., REPO=...,
+# DRY_RUN=1, ...); `./tenko COMMAND --help` lists them.  The implementations
+# live under scripts/.
+set -euo pipefail
+
+TENKO_ROOT=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
+S=$TENKO_ROOT/scripts
+
+# command | script | summary
+COMMANDS="
+build             | build/specs.sh         | build specs in the base container (--base for the whole base set)
+fetch             | build/fetch_sources.py | download and verify the sources for specs
+filelist          | tools/filelist.py      | generate a static %files list from an RPM or buildroot
+check             | check/run.sh           | run the pre-publish checks (unit tests, base requires, fdo audit)
+audit             | check/fdo_audit.py     | freedesktop compliance audit over specs, RPMs or a rootfs
+base-requires     | check/base_requires.py | regenerate or --check the tenko-base Requires block
+image base        | image/base.sh          | create the base container image from the published repo
+image iso         | image/iso.sh           | build the UEFI installer ISO
+image initramfs   | image/initramfs.sh     | generate the initramfs inside a staged rootfs
+publish rpm       | publish/rpm.sh         | merge RPMs into the published repository
+publish repo      | publish/repo.sh        | republish a whole local repository
+publish iso       | publish/file.sh iso    | upload the installer ISO and its .sha256
+publish rootfs    | publish/file.sh rootfs | upload the rootfs tarball and its .sha256
+qemu boot         | qemu/boot.sh           | direct kernel boot of an installed rootfs to a serial login
+qemu desktop      | qemu/desktop.sh        | boot an XFCE session and take a screenshot
+qemu login        | qemu/login.sh          | first-boot flow up to the LightDM greeter
+qemu fdo          | qemu/fdo.sh            | freedesktop gate inside a real login session
+qemu run          | qemu/run.sh            | boot the desktop test image interactively
+qemu installer    | qemu/installer.sh      | boot the installer ISO under UEFI
+installer-sim     | tools/installer_sim.sh | run the installer UI against simulated disks
+"
+
+usage() {
+    sed -n '2,/^[^#]/{/^#/!q;s/^# \{0,1\}//p}' "$0"
+    echo
+    echo "Commands:"
+    while IFS='|' read -r cmd _ summary; do
+        [ -n "$cmd" ] || continue
+        printf '  %-17s %s\n' "$(echo $cmd)" "$(echo $summary)"
+    done <<<"$COMMANDS"
+}
+
+# Print the header comment of a shell script as its help text.
+script_help() {
+    sed -n '2,/^[^#]/{/^#/!q;s/^# \{0,1\}//p}' "$1"
+}
+
+# lookup WORDS...: set SCRIPT/SCRIPT_ARGS/CONSUMED for the longest match.
+lookup() {
+    local one=${1:-} two="${1:-} ${2:-}" cmd script
+    SCRIPT=
+    while IFS='|' read -r cmd script _; do
+        cmd=$(echo $cmd)
+        [ -n "$cmd" ] || continue
+        if [ "$cmd" = "$two" ]; then CONSUMED=2; break; fi
+        if [ "$cmd" = "$one" ]; then CONSUMED=1; break; fi
+    done <<<"$COMMANDS"
+    [ -n "$cmd" ] && { [ "$cmd" = "$two" ] || [ "$cmd" = "$one" ]; } || return 1
+    read -r SCRIPT SCRIPT_ARGS <<<"$script"
+}
+
+[ $# -gt 0 ] || { usage; exit 0; }
+case "$1" in
+    -h|--help) usage; exit 0 ;;
+    help)
+        shift
+        [ $# -gt 0 ] || { usage; exit 0; }
+        lookup "$@" || { echo "unknown command: $*" >&2; exit 2; }
+        set -- "${@:1:$CONSUMED}" --help
+        ;;
+esac
+
+if ! lookup "$@"; then
+    subs=()
+    while IFS='|' read -r cmd _; do
+        read -r word sub _ <<<"$cmd"
+        [ "${word:-}" = "$1" ] && [ -n "${sub:-}" ] && subs+=("$sub")
+    done <<<"$COMMANDS"
+    if [ ${#subs[@]} -gt 0 ]; then
+        echo "usage: tenko $1 {$(IFS=,; echo "${subs[*]}")}" >&2
+    else
+        echo "unknown command: $1 (see ./tenko help)" >&2
+    fi
+    exit 2
+fi
+shift "$CONSUMED"
+
+path=$S/$SCRIPT
+# shellcheck disable=SC2086  # SCRIPT_ARGS is a fixed word from the table
+case "$path" in
+    *.py) exec python3 "$path" $SCRIPT_ARGS "$@" ;;
+    *)
+        case "${1:-}" in -h|--help) script_help "$path"; exit 0 ;; esac
+        exec bash "$path" $SCRIPT_ARGS "$@"
+        ;;
+esac

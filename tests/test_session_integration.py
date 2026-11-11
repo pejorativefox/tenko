@@ -1,6 +1,6 @@
 """Autostart, XSettings and startup-notification packaging checks.
 
-The X server side of issue #36 lives in ``scripts/fdo_session_check.sh`` and
+The X server side of issue #36 lives in ``scripts/qemu/fdo_session_check.sh`` and
 runs inside a live session.  This module is the headless half: it follows the
 autostart files that the package specs and file lists put in
 ``/etc/xdg/autostart`` and exercises the Autostart 0.5 visibility rules.
@@ -322,7 +322,7 @@ class SessionComponentsTest(unittest.TestCase):
             self.assertIn("dbus-x11", needed, name)
 
     def test_session_checker_is_posix_shell(self):
-        script = REPO_ROOT / "scripts" / "fdo_session_check.sh"
+        script = REPO_ROOT / "scripts" / "qemu" / "fdo_session_check.sh"
         self.assertTrue(script.is_file())
         self.assertTrue(os.access(script, os.X_OK), "script is not executable")
         result = subprocess.run(
@@ -333,7 +333,7 @@ class SessionComponentsTest(unittest.TestCase):
 
     def test_qemu_gate_uses_a_real_login_session(self):
         """The desktop gate must cover the systemd user manager path (#46)."""
-        script = read_text(REPO_ROOT / "scripts" / "qemu_fdo_verify.sh")
+        script = read_text(REPO_ROOT / "scripts" / "qemu" / "fdo.sh")
         self.assertIn("autologin-user", script)
         self.assertIn("fdo-prep.service", script)
         self.assertIn("fdo-check.service", script)

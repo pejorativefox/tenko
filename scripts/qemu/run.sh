@@ -2,21 +2,21 @@
 # Boot the prepared XFCE/lightdm test image interactively.
 #
 # The image boots to the LightDM greeter (the real first-boot flow).  Images
-# built by qemu_boot_login.sh have root set to TEST_PASSWORD (tenko1); a
+# built by tenko qemu login have root set to TEST_PASSWORD (tenko1); a
 # freshly built image prompts for a new root password on tty1 first.
 # Choose how to see it:
 #
-#   scripts/qemu_run_desktop.sh                 # GTK window if $DISPLAY is set, else VNC
-#   DISPLAY_MODE=vnc scripts/qemu_run_desktop.sh
-#   DISPLAY_MODE=gtk scripts/qemu_run_desktop.sh
-#   VNC_ADDR=0.0.0.0:1 DISPLAY_MODE=vnc scripts/qemu_run_desktop.sh   # expose on the LAN
+#   tenko qemu run                 # GTK window if $DISPLAY is set, else VNC
+#   DISPLAY_MODE=vnc tenko qemu run
+#   DISPLAY_MODE=gtk tenko qemu run
+#   VNC_ADDR=0.0.0.0:1 DISPLAY_MODE=vnc tenko qemu run   # expose on the LAN
 #
 # VNC:   connect to 127.0.0.1:5901 (display :1)
 # Serial: socat -,raw,echo=0 UNIX-CONNECT:build/xfce-serial.sock
 #         (log in as root; test images use root/tenko1)
 # Stop:  Ctrl-C
 set -euo pipefail
-cd "$(dirname "$0")/.."
+. "$(dirname "$0")/../lib/common.sh"
 
 IMG=${IMG:-$PWD/build/login-test.img}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-login-test}
@@ -52,7 +52,7 @@ if [ ! -f "$IMG" ]; then
     ROOTFS="$ROOTFS" IMG="$IMG" SKIP_INSTALL=0 BUILD_ONLY=1 \
         IMGSIZE="${IMGSIZE:-5G}" EXTRA_PACKAGES="$EXTRA_PACKAGES" \
         EXTRA_RPMS="$EXTRA_RPMS" \
-        "$PWD/scripts/qemu_boot_graphical.sh"
+        "$PWD/tenko qemu desktop"
 fi
 
 case "$DISPLAY_MODE" in

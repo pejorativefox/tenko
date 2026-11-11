@@ -4,7 +4,7 @@
 # The disk is blank: the installer should offer it in the disk list and let
 # you create a GPT.  Serial output goes to build/installer-serial.log.
 set -euo pipefail
-cd "$(dirname "$0")/.."
+. "$(dirname "$0")/../lib/common.sh"
 
 ISO=${ISO:-$PWD/build/tenko-installer.iso}
 DISK=${DISK:-$PWD/build/installer-test.img}

@@ -8,14 +8,14 @@
 # captures it (guest xwd over 9p, with a QEMU screendump fallback).
 #
 # Usage:
-#   scripts/qemu_boot_login.sh                 # full run
-#   SKIP_INSTALL=1 scripts/qemu_boot_login.sh  # reuse rootfs/image
-#   BUILD_ONLY=1 scripts/qemu_boot_login.sh    # build rootfs+image, do not boot
-#   EXTRA_PACKAGES="openssh" scripts/qemu_boot_login.sh
+#   tenko qemu login                 # full run
+#   SKIP_INSTALL=1 tenko qemu login  # reuse rootfs/image
+#   BUILD_ONLY=1 tenko qemu login    # build rootfs+image, do not boot
+#   EXTRA_PACKAGES="openssh" tenko qemu login
 #
 # The image is a test artifact: anyone who knows TEST_PASSWORD can log in.
 set -euo pipefail
-cd "$(dirname "$0")/.."
+. "$(dirname "$0")/../lib/common.sh"
 
 KVER=${KVER:-7.3.1}
 ROOTFS=${ROOTFS:-$PWD/build/rootfs-login-test}
@@ -163,7 +163,7 @@ EOF
         "$ROOTFS/etc/systemd/system/graphical.target.wants/greeter-capture.service"
 
     if [ ! -f "$ROOTFS/boot/initramfs-$KVER.img" ]; then
-        "$PWD/scripts/make_initramfs.sh" "$ROOTFS" "$KVER"
+        "$PWD/scripts/image/initramfs.sh" "$ROOTFS" "$KVER"
     fi
 
     echo "building ext4 image"

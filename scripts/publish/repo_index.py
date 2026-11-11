@@ -9,7 +9,7 @@ LISTING is a file of "name size" lines (for example the output of
 so the index can be regenerated from the published repository itself, without
 a local copy of the RPMs.
 
-The markup matches what scripts/publish_repo.sh wrote before this helper
+The markup matches what the repository publish script wrote before this helper
 existed; the repository has directory indexes off, so this page is the only
 listing users get.
 """

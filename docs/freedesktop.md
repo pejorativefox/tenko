@@ -42,7 +42,7 @@ open without weakening the end state.
   keys that the distro does not own; the audit prints a warning count.
 - `appstreamcli validate --no-net` must report no errors.  Warnings and
   informational messages are allowed.  A vendor bundle may be listed in
-  `UPSTREAM_APPSTREAM_ERRORS` in `scripts/fdo_audit.py` with an issue number;
+  `UPSTREAM_APPSTREAM_ERRORS` in `tenko audit` with an issue number;
   today only the Chrome bundle has such an entry (#42).
 - Icon themes must inherit only themes that are installed, and every `Icon=`
   in an application or autostart entry must resolve in hicolor, an installed
@@ -52,7 +52,7 @@ open without weakening the end state.
   `update-mime-database` for `/usr/share/mime`, and
   `gtk-update-icon-cache` for `/usr/share/icons`.
 - The audit is network-free.  Run it against the built repository with
-  `scripts/fdo_audit.py --rpm-dir build/repo-publish/6`; see
+  `tenko audit --rpm-dir build/repo-publish/6`; see
   [`testing.md`](testing.md).
 
 ## Matrix

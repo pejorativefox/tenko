@@ -8,8 +8,8 @@ extras in package_specs/tenko-base/requires-extra, and rewrites the block
 between the GENERATED REQUIRES markers in the spec.
 
 Usage:
-    scripts/gen_base_requires.py            # rewrite the spec in place
-    scripts/gen_base_requires.py --check    # exit 1 if the block is stale
+    tenko base-requires           # rewrite the spec in place
+    tenko base-requires --check   # exit 1 if the block is stale
 """
 
 import argparse
@@ -17,7 +17,7 @@ import json
 import os
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BASE = os.path.join(ROOT, "package_specs", "base.json")
 SPEC = os.path.join(ROOT, "package_specs", "tenko-base", "tenko-base.spec")
 EXTRA = os.path.join(ROOT, "package_specs", "tenko-base", "requires-extra")
@@ -60,7 +60,7 @@ def requires():
 def block(names):
     lines = [
         BEGIN + ": generated from package_specs/base.json + requires-extra",
-        "# Run scripts/gen_base_requires.py after changing either file.",
+        "# Run ./tenko base-requires after changing either file.",
     ]
     lines += ["Requires:   " + name for name in names]
     lines.append(END)
@@ -83,7 +83,7 @@ def main():
 
     if args.check:
         if new_text != text:
-            print("tenko-base requires are stale; run scripts/gen_base_requires.py",
+            print("tenko-base requires are stale; run ./tenko base-requires",
                   file=sys.stderr)
             sys.exit(1)
         print("tenko-base requires are up to date (%d)" % len(requires()))
