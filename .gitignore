@@ -3,7 +3,7 @@ target-root/
 iso_build/
 # Installer ISO.
 tenko.iso
-build/
+/build/
 .build/
 __pycache__
 .worktrees/

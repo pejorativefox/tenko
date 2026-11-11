@@ -7,7 +7,7 @@ package_specs/curl/
 ├── curl.spec          # the RPM spec
 ├── sources            # <md5> <url> [local-filename]
 └── files/             # patches, unit files, static filelists;
-                       # copied into ~/rpmbuild/SOURCES by the driver
+                       # linked into the package's SOURCES by tenko build
 ```
 
 Everything below goes through `./tenko` at the repository root; run
@@ -15,8 +15,9 @@ Everything below goes through `./tenko` at the repository root; run
 command's settings.  The implementations live in `scripts/` (one directory
 per command group, shared shell code in `scripts/lib/`).
 
-`tenko build` builds RPMs inside a container image; the host only needs
-podman and `~/rpmbuild/SOURCES` for the tarballs.
+Every package is built by `tenko build` in its own fresh podman container
+with the network off.  The host needs only podman; everything the builds use
+is downloaded once and kept under `build/`.
 
 ## One package
 
@@ -26,23 +27,50 @@ OUT=build/my-wave JOBS=2 MAKE_JOBS=4 ./tenko build curl
 
 - Arguments are package directories (`curl`) or spec paths relative to
   `package_specs/` (`curl/curl.spec`).
-- `BASE_IMAGE` is the build environment, default `localhost/tenko/base:r6`
-  (created by `tenko image base`); packages with extra requirements are built
-  in derived images.
+- `--from-file list.txt` builds a list instead of arguments; `--base` builds
+  the whole base set from `package_specs/base.json` (the self-hosting check).
 - Results are in `$OUT/build/<pkg>/RPMS/` and logs in `$OUT/logs/`; the
   command exits non-zero and lists the failures if any package failed.
-- `--from-file list.txt` builds a list instead of arguments.
-- `--base` builds the whole base set from `package_specs/base.json` (the
-  self-hosting check).
 - Builds are incremental: a package whose status file says `ok` is skipped, so
   re-running the same `OUT` retries only failures.
 
-`rpmbuild` runs with `--network=none`.  Before starting the container,
-`tenko build` downloads the tarballs listed in each spec's `sources` file,
-verifies their md5 and stages them in `~/rpmbuild/SOURCES`; a package with a
-`nosources` marker (metas, binary-only packages) is skipped.  Run
-`tenko fetch <spec-or-package>` by hand to populate the cache
-without building.
+## The build environment
+
+A build runs these steps; each is a no-op when there is nothing to do:
+
+1. **Mirror** (`tenko sync`): the published repository is mirrored into
+   `build/cache/repo` (about 3 GiB).  Each RPM is downloaded once; later
+   syncs fetch only `repomd.xml` when nothing changed and only new packages
+   when something did.  The LAN mirror is tried first, then the public site.
+   `OFFLINE=1` skips the sync and uses the existing mirror.
+2. **Build image** (`tenko image build`): `localhost/tenko/build:r6` is a
+   root filesystem installed from the mirror (`tenko-base`,
+   `tenko-base-build`, `tenko-build` and the extra build packages).  It is
+   created when missing and rebuilt when the mirror has newer versions of
+   its packages; `--force` rebuilds it unconditionally.
+3. **Sources**: tarballs from each spec's `sources` file are fetched once and
+   md5-verified into `build/sources` (a tarball already in the old
+   `~/rpmbuild/SOURCES` is hard-linked instead of downloaded), then each
+   package gets its own `SOURCES/` with links to just its tarballs and
+   `files/`.  `tenko fetch <spec-or-package>` fills the cache without
+   building.
+4. **Build**: a fresh container per package installs the spec's
+   `BuildRequires` from `build/repo` and the mirror, then runs `rpmbuild`.
+   Successful RPMs are added to `build/repo`, so a later build can use a
+   package before it is published (dnf takes the highest version from the two
+   repositories).  For a chain inside one run, list the packages in order and
+   use `JOBS=1`.
+
+The mirror and the source cache live in the main checkout's `build/` and are
+shared by every worktree; `build/repo` is per checkout.  Delete
+`build/repo` to drop local builds.
+
+**Declared vs. undeclared build dependencies.**  Many specs do not list
+their `BuildRequires` yet.  By default (`STRICT=0`) the builder installs the
+declared ones that resolve and still runs `rpmbuild --nodeps` against the
+image's full toolchain.  `STRICT=1` requires every `BuildRequires` to
+resolve and drops `--nodeps`, so the spec must declare everything it needs.
+New and updated specs should build with `STRICT=1`.
 
 ## Build image profiles
 
@@ -122,9 +150,11 @@ Adding a subpackage means adding both the `%package` section and its filelist
 distro: headers, `.pc` files and unversioned `.so` links stay in the runtime
 package.  The only intentional split is `llvm-devel`/`clang-devel`.
 
-Regenerate filelists from builds in a current `localhost/tenko/base:r6`
-image: an image without `bash-completion` or the desktop build dependencies
-silently drops completion files and GIR typelibs from the list.
+Regenerate filelists from a build whose dependencies were all present:
+when a detected dependency (`bash-completion`, GObject introspection, ...)
+is missing, the build silently installs less and the regenerated list drops
+completion files or GIR typelibs.  Declaring the `BuildRequires` and building
+with `STRICT=1` prevents that.
 
 ## Version bumps
 

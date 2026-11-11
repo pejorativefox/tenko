@@ -4,13 +4,11 @@
 # AGENTS.md).  MIRROR=0 skips the mirror and is only for deliberate
 # local-only tests; DRY_RUN=1 stages everything and uploads nothing.
 
-# Cloudflare R2 bucket served at PUBLIC_URL.
+# Cloudflare R2 bucket served at PUBLIC_URL (lib/common.sh).
 R2=${R2:-r2_tenko:tenko}
-PUBLIC_URL=${PUBLIC_URL:-https://tenko.pjfox.xyz}
 # LAN mirror: ssh target and its web root, served at MIRROR_URL.
 MIRROR=${MIRROR:-daspork@192.168.31.9}
 MIRROR_PUBLIC=${MIRROR_PUBLIC:-public_html/tenko}
-MIRROR_URL=${MIRROR_URL:-http://192.168.31.9/~daspork/tenko}
 DRY_RUN=${DRY_RUN:-0}
 
 # Repository layout shared by `publish rpm` and `publish repo`.

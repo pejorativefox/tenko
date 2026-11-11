@@ -1,31 +1,47 @@
 #!/usr/bin/env bash
-# Build specs with rpmbuild inside the base container (no network).
+# Build specs, each in a fresh network-less container from the build image.
 #
 # Usage:
 #   tenko build curl/curl.spec libfs                # spec paths or package dirs
 #   tenko build --from-file build/wave.txt          # one spec per line, # comments
 #   tenko build --base                              # the whole base set (self-hosting check)
 #
-# Sources listed in package_specs/<pkg>/sources are fetched and md5-verified
-# into ~/rpmbuild/SOURCES first, together with each package's files/.  Builds
-# are incremental: a package whose status file says "ok" is skipped, so the
-# same OUT can be reused to retry failures.
+# Before building it makes sure that, in order:
+#   1. the published repository is mirrored in build/cache/repo (`tenko sync`;
+#      each RPM is downloaded once, OFFLINE=1 skips the sync),
+#   2. the build image exists and is current with the mirror; it is created
+#      from the mirror when missing or when the mirror has newer versions of
+#      its packages (`tenko image build`),
+#   3. sources are fetched once into build/sources and hard-linked into each
+#      package's own SOURCES directory.
+#
+# Each package then gets a fresh container: BuildRequires are installed from
+# build/repo (local builds) and the mirror, rpmbuild runs, and successful RPMs
+# are added to build/repo so later builds can use them before they are
+# published.  Builds are incremental: a package whose status says "ok" is
+# skipped, so the same OUT can be reused to retry failures.  For a chain
+# where one package needs another from the same run, list them in order and
+# use JOBS=1.
 #
 # Environment:
-#   BASE_IMAGE  build image (default localhost/tenko/base:r6; `tenko image base`)
 #   OUT         output directory (default build/specs-YYYYMMDD-HHMMSS)
 #   JOBS        packages built in parallel (default 4)
 #   MAKE_JOBS   make -j per package (default 4)
+#   STRICT      1 = BuildRequires must resolve and rpmbuild runs without
+#               --nodeps (default 0; see scripts/build/in_container.sh)
+#   OFFLINE     1 = do not sync the mirror (it must already exist)
+#   BUILD_IMAGE build image tag (default localhost/tenko/build:r6)
 #
 # Results: OUT/status/<pkg> (ok/fail), OUT/logs/<pkg>.log and
-# OUT/build/<pkg>/RPMS.
+# OUT/build/<pkg>/RPMS; successful RPMs are also in build/repo.
 set -euo pipefail
 . "$(dirname "$0")/../lib/common.sh"
 
 OUT=${OUT:-build/specs-$(date +%Y%m%d-%H%M%S)}
 JOBS=${JOBS:-4}
 MAKE_JOBS=${MAKE_JOBS:-4}
-SOURCES=$HOME/rpmbuild/SOURCES
+STRICT=${STRICT:-0}
+OFFLINE=${OFFLINE:-0}
 
 # spec_for NAME-OR-PATH: the spec path relative to package_specs/.
 spec_for() {
@@ -83,35 +99,89 @@ while [ $# -gt 0 ]; do
 done
 [ ${#specs[@]} -gt 0 ] || die "no specs given (see tenko build --help)"
 
-mkdir -p "$OUT" "$SOURCES"
+# 1. Offline mirror.
+if [ "$OFFLINE" = 1 ]; then
+    [ -f "$TENKO_REPO_CACHE/repodata/repomd.xml" ] ||
+        die "OFFLINE=1 but there is no mirror in $TENKO_REPO_CACHE; run tenko sync"
+else
+    bash scripts/build/sync.sh
+fi
+
+# 2. Build image.
+bash scripts/image/build.sh
+
+# 3. Local repository of our own builds.
+mkdir -p "$TENKO_LOCAL_REPO"
+if [ ! -f "$TENKO_LOCAL_REPO/repodata/repomd.xml" ]; then
+    podman run --rm --network=none -v "$TENKO_LOCAL_REPO:/repo:rw,z" \
+        "$BUILD_IMAGE" createrepo_c --quiet /repo
+fi
+
+mkdir -p "$OUT"/{build,logs,status}
 OUT=$(abspath "$OUT")
 printf '%s\n' "${specs[@]}" >"$OUT/packages.txt"
-echo "building ${#specs[@]} specs in $BASE_IMAGE -> $OUT"
 
-# rpmbuild reads %{_sourcedir}; stage the per-spec helper files (patches,
-# unit files, macros, static %files lists) next to the tarballs.
-staged=0
-for f in package_specs/*/files/*; do
-    [ -f "$f" ] || continue
-    cp -f "$f" "$SOURCES/"
-    staged=$((staged + 1))
+# 4. Sources: fetched once into the shared cache, linked per package.
+python3 scripts/build/fetch_sources.py --dest "$TENKO_SOURCES_DIR" \
+    --stage-root "$OUT/build" "${specs[@]}"
+
+echo "building ${#specs[@]} specs in $BUILD_IMAGE -> $OUT (JOBS=$JOBS STRICT=$STRICT)"
+
+# add_to_local_repo DIR: copy DIR's RPMs into build/repo and refresh it.
+add_to_local_repo() {
+    (
+        flock 9
+        find "$1" -name '*.rpm' -exec cp -f {} "$TENKO_LOCAL_REPO/" \;
+        podman run --rm --network=none -v "$TENKO_LOCAL_REPO:/repo:rw,z" \
+            "$BUILD_IMAGE" createrepo_c --quiet --update /repo
+    ) 9>"$TENKO_LOCAL_REPO/.lock"
+}
+
+build_one() {
+    local rel=$1 pkg top start rc rpms
+    pkg=$(basename "$rel" .spec)
+    top=$OUT/build/$pkg
+    if grep -qs '^ok ' "$OUT/status/$pkg"; then
+        echo "skip $pkg (already ok)"
+        return 0
+    fi
+    mkdir -p "$top"
+    start=$(date +%s)
+    podman run --rm --network=none \
+        -e MAKE_JOBS="$MAKE_JOBS" -e STRICT="$STRICT" \
+        -v "$PWD/package_specs:/specs:ro,z" \
+        -v "$top:/work:rw,z" \
+        -v "$TENKO_LOCAL_REPO:/repo/local:ro,z" \
+        -v "$TENKO_REPO_CACHE:/repo/cache:ro,z" \
+        -v "$PWD/scripts/build/in_container.sh:/in_container.sh:ro,z" \
+        "$BUILD_IMAGE" /usr/bin/bash /in_container.sh "$rel" \
+        >"$OUT/logs/$pkg.log" 2>&1 && rc=0 || rc=$?
+    rpms=$(find "$top/RPMS" -type f -name '*.rpm' -printf '%f ' 2>/dev/null || true)
+    if [ "$rc" -eq 0 ]; then
+        add_to_local_repo "$top/RPMS" >>"$OUT/logs/$pkg.log" 2>&1
+        printf 'ok %s %ss %s\n' "$pkg" "$(($(date +%s) - start))" "$rpms" |
+            tee "$OUT/status/$pkg"
+    else
+        printf 'fail %s %ss\n' "$pkg" "$(($(date +%s) - start))" |
+            tee "$OUT/status/$pkg"
+    fi
+}
+
+running=0
+for rel in "${specs[@]}"; do
+    build_one "$rel" &
+    running=$((running + 1))
+    if [ "$running" -ge "$JOBS" ]; then
+        wait -n || true
+        running=$((running - 1))
+    fi
 done
-echo "staged $staged spec-side files into $SOURCES"
-
-python3 scripts/build/fetch_sources.py --dest "$SOURCES" "${specs[@]}"
-
-podman run --rm --network=none \
-    -e JOBS="$JOBS" -e MAKE_JOBS="$MAKE_JOBS" \
-    -v "$PWD/package_specs:/specs:ro,z" \
-    -v "$SOURCES:/sources:ro,z" \
-    -v "$PWD/scripts/build/in_container.sh:/in_container.sh:ro,z" \
-    -v "$OUT:/out:rw,z" \
-    "$BASE_IMAGE" /usr/bin/bash /in_container.sh
+wait || true
 
 echo
 echo "results: $OUT"
 echo "logs:    $OUT/logs"
-echo "rpms:    $OUT/build/<package>/RPMS"
+echo "rpms:    $OUT/build/<package>/RPMS and $TENKO_LOCAL_REPO"
 if grep -qs '^fail ' "$OUT"/status/*; then
     echo "failed:"
     grep -h '^fail ' "$OUT"/status/* | awk -v out="$OUT" '{print "  " $2 "  (" out "/logs/" $2 ".log)"}'

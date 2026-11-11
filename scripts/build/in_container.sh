@@ -1,96 +1,75 @@
 #!/usr/bin/env bash
-# Run inside the Tenko base container.  Build every spec listed in
-# /out/packages.txt with rpmbuild, keeping per-package logs and RPMs.
+# Build one spec inside a fresh, network-less build container.
 #
-# The host side (scripts/build/specs.sh, `tenko build`) writes packages.txt
-# and mounts this script.  This script intentionally uses only tooling that is
-# present in the base image, except that it bootstraps pip from Python's
-# bundled ensurepip before building the Python module specs.
+# scripts/build/specs.sh (`tenko build`) starts one container per package
+# from the build image and mounts:
+#   /specs        package_specs/ (read-only)
+#   /work         this package's rpmbuild topdir; SOURCES/ is pre-staged
+#   /repo/local   RPMs built locally (preferred when newer)
+#   /repo/cache   offline mirror of the published repository
+#
+# The spec's BuildRequires are installed from those two repositories, then
+# rpmbuild runs.  STRICT=0 (phase 1, the default) installs whatever
+# BuildRequires resolve and still builds with --nodeps against the image's
+# full toolchain; STRICT=1 fails on any unresolvable BuildRequires and drops
+# --nodeps, so the spec must declare everything it needs.
+#
+# Usage (inside the container): in_container.sh <dir>/<name>.spec
 set -uo pipefail
 
-OUT=${OUT:-/out}
-SPECS=${SPECS:-/specs}
-SOURCES=${SOURCES:-/sources}
-JOBS=${JOBS:-4}
+rel=${1:?usage: in_container.sh SPEC}
+spec=/specs/$rel
 MAKE_JOBS=${MAKE_JOBS:-4}
+STRICT=${STRICT:-0}
 
-mkdir -p "$OUT"/{build,logs,rpms,status}
+repos=(--disablerepo='*' --nogpgcheck
+       --repofrompath=local,file:///repo/local
+       --repofrompath=cache,file:///repo/cache
+       --setopt=install_weak_deps=False)
 
-if [ ! -s "$OUT/packages.txt" ]; then
-    echo "missing $OUT/packages.txt" >&2
-    exit 2
+defines=(--define "_topdir /work" --define "_sourcedir /work/SOURCES"
+         --define "_smp_mflags -j$MAKE_JOBS"
+         --define "_smp_build_ncpus $MAKE_JOBS")
+
+echo "=== $rel (STRICT=$STRICT) in $(. /etc/os-release; echo "$PRETTY_NAME")"
+
+if ! mapfile -t reqs < <(rpmspec -q --buildrequires "${defines[@]}" "$spec"); then
+    echo "error: rpmspec could not parse $rel" >&2
+    exit 1
 fi
-
-# The image deliberately does not ship pip yet (python was built with
-# --without-ensurepip).  ensurepip is bundled with Python, so this is still
-# an offline bootstrap from the base image itself.
-if ! python3 -m pip --version >"$OUT/logs/ensurepip.log" 2>&1; then
-    if ! python3 -m ensurepip --upgrade >>"$OUT/logs/ensurepip.log" 2>&1; then
-        echo "failed to bootstrap pip" >&2
-        cat "$OUT/logs/ensurepip.log" >&2
-        exit 3
-    fi
-fi
-python3 -m pip --version >>"$OUT/logs/ensurepip.log" 2>&1 || true
-
-# Offline, reproducible pip behavior:
-#   - do not create isolated build envs that try to reach PyPI
-#   - ignore the copy already installed by rpm (we are installing into a
-#     buildroot, not upgrading the running system)
-export PIP_NO_BUILD_ISOLATION=1
-export PIP_IGNORE_INSTALLED=1
-export PIP_DISABLE_PIP_VERSION_CHECK=1
-
-build_one() {
-    local rel=$1
-    local pkg top rc start end rpms
-    pkg=$(basename "$rel" .spec)
-    top="$OUT/build/$pkg"
-
-    if [ -f "$OUT/status/$pkg" ] && grep -q '^ok ' "$OUT/status/$pkg"; then
-        return 0
-    fi
-
-    mkdir -p "$top"/{BUILD,BUILDROOT,RPMS,SRPMS,SPECS}
-    export PIP_CACHE_DIR="$OUT/build/$pkg/pip-cache"
-
-    start=$(date +%s)
-    rpmbuild -bb --nodeps \
-        --define "_topdir $top" \
-        --define "_sourcedir $SOURCES" \
-        --define "_smp_mflags -j$MAKE_JOBS" \
-        --define "_smp_build_ncpus $MAKE_JOBS" \
-        "$SPECS/$rel" >"$OUT/logs/$pkg.log" 2>&1
-    rc=$?
-    end=$(date +%s)
-
-    rpms=$(find "$top/RPMS" -type f -name '*.rpm' -printf '%f ' 2>/dev/null)
-    if [ "$rc" -eq 0 ]; then
-        printf 'ok %s %ss %s\n' "$pkg" "$((end - start))" "$rpms" >"$OUT/status/$pkg"
-        # Keep failed trees for diagnosis; successful trees are just disk.
-        rm -rf "$top/BUILD" "$top/BUILDROOT" "$top/pip-cache"
+if [ ${#reqs[@]} -gt 0 ]; then
+    echo "=== BuildRequires: ${reqs[*]}"
+    if [ "$STRICT" = 1 ]; then
+        dnf -y "${repos[@]}" install "${reqs[@]}" || {
+            echo "error: BuildRequires not satisfiable (STRICT=1)" >&2; exit 1; }
     else
-        printf 'fail %s %ss\n' "$pkg" "$((end - start))" >"$OUT/status/$pkg"
+        # strict=0 skips names no repository provides instead of failing
+        # the whole transaction; the build then relies on the image.
+        dnf -y "${repos[@]}" --setopt=strict=0 install "${reqs[@]}" ||
+            echo "warning: BuildRequires install failed; building with the image as is" >&2
     fi
-    return 0
-}
+else
+    echo "=== no BuildRequires declared"
+fi
 
-running=0
-while IFS= read -r rel; do
-    rel=${rel%%#*}
-    rel=${rel#"${rel%%[![:space:]]*}"}
-    rel=${rel%"${rel##*[![:space:]]}"}
-    [ -n "$rel" ] || continue
-    build_one "$rel" &
-    running=$((running + 1))
-    if [ "$running" -ge "$JOBS" ]; then
-        wait -n || true
-        running=$((running - 1))
-    fi
-done <"$OUT/packages.txt"
-wait || true
+# The image ships python3 without pip (built --without-ensurepip); ensurepip
+# is bundled, so bootstrapping it stays offline.  Only Python packaging
+# specs need it.
+if grep -q 'pip' "$spec" && ! python3 -m pip --version >/dev/null 2>&1; then
+    python3 -m ensurepip --upgrade >/dev/null || {
+        echo "error: failed to bootstrap pip" >&2; exit 1; }
+fi
+# Offline, reproducible pip: no isolated build envs reaching PyPI, and
+# ignore copies installed by rpm (we install into a buildroot).
+export PIP_NO_BUILD_ISOLATION=1 PIP_IGNORE_INSTALLED=1
+export PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=/work/pip-cache
 
-echo "=== summary ==="
-cat "$OUT"/status/* 2>/dev/null | sort
-echo "=== counts ==="
-awk '{print $1}' "$OUT"/status/* 2>/dev/null | sort | uniq -c
+nodeps=(--nodeps)
+[ "$STRICT" = 1 ] && nodeps=()
+
+echo "=== rpmbuild"
+mkdir -p /work/{BUILD,BUILDROOT,RPMS,SRPMS,SPECS}
+rpmbuild -bb "${nodeps[@]}" "${defines[@]}" "$spec" || exit 1
+
+# Keep failed trees for diagnosis; successful trees are just disk.
+rm -rf /work/BUILD /work/BUILDROOT /work/pip-cache

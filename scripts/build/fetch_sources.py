@@ -5,6 +5,15 @@ Release builds run rpmbuild with --network=none inside a container, so every
 tarball must already be in ~/rpmbuild/SOURCES.  `tenko build` calls
 this helper for each spec before starting the container.
 
+A tarball already present with the right md5 in a seed directory
+(TENKO_SOURCES_SEED, default ~/rpmbuild/SOURCES, the old shared cache) is
+hard-linked instead of downloaded.
+
+With --stage-root, each package then gets a private source directory,
+ROOT/<spec-name>/SOURCES, holding hard links to just its own tarballs and
+files/ (patches, units, filelists), so builds cannot pick up another
+package's files.
+
 A package directory with no `sources` file, or with a `nosources` marker, is
 skipped.  Each `sources` line is `md5 url [filename]`; the optional third
 field overrides the basename taken from the URL.  Downloads run in parallel
@@ -16,11 +25,14 @@ Usage:
     tenko fetch package_specs/curl
     tenko fetch curl
     tenko fetch --dest /tmp/SOURCES curl/curl.spec
+    tenko fetch --stage-root build/out/build curl/curl.spec
 """
 
 import argparse
+import glob
 import hashlib
 import os
+import shutil
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -29,7 +41,9 @@ from urllib.parse import urlparse
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SPECS_DIR = os.path.join(REPO_ROOT, "package_specs")
 DEFAULT_SOURCES_DIR = os.environ.get(
-    "TENKO_SOURCES_DIR", os.path.expanduser("~/rpmbuild/SOURCES"))
+    "TENKO_SOURCES_DIR", os.path.join(REPO_ROOT, "build", "sources"))
+SEED_DIRS = os.environ.get(
+    "TENKO_SOURCES_SEED", os.path.expanduser("~/rpmbuild/SOURCES")).split(":")
 
 # Cap parallel downloads so a large wave does not saturate the mirror.
 DOWNLOAD_WORKERS = max(4, min(12, (os.cpu_count() or 4)))
@@ -69,13 +83,26 @@ def _unlink(path):
         pass
 
 
+def source_filename(source):
+    md5, url, override_filename = source
+    return override_filename or os.path.basename(urlparse(url).path)
+
+
+def link_or_copy(src, dst):
+    try:
+        os.link(src, dst)
+    except OSError:
+        shutil.copy2(src, dst)
+
+
 def _fetch_one(source, dest):
     md5, url, override_filename = source
-    filename = override_filename or os.path.basename(urlparse(url).path)
+    filename = source_filename(source)
     if not filename:
         print("  ! cannot derive a filename from {}".format(url))
         return False
 
+    os.makedirs(dest, exist_ok=True)
     out_file = os.path.join(dest, filename)
     part_file = out_file + ".part"
 
@@ -85,6 +112,14 @@ def _fetch_one(source, dest):
             return True
         print("  ! cached {} has the wrong md5; re-downloading".format(filename))
         os.unlink(out_file)
+
+    for seed in SEED_DIRS:
+        seeded = os.path.join(seed, filename)
+        if seed and os.path.realpath(seed) != os.path.realpath(dest) and \
+                os.path.isfile(seeded) and get_md5(seeded) == md5:
+            link_or_copy(seeded, out_file)
+            print("  + seeded: {} (from {})".format(filename, seed))
+            return True
 
     print("  > download: {}".format(filename))
     command = ["curl", "-fL", "--retry", "2", "-o", part_file, url]
@@ -153,6 +188,30 @@ def collect_sources(package_dirs):
     return items, skipped
 
 
+def stage(paths, package_dirs, sources_dir, root):
+    """Link each package's tarballs and files/ into ROOT/<name>/SOURCES."""
+    for path, package_dir in zip(paths, package_dirs):
+        if path.endswith(".spec"):
+            names = [os.path.basename(path)[:-len(".spec")]]
+        else:
+            names = [os.path.basename(spec)[:-len(".spec")] for spec in
+                     sorted(glob.glob(os.path.join(package_dir, "*.spec")))]
+        wanted = []
+        if os.path.isdir(os.path.join(package_dir, "files")):
+            wanted += sorted(glob.glob(os.path.join(package_dir, "files", "*")))
+        items, _ = collect_sources([package_dir])
+        wanted += [os.path.join(sources_dir, source_filename(item))
+                   for item in items]
+        for name in names:
+            target = os.path.join(root, name, "SOURCES")
+            if os.path.isdir(target):
+                shutil.rmtree(target)
+            os.makedirs(target)
+            for src in wanted:
+                if os.path.isfile(src):
+                    link_or_copy(src, os.path.join(target, os.path.basename(src)))
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(
         description="Download and md5-verify package sources")
@@ -162,6 +221,9 @@ def main(argv=None):
     parser.add_argument(
         "--dest", default=DEFAULT_SOURCES_DIR,
         help="download directory (default: %(default)s)")
+    parser.add_argument(
+        "--stage-root",
+        help="also link each package's sources into ROOT/<name>/SOURCES")
     parser.add_argument(
         "--jobs", type=int, default=0,
         help="parallel downloads (0 = auto, default)")
@@ -184,12 +246,13 @@ def main(argv=None):
 
     if skipped:
         print("no sources to fetch: {}".format(", ".join(sorted(skipped))))
-    if not items:
-        return 0
 
-    print("fetching {} source file(s) into {}".format(len(items), args.dest))
-    if not fetch_sources(items, args.dest, jobs=args.jobs):
-        return 1
+    if items:
+        print("fetching {} source file(s) into {}".format(len(items), args.dest))
+        if not fetch_sources(items, args.dest, jobs=args.jobs):
+            return 1
+    if args.stage_root:
+        stage(args.paths, package_dirs, args.dest, args.stage_root)
     return 0
 
 

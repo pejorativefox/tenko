@@ -78,6 +78,11 @@ else
             -exec mv {} "$rootfs_abs/usr/lib/sysimage/rpm/" \;
         rmdir "$rootfs_abs/var/lib/rpm"
     fi
+    # rpm in the image reads %_dbpath /var/lib/rpm; point it at the database.
+    if [ -d "$rootfs_abs/usr/lib/sysimage/rpm" ] && [ ! -e "$rootfs_abs/var/lib/rpm" ]; then
+        mkdir -p "$rootfs_abs/var/lib"
+        ln -s /usr/lib/sysimage/rpm "$rootfs_abs/var/lib/rpm"
+    fi
 
     # The install ran with tsflags=noscripts, so run the offline setup that
     # matters for a working image: sysusers and systemd presets.
@@ -135,4 +140,4 @@ if [ "$TAG_STABLE" = 1 ] && [ "$IMAGE" != "$BASE_IMAGE" ]; then
 fi
 
 echo "created $IMAGE"
-echo "next: BASE_IMAGE=$IMAGE tenko build --base"
+[ -n "${NO_NEXT_HINT:-}" ] || echo "next: BASE_IMAGE=$IMAGE tenko build --base"

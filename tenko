@@ -15,11 +15,13 @@ S=$TENKO_ROOT/scripts
 # command | script | summary
 COMMANDS="
 build             | build/specs.sh         | build specs in the base container (--base for the whole base set)
+sync              | build/sync.sh          | mirror the published repository into build/cache/repo
 fetch             | build/fetch_sources.py | download and verify the sources for specs
 filelist          | tools/filelist.py      | generate a static %files list from an RPM or buildroot
 check             | check/run.sh           | run the pre-publish checks (unit tests, base requires, fdo audit)
 audit             | check/fdo_audit.py     | freedesktop compliance audit over specs, RPMs or a rootfs
 base-requires     | check/base_requires.py | regenerate or --check the tenko-base Requires block
+image build       | image/build.sh         | create or refresh the build image from build/cache/repo (automatic)
 image base        | image/base.sh          | create the base container image from the published repo
 image iso         | image/iso.sh           | build the UEFI installer ISO
 image initramfs   | image/initramfs.sh     | generate the initramfs inside a staged rootfs
@@ -94,7 +96,15 @@ shift "$CONSUMED"
 path=$S/$SCRIPT
 # shellcheck disable=SC2086  # SCRIPT_ARGS is a fixed word from the table
 case "$path" in
-    *.py) exec python3 "$path" $SCRIPT_ARGS "$@" ;;
+    *.py)
+        # Shared defaults (cache paths, release) for the Python tools; keep
+        # the caller's directory so relative arguments still resolve.
+        here=$PWD
+        # shellcheck source=scripts/lib/common.sh
+        . "$S/lib/common.sh"
+        cd "$here"
+        exec python3 "$path" $SCRIPT_ARGS "$@"
+        ;;
     *)
         case "${1:-}" in -h|--help) script_help "$path"; exit 0 ;; esac
         exec bash "$path" $SCRIPT_ARGS "$@"

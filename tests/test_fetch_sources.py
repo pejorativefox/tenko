@@ -132,3 +132,43 @@ class CliTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SeedAndStageTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = pathlib.Path(tempfile.mkdtemp())
+        self.addCleanup(__import__("shutil").rmtree, self.tmp)
+
+    def test_seeded_from_old_cache_without_download(self):
+        seed = self.tmp / "seed"
+        dest = self.tmp / "dest"
+        seed.mkdir()
+        (seed / "foo.tar.gz").write_bytes(b"payload")
+        md5 = hashlib.md5(b"payload").hexdigest()
+        old = fetch_sources.SEED_DIRS
+        fetch_sources.SEED_DIRS = [str(seed)]
+        self.addCleanup(setattr, fetch_sources, "SEED_DIRS", old)
+        # An unreachable URL proves nothing was downloaded.
+        ok = fetch_sources._fetch_one(
+            [md5, "http://127.0.0.1:9/foo.tar.gz", None], str(dest))
+        self.assertTrue(ok)
+        self.assertEqual((dest / "foo.tar.gz").read_bytes(), b"payload")
+
+    def test_stage_links_only_the_packages_own_files(self):
+        pkg = self.tmp / "specs" / "foo"
+        other = self.tmp / "specs" / "bar"
+        sources = self.tmp / "sources"
+        for d in (pkg / "files", other / "files", sources):
+            d.mkdir(parents=True)
+        (pkg / "foo.spec").write_text("Name: foo\n")
+        (pkg / "files" / "foo.filelist").write_text("/usr/bin/foo\n")
+        (other / "files" / "bar.patch").write_text("patch\n")
+        (pkg / "sources").write_text(
+            "abc https://example.org/dl/download foo-1.tar.gz\n")
+        (sources / "foo-1.tar.gz").write_bytes(b"tarball")
+        (sources / "bar-1.tar.gz").write_bytes(b"other")
+        root = self.tmp / "out"
+        spec = str(pkg / "foo.spec")
+        fetch_sources.stage([spec], [str(pkg)], str(sources), str(root))
+        staged = sorted(os.listdir(root / "foo" / "SOURCES"))
+        self.assertEqual(staged, ["foo-1.tar.gz", "foo.filelist"])
