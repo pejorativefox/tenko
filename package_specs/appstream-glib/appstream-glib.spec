@@ -46,6 +46,7 @@ BuildRequires: mesa
 BuildRequires: pixman
 BuildRequires: xorgproto
 BuildRequires: gperf
+BuildRequires: gobject-introspection
 
 %description
 Glib AppStream metadata support.

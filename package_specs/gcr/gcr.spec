@@ -48,6 +48,7 @@ BuildRequires: xorgproto
 BuildRequires: gnupg
 BuildRequires: libsecret
 BuildRequires: openssh
+BuildRequires: gobject-introspection
 
 %description
 GCR is a library for displaying certificates and crypto UI, and accessing

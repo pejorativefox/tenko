@@ -11,6 +11,8 @@ BuildRequires: libpciaccess
 BuildRequires: pixman
 BuildRequires: util-macros
 BuildRequires: xorg-server
+BuildRequires: git
+BuildRequires: xorgproto
 
 %description
 The Intel video driver for Xorg.

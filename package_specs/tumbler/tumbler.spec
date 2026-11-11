@@ -14,6 +14,7 @@ BuildRequires: libxfce4util
 BuildRequires: harfbuzz
 BuildRequires: shared-mime-info
 BuildRequires: curl
+BuildRequires: openssl
 
 %description
 D-Bus service for applications to request thumbnails
