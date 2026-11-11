@@ -19,6 +19,7 @@ Requires:   libgudev
 Requires:   polkit
 BuildRequires: shadow
 BuildRequires: gobject-introspection
+BuildRequires: python-setuptools
 
 %description
 udisks2 is a D-Bus service that exposes storage devices to desktop

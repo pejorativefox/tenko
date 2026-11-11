@@ -22,6 +22,8 @@ BuildRequires: libxkbcommon
 BuildRequires: p11-kit
 BuildRequires: polkit
 BuildRequires: python-markupsafe
+BuildRequires: tenko-release
+BuildRequires: shadow
 
 %description
 The systemd package contains programs for controlling the startup, running, and shutdown of the system.
