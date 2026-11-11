@@ -5,6 +5,7 @@ Summary:    Python text processing system (docutils, rst2man)
 License:    public domain / BSD / GPL
 Prefix:     /usr
 Source0:    docutils-%{version}.tar.gz
+BuildRequires: python-flit-core
 
 %description
 Docutils is an open-source text processing system for processing plaintext

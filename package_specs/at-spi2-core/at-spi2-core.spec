@@ -7,6 +7,11 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 Provides: pkgconfig(atspi-2)
+BuildRequires: dbus-daemon
+BuildRequires: libx11
+BuildRequires: libxi
+BuildRequires: libxres
+BuildRequires: libxtst
 %description
 AT-SPI (Assistive Technology Service Provider Interface) is the core of an
 accessibility stack for free software systems. It provides the D-Bus

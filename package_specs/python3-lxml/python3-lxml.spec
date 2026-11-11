@@ -5,6 +5,8 @@ Summary:    Python bindings for libxml2 and libxslt
 License:    BSD-3-Clause AND PSF-2.0 AND MIT
 Source0:    lxml-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: libxslt
+BuildRequires: python-setuptools
 
 %description
 lxml provides Python bindings for libxml2 and libxslt.  itstool uses it in

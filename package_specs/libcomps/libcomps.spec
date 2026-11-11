@@ -5,6 +5,7 @@ Summary:    Comps XML file manipulation library
 License:    GPL-2.0-or-later
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: python-setuptools
 
 %description
 libcomps is a library for structure-like manipulation of the content of

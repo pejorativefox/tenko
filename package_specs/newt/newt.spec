@@ -5,6 +5,8 @@ Summary:    Newt is a programming library for color text mode
 License:    LGPL-2.0-only
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: slang
+BuildRequires: tcl
 
 %description
 Newt is a programming library for color text mode
