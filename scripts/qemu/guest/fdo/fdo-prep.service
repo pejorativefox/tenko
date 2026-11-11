@@ -1,0 +1,13 @@
+[Unit]
+Description=Prepare the freedesktop QEMU verification session
+After=local-fs.target
+Before=lightdm.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+TimeoutStartSec=120
+ExecStart=/usr/local/libexec/fdo-verify/prep.sh
+
+[Install]
+WantedBy=multi-user.target

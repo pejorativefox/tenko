@@ -162,7 +162,7 @@ flatpak, polkit itself).
 
 The audit parses every `/usr/share/dbus-1` and `/etc/dbus-1` configuration
 file and the polkit `.policy` XML.  The runtime prompt is exercised by the
-QEMU desktop test; the system bus must start without policy parse
+`tenko qemu fdo` gate; the system bus must start without policy parse
 errors.
 
 ## AppStream

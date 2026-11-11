@@ -11,7 +11,7 @@
 # Tenko relies on a systemd user manager for D-Bus activation: a private
 # dbus-launch bus (unix:path=/tmp/dbus-*) cannot activate services such as
 # xdg-desktop-portal.  The checker therefore requires the manager bus and
-# the issue #48 session targets, not merely "some bus".
+# the XFCE session targets, not merely "some bus".
 #
 # Usage:
 #   sh scripts/qemu/fdo_session_check.sh
@@ -93,7 +93,7 @@ if [ "$env_ok" -ne 1 ]; then
 fi
 
 # ---------------------------------------------------------------------------
-# Systemd user manager and the #48 session targets
+# Systemd user manager and the XFCE session targets
 #
 # The portal is a D-Bus activated user service with
 # Requisite=graphical-session.target.  Without the user manager and the

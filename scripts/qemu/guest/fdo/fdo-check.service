@@ -1,0 +1,12 @@
+[Unit]
+Description=Run the freedesktop desktop checks in the LightDM login session
+After=lightdm.service fdo-prep.service
+Wants=lightdm.service
+TimeoutStartSec=360
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/libexec/fdo-verify/check.sh
+
+[Install]
+WantedBy=graphical.target

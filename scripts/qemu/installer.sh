@@ -2,9 +2,20 @@
 # Boot the installer ISO in QEMU (UEFI/OVMF) and capture the screen.
 #
 # The disk is blank: the installer should offer it in the disk list and let
-# you create a GPT.  Serial output goes to build/installer-serial.log.
+# you create a GPT.  Serial output goes to build/installer-serial.log, the
+# screenshot to build/installer-screen.png.
+#
+# Usage:
+#   tenko qemu installer
+#   ISO=build/other.iso WAIT=120 tenko qemu installer
+#
+# Environment: ISO, DISK, DISKSIZE (20G), WAIT (90), MEM (4096), VNC
+# (127.0.0.1:2), OVMF_CODE, OVMF_VARS_SRC, OVMF_VARS, SERIAL, MON, SHOT.
 set -euo pipefail
 . "$(dirname "$0")/../lib/common.sh"
+MEM=${MEM:-4096}
+VNC=${VNC:-127.0.0.1:2}
+. scripts/lib/qemu.sh
 
 ISO=${ISO:-$PWD/build/tenko-installer.iso}
 DISK=${DISK:-$PWD/build/installer-test.img}
@@ -13,8 +24,6 @@ SERIAL=${SERIAL:-$PWD/build/installer-serial.log}
 MON=${MON:-$PWD/build/installer-monitor.sock}
 SHOT=${SHOT:-$PWD/build/installer-screen.png}
 WAIT=${WAIT:-90}
-MEM=${MEM:-4096}
-VNC=${VNC:-127.0.0.1:2}
 OVMF_CODE=${OVMF_CODE:-/usr/share/edk2/ovmf/OVMF_CODE.fd}
 OVMF_VARS_SRC=${OVMF_VARS_SRC:-/usr/share/edk2/ovmf/OVMF_VARS.fd}
 OVMF_VARS=${OVMF_VARS:-$PWD/build/OVMF_VARS-installer.fd}
@@ -31,7 +40,7 @@ if [ ! -f "$OVMF_VARS" ]; then
     cp "$OVMF_VARS_SRC" "$OVMF_VARS"
 fi
 
-rm -f "$MON" "$SERIAL" "$SHOT" "$PWD/build/installer-screen.ppm"
+rm -f "$MON" "$SERIAL" "$SHOT"
 
 qemu-system-x86_64 \
     -enable-kvm -cpu host -m "$MEM" -smp 4 \
@@ -49,38 +58,11 @@ qpid=$!
 trap 'kill $qpid 2>/dev/null || true' EXIT
 
 
-# QEMU monitor helper: talk to the unix socket without socat.
-mon() {
-    python3 - "$MON" "$1" <<'PY' || true
-import socket, sys
-s = socket.socket(socket.AF_UNIX)
-s.connect(sys.argv[1])
-s.sendall((sys.argv[2] + "\n").encode())
-s.settimeout(1)
-try:
-    while s.recv(4096):
-        pass
-except Exception:
-    pass
-PY
-}
-
 echo "qemu pid $qpid; waiting ${WAIT}s for the installer"
 sleep "$WAIT"
 
-if [ -S "$MON" ]; then
-    mon "screendump $PWD/build/installer-screen.ppm"
-    sleep 2
-    if [ -s "$PWD/build/installer-screen.ppm" ]; then
-        if command -v convert >/dev/null 2>&1; then
-            convert "$PWD/build/installer-screen.ppm" "$SHOT"
-            echo "screenshot: $SHOT"
-        else
-            echo "screenshot: $PWD/build/installer-screen.ppm"
-        fi
-    fi
-    mon quit
-fi
+screendump "$SHOT" || echo "no screendump" >&2
+mon quit
 
 wait $qpid 2>/dev/null || true
 trap - EXIT

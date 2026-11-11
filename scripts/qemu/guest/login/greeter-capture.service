@@ -1,0 +1,13 @@
+[Unit]
+Description=Capture the LightDM greeter to the 9p share
+After=lightdm.service
+Wants=lightdm.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 15
+ExecStart=/usr/local/libexec/tenko-test/greeter-capture.sh
+TimeoutStartSec=180
+
+[Install]
+WantedBy=graphical.target

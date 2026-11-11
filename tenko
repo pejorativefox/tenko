@@ -30,8 +30,7 @@ publish rpm       | publish/rpm.sh         | merge RPMs into the published repos
 publish repo      | publish/repo.sh        | republish a whole local repository
 publish iso       | publish/file.sh iso    | upload the installer ISO and its .sha256
 publish rootfs    | publish/file.sh rootfs | upload the rootfs tarball and its .sha256
-qemu boot         | qemu/boot.sh           | direct kernel boot of an installed rootfs to a serial login
-qemu desktop      | qemu/desktop.sh        | boot an XFCE session and take a screenshot
+qemu boot         | qemu/boot.sh           | boot the base system to a serial login prompt
 qemu login        | qemu/login.sh          | first-boot flow up to the LightDM greeter
 qemu fdo          | qemu/fdo.sh            | freedesktop gate inside a real login session
 qemu run          | qemu/run.sh            | boot the desktop test image interactively

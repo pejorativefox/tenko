@@ -1,57 +1,47 @@
 #!/usr/bin/env bash
-# Boot the prepared XFCE/lightdm test image interactively.
+# Boot the desktop test image interactively.
 #
-# The image boots to the LightDM greeter (the real first-boot flow).  Images
-# built by tenko qemu login have root set to TEST_PASSWORD (tenko1); a
-# freshly built image prompts for a new root password on tty1 first.
-# Choose how to see it:
+# The image is the one `tenko qemu login` builds (it is built on first use).
+# It boots to the LightDM greeter through the real first-boot flow: a fresh
+# image asks for a root password on tty1 first; after a `tenko qemu login`
+# run, root's password is TEST_PASSWORD (tenko1).
 #
-#   tenko qemu run                 # GTK window if $DISPLAY is set, else VNC
+#   tenko qemu run                         # GTK window if $DISPLAY is set, else VNC
 #   DISPLAY_MODE=vnc tenko qemu run
-#   DISPLAY_MODE=gtk tenko qemu run
 #   VNC_ADDR=0.0.0.0:1 DISPLAY_MODE=vnc tenko qemu run   # expose on the LAN
+#   SSH_FWD=2222 tenko qemu run            # ssh -p 2222 root@127.0.0.1
 #
-# VNC:   connect to 127.0.0.1:5901 (display :1)
-# Serial: socat -,raw,echo=0 UNIX-CONNECT:build/xfce-serial.sock
-#         (log in as root; test images use root/tenko1)
-# Stop:  Ctrl-C
+# Serial console: ncat -U build/run-serial.sock
+# Monitor:        ncat -U build/run-monitor.sock   (screendump, sendkey, quit)
+# SNAPSHOT=0 keeps changes in the image.  Stop with Ctrl-C.
 set -euo pipefail
 . "$(dirname "$0")/../lib/common.sh"
 
-IMG=${IMG:-$PWD/build/login-test.img}
-ROOTFS=${ROOTFS:-$PWD/build/rootfs-login-test}
+IMG=${IMG:-$PWD/build/login.img}
+ROOTFS=${ROOTFS:-$PWD/build/rootfs-login}
 MEM=${MEM:-3072}
 SMP=${SMP:-4}
 SNAPSHOT=${SNAPSHOT:-1}
 DISPLAY_MODE=${DISPLAY_MODE:-auto}
 VNC_ADDR=${VNC_ADDR:-127.0.0.1:1}
-SERIAL=${SERIAL:-$PWD/build/xfce-serial.sock}
-MON=${MON:-$PWD/build/xfce-monitor.sock}
+SERIAL=${SERIAL:-$PWD/build/run-serial.sock}
+MON=${MON:-$PWD/build/run-monitor.sock}
 # Optional host->guest SSH forward, e.g. SSH_FWD=2222 -> ssh -p 2222 root@127.0.0.1
 SSH_FWD=${SSH_FWD:-}
 
-# Test-only extras: repo packages (default opencode-bin + herdr) and any
-# RPM files found in build/extra-rpms.
+# Test-only extras for the image build (repository packages and RPM files
+# from build/extra-rpms).
 EXTRA_PACKAGES=${EXTRA_PACKAGES-openssh opencode-bin herdr}
 EXTRA_RPMS=${EXTRA_RPMS:-}
 if [ -z "$EXTRA_RPMS" ] && [ -d "$PWD/build/extra-rpms" ]; then
     EXTRA_RPMS=$(find "$PWD/build/extra-rpms" -maxdepth 1 -name '*.rpm' -print | sort | tr '\n' ' ')
 fi
 
-# Rebuild if the image predates the requested extras.
-if [ -n "$EXTRA_RPMS" ] && [ -f "$IMG" ]; then
-    if [ ! -x "$ROOTFS/usr/bin/opencode" ] || [ ! -x "$ROOTFS/usr/bin/herdr" ]; then
-        echo "image is missing requested test binaries; rebuilding with extras" >&2
-        rm -f "$IMG"
-    fi
-fi
-
 if [ ! -f "$IMG" ]; then
-    echo "no image at $IMG; building it from build/repo-all (this takes a minute)"
-    ROOTFS="$ROOTFS" IMG="$IMG" SKIP_INSTALL=0 BUILD_ONLY=1 \
-        IMGSIZE="${IMGSIZE:-5G}" EXTRA_PACKAGES="$EXTRA_PACKAGES" \
-        EXTRA_RPMS="$EXTRA_RPMS" \
-        "$PWD/tenko qemu desktop"
+    echo "no image at $IMG; building it with tenko qemu login"
+    ROOTFS="$ROOTFS" IMG="$IMG" IMAGE_ONLY=1 IMGSIZE="${IMGSIZE:-6G}" \
+        EXTRA_PACKAGES="$EXTRA_PACKAGES" EXTRA_RPMS="$EXTRA_RPMS" \
+        bash scripts/qemu/login.sh
 fi
 
 case "$DISPLAY_MODE" in
@@ -122,9 +112,8 @@ if [ "${USE_INITRD:-1}" = 1 ] && [ -f "$ROOTFS/boot/initramfs-$KVER.img" ]; then
 fi
 
 cat <<EOF
-Tenko XFCE test boot
+Tenko desktop test boot
   image:   $IMG (snapshot=$SNAPSHOT)
-  login:   root / root (tty1 is occupied by the X session)
   display: $DISPLAY_MODE${DISPLAY_MODE:+ }
   video:   $VGA$([ "$gl" = 1 ] && echo " (gl=on)")
 EOF
@@ -133,8 +122,8 @@ if [ "$DISPLAY_MODE" = "vnc" ]; then
     echo "  VNC:     ${VNC_ADDR%:*}:$port  (e.g. vncviewer 127.0.0.1:$port)"
 fi
 cat <<EOF
-  serial:  socat -,raw,echo=0 UNIX-CONNECT:$SERIAL
-  monitor: socat - UNIX-CONNECT:$MON   (screendump/sendkey)
+  serial:  ncat -U $SERIAL
+  monitor: ncat -U $MON   (screendump, sendkey, quit)
   stop:    Ctrl-C
 EOF
 if [ -n "$SSH_FWD" ]; then

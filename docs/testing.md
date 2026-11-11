@@ -1,17 +1,17 @@
 # Testing images and installs
 
-Boot and install tests run under QEMU with the OVMF firmware and a GPT/ESP
-disk, the same UEFI path as real hardware (only `tenko qemu boot` uses a
-direct kernel boot).  There is no BIOS path — the media and installed system
-are UEFI-only.
+The installer tests run under QEMU with the OVMF firmware and a GPT/ESP
+disk, the same UEFI path as real hardware.  The system tests (`tenko qemu
+boot`, `login`, `fdo`, `run`) boot a test image directly with its kernel and
+initramfs.  There is no BIOS path: the media and installed system are
+UEFI-only.
 
 ## Prerequisites
 
 - `qemu-system-x86_64` and `/dev/kvm`
 - `edk2-ovmf` (`dnf install edk2-ovmf`) — provides
   `/usr/share/edk2/ovmf/OVMF_CODE.fd` and `OVMF_VARS.fd`
-- `python3` (the scripts drive the QEMU monitor with a small Python helper;
-  `socat` is not needed)
+- `python3` (the scripts drive the QEMU monitor with a small Python helper)
 - a few GiB in `build/` for disk images, kernel/initrd and logs
 
 Secure Boot must be **off**: the firmware is unsigned and the installer
@@ -24,9 +24,9 @@ refuses to proceed when Secure Boot is enabled.
 | installer media | `tenko qemu installer` | systemd-boot menu, kernel + initrd boot, `Started Tenko Linux installer`, multi-user and a console login prompt |
 | unattended install | `ISO_AUTO=1 ISO_ANSWER=tests/installer-answer.json tenko image iso` then boot the ISO | installer reports steps 1–9 and `OK`, `bootctl install` succeeds, disk boots to `tenko-test login:` |
 | installed disk | QEMU with `-drive file=build/installer-test.img,if=virtio` and a fresh OVMF NVRAM | systemd-boot menu → kernel → login prompt |
-| graphical session | `tenko qemu desktop` | X starts on tty1, screenshot captured in `build/xfce-screenshot.png` |
+| base system | `tenko qemu boot` | the installer's `base` package set boots to a serial login prompt; units that failed are listed |
 | first boot + greeter | `tenko qemu login` | first-boot password flow, LightDM greeter captured (guest `xwd` or screendump fallback) |
-| direct kernel boot | `tenko qemu boot` | serial login prompt from the installed rootfs (no UEFI) |
+| freedesktop gate | `tenko qemu fdo` | every desktop check passes in a real login session (see below) |
 
 Pass criteria for a booted system:
 
@@ -69,36 +69,33 @@ the serial console.  `tests/serial_login.py [user] [password]` can drive that
 login over a `-serial unix:...` socket and checks for the login prompt,
 password prompt, shell prompt and requested commands.
 
-## Graphical tests
+## System tests
 
 ```sh
-./tenko qemu desktop          # installs base + xfce-desktop
-SKIP_INSTALL=1 ./tenko qemu desktop
-
-./tenko qemu login              # first boot + LightDM
-SKIP_INSTALL=1 ./tenko qemu login
-BUILD_ONLY=1 ./tenko qemu login
-
-./tenko qemu run                # boot the login test image interactively
+./tenko qemu boot               # base package set, serial login prompt
+./tenko qemu login              # desktop: first boot + LightDM greeter
+IMAGE_ONLY=1 ./tenko qemu login # build the desktop image only
+./tenko qemu run                # boot the desktop image interactively
+./tenko qemu fdo                # freedesktop gate (below)
 ```
 
-Both install from the published repository (`REPO`, default public URL) into
-`build/rootfs-*`, build an ext4 image, boot it and capture the screen.  Logs
-and screenshots are written under `build/`.
+Each test installs exactly the package set `tenko-installer` installs
+(`base` or `desktop`, taken from the installer itself) into `build/rootfs-*`
+with scriptlets enabled, builds an ext4 image and boots it with KVM.  The
+packages come from the offline mirror (`tenko sync`), so a run is offline
+after the first sync; `REPO=URL-or-path` installs from elsewhere.  The
+installed tree is reused while the repository and the package list are
+unchanged; `REBUILD_ROOTFS=1` forces a fresh install.  Logs, images and
+screenshots are written under `build/`, and VNC is on `127.0.0.1:5901` while
+a test runs.  The shared helpers are in `scripts/lib/qemu.sh`; files
+installed into the guest live in `scripts/qemu/guest/`.
 
-For the freedesktop desktop-level gate, run the same install plus the
-in-guest session checks (notifications, portal, Secret Service, sound, trash,
-tray, XSettings and EWMH).  Prefer the LAN mirror when it is reachable:
+## Freedesktop gate
 
-```sh
-REPO=http://192.168.31.9/~daspork/tenko/packages/6/ \
-    ./tenko qemu fdo
-REPO=path/to/local/repo ./tenko qemu fdo   # local repository
-```
-
-`tenko qemu fdo` installs a fresh rootfs (or reuses a cached one,
-see below) and logs in through LightDM autologin as an ordinary test account,
-so the checks run in a real
+`tenko qemu fdo` boots the desktop image and runs the in-guest session checks
+(notifications, portal, Secret Service, sound, trash, tray, XSettings and
+EWMH).  It logs in through LightDM autologin as an ordinary test account, so
+the checks run in a real
 logind session with a systemd user manager and
 `DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus`.  This is the same
 D-Bus activation path as a real login: the portal check waits for
@@ -114,18 +111,14 @@ The guest writes `build/qemu-share/fdo-check.txt` and the script exits:
 | `1` | a packaged component failed its check (`FAIL`) |
 | `2` | harness failure (`HARNESS-FAIL`): no usable login session, wrong bus, or missing session-target units; LightDM/Xorg/journal diagnostics are in `fdo-check.txt` |
 
-The script fails before booting if the installed `tenko-desktop-config` is
-older than 6-6 (no `xfce-session.target`) or if a required desktop package is
-missing.  `WAIT`, `SESSION_WAIT`, `TARGET_WAIT` and `DESKTOP_WAIT` bound the
+The script fails before booting if the image lacks the XFCE session targets
+from `tenko-desktop-config` or a required desktop package.  `WAIT`, `SESSION_WAIT`, `TARGET_WAIT` and `DESKTOP_WAIT` bound the
 host and guest timeouts; the result file is written atomically so a partial
 check cannot be mistaken for a pass.  The log prints the rootfs, guest and
 total phase times.
 
-The installed package set is cached while the repository's `repomd.xml` is
-unchanged: the first run installs, later runs reuse it and only rebuild the
-image and boot QEMU.  Use `REBUILD_ROOTFS=1` for a forced fresh install,
-`SKIP_BUILD=1` to reuse any existing rootfs, and `MEM=4096` (the default) to
-change the guest memory.
+The guest scripts are reinstalled into the image on every run, so changing
+them needs no fresh install.  The guest has 4096 MiB by default (`MEM`).
 
 The Secret Service is checked twice: a `dbus-run-session` round-trip as root
 (provider packaging) and a `secret-tool` round-trip in the login session
