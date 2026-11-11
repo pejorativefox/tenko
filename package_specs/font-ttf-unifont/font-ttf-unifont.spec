@@ -8,7 +8,7 @@
 
 Name:       font-ttf-unifont
 Version:    17.0.03
-Release:    1
+Release:    2
 Summary:    GNU Unifont: bitmap+outline coverage of the Unicode code points
 License:    OFL
 Prefix:     /usr
@@ -42,10 +42,19 @@ install -m 0644 %{SOURCE0} %{buildroot}/usr/share/fonts/unifont/unifont-%{versio
 install -m 0644 %{SOURCE1} %{buildroot}/usr/share/fonts/unifont/unifont_upper-%{version}.otf
 install -m 0644 %{SOURCE2} %{buildroot}/usr/share/fonts/unifont/unifont_csur-%{version}.otf
 install -m 0644 %{SOURCE3} %{buildroot}/usr/share/fonts/unifont/unifont-%{version}.pcf.gz
+install -D -m 0644 %{_sourcedir}/69-tenko-ttf-unifont.conf \
+    %{buildroot}%{_sysconfdir}/fonts/conf.d/69-tenko-ttf-unifont.conf
 
 %files -f %{_sourcedir}/font-ttf-unifont.filelist
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 17.0.03-2
+- Ship a fontconfig snippet that appends Unifont weakly, last in the
+  monospace chain.  It is the final fallback for BMP code points the
+  Terminus/DejaVu/Nerd/Noto stack does not cover, such as U+2B1D (the small
+  squares in the opencode footer) and U+23F5 (media skip), which otherwise
+  render as tofu.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 17.0.03
 - Package the unicode symbol font: unifont 17.0.03 otf (base plane, upper
   planes, CSUR) plus the GRUB boot PCF from the pinned entity

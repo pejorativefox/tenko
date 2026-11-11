@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    6
-Release:    10
+Release:    11
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
@@ -82,6 +82,7 @@ Requires:   font-dejavu-sans-mono
 Requires:   font-noto-cjk
 Requires:   font-noto-emoji
 Requires:   font-nerd-symbols
+Requires:   font-ttf-unifont
 Requires:   libpipeline
 Requires:   make
 Requires:   patch
@@ -157,6 +158,12 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-11
+- Promote font-ttf-unifont into the base package set (packages and rebuild
+  order).  Its fontconfig snippet is the final monospace fallback and covers
+  the leftover BMP characters (U+2B1D, U+23F5) that still rendered as tofu
+  after DejaVu Sans Mono fixed the Dingbats and Geometric Shapes ranges.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-10
 - Promote font-dejavu-sans-mono into the base package set (packages and
   rebuild order).  DejaVu Sans Mono covers the Dingbats, Miscellaneous

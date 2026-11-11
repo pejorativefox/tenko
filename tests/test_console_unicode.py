@@ -33,7 +33,8 @@ class BaseMembershipTest(unittest.TestCase):
     def test_fonts_are_base_membership_and_in_rebuild_order(self):
         base = json.loads(read("package_specs/base.json"))
         for name in ("font-dejavu-sans-mono", "font-noto-cjk",
-                     "font-noto-emoji", "font-nerd-symbols"):
+                     "font-noto-emoji", "font-nerd-symbols",
+                     "font-ttf-unifont"):
             self.assertIn(name, base["packages"])
             self.assertIn(name, base["build_order"])
 
@@ -43,7 +44,7 @@ class BaseMembershipTest(unittest.TestCase):
         runtime = spec("tenko-base-runtime")
         for name in ("kmscon", "libtsm", "font-dejavu-sans-mono",
                      "font-noto-cjk", "font-noto-emoji",
-                     "font-nerd-symbols"):
+                     "font-nerd-symbols", "font-ttf-unifont"):
             self.assertIn("Requires:   " + name, runtime)
 
     def test_base_meta_requires_kmscon(self):
@@ -66,6 +67,7 @@ class FontConfigTest(unittest.TestCase):
             "font-noto-cjk": "Noto Sans Mono CJK SC",
             "font-noto-emoji": "Noto Emoji",
             "font-nerd-symbols": "Symbols Nerd Font Mono",
+            "font-ttf-unifont": "Unifont",
             "font-noto-color-emoji": "Noto Color Emoji",
         }
         for package, family in expected.items():
@@ -99,6 +101,18 @@ class FontConfigTest(unittest.TestCase):
         self.assertIn('<test name="spacing" compare="eq">'
                       '<const>mono</const></test>', text)
 
+    def test_unifont_fallback_is_last(self):
+        # Unifont covers every BMP code point; it must only be reached after
+        # the Nerd/CJK/emoji faces, so its snippet sorts last and appends
+        # weakly like the others.
+        snippet = "69-tenko-ttf-unifont.conf"
+        for earlier in ("69-tenko-dejavu-sans-mono.conf",
+                        "69-tenko-nerd-symbols.conf",
+                        "69-tenko-noto-cjk.conf",
+                        "69-tenko-noto-color-emoji.conf",
+                        "69-tenko-noto-emoji.conf"):
+            self.assertGreater(snippet, earlier)
+
     def test_console_family_prefers_the_monochrome_emoji_face(self):
         text = read("package_specs/kmscon/files/69-tenko-console.conf")
         root = ET.fromstring(text)
@@ -108,6 +122,8 @@ class FontConfigTest(unittest.TestCase):
                         values.index("Noto Emoji"))
         self.assertLess(values.index("Noto Emoji"),
                         values.index("Symbols Nerd Font Mono"))
+        self.assertLess(values.index("Symbols Nerd Font Mono"),
+                        values.index("Unifont"))
         self.assertNotIn("Noto Color Emoji", values)
 
     def test_kmscon_config_uses_the_alias(self):

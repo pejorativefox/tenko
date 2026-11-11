@@ -1,6 +1,6 @@
 Name:       tenko-base-runtime
 Version:    6
-Release:    9
+Release:    10
 Epoch:      1
 Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
@@ -60,6 +60,7 @@ Requires:   font-dejavu-sans-mono
 Requires:   font-noto-cjk
 Requires:   font-noto-emoji
 Requires:   font-nerd-symbols
+Requires:   font-ttf-unifont
 Requires:   libtsm
 Requires:   kmscon
 Requires:   libpipeline
@@ -146,6 +147,12 @@ touch %{buildroot}/usr/share/tenko/base-runtime
 /usr/share/tenko/base-runtime
 
 %changelog
+* Wed Nov 11 2026 tenko <build@tenko.invalid> 6-10
+- Require font-ttf-unifont.  It is the last monospace fallback and covers the
+  remaining BMP characters (U+2B1D, U+23F5) that still rendered as tofu in
+  the desktop terminal; the installer and live media install this meta, so
+  they get the fix along with a base-only system and the desktop set.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-9
 - Require font-dejavu-sans-mono.  It is now a base-set member and this is the
   meta the installer and live media install, so a fresh base-only system and
