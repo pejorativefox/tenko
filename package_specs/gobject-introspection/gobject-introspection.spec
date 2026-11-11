@@ -6,6 +6,7 @@ License:    GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 Requires: python-setuptools
+BuildRequires: python-setuptools
 
 %description
 GObject Introspection describes the APIs of GObject-based libraries and

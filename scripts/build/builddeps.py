@@ -52,6 +52,7 @@ LOG_PATTERNS = [
     (r"No module named '([\w.]+)'", "python:{}", "python module"),
     (r"python3? -c 'import ([\w.]+)[;']", "python:{}", "python module"),
     (r"python3? is missing modules: ([\w.]+)", "python:{}", "python module"),
+    (r"Cannot import '([\w.]+)'", "python:{}", "python build backend"),
 ]
 
 

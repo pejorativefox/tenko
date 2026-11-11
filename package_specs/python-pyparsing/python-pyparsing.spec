@@ -6,6 +6,7 @@ License:    MIT
 Source0:    pyparsing-%{version}.tar.gz
 Prefix:     /usr
 Requires: python
+BuildRequires: python-flit-core
 
 %description
 pyparsing is a general parsing module for Python.  Flatpak's build uses it

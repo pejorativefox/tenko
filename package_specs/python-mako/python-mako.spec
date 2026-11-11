@@ -8,6 +8,7 @@ Source0:    mako-1.4.3.tar.gz
 
 Requires:   python-markupsafe
 Requires: python
+BuildRequires: python-setuptools
 
 %description
 Mako is a template library written in Python.  Mesa's build requires the

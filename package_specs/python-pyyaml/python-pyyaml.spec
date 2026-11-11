@@ -6,6 +6,7 @@ License:    MIT
 Prefix:     /usr
 Source0:    pyyaml-6.0.3.tar.gz
 Requires: python
+BuildRequires: python-setuptools
 
 %description
 PyYAML is a YAML 1.1 parser and emitter for Python.  Mesa's build requires

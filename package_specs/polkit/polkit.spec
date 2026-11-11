@@ -6,6 +6,7 @@ License:    LGPL-2.0-or-later
 Prefix:     /usr
 Source0:    polkit-128.tar.gz
 Requires(pre): shadow
+BuildRequires: duktape
 
 %description
 polkit is a toolkit for defining and handling authorizations. It allows
