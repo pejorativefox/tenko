@@ -8,6 +8,11 @@ Prefix:     /usr
 Source0:    xsetroot-1.1.4.tar.xz
 
 BuildRequires: xbitmaps
+BuildRequires: libx11
+BuildRequires: libxcursor
+BuildRequires: libxmu
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 Set the X11 root window background and cursor.

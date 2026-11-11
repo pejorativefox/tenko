@@ -8,6 +8,9 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 Provides: pkgconfig(gdk-pixbuf-2.0)
+BuildRequires: libjpeg-turbo
+BuildRequires: libpng
+BuildRequires: shared-mime-info
 %description
 GdkPixbuf is a library that loads image data in various formats and stores it as linear buffers in memory.
 

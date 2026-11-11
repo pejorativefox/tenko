@@ -6,6 +6,11 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xrandr
 Prefix:     /usr
 Source0:    xrandr-1.5.4.tar.xz
+BuildRequires: libx11
+BuildRequires: libxrandr
+BuildRequires: libxrender
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

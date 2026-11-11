@@ -6,6 +6,13 @@ License:    MIT
 URL:        https://pipewire.org/
 Source0:    pipewire-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: alsa-lib
+BuildRequires: dbus-daemon
+BuildRequires: dbus-libs
+BuildRequires: libcanberra
+BuildRequires: libx11
+BuildRequires: libxfixes
+BuildRequires: openssl
 
 %description
 PipeWire is a server and user space API to deal with multimedia

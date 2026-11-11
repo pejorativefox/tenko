@@ -21,6 +21,10 @@ BuildRequires: meson
 BuildRequires: ninja
 BuildRequires: pkgconf
 BuildRequires: gcc
+BuildRequires: gdk-pixbuf
+BuildRequires: pango
+BuildRequires: shared-mime-info
+BuildRequires: xorgproto
 Requires:   libexif
 Requires:   libxfce4ui
 Requires:   libxfce4util

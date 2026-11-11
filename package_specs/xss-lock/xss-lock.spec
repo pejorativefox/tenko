@@ -14,6 +14,7 @@ BuildRequires: glib
 BuildRequires: libxcb
 BuildRequires: xcb-util
 BuildRequires: python3-docutils
+BuildRequires: xorgproto
 
 Requires:   glib
 Requires:   libxcb

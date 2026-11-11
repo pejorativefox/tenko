@@ -8,6 +8,15 @@ Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 Requires: startup-notification
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: libx11
+BuildRequires: libxrender
+BuildRequires: libxres
+BuildRequires: pango
+BuildRequires: startup-notification
 
 %description
 Library to manage X windows and workspaces (via pagers, tasklists, etc.)

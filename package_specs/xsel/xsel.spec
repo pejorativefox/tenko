@@ -9,6 +9,7 @@ Prefix:     /usr
 
 BuildRequires: gcc, make, autoconf, automake, libtool, pkgconf
 BuildRequires: libx11
+BuildRequires: xorgproto
 
 %description
 xsel is a command-line program for getting and setting the contents of the X

@@ -7,6 +7,8 @@ URL:        https://gstreamer.freedesktop.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 BuildRequires: bash-completion
+BuildRequires: gobject-introspection
+BuildRequires: gtk+
 
 %description
 Streaming multimedia framework

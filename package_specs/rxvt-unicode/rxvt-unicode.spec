@@ -6,6 +6,17 @@ License:    GPL-3.0-or-later AND (BSD-2-Clause OR GPL-2.0-or-later)
 URL:        http://software.schmorp.de/pkg/rxvt-unicode.html
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: gdk-pixbuf
+BuildRequires: libptytty
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: libxft
+BuildRequires: libxmu
+BuildRequires: libxrender
+BuildRequires: libxt
+BuildRequires: startup-notification
 
 %description
 rxvt-unicode is a fork of the well known terminal emulator rxvt.

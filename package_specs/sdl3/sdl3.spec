@@ -7,6 +7,16 @@ URL:        https://www.libsdl.org/
 Source0:    SDL3-%{version}.tar.gz
 Patch0:     SDL3-%{version}-upstream_fixes-1.patch
 Prefix:     /usr
+BuildRequires: alsa-lib
+BuildRequires: fribidi
+BuildRequires: libdrm
+BuildRequires: libusb
+BuildRequires: libx11
+BuildRequires: libxkbcommon
+BuildRequires: mesa
+BuildRequires: pipewire
+BuildRequires: pulseaudio
+BuildRequires: wayland
 
 %description
 Simple DirectMedia Layer is a cross-platform development library

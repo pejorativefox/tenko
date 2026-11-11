@@ -8,6 +8,23 @@ Prefix:     /usr
 Source0:    gtk-%{version}.tar.xz
 
 Provides: pkgconfig(gdk-3.0), pkgconfig(gtk+-3.0)
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: fontconfig
+BuildRequires: fribidi
+BuildRequires: gdk-pixbuf
+BuildRequires: harfbuzz
+BuildRequires: libepoxy
+BuildRequires: libx11
+BuildRequires: libxcomposite
+BuildRequires: libxcursor
+BuildRequires: libxdamage
+BuildRequires: libxext
+BuildRequires: libxfixes
+BuildRequires: libxi
+BuildRequires: libxinerama
+BuildRequires: libxrandr
+BuildRequires: pango
 %description
 GTK is a multi-platform toolkit for creating graphical user interfaces. It
 offers a complete set of widgets and is suitable for projects ranging from

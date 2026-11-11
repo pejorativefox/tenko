@@ -6,6 +6,7 @@ License:    curl
 URL:        https://curl.se/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: openssl
 
 %description
 curl is a command line tool for transferring data specified with URL

@@ -29,6 +29,10 @@ BuildRequires: libxv
 BuildRequires: libxkbcommon
 BuildRequires: libxcb
 BuildRequires: python3-docutils
+BuildRequires: git
+BuildRequires: libxfixes
+BuildRequires: libxpresent
+BuildRequires: openssl
 
 %description
 mpv is a free media player for the command line.  It supports a wide

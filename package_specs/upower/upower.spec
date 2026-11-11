@@ -9,7 +9,8 @@ Prefix:     /usr
 
 BuildRequires: libgudev
 BuildRequires: libusb
-BuildRequires: udev
+BuildRequires: systemd
+BuildRequires: polkit
 
 %description
 Abstraction for enumerating power devices, listening to device events and querying history and statistics

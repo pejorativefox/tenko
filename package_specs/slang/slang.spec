@@ -6,6 +6,7 @@ License:    GPL-2.0-or-later
 URL:        https://www.jedsoft.org/slang/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
+BuildRequires: libpng
 
 %description
 S-Lang is an interpreted language designed to be easily embedded into a

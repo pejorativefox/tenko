@@ -8,6 +8,7 @@ URL:        https://github.com/lgi-devs/lgi
 Source0:    %{name}-%{version}.tar.gz
 Patch1:     %{name}-%{version}-lua54.patch
 Patch2:     %{name}-%{version}-glib286-enums.patch
+BuildRequires: gobject-introspection
 
 %description
 LGI is a gobject-introspection based dynamic Lua binding for GObject

@@ -6,6 +6,7 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config
 Prefix:     /usr
 Source0:    xkeyboard-config-2.48.tar.xz
+BuildRequires: libxslt
 
 %description
 xkeyboard-config provides the XKB keyboard description database.

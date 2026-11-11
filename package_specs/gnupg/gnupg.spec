@@ -6,6 +6,11 @@ License:    GPL-3.0-or-later
 URL:        https://gnupg.org/
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: gnutls
+BuildRequires: inetutils
+BuildRequires: libgcrypt
+BuildRequires: libksba
+BuildRequires: npth
 
 %description
 GNU's tool for secure communication and data storage.

@@ -6,6 +6,7 @@ License:    BSD-3-Clause
 URL:        https://libssh2.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: openssl
 
 
 %description

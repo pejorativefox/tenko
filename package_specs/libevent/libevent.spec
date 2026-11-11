@@ -6,6 +6,7 @@ License:    BSD-3-Clause
 URL:        https://libevent.org/
 Source0:    %{name}-%{version}-stable.tar.gz
 Prefix:     /usr
+BuildRequires: openssl
 
 %description
 The libevent API provides a mechanism to execute a callback function when a specific event occurs on a file descriptor.

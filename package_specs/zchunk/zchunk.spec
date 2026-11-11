@@ -6,6 +6,7 @@ License:    BSD-2-Clause AND BSD-3-Clause
 URL:        https://github.com/zchunk/zchunk
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: openssl
 
 %description
 zchunk is a compressed file format that splits the file into independent

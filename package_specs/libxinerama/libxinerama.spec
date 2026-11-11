@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxinerama
 Prefix:     /usr
 Source0:    libXinerama-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: util-macros
+BuildRequires: xorgproto
 %description
 Xlib API for Xinerama extension to X11 Protocol
 

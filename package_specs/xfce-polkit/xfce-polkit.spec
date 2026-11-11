@@ -9,7 +9,13 @@ Prefix:     /usr
 
 Requires:   polkit
 Requires:   libxfce4ui
-BuildRequires: gtk3, polkit, libxfce4ui, glib
+BuildRequires: gtk+, polkit, libxfce4ui, glib
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: harfbuzz
+BuildRequires: libxfce4util
+BuildRequires: pango
 
 %description
 A small PolicyKit authentication agent that integrates with the XFCE

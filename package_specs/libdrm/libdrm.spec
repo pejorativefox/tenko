@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/mesa/libdrm
 Prefix:     /usr
 Source0:    libdrm-2.4.134.tar.xz
+BuildRequires: cairo
+BuildRequires: libpciaccess
 
 %description
 libdrm provides a userspace library for the kernel Direct Rendering Manager.

@@ -8,7 +8,8 @@ Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 BuildRequires: gcc, make
-BuildRequires: libX11, libXinerama, fontconfig, freetype
+BuildRequires: libx11, libxinerama, fontconfig, freetype
+BuildRequires: libxft
 
 %description
 dwm is a dynamic window manager for X.  It manages windows in tiled,

@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xlsatoms
 Prefix:     /usr
 Source0:    xlsatoms-1.1.5.tar.xz
+BuildRequires: libxcb
+BuildRequires: util-macros
 
 
 

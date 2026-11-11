@@ -8,6 +8,10 @@ Prefix:     /usr
 Source0:    libXtst-%{version}.tar.xz
 
 BuildRequires: libxi
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 Xlib-based library for XTEST & RECORD

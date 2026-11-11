@@ -18,6 +18,7 @@ BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: gobject-introspection
+BuildRequires: xorgproto
 
 %description
 Poppler is a PDF rendering library based on the xpdf-3.0 code base.

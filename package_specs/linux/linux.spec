@@ -8,6 +8,7 @@ Prefix:     /usr
 Source0:    linux-%{version}.tar.xz
 Source1:    linux-%{version}.config
 BuildRequires: xz
+BuildRequires: bc
 
 %description
 General-purpose Linux kernel for Tenko Linux.  The configuration is

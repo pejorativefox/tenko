@@ -6,6 +6,11 @@ License:    LGPL-2.1
 URL:        https://gitlab.gnome.org/GNOME/libnma
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: NetworkManager
+BuildRequires: cairo
+BuildRequires: gcr
+BuildRequires: gtk+
+BuildRequires: iso-codes
 
 %description
 libnma provides a shared library used by NetworkManager's GUI clients

@@ -8,6 +8,7 @@ Source0:    %{name}-%{version}.tar.gz
 Source1:    stunnel-service.conf
 Source2:    stunnel.service
 Prefix:     /usr
+BuildRequires: openssl
 
 %description
 Stunnel is a proxy designed to add TLS encryption functionality to existing clients and servers without any changes in the programs' code. 

@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxi
 Prefix:     /usr
 Source0:    libXi-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: util-macros
+BuildRequires: xorgproto
 %description
 Library for the X Input Extension.
 

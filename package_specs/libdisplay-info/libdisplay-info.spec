@@ -6,6 +6,7 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/emersion/libdisplay-info
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: hwdata
 
 %description
 libdisplay-info parses EDID and DisplayID metadata for displays.

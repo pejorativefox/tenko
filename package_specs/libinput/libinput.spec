@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/libinput/libinput
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: libevdev
+BuildRequires: mtdev
 
 %description
 libinput is the input device handling library used by Xorg and Wayland compositors.

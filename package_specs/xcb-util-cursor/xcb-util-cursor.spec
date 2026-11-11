@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxcb-cursor
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: libxcb
+BuildRequires: xcb-util-image
+BuildRequires: xcb-util-renderutil
 
 %description
 XCB cursor utilities

@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxv
 Prefix:     /usr
 Source0:    libXv-1.0.13.tar.xz
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 Xlib-based library for the X Video (Xv) extension

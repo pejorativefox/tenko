@@ -6,6 +6,8 @@ License:    MIT-open-group
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxau
 Source0:    libXau-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 X11 authorisation library

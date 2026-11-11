@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxdmcp
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 libXdmcp is the X Display Manager Control Protocol library. It is used by X

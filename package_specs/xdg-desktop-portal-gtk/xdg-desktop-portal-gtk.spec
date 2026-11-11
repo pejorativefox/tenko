@@ -9,7 +9,9 @@ Prefix:     /usr
 
 Requires:   xdg-desktop-portal
 Requires:   gsettings-desktop-schemas
-BuildRequires: gtk3, glib, xdg-desktop-portal
+BuildRequires: gtk+, glib, xdg-desktop-portal
+BuildRequires: fontconfig
+BuildRequires: gdk-pixbuf
 
 %description
 The GTK implementation of the xdg-desktop-portal interfaces.  Flatpak

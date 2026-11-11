@@ -6,6 +6,11 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxrandr
 Prefix:     /usr
 Source0:    libXrandr-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: libxrender
+BuildRequires: util-macros
+BuildRequires: xorgproto
 %description
 Xlib Resize, Rotate and Reflection (RandR) extension library.
 

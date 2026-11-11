@@ -10,6 +10,9 @@ Source2:    ntpd.conf
 Source3:    ntpd.service
 Patch0:     %{name}-%{version}-openssl_4-1.patch
 Prefix:     /usr
+BuildRequires: libevent
+BuildRequires: libmd
+BuildRequires: openssl
 
 %description
 NTP Time sync daemon

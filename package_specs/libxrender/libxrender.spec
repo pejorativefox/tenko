@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxrender
 Prefix:     /usr
 Source0:    libXrender-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: util-macros
+BuildRequires: xorgproto
 %description
 Render Extension to the X11 protocol.
 

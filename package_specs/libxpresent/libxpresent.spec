@@ -11,6 +11,9 @@ BuildRequires: pkgconf
 BuildRequires: xorgproto
 BuildRequires: libx11
 BuildRequires: libxext
+BuildRequires: libxfixes
+BuildRequires: libxrandr
+BuildRequires: util-macros
 
 %description
 libXpresent provides the client library for the X Present extension, which

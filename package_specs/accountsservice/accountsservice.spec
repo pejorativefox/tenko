@@ -10,6 +10,7 @@ Prefix:     /usr
 
 BuildRequires: meson, ninja, gettext
 BuildRequires: json-c, polkit, glib, systemd, gobject-introspection
+BuildRequires: dbus-daemon
 
 Requires: json-c
 Requires: polkit

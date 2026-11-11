@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xbacklight
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: libxcb
+BuildRequires: util-macros
+BuildRequires: xcb-util
 
 %description
 xbacklight is a simple command-line client to adjust the backlight

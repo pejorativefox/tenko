@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxres
 Prefix:     /usr
 Source0:    libXres-1.2.3.tar.xz
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 X-Resource extension client library

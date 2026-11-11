@@ -6,6 +6,14 @@ License:    BSD-3-Clause
 Prefix:     /usr
 URL:        https://dunst-project.org/
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: libxinerama
+BuildRequires: libxrandr
+BuildRequires: libxscrnsaver
+BuildRequires: pango
 
 %description
 Dunst is a lightweight replacement for the notification daemons

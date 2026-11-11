@@ -8,6 +8,10 @@ Prefix:     /usr
 Source0:    libXmu-%{version}.tar.xz
 
 BuildRequires: libxt
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 This library contains miscellaneous utilities and is not part of the Xlib standard. 

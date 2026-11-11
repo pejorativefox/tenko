@@ -6,6 +6,14 @@ License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:        https://docs.xfce.org/xfce/exo/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: harfbuzz
+BuildRequires: libxfce4ui
+BuildRequires: libxfce4util
+BuildRequires: pango
 
 %description
 Application library for Xfce

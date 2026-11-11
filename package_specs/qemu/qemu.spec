@@ -13,6 +13,17 @@ BuildRequires: libpng
 BuildRequires: alsa-lib
 BuildRequires: dtc
 BuildRequires: libslirp
+BuildRequires: cairo
+BuildRequires: fuse3
+BuildRequires: gdk-pixbuf
+BuildRequires: gnutls
+BuildRequires: gtk+
+BuildRequires: libepoxy
+BuildRequires: libjpeg-turbo
+BuildRequires: libx11
+BuildRequires: mesa
+BuildRequires: pipewire
+BuildRequires: vte
 
 # The generic brp-strip pass also walks qemu's non-x86 firmware blobs
 # (palcode-clipper, hppa-firmware*.img); the x86 strip binary cannot parse

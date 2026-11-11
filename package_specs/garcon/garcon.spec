@@ -8,6 +8,13 @@ Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
 BuildRequires: libxfce4ui
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: harfbuzz
+BuildRequires: libxfce4util
+BuildRequires: pango
 
 %description
 Implementation of the freedesktop.org menu specification

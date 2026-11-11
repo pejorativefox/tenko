@@ -19,6 +19,7 @@ BuildRequires: clang-libs, clang-resource-filesystem, clang-devel
 BuildRequires: python-mako, python-pyyaml
 BuildRequires: libva
 BuildRequires: glslang
+BuildRequires: libdisplay-info
 Requires:   libxshmfence
 Requires:   vulkan-loader
 

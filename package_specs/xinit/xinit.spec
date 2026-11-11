@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xinit
 Prefix:     /usr
 Source0:    xinit-1.4.4.tar.xz
+BuildRequires: libx11
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 xinit and startx start an X server and a client session.

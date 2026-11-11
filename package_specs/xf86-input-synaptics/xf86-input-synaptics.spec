@@ -6,6 +6,13 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/driver/xf86-input-synaptics
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: libevdev
+BuildRequires: libx11
+BuildRequires: libxi
+BuildRequires: libxtst
+BuildRequires: util-macros
+BuildRequires: xorg-server
+BuildRequires: xorgproto
 
 %description
 Synaptics touchpad driver

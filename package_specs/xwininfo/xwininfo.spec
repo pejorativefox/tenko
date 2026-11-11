@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xwininfo
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: libxcb
+BuildRequires: util-macros
 
 
 

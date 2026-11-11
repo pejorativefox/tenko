@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxdamage
 Prefix:     /usr
 Source0:    libXdamage-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: libxfixes
+BuildRequires: util-macros
+BuildRequires: xorgproto
 %description
 X Damage Extension library
 

@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://github.com/Airblader/xcb-util-xrm
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
+BuildRequires: libxcb
+BuildRequires: xcb-util
 
 %description
 The XCB util-xrm module provides utility functions for the X resource

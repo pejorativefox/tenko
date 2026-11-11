@@ -8,7 +8,7 @@ Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 BuildRequires: gcc, make
-BuildRequires: libX11
+BuildRequires: libx11
 
 %description
 wmname prints or sets the window manager name property of the root

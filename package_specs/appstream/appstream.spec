@@ -7,6 +7,9 @@ URL:        https://github.com/ximion/appstream
 Source0:    AppStream-%{version}.tar.xz
 Prefix:     /usr
 BuildRequires: bash-completion
+BuildRequires: libfyaml
+BuildRequires: libxmlb
+BuildRequires: openssl
 
 %description
 AppStream provides a library and tool for retrieving software metadata.

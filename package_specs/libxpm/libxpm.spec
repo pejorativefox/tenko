@@ -6,6 +6,11 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxpm
 Prefix:     /usr
 Source0:    libXpm-3.5.20.tar.xz
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: libxt
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 X Pixmap (XPM) image file format library.

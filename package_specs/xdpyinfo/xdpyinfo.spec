@@ -6,6 +6,15 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xdpyinfo
 Prefix:     /usr
 Source0:    xdpyinfo-1.4.0.tar.xz
+BuildRequires: libx11
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxi
+BuildRequires: libxinerama
+BuildRequires: libxrender
+BuildRequires: libxtst
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

@@ -11,6 +11,16 @@ BuildRequires: libxfce4util
 BuildRequires: garcon
 BuildRequires: exo
 BuildRequires: libxfce4windowing
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: libwnck
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: libxfce4ui
+BuildRequires: pango
+BuildRequires: xfconf
 
 %description
 Panel for the Xfce desktop environment

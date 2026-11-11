@@ -6,6 +6,12 @@ License:    LGPL-2.1
 URL:        https://gitlab.gnome.org/GNOME/gcr
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: libgcrypt
+BuildRequires: p11-kit
+BuildRequires: pango
 
 %description
 GCR is a library for displaying certificates and crypto UI, and accessing

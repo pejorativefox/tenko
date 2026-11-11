@@ -6,6 +6,21 @@ License:    GPL-2.0-or-later
 URL:        https://docs.xfce.org/xfce/xfdesktop/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: exo
+BuildRequires: garcon
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: harfbuzz
+BuildRequires: libnotify
+BuildRequires: libx11
+BuildRequires: libxfce4ui
+BuildRequires: libxfce4util
+BuildRequires: libxfce4windowing
+BuildRequires: pango
+BuildRequires: thunar
+BuildRequires: xfconf
 
 %description
 A desktop manager for Xfce

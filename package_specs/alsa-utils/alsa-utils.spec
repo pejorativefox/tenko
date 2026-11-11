@@ -6,6 +6,7 @@ License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause
 URL:        https://github.com/alsa-project/alsa-utils
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: alsa-lib
 
 %description
 The ALSA Utilities package contains various utilities which are useful for controlling your sound card. 

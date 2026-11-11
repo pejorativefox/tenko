@@ -6,6 +6,10 @@ License:    BSD-3-Clause
 URL:        https://w1.fi/wpa_supplicant/
 Prefix:     /usr
 Source0:    wpa_supplicant-%{version}.tar.gz
+BuildRequires: dbus-daemon
+BuildRequires: dbus-libs
+BuildRequires: libnl
+BuildRequires: openssl
 
 
 %description

@@ -12,6 +12,12 @@ Source3:    networkmanager-service.conf
 Requires: shadow >= 4.6-1
 Requires: wpa-supplicant
 Provides: pkgconfig(libnm)
+BuildRequires: dbus-daemon
+BuildRequires: libndp
+BuildRequires: newt
+BuildRequires: nspr
+BuildRequires: nss
+BuildRequires: slang
 
 %description
 NetworkManager is the standard Linux network configuration tool suite.

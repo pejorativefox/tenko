@@ -6,6 +6,13 @@ License:    GPL-2.0-or-later
 URL:        https://docs.xfce.org/xfce/xfce4-appfinder/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: cairo
+BuildRequires: garcon
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: libxfce4ui
+BuildRequires: libxfce4util
+BuildRequires: xfconf
 
 %description
 An application finder for Xfce

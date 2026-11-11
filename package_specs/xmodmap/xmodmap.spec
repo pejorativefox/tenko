@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xmodmap
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

@@ -6,6 +6,11 @@ License:    Apache 2
 URL:        https://developers.google.com/speed/webp
 Source0:    lib%{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: freeglut
+BuildRequires: giflib
+BuildRequires: libjpeg-turbo
+BuildRequires: libpng
+BuildRequires: mesa
 
 %description
 A new image format for the Web

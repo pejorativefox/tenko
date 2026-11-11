@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xrefresh
 Prefix:     /usr
 Source0:    xrefresh-1.1.1.tar.xz
+BuildRequires: libx11
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

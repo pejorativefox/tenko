@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/sessreg
 Prefix:     /usr
 Source0:    sessreg-1.1.4.tar.xz
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

@@ -6,6 +6,7 @@ License:    LGPL-2.1-or-later
 URL:        https://github.com/hughsie/libxmlb
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: gobject-introspection
 
 %description
 libxmlb provides a compressed XML metadata store with fast XPath-like

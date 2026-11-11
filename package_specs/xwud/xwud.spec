@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xwud
 Prefix:     /usr
 Source0:    xwud-1.0.8.tar.xz
+BuildRequires: libx11
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

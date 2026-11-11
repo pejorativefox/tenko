@@ -8,6 +8,15 @@ Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
 BuildRequires: libwnck
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: harfbuzz
+BuildRequires: libdisplay-info
+BuildRequires: libx11
+BuildRequires: libxrandr
+BuildRequires: pango
 
 %description
 Libxfce4windowing is an abstraction library that attempts to present windowing concepts (screens, toplevel windows, workspaces, etc.) in a windowing-system-independent manner.

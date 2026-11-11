@@ -10,6 +10,22 @@ Prefix:     /usr
 Requires:   gvfs
 Requires:   gvfs-smb
 Requires:   gvfs-fuse
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: exo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: harfbuzz
+BuildRequires: libgudev
+BuildRequires: libice
+BuildRequires: libnotify
+BuildRequires: libsm
+BuildRequires: libx11
+BuildRequires: libxfce4ui
+BuildRequires: libxfce4util
+BuildRequires: pango
+BuildRequires: xfce4-panel
+BuildRequires: xfconf
 
 %description
 Modern file manager for Xfce

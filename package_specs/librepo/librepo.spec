@@ -6,6 +6,7 @@ License:    LGPL-2.1-or-later
 URL:        https://github.com/rpm-software-management/librepo
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: openssl
 
 %description
 librepo is a library providing a C and Python API for downloading and

@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/driver/xf86-video-vmware
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: util-macros
+BuildRequires: xorg-server
+BuildRequires: xorgproto
 
 %description
 The VMware video driver for Xorg.

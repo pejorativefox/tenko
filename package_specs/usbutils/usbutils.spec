@@ -6,6 +6,7 @@ License:    GPL-2.0-or-later
 URL:        https://github.com/gregkh/usbutils
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: libusb
 
 %description
 The USB Utils package contains utilities used to display information about USB buses in the system and the devices connected to them.

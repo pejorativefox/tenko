@@ -8,6 +8,8 @@ Prefix:     /usr
 Source0:    libSM-1.2.6.tar.xz
 
 BuildRequires: libice
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 X Session Management Library

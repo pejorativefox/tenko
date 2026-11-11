@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libfontenc
 Prefix:     /usr
 Source0:    libfontenc-1.1.9.tar.xz
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 libfontenc decodes the various font encodings used by X.

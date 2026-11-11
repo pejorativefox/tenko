@@ -7,7 +7,7 @@ URL:        https://gitlab.gnome.org/GNOME/libsoup
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
-BuildRequires: glib2
+BuildRequires: glib
 BuildRequires: libxml2
 BuildRequires: libpsl
 BuildRequires: brotli

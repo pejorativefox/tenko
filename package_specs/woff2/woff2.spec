@@ -6,6 +6,7 @@ License:    MIT
 URL:        https://github.com/google/woff2
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: brotli
 
 %description
 The primary purpose of the WOFF2 format is to efficiently package fonts linked to Web documents by means of CSS

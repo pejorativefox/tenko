@@ -16,6 +16,8 @@ Provides:   pkgconfig(gmodule-no-export-2.0)
 Provides:   pkgconfig(gio-unix-2.0)
 Provides:   pkgconfig(gio-2.0)
 Provides:   pkgconfig(gthread-2.0)
+BuildRequires: bash-completion
+BuildRequires: gobject-introspection
 %description
 GLib is a bundle of three low-level system libraries written in C and developed mainly by GNOME.
 

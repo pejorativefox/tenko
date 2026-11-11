@@ -6,6 +6,8 @@ License:    LGPL-2.1-or-later
 URL:        https://gitlab.gnome.org/GNOME/libgudev
 Prefix:     /usr
 Source0:    libgudev-238.tar.xz
+BuildRequires: gobject-introspection
+BuildRequires: vala
 
 %description
 libgudev is a library providing GObject bindings for libudev. It used to

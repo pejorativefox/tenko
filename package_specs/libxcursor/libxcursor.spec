@@ -7,6 +7,10 @@ URL:        https://gitlab.freedesktop.org/xorg/lib/libxcursor
 Prefix:     /usr
 Source0:    libXcursor-%{version}.tar.xz
 BuildRequires: libxrender
+BuildRequires: libx11
+BuildRequires: libxfixes
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 Xlib-based Cursor management library

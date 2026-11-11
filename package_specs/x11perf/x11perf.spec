@@ -6,6 +6,13 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/test/x11perf
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: libxft
+BuildRequires: libxmu
+BuildRequires: libxrender
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

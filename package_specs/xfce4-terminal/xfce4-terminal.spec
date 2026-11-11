@@ -9,6 +9,16 @@ Prefix:     /usr
 
 BuildRequires: libxfce4ui
 BuildRequires: vte
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: libx11
+BuildRequires: libxfce4util
+BuildRequires: pango
+BuildRequires: shared-mime-info
+BuildRequires: xfconf
+BuildRequires: xorgproto
 Requires:   libxfce4ui
 Requires:   vte
 

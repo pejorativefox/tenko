@@ -6,6 +6,9 @@ License:    MIT-open-group
 URL:        https://gitlab.freedesktop.org/xorg/lib/libice
 Prefix:     /usr
 Source0:    libICE-1.1.2.tar.xz
+BuildRequires: util-macros
+BuildRequires: xorgproto
+BuildRequires: xtrans
 
 %description
 Inter-Client Exchange Library.

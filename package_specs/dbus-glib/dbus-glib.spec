@@ -6,6 +6,8 @@ License:    AFL-2.1 OR GPL-2.0-or-later
 URL:        https://gitlab.freedesktop.org/dbus/dbus-glib
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: dbus-daemon
+BuildRequires: dbus-libs
 
 
 %description

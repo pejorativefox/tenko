@@ -18,6 +18,9 @@ BuildRequires: bison
 BuildRequires: gnutls
 BuildRequires: intltool
 BuildRequires: parse-yapp
+BuildRequires: dbus-libs
+BuildRequires: libbsd
+BuildRequires: libtasn1
 
 Requires:   systemd
 Requires:   gnutls

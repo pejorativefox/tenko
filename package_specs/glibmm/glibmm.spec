@@ -6,6 +6,8 @@ License:    LGPL-2.1-or-later
 URL:        https://gitlab.gnome.org/GNOME/glibmm
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: libsigc++
+BuildRequires: xml-parser
 
 %description
 glibmm is the official C++ interface for the popular cross-platform library Glib. 

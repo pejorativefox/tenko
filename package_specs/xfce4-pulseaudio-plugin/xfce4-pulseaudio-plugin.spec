@@ -12,6 +12,15 @@ BuildRequires: libxfce4ui
 BuildRequires: pulseaudio
 BuildRequires: xfce4-panel
 BuildRequires: xfconf
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: harfbuzz
+BuildRequires: libnotify
+BuildRequires: libxfce4util
+BuildRequires: libxfce4windowing
+BuildRequires: pango
 
 %description
 A panel plugin for the Xfce panel to control the PulseAudio sound server.

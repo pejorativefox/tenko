@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libx11
 Prefix:     /usr
 Source0:    libX11-%{version}.tar.xz
+BuildRequires: libxcb
+BuildRequires: util-macros
 %description
 X Window System protocol client library 
 

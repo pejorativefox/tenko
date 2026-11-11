@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xev
 Prefix:     /usr
 Source0:    xev-1.2.7.tar.xz
+BuildRequires: libx11
+BuildRequires: libxrandr
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

@@ -11,6 +11,14 @@ Prefix:     /usr
 BuildRequires: gtk+, libxklavier, gettext
 # liblightdm-gobject-1.pc, the GIR and the headers come from lightdm.
 BuildRequires: lightdm
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: harfbuzz
+BuildRequires: libx11
+BuildRequires: pango
+BuildRequires: shared-mime-info
+BuildRequires: xorgproto
 
 Requires: lightdm >= 1.19.2
 # The Tenko greeter configuration names the desktop themes, so keep them

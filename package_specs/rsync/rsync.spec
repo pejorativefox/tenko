@@ -6,6 +6,7 @@ License:    GPL-3.0-or-later
 URL:        https://rsync.samba.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: openssl
 
 %description
 rsync is a fast, versatile file-copying tool.  It is also a build

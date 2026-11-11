@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xcmsdb
 Prefix:     /usr
 Source0:    xcmsdb-1.0.7.tar.xz
+BuildRequires: libx11
+BuildRequires: util-macros
 
 
 

@@ -24,6 +24,7 @@ BuildRequires: xcb-util-wm
 BuildRequires: xcb-util-cursor
 BuildRequires: xcb-util-xrm
 BuildRequires: startup-notification
+BuildRequires: xorgproto
 
 %description
 Rofi application launcher

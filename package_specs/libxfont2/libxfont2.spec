@@ -8,6 +8,8 @@ Prefix:     /usr
 Source0:    libXfont2-%{version}.tar.xz
 
 BuildRequires: libfontenc
+BuildRequires: freetype
+BuildRequires: util-macros
 
 %description
 X font handling library for server & utilities.

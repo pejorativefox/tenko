@@ -9,6 +9,10 @@ Source0:    %{name}-%{version}.tar.xz
 
 Provides: pkgconfig(atk-2.0)
 Provides: pkgconfig(atk)
+BuildRequires: gobject-introspection
+BuildRequires: gtk+
+BuildRequires: luajit
+BuildRequires: python3-gobject
 
 %description
 libpeas is a GObject based plugins engine, and is targeted at giving every application the chance to assume its own extensibility. 

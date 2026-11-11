@@ -19,6 +19,19 @@ BuildRequires: dbus-glib
 BuildRequires: libx11
 BuildRequires: libxext
 BuildRequires: systemd
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: dbus-daemon
+BuildRequires: dbus-libs
+BuildRequires: gdk-pixbuf
+BuildRequires: harfbuzz
+BuildRequires: libice
+BuildRequires: libsm
+BuildRequires: libxscrnsaver
+BuildRequires: libxxf86vm
+BuildRequires: pango
+BuildRequires: shared-mime-info
+BuildRequires: xorgproto
 
 Requires:   glib
 Requires:   gtk+

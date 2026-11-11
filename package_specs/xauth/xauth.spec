@@ -6,6 +6,12 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xauth
 Prefix:     /usr
 Source0:    xauth-1.1.5.tar.xz
+BuildRequires: libx11
+BuildRequires: libxau
+BuildRequires: libxext
+BuildRequires: libxmu
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 xauth manages the X authorization files used by Xorg.

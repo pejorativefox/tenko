@@ -6,6 +6,10 @@ License:    LGPL-2.1-or-later
 URL:        https://gitlab.gnome.org/GNOME/atkmm
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: at-spi2-core
+BuildRequires: glibmm
+BuildRequires: libpeas
+BuildRequires: libsigc++
 
 %description
 atkmm is the C++ binding for the ATK library. 

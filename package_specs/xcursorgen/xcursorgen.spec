@@ -6,6 +6,11 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xcursorgen
 Prefix:     /usr
 Source0:    xcursorgen-1.0.9.tar.xz
+BuildRequires: libpng
+BuildRequires: libx11
+BuildRequires: libxcursor
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

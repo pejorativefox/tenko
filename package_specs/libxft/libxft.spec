@@ -6,6 +6,12 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxft
 Prefix:     /usr
 Source0:    libXft-%{version}.tar.xz
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: libx11
+BuildRequires: libxrender
+BuildRequires: util-macros
+BuildRequires: xorgproto
 %description
 Client side font rendering library, using libfreetype, libX11, and the X Render extension to display anti-aliased text.
 

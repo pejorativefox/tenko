@@ -6,6 +6,11 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xkbutils
 Prefix:     /usr
 Source0:    xkbutils-1.0.7.tar.xz
+BuildRequires: libx11
+BuildRequires: libxaw
+BuildRequires: libxt
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

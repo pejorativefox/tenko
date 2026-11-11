@@ -9,6 +9,13 @@ Source0:    %{name}-%{version}.tar.xz
 BuildRequires: fontconfig >= 2.13.1
 BuildRequires: fribidi >= 1.0.13
 BuildRequires: glib >= 2.76.4
+BuildRequires: cairo
+BuildRequires: freetype
+BuildRequires: gobject-introspection
+BuildRequires: harfbuzz
+BuildRequires: libx11
+BuildRequires: libxft
+BuildRequires: libxrender
 
 Provides: pkgconfig(pango)
 Provides: pkgconfig(pangocairo)

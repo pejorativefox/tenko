@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://xcb.freedesktop.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: libXdmcp
+BuildRequires: libxau
+BuildRequires: util-macros
+BuildRequires: xcb-proto
 
 %description
 X11 client library

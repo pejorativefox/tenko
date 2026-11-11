@@ -6,6 +6,8 @@ License:    LGPL-2.1-or-later
 URL:        https://rrthomas.github.io/enchant/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: aspell
+BuildRequires: groff
 
 %description
 Spell check library

@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/driver/xf86-video-vesa
 Prefix:     /usr
 Source0:    xf86-video-vesa-2.3.3.tar.bz2
+BuildRequires: util-macros
+BuildRequires: xorg-server
+BuildRequires: xorgproto
 
 %description
 The generic VESA video driver for Xorg.

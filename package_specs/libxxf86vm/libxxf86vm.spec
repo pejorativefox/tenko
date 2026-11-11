@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxxf86vm
 Prefix:     /usr
 Source0:    libXxf86vm-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: util-macros
+BuildRequires: xorgproto
 %description
 XFree86-VidMode X extension
 

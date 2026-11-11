@@ -8,6 +8,11 @@ Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
 BuildRequires: libglu
+BuildRequires: libx11
+BuildRequires: libxi
+BuildRequires: libxrandr
+BuildRequires: libxxf86vm
+BuildRequires: mesa
 
 %description
 Freeglut is intended to be a 100% compatible, completely opensourced clone of the GLUT library. GLUT is a window system independent toolkit for writing OpenGL programs, implementing a simple windowing API, which makes learning about and exploring OpenGL programming very easy.

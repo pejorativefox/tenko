@@ -6,6 +6,8 @@ License:    LGPL-3.0-only
 URL:        https://github.com/flatpak/libportal
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: gobject-introspection
+BuildRequires: gtk+
 
 %description
 Flatpak portal library 

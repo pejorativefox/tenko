@@ -20,12 +20,15 @@ Source2:    fmt-12.1.0.tar.gz
 Source3:    fast_float-8.1.0.tar.gz
 Prefix:     /usr
 
-BuildRequires: gtk3
+BuildRequires: gtk+
 BuildRequires: gnutls
 BuildRequires: libxml2
 BuildRequires: fribidi
 BuildRequires: pcre2
 BuildRequires: lz4
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: pango
 
 %description
 Virtual Terminal Emulator library.

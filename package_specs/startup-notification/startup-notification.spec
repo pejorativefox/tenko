@@ -6,6 +6,9 @@ License:    LGPL-2.0-or-later
 URL:        https://gitlab.freedesktop.org/xdg/startup-notification
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: libx11
+BuildRequires: libxcb
+BuildRequires: xcb-util
 
 %description
 The startup notification protocol allows a desktop environment to track

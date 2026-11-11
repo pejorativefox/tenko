@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxcb-image
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: libxcb
+BuildRequires: xcb-util
 
 %description
 XCB image utilities

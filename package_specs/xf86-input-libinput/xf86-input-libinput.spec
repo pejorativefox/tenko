@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/driver/xf86-input-libinput
 Prefix:     /usr
 Source0:    xf86-input-libinput-1.5.0.tar.xz
+BuildRequires: libinput
+BuildRequires: util-macros
+BuildRequires: xorg-server
+BuildRequires: xorgproto
 
 %description
 The Xorg driver that feeds libinput events into the X server.

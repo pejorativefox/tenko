@@ -27,6 +27,12 @@ BuildRequires: libxklavier
 BuildRequires: libwnck
 BuildRequires: linux-pam
 BuildRequires: systemd
+BuildRequires: cairo
+BuildRequires: dbus-libs
+BuildRequires: gdk-pixbuf
+BuildRequires: pango
+BuildRequires: shared-mime-info
+BuildRequires: xorgproto
 
 Requires:   gtk+
 Requires:   glib

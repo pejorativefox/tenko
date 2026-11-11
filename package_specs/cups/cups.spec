@@ -8,6 +8,8 @@ Source0:    %{name}-%{version}-source.tar.gz
 Patch0:     %{name}-%{version}-upstream_fix-1.patch
 Prefix:     /usr
 Requires(pre): shadow
+BuildRequires: dbus-libs
+BuildRequires: openssl
 
 %description
 CUPS is a standards-based, open source printing system developed by Apple Inc.

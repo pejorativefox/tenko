@@ -6,6 +6,14 @@ License:    LGPL-2.1-or-later
 URL:        https://0pointer.de/lennart/projects/libcanberra/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: harfbuzz
+BuildRequires: libvorbis
+BuildRequires: libx11
+BuildRequires: pango
 
 %description
 libcanberra is an implementation of the XDG Sound Theme and Name Specifications

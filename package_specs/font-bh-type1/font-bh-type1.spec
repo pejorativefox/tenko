@@ -6,6 +6,7 @@ License:    Luxi
 URL:        https://gitlab.freedesktop.org/xorg/font/bh-type1
 Prefix:     /usr
 Source0:    font-bh-type1-1.0.4.tar.xz
+BuildRequires: util-macros
 
 
 

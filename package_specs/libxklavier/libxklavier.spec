@@ -6,6 +6,9 @@ License:    LGPL-2.0-or-later
 URL:        https://gitlab.freedesktop.org/archived-projects/libxklavier
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: libx11
+BuildRequires: libxi
+BuildRequires: libxkbfile
 
 %description
 High-level API for X Keyboard Extension

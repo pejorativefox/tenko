@@ -8,6 +8,8 @@ Prefix:     /usr
 Source0:    xcursor-themes-1.0.7.tar.xz
 
 BuildRequires: xcursorgen
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 Default X11 cursor themes.

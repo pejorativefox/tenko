@@ -6,6 +6,17 @@ License:    MIT
 URL:        https://invisible-island.net/xterm/
 Prefix:     /usr
 Source0:    xterm-412.tgz
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: libice
+BuildRequires: libx11
+BuildRequires: libxaw
+BuildRequires: libxext
+BuildRequires: libxft
+BuildRequires: libxinerama
+BuildRequires: libxmu
+BuildRequires: libxpm
+BuildRequires: libxt
 
 
 

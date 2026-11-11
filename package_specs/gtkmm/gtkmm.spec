@@ -11,6 +11,9 @@ BuildRequires: cairomm
 BuildRequires: pangomm
 BuildRequires: atkmm
 BuildRequires: glibmm
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: libsigc++
 
 %description
 gtkmm is the official C++ interface for the popular GUI library GTK+.

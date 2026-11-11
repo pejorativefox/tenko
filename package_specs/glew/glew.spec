@@ -6,6 +6,8 @@ License:    BSD-3-Clause AND MIT
 URL:        https://glew.sourceforge.net/
 Source0:    %{name}-%{version}.tgz
 Prefix:     /usr
+BuildRequires: libx11
+BuildRequires: mesa
 
 %description
 GLEW is the OpenGL Extension Wrangler Library. 

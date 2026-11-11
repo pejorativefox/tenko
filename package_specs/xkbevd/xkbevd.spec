@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xkbevd
 Prefix:     /usr
 Source0:    xkbevd-1.1.6.tar.xz
+BuildRequires: libx11
+BuildRequires: libxkbfile
+BuildRequires: util-macros
 
 
 

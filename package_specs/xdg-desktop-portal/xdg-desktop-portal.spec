@@ -6,6 +6,14 @@ License:    LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-2.0-or-later
 URL:        https://flatpak.github.io/xdg-desktop-portal/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: flatpak
+BuildRequires: fuse3
+BuildRequires: gdk-pixbuf
+BuildRequires: gst-plugins-base
+BuildRequires: gstreamer
+BuildRequires: json-glib
+BuildRequires: libgudev
+BuildRequires: pipewire
 
 %description
 Desktop integration portal 

@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xvinfo
 Prefix:     /usr
 Source0:    xvinfo-1.1.6.tar.xz
+BuildRequires: libx11
+BuildRequires: libxv
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

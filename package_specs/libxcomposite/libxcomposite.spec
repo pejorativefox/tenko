@@ -7,6 +7,9 @@ URL:        https://gitlab.freedesktop.org/xorg/lib/libxcomposite
 Prefix:     /usr
 Source0:    libXcomposite-%{version}.tar.xz
 BuildRequires: libxfixes
+BuildRequires: libx11
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 Xlib-based client library for the Composite extension to the X11 protocol.

@@ -8,6 +8,9 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 Provides: pkgconfig(harfbuzz)
+BuildRequires: freetype
+BuildRequires: gobject-introspection
+BuildRequires: libpng
 %description
 The HarfBuzz package contains an OpenType text shaping engine.
 

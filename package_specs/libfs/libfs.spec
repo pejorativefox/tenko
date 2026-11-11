@@ -6,6 +6,9 @@ License:    MIT-open-group
 URL:        https://gitlab.freedesktop.org/xorg/lib/libfs
 Prefix:     /usr
 Source0:    libFS-%{version}.tar.xz
+BuildRequires: util-macros
+BuildRequires: xorgproto
+BuildRequires: xtrans
 
 %description
 X Font Service client library

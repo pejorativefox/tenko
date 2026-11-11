@@ -6,6 +6,24 @@ License:    LGPL-2.1-or-later AND BSD-3-Clause
 URL:        https://gstreamer.freedesktop.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: alsa-lib
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gstreamer
+BuildRequires: gtk+
+BuildRequires: libdrm
+BuildRequires: libgudev
+BuildRequires: libjpeg-turbo
+BuildRequires: libogg
+BuildRequires: libpng
+BuildRequires: libvorbis
+BuildRequires: libx11
+BuildRequires: libxcb
+BuildRequires: libxext
+BuildRequires: libxi
+BuildRequires: libxv
+BuildRequires: mesa
+BuildRequires: pango
 
 %description
 Base gstreamer plugins

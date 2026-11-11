@@ -6,6 +6,7 @@ License:    Adobe-Utopia
 URL:        https://gitlab.freedesktop.org/xorg/font/adobe-utopia-type1
 Prefix:     /usr
 Source0:    font-adobe-utopia-type1-1.0.5.tar.xz
+BuildRequires: util-macros
 
 
 

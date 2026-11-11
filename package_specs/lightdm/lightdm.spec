@@ -12,8 +12,9 @@ Prefix:     /usr
 # Upstream still uses intltool for the polkit policy; the rest is autotools.
 BuildRequires: autoconf, automake, libtool, gettext, intltool
 BuildRequires: linux-pam, libgcrypt, libxklavier
-BuildRequires: glib, gtk+, libxcb, libxdmcp
+BuildRequires: glib, gtk+, libxcb, libXdmcp
 BuildRequires: gobject-introspection
+BuildRequires: libx11
 
 # The greeter is packaged separately but is what lightdm starts.
 Requires:      xorg-server

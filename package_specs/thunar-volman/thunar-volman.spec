@@ -6,6 +6,13 @@ License:    GPL-2.0-or-later
 URL:        https://docs.xfce.org/xfce/thunar/thunar-volman
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: gtk+
+BuildRequires: libgudev
+BuildRequires: libnotify
+BuildRequires: libxfce4ui
+BuildRequires: libxfce4util
+BuildRequires: pango
+BuildRequires: xfconf
 
 %description
 Automatic management of removeable devices in Thunar

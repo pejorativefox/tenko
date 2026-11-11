@@ -6,6 +6,15 @@ License:    imlib2
 URL:        https://git.enlightenment.org/old/legacy-imlib2
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: cairo
+BuildRequires: freetype
+BuildRequires: gdk-pixbuf
+BuildRequires: libjpeg-turbo
+BuildRequires: libpng
+BuildRequires: librsvg
+BuildRequires: libx11
+BuildRequires: libxcb
+BuildRequires: libxext
 
 %description
 imlib2 is a general image loading and rendering library

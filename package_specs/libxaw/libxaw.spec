@@ -8,6 +8,11 @@ Prefix:     /usr
 Source0:    libXaw-1.0.16.tar.xz
 
 BuildRequires: libxmu, libxpm
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: libxt
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 Xaw is a widget set based on the X Toolkit Intrinsics (Xt) Library.

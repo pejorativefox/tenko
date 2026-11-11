@@ -6,6 +6,7 @@ License:    BSDL
 URL:        https://www.ruby-lang.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: openssl
 
 %description
 Ruby programming language

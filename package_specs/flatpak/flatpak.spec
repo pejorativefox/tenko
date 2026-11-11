@@ -13,6 +13,15 @@ Requires:   gnupg
 # host's GSettings values.
 Requires:   dconf
 Prefix:     /usr
+BuildRequires: appstream
+BuildRequires: dconf
+BuildRequires: fuse3
+BuildRequires: gdk-pixbuf
+BuildRequires: json-glib
+BuildRequires: libostree
+BuildRequires: libxau
+BuildRequires: openssl
+BuildRequires: polkit
 
 %description
 Flatpak is a system for building, distributing and running sandboxed desktop

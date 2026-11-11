@@ -8,6 +8,7 @@ Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
 BuildRequires: libsigc++
+BuildRequires: cairo
 
 %description
 The Cairomm package provides a C++ interface to Cairo. 

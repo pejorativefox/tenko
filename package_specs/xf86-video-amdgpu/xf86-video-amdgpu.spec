@@ -8,6 +8,8 @@ Prefix:     /usr
 Source0:    xf86-video-amdgpu-23.0.0.tar.xz
 
 BuildRequires: xorg-server, libdrm, mesa
+BuildRequires: util-macros
+BuildRequires: xorgproto
 Requires:   xorg-server
 
 %description

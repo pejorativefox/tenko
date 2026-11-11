@@ -10,6 +10,14 @@ BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(xext)
 BuildRequires: pkgconfig(xcb-render)
 BuildRequires: pkgconfig(xrender)
+BuildRequires: fontconfig
+BuildRequires: liblzo2
+BuildRequires: libpng
+BuildRequires: libpoppler
+BuildRequires: librsvg
+BuildRequires: libx11
+BuildRequires: pixman
+BuildRequires: xorgproto
 
 %description
 Cairo is a 2D graphics library with support for multiple output devices.

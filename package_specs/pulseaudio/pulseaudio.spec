@@ -8,6 +8,21 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 BuildRequires: libsndfile
+BuildRequires: alsa-lib
+BuildRequires: bash-completion
+BuildRequires: dbus-daemon
+BuildRequires: dbus-libs
+BuildRequires: gst-plugins-base
+BuildRequires: gstreamer
+BuildRequires: gtk+
+BuildRequires: libice
+BuildRequires: libsm
+BuildRequires: libx11
+BuildRequires: libxcb
+BuildRequires: libxtst
+BuildRequires: openssl
+BuildRequires: sbc
+BuildRequires: xml-parser
 
 %description
 PulseAudio is a networked low-latency sound server for Linux, POSIX and

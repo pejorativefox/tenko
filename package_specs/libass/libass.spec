@@ -6,6 +6,10 @@ License:    ISC
 URL:        https://github.com/libass/libass
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: fribidi
+BuildRequires: harfbuzz
 
 %description
 libass is a portable subtitle renderer for the ASS/SSA (Advanced

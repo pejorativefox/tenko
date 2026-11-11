@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/mkfontscale
 Prefix:     /usr
 Source0:    mkfontscale-1.2.4.tar.xz
+BuildRequires: freetype
+BuildRequires: libfontenc
+BuildRequires: util-macros
 
 %description
 mkfontscale creates the fonts.scale index for X font directories.

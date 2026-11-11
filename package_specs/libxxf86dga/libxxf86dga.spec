@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxxf86dga
 Prefix:     /usr
 Source0:    libXxf86dga-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 Client library for the XFree86-DGA extension

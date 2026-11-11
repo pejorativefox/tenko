@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxshmfence
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 This library offers a CPU-based synchronization primitive compatible with the X SyncFence

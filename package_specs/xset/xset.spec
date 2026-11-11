@@ -6,6 +6,11 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xset
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: libxmu
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

@@ -7,6 +7,9 @@ URL:        https://github.com/anholt/libepoxy
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: mesa
+BuildRequires: libx11
+BuildRequires: libxfixes
+BuildRequires: xorgproto
 
 Provides: pkgconfig(epoxy)
 %description

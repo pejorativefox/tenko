@@ -6,6 +6,8 @@ License:    NPSL
 URL:        https://nmap.org/
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: libpcap
+BuildRequires: openssl
 
 %description
 Nmap is a utility for network exploration and security auditing.  It supports

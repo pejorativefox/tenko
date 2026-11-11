@@ -6,6 +6,7 @@ License:    BSD-3-Clause
 URL:        https://github.com/openSUSE/libsolv
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: openssl
 
 %description
 libsolv is a dependency solver and repository reader used by libdnf and

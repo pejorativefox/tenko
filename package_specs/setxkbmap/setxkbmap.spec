@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/setxkbmap
 Prefix:     /usr
 Source0:    setxkbmap-1.3.5.tar.xz
+BuildRequires: libx11
+BuildRequires: libxkbfile
+BuildRequires: libxrandr
+BuildRequires: util-macros
 
 
 

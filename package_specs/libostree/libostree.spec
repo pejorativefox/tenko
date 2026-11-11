@@ -6,6 +6,9 @@ License:    LGPL-2.0-or-later
 URL:        https://ostreedev.github.io/ostree/
 Source0:    libostree-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: e2fsprogs
+BuildRequires: fuse3
+BuildRequires: openssl
 
 %description
 libostree is a tool and library for deploying and managing bootable,

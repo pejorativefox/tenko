@@ -6,6 +6,11 @@ License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:        https://docs.xfce.org/xfce/tumbler/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: freetype
+BuildRequires: gdk-pixbuf
+BuildRequires: libjpeg-turbo
+BuildRequires: libpng
+BuildRequires: libxfce4util
 
 %description
 D-Bus service for applications to request thumbnails

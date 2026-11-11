@@ -6,6 +6,8 @@ License:    LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:        https://github.com/linux-nvme/libnvme
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
+BuildRequires: keyutils
+BuildRequires: openssl
 
 %description
 libnvme is a library for discovering, configuring and managing NVMe

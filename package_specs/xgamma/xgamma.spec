@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xgamma
 Prefix:     /usr
 Source0:    xgamma-1.0.8.tar.xz
+BuildRequires: libx11
+BuildRequires: libxxf86vm
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

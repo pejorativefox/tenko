@@ -10,6 +10,29 @@ Prefix:     /usr
 
 BuildRequires: libxpresent
 BuildRequires: xorgproto
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: harfbuzz
+BuildRequires: libepoxy
+BuildRequires: libice
+BuildRequires: libsm
+BuildRequires: libwnck
+BuildRequires: libx11
+BuildRequires: libxcomposite
+BuildRequires: libxdamage
+BuildRequires: libxext
+BuildRequires: libxfce4ui
+BuildRequires: libxfce4util
+BuildRequires: libxfixes
+BuildRequires: libxinerama
+BuildRequires: libxrandr
+BuildRequires: libxrender
+BuildRequires: libxres
+BuildRequires: pango
+BuildRequires: startup-notification
+BuildRequires: xfconf
 
 %description
 Xfce's window manager

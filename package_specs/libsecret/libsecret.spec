@@ -8,6 +8,7 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 BuildRequires: libxslt
+BuildRequires: libgcrypt
 
 %description
 The libsecret package contains a GObject based library for accessing the Secret Service API.

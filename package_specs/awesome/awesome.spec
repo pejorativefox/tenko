@@ -7,6 +7,19 @@ Prefix:     /usr
 URL:        https://awesomewm.org/
 Source0:    %{name}-%{version}.tar.xz
 Patch0:     %{name}-%{version}-cmake-check-examples.patch
+BuildRequires: cairo
+BuildRequires: dbus-libs
+BuildRequires: gdk-pixbuf
+BuildRequires: libx11
+BuildRequires: libxcb
+BuildRequires: libxdg-basedir
+BuildRequires: libxkbcommon
+BuildRequires: startup-notification
+BuildRequires: xcb-util
+BuildRequires: xcb-util-cursor
+BuildRequires: xcb-util-keysyms
+BuildRequires: xcb-util-wm
+BuildRequires: xcb-util-xrm
 
 %description
 awesome is a highly configurable, next generation framework window

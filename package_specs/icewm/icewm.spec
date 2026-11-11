@@ -9,6 +9,22 @@ Prefix:     /usr
 
 BuildRequires: imlib2
 BuildRequires: pulseaudio
+BuildRequires: fribidi
+BuildRequires: git
+BuildRequires: libice
+BuildRequires: libsm
+BuildRequires: libx11
+BuildRequires: libxcomposite
+BuildRequires: libxcursor
+BuildRequires: libxdamage
+BuildRequires: libxext
+BuildRequires: libxfixes
+BuildRequires: libxft
+BuildRequires: libxinerama
+BuildRequires: libxrandr
+BuildRequires: libxrender
+BuildRequires: libxres
+BuildRequires: xorgproto
 
 %description
 A small win9x like window manager

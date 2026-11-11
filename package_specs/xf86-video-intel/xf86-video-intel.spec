@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: libdrm
+BuildRequires: libpciaccess
+BuildRequires: pixman
 
 %description
 The Intel video driver for Xorg.

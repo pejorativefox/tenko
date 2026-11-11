@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xkill
 Prefix:     /usr
 Source0:    xkill-1.0.7.tar.xz
+BuildRequires: libx11
+BuildRequires: libxmu
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

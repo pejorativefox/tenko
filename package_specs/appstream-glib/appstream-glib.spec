@@ -6,6 +6,14 @@ License:    LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:        https://github.com/hughsie/appstream-glib
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: cairo
+BuildRequires: fontconfig
+BuildRequires: freetype
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: json-glib
+BuildRequires: openssl
+BuildRequires: pango
 
 %description
 Glib AppStream metadata support.

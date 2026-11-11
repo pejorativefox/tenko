@@ -6,6 +6,7 @@ License:    LGPL-2.1
 URL:        https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+BuildRequires: gobject-introspection
 
 %description
 gsettings-desktop-schemas contains the shared GSettings schemas for the

@@ -7,6 +7,22 @@ URL:        https://docs.xfce.org/xfce/xfce4-power-manager/start
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     %{name}-%{version}-logind-lid-switch.patch
 Prefix:     /usr
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: harfbuzz
+BuildRequires: libnotify
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: libxfce4ui
+BuildRequires: libxfce4util
+BuildRequires: libxrandr
+BuildRequires: pango
+BuildRequires: polkit
+BuildRequires: upower
+BuildRequires: xfce4-panel
+BuildRequires: xfconf
 
 %description
 Power manager for Xfce desktop

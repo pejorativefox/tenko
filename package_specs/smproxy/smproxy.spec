@@ -6,6 +6,12 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/smproxy
 Prefix:     /usr
 Source0:    smproxy-1.0.8.tar.xz
+BuildRequires: libice
+BuildRequires: libsm
+BuildRequires: libx11
+BuildRequires: libxmu
+BuildRequires: libxt
+BuildRequires: util-macros
 
 
 

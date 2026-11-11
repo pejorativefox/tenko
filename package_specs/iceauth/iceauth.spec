@@ -6,6 +6,9 @@ License:    X11
 URL:        https://gitlab.freedesktop.org/xorg/app/iceauth
 Prefix:     /usr
 Source0:    iceauth-1.0.11.tar.xz
+BuildRequires: libice
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

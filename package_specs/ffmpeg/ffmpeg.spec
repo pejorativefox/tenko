@@ -12,6 +12,15 @@ BuildRequires: libtheora
 BuildRequires: libvorbis
 BuildRequires: libva
 BuildRequires: libx264
+BuildRequires: alsa-lib
+BuildRequires: freetype
+BuildRequires: lame
+BuildRequires: libass
+BuildRequires: libdrm
+BuildRequires: libvpx
+BuildRequires: libx11
+BuildRequires: libxcb
+BuildRequires: openssl
 
 %description
 FFmpeg is a collection of libraries and tools to process multimedia content

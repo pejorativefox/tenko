@@ -8,6 +8,10 @@ Prefix:     /usr
 Source0:    libXt-%{version}.tar.xz
 
 BuildRequires: libsm
+BuildRequires: libice
+BuildRequires: libx11
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 X Toolkit Intrinsics library

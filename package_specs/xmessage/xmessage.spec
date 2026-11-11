@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xmessage
 Prefix:     /usr
 Source0:    xmessage-1.0.7.tar.xz
+BuildRequires: libx11
+BuildRequires: libxaw
+BuildRequires: libxt
+BuildRequires: util-macros
 
 
 

@@ -9,6 +9,16 @@ Source0:    %{name}-%{version}.tar.xz
 
 BuildRequires: libx11, pixman, libdrm, libxkbfile, xtrans
 BuildRequires: libepoxy, libxcvt, libtirpc, font-util
+BuildRequires: libXdmcp
+BuildRequires: libbsd
+BuildRequires: libmd
+BuildRequires: libpciaccess
+BuildRequires: libxau
+BuildRequires: libxext
+BuildRequires: libxfont2
+BuildRequires: libxshmfence
+BuildRequires: mesa
+BuildRequires: xorgproto
 Requires:   xkbcomp
 Requires:   xkeyboard-config
 Requires:   xf86-input-libinput

@@ -11,6 +11,7 @@ BuildRequires: dbus-libs
 BuildRequires: systemd
 BuildRequires: readline
 BuildRequires: python3-docutils
+BuildRequires: dbus-daemon
 Requires:   dbus-daemon
 Requires:   systemd
 

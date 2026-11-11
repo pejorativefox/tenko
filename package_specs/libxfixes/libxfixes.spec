@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxfixes
 Prefix:     /usr
 Source0:    libXfixes-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: util-macros
+BuildRequires: xorgproto
 %description
 Xlib-based library for the XFIXES Extension.
 

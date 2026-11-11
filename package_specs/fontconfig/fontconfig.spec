@@ -7,6 +7,7 @@ URL:        https://gitlab.freedesktop.org/fontconfig/fontconfig
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: freetype >= 2.13.1
+BuildRequires: gperf
 
 %description
 The Fontconfig package contains a library and support programs used for configuring and customizing font access.

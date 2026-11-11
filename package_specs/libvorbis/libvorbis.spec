@@ -6,6 +6,7 @@ License:    BSD-3-Clause
 URL:        https://github.com/xiph/vorbis
 Prefix:     /usr
 Source0:    libvorbis-1.3.7.tar.xz
+BuildRequires: libogg
 
 %description
 Vorbis is a general purpose perceptual audio codec intended to allow maximum

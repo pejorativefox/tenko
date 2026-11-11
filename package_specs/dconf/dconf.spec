@@ -7,6 +7,7 @@ Prefix:     /usr
 URL:        https://download.gnome.org/sources/dconf/
 Source0:    %{name}-%{version}.tar.xz
 BuildRequires: bash-completion
+BuildRequires: dbus-daemon
 
 %description
 Dconf is a low-level configuration system and settings management

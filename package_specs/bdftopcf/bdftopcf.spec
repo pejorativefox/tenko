@@ -6,6 +6,8 @@ License:    X11
 URL:        https://gitlab.freedesktop.org/xorg/util/bdftopcf
 Source0:    bdftopcf-1.1.1.tar.xz
 Prefix:     /usr
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 bdftopcf font conversion

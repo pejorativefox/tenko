@@ -21,6 +21,7 @@ Prefix:     /usr
 # EDK2 references several git submodules from its .dec files even when the
 # driver that needs them is not built, so the pinned commits are shipped as
 # separate sources and unpacked into the matching paths below.
+BuildRequires: nasm
 
 %description
 OVMF is the Open Virtual Machine Firmware build of EDK2, providing a UEFI

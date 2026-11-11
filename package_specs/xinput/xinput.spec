@@ -6,6 +6,13 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xinput
 Prefix:     /usr
 Source0:    xinput-1.6.4.tar.xz
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: libxi
+BuildRequires: libxinerama
+BuildRequires: libxrandr
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

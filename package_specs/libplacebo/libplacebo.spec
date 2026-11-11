@@ -13,6 +13,7 @@ BuildRequires: meson
 BuildRequires: ninja
 BuildRequires: pkgconf
 BuildRequires: mesa
+BuildRequires: python-jinja
 
 %description
 libplacebo is a library for processing image and video primitives and

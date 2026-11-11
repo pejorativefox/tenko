@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xpr
 Prefix:     /usr
 Source0:    xpr-1.2.1.tar.xz
+BuildRequires: libx11
+BuildRequires: libxmu
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

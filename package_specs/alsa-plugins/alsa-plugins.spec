@@ -7,6 +7,8 @@ URL:        https://github.com/alsa-project/alsa-plugins
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     %{name}-%{version}-ffmpeg-9.0.patch
 Prefix:     /usr
+BuildRequires: alsa-lib
+BuildRequires: pulseaudio
 
 %description
  The ALSA Plugins package contains plugins for various audio libraries and sound servers.

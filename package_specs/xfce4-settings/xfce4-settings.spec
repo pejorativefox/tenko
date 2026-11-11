@@ -6,6 +6,24 @@ License:    GPL-2.0-or-later AND GPL-2.0-only AND LGPL-2.0-or-later
 URL:        https://docs.xfce.org/xfce/xfce4-settings/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: exo
+BuildRequires: fontconfig
+BuildRequires: garcon
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: libnotify
+BuildRequires: libx11
+BuildRequires: libxcursor
+BuildRequires: libxext
+BuildRequires: libxfce4ui
+BuildRequires: libxfce4util
+BuildRequires: libxi
+BuildRequires: libxklavier
+BuildRequires: libxrandr
+BuildRequires: pango
+BuildRequires: xfconf
 
 %description
 Settings manager of the Xfce desktop

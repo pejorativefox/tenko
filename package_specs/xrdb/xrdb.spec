@@ -6,6 +6,10 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/app/xrdb
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: libxmu
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 
 

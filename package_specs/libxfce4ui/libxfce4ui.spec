@@ -8,6 +8,17 @@ Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
 BuildRequires: xfconf
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: harfbuzz
+BuildRequires: libice
+BuildRequires: libsm
+BuildRequires: libx11
+BuildRequires: libxfce4util
+BuildRequires: pango
+BuildRequires: startup-notification
 
 %description
 Commonly used Xfce widgets among Xfce applications

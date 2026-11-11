@@ -6,6 +6,10 @@ License:    X11
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxscrnsaver
 Prefix:     /usr
 Source0:    libXScrnSaver-%{version}.tar.xz
+BuildRequires: libx11
+BuildRequires: libxext
+BuildRequires: util-macros
+BuildRequires: xorgproto
 
 %description
 X11 screensaver library

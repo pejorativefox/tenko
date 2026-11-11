@@ -6,6 +6,14 @@ License:    GPL-2.0-or-later
 URL:        https://gitlab.gnome.org/GNOME/network-manager-applet
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+BuildRequires: NetworkManager
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: libnma
+BuildRequires: libsecret
+BuildRequires: pango
 
 %description
 nm-applet is a GTK-based GUI applet to monitor network status and devices

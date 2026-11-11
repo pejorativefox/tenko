@@ -6,6 +6,18 @@ License:    GPL-2.0-only AND GPL-2.0-or-later
 URL:        https://docs.xfce.org/apps/notifyd/start
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
+BuildRequires: at-spi2-core
+BuildRequires: cairo
+BuildRequires: gdk-pixbuf
+BuildRequires: gtk+
+BuildRequires: harfbuzz
+BuildRequires: libnotify
+BuildRequires: libx11
+BuildRequires: libxfce4ui
+BuildRequires: libxfce4util
+BuildRequires: pango
+BuildRequires: xfce4-panel
+BuildRequires: xfconf
 
 %description
 xfce4-notifyd is a notification daemon for the Xfce desktop.  It implements

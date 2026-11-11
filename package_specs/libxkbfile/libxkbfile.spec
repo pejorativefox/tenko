@@ -6,6 +6,8 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxkbfile
 Prefix:     /usr
 Source0:    libxkbfile-1.2.0.tar.xz
+BuildRequires: libx11
+BuildRequires: xorgproto
 
 %description
 libxkbfile is used by the X servers and utilities to parse the XKB configuration data files
