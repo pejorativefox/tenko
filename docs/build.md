@@ -87,6 +87,22 @@ STRICT=1 OUT=build/x ./tenko build xsetroot
 ./tenko builddeps --out build/x xsetroot
 ```
 
+## Build order
+
+The only ordered package manifest is `build_order` in
+[`package_specs/base.json`](../package_specs/base.json).  It exists for
+`tenko build --base`: the base set is rebuilt from scratch, so the build
+image cannot supply those packages and the bootstrap order has to be
+explicit.
+
+The desktop/X11 stack has no order list.  Its packages are built with
+`tenko build` like every other package, and their dependencies are the
+`BuildRequires` in each spec.  When a dependency is not in the mirror yet,
+build it first in the same run: successful RPMs go into `build/repo`, and
+`JOBS=1` keeps a chain in the listed order.  A missing ordering constraint is
+fixed by declaring the `BuildRequires`, not by adding a package to a
+cross-package list.
+
 ## Metapackage layering
 
 ```

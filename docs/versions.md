@@ -47,7 +47,8 @@ The manifest has three keys:
 - `aliases` — base name → spec directory when they differ (`pcre` → `pcre2`,
   `libelf` → `elfutils`, …).
 - `build_order` — the order used to rebuild the base set; it includes
-  bootstrap extras and the tenko glue packages.
+  bootstrap extras and the tenko glue packages.  It is the only build-order
+  manifest in the tree (see [build.md](build.md#build-order)).
 
 Each package's `package_specs/<name>/sources` file is the only source URL and
 hash data.  A version bump updates the spec and that file; nothing else pins
