@@ -1,0 +1,9 @@
+%dir /usr/share/doc/glab-bin
+%dir /usr/share/licenses/glab-bin
+/usr/bin/glab
+/usr/share/bash-completion/completions/glab
+/usr/share/doc/glab-bin/CHANGELOG.md
+/usr/share/doc/glab-bin/README.md
+/usr/share/fish/vendor_completions.d/glab.fish
+/usr/share/licenses/glab-bin/LICENSE
+/usr/share/zsh/site-functions/_glab
