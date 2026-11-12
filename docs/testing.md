@@ -24,6 +24,7 @@ refuses to proceed when Secure Boot is enabled.
 | installer media | `tenko qemu installer` | systemd-boot menu, kernel + initrd boot, `Started Tenko Linux installer`, multi-user and a console login prompt |
 | unattended install | `ISO_AUTO=1 ISO_ANSWER=tests/installer-answer.json tenko image iso` then boot the ISO | installer reports steps 1–9 and `OK`, `bootctl install` succeeds, disk boots to `tenko-test login:` |
 | installed disk | QEMU with `-drive file=build/installer-test.img,if=virtio` and a fresh OVMF NVRAM | systemd-boot menu → kernel → login prompt |
+| recovery runbook | manual QEMU/OVMF: live image plus a throwaway installed disk ([recovery.md](recovery.md)) | each scenario ends at the installed system's login prompt |
 | base system | `tenko qemu boot` | the installer's `base` package set boots to a serial login prompt; units that failed are listed |
 | first boot + greeter | `tenko qemu login` | first-boot password flow, LightDM greeter captured (guest `xwd` or screendump fallback) |
 | freedesktop gate | `tenko qemu fdo` | every desktop check passes in a real login session (see below) |
@@ -68,6 +69,21 @@ OVMF variable store (`OVMF_VARS` copied from `OVMF_VARS_SRC`) and
 the serial console.  `tests/serial_login.py [user] [password]` can drive that
 login over a `-serial unix:...` socket and checks for the login prompt,
 password prompt, shell prompt and requested commands.
+
+## Recovery checks
+
+The commands in [recovery.md](recovery.md) are checked on a throwaway UEFI
+install.  Break the install the way the scenario describes (empty initramfs,
+missing loader entry, empty NVRAM), boot a live image with the installed disk
+attached and run the runbook.  Each repair passes when the installed disk
+boots to its login prompt.  For the filesystem check, pass means the root is
+unmounted, `fsck` does not report `/dev/... is in use`, and it finishes with a
+clean filesystem.  For the firmware check, `bootctl status` reports Secure
+Boot disabled and `/sys/firmware/efi` exists.
+
+Use a fresh OVMF variable store for the empty-NVRAM case; after `efibootmgr`
+creates the entry, the installed disk must still boot with
+`EFI/BOOT/BOOTX64.EFI` removed.
 
 ## System tests
 

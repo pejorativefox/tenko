@@ -1,7 +1,8 @@
 # Boot layout, recovery and rescue
 
-This runbook uses the same commands `tenko-installer` runs, but it has not
-been validated end to end yet; treat it as a checklist.
+This runbook uses the same commands `tenko-installer` runs.  The sequence is
+verified against a throwaway UEFI install under QEMU/OVMF; the test matrix is
+in [testing.md](testing.md).
 
 ## How Tenko boots
 
@@ -73,15 +74,19 @@ ESP=/dev/nvme0n1p1           # replace
 mkdir -p /mnt/tenko
 mount "$ROOT" /mnt/tenko
 mkdir -p /mnt/tenko/boot
-mount "$ESP" /mnt/tenko/boot
+mount -o umask=0077,shortname=winnt "$ESP" /mnt/tenko/boot
 
 for d in dev proc sys run; do
     mount --rbind "/$d" "/mnt/tenko/$d"
+    mount --make-rslave "/mnt/tenko/$d"
 done
 mount -t efivarfs efivarfs /mnt/tenko/sys/firmware/efi/efivars 2>/dev/null || true
 
 chroot /mnt/tenko /bin/bash
 ```
+
+The ESP mount options match the installed fstab; without `umask=0077`,
+`bootctl` warns that the random seed file is world accessible.
 
 A btrfs root is a plain filesystem without subvolumes, so no `subvol=`
 option is needed.
@@ -98,7 +103,10 @@ ls -l /boot/loader/entries/
 ```
 
 `bootctl` writes both the normal `EFI/systemd/` loader and the removable
-`EFI/BOOT/BOOTX64.EFI` fallback.  If `/boot/loader/loader.conf` is missing:
+`EFI/BOOT/BOOTX64.EFI` fallback.  Inside a chroot `bootctl status` reports
+`Not booted with EFI`; `install` still copies the loader, and
+`--no-variables` leaves NVRAM to `efibootmgr` below.  If
+`/boot/loader/loader.conf` is missing:
 
 ```sh
 mkdir -p /boot/loader/entries
@@ -140,8 +148,9 @@ efibootmgr -v
 ```
 
 Use the ESP's whole-disk path and partition number (`1` in the default
-layout).  If `efibootmgr` fails because NVRAM is read-only, the firmware boot
-menu should still offer the removable `BOOTX64.EFI` path.
+layout).  `efibootmgr -v` then lists a `Boot####* Tenko Linux` entry and puts
+it first in `BootOrder`.  If `efibootmgr` fails because NVRAM is read-only,
+the firmware boot menu should still offer the removable `BOOTX64.EFI` path.
 
 ## 5. Rebuild a missing or truncated initramfs
 
@@ -160,16 +169,28 @@ section 7) or copy a matching `vmlinuz-<kver>` back to the ESP.
 
 ## 6. Check the root filesystem
 
-Unmount the ESP and root first, then run the checker for the filesystem:
+Leave the chroot first, then unmount the ESP and root and the bind mounts
+from section 3:
 
 ```sh
+exit
+
+umount -R /mnt/tenko/dev /mnt/tenko/proc /mnt/tenko/sys /mnt/tenko/run
 umount /mnt/tenko/boot /mnt/tenko
-fsck -f /dev/nvme0n1p3        # ext4
-# btrfs check /dev/nvme0n1p3  # only when the filesystem is unmounted
+
+: "${ROOT:?set ROOT to the root partition from section 3}"
+fsck -f "$ROOT"            # ext4
+# btrfs check "$ROOT"      # only when the filesystem is unmounted
 ```
 
-Do not run `fsck` on a mounted filesystem.  If the root cannot be repaired,
-mount a data partition and copy files off before reinstalling.
+The bind mounts are made slave in section 3 so they can be removed
+recursively; plain recursive mounts would leave `/mnt/tenko` busy.
+
+Do not run `fsck` on a mounted filesystem.  If it reports
+`/dev/... is in use`, something is still mounted; `findmnt` shows what.
+`fsck` may ask to fix inconsistencies (for example a stale orphan file);
+answer yes.  If the root cannot be repaired, mount a data partition and copy
+files off before reinstalling.
 
 ## 7. Repair packages from the repository
 
@@ -178,7 +199,8 @@ From a chroot with working network:
 ```sh
 dnf --refresh upgrade
 dnf reinstall linux-kernel linux-modules systemd
-dracut --force --no-hostonly --kver "$(ls /usr/lib/modules | sort -V | tail -1)"
+KVER=$(ls /usr/lib/modules | sort -V | tail -1)
+dracut --force --no-hostonly --kver "$KVER" "/boot/initramfs-$KVER.img"
 bootctl --esp-path=/boot --no-variables install
 ```
 
