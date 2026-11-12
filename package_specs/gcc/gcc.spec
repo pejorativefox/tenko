@@ -7,6 +7,8 @@ URL:        https://gcc.gnu.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 Requires:   gcc-libs = %{version}-%{release}
+Obsoletes:  gcc-lto < %{version}-%{release}
+Provides:   gcc-lto = %{version}-%{release}
 BuildRequires: texinfo
 
 %description
@@ -92,6 +94,8 @@ Info and man pages for GCC, cpp, gcov, libgomp, libitm and libquadmath.
   lto-wrapper made gcc pass an empty -plugin-opt when gcc-lto was not
   installed, which broke every -flto link and every Rust link through
   cc -fuse-ld=lld (issue #63).  The 16.2.0 sources are unchanged.
+  gcc obsoletes and provides gcc-lto so the old subpackage is replaced
+  on upgrade.
 
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 16.2.0-6
 - Record the verified license (GPL-3.0-or-later WITH GCC-exception-3.1): COPYING3, COPYING.RUNTIME and gcc/doc/cpp.texi (issue #8).
