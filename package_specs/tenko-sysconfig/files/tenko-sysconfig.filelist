@@ -4,7 +4,6 @@
 %config(noreplace) /etc/skel/.bashrc
 %config(noreplace) /etc/fstab
 %config(noreplace) /etc/systemd/system/default.target
-%config(noreplace) /etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
 %config(noreplace) /etc/systemd/journald.conf.d/10-tenko.conf
 %dir /etc/systemd/journald.conf.d
 %dir /etc/systemd/logind.conf.d

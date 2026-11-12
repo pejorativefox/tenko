@@ -1,11 +1,14 @@
 Name:       tenko-sysconfig
 Version:    6
-Release:    8
+Release:    9
 Epoch:      1
 Summary:    Base configuration for Tenko Linux
 License:    MIT
 URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
+
+# %posttrans runs systemctl daemon-reload.
+Requires(posttrans): systemd
 
 %description
 Base configuration files for Tenko Linux.
@@ -16,12 +19,11 @@ Base configuration files for Tenko Linux.
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/etc %{buildroot}/etc/systemd/system/getty.target.wants
+mkdir -p %{buildroot}/etc %{buildroot}/etc/systemd/system
 mkdir -p %{buildroot}/etc/systemd/journald.conf.d %{buildroot}/etc/systemd/network
 mkdir -p %{buildroot}/etc/systemd/logind.conf.d
 mkdir -p %{buildroot}/etc/dracut.conf.d %{buildroot}/etc/skel
 ln -sf /usr/lib/systemd/system/multi-user.target %{buildroot}/etc/systemd/system/default.target
-ln -sf /usr/lib/systemd/system/serial-getty@ttyS0.service %{buildroot}/etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
 
 # Locale and console defaults.
 cat > %{buildroot}/etc/locale.conf <<'EOF2'
@@ -192,7 +194,34 @@ chmod 644 %{buildroot}/etc/skel/.bash_profile %{buildroot}/etc/skel/.bashrc
 
 %files -f %{_sourcedir}/tenko-sysconfig.filelist
 
+%posttrans
+# Older releases enabled serial-getty@ttyS0 through a static symlink.  On a
+# machine without a serial port /dev/ttyS0 exists but no port answers, so
+# agetty fails and Restart=always retries every 10 seconds forever.
+# systemd-getty-generator already starts the unit when the kernel command
+# line has console=ttyS0, so drop only the stale link this package created
+# (not a user override) and only when no serial console is configured.
+link=/etc/systemd/system/getty.target.wants/serial-getty@ttyS0.service
+if [ -L "$link" ] &&
+   [ "$(readlink "$link")" = /usr/lib/systemd/system/serial-getty@ttyS0.service ] &&
+   ! grep -qw console=ttyS0 /proc/cmdline 2>/dev/null; then
+    rm -f "$link"
+    systemctl daemon-reload >/dev/null 2>&1 || :
+fi
+
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 6-9
+- Stop enabling serial-getty@ttyS0 through a static getty.target.wants
+  symlink.  On hardware without a serial port /dev/ttyS0 exists but no
+  port answers, so agetty failed and Restart=always retried every 10
+  seconds, spamming the journal and preventing the machine from staying
+  idle.  systemd-getty-generator already starts the unit when the kernel
+  command line has console=ttyS0, which the live ISO and the QEMU tests
+  pass, so the installer and the serial login tests are unaffected.
+  %posttrans removes the old link on upgrade when /proc/cmdline has no
+  console=ttyS0 and the link still points at the systemd unit, then runs
+  systemctl daemon-reload.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 6-8
 - Ship /etc/systemd/logind.conf.d/10-lid-switch.conf so closing the lid
   suspends the machine on AC and battery from logind itself, independent of
