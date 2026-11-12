@@ -41,6 +41,14 @@ class LlvmParallelInstallTest(unittest.TestCase):
         self.assertIn("CLANG_CONFIG_FILE_SYSTEM_DIR=%{_sysconfdir}/clang-22",
                       body)
 
+    def test_requested_backends_are_built(self):
+        match = re.search(r'LLVM_TARGETS_TO_BUILD="([^"]+)"', spec_body())
+        self.assertIsNotNone(match)
+        targets = set(match.group(1).split(";"))
+        for target in ("host", "X86", "ARM", "AArch64", "WebAssembly",
+                       "RISCV"):
+            self.assertIn(target, targets)
+
     def test_commands_are_suffixed(self):
         for path in filelist_paths():
             if path.startswith(COMMAND_ROOT):

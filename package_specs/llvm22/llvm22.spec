@@ -1,6 +1,6 @@
 Name:       llvm22
 Version:    22.1.8
-Release:    1
+Release:    2
 Summary:    LLVM and Clang 22 toolchain, installable alongside LLVM 23
 License:    Apache-2.0 WITH LLVM-exception
 URL:        https://llvm.org/
@@ -43,7 +43,7 @@ CC=gcc CXX=g++ cmake -G Ninja ..                             \
       -D LLVM_BUILD_LLVM_DYLIB=ON                            \
       -D LLVM_LINK_LLVM_DYLIB=ON                             \
       -D LLVM_ENABLE_RTTI=ON                                 \
-      -D LLVM_TARGETS_TO_BUILD="host;AMDGPU"                 \
+      -D LLVM_TARGETS_TO_BUILD="host;AMDGPU;ARM;AArch64;X86;WebAssembly;RISCV" \
       -D LLVM_ENABLE_PROJECTS=clang                          \
       -D LLVM_ENABLE_RUNTIMES=compiler-rt                    \
       -D LLVM_BINUTILS_INCDIR=/usr/include                   \
@@ -79,6 +79,11 @@ done
 %files -f %{_sourcedir}/llvm22.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 22.1.8-2
+- Build the ARM, AArch64, X86, WebAssembly and RISC-V backends in addition
+  to host and AMDGPU, so llvm-config-22 --libs accepts those target
+  components (for example arm and webassembly).
+
 * Thu Nov 12 2026 tenko <build@tenko.invalid> 22.1.8-1
 - New package, not in the base set: LLVM 22.1.8, the latest stable upstream
   release on the 22 branch (checked 2026-11-12), installed in a versioned

@@ -3704,8 +3704,16 @@
 /usr/lib64/llvm22/lib/clang/22/include/andes_vector.h
 /usr/lib64/llvm22/lib/clang/22/include/arm64intr.h
 /usr/lib64/llvm22/lib/clang/22/include/arm_acle.h
+/usr/lib64/llvm22/lib/clang/22/include/arm_bf16.h
+/usr/lib64/llvm22/lib/clang/22/include/arm_cde.h
 /usr/lib64/llvm22/lib/clang/22/include/arm_cmse.h
+/usr/lib64/llvm22/lib/clang/22/include/arm_fp16.h
+/usr/lib64/llvm22/lib/clang/22/include/arm_mve.h
+/usr/lib64/llvm22/lib/clang/22/include/arm_neon.h
 /usr/lib64/llvm22/lib/clang/22/include/arm_neon_sve_bridge.h
+/usr/lib64/llvm22/lib/clang/22/include/arm_sme.h
+/usr/lib64/llvm22/lib/clang/22/include/arm_sve.h
+/usr/lib64/llvm22/lib/clang/22/include/arm_vector_types.h
 /usr/lib64/llvm22/lib/clang/22/include/armintr.h
 /usr/lib64/llvm22/lib/clang/22/include/avx10_2_512bf16intrin.h
 /usr/lib64/llvm22/lib/clang/22/include/avx10_2_512convertintrin.h
@@ -3879,6 +3887,7 @@
 /usr/lib64/llvm22/lib/clang/22/include/riscv_mips.h
 /usr/lib64/llvm22/lib/clang/22/include/riscv_nds.h
 /usr/lib64/llvm22/lib/clang/22/include/riscv_ntlh.h
+/usr/lib64/llvm22/lib/clang/22/include/riscv_vector.h
 /usr/lib64/llvm22/lib/clang/22/include/rtmintrin.h
 /usr/lib64/llvm22/lib/clang/22/include/s390intrin.h
 %dir /usr/lib64/llvm22/lib/clang/22/include/sanitizer
@@ -4083,6 +4092,12 @@
 /usr/lib64/llvm22/lib/libLLVM-22.so
 /usr/lib64/llvm22/lib/libLLVM.so
 /usr/lib64/llvm22/lib/libLLVM.so.22.1
+/usr/lib64/llvm22/lib/libLLVMAArch64AsmParser.a
+/usr/lib64/llvm22/lib/libLLVMAArch64CodeGen.a
+/usr/lib64/llvm22/lib/libLLVMAArch64Desc.a
+/usr/lib64/llvm22/lib/libLLVMAArch64Disassembler.a
+/usr/lib64/llvm22/lib/libLLVMAArch64Info.a
+/usr/lib64/llvm22/lib/libLLVMAArch64Utils.a
 /usr/lib64/llvm22/lib/libLLVMABI.a
 /usr/lib64/llvm22/lib/libLLVMAMDGPUAsmParser.a
 /usr/lib64/llvm22/lib/libLLVMAMDGPUCodeGen.a
@@ -4091,6 +4106,12 @@
 /usr/lib64/llvm22/lib/libLLVMAMDGPUInfo.a
 /usr/lib64/llvm22/lib/libLLVMAMDGPUTargetMCA.a
 /usr/lib64/llvm22/lib/libLLVMAMDGPUUtils.a
+/usr/lib64/llvm22/lib/libLLVMARMAsmParser.a
+/usr/lib64/llvm22/lib/libLLVMARMCodeGen.a
+/usr/lib64/llvm22/lib/libLLVMARMDesc.a
+/usr/lib64/llvm22/lib/libLLVMARMDisassembler.a
+/usr/lib64/llvm22/lib/libLLVMARMInfo.a
+/usr/lib64/llvm22/lib/libLLVMARMUtils.a
 /usr/lib64/llvm22/lib/libLLVMAggressiveInstCombine.a
 /usr/lib64/llvm22/lib/libLLVMAnalysis.a
 /usr/lib64/llvm22/lib/libLLVMAsmParser.a
@@ -4128,6 +4149,8 @@
 /usr/lib64/llvm22/lib/libLLVMDlltoolDriver.a
 /usr/lib64/llvm22/lib/libLLVMExecutionEngine.a
 /usr/lib64/llvm22/lib/libLLVMExegesis.a
+/usr/lib64/llvm22/lib/libLLVMExegesisAArch64.a
+/usr/lib64/llvm22/lib/libLLVMExegesisRISCV.a
 /usr/lib64/llvm22/lib/libLLVMExegesisX86.a
 /usr/lib64/llvm22/lib/libLLVMExtensions.a
 /usr/lib64/llvm22/lib/libLLVMFileCheck.a
@@ -4172,6 +4195,12 @@
 /usr/lib64/llvm22/lib/libLLVMPasses.a
 /usr/lib64/llvm22/lib/libLLVMPlugins.a
 /usr/lib64/llvm22/lib/libLLVMProfileData.a
+/usr/lib64/llvm22/lib/libLLVMRISCVAsmParser.a
+/usr/lib64/llvm22/lib/libLLVMRISCVCodeGen.a
+/usr/lib64/llvm22/lib/libLLVMRISCVDesc.a
+/usr/lib64/llvm22/lib/libLLVMRISCVDisassembler.a
+/usr/lib64/llvm22/lib/libLLVMRISCVInfo.a
+/usr/lib64/llvm22/lib/libLLVMRISCVTargetMCA.a
 /usr/lib64/llvm22/lib/libLLVMRemarks.a
 /usr/lib64/llvm22/lib/libLLVMRuntimeDyld.a
 /usr/lib64/llvm22/lib/libLLVMSandboxIR.a
@@ -4190,6 +4219,12 @@
 /usr/lib64/llvm22/lib/libLLVMTextAPIBinaryReader.a
 /usr/lib64/llvm22/lib/libLLVMTransformUtils.a
 /usr/lib64/llvm22/lib/libLLVMVectorize.a
+/usr/lib64/llvm22/lib/libLLVMWebAssemblyAsmParser.a
+/usr/lib64/llvm22/lib/libLLVMWebAssemblyCodeGen.a
+/usr/lib64/llvm22/lib/libLLVMWebAssemblyDesc.a
+/usr/lib64/llvm22/lib/libLLVMWebAssemblyDisassembler.a
+/usr/lib64/llvm22/lib/libLLVMWebAssemblyInfo.a
+/usr/lib64/llvm22/lib/libLLVMWebAssemblyUtils.a
 /usr/lib64/llvm22/lib/libLLVMWindowsDriver.a
 /usr/lib64/llvm22/lib/libLLVMWindowsManifest.a
 /usr/lib64/llvm22/lib/libLLVMX86AsmParser.a
