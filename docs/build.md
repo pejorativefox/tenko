@@ -97,7 +97,7 @@ tenko-buildroot       toolchain baseline: core utilities, rpm + tenko-rpm-config
                       bison, flex, gettext, meson/ninja/cmake, kernel headers,
                       python, glibc-locales, dnf, createrepo_c
 tenko-base-build      tenko-base-runtime + tenko-buildroot + development extras
-                      (gcc-lto, gperf, texinfo, tcl/expect/dejagnu, glibc-i18n,
+                      (gperf, texinfo, tcl/expect/dejagnu, glibc-i18n,
                       Python build backends, man pages)
 tenko-base            tenko-base-runtime + tenko-base-build + the base package
                       set (package_specs/base.json + requires-extra)

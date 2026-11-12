@@ -22,7 +22,6 @@ Prefix:     /usr
 # driver that needs them is not built, so the pinned commits are shipped as
 # separate sources and unpacked into the matching paths below.
 BuildRequires: nasm
-BuildRequires: gcc-lto
 BuildRequires: acpica
 
 %description

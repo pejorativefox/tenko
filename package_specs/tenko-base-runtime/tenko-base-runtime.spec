@@ -1,6 +1,6 @@
 Name:       tenko-base-runtime
 Version:    6
-Release:    10
+Release:    11
 Epoch:      1
 Summary:    Tenko Linux runtime base (no build toolchain)
 License:    MIT
@@ -122,7 +122,7 @@ runtime libraries, the shell and core utilities, systemd/udev, D-Bus,
 the RPM runtime, Python and Perl runtimes, OpenSSH and git, and the
 Tenko system configuration packages.
 
-This profile deliberately omits gcc/gcc-lto, binutils,
+This profile deliberately omits gcc, binutils,
 linux-api-headers, the autotools (m4, autoconf, automake, libtool,
 bison, flex, gperf), gettext-tools, texinfo, meson/ninja/pkgconf,
 Python build backends (setuptools, wheel, flit-core, packaging, jinja,
@@ -147,6 +147,10 @@ touch %{buildroot}/usr/share/tenko/base-runtime
 %files -f %{_sourcedir}/tenko-base-runtime.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 6-11
+- Drop the gcc-lto name from the description: LTO is part of gcc again
+  (issue #63).
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-10
 - Require font-ttf-unifont.  It is the last monospace fallback and covers the
   remaining BMP characters (U+2B1D, U+23F5) that still rendered as tofu in

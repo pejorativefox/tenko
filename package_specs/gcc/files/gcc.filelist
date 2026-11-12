@@ -92,6 +92,7 @@
 /usr/bin/gcov
 /usr/bin/gcov-dump
 /usr/bin/gcov-tool
+/usr/bin/lto-dump
 /usr/bin/x86_64-pc-linux-gnu-c++
 /usr/bin/x86_64-pc-linux-gnu-g++
 /usr/bin/x86_64-pc-linux-gnu-gcc
@@ -1796,6 +1797,8 @@
 /usr/libexec/gcc/x86_64-pc-linux-gnu/16.2.0/g++-mapper-server
 /usr/libexec/gcc/x86_64-pc-linux-gnu/16.2.0/install-tools/mkinstalldirs
 /usr/libexec/gcc/x86_64-pc-linux-gnu/16.2.0/liblto_plugin.so
+/usr/libexec/gcc/x86_64-pc-linux-gnu/16.2.0/lto-wrapper
+/usr/libexec/gcc/x86_64-pc-linux-gnu/16.2.0/lto1
 /usr/libexec/gcc/x86_64-pc-linux-gnu/16.2.0/plugin/gengtype
 /usr/share/gcc-16.2.0/python/libstdcxx/__init__.py
 /usr/share/gcc-16.2.0/python/libstdcxx/v6/__init__.py

@@ -1,6 +1,6 @@
 Name:       tenko-base-build
 Version:    6
-Release:    4
+Release:    5
 Epoch:      1
 Summary:    Tenko Linux development environment (runtime base + toolchain)
 License:    MIT
@@ -13,7 +13,6 @@ Prefix:     /usr
 # and add their spec's BuildRequires (issue #58).
 Requires:   tenko-base-runtime
 Requires:   tenko-buildroot
-Requires:   gcc-lto
 Requires:   gperf
 Requires:   texinfo
 Requires:   tcl
@@ -53,6 +52,10 @@ touch %{buildroot}/usr/share/tenko/base-build
 %files -f %{_sourcedir}/tenko-base-build.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 6-5
+- Stop requiring gcc-lto: gcc carries the LTO backend and linker plugin
+  again, so gcc alone links Rust and -flto (issue #63).
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-4
 - Layer on tenko-buildroot instead of listing the toolchain directly.
 - Drop the Mesa CLC chain (llvm, llvm-devel, llvm-static, clang-libs,

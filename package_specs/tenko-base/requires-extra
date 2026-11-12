@@ -2,7 +2,7 @@
 #
 # - tenko-*: distro glue (filesystem layout, sysconfig, release file,
 #   first-boot policy, RPM macros, suspend/resume instrumentation)
-# - glibc-locales, gcc-lto: payload split out of the toolchain
+# - glibc-locales: payload split out of the toolchain
 # - linux-api-headers, linux-pam, libtirpc: headers/runtime the base needs
 # - make-ca: CA trust store (/etc/pki/tls/certs/ca-bundle.crt and the
 #   /etc/ssl/certs links) used by curl, git, OpenSSL and derived images
@@ -24,7 +24,6 @@ tenko-release
 tenko-firstboot
 tenko-suspend-log
 glibc-locales
-gcc-lto
 linux-api-headers
 linux-pam
 make-ca

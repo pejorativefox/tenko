@@ -1,6 +1,6 @@
 Name:       tenko-base
 Version:    6
-Release:    12
+Release:    13
 Epoch:      1
 Summary:    Tenko Linux base system
 License:    MIT
@@ -118,7 +118,6 @@ Requires:   tenko-release
 Requires:   tenko-firstboot
 Requires:   tenko-suspend-log
 Requires:   glibc-locales
-Requires:   gcc-lto
 Requires:   linux-api-headers
 Requires:   linux-pam
 Requires:   make-ca
@@ -161,6 +160,10 @@ Meta-package pulling in the Tenko base system.
 %files
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 6-13
+- Stop requiring gcc-lto: gcc carries the LTO backend and linker plugin
+  again, so gcc alone links Rust and -flto (issue #63).
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-12
 - Require tenko-base-runtime and tenko-base-build, so the base system is
   a strict superset of both instead of a separate flat list (it was

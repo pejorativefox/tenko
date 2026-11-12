@@ -1,13 +1,12 @@
 Name:       gcc
 Version:    16.2.0
-Release:    6
+Release:    7
 Summary:    The GNU Compiler Collection
 License:    GPL-3.0-or-later WITH GCC-exception-3.1
 URL:        https://gcc.gnu.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 Requires:   gcc-libs = %{version}-%{release}
-Recommends: gcc-lto = %{version}-%{release}
 BuildRequires: texinfo
 
 %description
@@ -65,17 +64,6 @@ libquadmath, libitm, libasan, libhwasan, liblsan, libtsan, libubsan, libssp
 and libcc1.  The compiler in gcc requires this package; runtime-only installs
 can use it without pulling the compiler.
 
-%package lto
-Summary:    GCC link-time optimization support
-License:    GPL-3.0-or-later
-Requires:   gcc = %{version}-%{release}
-
-%description lto
-The GCC LTO backend (lto1), the linker wrapper and lto-dump.  Install this
-package to link with -flto.  The small liblto_plugin.so stays in the gcc
-package because gcc-ar, gcc-nm and gcc-ranlib pass it for ordinary
-(non-LTO) archives too.
-
 %package lang
 Summary:    GCC translations
 License:    GPL-3.0-or-later
@@ -94,11 +82,17 @@ Info and man pages for GCC, cpp, gcov, libgomp, libitm and libquadmath.
 
 %files -f %{_sourcedir}/gcc.filelist
 %files libs -f %{_sourcedir}/gcc-libs.filelist
-%files lto -f %{_sourcedir}/gcc-lto.filelist
 %files lang -f %{_sourcedir}/gcc-lang.filelist
 %files doc -f %{_sourcedir}/gcc-doc.filelist
 
 %changelog
+* Thu Nov 12 2026 browneye <build@browneye.invalid> 16.2.0-7
+- Fold gcc-lto back into gcc: lto1, lto-wrapper, lto-dump and
+  liblto_plugin.so now ship together.  Splitting the plugin from
+  lto-wrapper made gcc pass an empty -plugin-opt when gcc-lto was not
+  installed, which broke every -flto link and every Rust link through
+  cc -fuse-ld=lld (issue #63).  The 16.2.0 sources are unchanged.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 16.2.0-6
 - Record the verified license (GPL-3.0-or-later WITH GCC-exception-3.1): COPYING3, COPYING.RUNTIME and gcc/doc/cpp.texi (issue #8).
 
