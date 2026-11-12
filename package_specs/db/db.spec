@@ -1,6 +1,6 @@
 Name:       db
 Version:    6.2.32
-Release:    1
+Release:    2
 Summary:    Berkeley DB embedded database library
 License:    AGPL-3.0-only
 URL:        https://www.oracle.com/database/technologies/related/berkeleydb.html
@@ -18,6 +18,7 @@ replication and a B-tree access method.
 pushd build_unix
 CFLAGS="-std=gnu17" CXXFLAGS="-std=gnu++17" \
 ../dist/configure --prefix=/usr      \
+                  --libdir=%{_libdir} \
                   --enable-compat185 \
                   --enable-dbm       \
                   --disable-static   \
@@ -35,6 +36,11 @@ rm -rf %{buildroot}/usr/share/doc/
 %files -f %{_sourcedir}/db.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 6.2.32-2
+- Install libdb and libdb_cxx in /usr/lib64.  The autotools configure
+  defaulted --libdir to $PREFIX/lib, putting the shared libraries in
+  /usr/lib while every consumer links from /usr/lib64.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 6.2.32-1
 - Rebuild 6.2.32 against the base toolchain.
 - Basis: only the archived 5.3.28 entry is available;

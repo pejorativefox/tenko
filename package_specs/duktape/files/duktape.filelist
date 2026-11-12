@@ -1,12 +1,10 @@
 %dir /usr/include
 /usr/include/duk_config.h
 /usr/include/duktape.h
-%dir /usr/lib
-/usr/lib/libduktape.so
-/usr/lib/libduktape.so.207
-/usr/lib/libduktape.so.207.20700
-/usr/lib/libduktaped.so
-/usr/lib/libduktaped.so.207
-/usr/lib/libduktaped.so.207.20700
-%dir /usr/lib/pkgconfig
-/usr/lib/pkgconfig/duktape.pc
+/usr/lib64/libduktape.so
+/usr/lib64/libduktape.so.207
+/usr/lib64/libduktape.so.207.20700
+/usr/lib64/libduktaped.so
+/usr/lib64/libduktaped.so.207
+/usr/lib64/libduktaped.so.207.20700
+/usr/lib64/pkgconfig/duktape.pc

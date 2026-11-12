@@ -4,10 +4,10 @@
 /usr/bin/giftext
 /usr/bin/giftool
 /usr/include/gif_lib.h
-/usr/lib/libgif.a
-/usr/lib/libgif.so
-/usr/lib/libgif.so.7
-/usr/lib/libgif.so.7.2.0
+/usr/lib64/libgif.a
+/usr/lib64/libgif.so
+/usr/lib64/libgif.so.7
+/usr/lib64/libgif.so.7.2.0
 /usr/share/doc/giflib/html/gif2rgb.html
 /usr/share/doc/giflib/html/gif_lib.html
 /usr/share/doc/giflib/html/gifbg.html

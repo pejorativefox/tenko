@@ -1,6 +1,6 @@
 Name:       giflib
 Version:    6.1.3
-Release:    2
+Release:    3
 Summary:    Library for loading and manipulationg GIF images
 License:    MIT
 URL:        https://giflib.sourceforge.net/
@@ -18,11 +18,15 @@ The giflib package contains libraries for reading and writing GIFs as well as pr
 
 %install
 rm -rf %{buildroot}
-make install PREFIX=%{buildroot}/usr
+make install DESTDIR=%{buildroot} PREFIX=/usr LIBDIR=/usr/lib64
 
 %files -f %{_sourcedir}/giflib.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 6.1.3-3
+- Install libgif.so and libgif.a in /usr/lib64.  The Makefile hard-codes
+  LIBDIR to $(PREFIX)/lib, so the package put them in /usr/lib.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 6.1.3-2
 - Replace the legacy short licence name with the verified SPDX expression
   (MIT): COPYING and the per-file SPDX headers (issue #8).

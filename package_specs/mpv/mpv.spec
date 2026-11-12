@@ -1,6 +1,6 @@
 Name:       mpv
 Version:    0.42.0
-Release:    2
+Release:    3
 Summary:    Media player for the command line
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:        https://mpv.io/
@@ -59,9 +59,6 @@ LuaJIT scripting, and JPEG, libarchive and libcurl support.
 %setup -q
 
 %build
-# ffmpeg installs its pkg-config files in /usr/lib/pkgconfig, which is not in
-# pkgconf's default search path on this 64-bit-only distribution.
-export PKG_CONFIG_PATH=/usr/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
 mkdir build
 pushd build
 meson setup ..                            \
@@ -121,6 +118,10 @@ DESTDIR=%{buildroot} ninja -C build install
 %files -f %{_sourcedir}/mpv.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 0.42.0-3
+- Drop the PKG_CONFIG_PATH=/usr/lib/pkgconfig workaround: ffmpeg 9.0.2-4
+  installs its libraries and .pc files in /usr/lib64.
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 0.42.0-2
 - Drop the manual update-desktop-database and gtk-update-icon-cache
   calls; desktop-file-utils and gtk+ now provide file triggers for the

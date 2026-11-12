@@ -1,6 +1,6 @@
 Name:       ffmpeg
 Version:    9.0.2
-Release:    3
+Release:    4
 Summary:    Multimedia framework for audio and video processing
 License:    GPL-3.0-or-later
 URL:        https://ffmpeg.org/
@@ -47,6 +47,8 @@ and Intel GPUs and the libx264 software H.264 encoder.
 
 %build
 ./configure --prefix=/usr             \
+            --libdir=%{_libdir}       \
+            --shlibdir=%{_libdir}     \
             --enable-gpl              \
             --enable-version3         \
             --enable-nonfree          \
@@ -77,6 +79,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %files -f %{_sourcedir}/ffmpeg.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 9.0.2-4
+- Install the libraries, shared objects and pkg-config files in /usr/lib64.
+  FFmpeg's configure defaults --libdir to $PREFIX/lib, so the package put
+  libav* and the .pc files in /usr/lib while the rest of the distribution
+  uses /usr/lib64; consumers had to add /usr/lib/pkgconfig to
+  PKG_CONFIG_PATH.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 9.0.2-3
 - Enable VA-API (--enable-vaapi) and the libx264 software H.264 encoder
   (--enable-libx264).  gpu-screen-recorder uses FFmpeg's h264_vaapi,

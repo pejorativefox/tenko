@@ -1,6 +1,6 @@
 Name:       gpu-screen-recorder
 Version:    6.1.7
-Release:    1
+Release:    2
 Summary:    GPU-accelerated screen recorder for Linux
 License:    GPL-3.0-only
 URL:        https://git.dec05eba.com/gpu-screen-recorder/
@@ -59,11 +59,6 @@ because Tenko does not ship the NVIDIA driver stack.
 %setup -q -c -n %{name}-%{version}
 
 %build
-# FFmpeg's configure installs its pkg-config files in /usr/lib/pkgconfig
-# and its shared libraries in /usr/lib, which is not in pkgconf's or the
-# 64-bit linker's default search path on this distro.
-export PKG_CONFIG_PATH=/usr/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
-export LDFLAGS="-L/usr/lib -Wl,-rpath-link,/usr/lib${LDFLAGS:+ $LDFLAGS}"
 mkdir build
 pushd build
 meson setup ..                    \
@@ -97,6 +92,10 @@ fi
 %files -f %{_sourcedir}/gpu-screen-recorder.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 6.1.7-2
+- Drop the /usr/lib pkg-config and linker-path workarounds: ffmpeg
+  9.0.2-4 installs its libraries and .pc files in /usr/lib64.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 6.1.7-1
 - New package: gpu-screen-recorder 6.1.7, the latest stable upstream tag.
   CLI recorder, gsr-cli and gsr-kms-server built with VA-API through

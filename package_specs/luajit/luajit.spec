@@ -1,6 +1,6 @@
 Name:       luajit
 Version:    20260213
-Release:    1
+Release:    2
 Summary:    Just-In-Time compiler for the Lua language
 License:    MIT
 URL:        https://luajit.org/
@@ -20,17 +20,22 @@ package is the 2026-02-13 snapshot used by BLFS r13.1.
 %setup -q
 
 %build
-make %{?_smp_mflags} PREFIX=/usr amalg
+make %{?_smp_mflags} PREFIX=/usr MULTILIB=lib64 amalg
 
 %install
 rm -rf %{buildroot}
-make PREFIX=/usr DESTDIR=%{buildroot} install
-rm -vf %{buildroot}/usr/lib/libluajit-5.1.a
-rm -rf %{buildroot}/usr/lib/lua %{buildroot}/usr/share/lua
+make PREFIX=/usr MULTILIB=lib64 DESTDIR=%{buildroot} install
+rm -vf %{buildroot}%{_libdir}/libluajit-5.1.a
+rm -rf %{buildroot}%{_libdir}/lua %{buildroot}/usr/share/lua
 
 %files -f %{_sourcedir}/luajit.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 20260213-2
+- Install libluajit-5.1.so and luajit.pc in /usr/lib64.  The Makefile
+  defaults MULTILIB to lib, so the package put them in /usr/lib; the
+  Lua module search path in luaconf.h follows the same setting.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 20260213-1
 - New package: LuaJIT 2.1 rolling snapshot 20260213 from BLFS r13.1,
   the latest snapshot the book ships.  LuaJIT is required by mpv 0.42,

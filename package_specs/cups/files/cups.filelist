@@ -79,11 +79,11 @@
 /usr/lib/cups/notifier/dbus
 /usr/lib/cups/notifier/mailto
 /usr/lib/cups/notifier/rss
-/usr/lib/libcups.so
-/usr/lib/libcups.so.2
-/usr/lib/libcupsimage.so
-/usr/lib/libcupsimage.so.2
-/usr/lib/pkgconfig/cups.pc
+/usr/lib64/libcups.so
+/usr/lib64/libcups.so.2
+/usr/lib64/libcupsimage.so
+/usr/lib64/libcupsimage.so.2
+/usr/lib64/pkgconfig/cups.pc
 /usr/lib/systemd/system/cups-lpd.socket
 /usr/lib/systemd/system/cups-lpd@.service
 /usr/lib/systemd/system/cups.path

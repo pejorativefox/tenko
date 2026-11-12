@@ -1,6 +1,6 @@
 Name:       tzdb
 Version:    2026f
-Release:    3
+Release:    4
 Summary:    The Time Zone Database
 License:    Public Domain
 URL:        https://www.iana.org/time-zones
@@ -21,7 +21,7 @@ locations around the globe.
 
 %install
 rm -rf %{buildroot}
-%make_install CC=%{__cc}
+%make_install CC=%{__cc} LIBDIR=%{_libdir}
 
 # glibc already ships the timezone tools; shipping them here makes the
 # package uninstallable next to a base system.
@@ -41,6 +41,10 @@ rm -f %{buildroot}%{_mandir}/man5/tzfile.5* \
 %files -f %{_sourcedir}/tzdb.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 2026f-4
+- Install libtz.a in /usr/lib64.  The upstream Makefile defaults LIBDIR
+  to $(TOPDIR)/usr/lib, so the static archive landed in /usr/lib.
+
 * Mon Nov 09 2026 browneye <build@browneye.invalid> 2026f-3
 - Drop the tzfile(5), zic(8), zdump(8) and tzselect(8) manual pages:
   man-pages owns /usr/share/man and already provides them.  tzdb's zic.8.gz

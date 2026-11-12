@@ -18,11 +18,10 @@
 /usr/include/db.h
 /usr/include/db_185.h
 /usr/include/db_cxx.h
-%dir /usr/lib
-/usr/lib/libdb-6.2.so
-/usr/lib/libdb-6.so
-/usr/lib/libdb.so
-/usr/lib/libdb_cxx-6.2.so
-/usr/lib/libdb_cxx-6.so
-/usr/lib/libdb_cxx.so
+/usr/lib64/libdb-6.2.so
+/usr/lib64/libdb-6.so
+/usr/lib64/libdb.so
+/usr/lib64/libdb_cxx-6.2.so
+/usr/lib64/libdb_cxx-6.so
+/usr/lib64/libdb_cxx.so
 %dir /usr/share

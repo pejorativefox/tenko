@@ -7,10 +7,10 @@
 /usr/include/luajit-2.1/lualib.h
 /usr/bin/luajit
 /usr/bin/luajit-2.1.ROLLING
-/usr/lib/libluajit-5.1.so
-/usr/lib/libluajit-5.1.so.2
-/usr/lib/libluajit-5.1.so.2.1.ROLLING
-/usr/lib/pkgconfig/luajit.pc
+/usr/lib64/libluajit-5.1.so
+/usr/lib64/libluajit-5.1.so.2
+/usr/lib64/libluajit-5.1.so.2.1.ROLLING
+/usr/lib64/pkgconfig/luajit.pc
 %dir /usr/share/luajit-2.1
 %dir /usr/share/luajit-2.1/jit
 /usr/share/luajit-2.1/jit/bc.lua

@@ -1,6 +1,6 @@
 Name:       cups
 Version:    2.4.20
-Release:    4
+Release:    5
 Summary:    Open source printing system
 License:    Apache
 URL:        https://openprinting.github.io/cups/
@@ -31,7 +31,8 @@ getent passwd lp >/dev/null || useradd -c "Print Service User" \
 %patch -P 0 -p1
 
 %build
-%configure --libdir=/usr/lib            \
+%configure --libdir=%{_libdir}          \
+           --with-pkgconfpath=%{_libdir}/pkgconfig \
            --with-rundir=/run/cups      \
            --with-system-groups=lpadmin \
            --with-docdir=/usr/share/cups/doc-%{version}
@@ -46,6 +47,12 @@ ln -sfn ../cups/doc-%{version} %{buildroot}/usr/share/doc/cups-%{version}
 %files -f %{_sourcedir}/cups.filelist
 
 %changelog
+* Thu Nov 12 2026 tenko <build@tenko.invalid> 2.4.20-5
+- Install libcups, libcupsimage and cups.pc in /usr/lib64 instead of
+  /usr/lib.  The configure invocation forced --libdir=/usr/lib and CUPS
+  hard-codes $prefix/lib/pkgconfig for the .pc file; the server binaries
+  under /usr/lib/cups keep their documented private libexec location.
+
 * Mon Nov 09 2026 tenko <build@tenko.invalid> 2.4.20-4
 - Create the lp group in %pre when it is absent.  A fresh
   dnf --installroot transaction pulled cups in through libcups.so.2
