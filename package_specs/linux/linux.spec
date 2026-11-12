@@ -144,8 +144,7 @@ fi
 - Add loader entries for systemd-boot: %post kernel writes
   /boot/loader/entries/browneye-<kver>.conf from /etc/kernel/cmdline when the
   ESP is mounted at /boot, and %preun removes it.  Part of the systemd-boot
-  conversion (docs/systemd-boot.md); systems with GRUB have no loader
-  directory and are unaffected.
+  conversion; systems with GRUB have no loader directory and are unaffected.
 
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 7.3.1-1
 - Sync with the base set

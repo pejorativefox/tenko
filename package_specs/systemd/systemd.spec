@@ -118,7 +118,7 @@ test -f %{buildroot}/usr/lib/systemd/boot/efi/systemd-bootx64.efi || {
   module for ENABLE_BOOTLOADER and silently skips sd-boot and the EFI stub
   without it, which is why 262.1-1/-2 shipped bootctl but no
   /usr/lib/systemd/boot/efi/systemd-bootx64.efi.  First step of the
-  systemd-boot conversion (docs/systemd-boot.md); ukify stays disabled, so
+  systemd-boot conversion; ukify stays disabled, so
   python-pefile is still not needed.
 - Assert in %%install that systemd-bootx64.efi was produced so a future
   build without pyelftools fails instead of regressing.

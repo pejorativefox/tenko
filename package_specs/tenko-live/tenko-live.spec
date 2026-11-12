@@ -91,7 +91,7 @@ firmware before NetworkManager can offer an interface.
 
 * Wed Nov 04 2026 browneye <build@browneye.invalid> 13.1-2
 - Drop the grub requirement: the live environment and the installer now use
-  systemd-boot from the systemd package (docs/systemd-boot.md).
+  systemd-boot from the systemd package.
 
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 13.1-1
 - New meta-package for the UEFI-only live installer: base-runtime, dnf,
