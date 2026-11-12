@@ -1,0 +1,15 @@
+%dir /usr/share/doc/jq
+/usr/bin/jq
+/usr/include/jq.h
+/usr/include/jv.h
+/usr/lib64/libjq.so
+/usr/lib64/libjq.so.1
+/usr/lib64/libjq.so.1.0.4
+/usr/lib64/libonig.so.5
+/usr/lib64/libonig.so.5.5.0
+/usr/lib64/pkgconfig/libjq.pc
+/usr/share/doc/jq/AUTHORS
+/usr/share/doc/jq/COPYING
+/usr/share/doc/jq/NEWS.md
+/usr/share/doc/jq/README.md
+/usr/share/man/man1/jq.1.gz
