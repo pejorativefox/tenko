@@ -1,0 +1,3 @@
+# Dependency bundle for the offline build: regenerate with
+# `tenko vendor gh`, upload with `tenko publish sources gh`.
+kind go

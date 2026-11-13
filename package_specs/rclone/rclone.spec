@@ -5,13 +5,14 @@ Summary:    Command-line cloud storage synchronization tool
 License:    MIT
 URL:        https://rclone.org/
 Source0:    rclone-v%{version}.tar.gz
-Source1:    rclone-v%{version}-vendor.tar.gz
+Source1:    rclone-%{version}-vendor.tar.xz
 Prefix:     /usr
 
-# Build dependencies (not expressed as BuildRequires: the distro folds
-# headers into the runtime packages): go-bin provides the Go toolchain in
-# /opt/go.  The modules are vendored (Source1) because rpmbuild runs with
-# --network=none.
+BuildRequires: go
+
+# Built from source with the go toolchain in /opt/go.  The Go modules are
+# vendored as a separate source because rpmbuild runs with --network=none;
+# `tenko vendor rclone` regenerates it.
 #
 # Not in the base set; latest upstream stable, needed by the
 # publish scripts for the Cloudflare R2 target (issue #20).
@@ -23,7 +24,7 @@ can copy, sync, check, mount and serve remote storage.
 
 %prep
 %setup -q -n rclone-%{version}
-tar -xzf %{SOURCE1} -C .
+tar -xf %{SOURCE1}
 
 %build
 export GOROOT=/opt/go

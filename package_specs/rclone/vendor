@@ -1,0 +1,3 @@
+# Dependency bundle for the offline build: regenerate with
+# `tenko vendor rclone`, upload with `tenko publish sources rclone`.
+kind go

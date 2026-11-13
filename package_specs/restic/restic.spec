@@ -9,8 +9,11 @@ Source1:    restic-%{version}-vendor.tar.xz
 Prefix:     /usr
 ExclusiveArch: x86_64
 
-# Built from source with the shipped go-bin toolchain.  The Go modules are
-# vendored as a separate source because rpmbuild runs with --network=none.
+BuildRequires: go
+
+# Built from source with the go toolchain in /opt/go.  The Go modules are
+# vendored as a separate source because rpmbuild runs with --network=none;
+# `tenko vendor restic` regenerates it.
 # The selfupdate build tag is deliberately omitted: updates are delivered by
 # the distro repository instead of restic's own GitHub downloader.
 #

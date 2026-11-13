@@ -12,10 +12,13 @@ BuildRequires: pango
 BuildRequires: gdk-pixbuf
 BuildRequires: gobject-introspection
 BuildRequires: libxml2
+BuildRequires: shared-mime-info
+BuildRequires: fontconfig
 BuildRequires: freetype
 BuildRequires: harfbuzz
 BuildRequires: rust
 BuildRequires: cargo-c
+BuildRequires: xorgproto
 
 Provides:   pkgconfig(librsvg-2.0)
 %description

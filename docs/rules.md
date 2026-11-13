@@ -27,8 +27,9 @@ package_specs/<name>/
   `patches/downloads/<pkg>/` archive (never `lfs/development` or
   `blfs/svn`, which rotate).  Give the local filename as the third field when
   the URL does not end in it (`.../download`, `?raw=1`).
-- Every tarball a spec unpacks needs a URL.  Bundles you generate yourself
-  (vendored Rust/Go dependencies) must be reproducible.
+- Every tarball a spec unpacks needs a URL.  Vendored Rust/Go dependencies
+  come from `tenko vendor` and are hosted by Tenko
+  ([build.md](build.md#vendored-dependencies)).
 
 ### Header
 

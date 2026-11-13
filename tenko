@@ -17,6 +17,7 @@ COMMANDS="
 build             | build/specs.sh         | build specs in the base container (--base for the whole base set)
 sync              | build/sync.sh          | mirror the published repository into build/cache/repo
 fetch             | build/fetch_sources.py | download and verify the sources for specs
+vendor            | build/vendor.py        | regenerate a package's vendored Rust/Go dependency bundle
 builddeps         | build/builddeps.py     | suggest missing BuildRequires from built RPMs and build logs
 filelist          | tools/filelist.py      | generate a static %files list from an RPM or buildroot
 check             | check/run.sh           | run the pre-publish checks (unit tests, base requires, fdo audit)
@@ -28,6 +29,7 @@ image iso         | image/iso.sh           | build the UEFI installer ISO
 image initramfs   | image/initramfs.sh     | generate the initramfs inside a staged rootfs
 publish rpm       | publish/rpm.sh         | merge RPMs into the published repository
 publish repo      | publish/repo.sh        | republish a whole local repository
+publish sources   | publish/sources.sh     | upload generated source bundles (vendor tarballs)
 publish iso       | publish/file.sh iso    | upload the installer ISO and its .sha256
 publish rootfs    | publish/file.sh rootfs | upload the rootfs tarball and its .sha256
 qemu boot         | qemu/boot.sh           | boot the base system to a serial login prompt

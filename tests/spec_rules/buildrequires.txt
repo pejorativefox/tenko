@@ -61,7 +61,6 @@ fuse3
 gawk
 gdbm
 gettext
-gh
 giflib
 gmp
 google-chrome-bin
@@ -178,9 +177,7 @@ pulsemixer
 pyenv
 python-flit-core
 python-setuptools
-rclone
 readline
-restic
 rust
 sassc
 sbc

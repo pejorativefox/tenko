@@ -9,8 +9,11 @@ Source1:    gh-%{version}-vendor.tar.xz
 Prefix:     /usr
 ExclusiveArch: x86_64
 
-# Built from source with the shipped go-bin toolchain.  The Go modules are
-# vendored as a separate source because rpmbuild runs with --network=none.
+BuildRequires: go
+
+# Built from source with the go toolchain in /opt/go.  The Go modules are
+# vendored as a separate source because rpmbuild runs with --network=none;
+# `tenko vendor gh` regenerates it.
 #
 # Not in the base set; 2.103.3 is the latest stable upstream release
 # (2026-10-26).
