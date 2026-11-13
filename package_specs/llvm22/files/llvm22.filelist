@@ -1,6 +1,7 @@
 %dir /etc/clang-22
 %config(noreplace) /etc/clang-22/clang++.cfg
 %config(noreplace) /etc/clang-22/clang.cfg
+%config(noreplace) /etc/ld.so.conf.d/llvm22.conf
 /usr/bin/FileCheck-22
 /usr/bin/amdgpu-arch-22
 /usr/bin/analyze-build-22

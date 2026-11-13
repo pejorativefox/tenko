@@ -1,6 +1,6 @@
 Name:       llvm22
 Version:    22.1.8
-Release:    2
+Release:    3
 Summary:    LLVM and Clang 22 toolchain, installable alongside LLVM 23
 License:    Apache-2.0 WITH LLVM-exception
 URL:        https://llvm.org/
@@ -24,7 +24,9 @@ The whole toolchain is installed under /usr/lib64/llvm22 so it can coexist
 with the distribution llvm 23 packages.  Every command is linked into
 /usr/bin with a -22 suffix (clang-22, clang++-22, llvm-config-22, ...).
 Build against it with llvm-config-22 or
--DLLVM_DIR=/usr/lib64/llvm22/lib/cmake/llvm.
+-DLLVM_DIR=/usr/lib64/llvm22/lib/cmake/llvm.  The library directory is
+registered with ldconfig through /etc/ld.so.conf.d/llvm22.conf, so programs
+linked against libLLVM.so.22.1 run without LD_LIBRARY_PATH.
 
 %prep
 %setup -q -n llvm-project-%{version}.src
@@ -64,6 +66,11 @@ mkdir -p %{buildroot}%{_sysconfdir}/clang-22
 for i in clang clang++; do
     echo -fstack-protector-strong > %{buildroot}%{_sysconfdir}/clang-22/$i.cfg
 done
+# The libraries live in a versioned tree, so the loader needs the directory
+# in its cache: binaries linked against libLLVM.so.22.1 (for example Odin)
+# otherwise only run with LD_LIBRARY_PATH set.
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
+echo %{_libdir}/llvm22/lib > %{buildroot}%{_sysconfdir}/ld.so.conf.d/llvm22.conf
 # Link every command into /usr/bin with a -22 suffix so the two LLVM
 # majors do not collide on the command names.
 mkdir -p %{buildroot}%{_bindir}
@@ -76,9 +83,25 @@ for binary in %{buildroot}%{_libdir}/llvm22/bin/*; do
     ln -sf ../lib64/llvm22/bin/$name %{buildroot}%{_bindir}/$link
 done
 
+%post
+if [ -x /usr/sbin/ldconfig ]; then
+    /usr/sbin/ldconfig
+fi
+
+%postun
+if [ -x /usr/sbin/ldconfig ]; then
+    /usr/sbin/ldconfig
+fi
+
 %files -f %{_sourcedir}/llvm22.filelist
 
 %changelog
+* Fri Nov 13 2026 tenko <build@tenko.invalid> 22.1.8-3
+- Install /etc/ld.so.conf.d/llvm22.conf and run ldconfig in %post/%postun,
+  so binaries linked against libLLVM.so.22.1 (for example Odin) start without
+  LD_LIBRARY_PATH.  Previously only the clang-22 commands worked, through
+  their $ORIGIN/../lib RPATH.  Version and source are unchanged.
+
 * Thu Nov 12 2026 tenko <build@tenko.invalid> 22.1.8-2
 - Build the ARM, AArch64, X86, WebAssembly and RISC-V backends in addition
   to host and AMDGPU, so llvm-config-22 --libs accepts those target
