@@ -1,5 +1,0 @@
-# Dependency bundle for the offline build: regenerate with
-# `tenko vendor cargo-c`, upload with `tenko publish sources cargo-c`.
-kind cargo
-# The release tarball has no Cargo.lock; upstream publishes it separately.
-lockfile Cargo.lock

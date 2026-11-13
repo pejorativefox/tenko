@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Build one spec inside a fresh, network-less build container.
+# Build one spec inside a fresh build container (host network).
 #
 # scripts/build/specs.sh (`tenko build`) starts one container per package
 # from the build image and mounts:
 #   /specs        package_specs/ (read-only)
 #   /work         this package's rpmbuild topdir; SOURCES/ is pre-staged
 #   /repo/local   RPMs built locally (preferred when newer)
-#   /repo/cache   offline mirror of the published repository
+#   /repo/cache   mirror of the published repository (tenko sync)
 #
 # The spec's BuildRequires are installed from those two repositories, then
 # rpmbuild runs.  STRICT=0 (phase 1, the default) installs whatever
@@ -52,15 +52,15 @@ else
     echo "=== no BuildRequires declared"
 fi
 
-# The image ships python3 without pip (built --without-ensurepip); ensurepip
-# is bundled, so bootstrapping it stays offline.  Only Python packaging
-# specs need it.
+# The image ships python3 without pip (built --without-ensurepip); only
+# Python packaging specs need it, so bootstrap it from the bundled ensurepip.
 if grep -q 'pip' "$spec" && ! python3 -m pip --version >/dev/null 2>&1; then
     python3 -m ensurepip --upgrade >/dev/null || {
         echo "error: failed to bootstrap pip" >&2; exit 1; }
 fi
-# Offline, reproducible pip: no isolated build envs reaching PyPI, and
-# ignore copies installed by rpm (we install into a buildroot).
+# Build Python packages against the packaged build backends (no isolated
+# build envs pulled from PyPI), and ignore copies installed by rpm (we
+# install into a buildroot).
 export PIP_NO_BUILD_ISOLATION=1 PIP_IGNORE_INSTALLED=1
 export PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=/work/pip-cache
 

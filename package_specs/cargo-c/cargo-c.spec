@@ -1,14 +1,14 @@
 Name:       cargo-c
 Version:    0.10.26
-Release:    1
+Release:    2
 Summary:    C-ABI compatible library builder for cargo
 License:    MIT
 URL:        https://github.com/lu-zero/cargo-c
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 Source1:    Cargo.lock
-Source2:    %{name}-%{version}-vendor.tar.xz
 BuildRequires: rust
+BuildRequires: make-ca
 
 %description
 cargo-c provides a cargo subcommand to build and install C-ABI compatible
@@ -18,22 +18,12 @@ that expose a Rust implementation through a C API.
 %prep
 %setup -q
 cp %{SOURCE1} Cargo.lock
-tar -xf %{SOURCE2}
-mkdir -p .cargo
-cat > .cargo/config.toml <<'EOF'
-[source.crates-io]
-replace-with = "vendored-sources"
-
-[source.vendored-sources]
-directory = "vendor"
-EOF
 
 %build
 export PATH=/opt/rust/bin:$PATH
 export CARGO_HOME="$PWD/cargo-home"
-export CARGO_NET_OFFLINE=true
 mkdir -p "$CARGO_HOME"
-cargo build --release -j4
+cargo build --locked --release -j4
 
 %install
 rm -rf %{buildroot}
@@ -46,6 +36,10 @@ install -m755 target/release/cargo-ctest   %{buildroot}%{_bindir}/
 %files -f %{_sourcedir}/cargo-c.filelist
 
 %changelog
+* Fri Nov 13 2026 tenko <build@tenko.invalid> 0.10.26-2
+- Download the crates at build time (pinned by Cargo.lock, --locked)
+  instead of from a separately hosted vendor bundle.  Same version.
+
 * Mon Nov 02 2026 browneye <build@browneye.invalid> 0.10.26-1
 - Update to 0.10.26 (current upstream).  Vendor tarball regenerated
   from the release Cargo.lock for offline builds; note tenko.lock still lists

@@ -1,3 +1,0 @@
-# Dependency bundle for the offline build: regenerate with
-# `tenko vendor librsvg`, upload with `tenko publish sources librsvg`.
-kind cargo

@@ -1,3 +1,0 @@
-# Dependency bundle for the offline build: regenerate with
-# `tenko vendor tokei`, upload with `tenko publish sources tokei`.
-kind cargo

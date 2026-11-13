@@ -27,9 +27,12 @@ package_specs/<name>/
   `patches/downloads/<pkg>/` archive (never `lfs/development` or
   `blfs/svn`, which rotate).  Give the local filename as the third field when
   the URL does not end in it (`.../download`, `?raw=1`).
-- Every tarball a spec unpacks needs a URL.  Vendored Rust/Go dependencies
-  come from `tenko vendor` and are hosted by Tenko
-  ([build.md](build.md#vendored-dependencies)).
+- Every tarball a spec unpacks needs a URL (`tests/test_sources.py`).
+- Go and Rust packages download their modules or crates during `%build`
+  from the upstream lockfile (`cargo build --locked`; Go checks `go.sum`)
+  and declare `BuildRequires: go` or `rust` plus `make-ca` for TLS.  Keep
+  the module cache inside the build tree (`GOPATH="$PWD/.gopath"`,
+  `CARGO_HOME="$PWD/cargo-home"`).
 
 ### Header
 

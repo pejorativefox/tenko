@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Mirror the published Tenko repository into a local directory.
 
-Every build installs from this mirror with the network off, so each RPM is
+Every build installs its BuildRequires from this mirror, so each RPM is
 downloaded once.  A sync fetches repomd.xml; when it is unchanged nothing
 else is downloaded.  Otherwise the new metadata is fetched, missing or
 changed RPMs are downloaded and sha256-verified, RPMs the metadata no longer
@@ -10,7 +10,7 @@ sync leaves the previous consistent mirror in place.
 
 The first URL that answers is used, so a reachable LAN mirror is preferred
 over the public site.  If none answers and a mirror already exists, the sync
-is skipped with a warning (offline builds keep working).
+is skipped with a warning and builds use the existing mirror.
 
 Usage:
     tenko sync

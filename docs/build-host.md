@@ -79,8 +79,8 @@ an administrator) so the user's processes survive logout:
 sudo loginctl enable-linger "$USER"
 ```
 
-Builds run with the network off, so a host only needs network access for
-`tenko sync`, source downloads and publishing.  When a host cannot reach a
-source site, fetch the tarball on another machine with `./tenko fetch
+A host needs network access for `tenko sync`, source downloads, Go and
+Rust builds (which download their modules and crates) and publishing.
+When a host cannot reach a source site, fetch the tarball on another machine with `./tenko fetch
 <package>` and copy it into that host's `build/sources/`; it is verified by
 md5 like any other download.

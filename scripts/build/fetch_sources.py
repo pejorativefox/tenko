@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Download and md5-verify the sources listed in package_specs/<pkg>/sources.
 
-Release builds run rpmbuild with --network=none inside a container, so every
-tarball must already be in ~/rpmbuild/SOURCES.  `tenko build` calls
-this helper for each spec before starting the container.
+rpmbuild does not download the tarballs a spec lists, so every one must
+already be in the sources cache.  `tenko build` calls this helper for each
+spec before starting the container.
 
 A tarball already present with the right md5 in a seed directory
 (TENKO_SOURCES_SEED, default ~/rpmbuild/SOURCES, the old shared cache) is

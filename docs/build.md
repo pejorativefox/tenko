@@ -16,8 +16,10 @@ command's settings.  The implementations live in `scripts/` (one directory
 per command group, shared shell code in `scripts/lib/`).
 
 Every package is built by `tenko build` in its own fresh podman container
-with the network off.  The host needs only podman; everything the builds use
-is downloaded once and kept under `build/`.
+on the host network.  The host needs only podman; the mirror, images and
+source tarballs are downloaded once and kept under `build/`.  Go and Rust
+packages download their modules or crates during the build, pinned by the
+upstream `go.sum` or `Cargo.lock`.
 
 ## One package
 
@@ -194,38 +196,7 @@ Packages track the latest stable upstream release (policy in
 2. update the matching line in `sources` (md5 + URL),
 3. add a `%changelog` entry that states the basis (latest stable upstream,
    a required patch level, or a user-approved exception),
-4. for a package with a `vendor` marker (Rust/Go dependency bundle), run
-   `tenko vendor <pkg>` and `tenko publish sources <pkg>` (see
-   [Vendored dependencies](#vendored-dependencies)),
-5. rebuild and publish before building packages that depend on it.
-
-## Vendored dependencies
-
-`rpmbuild` runs offline, so Rust and Go packages carry their crates or
-modules as a second source, `<name>-<version>-vendor.tar.xz`, holding a
-`vendor/` directory.  A `vendor` marker next to the spec says how to make
-it:
-
-```
-kind      cargo        # or go
-tree      FILE         # sources entry to vendor (default: the first one)
-lockfile  Cargo.lock   # sources entry copied over Cargo.lock (optional)
-```
-
-`tenko vendor <pkg>` unpacks the tree in the buildroot image, installs
-`rust` or `go` (and `make-ca`) from the local repositories and runs
-`cargo vendor --locked` or `go mod vendor` with network access.  It packs
-the result deterministically (sorted, mtime 0, root owner, GNU tar,
-`xz -T1`), stores it in `build/sources` and points the package's
-`sources` line at `https://tenko.pjfox.xyz/sources/<pkg>/<file>`.
-`tenko vendor --check <pkg>` (or `--all --check`) regenerates the bundle
-and compares it with the recorded md5 without changing anything.  The
-bundle depends on the toolchain version, so after a `go` or `rust` update
-a regenerated bundle can differ; record the new one as for a version bump.
-
-`tenko publish sources <pkg>` uploads the bundle to `sources/<pkg>/` on the
-public site and the LAN mirror.  `tests/test_vendor_sources.py` requires a
-URL on every `sources` line and a marker for every hosted bundle.
+4. rebuild and publish before building packages that depend on it.
 
 ## Publishing
 
@@ -254,8 +225,6 @@ Other publishers:
   republish; it deletes anything not in `dir`.
 - `tenko publish iso` — installer ISO + fresh `.sha256`.
 - `tenko publish rootfs` — container rootfs tarball + fresh `.sha256`.
-- `tenko publish sources` — generated source bundles (see
-  [Vendored dependencies](#vendored-dependencies)).
 
 ## Images
 

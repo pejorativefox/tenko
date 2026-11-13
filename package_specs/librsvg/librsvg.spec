@@ -1,12 +1,11 @@
 Name:       librsvg
 Version:    2.63.4
-Release:    3
+Release:    4
 Summary:    SVG rendering library
 License:    LGPL-2.1-or-later
 URL:        https://gitlab.gnome.org/GNOME/librsvg
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
-Source1:    %{name}-%{version}-vendor.tar.xz
 BuildRequires: cairo
 BuildRequires: pango
 BuildRequires: gdk-pixbuf
@@ -19,6 +18,7 @@ BuildRequires: harfbuzz
 BuildRequires: rust
 BuildRequires: cargo-c
 BuildRequires: xorgproto
+BuildRequires: make-ca
 
 Provides:   pkgconfig(librsvg-2.0)
 %description
@@ -37,15 +37,6 @@ The .gir XML needed for building stays in the main package.
 
 %prep
 %setup -q
-tar -xf %{SOURCE1}
-mkdir -p .cargo
-cat > .cargo/config.toml <<'EOF'
-[source.crates-io]
-replace-with = "vendored-sources"
-
-[source.vendored-sources]
-directory = "vendor"
-EOF
 sed -e "/OUTDIR/s|,| / 'librsvg-%{version}', '--no-namespace-dir',|" \
     -e '/output/s|Rsvg-2.0|librsvg-%{version}|'                            \
     -i doc/meson.build
@@ -53,7 +44,6 @@ sed -e "/OUTDIR/s|,| / 'librsvg-%{version}', '--no-namespace-dir',|" \
 %build
 export PATH=/opt/rust/bin:$PATH
 export CARGO_HOME="$PWD/cargo-home"
-export CARGO_NET_OFFLINE=true
 export CARGO_BUILD_JOBS=4
 mkdir -p "$CARGO_HOME"
 mkdir build
@@ -74,7 +64,6 @@ popd
 rm -rf %{buildroot}
 export PATH=/opt/rust/bin:$PATH
 export CARGO_HOME="$PWD/cargo-home"
-export CARGO_NET_OFFLINE=true
 pushd build
 DESTDIR=%{buildroot} ninja install
 popd
@@ -97,6 +86,10 @@ fi
 %files gir -f %{_sourcedir}/librsvg-gir.filelist
 
 %changelog
+* Fri Nov 13 2026 tenko <build@tenko.invalid> 2.63.4-4
+- Download the crates at build time (pinned by Cargo.lock) instead of
+  from a separately hosted vendor bundle.  Same version.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.63.4-3
 - Remove the -devel subpackage: fold its headers, include
   directories, unversioned .so symlinks and .pc files into the

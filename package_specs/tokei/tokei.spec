@@ -3,22 +3,22 @@
 
 Name:       tokei
 Version:    15.0.0
-Release:    1
+Release:    2
 Summary:    Count your code, quickly
 License:    MIT OR Apache-2.0
 URL:        https://github.com/XAMPPRocky/tokei
 Source0:    %{name}-%{version}.tar.gz
-Source1:    %{name}-%{version}-vendor.tar.xz
-Source2:    rust-std-%{rust_version}-%{musl_target}.tar.gz
+Source1:    rust-std-%{rust_version}-%{musl_target}.tar.gz
 Prefix:     /usr
 ExclusiveArch: x86_64
 
 # Upstream publishes no prebuilt binaries for v15.0.0, so the package is
 # built from source against the shipped rust toolchain.  The musl standard
-# library (Source2) is not part of the rust package; it is unpacked into a
+# library (Source1) is not part of the rust package; it is unpacked into a
 # private sysroot in %prep so the result is a single static-pie binary with
 # no runtime dependencies.
 BuildRequires: rust = %{rust_version}
+BuildRequires: make-ca
 
 %description
 tokei counts lines of code, comments and blanks, broken down per language,
@@ -28,7 +28,6 @@ for tooling.
 
 %prep
 %setup -q
-tar -xf %{SOURCE1}
 
 # Build a private sysroot: the host toolchain from /opt/rust plus the musl
 # standard library, which the rust package does not ship.
@@ -47,26 +46,16 @@ for f in /opt/rust/lib/rustlib/*; do
     esac
     ln -s "$f" sysroot/lib/rustlib/
 done
-tar -xzf %{SOURCE2}
+tar -xzf %{SOURCE1}
 cp -a rust-std-%{rust_version}-%{musl_target}/rust-std-%{musl_target}/lib/rustlib/%{musl_target} \
       sysroot/lib/rustlib/
-
-mkdir -p .cargo
-cat > .cargo/config.toml <<'EOF'
-[source.crates-io]
-replace-with = "vendored-sources"
-
-[source.vendored-sources]
-directory = "vendor"
-EOF
 
 %build
 export PATH=/opt/rust/bin:$PATH
 export CARGO_HOME="$PWD/cargo-home"
-export CARGO_NET_OFFLINE=true
 export RUSTFLAGS="--sysroot=$PWD/sysroot -C linker=/opt/rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/rust-lld -C strip=symbols"
 mkdir -p "$CARGO_HOME"
-cargo build --release --target %{musl_target} -j4
+cargo build --locked --release --target %{musl_target} -j4
 
 %install
 rm -rf %{buildroot}
@@ -77,6 +66,10 @@ install -Dm644 LICENCE-MIT %{buildroot}%{_licensedir}/tokei/LICENCE-MIT
 %files -f %{_sourcedir}/tokei.filelist
 
 %changelog
+* Fri Nov 13 2026 tenko <build@tenko.invalid> 15.0.0-2
+- Download the crates at build time (pinned by Cargo.lock, --locked)
+  instead of from a separately hosted vendor bundle.  Same version.
+
 * Tue Nov 10 2026 browneye <build@browneye.invalid> 15.0.0-1
 - Initial package.  Tokei is not in the base set.
 - Version 15.0.0 is the latest stable upstream release (2026-09-06).

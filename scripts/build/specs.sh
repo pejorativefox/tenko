@@ -155,7 +155,7 @@ build_one() {
     fi
     mkdir -p "$top"
     start=$(date +%s)
-    podman run --rm --network=none \
+    podman run --rm --network=host \
         -e MAKE_JOBS="$MAKE_JOBS" -e STRICT="$STRICT" \
         -v "$PWD/package_specs:/specs:ro,z" \
         -v "$top:/work:rw,z" \
