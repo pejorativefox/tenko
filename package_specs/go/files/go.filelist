@@ -1,4 +1,4 @@
-/opt/go/*
+/opt/go/
 /etc/profile.d/go_path.sh
 %{_bindir}/go
 %{_bindir}/gofmt

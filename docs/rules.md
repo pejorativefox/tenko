@@ -131,12 +131,14 @@ repeated NEVRA with different content.
 
 ## Third-party bundles under `/opt`
 
-Applies to packages that repackage an upstream binary tree: `nodejs`,
-`rust`, `go-bin`, `dotnet-bin`, `podman-bin`, `kitty-bin`, `firefox-bin`,
-`google-chrome-bin`.
+Applies to self-contained toolchains and upstream binary trees under
+`/opt`: `nodejs`, `rust`, `go`, `dotnet-bin`, `podman-bin`, `kitty-bin`,
+`firefox-bin`, `google-chrome-bin`.
 
 - Install the versioned payload at `/opt/<name>-<version>` and keep
-  `/opt/<name>` as a stable symlink.
+  `/opt/<name>` as a stable symlink.  `go` keeps `/opt/go` as a directory,
+  because rpm cannot replace the directory its predecessor `go-bin`
+  installed with a symlink.
 - Link every user-facing command into `%{_bindir}` (normally `/usr/bin`).
   Paths under `/opt` are an implementation detail, not a search path.
   Desktop launchers, systemd units, cron, `sudo` and non-login shells do not

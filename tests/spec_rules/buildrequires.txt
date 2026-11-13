@@ -64,7 +64,6 @@ gettext
 gh
 giflib
 gmp
-go
 google-chrome-bin
 gotop
 gperf
