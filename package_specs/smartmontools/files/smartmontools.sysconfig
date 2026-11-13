@@ -1,0 +1,6 @@
+# Options passed to smartd by smartd.service.
+#
+# Examples:
+#   smartd_opts="-q never -d removable"
+#   smartd_opts="-A /var/lib/smartmontools/attrlog. -s (S/../.././02|L/../../6/03)"
+smartd_opts=""
