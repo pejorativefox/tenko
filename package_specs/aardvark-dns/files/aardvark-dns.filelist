@@ -1,0 +1,4 @@
+%dir /usr/libexec/podman
+/usr/libexec/podman/aardvark-dns
+%dir /usr/share/licenses/aardvark-dns
+/usr/share/licenses/aardvark-dns/LICENSE

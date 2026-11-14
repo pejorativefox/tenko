@@ -1,0 +1,10 @@
+%dir /usr/lib/systemd
+%dir /usr/lib/systemd/system
+/usr/lib/systemd/system/netavark-dhcp-proxy.service
+/usr/lib/systemd/system/netavark-dhcp-proxy.socket
+/usr/lib/systemd/system/netavark-firewalld-reload.service
+/usr/lib/systemd/system/netavark-nftables-reload.service
+%dir /usr/libexec/podman
+/usr/libexec/podman/netavark
+%dir /usr/share/licenses/netavark
+/usr/share/licenses/netavark/LICENSE
