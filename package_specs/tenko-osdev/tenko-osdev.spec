@@ -1,6 +1,6 @@
 Name:       tenko-osdev
 Version:    6
-Release:    4
+Release:    5
 Epoch:      1
 Summary:    Tenko Linux OS development environment
 License:    MIT
@@ -14,7 +14,7 @@ Requires:   tenko-base
 
 # Container runtime: every `tenko build`, `tenko image` and QEMU helper
 # runs in podman.
-Requires:   podman-bin
+Requires:   podman
 
 # Network debugging and talking to QEMU monitor/serial sockets.
 Requires:   ncat
@@ -51,8 +51,8 @@ build packages, assemble the RPM repository, produce the installer ISO and
 container rootfs, and publish the results.
 
 It pulls in the full base system, the compiler and RPM packaging toolchain
-(tenko-base-build on tenko-buildroot, with dnf/createrepo_c), the static
-podman bundle, ncat,
+(tenko-base-build on tenko-buildroot, with dnf/createrepo_c), podman
+(built from source), ncat,
 rclone and OpenSSH for publishing, the ISO authoring tools (libisoburn,
 squashfs-tools, mtools, dosfstools), dracut/cpio for the live initramfs, and
 QEMU with OVMF for boot testing.
@@ -72,6 +72,10 @@ touch %{buildroot}/usr/share/tenko/osdev
 %files -f %{_sourcedir}/tenko-osdev.filelist
 
 %changelog
+* Sat Nov 14 2026 tenko <build@tenko.invalid> 6-5
+- Require podman, built from source, instead of the podman-bin static
+  bundle (podman obsoletes podman-bin, so existing installs upgrade).
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-4
 - Require socat (new package) for QEMU monitor and serial sockets.
 

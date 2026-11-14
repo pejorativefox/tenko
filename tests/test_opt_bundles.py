@@ -33,7 +33,6 @@ class OptBundleTest(unittest.TestCase):
     BUNDLES = (
         "nodejs/nodejs.spec",
         "dotnet-bin/dotnet-bin.spec",
-        "podman-bin/podman-bin.spec",
         "firefox-bin/firefox-bin.spec",
         "google-chrome-bin/google-chrome-bin.spec",
     )

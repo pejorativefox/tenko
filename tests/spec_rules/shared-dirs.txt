@@ -229,7 +229,6 @@ pcre
 pcre2
 perl
 pixman
-podman-bin
 polkit
 powertop
 privoxy

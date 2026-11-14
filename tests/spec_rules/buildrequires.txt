@@ -166,7 +166,6 @@ perl
 pixman
 pkgconf
 pm-utils
-podman-bin
 popt
 privoxy
 procps-ng

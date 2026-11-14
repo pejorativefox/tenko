@@ -14,7 +14,7 @@
 #
 # Usage:
 #   tenko publish rpm ~/rpmbuild/RPMS/x86_64/htop-3.5.3-1.x86_64.rpm
-#   PRUNE=1 tenko publish rpm podman-bin-6.1.4-2.x86_64.rpm
+#   PRUNE=1 tenko publish rpm podman-6.2.0-1.x86_64.rpm
 #       also delete RPM files the merged metadata no longer references
 #       (superseded releases); off by default.
 #   DRY_RUN=1 tenko publish rpm foo.rpm
