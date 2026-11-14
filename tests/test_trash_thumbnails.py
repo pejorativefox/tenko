@@ -3,6 +3,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
@@ -20,25 +21,67 @@ def filelist(name):
     return path.read_text(encoding="utf-8") if path.is_file() else ""
 
 
+def processes_using(home):
+    """PIDs of our processes with a file under home open or mapped."""
+    prefix = str(home) + "/"
+    pids = []
+    for entry in Path("/proc").iterdir():
+        if not entry.name.isdigit():
+            continue
+        try:
+            targets = [os.readlink(fd) for fd in (entry / "fd").iterdir()]
+            maps = (entry / "maps").read_text(encoding="utf-8",
+                                              errors="replace")
+        except OSError:
+            continue
+        if (any(t.startswith(prefix) for t in targets)
+                or prefix in maps):
+            pids.append(int(entry.name))
+    return pids
+
+
+GIO_TRASH = shutil.which("gio") and shutil.which("dbus-run-session")
+
+
 class TrashThumbnailTest(unittest.TestCase):
     """Trash, Recent Files and Thumbnail Managing Standard integration."""
 
     def setUp(self):
+        # The home trash must be on the same filesystem as the trashed file
+        # and /tmp is often tmpfs, so the fake home lives under the real one.
         self.home = Path(tempfile.mkdtemp(prefix="trash-home-", dir=Path.home()))
-        self.addCleanup(shutil.rmtree, self.home, True)
+        self.addCleanup(self.remove_home)
         self.env = os.environ.copy()
         self.env["HOME"] = str(self.home)
         self.env["XDG_DATA_HOME"] = str(self.home / ".local" / "share")
         self.env["XDG_CACHE_HOME"] = str(self.home / ".cache")
 
-    @unittest.skipUnless(shutil.which("gio"), "gio not installed")
+    def gio_trash(self, path):
+        # gio derives the metadata journal path from its own XDG_DATA_HOME
+        # and hands it to gvfsd-metadata over D-Bus.  On the user's session
+        # bus that is the long-running daemon, which keeps the journal open
+        # and recreates the fake home when it rotates it (issue #65).  A
+        # private bus gets its own daemon, which exits with the bus.
+        return subprocess.run(
+            ["dbus-run-session", "--", "gio", "trash", str(path)],
+            env=self.env, capture_output=True, text=True,
+        )
+
+    def remove_home(self):
+        deadline = time.monotonic() + 5
+        leaked = processes_using(self.home)
+        while leaked and time.monotonic() < deadline:
+            time.sleep(0.1)
+            leaked = processes_using(self.home)
+        shutil.rmtree(self.home, True)
+        self.assertEqual(leaked, [], "processes still use the test home: %s" % leaked)
+        self.assertFalse(self.home.exists())
+
+    @unittest.skipUnless(GIO_TRASH, "gio or dbus-run-session not installed")
     def test_gio_trash_creates_home_trash_layout(self):
         source = self.home / "trashme.txt"
         source.write_text("trash me\n", encoding="utf-8")
-        result = subprocess.run(
-            ["gio", "trash", str(source)], env=self.env,
-            capture_output=True, text=True,
-        )
+        result = self.gio_trash(source)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
         files = self.home / ".local" / "share" / "Trash" / "files" / "trashme.txt"
@@ -55,7 +98,7 @@ class TrashThumbnailTest(unittest.TestCase):
                           text, re.MULTILINE)
         self.assertIsNotNone(match, text)
 
-    @unittest.skipUnless(shutil.which("gio"), "gio not installed")
+    @unittest.skipUnless(GIO_TRASH, "gio or dbus-run-session not installed")
     def test_cross_filesystem_trash_is_handled_or_documented(self):
         # /tmp is often a different device from the home directory.  GLib's
         # local trash refuses some system-internal mounts instead of using a
@@ -70,10 +113,7 @@ class TrashThumbnailTest(unittest.TestCase):
             lambda: shutil.rmtree("/tmp/.Trash-%d" % os.getuid(), True)
         )
         source.write_text("cross filesystem\n", encoding="utf-8")
-        result = subprocess.run(
-            ["gio", "trash", str(source)], env=self.env,
-            capture_output=True, text=True,
-        )
+        result = self.gio_trash(source)
         if result.returncode == 0:
             files = self.home / ".local" / "share" / "Trash" / "files" / source.name
             info = self.home / ".local" / "share" / "Trash" / "info" / \
