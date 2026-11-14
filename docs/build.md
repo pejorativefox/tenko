@@ -223,6 +223,9 @@ Other publishers:
 - `REPO=dir tenko publish repo` — replace the whole repository with the RPMs
   in `dir`, plus the overview page.  Use it only for a deliberate full
   republish; it deletes anything not in `dir`.
+- `tenko publish remove NAME...` — drop packages from the repository
+  metadata and delete their RPM files; refuses if a remaining package
+  still requires one of them.
 - `tenko publish iso` — installer ISO + fresh `.sha256`.
 - `tenko publish rootfs` — container rootfs tarball + fresh `.sha256`.
 

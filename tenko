@@ -28,6 +28,7 @@ image iso         | image/iso.sh           | build the UEFI installer ISO
 image initramfs   | image/initramfs.sh     | generate the initramfs inside a staged rootfs
 publish rpm       | publish/rpm.sh         | merge RPMs into the published repository
 publish repo      | publish/repo.sh        | republish a whole local repository
+publish remove    | publish/remove.sh      | remove packages (metadata and RPM files) from the published repository
 publish iso       | publish/file.sh iso    | upload the installer ISO and its .sha256
 publish rootfs    | publish/file.sh rootfs | upload the rootfs tarball and its .sha256
 qemu boot         | qemu/boot.sh           | boot the base system to a serial login prompt
