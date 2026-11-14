@@ -83,7 +83,6 @@ iso-codes
 json-c
 kbd
 keyutils
-kitty-bin
 kmod
 kora-icon-theme
 lame

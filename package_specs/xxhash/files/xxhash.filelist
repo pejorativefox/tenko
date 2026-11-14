@@ -1,0 +1,16 @@
+/usr/bin/xxh128sum
+/usr/bin/xxh32sum
+/usr/bin/xxh3sum
+/usr/bin/xxh64sum
+/usr/bin/xxhsum
+/usr/include/xxh3.h
+/usr/include/xxhash.h
+/usr/lib64/libxxhash.so
+/usr/lib64/libxxhash.so.0
+/usr/lib64/libxxhash.so.0.8.4
+/usr/lib64/pkgconfig/libxxhash.pc
+/usr/share/man/man1/xxh128sum.1.gz
+/usr/share/man/man1/xxh32sum.1.gz
+/usr/share/man/man1/xxh3sum.1.gz
+/usr/share/man/man1/xxh64sum.1.gz
+/usr/share/man/man1/xxhsum.1.gz

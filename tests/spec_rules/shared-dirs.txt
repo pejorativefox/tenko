@@ -97,7 +97,6 @@ imagemagick
 iso-codes
 itstool
 json-c
-kitty-bin
 lgi
 libarchive
 libassuan

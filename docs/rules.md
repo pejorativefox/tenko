@@ -136,7 +136,7 @@ repeated NEVRA with different content.
 ## Third-party bundles under `/opt`
 
 `/opt` holds repackaged upstream binaries only: `nodejs`, `dotnet-bin`,
-`podman-bin`, `kitty-bin`, `firefox-bin`, `google-chrome-bin`.  Anything
+`podman-bin`, `firefox-bin`, `google-chrome-bin`.  Anything
 Tenko compiles from source installs under `/usr` (the source-built
 toolchains: `go` in `/usr/lib64/go`, `rust` in `/usr/bin` with its
 libraries and `rustlib` in `/usr/lib64`).
