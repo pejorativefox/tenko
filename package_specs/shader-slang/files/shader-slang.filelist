@@ -1,0 +1,85 @@
+/usr/bin/slang
+/usr/bin/slangc
+%dir /usr/include/slang
+/usr/include/slang/slang-com-helper.h
+/usr/include/slang/slang-com-ptr.h
+/usr/include/slang/slang-cpp-host-prelude.h
+/usr/include/slang/slang-cpp-prelude.h
+/usr/include/slang/slang-cpp-scalar-intrinsics.h
+/usr/include/slang/slang-cpp-types-core.h
+/usr/include/slang/slang-cpp-types.h
+/usr/include/slang/slang-cuda-prelude.h
+/usr/include/slang/slang-deprecated.h
+/usr/include/slang/slang-gfx.h
+/usr/include/slang/slang-hlsl-prelude.h
+/usr/include/slang/slang-image-format-defs.h
+/usr/include/slang/slang-llvm.h
+/usr/include/slang/slang-tag-version.h
+/usr/include/slang/slang-torch-prelude.h
+/usr/include/slang/slang.h
+%dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/slang
+/usr/lib64/cmake/slang/slangConfig.cmake
+/usr/lib64/cmake/slang/slangConfigVersion.cmake
+/usr/lib64/cmake/slang/slangTargets-release.cmake
+/usr/lib64/cmake/slang/slangTargets.cmake
+/usr/lib64/libslang-compiler.so
+/usr/lib64/libslang-compiler.so.0.2026.22
+/usr/lib64/libslang-glsl-module-2026.22.so
+/usr/lib64/libslang-glslang-2026.22.so
+/usr/lib64/libslang-rt.so
+/usr/lib64/libslang-rt.so.0.2026.22
+/usr/lib64/pkgconfig/slang-compiler.pc
+%dir /usr/lib64/slang-standard-module-2026.22
+%dir /usr/lib64/slang-standard-module-2026.22/experimental
+/usr/lib64/slang-standard-module-2026.22/experimental/workgraph.slang
+/usr/lib64/slang-standard-module-2026.22/experimental/workgraph.slang-module
+%dir /usr/lib64/slang-standard-module-2026.22/slang
+/usr/lib64/slang-standard-module-2026.22/slang/WaveMatrix.slang
+/usr/lib64/slang-standard-module-2026.22/slang/accelerate-vector-coopmat.slang
+/usr/lib64/slang-standard-module-2026.22/slang/activations.slang
+/usr/lib64/slang-standard-module-2026.22/slang/bindless-storage.slang
+/usr/lib64/slang-standard-module-2026.22/slang/functional.slang-module
+/usr/lib64/slang-standard-module-2026.22/slang/hash-function.slang
+/usr/lib64/slang-standard-module-2026.22/slang/iactivation.slang
+/usr/lib64/slang-standard-module-2026.22/slang/iencoder.slang
+/usr/lib64/slang-standard-module-2026.22/slang/ilayer.slang
+/usr/lib64/slang-standard-module-2026.22/slang/inline-vector.slang
+/usr/lib64/slang-standard-module-2026.22/slang/istorages.slang
+/usr/lib64/slang-standard-module-2026.22/slang/ivector.slang
+/usr/lib64/slang-standard-module-2026.22/slang/layers.slang
+/usr/lib64/slang-standard-module-2026.22/slang/mma-linear-layout-help.slang
+/usr/lib64/slang-standard-module-2026.22/slang/mma-tiled-cuda.slang
+/usr/lib64/slang-standard-module-2026.22/slang/mma-tiled-layout-helper.slang
+/usr/lib64/slang-standard-module-2026.22/slang/mma-tiled-metal.slang
+/usr/lib64/slang-standard-module-2026.22/slang/mma-tiled-vulkan.slang
+/usr/lib64/slang-standard-module-2026.22/slang/network-parameter-layout-converter.slang
+/usr/lib64/slang-standard-module-2026.22/slang/neural.slang
+/usr/lib64/slang-standard-module-2026.22/slang/neural.slang-module
+%dir /usr/lib64/slang-standard-module-2026.22/slang/numerics
+/usr/lib64/slang-standard-module-2026.22/slang/numerics.slang-module
+/usr/lib64/slang-standard-module-2026.22/slang/numerics/__builtin.slang-module
+/usr/lib64/slang-standard-module-2026.22/slang/numerics/__builtin_differentiable.slang-module
+/usr/lib64/slang-standard-module-2026.22/slang/numerics/differentiable.slang-module
+/usr/lib64/slang-standard-module-2026.22/slang/permuto-encoder.slang
+%dir /usr/lib64/slang-standard-module-2026.22/slang/raytracing
+/usr/lib64/slang-standard-module-2026.22/slang/raytracing/contexts.slang
+/usr/lib64/slang-standard-module-2026.22/slang/raytracing/descriptor.slang
+/usr/lib64/slang-standard-module-2026.22/slang/raytracing/portable.slang
+/usr/lib64/slang-standard-module-2026.22/slang/raytracing/portable.slang-module
+/usr/lib64/slang-standard-module-2026.22/slang/raytracing/program-schema.slang
+/usr/lib64/slang-standard-module-2026.22/slang/raytracing/ray-types.slang
+/usr/lib64/slang-standard-module-2026.22/slang/raytracing/stage-contracts.slang
+/usr/lib64/slang-standard-module-2026.22/slang/raytracing/stage-inputs.slang
+/usr/lib64/slang-standard-module-2026.22/slang/raytracing/trace.slang
+/usr/lib64/slang-standard-module-2026.22/slang/shared-memory-pool.slang
+/usr/lib64/slang-standard-module-2026.22/slang/vectorized-reader.slang
+%dir /usr/share/licenses/shader-slang
+/usr/share/licenses/shader-slang/LICENSE
+/usr/share/licenses/shader-slang/cmark-COPYING
+/usr/share/licenses/shader-slang/fast_float-LICENSE-MIT
+/usr/share/licenses/shader-slang/glslang-LICENSE.txt
+/usr/share/licenses/shader-slang/miniz-LICENSE
+/usr/share/licenses/shader-slang/spirv-headers-LICENSE
+/usr/share/licenses/shader-slang/spirv-tools-LICENSE
+/usr/share/licenses/shader-slang/unordered_dense-LICENSE

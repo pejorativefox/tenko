@@ -1,0 +1,8 @@
+6b706510d98fff3747d58542a69eb21a https://github.com/shader-slang/slang/archive/refs/tags/v2026.22.tar.gz shader-slang-2026.22.tar.gz
+379334e68115510bf89b1e54bb22b72d https://github.com/KhronosGroup/glslang/archive/d1f52c8993a501bd52d4fbd044bfeb9ecdceb9f4.tar.gz glslang-d1f52c8993a501bd52d4fbd044bfeb9ecdceb9f4.tar.gz
+8c5baa3187caf7b257ae8199802692bf https://github.com/KhronosGroup/SPIRV-Tools/archive/b8c3b64b63758042576f6853d7f0abe9251460fa.tar.gz spirv-tools-b8c3b64b63758042576f6853d7f0abe9251460fa.tar.gz
+7b74d57d6d4f9ba81b6f1a03831825b3 https://github.com/KhronosGroup/SPIRV-Headers/archive/86f980c731e62ae4eaf383d320449d71687936bf.tar.gz spirv-headers-86f980c731e62ae4eaf383d320449d71687936bf.tar.gz
+3f5d3b9224c36cf265ac748b4aa81aeb https://github.com/richgel999/miniz/archive/6ef6c68f4fcbb8287aa8edf9c6670804932f41c6.tar.gz miniz-6ef6c68f4fcbb8287aa8edf9c6670804932f41c6.tar.gz
+08092939d8caac7a140c7bd2922fd95d https://github.com/martinus/unordered_dense/archive/73f3cbb237e84d483afafc743f1f14ec53e12314.tar.gz unordered_dense-73f3cbb237e84d483afafc743f1f14ec53e12314.tar.gz
+f4d8646bcb072ca34ad07a6cdea3d571 https://github.com/swiftlang/swift-cmark/archive/924936d0427cb25a61169739a7660230bffa6ea6.tar.gz cmark-924936d0427cb25a61169739a7660230bffa6ea6.tar.gz
+a12562a6f40ea30d2363c69375524c6b https://github.com/fastfloat/fast_float/archive/e0b53eaf63c6d00e0725788ef1dbb759aa321d79.tar.gz fast_float-e0b53eaf63c6d00e0725788ef1dbb759aa321d79.tar.gz

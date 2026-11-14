@@ -1,0 +1,60 @@
+diff -ruN a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -909,8 +909,8 @@
+     PATTERN ".*" EXCLUDE
+ )
+ install(
+-    DIRECTORY "${slang_SOURCE_DIR}/include"
+-    DESTINATION .
++    DIRECTORY "${slang_SOURCE_DIR}/include/"
++    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+     PATTERN ".*" EXCLUDE
+ )
+ include(SlangUserSkills)
+@@ -982,7 +982,7 @@
+         # update this destination.
+         install(
+             FILES "${PROJECT_BINARY_DIR}/slang-compiler.pc"
+-            DESTINATION "lib/pkgconfig"
++            DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
+         )
+     endif()
+ endif()
+diff -ruN a/cmake/SlangTarget.cmake b/cmake/SlangTarget.cmake
+--- a/cmake/SlangTarget.cmake
++++ b/cmake/SlangTarget.cmake
+@@ -723,7 +723,7 @@
+ # Linux systems) relies on runtime libraries being at "$ORIGIN/../lib". This
+ # could be improved by setting at configure-time that path to be the relative
+ # path from CM_I_RD to CM_I_LD.
+-set(library_subdir lib)
++set(library_subdir ${CMAKE_INSTALL_LIBDIR})
+ set(runtime_subdir bin)
+ 
+ # On Windows, because there's no RPATH, place modules in bin, next to the
+diff -ruN a/extras/pkgconfig/slang-compiler.pc.in b/extras/pkgconfig/slang-compiler.pc.in
+--- a/extras/pkgconfig/slang-compiler.pc.in
++++ b/extras/pkgconfig/slang-compiler.pc.in
+@@ -1,7 +1,7 @@
+ prefix=${pcfiledir}/../..
+ exec_prefix=${prefix}
+-libdir=${prefix}/lib
+-includedir=${prefix}/include
++libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
++includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+ 
+ Name: slang-compiler
+ Description: Slang shading language compiler library
+diff -ruN a/source/standard-modules/CMakeLists.txt b/source/standard-modules/CMakeLists.txt
+--- a/source/standard-modules/CMakeLists.txt
++++ b/source/standard-modules/CMakeLists.txt
+@@ -40,7 +40,7 @@
+ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+     set(slang_library_dir "bin")
+ else()
+-    set(slang_library_dir "lib")
++    set(slang_library_dir "${CMAKE_INSTALL_LIBDIR}")
+ endif()
+ 
+ # Set install directory using the platform-specific library directory
