@@ -14,8 +14,11 @@ class PodmanSourceTest(unittest.TestCase):
         self.files = (PKG / "files" / "podman.filelist").read_text().split()
 
     def test_no_opt_paths(self):
+        # Only the podman-bin upgrade trigger may name the old /opt bundle.
+        spec = re.sub(r"(?ms)^%triggerpostun -- podman-bin\n.*?^:\n", "",
+                      self.spec)
         for name, text in (("containers.conf", self.conf),
-                           ("podman.spec", self.spec),
+                           ("podman.spec", spec),
                            ("podman.filelist", " ".join(self.files))):
             self.assertNotIn("/opt", text, name)
 
@@ -31,9 +34,13 @@ class PodmanSourceTest(unittest.TestCase):
             self.assertRegex(self.spec, r"(?m)^Requires:\s+" +
                              re.escape(req) + r"$")
 
-    def test_journald_logging(self):
-        self.assertRegex(self.conf, r'(?m)^log_driver = "journald"$')
-        self.assertRegex(self.conf, r'(?m)^events_logger = "journald"$')
+    def test_file_logging(self):
+        self.assertRegex(self.conf, r'(?m)^log_driver = "k8s-file"$')
+        self.assertRegex(self.conf, r'(?m)^events_logger = "file"$')
+
+    def test_upgrade_clears_bundle_lock_tables(self):
+        self.assertIn("%triggerpostun -- podman-bin", self.spec)
+        self.assertIn("/dev/shm/libpod_rootless_lock_", self.spec)
 
     def test_etc_config_is_noreplace(self):
         for name in ("containers.conf", "storage.conf", "policy.json",

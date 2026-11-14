@@ -1,6 +1,6 @@
 Name:       podman
 Version:    6.2.0
-Release:    1
+Release:    2
 Summary:    Daemonless container engine for OCI containers and pods
 License:    Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 URL:        https://podman.io/
@@ -50,6 +50,8 @@ Requires:   kmod
 Requires:   systemd
 # /etc/subuid and /etc/subgid
 Requires:   tenko-sysconfig
+# pidof in the podman-bin upgrade trigger
+Requires:   procps-ng
 
 # Replaces the static third-party bundle.
 Obsoletes:  podman-bin < 6.1.4-7
@@ -89,7 +91,7 @@ for the system and user managers, man pages and shell completions.  The
 OCI runtime and helpers come from the crun, conmon, netavark,
 aardvark-dns, catatonit and pasta packages.
 
-/etc/containers holds the Tenko defaults: crun, journald logging and
+/etc/containers holds the Tenko defaults: crun, k8s-file logs and file
 events, the cgroupfs cgroup manager and native rootless overlay storage.
 
 %prep
@@ -119,15 +121,36 @@ install -m644 seccomp.json %{buildroot}%{_sysconfdir}/containers/seccomp.json
 install -Dm644 README.md %{buildroot}%{_docdir}/podman/README.md
 install -Dm644 LICENSE %{buildroot}%{_licensedir}/podman/LICENSE
 
+# podman-bin's static (musl) podman leaves its lock tables in /dev/shm and
+# its rootless pause processes running; the glibc build blocks forever on
+# those lock tables.  When podman-bin goes away and no container is running
+# (no conmon), stop its leftover processes and drop the lock tables so podman
+# creates new ones.  With containers running, say what to do instead.
+%triggerpostun -- podman-bin
+if pidof -q conmon; then
+    echo "podman: containers are still running; after stopping them, remove" \
+         "/dev/shm/libpod_lock and /dev/shm/libpod_rootless_lock_* if podman hangs" >&2
+else
+    for pid in $(pidof podman); do
+        case "$(readlink /proc/$pid/exe)" in
+        /opt/podman*) kill "$pid" 2>/dev/null ;;
+        esac
+    done
+    rm -f /dev/shm/libpod_lock /dev/shm/libpod_rootless_lock_*
+fi
+:
+
 %files -f %{_sourcedir}/podman.filelist
 
 %changelog
-* Sat Nov 14 2026 tenko <build@tenko.invalid> 6.2.0-1
+* Sat Nov 14 2026 tenko <build@tenko.invalid> 6.2.0-2
 - New package, not in the base set: latest upstream stable release
   (6.2.0, checked 2026-11-14), built from source.  Replaces the
   podman-bin static bundle (Obsoletes podman-bin < 6.1.4-7).
 - Helpers come from the crun, conmon, netavark, aardvark-dns, catatonit and
   pasta packages at podman's default paths; containers.conf sets crun,
-  journald logging and events and keeps cgroupfs.
+  k8s-file logs and file events (as podman-bin did) and keeps cgroupfs.
+- When podman-bin is removed, stop its leftover processes and remove its
+  /dev/shm lock tables, which the glibc podman cannot use.
 - seccomp.json from containers/common v0.70.0 (the vendored version);
   policy.json and registries.conf as shipped by podman-bin.
