@@ -1,6 +1,6 @@
 Name:       lightdm
 Version:    1.33.1
-Release:    6
+Release:    7
 Summary:    Lightweight cross-desktop display manager
 License:    GPL-3.0-or-later
 URL:        https://github.com/ubuntu/lightdm
@@ -53,6 +53,10 @@ BuildRequires: xml-parser
 # The greeter is packaged separately but is what lightdm starts.
 Requires:      xorg-server
 Requires:      lightdm-gtk-greeter
+# lightdm sets its extension properties (XSession, XHasMessages, ...) on the
+# AccountsService user objects; accounts-daemon only exposes the interface
+# through the symlink below, in a directory accountsservice owns.
+Requires:      accountsservice
 # The PAM session hooks in /etc/pam.d/lightdm use the keyring module when
 # the provider is installed; a minimal lightdm install can omit it.
 Recommends:    gnome-keyring
@@ -107,10 +111,6 @@ sed -i '1 s/sh/bash --login/' %{buildroot}%{_bindir}/lightdm-session
 rm -rf %{buildroot}%{_sysconfdir}/init
 rm -rf %{buildroot}%{_sysconfdir}/apparmor.d
 
-# The AccountsService interface symlink is dangling without accountsservice,
-# which we do not ship.
-rm -rf %{buildroot}%{_datadir}/accountsservice
-
 install -Dpm0644 %{SOURCE1} %{buildroot}%{_unitdir}/lightdm.service
 install -Dpm0644 %{SOURCE2} %{buildroot}%{_prefix}/lib/systemd/system-preset/50-lightdm.preset
 
@@ -159,6 +159,13 @@ XML needed for building stays there.
 %files gir -f %{_sourcedir}/lightdm-gir.filelist
 
 %changelog
+* Sat Nov 14 2026 tenko <build@tenko.invalid> 1.33.1-7
+- Keep the upstream AccountsService interface symlink
+  /usr/share/accountsservice/interfaces/org.freedesktop.DisplayManager.AccountsService.xml
+  and require accountsservice.  Without it accounts-daemon does not expose
+  the interface and lightdm logs an InvalidArgs error on every user update
+  (issue #57).  Same upstream version (1.33.1).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 1.33.1-6
 - Conflict with and start after kmsconvt@tty1.service.  kmscon is now the
   base console on tty1; without the conflict lightdm would try to start X

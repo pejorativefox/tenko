@@ -45,6 +45,7 @@
 /usr/lib64/liblightdm-gobject-1.so.0
 /usr/lib64/liblightdm-gobject-1.so.0.0.0
 /usr/lib64/pkgconfig/liblightdm-gobject-1.pc
+/usr/share/accountsservice/interfaces/org.freedesktop.DisplayManager.AccountsService.xml
 /usr/share/bash-completion/completions/dm-tool
 /usr/share/bash-completion/completions/lightdm
 /usr/share/dbus-1/interfaces/org.freedesktop.DisplayManager.AccountsService.xml
