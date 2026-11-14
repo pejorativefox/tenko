@@ -1,7 +1,8 @@
 """The LLVM 22 packages are a parallel toolchain, not a replacement for 23.
 
 llvm22 installs a complete tree under /usr/lib64/llvm22 and only adds
-command links with a -22 suffix, so `dnf install llvm22` next to the
+command links with a -22 suffix plus /etc/ld.so.conf.d/llvm22.conf (so
+programs linked against libLLVM.so.22 find it), so `dnf install llvm22` next to the
 distribution llvm/clang 23 packages cannot overwrite files from either.
 """
 
@@ -16,6 +17,7 @@ FILELIST = os.path.join(PACKAGE, "files", "llvm22.filelist")
 
 PAYLOAD_ROOTS = ("/usr/lib64/llvm22", "/etc/clang-22")
 COMMAND_ROOT = "/usr/bin/"
+LDCONFIG = "/etc/ld.so.conf.d/llvm22.conf"
 
 
 def spec_body():
@@ -59,12 +61,19 @@ class LlvmParallelInstallTest(unittest.TestCase):
 
     def test_payload_is_versioned(self):
         for path in filelist_paths():
-            if path.startswith(COMMAND_ROOT):
+            if path.startswith(COMMAND_ROOT) or path == LDCONFIG:
                 continue
             self.assertTrue(
                 any(path == root or path.startswith(root + "/")
                     for root in PAYLOAD_ROOTS),
                 "path outside the parallel install tree: " + path)
+
+    def test_ldconfig_registers_only_the_llvm22_tree(self):
+        self.assertIn(LDCONFIG, set(filelist_paths()))
+        self.assertIn("echo %{_libdir}/llvm22/lib > "
+                      "%{buildroot}%{_sysconfdir}/ld.so.conf.d/llvm22.conf",
+                      spec_body())
+        self.assertRegex(spec_body(), r"(?m)^%post\b")
 
 
 if __name__ == "__main__":
