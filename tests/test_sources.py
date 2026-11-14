@@ -16,8 +16,10 @@ sys.path.insert(0, str(REPO_ROOT / "scripts" / "build"))
 
 import fetch_sources  # noqa: E402
 
-# The toolchain packages build themselves from an installed toolchain.
-TOOLCHAINS = {r"/opt/go\b": ("go", {"go"}), r"/opt/rust\b": ("rust", {"rust"})}
+# How a spec shows it builds with each toolchain; the toolchain packages
+# build themselves from an installed toolchain.
+TOOLCHAINS = {r"(?m)^\s*go (build|run)\b": ("go", {"go"}),
+              r"/opt/rust\b": ("rust", {"rust"})}
 
 
 class SourcesTest(unittest.TestCase):

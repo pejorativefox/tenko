@@ -10,7 +10,7 @@ Prefix:     /usr
 BuildRequires: go
 BuildRequires: make-ca
 
-# Built from source with the go toolchain in /opt/go; the Go modules are
+# Built from source with the distro go toolchain; the Go modules are
 # downloaded during the build and verified against go.sum.
 #
 # Not in the base set; latest upstream stable, needed by the
@@ -25,8 +25,6 @@ can copy, sync, check, mount and serve remote storage.
 %setup -q -n rclone-%{version}
 
 %build
-export GOROOT=/opt/go
-export PATH=/opt/go/bin:$PATH
 export GOPATH="$PWD/.gopath"
 export GOFLAGS=-modcacherw
 export GOTOOLCHAIN=local

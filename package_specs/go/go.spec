@@ -1,6 +1,6 @@
 Name:       go
 Version:    1.27.3
-Release:    1
+Release:    2
 Summary:    The go programming language (golang)
 License:    BSD-3-Clause
 URL:        https://go.dev/
@@ -15,10 +15,9 @@ Obsoletes:  go-bin < 1.27.3-3
 
 # Go is written in Go: make.bash needs an installed toolchain of at least
 # the version in src/cmd/dist/buildtool.go (minBootstrap, go1.24.6 for
-# 1.27).  The installed /opt/go is that bootstrap; go-bin is satisfied by
-# the go-bin package for the first build and by this package afterwards,
-# so each release is built by the previous one.
-BuildRequires: go-bin
+# 1.27).  The installed go is that bootstrap, so each release is built by
+# the previous one.
+BuildRequires: go
 BuildRequires: bash
 
 # md5 of upstream's linux-amd64 binary tarball.  make.bash -distpack
@@ -34,9 +33,9 @@ BuildRequires: bash
 # libraries that would otherwise add bogus runtime requires (libtiff).
 AutoReqProv: no
 
-# /opt/go stays a real directory instead of the /opt/<name>-<version>
-# symlink layout: rpm cannot turn go-bin's /opt/go directory into a
-# symlink on upgrade.
+# Installed as the distro toolchain at /usr/lib64/go (GOROOT) with go and
+# gofmt linked into /usr/bin.  The go command derives GOROOT from its own
+# path, so no environment setup is needed.
 
 %description
 Go is a statically typed, compiled high-level programming language.
@@ -46,42 +45,24 @@ Go is a statically typed, compiled high-level programming language.
 
 %build
 cd src
-export GOROOT_BOOTSTRAP=/opt/go
+unset GOROOT
+export GOROOT_BOOTSTRAP=$(GOENV=off /usr/bin/go env GOROOT)
 export GOTOOLCHAIN=local
 export GOPROXY=off
 export GOCACHE=%{_builddir}/go-cache
 export GOENV=off
-unset GOROOT GOPATH GOFLAGS CGO_ENABLED
+unset GOPATH GOFLAGS CGO_ENABLED
 ./make.bash -distpack
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/opt
-tar -xzf pkg/distpack/go%{version}.linux-amd64.tar.gz -C %{buildroot}/opt
-rm %{buildroot}/opt/go/src/run.rc
-rm %{buildroot}/opt/go/src/make.rc
-rm %{buildroot}/opt/go/src/clean.rc
-rm %{buildroot}/opt/go/src/all.rc
+mkdir -p %{buildroot}%{_libdir}
+tar -xzf pkg/distpack/go%{version}.linux-amd64.tar.gz -C %{buildroot}%{_libdir}
+for f in run make clean all; do rm %{buildroot}%{_libdir}/go/src/$f.rc; done
 
-mkdir -pv %{buildroot}/etc/profile.d
-cat > %{buildroot}/etc/profile.d/go_path.sh << "EOF"
-# GOROOT points tools at the bundle; the go and gofmt entry points are in
-# /usr/bin, so PATH is only a convenience for shells that already read
-# /etc/profile.d.  Keep the PATH update idempotent.
-export GOROOT=/opt/go
-case ":$PATH:" in
-    *:/opt/go/bin:*) ;;
-    *) PATH="$PATH:/opt/go/bin" ;;
-esac
-export PATH
-EOF
-
-# Every user-facing command is linked into /usr/bin, like the other /opt
-# bundles: desktop launchers, systemd units and non-login shells do not
-# read /etc/profile.d.
 install -d %{buildroot}%{_bindir}
-ln -s /opt/go/bin/go %{buildroot}%{_bindir}/go
-ln -s /opt/go/bin/gofmt %{buildroot}%{_bindir}/gofmt
+ln -s ../lib64/go/bin/go %{buildroot}%{_bindir}/go
+ln -s ../lib64/go/bin/gofmt %{buildroot}%{_bindir}/gofmt
 
 %check
 echo "%{upstream_md5}  pkg/distpack/go%{version}.linux-amd64.tar.gz" | md5sum -c -
@@ -89,6 +70,13 @@ echo "%{upstream_md5}  pkg/distpack/go%{version}.linux-amd64.tar.gz" | md5sum -c
 %files -f %{_sourcedir}/go.filelist
 
 %changelog
+* Sat Nov 14 2026 tenko <build@tenko.invalid> 1.27.3-2
+- Install the source-built toolchain at /usr/lib64/go instead of /opt/go
+  (/opt is for repackaged binary bundles).  go and gofmt link into
+  /usr/bin; drop /etc/profile.d/go_path.sh, since go finds its GOROOT from
+  its own path.  Shells started before the upgrade keep GOROOT=/opt/go
+  until the next login.  Same version (1.27.3).
+
 * Fri Nov 13 2026 tenko <build@tenko.invalid> 1.27.3-1
 - Build the toolchain from the upstream source release instead of
   repackaging the binary tarball (go-bin, which this replaces).  1.27.3 is

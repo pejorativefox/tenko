@@ -11,7 +11,7 @@ ExclusiveArch: x86_64
 BuildRequires: go
 BuildRequires: make-ca
 
-# Built from source with the go toolchain in /opt/go; the Go modules are
+# Built from source with the distro go toolchain; the Go modules are
 # downloaded during the build and verified against go.sum.
 # The selfupdate build tag is deliberately omitted: updates are delivered by
 # the distro repository instead of restic's own GitHub downloader.
@@ -29,8 +29,6 @@ and provides snapshot-based restore, retention policies and repository checks.
 %setup -q
 
 %build
-export GOROOT=/opt/go
-export PATH=/opt/go/bin:$PATH
 export GOPATH="$PWD/.gopath"
 export GOFLAGS=-modcacherw
 export GOTOOLCHAIN=local

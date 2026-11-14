@@ -135,14 +135,13 @@ repeated NEVRA with different content.
 
 ## Third-party bundles under `/opt`
 
-Applies to self-contained toolchains and upstream binary trees under
-`/opt`: `nodejs`, `rust`, `go`, `dotnet-bin`, `podman-bin`, `kitty-bin`,
-`firefox-bin`, `google-chrome-bin`.
+`/opt` holds repackaged upstream binaries only: `nodejs`, `rust`,
+`dotnet-bin`, `podman-bin`, `kitty-bin`, `firefox-bin`,
+`google-chrome-bin`.  Anything Tenko compiles from source installs under
+`/usr` (the source-built `go` toolchain is `/usr/lib64/go`).
 
 - Install the versioned payload at `/opt/<name>-<version>` and keep
-  `/opt/<name>` as a stable symlink.  `go` keeps `/opt/go` as a directory,
-  because rpm cannot replace the directory its predecessor `go-bin`
-  installed with a symlink.
+  `/opt/<name>` as a stable symlink.
 - Link every user-facing command into `%{_bindir}` (normally `/usr/bin`).
   Paths under `/opt` are an implementation detail, not a search path.
   Desktop launchers, systemd units, cron, `sudo` and non-login shells do not
@@ -161,7 +160,7 @@ read only `~/.bashrc`, so `profile.d` is not a general environment loader.
 - Use `profile.d` for environment variables the application needs in a login
   shell (`GOROOT`, `DOTNET_ROOT`, ABI overrides).  A `PATH` entry is an
   optional convenience; it must never be the only way to find a command.
-- POSIX `sh`, name it after the package (`go_path.sh`, `dotnet.sh`), and keep
+- POSIX `sh`, name it after the package (`dotnet.sh`), and keep
   it silent (no output, no failures from unrelated tools).
 - Make it idempotent: guard `PATH` updates with
   `case ":$PATH:" in *:/opt/foo/bin:*) ;; *) PATH=... ;; esac`, because the

@@ -31,7 +31,6 @@ class OptBundleTest(unittest.TestCase):
     """Third-party /opt bundles expose commands through /usr/bin."""
 
     BUNDLES = (
-        "go/go.spec",
         "nodejs/nodejs.spec",
         "rust/rust.spec",
         "dotnet-bin/dotnet-bin.spec",
@@ -48,19 +47,14 @@ class OptBundleTest(unittest.TestCase):
             self.assertTrue("%{_bindir}" in body or "/usr/bin" in body,
                             "%s has no /usr/bin entry point" % spec)
 
-    def test_go_commands_are_linked_into_usr_bin(self):
+    def test_go_is_a_distro_toolchain_not_an_opt_bundle(self):
+        """go is built from source, so it lives in /usr/lib64/go, not /opt."""
         body = before_changelog(read("go/go.spec"))
-        self.assertIn("ln -s /opt/go/bin/go %{buildroot}%{_bindir}/go", body)
-        self.assertIn("ln -s /opt/go/bin/gofmt %{buildroot}%{_bindir}/gofmt",
+        self.assertNotIn("/opt", body)
+        self.assertNotIn("profile.d", body)
+        self.assertIn("ln -s ../lib64/go/bin/go %{buildroot}%{_bindir}/go", body)
+        self.assertIn("ln -s ../lib64/go/bin/gofmt %{buildroot}%{_bindir}/gofmt",
                       body)
-        self.assertIn("%{_bindir}/go", body.split("%files", 1)[1])
-
-    def test_go_profile_snippet_is_not_the_only_entry_point(self):
-        script = heredoc(read("go/go.spec"), "/etc/profile.d/go_path.sh")
-        self.assertIn("export GOROOT=/opt/go", script)
-        # profile.d is a convenience for login shells; the PATH update must
-        # not duplicate entries when the snippet is read twice.
-        self.assertIn('case ":$PATH:" in', script)
 
 
 if __name__ == "__main__":

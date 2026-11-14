@@ -11,7 +11,7 @@ ExclusiveArch: x86_64
 BuildRequires: go
 BuildRequires: make-ca
 
-# Built from source with the go toolchain in /opt/go; the Go modules are
+# Built from source with the distro go toolchain; the Go modules are
 # downloaded during the build and verified against go.sum.
 #
 # Not in the base set; 2.103.3 is the latest stable upstream release
@@ -27,8 +27,6 @@ commands.
 %setup -q -n cli-%{version}
 
 %build
-export GOROOT=/opt/go
-export PATH=/opt/go/bin:$PATH
 export GOPATH="$PWD/.gopath"
 export GOFLAGS=-modcacherw
 export GOTOOLCHAIN=local
