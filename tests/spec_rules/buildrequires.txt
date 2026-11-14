@@ -178,7 +178,6 @@ pyenv
 python-flit-core
 python-setuptools
 readline
-rust
 sassc
 sbc
 sed

@@ -32,7 +32,6 @@ class OptBundleTest(unittest.TestCase):
 
     BUNDLES = (
         "nodejs/nodejs.spec",
-        "rust/rust.spec",
         "dotnet-bin/dotnet-bin.spec",
         "podman-bin/podman-bin.spec",
         "kitty-bin/kitty-bin.spec",
@@ -46,6 +45,13 @@ class OptBundleTest(unittest.TestCase):
             self.assertIn("ln -s", body, spec)
             self.assertTrue("%{_bindir}" in body or "/usr/bin" in body,
                             "%s has no /usr/bin entry point" % spec)
+
+    def test_rust_is_a_distro_toolchain_not_an_opt_bundle(self):
+        """rust is built from source, so it installs under /usr, not /opt."""
+        body = before_changelog(read("rust/rust.spec"))
+        self.assertNotIn("/opt", body)
+        self.assertIn('prefix = "%{_prefix}"', body)
+        self.assertIn('libdir = "lib64"', body)
 
     def test_go_is_a_distro_toolchain_not_an_opt_bundle(self):
         """go is built from source, so it lives in /usr/lib64/go, not /opt."""

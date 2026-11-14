@@ -1,23 +1,16 @@
-%global rust_version 1.99.0
-%global musl_target  x86_64-unknown-linux-musl
-
 Name:       tokei
 Version:    15.0.0
-Release:    2
+Release:    3
 Summary:    Count your code, quickly
 License:    MIT OR Apache-2.0
 URL:        https://github.com/XAMPPRocky/tokei
 Source0:    %{name}-%{version}.tar.gz
-Source1:    rust-std-%{rust_version}-%{musl_target}.tar.gz
 Prefix:     /usr
 ExclusiveArch: x86_64
 
 # Upstream publishes no prebuilt binaries for v15.0.0, so the package is
-# built from source against the shipped rust toolchain.  The musl standard
-# library (Source1) is not part of the rust package; it is unpacked into a
-# private sysroot in %prep so the result is a single static-pie binary with
-# no runtime dependencies.
-BuildRequires: rust = %{rust_version}
+# built from source with the distro rust toolchain.
+BuildRequires: rust
 BuildRequires: make-ca
 
 %description
@@ -29,43 +22,26 @@ for tooling.
 %prep
 %setup -q
 
-# Build a private sysroot: the host toolchain from /opt/rust plus the musl
-# standard library, which the rust package does not ship.
-mkdir -p sysroot/lib/rustlib
-ln -s /opt/rust/bin sysroot/bin
-ln -s /opt/rust/share sysroot/share
-for f in /opt/rust/lib/*; do
-    case "$f" in
-        */rustlib) continue ;;
-    esac
-    ln -s "$f" sysroot/lib/
-done
-for f in /opt/rust/lib/rustlib/*; do
-    case "$f" in
-        */%{musl_target}) continue ;;
-    esac
-    ln -s "$f" sysroot/lib/rustlib/
-done
-tar -xzf %{SOURCE1}
-cp -a rust-std-%{rust_version}-%{musl_target}/rust-std-%{musl_target}/lib/rustlib/%{musl_target} \
-      sysroot/lib/rustlib/
-
 %build
-export PATH=/opt/rust/bin:$PATH
 export CARGO_HOME="$PWD/cargo-home"
-export RUSTFLAGS="--sysroot=$PWD/sysroot -C linker=/opt/rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/rust-lld -C strip=symbols"
+export RUSTFLAGS="-C strip=symbols"
 mkdir -p "$CARGO_HOME"
-cargo build --locked --release --target %{musl_target} -j4
+cargo build --locked --release -j4
 
 %install
 rm -rf %{buildroot}
-install -Dm755 target/%{musl_target}/release/tokei %{buildroot}%{_bindir}/tokei
+install -Dm755 target/release/tokei %{buildroot}%{_bindir}/tokei
 install -Dm644 LICENCE-APACHE %{buildroot}%{_licensedir}/tokei/LICENCE-APACHE
 install -Dm644 LICENCE-MIT %{buildroot}%{_licensedir}/tokei/LICENCE-MIT
 
 %files -f %{_sourcedir}/tokei.filelist
 
 %changelog
+* Sat Nov 14 2026 tenko <build@tenko.invalid> 15.0.0-3
+- Build with the source-built distro rust as an ordinary glibc binary.
+  The static musl build relied on upstream's prebuilt musl standard
+  library, which only matches upstream's own compiler binaries.
+
 * Fri Nov 13 2026 tenko <build@tenko.invalid> 15.0.0-2
 - Download the crates at build time (pinned by Cargo.lock, --locked)
   instead of from a separately hosted vendor bundle.  Same version.

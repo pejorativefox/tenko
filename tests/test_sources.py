@@ -19,7 +19,7 @@ import fetch_sources  # noqa: E402
 # How a spec shows it builds with each toolchain; the toolchain packages
 # build themselves from an installed toolchain.
 TOOLCHAINS = {r"(?m)^\s*go (build|run)\b": ("go", {"go"}),
-              r"/opt/rust\b": ("rust", {"rust"})}
+              r"CARGO_HOME=": ("rust", {"rust"})}
 
 
 class SourcesTest(unittest.TestCase):

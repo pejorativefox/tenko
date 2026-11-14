@@ -20,7 +20,6 @@ that expose a Rust implementation through a C API.
 cp %{SOURCE1} Cargo.lock
 
 %build
-export PATH=/opt/rust/bin:$PATH
 export CARGO_HOME="$PWD/cargo-home"
 mkdir -p "$CARGO_HOME"
 cargo build --locked --release -j4

@@ -42,7 +42,6 @@ sed -e "/OUTDIR/s|,| / 'librsvg-%{version}', '--no-namespace-dir',|" \
     -i doc/meson.build
 
 %build
-export PATH=/opt/rust/bin:$PATH
 export CARGO_HOME="$PWD/cargo-home"
 export CARGO_BUILD_JOBS=4
 mkdir -p "$CARGO_HOME"
@@ -62,7 +61,6 @@ popd
 
 %install
 rm -rf %{buildroot}
-export PATH=/opt/rust/bin:$PATH
 export CARGO_HOME="$PWD/cargo-home"
 pushd build
 DESTDIR=%{buildroot} ninja install
