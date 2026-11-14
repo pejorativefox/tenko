@@ -1,0 +1,3 @@
+%dir /usr/libexec/catatonit
+/usr/libexec/catatonit/catatonit
+/usr/libexec/podman/catatonit
