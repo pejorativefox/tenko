@@ -69,6 +69,9 @@ BuildRequires: readline
   tools (`texinfo`, `groff`, `gperf`), Python build backends
   (`python-setuptools`, `python-flit-core`) and the whole pkg-config chain a
   `.pc` file pulls in (`.pc` files generate no RPM requirements here).
+- A package that needs nothing beyond `tenko-buildroot` says so with the
+  comment `# BuildRequires: none (toolchain only)` in the preamble, so the
+  spec rules can tell it from an undeclared one.
 - New and changed specs must build with `STRICT=1 ./tenko build <name>`.
   `./tenko builddeps --out OUT <name>` proposes missing lines from a failed
   log and the built RPMs.

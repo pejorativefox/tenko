@@ -133,7 +133,8 @@ class AllowListedRulesTest(unittest.TestCase):
     def test_build_requires_are_declared(self):
         self.check("buildrequires", lambda spec: (
             not (spec.parent / "nosources").exists()
-            and not re.search(r"^BuildRequires:", preamble_and_body(spec), re.M)))
+            and not re.search(r"^(BuildRequires:|# BuildRequires: none\b)",
+                              preamble_and_body(spec), re.M)))
 
 
 if __name__ == "__main__":
