@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/grep/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 grep is a command-line utility for searching plain-text data sets for lines that match a regular expression. 
 

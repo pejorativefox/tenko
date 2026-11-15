@@ -7,6 +7,8 @@ URL:        https://github.com/besser82/libxcrypt
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Libxcrypt package contains a modern library for one-way hashing of passwords.
 

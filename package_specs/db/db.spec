@@ -7,6 +7,8 @@ URL:        https://www.oracle.com/database/technologies/related/berkeleydb.html
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Berkeley DB is an embedded database library providing transactions,
 replication and a B-tree access method.

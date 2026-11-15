@@ -7,6 +7,8 @@ URL:        https://github.com/dosfstools/dosfstools
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 dosfstools consists of the programs mkfs.fat, fsck.fat and fatlabel to create, check and label file systems of the FAT family. 
 

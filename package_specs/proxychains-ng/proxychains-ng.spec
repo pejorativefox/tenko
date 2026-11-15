@@ -7,6 +7,8 @@ URL:        https://github.com/rofl0r/proxychains-ng
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 ProxyChains-NG is a preloader which hooks calls to sockets in dynamically
 linked programs and redirects them through one or more SOCKS4a, SOCKS5 or HTTP

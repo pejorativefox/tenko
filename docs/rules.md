@@ -77,7 +77,8 @@ BuildRequires: readline
 - A package that needs nothing beyond `tenko-buildroot` says so with the
   comment `# BuildRequires: none (toolchain only)` in the preamble, so the
   spec rules can tell it from an undeclared one.
-- New and changed specs must build with `STRICT=1 ./tenko build <name>`.
+- New and changed specs must build with `./tenko build <name>`, which
+  sees only `tenko-buildroot` and the declared dependencies.
   `./tenko builddeps --out OUT <name>` proposes missing lines from a failed
   log and the built RPMs.
 - An optional dependency the package can use should be declared so the
@@ -97,6 +98,9 @@ BuildRequires: readline
 - `%files -f %{_sourcedir}/<name>.filelist`: a static list in `files/`,
   generated with `./tenko filelist --rpm` or `--tree` (see
   [build.md](build.md#static-filelists)).  No globs.
+  A file whose name the build derives (rust's `librustc_driver-<hash>.so`)
+  goes in a second list written in `%install`, which checks it matches
+  exactly one file.
 - Do not own directories that `tenko-basefs` or the shared documentation
   trees own (`/usr/bin`, `/usr/share`, `/usr/share/man/man1`, ...);
   `tenko filelist` leaves them out.

@@ -7,6 +7,8 @@ URL:        https://metacpan.org/dist/File-ShareDir-Install
 Source0:    File-ShareDir-Install-0.14.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 File::ShareDir::Install is a Perl build-time module that installs
 distribution shared files into the vendor shared directory.

@@ -8,6 +8,8 @@ Source0:    %{name}-%{version}.tar.gz
 Patch0:     %{name}-%{version}-bugfixes-1.patch
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Power Management Utilities provide simple shell command line tools to suspend and hibernate the computer. They can be used to run user supplied scripts on suspend and resume.
 

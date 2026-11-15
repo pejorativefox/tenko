@@ -21,6 +21,8 @@ ExclusiveArch: x86_64
 AutoProv: no
 AutoReq: no
 
+# BuildRequires: none (toolchain only)
+
 %description
 Noto Color Emoji is the color emoji face from the Noto project.  It is the
 COLRv1 build published through Google Fonts (the same face as the noto-emoji

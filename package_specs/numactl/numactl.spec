@@ -7,6 +7,8 @@ URL:        https://github.com/numactl/numactl
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 numactl provides libnuma plus the numactl, numastat, numademo,
 migratepages, migspeed and memhog tools for querying and setting the

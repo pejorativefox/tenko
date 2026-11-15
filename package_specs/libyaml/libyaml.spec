@@ -7,6 +7,8 @@ URL:        https://pyyaml.org/wiki/LibYAML
 Prefix:     /usr
 Source0:    yaml-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 LibYAML is a YAML 1.1 parser and emitter written in C.
 

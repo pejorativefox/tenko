@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.gnome.org/GNOME/libxml2
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+
+# BuildRequires: none (toolchain only)
+
 %description
 The libxml2 package contains libraries and utilities used for parsing XML files. 
 

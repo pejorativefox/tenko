@@ -7,6 +7,8 @@ URL:        https://www.netfilter.org/projects/iptables/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Firewall tool
 

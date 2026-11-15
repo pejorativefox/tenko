@@ -367,7 +367,6 @@
 /usr/share/keymaps/i386/dvorak/dvorak-ukp.map.gz
 /usr/share/keymaps/i386/dvorak/dvorak.map.gz
 /usr/share/keymaps/i386/fgGIod/tr_f-latin5.map.gz
-/usr/share/keymaps/i386/fgGIod/tr_f-latin5.map.orig
 /usr/share/keymaps/i386/fgGIod/trf.map.gz
 /usr/share/keymaps/i386/hcesar/hcesar.map.gz
 /usr/share/keymaps/i386/include/applkey.map.gz
@@ -507,7 +506,6 @@
 /usr/share/keymaps/i386/qwerty/sv-latin1.map.gz
 /usr/share/keymaps/i386/qwerty/tj_alt-UTF8.map.gz
 /usr/share/keymaps/i386/qwerty/tr_q-latin5.map.gz
-/usr/share/keymaps/i386/qwerty/tr_q-latin5.map.orig
 /usr/share/keymaps/i386/qwerty/tralt.map.gz
 /usr/share/keymaps/i386/qwerty/trf.map.gz
 /usr/share/keymaps/i386/qwerty/trq.map.gz

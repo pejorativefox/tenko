@@ -8,6 +8,8 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
 
+# BuildRequires: none (toolchain only)
+
 %description
 libndp provides a wrapper for the IPv6 Neighbor Discovery Protocol. It also
 includes ndptool, a utility for sending and receiving NDP messages.

@@ -21,6 +21,8 @@ ExclusiveArch: x86_64
 AutoProv: no
 AutoReq: no
 
+# BuildRequires: none (toolchain only)
+
 %description
 This package ships the "Symbols Nerd Font" and "Symbols Nerd Font Mono"
 faces from the Nerd Fonts release archive.  They contain the icon ranges

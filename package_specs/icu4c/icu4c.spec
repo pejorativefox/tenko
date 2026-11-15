@@ -7,6 +7,8 @@ URL:        https://icu.unicode.org/
 Source0:    %{name}-%{version}-sources.tgz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 ICU is a mature, widely used set of C/C++ libraries providing Unicode and
 globalization support for software applications.  This package provides the

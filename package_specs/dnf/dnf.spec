@@ -14,6 +14,8 @@ Requires:   python3-rpm
 Requires:   /usr/bin/python3
 Requires:   coreutils
 
+# BuildRequires: none (toolchain only)
+
 %description
 dnf is the package manager used to install the Tenko repository.  This
 is the current release of the dnf 4 branch (Python based), which supports

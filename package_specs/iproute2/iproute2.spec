@@ -7,6 +7,8 @@ URL:        https://git.kernel.org/pub/scm/network/iproute2/iproute2.git/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 iproute2 is a collection of userspace utilities for controlling and monitoring various aspects of networking in the Linux kernel
 

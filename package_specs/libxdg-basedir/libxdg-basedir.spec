@@ -7,6 +7,8 @@ Prefix:     /usr
 URL:        https://github.com/devnev/libxdg-basedir
 Source0:    %{name}-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 libxdg-basedir is a small library implementing the XDG Base Directory
 specification, used by awesome to locate configuration, data and cache

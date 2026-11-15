@@ -29,6 +29,8 @@ Requires:   xz
 Requires:   curl
 Requires:   git
 
+# BuildRequires: none (toolchain only)
+
 %description
 pyenv lets you easily switch between multiple versions of Python.  It is a
 set of shell scripts that shim the python, pip and other interpreter

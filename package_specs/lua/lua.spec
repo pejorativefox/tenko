@@ -10,6 +10,8 @@ Patch0:     lua-5.4.8-shared_library-1.patch
 
 Provides: liblua.so.5.4()(64bit)
 
+# BuildRequires: none (toolchain only)
+
 %description
 Lua is a lightweight, high-level, multi-paradigm programming language designed primarily for embedded use in applications.
 

@@ -8,6 +8,8 @@ Source0:    %{name}-%{version}.tar.gz
 Patch0:     fakeroot-ng-0.18-sched.patch
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 fakeroot-ng simulates a root user for package builds by intercepting the
 relevant system calls with ptrace.

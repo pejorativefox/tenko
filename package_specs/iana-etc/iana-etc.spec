@@ -7,6 +7,8 @@ URL:        https://github.com/Mic92/iana-etc
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Protocol parameter registries represent the authoritative record of many of the codes and numbers contained in a variety of Internet protocols.
 

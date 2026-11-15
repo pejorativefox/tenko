@@ -7,6 +7,8 @@ URL:        https://gnupg.org/software/libassuan/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 
+# BuildRequires: none (toolchain only)
+
 %description
 libassuan is the IPC library used by GnuPG, gpgme and the dnf/librepo
 dependency chain.  It depends on libgpg-error.

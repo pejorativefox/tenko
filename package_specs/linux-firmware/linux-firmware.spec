@@ -30,6 +30,8 @@ Requires:   linux-firmware-bluetooth = %{version}-%{release}
 Requires:   linux-firmware-nic = %{version}-%{release}
 Requires:   linux-firmware-other = %{version}-%{release}
 
+# BuildRequires: none (toolchain only)
+
 %description
 Curated subset of the Linux firmware repository for the hardware enabled by
 the Tenko kernel: AMD, Intel and NVIDIA GPUs; Intel, MediaTek, Atheros,

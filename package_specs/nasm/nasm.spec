@@ -8,6 +8,8 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
 
+# BuildRequires: none (toolchain only)
+
 %description
 NASM is the Netwide Assembler, a portable assembler for x86 and x86-64. It
 supports many output formats, including ELF, Mach-O, COFF and raw binary.

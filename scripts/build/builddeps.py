@@ -8,7 +8,7 @@ Two kinds of evidence, mapped to packages through the offline mirror:
     against or installed scripts for.  By default the newest RPMs in
     build/repo or the mirror are used, so nothing has to be built first.
   * a build log (`--out OUT` reads OUT/logs/<pkg>.log): pkg-config, meson,
-    CMake, missing commands and missing Perl modules.  Run a STRICT=1 build
+    CMake, missing commands and missing Perl modules.  Run a build
     first to get a log that shows what the buildroot lacks.
 
 Packages already in the buildroot (tenko-buildroot's closure), already
@@ -18,7 +18,7 @@ never edited.
 
 Usage:
     tenko builddeps xsetroot
-    STRICT=1 OUT=build/x tenko build xsetroot; tenko builddeps --out build/x xsetroot
+    OUT=build/x tenko build xsetroot; tenko builddeps --out build/x xsetroot
 """
 
 import argparse
@@ -32,7 +32,6 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 SPECS = os.path.join(ROOT, "package_specs")
 CACHE = os.environ.get("TENKO_REPO_CACHE", os.path.join(ROOT, "build", "cache", "repo"))
 LOCAL = os.environ.get("TENKO_LOCAL_REPO", os.path.join(ROOT, "build", "repo"))
-BUILD_IMAGE = os.environ.get("BUILD_IMAGE", "localhost/tenko/build:r6")
 BUILDROOT_IMAGE = os.environ.get("BUILDROOT_IMAGE", "localhost/tenko/buildroot:r6")
 
 # (regex, capability template, label).  Optional meson dependencies that
@@ -157,7 +156,7 @@ done
     mounts += ["-v", (LOCAL if os.path.isdir(os.path.join(LOCAL, "repodata"))
                       else CACHE) + ":/repo/local:ro,z"]
     out = run(["podman", "run", "--rm", "-i", "--network=none", *mounts,
-               BUILD_IMAGE, "bash", "-c", script], input="\n".join(caps) + "\n")
+               BUILDROOT_IMAGE, "bash", "-c", script], input="\n".join(caps) + "\n")
     providers = {}
     for line in out.splitlines():
         cap, pkg = line.split("\t")

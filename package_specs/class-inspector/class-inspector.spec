@@ -7,6 +7,8 @@ URL:        https://metacpan.org/dist/Class-Inspector
 Source0:    Class-Inspector-1.36.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Class::Inspector provides an inspection interface for Perl classes: the
 methods, source file, loaded state and inheritance information.

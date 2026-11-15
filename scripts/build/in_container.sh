@@ -10,10 +10,9 @@
 #
 # The spec's BuildRequires are installed from those two repositories,
 # followed by their pkg-config closure (tenko-builddep, run from /specs so the
-# image needs no rebuild when it changes), then rpmbuild runs.  STRICT=0 (phase 1, the default) installs whatever
-# BuildRequires resolve and still builds with --nodeps against the image's
-# full toolchain; STRICT=1 fails on any unresolvable BuildRequires and drops
-# --nodeps, so the spec must declare everything it needs.
+# image needs no rebuild when it changes), then rpmbuild runs without
+# --nodeps.  An unresolvable BuildRequires fails the build: the image holds
+# only tenko-buildroot, so the spec must declare everything it needs.
 #
 # Usage (inside the container): in_container.sh <dir>/<name>.spec
 set -uo pipefail
@@ -21,7 +20,6 @@ set -uo pipefail
 rel=${1:?usage: in_container.sh SPEC}
 spec=/specs/$rel
 MAKE_JOBS=${MAKE_JOBS:-4}
-STRICT=${STRICT:-0}
 
 repos=(--disablerepo='*' --nogpgcheck
        --repofrompath=local,file:///repo/local
@@ -32,7 +30,7 @@ defines=(--define "_topdir /work" --define "_sourcedir /work/SOURCES"
          --define "_smp_mflags -j$MAKE_JOBS"
          --define "_smp_build_ncpus $MAKE_JOBS")
 
-echo "=== $rel (STRICT=$STRICT) in $(rpm -q --qf "%{name}-%{version}-%{release}" tenko-buildroot tenko-base 2>/dev/null | grep -v "not installed" | head -1)"
+echo "=== $rel in $(rpm -q --qf "%{name}-%{version}-%{release}" tenko-buildroot tenko-base 2>/dev/null | grep -v "not installed" | head -1)"
 
 if ! mapfile -t reqs < <(rpmspec -q --buildrequires "${defines[@]}" "$spec"); then
     echo "error: rpmspec could not parse $rel" >&2
@@ -40,15 +38,8 @@ if ! mapfile -t reqs < <(rpmspec -q --buildrequires "${defines[@]}" "$spec"); th
 fi
 if [ ${#reqs[@]} -gt 0 ]; then
     echo "=== BuildRequires: ${reqs[*]}"
-    if [ "$STRICT" = 1 ]; then
-        dnf -y "${repos[@]}" install "${reqs[@]}" || {
-            echo "error: BuildRequires not satisfiable (STRICT=1)" >&2; exit 1; }
-    else
-        # strict=0 skips names no repository provides instead of failing
-        # the whole transaction; the build then relies on the image.
-        dnf -y "${repos[@]}" --setopt=strict=0 install "${reqs[@]}" ||
-            echo "warning: BuildRequires install failed; building with the image as is" >&2
-    fi
+    dnf -y "${repos[@]}" install "${reqs[@]}" || {
+        echo "error: BuildRequires not satisfiable" >&2; exit 1; }
     # .pc Requires are not RPM requirements here (macros.tenko): install the
     # packages the declared libraries' .pc files name.
     bash /specs/tenko-rpm-config/files/tenko-builddep "${repos[@]}" -- "${reqs[@]}"
@@ -68,12 +59,9 @@ fi
 export PIP_NO_BUILD_ISOLATION=1 PIP_IGNORE_INSTALLED=1
 export PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=/work/pip-cache
 
-nodeps=(--nodeps)
-[ "$STRICT" = 1 ] && nodeps=()
-
 echo "=== rpmbuild"
 mkdir -p /work/{BUILD,BUILDROOT,RPMS,SRPMS,SPECS}
-rpmbuild -bb "${nodeps[@]}" "${defines[@]}" "$spec" || exit 1
+rpmbuild -bb "${defines[@]}" "$spec" || exit 1
 
 # Keep failed trees for diagnosis; successful trees are just disk.
 rm -rf /work/BUILD /work/BUILDROOT /work/pip-cache

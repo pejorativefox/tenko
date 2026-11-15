@@ -7,6 +7,8 @@ URL:        https://www.hadrons.org/software/libmd/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Message digest library used by libbsd.
 

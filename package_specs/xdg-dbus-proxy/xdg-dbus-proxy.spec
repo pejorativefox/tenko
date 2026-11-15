@@ -7,6 +7,8 @@ URL:        https://github.com/flatpak/xdg-dbus-proxy
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 filtering proxy for D-Bus connections
 

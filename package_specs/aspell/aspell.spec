@@ -7,6 +7,8 @@ URL:        http://aspell.net/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Aspell is a spell checker library and command line tool, with a
 separate dictionary per language.

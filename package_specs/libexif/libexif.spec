@@ -7,6 +7,8 @@ URL:        https://libexif.github.io/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 
+# BuildRequires: none (toolchain only)
+
 %description
 libexif is a library for parsing, editing and saving EXIF metadata.
 

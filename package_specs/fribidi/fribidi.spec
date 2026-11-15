@@ -8,6 +8,8 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 Provides: pkgconfig(fribidi)
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Free Implementation of the Unicode Bidirectional Algorithm.
 

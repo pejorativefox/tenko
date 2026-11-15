@@ -7,6 +7,8 @@ URL:        https://gitlab.freedesktop.org/xdg/desktop-file-utils
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 Utilities for validating and updating desktop entries and the MIME database.
 

@@ -7,6 +7,8 @@ URL:        https://gmplib.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Library for arbitrary precision arithmetic
 

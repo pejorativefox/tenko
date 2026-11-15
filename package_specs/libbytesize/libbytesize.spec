@@ -7,6 +7,8 @@ URL:        https://github.com/storaged-project/libbytesize
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libbytesize is a small library for working with sizes in bytes.  It parses
 human-readable size strings, formats byte counts with binary and decimal

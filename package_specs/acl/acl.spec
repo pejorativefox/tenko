@@ -7,6 +7,8 @@ URL:        https://savannah.nongnu.org/projects/acl/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Acl package contains utilities to administer Access Control Lists, which are used to
 define more fine-grained discretionary access rights for files and directories. 

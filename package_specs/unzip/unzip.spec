@@ -9,6 +9,8 @@ Source0:    unzip60.tar.gz
 Patch0:     unzip-6.0-consolidated_fixes-1.patch
 Patch1:     unzip-6.0-gcc14-1.patch
 
+# BuildRequires: none (toolchain only)
+
 %description
 UnZip is an extraction utility for archives compressed in .zip format
 (also called "zipfiles").  Although highly compatible both with PKWARE's

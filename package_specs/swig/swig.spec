@@ -7,6 +7,8 @@ URL:        https://www.swig.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 SWIG is a software development tool that connects programs written in C
 and C++ with a variety of high-level programming languages.

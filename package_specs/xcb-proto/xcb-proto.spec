@@ -7,6 +7,8 @@ URL:        https://gitlab.freedesktop.org/xorg/proto/xcbproto
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The xcb-proto package provides the XML-XCB protocol descriptions that libxcb uses to generate the majority of its code and API. 
 

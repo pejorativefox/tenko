@@ -1,12 +1,14 @@
 Name:       kbd
 Version:    2.10.0
-Release:    3
+Release:    4
 Summary:    Utilities for managing Linux console
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:        https://kbd-project.org/
 Source0:    %{name}-%{version}.tar.xz
 Patch0:      kbd-2.10.0-backspace-1.patch
 Prefix:     /usr
+
+# BuildRequires: none (toolchain only)
 
 %description
 The kbd project contains utilities for managing Linux console (Linux console, virtual terminals, keyboard, etc.) – mainly, what they do is loading console fonts and keyboard maps.
@@ -20,7 +22,7 @@ Translations for kbd.
 
 %prep
 %setup -q 
-%patch -P 0 -p1
+%patch -P 0 -p1 -F2
 
 %build
 sed -i 's/\(RESIZECONS_PROGS=\)yes/\1no/g' configure
@@ -39,6 +41,11 @@ rm -vf %{buildroot}%{_infodir}/dir*
 
 
 %changelog
+* Sun Nov 15 2026 tenko <build@tenko.invalid> 2.10.0-4
+- Apply the backspace patch with %patch -F2 (it needs fuzz) and stop
+  shipping the tr_f-latin5.map.orig and tr_q-latin5.map.orig patch backups
+  the old patch -Np1 left in the keymaps (#58).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 2.10.0-3
 - Record the verified license (GPL-2.0-or-later AND LGPL-2.0-or-later): README and src/include/keymap.h (issue #8).
 

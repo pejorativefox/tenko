@@ -7,6 +7,8 @@ URL:        https://gitlab.freedesktop.org/xorg/font/alias
 Prefix:     /usr
 Source0:    font-alias-1.0.6.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 font-alias provides the X core font alias files.
 

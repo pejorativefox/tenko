@@ -9,6 +9,8 @@ Source0:    luit-20260907.tgz
 
 
 
+# BuildRequires: none (toolchain only)
+
 %description
 Encoding converter for X11 terminals.
 

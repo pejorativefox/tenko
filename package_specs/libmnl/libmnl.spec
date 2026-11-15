@@ -7,6 +7,8 @@ URL:        https://www.netfilter.org/projects/libmnl/
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libmnl is a minimalistic user-space library oriented to Netlink developers.
 It provides a small set of functions for common Netlink tasks, including

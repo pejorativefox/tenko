@@ -7,6 +7,8 @@ URL:        https://htop.dev
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 htop is an interactive system-monitor process viewer for Linux.  It shows a
 frequently updated list of the running processes, sorted by CPU, memory or

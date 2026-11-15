@@ -7,6 +7,8 @@ URL:        https://libpipeline.gitlab.io/libpipeline/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 C library for manipulating pipelines of subprocesses
 

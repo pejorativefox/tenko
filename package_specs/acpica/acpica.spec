@@ -7,6 +7,8 @@ URL:        https://www.acpica.org/
 Source0:    acpica-unix-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 ACPICA is the reference implementation of the ACPI specification.  It
 provides the Intel ACPI Source Language compiler (iasl), the disassembler,

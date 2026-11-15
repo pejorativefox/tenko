@@ -7,6 +7,8 @@ URL:        https://libsigcplusplus.github.io/libsigcplusplus/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libsigc++ provides a typesafe (at compile time) callback system for standard C++.
 

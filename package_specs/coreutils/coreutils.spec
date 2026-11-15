@@ -8,6 +8,8 @@ Source0:    %{name}-%{version}.tar.xz
 Patch0:     coreutils-9.12-i18n-1.patch
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The GNU Core Utilities are the basic file, shell and text manipulation utilities of the GNU operating system.
 
@@ -20,7 +22,7 @@ Translations for coreutils.
 
 %prep
 %setup -q
-%patch -P 0 -p1
+%patch -P 0 -p1 -F2
 # The i18n patch touches tests/local.mk.  The tarball's Makefile.in was
 # generated with automake 1.18; refreshing its timestamp avoids an
 # unnecessary automake run (the patched file only feeds the test harness).

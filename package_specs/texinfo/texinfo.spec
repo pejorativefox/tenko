@@ -11,6 +11,8 @@ AutoReq: no
 
 Requires: libc.so.6()(64bit), libncursesw.so.6()(64bit), perl >= 0:5.004
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Texinfo package contains programs for reading, writing, and converting info pages. 
 

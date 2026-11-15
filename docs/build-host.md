@@ -43,15 +43,14 @@ checkout's `build/` and every worktree shares them.
 
 ```sh
 ./tenko sync                  # mirror the published repo into build/cache/repo (~3 GiB)
-./tenko image build           # full build image, localhost/tenko/build:r6
-./tenko image build --strict  # toolchain buildroot, localhost/tenko/buildroot:r6
+./tenko image build           # build image (toolchain buildroot), localhost/tenko/buildroot:r6
 ./tenko build bc              # build one package
 ./tenko check                 # unit tests and static checks
 ```
 
 `tenko build` runs the sync and image steps itself when they are needed,
 so the explicit calls only show what happens on a fresh host.  Plan for at
-least 10 GiB of free space: the mirror (~3 GiB), the two images (~2 GiB),
+least 10 GiB of free space: the mirror (~3 GiB), the build image (~1 GiB),
 source tarballs and build output.
 
 ## 5. Publishing credentials

@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/mtools/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Mtools is a collection of utilities to access MS-DOS disks (FAT filesystems)
 from GNU and Unix without mounting them.  The Tenko UEFI installer uses

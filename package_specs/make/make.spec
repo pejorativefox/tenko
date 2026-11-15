@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/make/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Make package contains a program for controlling the generation of executables and other non-source files of a package from source files.
 

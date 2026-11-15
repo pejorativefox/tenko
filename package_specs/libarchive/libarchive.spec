@@ -7,6 +7,8 @@ URL:        https://libarchive.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The libarchive library provides a single interface for reading/writing various compression formats. 
 

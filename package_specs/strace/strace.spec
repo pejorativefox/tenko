@@ -7,6 +7,8 @@ URL:        https://strace.io/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 strace is a diagnostic, debugging and instructional userspace tracer.  It
 records the system calls and signals received by a process, together with

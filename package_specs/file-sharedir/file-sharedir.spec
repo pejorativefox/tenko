@@ -7,6 +7,8 @@ URL:        https://metacpan.org/dist/File-ShareDir
 Source0:    File-ShareDir-1.118.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 File::ShareDir is a Perl module that locates per-distribution and
 per-module shared files installed alongside the module.

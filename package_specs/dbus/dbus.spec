@@ -9,6 +9,8 @@ URL:        https://gitlab.freedesktop.org/dbus/dbus
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 D-BUS is a system for sending messages between applications.
 

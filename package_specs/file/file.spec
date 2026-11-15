@@ -7,6 +7,8 @@ URL:        https://github.com/file/file
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 A file type guesser
 

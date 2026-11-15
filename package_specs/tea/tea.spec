@@ -21,6 +21,8 @@ AutoReq: no
 # tea talks HTTPS to the Gitea server from its own Go TLS stack.
 Requires: make-ca
 
+# BuildRequires: none (toolchain only)
+
 %description
 tea is the official command line tool to interact with Gitea servers:
 issues, pulls, organizations, releases and notifications from the terminal.

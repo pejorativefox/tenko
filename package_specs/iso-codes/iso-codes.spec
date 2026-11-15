@@ -7,6 +7,8 @@ URL:        https://salsa.debian.org/iso-codes-team/iso-codes
 Prefix:     /usr
 Source0:    iso-codes-v4.20.1.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 iso-codes provides lists of various ISO standards, such as country,
 language, language script and currency names, in one place rather than

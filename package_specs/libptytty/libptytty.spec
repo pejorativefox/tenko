@@ -7,6 +7,8 @@ URL:        http://software.schmorp.de/pkg/libptytty.html
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libptytty is an OS independent and secure pty/tty and utmp/wtmp/lastlog
 handling library, used by rxvt-unicode.

@@ -13,6 +13,8 @@ Provides:   libpanel.so.6()(64bit)
 Provides:   libmenu.so.6()(64bit)
 Provides:   libtinfo.so.6(NCURSES_6.0)(64bit)
 
+# BuildRequires: none (toolchain only)
+
 %description
 The ncurses (new curses) library is a free software emulation of curses in System V Release 4.0 (SVr4), and more. 
 

@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/bison/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 GNU parser generator
 

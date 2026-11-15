@@ -7,6 +7,8 @@ URL:        https://sourceware.org/elfutils/
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Libelf is a library for handling ELF (Executable and Linkable Format) files. 
 

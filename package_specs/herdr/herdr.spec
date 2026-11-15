@@ -22,6 +22,8 @@ Requires: git
 Requires: make-ca
 Requires: bash
 
+# BuildRequires: none (toolchain only)
+
 %description
 Herdr is a terminal workspace and agent multiplexer, split into workspaces,
 tabs and panes with persistent sessions.  This package installs the official

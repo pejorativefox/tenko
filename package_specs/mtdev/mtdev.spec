@@ -7,6 +7,8 @@ URL:        https://bitmath.se/org/code/mtdev/
 Prefix:     /usr
 Source0:    mtdev-1.1.7.tar.bz2
 
+# BuildRequires: none (toolchain only)
+
 %description
 mtdev converts kernel multitouch events to the MT protocol.
 

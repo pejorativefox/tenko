@@ -7,6 +7,8 @@ URL:        https://github.com/pkgconf/pkgconf
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Successor to pkg-config and contains a tool for passing the include path and/or library paths to build tools during the configure and make phases of package installations. 
 

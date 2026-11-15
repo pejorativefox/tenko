@@ -111,6 +111,15 @@ class HardRulesTest(unittest.TestCase):
         self.assertEqual(inline, {}, "move the entries to files/<package>.filelist "
                          "and use %files -f %{_sourcedir}/<package>.filelist")
 
+    def test_build_requires_are_declared(self):
+        # Builds see only tenko-buildroot: a spec declares what it needs, or
+        # says it needs nothing more with "# BuildRequires: none".
+        undeclared = [name for name, spec in specs()
+                      if not (spec.parent / "nosources").exists()
+                      and not re.search(r"^(BuildRequires:|# BuildRequires: none\b)",
+                                        preamble_and_body(spec), re.M)]
+        self.assertEqual(undeclared, [], "declare BuildRequires (docs/rules.md)")
+
 
 class AllowListedRulesTest(unittest.TestCase):
     """Each rule: the set of specs breaking it must equal its allow-list."""
@@ -129,12 +138,6 @@ class AllowListedRulesTest(unittest.TestCase):
 
     def test_filelists_do_not_own_shared_directories(self):
         self.check("shared-dirs", lambda spec: owns_shared_dir(spec.parent))
-
-    def test_build_requires_are_declared(self):
-        self.check("buildrequires", lambda spec: (
-            not (spec.parent / "nosources").exists()
-            and not re.search(r"^(BuildRequires:|# BuildRequires: none\b)",
-                              preamble_and_body(spec), re.M)))
 
 
 if __name__ == "__main__":

@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/libidn/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 libidn2 implements the IDNA2008, TR46 and IDNA2003 standards for
 internationalized domain names (punycode conversion, validation and

@@ -7,6 +7,8 @@ URL:        https://www.bytereef.org/mpdecimal/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libmpdec is a library for arbitrary precision correctly rounded decimal
 floating point arithmetic.

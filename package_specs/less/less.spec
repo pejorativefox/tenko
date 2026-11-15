@@ -7,6 +7,8 @@ URL:        https://www.greenwoodsoftware.com/less/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Less is a free, open-source file pager. 
 

@@ -9,6 +9,8 @@ Prefix:     /usr
 
 Provides: /bin/gawk
 
+# BuildRequires: none (toolchain only)
+
 %description
 Gawk is a powerful text-processing and data-manipulating tool
 

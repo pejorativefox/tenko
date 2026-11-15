@@ -8,6 +8,8 @@ Prefix:     /usr
 Source0:    sassc-3.6.2.tar.gz
 Source1:    libsass-3.6.6.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 sassc is a command-line wrapper around libsass for compiling SCSS
 stylesheets.  libsass is linked statically into the binary, so the

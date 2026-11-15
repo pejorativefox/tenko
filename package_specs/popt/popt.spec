@@ -7,6 +7,8 @@ URL:        https://github.com/rpm-software-management/popt
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 popt command line option parsing library.
 

@@ -7,6 +7,8 @@ URL:        https://snowballstem.org/
 Source0:    libstemmer_c-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libstemmer provides the Snowball stemming algorithms as a C library
 (libstemmer_c).  It is used by text search and indexing software to

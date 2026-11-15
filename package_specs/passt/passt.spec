@@ -9,6 +9,8 @@ Prefix:     /usr
 # The avx2 binaries and the file list are x86_64-specific.
 ExclusiveArch: x86_64
 
+# BuildRequires: none (toolchain only)
+
 %description
 passt implements a translation layer between a Layer-2 network interface and
 native Layer-4 sockets (TCP, UDP, ICMP/ICMPv6 echo) on a host.  It does not

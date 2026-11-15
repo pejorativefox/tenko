@@ -7,6 +7,8 @@ URL:        https://gitlab.freedesktop.org/xdg/default-icon-theme
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Gnome hicolor icon theme
 

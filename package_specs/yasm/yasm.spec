@@ -7,6 +7,8 @@ URL:        https://github.com/yasm/yasm
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 Yasm is a complete rewrite of the NASM assembler. It supports the x86
 and AMD64 instruction sets, accepts NASM and GAS assembler syntaxes and

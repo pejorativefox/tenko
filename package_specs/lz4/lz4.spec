@@ -7,6 +7,8 @@ URL:        https://lz4.org/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 LZ4 is a lossless compression algorithm, providing compression speed at
 400 MB/s per core, and a fast decoder.

@@ -9,6 +9,8 @@ Source0:    xbitmaps-1.1.4.tar.xz
 
 
 
+# BuildRequires: none (toolchain only)
+
 %description
 Core X11 bitmap image data.
 

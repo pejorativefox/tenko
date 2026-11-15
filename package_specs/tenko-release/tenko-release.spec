@@ -9,6 +9,8 @@ Prefix:     /usr
 Provides: system-release
 Provides: system-release(6)
 
+# BuildRequires: none (toolchain only)
+
 %description
 Release identification for Tenko Linux 6 (Workstation), stable release.
 

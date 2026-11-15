@@ -9,6 +9,8 @@ Source0:    %{name}-%{version}.tar.bz2
 Patch0:     docbook-xsl-nons-1.79.2-stack_fix-1.patch
 Requires:   libxml2
 
+# BuildRequires: none (toolchain only)
+
 %description
 These are XSL stylesheets for transforming DocBook XML document instances
 into various output formats. This package contains the non-namespaced

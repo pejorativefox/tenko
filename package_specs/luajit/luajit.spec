@@ -7,6 +7,8 @@ URL:        https://luajit.org/
 Source0:    luajit-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 LuaJIT is a Just-In-Time compiler for the Lua programming language.  It
 implements the Lua 5.1 language and API with an FFI extension and is

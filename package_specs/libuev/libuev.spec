@@ -7,6 +7,8 @@ URL:        https://github.com/troglobit/libuev
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 Lightweight event loop library for Linux epoll() family APIs
 

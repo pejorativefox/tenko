@@ -7,6 +7,8 @@ URL:        https://gitlab.freedesktop.org/xorg/lib/libxcvt
 Prefix:     /usr
 Source0:    libxcvt-0.1.3.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 libxcvt provides the CVT modeline generation used by Xorg.
 

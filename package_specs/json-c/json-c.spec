@@ -7,6 +7,8 @@ URL:        https://github.com/json-c/json-c
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 JSON-C implements a reference counting object model that allows you to
 easily construct JSON objects in C, output them as JSON formatted strings

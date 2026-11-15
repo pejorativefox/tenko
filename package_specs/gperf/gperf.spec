@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/gperf/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 GNU gperf is a perfect hash function generator.
 

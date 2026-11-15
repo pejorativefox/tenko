@@ -7,6 +7,8 @@ URL:        https://github.com/vcrhonek/hwdata
 Prefix:     /usr
 Source0:    hwdata-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 Hardware identification and configuration data (pci.ids, usb.ids, etc.).
 

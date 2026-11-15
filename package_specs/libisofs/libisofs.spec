@@ -7,6 +7,8 @@ URL:        https://dev.lovelyhq.com/libburnia/web/wiki
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libisofs is a library to create an ISO-9660 filesystem with extensions like
 RockRidge or Joliet.  It is used by libisoburn (xorriso), which the Tenko

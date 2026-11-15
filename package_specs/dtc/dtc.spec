@@ -7,6 +7,8 @@ URL:        https://www.devicetree.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Device Tree Compiler (dtc) translates device tree source into the
 binary blob (DTB) format used by the Linux kernel, and provides the

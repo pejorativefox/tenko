@@ -23,6 +23,8 @@ ExclusiveArch: x86_64
 AutoProv: no
 AutoReq: no
 
+# BuildRequires: none (toolchain only)
+
 %description
 DejaVu Sans Mono is a monospaced TrueType face derived from Bitstream Vera,
 with the Arev glyph additions.  Besides a full Latin/Greek/Cyrillic

@@ -7,6 +7,8 @@ URL:        https://sourceforge.net/projects/acpiclient/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Client for battery, power, and thermal readings.
 

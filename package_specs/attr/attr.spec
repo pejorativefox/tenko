@@ -7,6 +7,8 @@ URL:        https://savannah.nongnu.org/projects/attr/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Commands for Manipulating Filesystem Extended Attributes
 

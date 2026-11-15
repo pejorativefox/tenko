@@ -54,6 +54,8 @@ Requires:   libdbus-1.so.3()(64bit)
 Requires:   hicolor-icon-theme
 Requires:   desktop-file-utils
 
+# BuildRequires: none (toolchain only)
+
 %description
 Mozilla Firefox is a standalone web browser built on the Gecko engine.
 

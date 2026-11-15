@@ -7,6 +7,8 @@ URL:        https://metacpan.org/release/Parse-Yapp
 Source0:    Parse-Yapp-1.21.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Parse::Yapp compiles yacc-like LALR grammars into Perl object-oriented
 parser modules.  It is required at build time by Samba's pidl tooling.

@@ -7,6 +7,8 @@ URL:        https://www.mpfr.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Library for multiple-precision floating-point computation
 

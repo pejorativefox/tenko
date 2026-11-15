@@ -7,6 +7,8 @@ URL:        https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.gi
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 keyutils is a set of utilities and a library for managing the Linux kernel
 key retention facility.  The kernel keyrings store authentication keys,

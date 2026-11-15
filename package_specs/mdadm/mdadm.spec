@@ -7,6 +7,8 @@ URL:        https://git.kernel.org/pub/scm/utils/mdadm/mdadm.git
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The mdadm package contains administration tools for software RAID: mdadm
 to create, manage and monitor MD (Linux software RAID) devices, and mdmon

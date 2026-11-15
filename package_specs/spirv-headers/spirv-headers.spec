@@ -7,6 +7,8 @@ URL:        https://github.com/KhronosGroup/SPIRV-Headers
 Prefix:     /usr
 Source0:    SPIRV-Headers-cb42dec3830d3ac67fa449ecdc0c0f73d5e74498.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Khronos SPIR-V headers: the C and C++ declarations, the JSON grammar
 for the core instruction set and the extended instruction sets, and the

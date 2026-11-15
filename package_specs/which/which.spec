@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/which/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 GNU which shows the full path of (shell) commands installed in your PATH.
 

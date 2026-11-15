@@ -7,6 +7,8 @@ URL:        https://github.com/alsa-project/alsa-lib
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The ALSA Library package contains the ALSA library used by programs
 (including ALSA Utilities) requiring access to the ALSA sound interface.

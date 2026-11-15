@@ -7,6 +7,8 @@ URL:        https://savannah.gnu.org/projects/patch/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Patch package contains a program for modifying or creating files by applying a patch file typically created by the diff program. 
 

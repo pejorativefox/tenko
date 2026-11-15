@@ -7,6 +7,8 @@ URL:        https://github.com/PCRE2Project/pcre2
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 
+# BuildRequires: none (toolchain only)
+
 %description
 PCRE2 is a library of functions to support regular expressions whose syntax
 and semantics are as close as possible to those of the Perl 5 language. It

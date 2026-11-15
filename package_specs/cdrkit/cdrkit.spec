@@ -10,6 +10,8 @@ Patch0:     cdrkit-1.1.11-gcc10.patch
 Patch1:     cdrkit-1.1.11-gcc16.patch
 AutoReq: no
 
+# BuildRequires: none (toolchain only)
+
 %description
 cdrkit is a collection of computer programs for CD and DVD authoring.
 

@@ -7,6 +7,8 @@ URL:        https://firefox-source-docs.mozilla.org/nspr/index.html
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Netscape Portable Runtime (NSPR) provides a platform-neutral API for system level and libc like functions. 
 

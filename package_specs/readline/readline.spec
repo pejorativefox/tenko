@@ -7,6 +7,8 @@ URL:        https://tiswww.case.edu/php/chet/readline/rltop.html
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The GNU Readline library provides a set of functions for use by applications that allow users to edit command lines as they are typed in.
 

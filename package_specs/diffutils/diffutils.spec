@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/diffutils/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 GNU Diffutils is a package of several programs related to finding differences between files.
 

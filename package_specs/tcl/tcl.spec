@@ -7,6 +7,8 @@ URL:        https://www.tcl-lang.org/
 Source0:    %{name}%{version}-src.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The tcl programming language
 

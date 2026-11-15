@@ -7,6 +7,8 @@ URL:        https://git.kernel.org/pub/scm/bluetooth/sbc.git/
 Prefix:     /usr
 Source0:    sbc-%{version}.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 SBC (Subband Coding) is the low-complexity audio codec that every A2DP
 sink or source must support.  This package provides libsbc, used by the

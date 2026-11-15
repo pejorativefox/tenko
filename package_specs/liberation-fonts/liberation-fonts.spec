@@ -22,6 +22,8 @@ ExclusiveArch: x86_64
 AutoProv: no
 AutoReq: no
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Liberation fonts provide libre, metric-compatible substitutes for
 Arial, Courier New and Times New Roman.  Fontconfig will use them when

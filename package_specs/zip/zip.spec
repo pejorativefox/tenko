@@ -7,6 +7,8 @@ URL:        https://infozip.sourceforge.net/Zip.html
 Prefix:     /usr
 Source0:    zip30.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 Zip is a compression and file packaging utility for Unix, VMS, MSDOS,
 OS/2, Windows NT, Minix, Atari and Macintosh.  Zip is analogous to a

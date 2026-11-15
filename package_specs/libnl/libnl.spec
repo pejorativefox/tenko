@@ -8,6 +8,8 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
 
+# BuildRequires: none (toolchain only)
+
 %description
 libnl is a collection of libraries for applications that communicate with
 the Linux kernel using the netlink protocol. It includes core, route,

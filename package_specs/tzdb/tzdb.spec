@@ -8,6 +8,8 @@ Source0:    tzcode%{version}.tar.gz
 Source1:    tzdata%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Time Zone Database (often called tz or zoneinfo) contains code and
 data that represent the history of local time for many representative

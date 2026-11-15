@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/pixman/pixman
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+
+# BuildRequires: none (toolchain only)
+
 %description
 The Pixman package contains a library that provides low-level pixel manipulation features such as image compositing and trapezoid rasterization. 
 

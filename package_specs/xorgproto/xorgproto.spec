@@ -7,6 +7,8 @@ URL:        https://gitlab.freedesktop.org/xorg/proto/xorgproto
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Xorg Protocols
 

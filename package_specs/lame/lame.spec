@@ -8,6 +8,8 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
 
+# BuildRequires: none (toolchain only)
+
 %description
 The LAME package contains an MP3 encoder and optionally, an MP3 frame analyzer. 
 

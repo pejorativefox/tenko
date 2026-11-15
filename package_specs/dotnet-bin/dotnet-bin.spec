@@ -59,6 +59,8 @@ Requires:   make-ca
 # /usr/bin/dnx is a POSIX sh script.
 Requires:   bash
 
+# BuildRequires: none (toolchain only)
+
 %description
 .NET is a free, cross-platform, open-source developer platform for building
 many types of applications.

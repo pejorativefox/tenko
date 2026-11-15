@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/libtool/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Generic library support script
 

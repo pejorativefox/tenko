@@ -7,6 +7,8 @@ URL:        https://github.com/simdutf/simdutf
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 simdutf is a C++ library for fast Unicode validation and transcoding using
 SIMD instructions.  Node.js can link against the shared system copy with

@@ -20,6 +20,8 @@ ExclusiveArch: x86_64
 Provides:   npm = 11.20.0
 Requires:   ca-certificates
 
+# BuildRequires: none (toolchain only)
+
 %description
 Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 This package installs the official upstream linux-x64 binary distribution

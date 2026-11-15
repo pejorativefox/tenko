@@ -7,6 +7,8 @@ URL:        https://tukaani.org/xz/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 XZ Utils is free general-purpose data compression software with a high compression ratio. 
 

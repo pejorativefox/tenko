@@ -25,6 +25,8 @@ Requires:   which
 Requires:   xprop
 Requires:   xset
 
+# BuildRequires: none (toolchain only)
+
 %description
 xdg-utils is a set of command line tools that assist applications with a
 variety of desktop integration tasks, including opening URLs, managing

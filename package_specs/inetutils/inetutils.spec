@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/inetutils/
 Source0:    inetutils-2.8.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Collection of common network programs.
 

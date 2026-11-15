@@ -7,6 +7,8 @@ URL:        https://github.com/util-linux/util-linux
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 util-linux is a random collection of Linux utilities
 

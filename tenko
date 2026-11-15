@@ -22,7 +22,7 @@ filelist          | tools/filelist.py      | generate a static %files list from 
 check             | check/run.sh           | run the pre-publish checks (unit tests, base requires, fdo audit)
 audit             | check/fdo_audit.py     | freedesktop compliance audit over specs, RPMs or a rootfs
 base-requires     | check/base_requires.py | regenerate or --check the tenko-base Requires block
-image build       | image/build.sh         | create or refresh the build image from build/cache/repo (automatic)
+image build       | image/build.sh         | create or refresh the buildroot image from build/cache/repo (automatic)
 image base        | image/base.sh          | create the base container image from the published repo
 image iso         | image/iso.sh           | build the UEFI installer ISO
 image initramfs   | image/initramfs.sh     | generate the initramfs inside a staged rootfs

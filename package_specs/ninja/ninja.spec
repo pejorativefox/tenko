@@ -7,6 +7,8 @@ URL:        https://ninja-build.org/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Ninja is a small build system with a focus on speed
 

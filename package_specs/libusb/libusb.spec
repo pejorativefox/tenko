@@ -7,6 +7,8 @@ URL:        https://libusb.info/
 Prefix:     /usr
 Source0:    libusb-1.0.30.tar.bz2
 
+# BuildRequires: none (toolchain only)
+
 %description
 libusb is a library for USB device access from Linux, macOS, Windows,
 OpenBSD/NetBSD, Haiku, Solaris userspace and WebAssembly via WebUSB. It is

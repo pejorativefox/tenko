@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/libtasn1/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libtasn1 is a highly portable C library that encodes and decodes DER/BER
 data following an ASN.1 schema.  It is used by p11-kit and GnuTLS.

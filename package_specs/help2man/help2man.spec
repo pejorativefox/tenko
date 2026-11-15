@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/help2man/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 help2man produces simple manual pages from the ‘--help’ and ‘--version’
 output of other commands.

@@ -7,6 +7,8 @@ URL:        https://nghttp2.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 nghttp2 is an implementation of HTTP/2 and its header compression algorithm
 HPACK.  This package builds the library only (--enable-lib-only), which

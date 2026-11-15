@@ -23,6 +23,8 @@ ExclusiveArch: x86_64
 AutoProv: no
 AutoReq: no
 
+# BuildRequires: none (toolchain only)
+
 %description
 GNU Unifont is the "Unicode base font": one bitmap glyph for every Unicode
 code point (via otfform outlines rendered from the double-struck−style

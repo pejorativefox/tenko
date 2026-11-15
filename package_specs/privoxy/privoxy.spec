@@ -9,6 +9,8 @@ Source1:    privoxy.service
 Source2:    privoxy.sysusers
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Privoxy is a non-caching web proxy with advanced filtering capabilities for
 enhancing privacy, modifying web page data and HTTP headers, controlling

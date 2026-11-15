@@ -7,6 +7,8 @@ URL:        https://gnupg.org/software/libksba/
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 X.509 certificate library
 

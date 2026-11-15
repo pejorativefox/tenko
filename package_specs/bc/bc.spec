@@ -7,6 +7,8 @@ URL:        https://github.com/gavinhoward/bc
 Source0:    bc-7.0.3.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 bc is an implementation of the POSIX bc calculator that implements GNU bc
 extensions, as well as the period extension for the BSD flavor of bc. The

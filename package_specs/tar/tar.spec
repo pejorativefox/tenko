@@ -8,6 +8,8 @@ Source0:    %{name}-%{version}.tar.xz
 Patch0:     tar-1.35-acl_fix-1.patch
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Tar package provides the ability to create tar archives as well as perform various other kinds of archive manipulation. Tar can be used on previously created archives to extract files, to store additional files, or to update or list files which were already stored. 
 

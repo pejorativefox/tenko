@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/sed/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 sed (stream editor) is a non-interactive command-line text editor. 
 

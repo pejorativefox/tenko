@@ -6,6 +6,9 @@ License:    GPL-2.0-or-later
 URL:        https://gitlab.freedesktop.org/xdg/shared-mime-info
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
+
+# BuildRequires: none (toolchain only)
+
 %description
 The shared-mime-info package contains the core database of common MIME
 types, their file extensions and icon names. It also provides the

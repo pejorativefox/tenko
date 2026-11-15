@@ -7,6 +7,8 @@ URL:        https://github.com/libfuse/libfuse
 Source0:    fuse-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 FUSE (Filesystem in Userspace) is a simple interface for userspace
 programs to export a virtual filesystem to the Linux kernel.

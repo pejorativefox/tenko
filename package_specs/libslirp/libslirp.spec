@@ -7,6 +7,8 @@ URL:        https://gitlab.freedesktop.org/slirp/libslirp
 Source0:    %{name}-v%{version}.tar.bz2
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libslirp is a general-purpose user-mode networking stack used by virtual
 machine emulators such as qemu.  It implements a virtual NAT network

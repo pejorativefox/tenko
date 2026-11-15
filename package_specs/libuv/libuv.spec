@@ -7,6 +7,8 @@ URL:        https://libuv.org/
 Prefix:     /usr
 Source0:    %{name}-v%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 libuv is a multi-platform support library with a focus on asynchronous I/O.
 It provides an event loop, asynchronous TCP and UDP sockets, DNS resolution,

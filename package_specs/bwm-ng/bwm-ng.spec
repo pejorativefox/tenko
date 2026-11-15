@@ -7,6 +7,8 @@ URL:        https://github.com/vgropp/bwm-ng
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 bwm-ng (Bandwidth Monitor NG) is a small, simple, console-based live
 network and disk bandwidth monitor.  It reads the kernel counters through

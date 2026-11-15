@@ -8,6 +8,8 @@ Source0:    %{name}-%{version}.tar.gz
 Patch0:     efivar-39-upstream_fixes-1.patch
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Tools and libraries to work with EFI variables
 

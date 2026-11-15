@@ -8,6 +8,8 @@ Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 Recommends: groff-perl = %{version}-%{release}
 
+# BuildRequires: none (toolchain only)
+
 %description
 groff (GNU roff) is a typesetting system that reads plain text input files that include formatting commands to produce output in PostScript, PDF, HTML, or DVI formats or for display to a terminal. 
 

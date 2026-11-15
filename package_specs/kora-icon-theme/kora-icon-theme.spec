@@ -8,6 +8,8 @@ Prefix:     /usr
 BuildArch:  noarch
 Source0:    kora-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 Kora is an SVG icon theme for GNU/Linux desktops, with blue folder
 colours in the main kora theme and grey folders in kora-pgrey.

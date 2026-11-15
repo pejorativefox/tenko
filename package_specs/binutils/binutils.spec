@@ -6,6 +6,9 @@ License:    GPL-3.0-or-later
 URL:        https://www.gnu.org/software/binutils/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
+
+# BuildRequires: none (toolchain only)
+
 %description
 The GNU binutils are utilities for working with binary files, either object
 files or executables. They include the linkers ld and gold, the assembler

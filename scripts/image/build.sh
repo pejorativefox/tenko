@@ -1,15 +1,10 @@
 #!/usr/bin/env bash
-# Create or refresh an image packages are built in.
+# Create or refresh the image packages are built in.
 #
-# Both images are root filesystems installed from the offline mirror
-# (build/cache/repo):
-#   full     BUILD_IMAGE (localhost/tenko/build:r6): tenko-base (which
-#            carries tenko-base-build and tenko-buildroot) and the extra
-#            build packages `tenko image base` installs by default.
-#            STRICT=0 builds.
-#   --strict BUILDROOT_IMAGE (localhost/tenko/buildroot:r6): only
-#            tenko-buildroot, the toolchain baseline, so a build sees
-#            nothing its spec does not declare.  STRICT=1 builds.
+# BUILDROOT_IMAGE (localhost/tenko/buildroot:r6) is a root filesystem
+# installed from the offline mirror (build/cache/repo) holding only
+# tenko-buildroot, the toolchain baseline, so a build sees nothing its spec
+# does not declare.
 # `tenko build` runs this before every build; it is a no-op while the image
 # is current.
 #
@@ -19,11 +14,11 @@
 # or two.
 #
 # Usage:
-#   tenko image build [--strict]           # create/refresh when needed
-#   tenko image build [--strict] --force   # rebuild unconditionally
+#   tenko image build           # create/refresh when needed
+#   tenko image build --force   # rebuild unconditionally
 #
 # Environment:
-#   BUILD_IMAGE, BUILDROOT_IMAGE   image tags
+#   BUILDROOT_IMAGE   image tag
 set -euo pipefail
 . "$(dirname "$0")/../lib/common.sh"
 
@@ -32,23 +27,17 @@ repomd=$TENKO_REPO_CACHE/repodata/repomd.xml
 STATE=$TENKO_CACHE_ROOT/cache
 mkdir -p "$STATE"
 
-force=0 flavor=build
+force=0
 for arg in "$@"; do
     case "$arg" in
         --force) force=1 ;;
-        --strict) flavor=buildroot ;;
-        *) die "usage: tenko image build [--strict] [--force]" ;;
+        *) die "usage: tenko image build [--force]" ;;
     esac
 done
-if [ "$flavor" = buildroot ]; then
-    IMAGE_TAG=$BUILDROOT_IMAGE
-    PACKAGES=tenko-buildroot
-    VERIFY_RPM=tenko-buildroot
-else
-    IMAGE_TAG=$BUILD_IMAGE
-    PACKAGES=${PACKAGES:-}
-    VERIFY_RPM=tenko-base
-fi
+flavor=buildroot
+IMAGE_TAG=$BUILDROOT_IMAGE
+PACKAGES=tenko-buildroot
+VERIFY_RPM=tenko-buildroot
 STAMP=$STATE/$flavor-image.stamp
 
 exec 9>"$STATE/$flavor-image.lock"
@@ -86,8 +75,6 @@ fi
 if [ -z "${TOOL_IMAGE:-}" ]; then
     if [ -n "$old_id" ]; then
         TOOL_IMAGE=$IMAGE_TAG
-    elif podman image exists "$BUILD_IMAGE"; then
-        TOOL_IMAGE=$BUILD_IMAGE
     else
         TOOL_IMAGE=$BASE_IMAGE
     fi

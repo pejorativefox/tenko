@@ -7,6 +7,8 @@ URL:        https://gitlab.freedesktop.org/libevdev/libevdev
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 libevdev wraps the Linux evdev interface for input device handling.
 

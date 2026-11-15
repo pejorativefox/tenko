@@ -7,6 +7,8 @@ URL:        https://github.com/google/brotli
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Brotli is a generic-purpose lossless compression algorithm that compresses
 data using a combination of a modern variant of the LZ77 algorithm, Huffman

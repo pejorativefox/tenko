@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build specs, each in a fresh network-less container from the build image.
+# Build specs, each in a fresh container from the toolchain buildroot image.
 #
 # Usage:
 #   tenko build curl/curl.spec libfs                # spec paths or package dirs
@@ -9,14 +9,16 @@
 # Before building it makes sure that, in order:
 #   1. the published repository is mirrored in build/cache/repo (`tenko sync`;
 #      each RPM is downloaded once, OFFLINE=1 skips the sync),
-#   2. the build image exists and is current with the mirror; it is created
-#      from the mirror when missing or when the mirror has newer versions of
-#      its packages (`tenko image build`),
+#   2. the buildroot image exists and is current with the mirror; it is
+#      created from the mirror when missing or when the mirror has newer
+#      versions of its packages (`tenko image build`),
 #   3. sources are fetched once into build/sources and hard-linked into each
 #      package's own SOURCES directory.
 #
-# Each package then gets a fresh container: BuildRequires are installed from
-# build/repo (local builds) and the mirror, rpmbuild runs, and successful RPMs
+# Each package then gets a fresh container holding only tenko-buildroot:
+# the declared BuildRequires and their pkg-config closure are installed from
+# build/repo (local builds) and the mirror, rpmbuild runs without --nodeps
+# (an undeclared dependency fails the build), and successful RPMs
 # are added to build/repo so later builds can use them before they are
 # published.  Builds are incremental: a package whose status says "ok" is
 # skipped, so the same OUT can be reused to retry failures.  For a chain
@@ -27,12 +29,8 @@
 #   OUT         output directory (default build/specs-YYYYMMDD-HHMMSS)
 #   JOBS        packages built in parallel (default 4)
 #   MAKE_JOBS   make -j per package (default 4)
-#   STRICT      1 = build in the toolchain buildroot (BUILDROOT_IMAGE,
-#               tenko-buildroot) with only the declared
-#               BuildRequires added, and rpmbuild without --nodeps
-#               (default 0: full build image, --nodeps; issue #58)
 #   OFFLINE     1 = do not sync the mirror (it must already exist)
-#   BUILD_IMAGE, BUILDROOT_IMAGE   image tags (localhost/tenko/{build,buildroot}:r6)
+#   BUILDROOT_IMAGE  image tag (localhost/tenko/buildroot:r6)
 #
 # Results: OUT/status/<pkg> (ok/fail), OUT/logs/<pkg>.log and
 # OUT/build/<pkg>/RPMS; successful RPMs are also in build/repo.
@@ -42,7 +40,6 @@ set -euo pipefail
 OUT=${OUT:-build/specs-$(date +%Y%m%d-%H%M%S)}
 JOBS=${JOBS:-4}
 MAKE_JOBS=${MAKE_JOBS:-4}
-STRICT=${STRICT:-0}
 OFFLINE=${OFFLINE:-0}
 
 # spec_for NAME-OR-PATH: the spec path relative to package_specs/.
@@ -109,14 +106,9 @@ else
     bash scripts/build/sync.sh
 fi
 
-# 2. Build image: the full one, or the toolchain buildroot for STRICT=1.
-if [ "$STRICT" = 1 ]; then
-    IMAGE=$BUILDROOT_IMAGE
-    bash scripts/image/build.sh --strict
-else
-    IMAGE=$BUILD_IMAGE
-    bash scripts/image/build.sh
-fi
+# 2. Build image: the toolchain buildroot.
+IMAGE=$BUILDROOT_IMAGE
+bash scripts/image/build.sh
 
 # 3. Local repository of our own builds.
 mkdir -p "$TENKO_LOCAL_REPO"
@@ -133,7 +125,7 @@ printf '%s\n' "${specs[@]}" >"$OUT/packages.txt"
 python3 scripts/build/fetch_sources.py --dest "$TENKO_SOURCES_DIR" \
     --stage-root "$OUT/build" "${specs[@]}"
 
-echo "building ${#specs[@]} specs in $IMAGE -> $OUT (JOBS=$JOBS STRICT=$STRICT)"
+echo "building ${#specs[@]} specs in $IMAGE -> $OUT (JOBS=$JOBS)"
 
 # add_to_local_repo DIR: copy DIR's RPMs into build/repo and refresh it.
 add_to_local_repo() {
@@ -156,7 +148,7 @@ build_one() {
     mkdir -p "$top"
     start=$(date +%s)
     podman run --rm --network=host \
-        -e MAKE_JOBS="$MAKE_JOBS" -e STRICT="$STRICT" \
+        -e MAKE_JOBS="$MAKE_JOBS" \
         -v "$PWD/package_specs:/specs:ro,z" \
         -v "$top:/work:rw,z" \
         -v "$TENKO_LOCAL_REPO:/repo/local:ro,z" \

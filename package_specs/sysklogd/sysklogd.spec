@@ -7,6 +7,8 @@ URL:        https://github.com/troglobit/sysklogd
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 This is the continuation of the original Debian/Ubuntu syslog daemon,
 updated with full RFC 3164 and RFC 5424 support from NetBSD and FreeBSD. The

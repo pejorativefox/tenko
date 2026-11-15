@@ -9,6 +9,8 @@ Source0:    linux-%{version}.tar.xz
 
 Provides:   kernel-headers = %{version}-%{release}
 
+# BuildRequires: none (toolchain only)
+
 %description
 Sanitized Linux UAPI headers generated from the pinned Tenko kernel
 source with "make headers_install".  This replaces the old bootstrap

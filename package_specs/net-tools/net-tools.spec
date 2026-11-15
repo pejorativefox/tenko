@@ -7,6 +7,8 @@ URL:        https://sourceforge.net/projects/net-tools/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Net-tools package is a collection of programs for controlling the network subsystem of the Linux kernel.
 

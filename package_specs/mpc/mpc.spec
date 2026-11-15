@@ -7,6 +7,8 @@ URL:        https://www.multiprecision.org/mpc/
 Source0:    mpc-1.4.1.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 GNU MPC is a complex floating-point library with exact rounding. It is based
 on the GNU MPFR floating-point library, which is itself based on the GNU MP

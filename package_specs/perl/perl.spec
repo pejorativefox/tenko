@@ -18,6 +18,8 @@ Provides: perl(File::HomeDir)
 Requires: libc.so.6()(64bit), libcrypt.so.2()(64bit), libdl.so.2()(64bit), libgdbm.so.6()(64bit), libgdbm_compat.so.4()(64bit)
 Requires: libm.so.6()(64bit), libpthread.so.0()(64bit), librt.so.1()(64bit), libutil.so.1()(64bit)
 
+# BuildRequires: none (toolchain only)
+
 %description
 Perl programming language
 

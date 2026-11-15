@@ -7,6 +7,8 @@ URL:        https://github.com/containers/bubblewrap
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Unprivileged sandboxing tool 
 

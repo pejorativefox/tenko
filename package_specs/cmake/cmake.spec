@@ -9,6 +9,8 @@ Source0:    cmake-%{version}.tar.gz
 
 
 
+# BuildRequires: none (toolchain only)
+
 %description
 CMake is a cross-platform, open-source build system generator. It generates
 native build files for a wide range of platforms and toolchains from a

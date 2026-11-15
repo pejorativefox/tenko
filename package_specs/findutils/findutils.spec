@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/findutils/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The GNU Find Utilities are the basic directory searching utilities of the GNU operating system.
 

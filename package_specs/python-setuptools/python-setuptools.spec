@@ -6,6 +6,9 @@ License:    MIT AND LGPL-3.0-or-later AND Apache-2.0
 URL:        https://github.com/pypa/setuptools
 Source0:    setuptools-%{version}.tar.gz
 Prefix:     /usr
+
+# BuildRequires: none (toolchain only)
+
 %description
 Python setuptools build system. 
 

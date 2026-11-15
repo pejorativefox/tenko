@@ -8,6 +8,8 @@ Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 
 
+# BuildRequires: none (toolchain only)
+
 %description
 The PCRE library is a set of functions that implement regular
 expression pattern matching using the same syntax and semantics as

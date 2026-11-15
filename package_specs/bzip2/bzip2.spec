@@ -8,6 +8,8 @@ Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 Provides:   libbz2.so.1()(64bit)
 
+# BuildRequires: none (toolchain only)
+
 %description
 bzip2 is a free and open-source file compression program that uses the Burrows-Wheeler algorithm.
 

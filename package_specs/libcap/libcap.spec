@@ -9,6 +9,8 @@ Prefix:     /usr
 
 Provides: libcap.so.2()(64bit)
 
+# BuildRequires: none (toolchain only)
+
 %description
 POSIX 1003.1e capabilities
 

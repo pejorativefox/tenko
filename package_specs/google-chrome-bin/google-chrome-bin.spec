@@ -90,6 +90,8 @@ Requires:   libudev.so.1()(64bit)
 # without the system vulkan-loader, so the upstream auto-requirement is a
 # false positive for this repackage; do not require vulkan-loader.
 
+# BuildRequires: none (toolchain only)
+
 %description
 Google Chrome is a proprietary web browser from Google.
 

@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/libunistring/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 libunistring provides functions for manipulating Unicode strings and for
 manipulating C strings according to the Unicode standard.  It is a build

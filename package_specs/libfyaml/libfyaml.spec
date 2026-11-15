@@ -7,6 +7,8 @@ URL:        https://github.com/pantoniou/libfyaml
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libfyaml is a YAML 1.2 parser and emitter library.  AppStream requires it to
 read its YAML metadata catalogues.

@@ -9,6 +9,8 @@ Prefix:     /usr
 
 Provides:   lzo = %{version}-%{release}
 
+# BuildRequires: none (toolchain only)
+
 %description
 LZO is a portable lossless data compression library written in ANSI C.
 

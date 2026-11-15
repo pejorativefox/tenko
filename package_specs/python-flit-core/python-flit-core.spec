@@ -6,6 +6,9 @@ License:    BSD-3-Clause AND MIT
 URL:        https://github.com/pypa/flit
 Source0:    flit_core-%{version}.tar.gz
 Prefix:     /usr
+
+# BuildRequires: none (toolchain only)
+
 %description
 Flit is a simple way to put Python packages and modules on PyPI. 
 

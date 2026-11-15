@@ -8,6 +8,8 @@ Prefix:     /usr
 Recommends: gnupg
 Source0:    %{name}-%{version}.tar.bz2
 
+# BuildRequires: none (toolchain only)
+
 %description
 GPGME is a library that allows applications to access GnuPG functionality
 without requiring knowledge of the GnuPG internals.

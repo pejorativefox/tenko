@@ -7,6 +7,8 @@ URL:        https://gitlab.freedesktop.org/xorg/util/macros
 Prefix:     /usr
 Source0:    util-macros-1.20.2.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 util-macros provides the autoconf macros used by X.org packages.
 

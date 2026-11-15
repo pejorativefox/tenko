@@ -7,6 +7,8 @@ URL:        https://gitlab.com/psmisc/psmisc
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 This package contains miscellaneous utilities that use the proc file-system.
 

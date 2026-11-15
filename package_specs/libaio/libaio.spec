@@ -7,6 +7,8 @@ URL:        https://pagure.io/libaio
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libaio provides the Linux-native API for asynchronous I/O, used by LVM2 and
 other storage tools.

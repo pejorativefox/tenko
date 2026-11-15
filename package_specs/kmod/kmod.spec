@@ -7,6 +7,8 @@ URL:        https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Kmod package contains libraries and utilities for loading kernel modules 
 

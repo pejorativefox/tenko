@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/cpio/
 Source0:    %{name}-%{version}.tar.bz2
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 GNU cpio copies files into or out of a cpio or tar archive.  The archive
 can be another file on the disk, a magnetic tape, or a pipe.

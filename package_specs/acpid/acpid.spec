@@ -11,6 +11,8 @@ Source3:    brightnessdown
 Source4:    acpid.conf
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The acpid (Advanced Configuration and Power Interface event daemon)
 

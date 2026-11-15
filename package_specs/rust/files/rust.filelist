@@ -10,7 +10,6 @@
 /usr/bin/rustc
 /usr/bin/rustdoc
 /usr/bin/rustfmt
-%{_libdir}/librustc_driver-53578cb3fcb017d1.so
 %{_libdir}/rustlib/
 /usr/libexec/rust-analyzer-proc-macro-srv
 %dir /usr/share/doc/rust

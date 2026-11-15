@@ -7,6 +7,8 @@ URL:        https://github.com/westes/flex
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 flex is a tool for generating scanners: programs which recognize lexical
 patterns in text. It takes a description of the tokens to recognize and

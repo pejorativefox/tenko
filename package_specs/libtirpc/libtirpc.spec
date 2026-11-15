@@ -7,6 +7,8 @@ URL:        https://sourceforge.net/projects/libtirpc/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 
+# BuildRequires: none (toolchain only)
+
 %description
 libtirpc is the transport-independent Sun RPC implementation used by Xorg.
 

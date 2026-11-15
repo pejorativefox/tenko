@@ -7,6 +7,8 @@ URL:        https://c-ares.org/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 c-ares is a C library for asynchronous DNS requests, including name
 resolves.  It is used by Node.js for its DNS implementation.

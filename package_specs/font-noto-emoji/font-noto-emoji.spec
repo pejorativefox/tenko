@@ -22,6 +22,8 @@ ExclusiveArch: x86_64
 AutoProv: no
 AutoReq: no
 
+# BuildRequires: none (toolchain only)
+
 %description
 Noto Emoji is the monochrome member of the Noto emoji family: a variable
 weight (300-700) outline font with Unicode emoji coverage.  It is installed

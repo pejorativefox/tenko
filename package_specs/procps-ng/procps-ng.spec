@@ -7,6 +7,8 @@ URL:        https://gitlab.com/procps-ng/procps
 Source0:    procps-ng-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Procps-ng package contains programs for monitoring processes. 
 

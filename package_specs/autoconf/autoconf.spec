@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/autoconf/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages. 
 

@@ -10,6 +10,8 @@ Prefix:     /usr
 Requires:   gettext-libs = %{version}-%{release}
 Requires:   gettext-tools = %{version}-%{release}
 
+# BuildRequires: none (toolchain only)
+
 %description
 GNU Internationalization utilities.  This package is a meta-package that
 pulls in the runtime libraries and the build tools.

@@ -8,6 +8,8 @@ Source0:    sqlite-autoconf-3540100.tar.gz
 Prefix:     /usr
 Provides:   libsqlite3.so()(64bit)
 
+# BuildRequires: none (toolchain only)
+
 %description
 SQLite is a C library that implements an SQL database engine.
 

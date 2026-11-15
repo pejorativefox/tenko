@@ -7,6 +7,8 @@ URL:        https://github.com/fedora-modularity/libmodulemd
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 libmodulemd is a C library for manipulating the module metadata (modulemd)
 files used by dnf and libdnf.

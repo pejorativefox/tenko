@@ -7,6 +7,8 @@ URL:        https://www.gnu.org/software/m4/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 GNU m4 is an implementation of the traditional Unix macro processor. It is
 mostly SVR4 compatible and includes built-in functions for including files,

@@ -7,6 +7,8 @@ URL:        https://github.com/xiph/ogg
 Prefix:     /usr
 Source0:    libogg-1.3.6.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 libogg is a library for working with the Ogg bitstream format. Ogg
 arranges compressed bitstreams so that seeking, time stamping and error

@@ -7,6 +7,8 @@ URL:        https://gnupg.org/software/libgpg-error/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.bz2
 
+# BuildRequires: none (toolchain only)
+
 %description
 libgpg-error provides the common error codes, messages and helper macros
 shared by GnuPG, libgcrypt, libassuan and gpgme.  Pinned version.

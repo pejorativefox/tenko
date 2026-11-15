@@ -19,6 +19,8 @@ ExclusiveArch: x86_64
 AutoProv: no
 AutoReq: no
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Ubuntu Font Family is a set of sans-serif OpenType fonts sponsored by
 Canonical and produced by Dalton Maag.  Version 0.83 ships the packaged

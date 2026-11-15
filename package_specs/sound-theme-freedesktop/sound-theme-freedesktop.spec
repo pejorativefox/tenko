@@ -8,6 +8,8 @@ Prefix:     /usr
 BuildArch:  noarch
 Source0:    %{name}-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 The default freedesktop.org sound theme, implementing the Sound Theme
 0.2 and Sound Naming 0.2 specifications.  It installs the event sounds

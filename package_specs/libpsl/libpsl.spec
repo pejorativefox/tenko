@@ -7,6 +7,8 @@ URL:        https://github.com/rockdaboot/libpsl
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.gz
 
+# BuildRequires: none (toolchain only)
+
 %description
 libpsl provides access to the Public Suffix List (a set of domain names
 beyond the standard suffixes such as .com).  curl uses it to enforce

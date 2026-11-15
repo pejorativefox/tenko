@@ -14,6 +14,8 @@ AutoReq: no
 
 Requires:   openssl-libs = %{version}-%{release}
 
+# BuildRequires: none (toolchain only)
+
 %description
 OpenSSL is a software library for applications that provide secure communications over computer networks 
 

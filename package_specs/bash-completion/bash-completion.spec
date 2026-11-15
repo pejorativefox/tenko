@@ -8,6 +8,8 @@ Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 Requires:   bash
 
+# BuildRequires: none (toolchain only)
+
 %description
 bash-completion is a collection of shell functions that extends bash with
 programmable completion for hundreds of commands (dnf, rpm, tar, ssh, git,

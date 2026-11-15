@@ -7,6 +7,8 @@ URL:        https://zlib.net/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The zlib compression library.
 

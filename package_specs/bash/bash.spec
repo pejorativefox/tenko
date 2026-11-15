@@ -10,6 +10,8 @@ Prefix:     /usr
 Provides: /bin/bash
 Provides: /bin/sh
 
+# BuildRequires: none (toolchain only)
+
 %description
 GNU sh-compatible shell 
 

@@ -7,6 +7,8 @@ URL:        https://www.kernel.org/doc/man-pages/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The Linux man-pages project documents the Linux kernel and C library interfaces that are employed by user-space programs.
 

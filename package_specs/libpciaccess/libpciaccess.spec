@@ -7,6 +7,8 @@ URL:        https://gitlab.freedesktop.org/xorg/lib/libpciaccess
 Prefix:     /usr
 Source0:    libpciaccess-0.19.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 libpciaccess provides a portable interface to PCI devices.
 

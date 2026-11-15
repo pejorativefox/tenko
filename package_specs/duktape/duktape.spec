@@ -7,6 +7,8 @@ URL:        https://duktape.org/
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 Duktape is an embeddable JavaScript engine with a compact footprint.
 

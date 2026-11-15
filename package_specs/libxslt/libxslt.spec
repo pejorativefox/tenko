@@ -7,6 +7,8 @@ URL:        https://gitlab.gnome.org/GNOME/libxslt
 Prefix:     /usr
 Source0:    libxslt-1.1.45.tar.xz
 
+# BuildRequires: none (toolchain only)
+
 %description
 libxslt is an XSLT processor based on libxml2. It provides the xsltproc
 command line tool and a library for applying XSLT stylesheets to XML

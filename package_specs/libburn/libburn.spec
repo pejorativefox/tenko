@@ -7,6 +7,8 @@ URL:        https://dev.lovelyhq.com/libburnia/web/wiki
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libburn is a library for writing preformatted data onto optical media: CD,
 DVD and BD (Blu-Ray).  It provides cdrskin and is the media-writing backend

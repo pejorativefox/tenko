@@ -7,6 +7,8 @@ URL:        https://wayland.freedesktop.org/
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Wayland is a protocol for a compositor to talk to its clients, together with
 a C library implementation of that protocol.  AppStream's display-detection

@@ -10,6 +10,8 @@ Prefix:     /usr
 Requires:   python
 Requires:   pulseaudio
 
+# BuildRequires: none (toolchain only)
+
 %description
 pulsemixer is a self-contained command line and curses mixer for
 PulseAudio.  It needs only Python 3 and pactl, and provides the same

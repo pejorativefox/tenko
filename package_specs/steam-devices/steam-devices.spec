@@ -12,6 +12,8 @@ Source0:    steam-devices-%{version}.tar.gz
 # udevadm and /usr/lib/udev/rules.d.
 Requires:   systemd
 
+# BuildRequires: none (toolchain only)
+
 %description
 Valve's udev rules for Steam-related hardware.  They grant the active local
 user read/write access to /dev/uinput, Valve HID devices and a range of

@@ -7,6 +7,8 @@ URL:        https://giflib.sourceforge.net/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 The giflib package contains libraries for reading and writing GIFs as well as programs for converting and working with GIF files. 
 

@@ -6,6 +6,9 @@ License:    MIT
 URL:        https://gitlab.freedesktop.org/xorg/lib/libxtrans
 Prefix:     /usr
 Source0:    %{name}-%{version}.tar.xz
+
+# BuildRequires: none (toolchain only)
+
 %description
 X Window System Protocols Transport laye
 

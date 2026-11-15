@@ -7,6 +7,8 @@ URL:        https://facebook.github.io/zstd/
 Source0:    %{name}-%{version}.tar.gz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 Fast real-time compression algorith
 

@@ -18,6 +18,8 @@ ExclusiveArch: x86_64
 AutoProv: no
 AutoReq: no
 
+# BuildRequires: none (toolchain only)
+
 %description
 Siji (from the Cantonese "four-dot symbol for the ninth" glyph 丶) is an
 iconic bitmap font containing ~70 monochrome glyphs — battery, network,

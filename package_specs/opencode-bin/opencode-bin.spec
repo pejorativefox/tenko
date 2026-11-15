@@ -26,6 +26,8 @@ Requires: git
 Requires: make-ca
 Requires: bash
 
+# BuildRequires: none (toolchain only)
+
 %description
 OpenCode is an AI coding agent for the terminal.  This package installs the
 official prebuilt linux-x64 release binary, a self-contained Bun-compiled

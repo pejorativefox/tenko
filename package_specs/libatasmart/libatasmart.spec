@@ -7,6 +7,8 @@ URL:        https://0pointer.de/blog/projects/being-smart.html
 Source0:    %{name}-%{version}.tar.xz
 Prefix:     /usr
 
+# BuildRequires: none (toolchain only)
+
 %description
 libatasmart reads and parses ATA S.M.A.R.T. data from hard disks and
 solid-state drives.  It reports disk health, temperature, power-on hours and

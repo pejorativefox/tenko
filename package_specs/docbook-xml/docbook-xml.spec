@@ -9,6 +9,8 @@ Prefix:     /usr
 Source0:    docbook-xml-4.5.zip
 Requires:   libxml2
 
+# BuildRequires: none (toolchain only)
+
 %description
 The DocBook XML 4.5 Document Type Definition, its modules and its catalog.
 It lets tooling resolve the canonical OASIS DocBook 4.5 URLs locally, which

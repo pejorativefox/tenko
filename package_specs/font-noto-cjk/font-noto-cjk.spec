@@ -22,6 +22,8 @@ ExclusiveArch: x86_64
 AutoProv: no
 AutoReq: no
 
+# BuildRequires: none (toolchain only)
+
 %description
 Noto Sans Mono CJK SC is a monospaced Simplified Chinese face from the Noto
 CJK project.  It covers the GB 2312 / GB 18030 simplified Chinese repertoire
