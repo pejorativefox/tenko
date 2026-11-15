@@ -14,10 +14,6 @@ BuildRequires: libxrandr
 BuildRequires: util-macros
 BuildRequires: xorgproto
 BuildRequires: libxfixes
-BuildRequires: libXdmcp
-BuildRequires: libxau
-BuildRequires: libxcb
-BuildRequires: libxrender
 
 
 

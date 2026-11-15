@@ -1,3 +1,4 @@
 %{_rpmmacrodir}/macros.tenko
 %{_fileattrsdir}/python.attr
 %{_rpmconfigdir}/tenko-pythondeps.sh
+%{_bindir}/tenko-builddep

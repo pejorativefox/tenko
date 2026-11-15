@@ -31,30 +31,6 @@ BuildRequires: libtheora
 BuildRequires: sdl2
 BuildRequires: shared-mime-info
 BuildRequires: wayland
-BuildRequires: at-spi2-core
-BuildRequires: dbus-daemon
-BuildRequires: fontconfig
-BuildRequires: freetype
-BuildRequires: fribidi
-BuildRequires: harfbuzz
-BuildRequires: libXdmcp
-BuildRequires: libepoxy
-BuildRequires: liblzo2
-BuildRequires: libpciaccess
-BuildRequires: libxau
-BuildRequires: libxcomposite
-BuildRequires: libxcursor
-BuildRequires: libxdamage
-BuildRequires: libxfixes
-BuildRequires: libxft
-BuildRequires: libxinerama
-BuildRequires: libxrandr
-BuildRequires: libxrender
-BuildRequires: libxres
-BuildRequires: libxtst
-BuildRequires: libxxf86vm
-BuildRequires: pixman
-BuildRequires: xorgproto
 
 %description
 Base gstreamer plugins

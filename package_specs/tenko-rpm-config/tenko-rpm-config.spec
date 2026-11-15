@@ -1,6 +1,6 @@
 Name:       tenko-rpm-config
 Version:    6
-Release:    4
+Release:    5
 Epoch:      1
 Summary:    RPM build macros for Tenko packages
 License:    MIT
@@ -10,12 +10,17 @@ Prefix:     /usr
 Requires: rpm
 Requires: binutils
 Requires: file
+Requires: dnf
+Requires: pkgconf
 
 %description
 RPM macros and library paths used to build Tenko packages inside the base
 container, and the Python dependency generator: files under
 /usr/lib*/pythonX.Y/ require python(abi) = X.Y, which the interpreter
 provides.
+
+tenko-builddep installs the pkg-config closure of a spec's build
+dependencies, which .pc files do not turn into RPM requirements.
 
 %prep
 
@@ -27,10 +32,16 @@ mkdir -p %{buildroot}%{_rpmmacrodir}
 install -m 644 %{_sourcedir}/macros.tenko %{buildroot}%{_rpmmacrodir}/macros.tenko
 install -D -m 644 %{_sourcedir}/python.attr %{buildroot}%{_fileattrsdir}/python.attr
 install -D -m 755 %{_sourcedir}/tenko-pythondeps.sh %{buildroot}%{_rpmconfigdir}/tenko-pythondeps.sh
+install -D -m 755 %{_sourcedir}/tenko-builddep %{buildroot}%{_bindir}/tenko-builddep
 
 %files -f %{_sourcedir}/tenko-rpm-config.filelist
 
 %changelog
+* Sun Nov 15 2026 tenko <build@tenko.invalid> 6-5
+- Add tenko-builddep: installs the packages that the .pc files of the
+  installed build dependencies name, so specs declare only the libraries
+  they use directly (issue #62).
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 6-4
 - Add a python(abi) dependency generator (fileattrs/python.attr and
   tenko-pythondeps.sh): files under /usr/lib*/pythonX.Y/ require

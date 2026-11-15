@@ -8,15 +8,6 @@ Source0:    %{name}-%{version}.tgz
 Prefix:     /usr
 BuildRequires: libx11
 BuildRequires: mesa
-BuildRequires: libXdmcp
-BuildRequires: libdrm
-BuildRequires: libpciaccess
-BuildRequires: libxau
-BuildRequires: libxcb
-BuildRequires: libxext
-BuildRequires: libxfixes
-BuildRequires: libxxf86vm
-BuildRequires: xorgproto
 
 %description
 GLEW is the OpenGL Extension Wrangler Library. 

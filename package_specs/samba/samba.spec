@@ -21,8 +21,6 @@ BuildRequires: parse-yapp
 BuildRequires: dbus-libs
 BuildRequires: libbsd
 BuildRequires: libtasn1
-BuildRequires: nettle
-BuildRequires: p11-kit
 BuildRequires: dbus-daemon
 
 Requires:   systemd

@@ -18,6 +18,7 @@
 # .pc files are development metadata.  Keep their pkgconfig(...) Requires out
 # of the binary package: the ELF Requires still cover the real runtime
 # dependencies, and a runtime install must not pull development packages.
+# Builds install the .pc chain with tenko-builddep instead.
 %__requires_exclude_from ^%{_libdir}/pkgconfig/.*\.pc$
 
 # tenko does not ship debuginfo packages.

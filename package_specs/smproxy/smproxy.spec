@@ -13,10 +13,6 @@ BuildRequires: libxmu
 BuildRequires: libxt
 BuildRequires: util-macros
 BuildRequires: xorgproto
-BuildRequires: libXdmcp
-BuildRequires: libxau
-BuildRequires: libxcb
-BuildRequires: libxext
 
 
 

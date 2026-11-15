@@ -24,9 +24,6 @@ AutoReq: no
 BuildRequires: bdftopcf
 BuildRequires: mkfontscale
 BuildRequires: fontconfig
-BuildRequires: freetype
-BuildRequires: harfbuzz
-BuildRequires: libpng
 BuildRequires: unzip
 
 %description

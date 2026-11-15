@@ -67,8 +67,13 @@ BuildRequires: readline
   [build.md](build.md#metapackage-layering)).  Declare every other package
   the build uses, including headers (`openssl`, not just `openssl-libs`),
   tools (`texinfo`, `groff`, `gperf`), Python build backends
-  (`python-setuptools`, `python-flit-core`) and the whole pkg-config chain a
-  `.pc` file pulls in (`.pc` files generate no RPM requirements here).
+  (`python-setuptools`, `python-flit-core`).
+- Declare the libraries the package uses directly, not their pkg-config
+  chain.  `.pc` files generate no RPM requirements here, so the builder
+  installs the packages behind the `Requires`/`Requires.private` of the
+  declared libraries' `.pc` files (`tenko-builddep`, see
+  [build.md](build.md#pkg-config-closure)).  A library the package links
+  directly is a direct dependency even when another `.pc` file names it.
 - A package that needs nothing beyond `tenko-buildroot` says so with the
   comment `# BuildRequires: none (toolchain only)` in the preamble, so the
   spec rules can tell it from an undeclared one.

@@ -19,33 +19,6 @@ BuildRequires: pango
 BuildRequires: startup-notification
 BuildRequires: shared-mime-info
 BuildRequires: xorgproto
-BuildRequires: dbus-daemon
-BuildRequires: fontconfig
-BuildRequires: freetype
-BuildRequires: fribidi
-BuildRequires: harfbuzz
-BuildRequires: libXdmcp
-BuildRequires: libdrm
-BuildRequires: libepoxy
-BuildRequires: libjpeg-turbo
-BuildRequires: liblzo2
-BuildRequires: libpciaccess
-BuildRequires: libpng
-BuildRequires: libxau
-BuildRequires: libxcb
-BuildRequires: libxcomposite
-BuildRequires: libxcursor
-BuildRequires: libxdamage
-BuildRequires: libxext
-BuildRequires: libxfixes
-BuildRequires: libxft
-BuildRequires: libxi
-BuildRequires: libxinerama
-BuildRequires: libxrandr
-BuildRequires: libxtst
-BuildRequires: libxxf86vm
-BuildRequires: mesa
-BuildRequires: pixman
 BuildRequires: gobject-introspection
 
 %description

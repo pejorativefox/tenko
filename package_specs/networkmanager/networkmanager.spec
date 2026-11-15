@@ -21,9 +21,6 @@ BuildRequires: slang
 BuildRequires: polkit
 BuildRequires: gnutls
 BuildRequires: openssl
-BuildRequires: libtasn1
-BuildRequires: nettle
-BuildRequires: p11-kit
 
 %description
 NetworkManager is the standard Linux network configuration tool suite.

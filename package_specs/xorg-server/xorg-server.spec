@@ -23,12 +23,6 @@ BuildRequires: dbus-daemon
 BuildRequires: libxfixes
 BuildRequires: libxslt
 BuildRequires: xkbcomp
-BuildRequires: freetype
-BuildRequires: harfbuzz
-BuildRequires: libfontenc
-BuildRequires: libpng
-BuildRequires: libxcb
-BuildRequires: libxxf86vm
 Requires:   xkbcomp
 Requires:   xkeyboard-config
 Requires:   xf86-input-libinput

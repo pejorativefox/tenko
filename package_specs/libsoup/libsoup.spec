@@ -15,9 +15,6 @@ BuildRequires: gnutls
 BuildRequires: glib-networking
 BuildRequires: gobject-introspection
 BuildRequires: samba
-BuildRequires: libtasn1
-BuildRequires: nettle
-BuildRequires: p11-kit
 
 %description
 The libsoup is a HTTP client/server library for GNOME.

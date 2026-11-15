@@ -9,8 +9,6 @@ Source0:    %{name}-%{version}.tar.bz2
 BuildRequires: libxcb
 BuildRequires: xcb-util
 BuildRequires: xorgproto
-BuildRequires: libXdmcp
-BuildRequires: libxau
 BuildRequires: libx11
 BuildRequires: util-macros
 

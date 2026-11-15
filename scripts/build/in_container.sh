@@ -8,8 +8,9 @@
 #   /repo/local   RPMs built locally (preferred when newer)
 #   /repo/cache   mirror of the published repository (tenko sync)
 #
-# The spec's BuildRequires are installed from those two repositories, then
-# rpmbuild runs.  STRICT=0 (phase 1, the default) installs whatever
+# The spec's BuildRequires are installed from those two repositories,
+# followed by their pkg-config closure (tenko-builddep, run from /specs so the
+# image needs no rebuild when it changes), then rpmbuild runs.  STRICT=0 (phase 1, the default) installs whatever
 # BuildRequires resolve and still builds with --nodeps against the image's
 # full toolchain; STRICT=1 fails on any unresolvable BuildRequires and drops
 # --nodeps, so the spec must declare everything it needs.
@@ -48,6 +49,9 @@ if [ ${#reqs[@]} -gt 0 ]; then
         dnf -y "${repos[@]}" --setopt=strict=0 install "${reqs[@]}" ||
             echo "warning: BuildRequires install failed; building with the image as is" >&2
     fi
+    # .pc Requires are not RPM requirements here (macros.tenko): install the
+    # packages the declared libraries' .pc files name.
+    bash /specs/tenko-rpm-config/files/tenko-builddep "${repos[@]}" -- "${reqs[@]}"
 else
     echo "=== no BuildRequires declared"
 fi

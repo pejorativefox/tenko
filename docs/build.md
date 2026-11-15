@@ -60,7 +60,8 @@ A build runs these steps; each is a no-op when there is nothing to do:
    `files/`.  `tenko fetch <spec-or-package>` fills the cache without
    building.
 4. **Build**: a fresh container per package installs the spec's
-   `BuildRequires` from `build/repo` and the mirror, then runs `rpmbuild`.
+   `BuildRequires` from `build/repo` and the mirror, then their
+   [pkg-config closure](#pkg-config-closure), then runs `rpmbuild`.
    Successful RPMs are added to `build/repo`, so a later build can use a
    package before it is published (dnf takes the highest version from the two
    repositories).  For a chain inside one run, list the packages in order and
@@ -87,6 +88,28 @@ the buildroot or the spec already covers:
 ```sh
 STRICT=1 OUT=build/x ./tenko build xsetroot
 ./tenko builddeps --out build/x xsetroot
+```
+
+## pkg-config closure
+
+Libraries ship their headers and `.pc` files in the runtime package, and
+`macros.tenko` keeps `.pc` `Requires` out of the generated RPM requirements
+so desktop installs do not pull build-time packages.  A build therefore
+installs the pkg-config chain itself: `tenko-builddep` (from
+`tenko-rpm-config`) reads the `.pc` files of the installed `BuildRequires`,
+installs the packages providing the `pkgconfig(...)` modules they name, and
+repeats until nothing is missing.  `tenko build` runs it from
+`package_specs/tenko-rpm-config/files/` after the `BuildRequires` install,
+so a change to it needs no image rebuild.  A module no repository provides
+is reported as a warning and skipped.
+
+To build a spec with plain `rpmbuild` on a Tenko system, do the same by
+hand:
+
+```sh
+sudo dnf builddep foo.spec
+sudo tenko-builddep -- foo.spec
+rpmbuild -bb foo.spec
 ```
 
 ## Build order

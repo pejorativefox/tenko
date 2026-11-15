@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+# tenko-builddep: install the pkg-config closure of build dependencies.
+#
+# Tenko libraries ship their .pc files in the runtime package, and the .pc
+# Requires/Requires.private do not become RPM requirements (macros.tenko), so
+# a runtime install stays lean.  The cost is at build time: installing gtk+
+# does not install shared-mime-info, which gdk-pixbuf-2.0.pc names.  This
+# tool walks the .pc files of the given (already installed) build
+# dependencies, installs the packages providing the pkgconfig(...) modules
+# they name, and repeats until nothing is missing.
+#
+# Usage (as root, after the BuildRequires themselves are installed):
+#   tenko-builddep [DNF_OPTION...] -- CAPABILITY|SPEC...
+#
+#   tenko-builddep -- foo.spec               # the spec's BuildRequires
+#   tenko-builddep -- gtk+ 'libx11 >= 1.8'   # explicit capabilities
+#
+# DNF_OPTIONs (repositories, --setopt=...) are passed to `dnf install`.
+# A module no repository provides is reported and skipped: the build then
+# fails at pkg-config only if it really uses that module.
+set -uo pipefail
+
+dnf_opts=()
+while [ $# -gt 0 ] && [ "$1" != -- ]; do
+    dnf_opts+=("$1"); shift
+done
+[ "${1:-}" = -- ] && shift
+[ $# -gt 0 ] || { echo "usage: tenko-builddep [DNF_OPTION...] -- CAPABILITY|SPEC..." >&2; exit 2; }
+
+pcdeps=${TENKO_PKGCONFIGDEPS:-/usr/lib/rpm/pkgconfigdeps.sh}
+
+caps=()
+for arg in "$@"; do
+    if [[ $arg == *.spec ]]; then
+        mapfile -t -O "${#caps[@]}" caps < <(rpmspec -q --buildrequires "$arg") || {
+            echo "tenko-builddep: cannot parse $arg" >&2; exit 1; }
+    else
+        caps+=("$arg")
+    fi
+done
+
+declare -A scanned=() queued=() unresolved=()
+queue=()
+
+# enqueue CAP: queue the installed packages providing CAP (version dropped).
+enqueue() {
+    local pkg
+    while read -r pkg; do
+        [ -n "$pkg" ] && [ -z "${queued[$pkg]:-}" ] || continue
+        queued[$pkg]=1; queue+=("$pkg")
+    done < <(rpm -q --whatprovides --qf '%{NAME}\n' "${1%% *}" 2>/dev/null | grep -v '^no package')
+}
+
+for cap in "${caps[@]}"; do enqueue "$cap"; done
+
+installed=()
+while :; do
+    missing=()
+    while [ ${#queue[@]} -gt 0 ]; do
+        pkg=${queue[0]}; queue=("${queue[@]:1}")
+        [ -z "${scanned[$pkg]:-}" ] || continue
+        scanned[$pkg]=1
+        while read -r req _; do
+            [[ $req == pkgconfig\(*\) ]] || continue
+            if rpm -q --whatprovides "$req" >/dev/null 2>&1; then
+                enqueue "$req"
+            elif [ -z "${unresolved[$req]:-}" ]; then
+                unresolved[$req]=1; missing+=("$req")
+            fi
+        done < <(rpm -ql "$pkg" | grep -E '/pkgconfig/[^/]+\.pc$' | "$pcdeps" --requires | sort -u)
+    done
+    [ ${#missing[@]} -gt 0 ] || break
+
+    echo "=== pkg-config closure: ${missing[*]}"
+    dnf -y "${dnf_opts[@]}" --setopt=strict=0 install "${missing[@]}" >&2 ||
+        echo "tenko-builddep: dnf install failed" >&2
+    progress=0
+    for req in "${missing[@]}"; do
+        if rpm -q --whatprovides "$req" >/dev/null 2>&1; then
+            unset "unresolved[$req]"; installed+=("$req"); progress=1
+            enqueue "$req"
+        fi
+    done
+    [ $progress = 1 ] || break
+done
+
+for req in "${!unresolved[@]}"; do
+    echo "tenko-builddep: warning: no package provides $req" >&2
+done
+[ ${#installed[@]} -eq 0 ] && echo "=== pkg-config closure: complete"
+exit 0

@@ -16,8 +16,6 @@ BuildRequires: libxtst
 BuildRequires: util-macros
 BuildRequires: xorgproto
 BuildRequires: libxfixes
-BuildRequires: libXdmcp
-BuildRequires: libxau
 
 
 

@@ -17,14 +17,6 @@ BuildRequires: mesa
 BuildRequires: pipewire
 BuildRequires: pulseaudio
 BuildRequires: wayland
-BuildRequires: libXdmcp
-BuildRequires: libpciaccess
-BuildRequires: libxau
-BuildRequires: libxcb
-BuildRequires: libxext
-BuildRequires: libxfixes
-BuildRequires: libxxf86vm
-BuildRequires: xorgproto
 BuildRequires: libxscrnsaver
 
 %description

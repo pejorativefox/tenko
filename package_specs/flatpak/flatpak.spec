@@ -23,9 +23,6 @@ BuildRequires: libxau
 BuildRequires: openssl
 BuildRequires: polkit
 BuildRequires: xorgproto
-BuildRequires: libjpeg-turbo
-BuildRequires: libpng
-BuildRequires: shared-mime-info
 BuildRequires: gobject-introspection
 BuildRequires: python-pyparsing
 BuildRequires: bubblewrap

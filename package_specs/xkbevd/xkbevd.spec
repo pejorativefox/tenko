@@ -10,9 +10,6 @@ BuildRequires: libx11
 BuildRequires: libxkbfile
 BuildRequires: util-macros
 BuildRequires: xorgproto
-BuildRequires: libXdmcp
-BuildRequires: libxau
-BuildRequires: libxcb
 
 
 

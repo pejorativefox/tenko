@@ -10,8 +10,6 @@ BuildRequires: libxcb
 BuildRequires: util-macros
 BuildRequires: xcb-util
 BuildRequires: xorgproto
-BuildRequires: libXdmcp
-BuildRequires: libxau
 
 %description
 xbacklight is a simple command-line client to adjust the backlight

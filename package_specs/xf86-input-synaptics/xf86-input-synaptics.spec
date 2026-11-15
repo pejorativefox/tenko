@@ -14,11 +14,6 @@ BuildRequires: util-macros
 BuildRequires: xorg-server
 BuildRequires: xorgproto
 BuildRequires: libxfixes
-BuildRequires: libXdmcp
-BuildRequires: libxau
-BuildRequires: libxcb
-BuildRequires: libxext
-BuildRequires: pixman
 
 %description
 Synaptics touchpad driver

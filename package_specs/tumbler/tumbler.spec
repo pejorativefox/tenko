@@ -11,8 +11,6 @@ BuildRequires: gdk-pixbuf
 BuildRequires: libjpeg-turbo
 BuildRequires: libpng
 BuildRequires: libxfce4util
-BuildRequires: harfbuzz
-BuildRequires: shared-mime-info
 BuildRequires: curl
 BuildRequires: openssl
 

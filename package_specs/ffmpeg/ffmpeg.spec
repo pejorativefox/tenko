@@ -21,15 +21,6 @@ BuildRequires: libvpx
 BuildRequires: libx11
 BuildRequires: libxcb
 BuildRequires: openssl
-BuildRequires: fontconfig
-BuildRequires: fribidi
-BuildRequires: harfbuzz
-BuildRequires: libXdmcp
-BuildRequires: libogg
-BuildRequires: libpciaccess
-BuildRequires: libpng
-BuildRequires: libxau
-BuildRequires: xorgproto
 BuildRequires: nasm
 BuildRequires: texinfo
 

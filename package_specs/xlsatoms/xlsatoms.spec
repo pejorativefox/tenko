@@ -9,8 +9,6 @@ Source0:    xlsatoms-1.1.5.tar.xz
 BuildRequires: libxcb
 BuildRequires: util-macros
 BuildRequires: xorgproto
-BuildRequires: libXdmcp
-BuildRequires: libxau
 
 
 

@@ -10,11 +10,6 @@ BuildRequires: libx11
 BuildRequires: libxi
 BuildRequires: libxkbfile
 BuildRequires: xorgproto
-BuildRequires: libXdmcp
-BuildRequires: libxau
-BuildRequires: libxcb
-BuildRequires: libxext
-BuildRequires: libxfixes
 BuildRequires: iso-codes
 BuildRequires: gobject-introspection
 

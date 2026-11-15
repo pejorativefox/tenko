@@ -9,13 +9,6 @@ Prefix:     /usr
 
 BuildRequires: gcc, make, pkgconf, perl
 BuildRequires: libx11, libxtst, libxinerama, libxkbcommon
-BuildRequires: libXdmcp
-BuildRequires: libxau
-BuildRequires: libxcb
-BuildRequires: libxext
-BuildRequires: libxfixes
-BuildRequires: libxi
-BuildRequires: xorgproto
 
 %description
 xdotool is a command-line tool to simulate keyboard and mouse input and to

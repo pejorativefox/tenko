@@ -25,13 +25,6 @@ BuildRequires: libxrandr
 BuildRequires: libxrender
 BuildRequires: libxres
 BuildRequires: xorgproto
-BuildRequires: fontconfig
-BuildRequires: freetype
-BuildRequires: harfbuzz
-BuildRequires: libXdmcp
-BuildRequires: libpng
-BuildRequires: libxau
-BuildRequires: libxcb
 
 %description
 A small win9x like window manager

@@ -20,10 +20,6 @@ BuildRequires: python-mako, python-pyyaml
 BuildRequires: libva
 BuildRequires: glslang
 BuildRequires: libdisplay-info
-BuildRequires: libXdmcp
-BuildRequires: libpciaccess
-BuildRequires: libxau
-BuildRequires: libxrender
 BuildRequires: python-packaging
 Requires:   libxshmfence
 Requires:   vulkan-loader

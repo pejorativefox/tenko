@@ -9,9 +9,6 @@ Prefix:     /usr
 
 BuildRequires: gcc, make, pkgconf
 BuildRequires: libxcb, xcb-util-keysyms
-BuildRequires: libXdmcp
-BuildRequires: libxau
-BuildRequires: xorgproto
 BuildRequires: xcb-util
 
 %description

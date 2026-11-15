@@ -9,8 +9,6 @@ Source0:    xlsclients-1.1.6.tar.xz
 BuildRequires: libxcb
 BuildRequires: util-macros
 BuildRequires: xorgproto
-BuildRequires: libXdmcp
-BuildRequires: libxau
 
 
 

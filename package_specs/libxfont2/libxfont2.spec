@@ -12,8 +12,6 @@ BuildRequires: freetype
 BuildRequires: util-macros
 BuildRequires: xorgproto
 BuildRequires: xtrans
-BuildRequires: harfbuzz
-BuildRequires: libpng
 
 %description
 X font handling library for server & utilities.
