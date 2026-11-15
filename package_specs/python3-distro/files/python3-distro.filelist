@@ -1,0 +1,21 @@
+/usr/bin/distro
+%dir /usr/lib64/python3.15/site-packages/distro
+%dir /usr/lib64/python3.15/site-packages/distro-1.9.0.dist-info
+/usr/lib64/python3.15/site-packages/distro-1.9.0.dist-info/INSTALLER
+/usr/lib64/python3.15/site-packages/distro-1.9.0.dist-info/METADATA
+/usr/lib64/python3.15/site-packages/distro-1.9.0.dist-info/RECORD
+/usr/lib64/python3.15/site-packages/distro-1.9.0.dist-info/REQUESTED
+/usr/lib64/python3.15/site-packages/distro-1.9.0.dist-info/WHEEL
+/usr/lib64/python3.15/site-packages/distro-1.9.0.dist-info/direct_url.json
+/usr/lib64/python3.15/site-packages/distro-1.9.0.dist-info/entry_points.txt
+%dir /usr/lib64/python3.15/site-packages/distro-1.9.0.dist-info/licenses
+/usr/lib64/python3.15/site-packages/distro-1.9.0.dist-info/licenses/LICENSE
+/usr/lib64/python3.15/site-packages/distro-1.9.0.dist-info/top_level.txt
+/usr/lib64/python3.15/site-packages/distro/__init__.py
+/usr/lib64/python3.15/site-packages/distro/__main__.py
+%dir /usr/lib64/python3.15/site-packages/distro/__pycache__
+/usr/lib64/python3.15/site-packages/distro/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/distro/__pycache__/__main__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/distro/__pycache__/distro.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/distro/distro.py
+/usr/lib64/python3.15/site-packages/distro/py.typed
