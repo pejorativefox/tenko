@@ -24,6 +24,7 @@ refuses to proceed when Secure Boot is enabled.
 | installer media | `tenko qemu installer` | systemd-boot menu, kernel + initrd boot, `Started Tenko Linux installer`, multi-user and a console login prompt |
 | unattended install | `ISO_AUTO=1 ISO_ANSWER=tests/installer-answer.json tenko image iso` then boot the ISO | installer reports steps 1–9 and `OK`, `bootctl install` succeeds, disk boots to `tenko-test login:` |
 | installed disk | QEMU with `-drive file=build/installer-test.img,if=virtio` and a fresh OVMF NVRAM | systemd-boot menu → kernel → login prompt |
+| ESP reuse | `tenko qemu esp-reuse` | a 512 MiB ESP with ~310 MiB free is adopted without formatting and the disk boots through the fallback loader; one with ~210 MiB free stops at the mount step with the larger-ESP remedy and the other partitions unchanged |
 | recovery runbook | manual QEMU/OVMF: live image plus a throwaway installed disk ([recovery.md](recovery.md)) | each scenario ends at the installed system's login prompt |
 | base system | `tenko qemu boot` | the installer's `base` package set boots to a serial login prompt; units that failed are listed |
 | first boot + greeter | `tenko qemu login` | first-boot password flow, LightDM greeter captured (guest `xwd` or screendump fallback) |
@@ -69,6 +70,38 @@ OVMF variable store (`OVMF_VARS` copied from `OVMF_VARS_SRC`) and
 the serial console.  `tests/serial_login.py [user] [password]` can drive that
 login over a `-serial unix:...` socket and checks for the login prompt,
 password prompt, shell prompt and requested commands.
+
+## ESP reuse test
+
+```sh
+./tenko qemu esp-reuse            # adopt and refuse
+./tenko qemu esp-reuse refuse     # the quick case only
+```
+
+It covers a disk whose ESP predates the install.  systemd-boot keeps the
+kernel and initramfs on the ESP, so the installer requires
+`ESP_MIN_FREE_MIB` (256 MiB) free on an adopted one and checks it after
+mounting it at `/boot`.  Each case builds a 20 GiB GPT disk with a 512 MiB
+FAT32 ESP holding a marker file and filler data, boots the installer ISO's
+kernel with `tenko.auto=1` and passes a version 3 `free-space` answer file
+(base set) through QEMU `fw_cfg`:
+
+- **adopt**: about 310 MiB free.  The install reports `OK`, the ESP keeps
+  its files and gains systemd-boot, `EFI/BOOT/BOOTX64.EFI` and the kernel.
+  The disk is then booted with an empty NVRAM, so the firmware has to use
+  the fallback loader, and the installed journal must show
+  `multi-user.target` reached in that boot.
+- **refuse**: about 210 MiB free plus a 1 GiB data partition.  The
+  installer stops at the mount step with "delete the partition and let the
+  installer create a larger ESP (1 GiB is recommended)"; the data partition
+  is byte-identical and the ESP files are intact.  The root partition the
+  installer created in free space before the check stays on the disk, and
+  the failure log is copied to the ESP.
+
+The installer installs from the network repository, so the guest needs
+internet access.  `ISO` selects the image (default
+`build/tenko-installer.iso`); work files and serial logs are in
+`build/esp-reuse/`.
 
 ## Recovery checks
 

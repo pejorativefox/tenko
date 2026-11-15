@@ -36,6 +36,7 @@ qemu login        | qemu/login.sh          | first-boot flow up to the LightDM g
 qemu fdo          | qemu/fdo.sh            | freedesktop gate inside a real login session
 qemu run          | qemu/run.sh            | boot the desktop test image interactively
 qemu installer    | qemu/installer.sh      | boot the installer ISO under UEFI
+qemu esp-reuse    | qemu/esp_reuse.sh      | install onto disks with an existing ESP (adopt and refuse)
 installer-sim     | tools/installer_sim.sh | run the installer UI against simulated disks
 "
 
