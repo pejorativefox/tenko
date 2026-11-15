@@ -1,0 +1,14 @@
+%dir /usr/lib64/python3.15/site-packages/asyncore
+/usr/lib64/python3.15/site-packages/asyncore/__init__.py
+%dir /usr/lib64/python3.15/site-packages/asyncore/__pycache__
+/usr/lib64/python3.15/site-packages/asyncore/__pycache__/__init__.cpython-315.pyc
+%dir /usr/lib64/python3.15/site-packages/pyasyncore-1.0.5.dist-info
+/usr/lib64/python3.15/site-packages/pyasyncore-1.0.5.dist-info/INSTALLER
+/usr/lib64/python3.15/site-packages/pyasyncore-1.0.5.dist-info/METADATA
+/usr/lib64/python3.15/site-packages/pyasyncore-1.0.5.dist-info/RECORD
+/usr/lib64/python3.15/site-packages/pyasyncore-1.0.5.dist-info/REQUESTED
+/usr/lib64/python3.15/site-packages/pyasyncore-1.0.5.dist-info/WHEEL
+/usr/lib64/python3.15/site-packages/pyasyncore-1.0.5.dist-info/direct_url.json
+%dir /usr/lib64/python3.15/site-packages/pyasyncore-1.0.5.dist-info/licenses
+/usr/lib64/python3.15/site-packages/pyasyncore-1.0.5.dist-info/licenses/LICENSE
+/usr/lib64/python3.15/site-packages/pyasyncore-1.0.5.dist-info/top_level.txt
