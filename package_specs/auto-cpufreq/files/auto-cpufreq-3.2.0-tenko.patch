@@ -132,6 +132,23 @@
      # delete override pickle if it exists
      if os.path.exists(governor_override_state):  os.remove(governor_override_state)
  
+--- a/auto_cpufreq/modules/system_monitor.py
++++ b/auto_cpufreq/modules/system_monitor.py
+@@ -159,12 +159,12 @@
+         # Capture focus only now. The user may have scrolled while
+         # the worker was collecting telemetry.
+         if len(self.left_content) > 0:
+-            _, self.last_focus_left = self.left_listbox.get_focus()
++            self.last_focus_left = self.left_listbox.focus_position
+             if self.last_focus_left is None:
+                 self.last_focus_left = 0
+ 
+         if len(self.right_content) > 0:
+-            _, self.last_focus_right = self.right_listbox.get_focus()
++            self.last_focus_right = self.right_listbox.focus_position
+             if self.last_focus_right is None:
+                 self.last_focus_right = 0
+ 
 --- a/pyproject.toml
 +++ b/pyproject.toml
 @@ -17,36 +17,30 @@

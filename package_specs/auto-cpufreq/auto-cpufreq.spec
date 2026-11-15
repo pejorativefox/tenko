@@ -1,6 +1,6 @@
 Name:       auto-cpufreq
 Version:    3.2.0
-Release:    1
+Release:    2
 Summary:    Automatic CPU speed and power optimizer for Linux
 License:    GPL-3.0-or-later
 URL:        https://github.com/AdnanHodzic/auto-cpufreq
@@ -8,7 +8,8 @@ Source0:    %{name}-%{version}.tar.gz
 Source1:    %{name}.service
 # Packaged layout: plain poetry-core backend, no GTK GUI, requests only for
 # the source-install self-updater, files under /usr and /var/lib, and
-# --install/--remove enable or disable the packaged systemd unit.
+# --install/--remove enable or disable the packaged systemd unit; the monitor
+# uses ListBox.focus_position (urwid 4 removed get_focus).
 Patch0:     %{name}-%{version}-tenko.patch
 Prefix:     /usr
 BuildArch:  noarch
@@ -57,6 +58,10 @@ install -dm755 %{buildroot}/var/lib/%{name}
 %files -f %{_sourcedir}/%{name}.filelist
 
 %changelog
+* Sun Nov 15 2026 tenko <build@tenko.invalid> 3.2.0-2
+- Fix --stats, --monitor and --live with urwid 5: read the list focus with
+  ListBox.focus_position instead of get_focus(), which urwid 4 removed.
+
 * Sun Nov 15 2026 tenko <build@tenko.invalid> 3.2.0-1
 - New package, not in the base set: latest upstream stable release
   (3.2.0, checked 2026-11-15).  CLI and daemon only (no GTK GUI); the
