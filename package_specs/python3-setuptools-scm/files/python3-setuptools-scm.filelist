@@ -1,0 +1,64 @@
+/usr/bin/setuptools-scm
+%dir /usr/lib64/python3.15/site-packages/setuptools_scm
+%dir /usr/lib64/python3.15/site-packages/setuptools_scm-10.3.4.dist-info
+/usr/lib64/python3.15/site-packages/setuptools_scm-10.3.4.dist-info/INSTALLER
+/usr/lib64/python3.15/site-packages/setuptools_scm-10.3.4.dist-info/METADATA
+/usr/lib64/python3.15/site-packages/setuptools_scm-10.3.4.dist-info/RECORD
+/usr/lib64/python3.15/site-packages/setuptools_scm-10.3.4.dist-info/REQUESTED
+/usr/lib64/python3.15/site-packages/setuptools_scm-10.3.4.dist-info/WHEEL
+/usr/lib64/python3.15/site-packages/setuptools_scm-10.3.4.dist-info/direct_url.json
+/usr/lib64/python3.15/site-packages/setuptools_scm-10.3.4.dist-info/entry_points.txt
+%dir /usr/lib64/python3.15/site-packages/setuptools_scm-10.3.4.dist-info/licenses
+/usr/lib64/python3.15/site-packages/setuptools_scm-10.3.4.dist-info/licenses/LICENSE
+/usr/lib64/python3.15/site-packages/setuptools_scm-10.3.4.dist-info/top_level.txt
+/usr/lib64/python3.15/site-packages/setuptools_scm/.git_archival.txt
+/usr/lib64/python3.15/site-packages/setuptools_scm/__init__.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/__main__.py
+%dir /usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/__main__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/_compat_helpers.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/_get_version.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/discover.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/fallbacks.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/git.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/hg.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/hg_git.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/integration.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/scm_workdir.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/__pycache__/version.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_compat_helpers.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/_get_version.py
+%dir /usr/lib64/python3.15/site-packages/setuptools_scm/_integration
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__init__.py
+%dir /usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__/_discover.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__/bdist_wheel.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__/build_py.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__/deprecation.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__/egg_info.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__/file_finders.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__/pyproject_reading.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__/setup_cfg.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__/setuptools.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/__pycache__/version_inference.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/_discover.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/bdist_wheel.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/build_py.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/deprecation.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/egg_info.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/file_finders.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/pyproject_reading.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/setup_cfg.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/setuptools.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/_integration/version_inference.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/discover.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/fallbacks.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/git.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/hg.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/hg_git.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/integration.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/py.typed
+/usr/lib64/python3.15/site-packages/setuptools_scm/scm_workdir.py
+/usr/lib64/python3.15/site-packages/setuptools_scm/version.py
