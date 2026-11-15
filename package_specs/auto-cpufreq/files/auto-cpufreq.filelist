@@ -1,0 +1,57 @@
+/usr/bin/auto-cpufreq
+/usr/bin/cpufreqctl.auto-cpufreq
+%dir /usr/lib/systemd
+%dir /usr/lib/systemd/system
+/usr/lib/systemd/system/auto-cpufreq.service
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq-3.2.0.dist-info
+/usr/lib64/python3.15/site-packages/auto_cpufreq-3.2.0.dist-info/INSTALLER
+/usr/lib64/python3.15/site-packages/auto_cpufreq-3.2.0.dist-info/METADATA
+/usr/lib64/python3.15/site-packages/auto_cpufreq-3.2.0.dist-info/RECORD
+/usr/lib64/python3.15/site-packages/auto_cpufreq-3.2.0.dist-info/REQUESTED
+/usr/lib64/python3.15/site-packages/auto_cpufreq-3.2.0.dist-info/WHEEL
+/usr/lib64/python3.15/site-packages/auto_cpufreq-3.2.0.dist-info/direct_url.json
+/usr/lib64/python3.15/site-packages/auto_cpufreq-3.2.0.dist-info/entry_points.txt
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq-3.2.0.dist-info/licenses
+/usr/lib64/python3.15/site-packages/auto_cpufreq-3.2.0.dist-info/licenses/LICENSE
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq/__pycache__
+/usr/lib64/python3.15/site-packages/auto_cpufreq/__pycache__/core.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/__pycache__/globals.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/__pycache__/power_helper.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/__pycache__/tlp_stat_parser.cpython-315.pyc
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq/battery_scripts
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq/battery_scripts/__pycache__
+/usr/lib64/python3.15/site-packages/auto_cpufreq/battery_scripts/__pycache__/asus.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/battery_scripts/__pycache__/battery.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/battery_scripts/__pycache__/ideapad_laptop.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/battery_scripts/__pycache__/shared.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/battery_scripts/asus.py
+/usr/lib64/python3.15/site-packages/auto_cpufreq/battery_scripts/battery.py
+/usr/lib64/python3.15/site-packages/auto_cpufreq/battery_scripts/ideapad_laptop.py
+/usr/lib64/python3.15/site-packages/auto_cpufreq/battery_scripts/shared.py
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq/bin
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq/bin/__pycache__
+/usr/lib64/python3.15/site-packages/auto_cpufreq/bin/__pycache__/auto_cpufreq.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/bin/auto_cpufreq.py
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq/config
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq/config/__pycache__
+/usr/lib64/python3.15/site-packages/auto_cpufreq/config/__pycache__/config.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/config/__pycache__/config_event_handler.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/config/config.py
+/usr/lib64/python3.15/site-packages/auto_cpufreq/config/config_event_handler.py
+/usr/lib64/python3.15/site-packages/auto_cpufreq/core.py
+/usr/lib64/python3.15/site-packages/auto_cpufreq/globals.py
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq/modules
+%dir /usr/lib64/python3.15/site-packages/auto_cpufreq/modules/__pycache__
+/usr/lib64/python3.15/site-packages/auto_cpufreq/modules/__pycache__/platform_profile.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/modules/__pycache__/system_info.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/modules/__pycache__/system_monitor.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/auto_cpufreq/modules/platform_profile.py
+/usr/lib64/python3.15/site-packages/auto_cpufreq/modules/system_info.py
+/usr/lib64/python3.15/site-packages/auto_cpufreq/modules/system_monitor.py
+/usr/lib64/python3.15/site-packages/auto_cpufreq/power_helper.py
+/usr/lib64/python3.15/site-packages/auto_cpufreq/tlp_stat_parser.py
+%dir /usr/share/doc/auto-cpufreq
+/usr/share/doc/auto-cpufreq/README.md
+/usr/share/doc/auto-cpufreq/auto-cpufreq.conf-example
+%dir /var/lib/auto-cpufreq

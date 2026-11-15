@@ -1,0 +1,178 @@
+--- a/auto_cpufreq/core.py
++++ b/auto_cpufreq/core.py
+@@ -7,7 +7,6 @@
+ from pathlib import Path
+ from pickle import dump, load
+ from re import search
+-from requests import get, exceptions
+ from shutil import copy, rmtree
+ from subprocess import call, DEVNULL, getoutput, run
+ from tempfile import mkdtemp
+@@ -34,7 +33,7 @@
+ 
+ SOURCE_INSTALL_ROOT = Path("/opt/auto-cpufreq")
+ SOURCE_INSTALL_SCRIPTS_DIR = SOURCE_INSTALL_ROOT / "current/share/scripts"
+-SCRIPTS_DIR = SOURCE_INSTALL_SCRIPTS_DIR if SOURCE_INSTALL_SCRIPTS_DIR.is_dir() else Path("/usr/local/share/auto-cpufreq/scripts/")
++SCRIPTS_DIR = SOURCE_INSTALL_SCRIPTS_DIR if SOURCE_INSTALL_SCRIPTS_DIR.is_dir() else Path("/usr/share/auto-cpufreq/scripts/")
+ CPUS = os.cpu_count()
+ 
+ 
+@@ -58,8 +57,8 @@
+     turbo_override_state    = Path("/var/snap/auto-cpufreq/current/turbo-override.pickle")
+ else:
+     auto_cpufreq_stats_path = Path("/var/run/auto-cpufreq.stats")
+-    governor_override_state = Path("/opt/auto-cpufreq/override.pickle")
+-    turbo_override_state    = Path("/opt/auto-cpufreq/turbo-override.pickle")
++    governor_override_state = Path("/var/lib/auto-cpufreq/override.pickle")
++    turbo_override_state    = Path("/var/lib/auto-cpufreq/turbo-override.pickle")
+ 
+ last_applied_config_section = None
+ 
+@@ -158,6 +157,8 @@
+         print("Update this installation through the package manager that provided it.")
+         return None
+ 
++    from requests import get, exceptions
++
+     # Specify the repository and package name
+     # IT IS IMPORTANT TO  THAT IF THE REPOSITORY STRUCTURE IS CHANGED, THE FOLLOWING FUNCTION NEEDS TO BE UPDATED ACCORDINGLY
+     # Fetch the latest release information from GitHub API
+@@ -359,16 +360,15 @@
+     """
+     deploy cpufreqctl.auto-cpufreq script
+     """
+-    if not (IS_INSTALLED_WITH_SNAP or os.path.isfile("/usr/local/bin/cpufreqctl.auto-cpufreq")):
+-        copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/local/bin/cpufreqctl.auto-cpufreq")
+-        call(["chmod", "a+x", "/usr/local/bin/cpufreqctl.auto-cpufreq"])
++    # Tenko: /usr/bin/cpufreqctl.auto-cpufreq is part of the package.
++    return
+ 
+ def cpufreqctl_restore():
+     """
+     remove cpufreqctl.auto-cpufreq script
+     """
+-    if not IS_INSTALLED_WITH_SNAP and os.path.isfile("/usr/local/bin/cpufreqctl.auto-cpufreq"):
+-        os.remove("/usr/local/bin/cpufreqctl.auto-cpufreq")
++    # Tenko: /usr/bin/cpufreqctl.auto-cpufreq is part of the package.
++    return
+ 
+ def footer(l=79): print("\n" + "-" * l + "\n")
+ 
+@@ -394,14 +394,6 @@
+ 
+     auto_cpufreq_stats_path.touch(exist_ok=True)
+ 
+-    print("\n* Deploy auto-cpufreq install script")
+-    copy(SCRIPTS_DIR / "auto-cpufreq-install.sh", "/usr/local/bin/auto-cpufreq-install")
+-    call(["chmod", "a+x", "/usr/local/bin/auto-cpufreq-install"])
+-
+-    print("\n* Deploy auto-cpufreq remove script")
+-    copy(SCRIPTS_DIR / "auto-cpufreq-remove.sh", "/usr/local/bin/auto-cpufreq-remove")
+-    call(["chmod", "a+x", "/usr/local/bin/auto-cpufreq-remove"])
+-
+     # output warning if gnome power profile is running
+     gnome_power_detect_install()
+     gnome_power_svc_disable()
+@@ -410,7 +402,9 @@
+ 
+     tlp_service_detect() # output warning if TLP service is detected
+ 
+-    return call("/usr/local/bin/auto-cpufreq-install", shell=True)
++    # Tenko: the unit is packaged in /usr/lib/systemd/system.
++    print("\n* Enabling and starting auto-cpufreq daemon (systemd)")
++    return call(["systemctl", "enable", "--now", "auto-cpufreq"])
+ 
+ def deploy_daemon_performance():
+     print("\n" + "-" * 21 + " Deploying auto-cpufreq as a daemon (performance) " + "-" * 22 + "\n")
+@@ -427,12 +421,6 @@
+ 
+     auto_cpufreq_stats_path.touch(exist_ok=True)
+ 
+-    print("\n* Deploy auto-cpufreq install script")
+-    copy(SCRIPTS_DIR / "auto-cpufreq-install.sh", "/usr/local/bin/auto-cpufreq-install")
+-
+-    print("\n* Deploy auto-cpufreq remove script")
+-    copy(SCRIPTS_DIR / "auto-cpufreq-remove.sh", "/usr/local/bin/auto-cpufreq-remove")
+-
+     # output warning if gnome power profile is running
+     gnome_power_detect_install()
+     #"gnome_power_svc_disable_performance" is not defined
+@@ -440,11 +428,12 @@
+    
+     tlp_service_detect() # output warning if TLP service is detected
+ 
+-    call("/usr/local/bin/auto-cpufreq-install", shell=True)
++    print("\n* Enabling and starting auto-cpufreq daemon (systemd)")
++    call(["systemctl", "enable", "--now", "auto-cpufreq"])
+ 
+ def remove_daemon():
+     # check if auto-cpufreq is installed
+-    if not os.path.exists("/usr/local/bin/auto-cpufreq-remove"):
++    if call(["systemctl", "--quiet", "is-enabled", "auto-cpufreq"], stderr=DEVNULL) != 0:
+         print("\nauto-cpufreq daemon is not installed.\n")
+         sys.exit(1)
+ 
+@@ -454,7 +443,8 @@
+     # system cleanup succeeds. Restoring competing services before that point
+     # could leave them running alongside an auto-cpufreq daemon that failed to
+     # stop, and would make a failed removal unsafe to retry.
+-    remove_status = call("/usr/local/bin/auto-cpufreq-remove", shell=True)
++    print("\n* Stopping and disabling auto-cpufreq daemon (systemd)")
++    remove_status = call(["systemctl", "disable", "--now", "auto-cpufreq"])
+     if remove_status != 0:
+         return remove_status
+ 
+@@ -466,9 +456,6 @@
+ 
+     tuned_svc_enable()
+ 
+-    # remove auto-cpufreq-remove
+-    os.remove("/usr/local/bin/auto-cpufreq-remove")
+-
+     # delete override pickle if it exists
+     if os.path.exists(governor_override_state):  os.remove(governor_override_state)
+ 
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -17,36 +17,30 @@
+ documentation = "https://github.com/AdnanHodzic/auto-cpufreq#readme"
+ packages = [
+     { include = "./auto_cpufreq" },
+-    { include = "./auto_cpufreq/gui" },
+ ]
++exclude = ["auto_cpufreq/gui", "auto_cpufreq/bin/auto_cpufreq_gtk.py"]
+ 
+ [tool.poetry.dependencies]
+ python = ">=3.9, <4.0"
+ psutil = ">=6.0.0,<8.0.0"
+ click = "^8.1.0"
+ distro = "^1.8.0"
+-requests = "^2.32.4"
+ # PyGObject remains an optional extra for Poetry/development GUI installs.
+ # Debian/Ubuntu source installs use the distribution-provided python3-gi
+ # runtime through the installer's --system-site-packages virtual environment.
+-PyGObject = {version="^3.50.0", optional=true}
+-urwid = "^3.0.2"
+-pyinotify = {git = "https://github.com/shadeyg56/pyinotify-3.12"}
++urwid = ">=3.0.2"
++pyinotify = "^0.9.6"
+ pyasyncore = "^1.0.4"
+ 
+-[tool.poetry.extras]
+-gui = ["PyGObject"]
+-
+ [tool.poetry.group.dev.dependencies]
+ poetry = "^1.6.1"
+ 
+ [build-system]
+-requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+-build-backend = "poetry_dynamic_versioning.backend"
++requires = ["poetry-core>=1.0.0"]
++build-backend = "poetry.core.masonry.api"
+ 
+ [tool.poetry.scripts]
+ auto-cpufreq = "auto_cpufreq.bin.auto_cpufreq:main"
+-auto-cpufreq-gtk = "auto_cpufreq.bin.auto_cpufreq_gtk:main"
+ 
+ # https://github.com/mtkennerly/poetry-dynamic-versioning
+ [tool.poetry-dynamic-versioning]
