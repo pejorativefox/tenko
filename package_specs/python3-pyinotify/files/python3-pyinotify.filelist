@@ -1,0 +1,13 @@
+%dir /usr/lib64/python3.15/site-packages/__pycache__
+/usr/lib64/python3.15/site-packages/__pycache__/pyinotify.cpython-315.pyc
+%dir /usr/lib64/python3.15/site-packages/pyinotify-0.9.6.dist-info
+/usr/lib64/python3.15/site-packages/pyinotify-0.9.6.dist-info/INSTALLER
+/usr/lib64/python3.15/site-packages/pyinotify-0.9.6.dist-info/METADATA
+/usr/lib64/python3.15/site-packages/pyinotify-0.9.6.dist-info/RECORD
+/usr/lib64/python3.15/site-packages/pyinotify-0.9.6.dist-info/REQUESTED
+/usr/lib64/python3.15/site-packages/pyinotify-0.9.6.dist-info/WHEEL
+/usr/lib64/python3.15/site-packages/pyinotify-0.9.6.dist-info/direct_url.json
+%dir /usr/lib64/python3.15/site-packages/pyinotify-0.9.6.dist-info/licenses
+/usr/lib64/python3.15/site-packages/pyinotify-0.9.6.dist-info/licenses/COPYING
+/usr/lib64/python3.15/site-packages/pyinotify-0.9.6.dist-info/top_level.txt
+/usr/lib64/python3.15/site-packages/pyinotify.py
