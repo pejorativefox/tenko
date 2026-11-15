@@ -1,0 +1,133 @@
+/usr/bin/vcs-versioning
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning-2.6.0.dist-info
+/usr/lib64/python3.15/site-packages/vcs_versioning-2.6.0.dist-info/INSTALLER
+/usr/lib64/python3.15/site-packages/vcs_versioning-2.6.0.dist-info/METADATA
+/usr/lib64/python3.15/site-packages/vcs_versioning-2.6.0.dist-info/RECORD
+/usr/lib64/python3.15/site-packages/vcs_versioning-2.6.0.dist-info/REQUESTED
+/usr/lib64/python3.15/site-packages/vcs_versioning-2.6.0.dist-info/WHEEL
+/usr/lib64/python3.15/site-packages/vcs_versioning-2.6.0.dist-info/direct_url.json
+/usr/lib64/python3.15/site-packages/vcs_versioning-2.6.0.dist-info/entry_points.txt
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning-2.6.0.dist-info/licenses
+/usr/lib64/python3.15/site-packages/vcs_versioning-2.6.0.dist-info/licenses/LICENSE.txt
+/usr/lib64/python3.15/site-packages/vcs_versioning-2.6.0.dist-info/top_level.txt
+/usr/lib64/python3.15/site-packages/vcs_versioning/__init__.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/__main__.py
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/__main__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_compat.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_config.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_discover.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_dump_version.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_dynamic_metadata.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_entrypoints.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_environment.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_exceptions.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_fallback_workdir.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_fallbacks.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_get_version_impl.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_integration.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_integrator_helpers.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_legacy_parse.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_log.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_modify_version.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_node_utils.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_overrides.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_paths.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_project_overrides.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_protocols.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_pyproject_reading.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_requirement_cls.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_run_cmd.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_scm_metadata.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_scm_version.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_test_utils.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_toml.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_types.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_version_cls.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_version_fields.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_version_inference.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/_worktree_discovery.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/overrides.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/__pycache__/test_api.cpython-315.pyc
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning/_backends
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/__init__.py
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning/_backends/__pycache__
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/__pycache__/_discover_vcs.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/__pycache__/_git.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/__pycache__/_hg.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/__pycache__/_hg_git.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/__pycache__/_jj.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/__pycache__/_scm_workdir.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/_discover_vcs.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/_git.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/_hg.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/_hg_git.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/_jj.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_backends/_scm_workdir.py
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning/_cli
+/usr/lib64/python3.15/site-packages/vcs_versioning/_cli/__init__.py
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning/_cli/__pycache__
+/usr/lib64/python3.15/site-packages/vcs_versioning/_cli/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_cli/__pycache__/_args.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_cli/_args.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_cli/git_archival_full.txt
+/usr/lib64/python3.15/site-packages/vcs_versioning/_cli/git_archival_stable.txt
+/usr/lib64/python3.15/site-packages/vcs_versioning/_compat.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_config.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_discover.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_dump_version.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_dynamic_metadata.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_entrypoints.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_environment.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_exceptions.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_fallback_workdir.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_fallbacks.py
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning/_file_finders
+/usr/lib64/python3.15/site-packages/vcs_versioning/_file_finders/__init__.py
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning/_file_finders/__pycache__
+/usr/lib64/python3.15/site-packages/vcs_versioning/_file_finders/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_file_finders/__pycache__/_git.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_file_finders/__pycache__/_hg.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_file_finders/__pycache__/_jj.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_file_finders/_git.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_file_finders/_hg.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_file_finders/_jj.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_get_version_impl.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_integration.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_integrator_helpers.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_legacy_parse.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_log.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_modify_version.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_node_utils.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_overrides.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_paths.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_project_overrides.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_protocols.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_pyproject_reading.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_requirement_cls.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_run_cmd.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_scm_metadata.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_scm_version.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_test_utils.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_toml.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_types.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_version_cls.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_version_fields.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_version_inference.py
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning/_version_schemes
+/usr/lib64/python3.15/site-packages/vcs_versioning/_version_schemes/__init__.py
+%dir /usr/lib64/python3.15/site-packages/vcs_versioning/_version_schemes/__pycache__
+/usr/lib64/python3.15/site-packages/vcs_versioning/_version_schemes/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_version_schemes/__pycache__/_common.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_version_schemes/__pycache__/_standard.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_version_schemes/__pycache__/_towncrier.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/vcs_versioning/_version_schemes/_common.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_version_schemes/_standard.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_version_schemes/_towncrier.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/_worktree_discovery.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/overrides.py
+/usr/lib64/python3.15/site-packages/vcs_versioning/py.typed
+/usr/lib64/python3.15/site-packages/vcs_versioning/test_api.py
