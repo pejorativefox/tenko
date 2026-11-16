@@ -223,6 +223,21 @@ else
     echo "keyring-daemon: FAIL (gnome-keyring-daemon is not installed)"
 fi
 
+echo "=== keyring tools ==="
+# The keyring manager must start against this session's libraries, and
+# gpg-agent's /usr/bin/pinentry must answer the Assuan protocol.
+if seahorse_out=$(timeout 20 seahorse --version 2>&1); then
+    echo "keyring-manager: PASS ($(printf "%s\n" "$seahorse_out" | head -1))"
+else
+    echo "keyring-manager: FAIL (seahorse --version: ${seahorse_out:-not installed})"
+fi
+pinentry_out=$(printf 'GETINFO version\nBYE\n' | timeout 20 pinentry 2>&1 | sed -n 's/^D //p')
+if [ -n "$pinentry_out" ] && [ "$(readlink /usr/bin/pinentry)" = pinentry-gnome3 ]; then
+    echo "pinentry: PASS (pinentry-gnome3 $pinentry_out)"
+else
+    echo "pinentry: FAIL (/usr/bin/pinentry did not answer GETINFO version)"
+fi
+
 echo "=== secret service (login session) ==="
 if command -v secret-tool >/dev/null 2>&1; then
     # Autologin has no password for PAM to pass to gnome-keyring, so unlock
@@ -311,7 +326,7 @@ echo "=== keyring PAM configuration ==="
 for pam in /etc/pam.d/lightdm /etc/pam.d/lightdm-autologin; do
     if ! grep -q 'pam_gnome_keyring.so' "$pam" 2>/dev/null; then
         echo "pam-keyring: FAIL ($pam has no pam_gnome_keyring.so)"
-    elif [ "$(grep -E '^session' "$pam" | sed -n '/pam_systemd/,$p' |
+    elif [ "$(grep -E '^-?session' "$pam" | sed -n '/pam_systemd/,$p' |
               grep -c pam_gnome_keyring.so)" != 1 ]; then
         echo "pam-keyring: FAIL ($pam runs pam_gnome_keyring before pam_systemd)"
     else

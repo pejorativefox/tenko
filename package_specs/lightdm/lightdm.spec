@@ -1,6 +1,6 @@
 Name:       lightdm
 Version:    1.33.1
-Release:    8
+Release:    9
 Summary:    Lightweight cross-desktop display manager
 License:    GPL-3.0-or-later
 URL:        https://github.com/ubuntu/lightdm
@@ -91,14 +91,17 @@ install -Dpm0644 %{SOURCE2} %{buildroot}%{_prefix}/lib/systemd/system-preset/50-
 # $XDG_RUNTIME_DIR/keyring only when the variable is set.  That is where the
 # D-Bus activated and autostarted `gnome-keyring-daemon --start` look for
 # the daemon PAM unlocked.
-sed -E -i '/^auth[[:space:]]+required[[:space:]]+pam_unix\.so/a auth      optional pam_gnome_keyring.so' \
+#
+# The leading "-" makes PAM skip the entry without a log message when the
+# module is not installed.
+sed -E -i '/^auth[[:space:]]+required[[:space:]]+pam_unix\.so/a -auth     optional pam_gnome_keyring.so' \
     %{buildroot}/%{_sysconfdir}/pam.d/lightdm
 for pam in lightdm lightdm-autologin; do
-    sed -E -i '/^session[[:space:]]+optional[[:space:]]+pam_systemd\.so/a session   optional pam_gnome_keyring.so auto_start' \
+    sed -E -i '/^session[[:space:]]+optional[[:space:]]+pam_systemd\.so/a -session  optional pam_gnome_keyring.so auto_start' \
         %{buildroot}/%{_sysconfdir}/pam.d/$pam
     # The keyring hook must be the last session line, after pam_systemd.
-    [ "$(grep -E '^session' %{buildroot}/%{_sysconfdir}/pam.d/$pam | tail -1)" = \
-      'session   optional pam_gnome_keyring.so auto_start' ]
+    [ "$(grep -E '^-?session' %{buildroot}/%{_sysconfdir}/pam.d/$pam | tail -1)" = \
+      '-session  optional pam_gnome_keyring.so auto_start' ]
     [ "$(grep -c pam_systemd.so %{buildroot}/%{_sysconfdir}/pam.d/$pam)" = 1 ]
 done
 
@@ -137,6 +140,11 @@ XML needed for building stays there.
 %files gir -f %{_sourcedir}/lightdm-gir.filelist
 
 %changelog
+* Mon Nov 16 2026 tenko <build@tenko.invalid> 1.33.1-9
+- Mark the pam_gnome_keyring auth and session entries with the "-" prefix
+  so an install without gnome-keyring does not log a missing-module error
+  at every login.  Same upstream version (1.33.1).
+
 * Mon Nov 16 2026 tenko <build@tenko.invalid> 1.33.1-8
 - Run the pam_gnome_keyring session hook after pam_systemd in
   /etc/pam.d/lightdm and /etc/pam.d/lightdm-autologin.  Before pam_systemd

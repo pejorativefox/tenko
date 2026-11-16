@@ -1,6 +1,6 @@
 Name:       libsecret
 Version:    0.21.8.2
-Release:    3
+Release:    4
 Summary:    GObject secret service library
 License:    LGPL-2.1-or-later
 URL:        https://gitlab.gnome.org/GNOME/libsecret
@@ -11,6 +11,7 @@ BuildRequires: libxslt
 BuildRequires: libgcrypt
 BuildRequires: dbus-daemon
 BuildRequires: gobject-introspection
+BuildRequires: vala
 
 %description
 The libsecret package contains a GObject based library for accessing the Secret Service API.
@@ -26,7 +27,7 @@ meson setup --prefix=/usr       \
             -Dbashcompdir=/usr/share/bash-completion/completions \
             -D gtk_doc=false    \
             -D manpage=false    \
-            -D vapi=false       \
+            -D vapi=true        \
             ..
 ninja
 popd
@@ -41,6 +42,10 @@ rm -vf %{buildroot}%{_infodir}/dir
 %files -f %{_sourcedir}/libsecret.filelist
 
 %changelog
+* Mon Nov 16 2026 tenko <build@tenko.invalid> 0.21.8.2-4
+- Build and ship the Vala binding (libsecret-1.vapi); Seahorse is written
+  in Vala and needs it.  Same upstream version (0.21.8.2).
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 0.21.8.2-3
 - Install the upstream secret-tool bash completion.  Meson only installed
   it when bash-completion.pc was present; set bashcompdir explicitly so the

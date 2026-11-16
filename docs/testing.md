@@ -183,9 +183,12 @@ has its control socket in `$XDG_RUNTIME_DIR/keyring` and owns
 can be D-Bus activated (it needs the display in the activation
 environment).  `pam-keyring` checks that the session hook follows
 `pam_systemd` in `/etc/pam.d/lightdm` and `/etc/pam.d/lightdm-autologin`,
-and `pam-keyring-passwd` checks the re-key hook in `/etc/pam.d/passwd`.  To
-exercise the greeter unlock end to end, disable the autologin drop-in in a
-test image, log in at the LightDM greeter with the test password, and
+and `pam-keyring-passwd` checks the re-key hook in `/etc/pam.d/passwd`.
+`keyring-manager` runs `seahorse --version`, and `pinentry` checks that
+`/usr/bin/pinentry` is the GNOME 3 dialog and answers the Assuan protocol.
+
+To exercise the greeter unlock end to end, disable the autologin drop-in in
+a test image, log in at the LightDM greeter with the test password, and
 confirm that `secret-tool lookup service tenko key test` returns without the
 manual unlock.
 

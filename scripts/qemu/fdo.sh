@@ -157,7 +157,8 @@ for pattern in 'PASS  display' 'PASS  session-bus' 'PASS  user-manager' \
                'portal: PASS' 'notification-service: PASS' \
                'secret-tool round-trip: tenko-secret' 'gio trash: ok' \
                'pam-keyring: PASS' 'pam-keyring-passwd: PASS' \
-               'keyring-daemon: PASS' 'keyring-prompter: PASS'; do
+               'keyring-daemon: PASS' 'keyring-prompter: PASS' \
+               'keyring-manager: PASS' 'pinentry: PASS'; do
     grep -qF "$pattern" "$result" || missing="$missing '$pattern'"
 done
 if [ -n "$missing" ]; then

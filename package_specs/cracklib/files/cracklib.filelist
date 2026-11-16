@@ -1,0 +1,164 @@
+/usr/bin/cracklib-check
+/usr/bin/cracklib-format
+/usr/bin/cracklib-packer
+/usr/bin/cracklib-unpacker
+/usr/bin/cracklib-update
+/usr/bin/create-cracklib-dict
+/usr/include/crack.h
+/usr/include/packer.h
+%dir /usr/lib/cracklib
+/usr/lib/cracklib/pw_dict.hwm
+/usr/lib/cracklib/pw_dict.pwd
+/usr/lib/cracklib/pw_dict.pwi
+/usr/lib64/libcrack.so
+/usr/lib64/libcrack.so.2
+/usr/lib64/libcrack.so.2.9.0
+%dir /usr/share/cracklib
+/usr/share/cracklib/cracklib-small
+/usr/share/cracklib/cracklib.magic
+%dir /usr/share/locale/as
+%dir /usr/share/locale/as/LC_MESSAGES
+/usr/share/locale/as/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/be
+%dir /usr/share/locale/be/LC_MESSAGES
+/usr/share/locale/be/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/bn_IN
+%dir /usr/share/locale/bn_IN/LC_MESSAGES
+/usr/share/locale/bn_IN/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/ca
+%dir /usr/share/locale/ca/LC_MESSAGES
+/usr/share/locale/ca/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/cs
+%dir /usr/share/locale/cs/LC_MESSAGES
+/usr/share/locale/cs/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/da
+%dir /usr/share/locale/da/LC_MESSAGES
+/usr/share/locale/da/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/de
+%dir /usr/share/locale/de/LC_MESSAGES
+/usr/share/locale/de/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/el
+%dir /usr/share/locale/el/LC_MESSAGES
+/usr/share/locale/el/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/es
+%dir /usr/share/locale/es/LC_MESSAGES
+/usr/share/locale/es/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/eu
+%dir /usr/share/locale/eu/LC_MESSAGES
+/usr/share/locale/eu/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/fi
+%dir /usr/share/locale/fi/LC_MESSAGES
+/usr/share/locale/fi/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/fr
+%dir /usr/share/locale/fr/LC_MESSAGES
+/usr/share/locale/fr/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/fur
+%dir /usr/share/locale/fur/LC_MESSAGES
+/usr/share/locale/fur/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/gu
+%dir /usr/share/locale/gu/LC_MESSAGES
+/usr/share/locale/gu/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/he
+%dir /usr/share/locale/he/LC_MESSAGES
+/usr/share/locale/he/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/hi
+%dir /usr/share/locale/hi/LC_MESSAGES
+/usr/share/locale/hi/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/hu
+%dir /usr/share/locale/hu/LC_MESSAGES
+/usr/share/locale/hu/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/id
+%dir /usr/share/locale/id/LC_MESSAGES
+/usr/share/locale/id/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/it
+%dir /usr/share/locale/it/LC_MESSAGES
+/usr/share/locale/it/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/ja
+%dir /usr/share/locale/ja/LC_MESSAGES
+/usr/share/locale/ja/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/ka
+%dir /usr/share/locale/ka/LC_MESSAGES
+/usr/share/locale/ka/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/kk
+%dir /usr/share/locale/kk/LC_MESSAGES
+/usr/share/locale/kk/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/kn
+%dir /usr/share/locale/kn/LC_MESSAGES
+/usr/share/locale/kn/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/ko
+%dir /usr/share/locale/ko/LC_MESSAGES
+/usr/share/locale/ko/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/lt
+%dir /usr/share/locale/lt/LC_MESSAGES
+/usr/share/locale/lt/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/ml
+%dir /usr/share/locale/ml/LC_MESSAGES
+/usr/share/locale/ml/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/mr
+%dir /usr/share/locale/mr/LC_MESSAGES
+/usr/share/locale/mr/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/nb
+%dir /usr/share/locale/nb/LC_MESSAGES
+/usr/share/locale/nb/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/nl
+%dir /usr/share/locale/nl/LC_MESSAGES
+/usr/share/locale/nl/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/or
+%dir /usr/share/locale/or/LC_MESSAGES
+/usr/share/locale/or/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/pa
+%dir /usr/share/locale/pa/LC_MESSAGES
+/usr/share/locale/pa/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/pl
+%dir /usr/share/locale/pl/LC_MESSAGES
+/usr/share/locale/pl/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/pt
+%dir /usr/share/locale/pt/LC_MESSAGES
+/usr/share/locale/pt/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/pt_BR
+%dir /usr/share/locale/pt_BR/LC_MESSAGES
+/usr/share/locale/pt_BR/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/ro
+%dir /usr/share/locale/ro/LC_MESSAGES
+/usr/share/locale/ro/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/ru
+%dir /usr/share/locale/ru/LC_MESSAGES
+/usr/share/locale/ru/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/si
+%dir /usr/share/locale/si/LC_MESSAGES
+/usr/share/locale/si/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/sk
+%dir /usr/share/locale/sk/LC_MESSAGES
+/usr/share/locale/sk/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/sl
+%dir /usr/share/locale/sl/LC_MESSAGES
+/usr/share/locale/sl/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/sq
+%dir /usr/share/locale/sq/LC_MESSAGES
+/usr/share/locale/sq/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/sv
+%dir /usr/share/locale/sv/LC_MESSAGES
+/usr/share/locale/sv/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/ta
+%dir /usr/share/locale/ta/LC_MESSAGES
+/usr/share/locale/ta/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/te
+%dir /usr/share/locale/te/LC_MESSAGES
+/usr/share/locale/te/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/tr
+%dir /usr/share/locale/tr/LC_MESSAGES
+/usr/share/locale/tr/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/uk
+%dir /usr/share/locale/uk/LC_MESSAGES
+/usr/share/locale/uk/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/zh_CN
+%dir /usr/share/locale/zh_CN/LC_MESSAGES
+/usr/share/locale/zh_CN/LC_MESSAGES/cracklib.mo
+%dir /usr/share/locale/zh_TW
+%dir /usr/share/locale/zh_TW/LC_MESSAGES
+/usr/share/locale/zh_TW/LC_MESSAGES/cracklib.mo
+/usr/share/man/man3/FascistCheck.3.gz
+/usr/share/man/man8/cracklib-check.8.gz
+/usr/share/man/man8/cracklib-format.8.gz
+/usr/share/man/man8/cracklib-update.8.gz
+/usr/share/man/man8/create-cracklib-dict.8.gz

@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    19
+Release:    20
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 URL:        https://github.com/pejorativefox/tenko
@@ -34,6 +34,9 @@ Requires:   fuse2
 # Secret Service provider (org.freedesktop.secrets) and portal Secret
 # backend.
 Requires:   gnome-keyring
+# Passphrase dialog for gpg-agent; without one gpg cannot ask for a
+# passphrase in the desktop.
+Requires:   pinentry
 Requires:   dbus-daemon
 Requires:   dbus-x11
 Requires:   xorg-server
@@ -122,6 +125,9 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 %files -f %{_sourcedir}/xfce-desktop-core.filelist
 
 %changelog
+* Mon Nov 16 2026 tenko <build@tenko.invalid> 4.20-20
+- Require pinentry so gpg-agent can ask for a passphrase in the desktop.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 4.20-19
 - Require xsel so the lean VM/headless desktop profile also has
   command-line access to the X selections.

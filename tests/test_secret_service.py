@@ -51,9 +51,11 @@ class SecretServiceTest(unittest.TestCase):
     def test_lightdm_unlocks_the_login_keyring(self):
         spec = spec_text("lightdm")
         self.assertIn("pam_gnome_keyring.so", spec)
-        self.assertIn("auth      optional pam_gnome_keyring.so", spec)
+        # The "-" prefix keeps an install without gnome-keyring quiet.
+        self.assertIn("-auth     optional pam_gnome_keyring.so", spec)
         self.assertIn(
-            "session   optional pam_gnome_keyring.so auto_start", spec)
+            "-session  optional pam_gnome_keyring.so auto_start", spec)
+        self.assertNotIn("a auth      optional pam_gnome_keyring.so", spec)
         self.assertIn("Recommends:    gnome-keyring", spec)
 
     def test_keyring_session_hook_follows_pam_systemd(self):
@@ -63,10 +65,9 @@ class SecretServiceTest(unittest.TestCase):
         spec = spec_text("lightdm")
         self.assertIn(
             "/^session[[:space:]]+optional[[:space:]]+pam_systemd\\.so/a "
-            "session   optional pam_gnome_keyring.so auto_start", spec)
+            "-session  optional pam_gnome_keyring.so auto_start", spec)
         self.assertNotIn(
-            "/^session[[:space:]]+required[[:space:]]+pam_unix\\.so/a "
-            "session   optional pam_gnome_keyring.so", spec)
+            "/^session[[:space:]]+required[[:space:]]+pam_unix\\.so/a ", spec)
 
     def test_keyring_autostart_runs_in_xfce(self):
         # The autostart entries initialise the daemon PAM unlocked; it exits
@@ -84,6 +85,27 @@ class SecretServiceTest(unittest.TestCase):
     def test_passwd_rekeys_the_login_keyring(self):
         self.assertIn("-password   optional    pam_gnome_keyring.so",
                       spec_text("linux-pam"))
+
+    def test_keyring_manager_is_in_the_full_profile(self):
+        spec = spec_text("seahorse")
+        self.assertIn("Version:    47.0.1", spec)
+        for option in ("-Dkeyservers-support=false", "-Dhelp=false"):
+            self.assertIn(option, spec)
+        self.assertIn("/usr/bin/seahorse", filelist("seahorse"))
+        self.assertIn("Requires:   seahorse", spec_text("xfce-desktop"))
+        self.assertIn("Requires:   cracklib", spec_text("libpwquality"))
+
+    def test_gpg_agent_has_a_pinentry(self):
+        spec = spec_text("pinentry")
+        for option in ("--enable-pinentry-gnome3", "--enable-pinentry-curses",
+                       "--enable-pinentry-tty", "--enable-libsecret"):
+            self.assertIn(option, spec)
+        entries = filelist("pinentry")
+        for path in ("/usr/bin/pinentry", "/usr/bin/pinentry-gnome3",
+                     "/usr/bin/pinentry-curses", "/usr/bin/pinentry-tty"):
+            self.assertIn(path, entries)
+        for name in ("xfce-desktop", "xfce-desktop-core"):
+            self.assertIn("Requires:   pinentry", spec_text(name), name)
 
     def test_portal_secret_backend_is_selected(self):
         spec = spec_text("xfce4-session")

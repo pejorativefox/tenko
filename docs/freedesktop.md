@@ -235,6 +235,16 @@ The daemon PAM starts at login is the one that serves the session:
 activation environment, which the gcr prompter needs to ask for a keyring
 password.  `/etc/pam.d/passwd` carries the optional `pam_gnome_keyring`
 password hook, so `passwd` re-keys the login keyring with the new password.
+A password set without the old one (`chpasswd`, root running `passwd USER`)
+leaves the keyring on the old password; change it in Seahorse.
+
+`seahorse` 47.0.1 (Passwords and Keys) is the keyring manager in the full
+desktop profile: it lists stored secrets, locks and unlocks keyrings and
+changes a keyring's password.  It is built without key server support.
+`pinentry` 1.3.3 is in both desktop profiles; `/usr/bin/pinentry` is the
+GNOME 3 dialog, which uses the gcr prompter, can save a GnuPG passphrase in
+the login keyring and falls back to curses outside a graphical session.
+SSH keys are not stored in the keyring (issue #69).
 
 gnome-keyring also ships `gnome-keyring.portal`, so
 `/etc/xdg/mimeapps.list`-independent portal configuration selects

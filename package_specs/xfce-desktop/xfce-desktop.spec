@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    31
+Release:    32
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 URL:        https://github.com/pejorativefox/tenko
@@ -84,6 +84,11 @@ Requires:   fuse2
 # Secret Service provider (org.freedesktop.secrets) for libsecret apps and
 # the portal Secret backend.
 Requires:   gnome-keyring
+# Keyring manager: view stored secrets and change the keyring password.
+Requires:   seahorse
+# Passphrase dialog for gpg-agent; without one gpg cannot ask for a
+# passphrase in the desktop.
+Requires:   pinentry
 Requires:   librsvg
 Requires:   xinit
 Requires:   xauth
@@ -174,6 +179,11 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Mon Nov 16 2026 tenko <build@tenko.invalid> 4.20-32
+- Require seahorse, the keyring manager for the login keyring (view stored
+  secrets, change the keyring password), and pinentry, so gpg-agent can ask
+  for a passphrase in the desktop.
+
 * Wed Nov 11 2026 tenko <build@tenko.invalid> 4.20-31
 - Require xfce4-screensaver so a default desktop has a screen locker.
   It owns org.xfce.ScreenSaver for xfce4-session's Lock method and locks

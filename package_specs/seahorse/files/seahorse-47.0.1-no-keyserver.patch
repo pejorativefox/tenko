@@ -1,0 +1,14 @@
+--- a/pgp/seahorse-pgp-backend.c	2026-11-16 15:50:10.419983991 +0800
++++ b/pgp/seahorse-pgp-backend.c	2026-11-16 15:50:10.761224470 +0800
+@@ -82,7 +82,11 @@
+     pgp_backend = self;
+ 
+     self->pgp_settings = seahorse_pgp_settings_instance ();
++#ifdef WITH_KEYSERVER
+     self->remotes = G_LIST_MODEL (g_list_store_new (SEAHORSE_TYPE_SERVER_SOURCE));
++#else
++    self->remotes = G_LIST_MODEL (g_list_store_new (G_TYPE_OBJECT));
++#endif
+     self->actions = seahorse_pgp_backend_actions_instance ();
+ }
+ 
