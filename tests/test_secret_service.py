@@ -56,6 +56,35 @@ class SecretServiceTest(unittest.TestCase):
             "session   optional pam_gnome_keyring.so auto_start", spec)
         self.assertIn("Recommends:    gnome-keyring", spec)
 
+    def test_keyring_session_hook_follows_pam_systemd(self):
+        # pam_systemd sets XDG_RUNTIME_DIR; a daemon started before it puts
+        # its control socket where `gnome-keyring-daemon --start` cannot
+        # find it, and a second, locked daemon takes over.
+        spec = spec_text("lightdm")
+        self.assertIn(
+            "/^session[[:space:]]+optional[[:space:]]+pam_systemd\\.so/a "
+            "session   optional pam_gnome_keyring.so auto_start", spec)
+        self.assertNotIn(
+            "/^session[[:space:]]+required[[:space:]]+pam_unix\\.so/a "
+            "session   optional pam_gnome_keyring.so", spec)
+
+    def test_keyring_autostart_runs_in_xfce(self):
+        # The autostart entries initialise the daemon PAM unlocked; it exits
+        # after its login timeout when the session never runs them.
+        self.assertIn("OnlyShowIn=GNOME;Unity;MATE;XFCE;",
+                      spec_text("gnome-keyring"))
+
+    def test_session_exports_the_display_to_dbus_activation(self):
+        # The gcr prompter is D-Bus activated and needs the X display.
+        spec = spec_text("xfce4-session")
+        self.assertIn("DISPLAY", spec)
+        self.assertIn("XAUTHORITY", spec)
+        self.assertIn("/etc/xdg/xfce4/xinitrc", spec)
+
+    def test_passwd_rekeys_the_login_keyring(self):
+        self.assertIn("-password   optional    pam_gnome_keyring.so",
+                      spec_text("linux-pam"))
+
     def test_portal_secret_backend_is_selected(self):
         spec = spec_text("xfce4-session")
         self.assertIn(

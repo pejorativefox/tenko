@@ -221,6 +221,21 @@ at the greeter unlocks the login keyring; autologin starts the daemon
 without an unlock and prompts later if a secret is requested.  The provider
 is part of both desktop profiles.
 
+The daemon PAM starts at login is the one that serves the session:
+
+- the session hook runs after `pam_systemd`, so the daemon's control socket
+  is `$XDG_RUNTIME_DIR/keyring/control`;
+- the `gnome-keyring-secrets` and `gnome-keyring-pkcs11` autostart entries
+  run in XFCE and initialise that daemon (it exits 120 seconds after login
+  otherwise);
+- D-Bus activation of `org.freedesktop.secrets` finds it through the same
+  socket instead of starting a second, locked daemon.
+
+`xfce4-session`'s `xinitrc` exports `DISPLAY` and `XAUTHORITY` to the D-Bus
+activation environment, which the gcr prompter needs to ask for a keyring
+password.  `/etc/pam.d/passwd` carries the optional `pam_gnome_keyring`
+password hook, so `passwd` re-keys the login keyring with the new password.
+
 gnome-keyring also ships `gnome-keyring.portal`, so
 `/etc/xdg/mimeapps.list`-independent portal configuration selects
 `org.freedesktop.impl.portal.Secret=gnome-keyring` and sandboxed

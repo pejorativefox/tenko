@@ -174,12 +174,20 @@ The Secret Service is checked twice: a `dbus-run-session` round-trip as root
 (user keyring).  Autologin has no password for PAM to hand to
 `pam_gnome_keyring`, so the guest unlocks the keyring with the test password;
 if the persistent login collection does not exist, the round-trip uses the
-Secret Service session collection.  The PAM hooks themselves are checked in
-`/etc/pam.d/lightdm` and `/etc/pam.d/lightdm-autologin`.  To exercise the
-greeter unlock end to end, disable the autologin drop-in in a test image, log
-in at the LightDM greeter with the test password, and confirm that
-`secret-tool lookup service tenko key test` returns without the manual
-unlock.
+Secret Service session collection.
+
+The login path is checked without a password: `keyring-daemon` passes when
+the daemon `pam_gnome_keyring` started is the single gnome-keyring daemon,
+has its control socket in `$XDG_RUNTIME_DIR/keyring` and owns
+`org.freedesktop.secrets`; `keyring-prompter` passes when the gcr prompter
+can be D-Bus activated (it needs the display in the activation
+environment).  `pam-keyring` checks that the session hook follows
+`pam_systemd` in `/etc/pam.d/lightdm` and `/etc/pam.d/lightdm-autologin`,
+and `pam-keyring-passwd` checks the re-key hook in `/etc/pam.d/passwd`.  To
+exercise the greeter unlock end to end, disable the autologin drop-in in a
+test image, log in at the LightDM greeter with the test password, and
+confirm that `secret-tool lookup service tenko key test` returns without the
+manual unlock.
 
 
 ## Session integration check

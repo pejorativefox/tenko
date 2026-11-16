@@ -1,6 +1,6 @@
 Name:       linux-pam
 Version:    1.7.3
-Release:    5
+Release:    6
 Summary:    PAM (Pluggable Authentication Modules) library
 License:    BSD-3-Clause OR GPL-2.0-or-later
 URL:        https://github.com/linux-pam/linux-pam
@@ -155,6 +155,9 @@ cat > %{buildroot}/etc/pam.d/passwd <<'EOF'
 auth        include     system-auth
 account     include     system-account
 password    include     system-password
+# Re-key the login keyring with the new password so it keeps unlocking at
+# login.  The leading "-" keeps installs without gnome-keyring quiet.
+-password   optional    pam_gnome_keyring.so
 
 # End /etc/pam.d/passwd
 EOF
@@ -176,6 +179,13 @@ done
 %files lang -f %{_sourcedir}/linux-pam-lang.filelist
 %files doc -f %{_sourcedir}/linux-pam-doc.filelist
 %changelog
+* Mon Nov 16 2026 tenko <build@tenko.invalid> 1.7.3-6
+- /etc/pam.d/passwd: add the optional pam_gnome_keyring password hook so a
+  password change re-keys the login keyring; without it the keyring stayed
+  on the old password and no longer unlocked at login.  The entry is
+  skipped silently when gnome-keyring is not installed.  Same upstream
+  version (1.7.3).
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 1.7.3-5
 - Add systemd lines to system-session: pam_loginuid and
   pam_systemd.  Without pam_systemd, console/tty logins (login, su)

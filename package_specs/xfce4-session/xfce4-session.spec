@@ -1,6 +1,6 @@
 Name:       xfce4-session
 Version:    4.20.4
-Release:    5
+Release:    6
 Summary:    A session manager for Xfce
 License:    GPL-2.0-or-later AND GPL-2.0-only
 URL:        https://docs.xfce.org/xfce/xfce4-session/start
@@ -56,11 +56,26 @@ default=gtk;
 org.freedesktop.impl.portal.Secret=gnome-keyring;
 EOF
 
+# xinitrc exports the session variables to the D-Bus and systemd activation
+# environments but leaves out the X display.  D-Bus activated programs that
+# open a window (the gcr keyring prompter) need it.
+sed -i 's/^\( *\)DESKTOP_SESSION \\$/&\n\1DISPLAY \\\n\1XAUTHORITY \\/' \
+    %{buildroot}/etc/xdg/xfce4/xinitrc
+grep -q '^ *DISPLAY \\$' %{buildroot}/etc/xdg/xfce4/xinitrc
+grep -q '^ *XAUTHORITY \\$' %{buildroot}/etc/xdg/xfce4/xinitrc
+
 %files -f %{_sourcedir}/xfce4-session.filelist
 %files lang -f %{_sourcedir}/xfce4-session-lang.filelist
 
 
 %changelog
+* Mon Nov 16 2026 tenko <build@tenko.invalid> 4.20.4-6
+- Export DISPLAY and XAUTHORITY to the D-Bus and systemd activation
+  environments from xinitrc.  Without them D-Bus activated windows such as
+  the gcr keyring prompter exited with "cannot open display", so a locked
+  keyring could not be unlocked from the session.  Same upstream version
+  (4.20.4).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 4.20.4-5
 - Select the gnome-keyring backend for the portal Secret interface now that
   issue #39 ships the provider (issue #39, #41).

@@ -185,6 +185,44 @@ else
     echo "notify-send: FAILED"
 fi
 
+echo "=== keyring daemon ==="
+# The daemon pam_gnome_keyring started at login must be the one that serves
+# the Secret Service: its control socket is in $XDG_RUNTIME_DIR/keyring, the
+# session autostart initialises it, and D-Bus activation finds it instead of
+# starting a second, locked daemon.
+if command -v gnome-keyring-daemon >/dev/null 2>&1; then
+    pam_daemon=$(pgrep -u "$(id -u)" -f 'gnome-keyring-daemon --daemonize --login' | head -1)
+    owner=
+    for _ in $(seq 1 30); do
+        owner=$(busctl --user call org.freedesktop.DBus /org/freedesktop/DBus \
+            org.freedesktop.DBus GetConnectionUnixProcessID s \
+            org.freedesktop.secrets 2>/dev/null | awk '{print $2}')
+        [ -n "$owner" ] && break
+        sleep 1
+    done
+    daemons=$(pgrep -u "$(id -u)" -x gnome-keyring-d | wc -l)
+    if [ -z "$pam_daemon" ]; then
+        echo "keyring-daemon: FAIL (no daemon started by pam_gnome_keyring)"
+    elif [ ! -S "$XDG_RUNTIME_DIR/keyring/control" ]; then
+        echo "keyring-daemon: FAIL (no control socket in $XDG_RUNTIME_DIR/keyring)"
+    elif [ "$owner" != "$pam_daemon" ]; then
+        echo "keyring-daemon: FAIL (org.freedesktop.secrets is pid ${owner:-none}, PAM started pid $pam_daemon)"
+    elif [ "$daemons" != 1 ]; then
+        echo "keyring-daemon: FAIL ($daemons gnome-keyring daemons are running)"
+    else
+        echo "keyring-daemon: PASS (pid $owner, started by PAM, owns org.freedesktop.secrets)"
+    fi
+    if timeout 20 busctl --user call org.freedesktop.DBus /org/freedesktop/DBus \
+            org.freedesktop.DBus StartServiceByName su \
+            org.gnome.keyring.SystemPrompter 0 >/dev/null 2>&1; then
+        echo "keyring-prompter: PASS (gcr prompter is D-Bus activated with a display)"
+    else
+        echo "keyring-prompter: FAIL (org.gnome.keyring.SystemPrompter cannot be activated)"
+    fi
+else
+    echo "keyring-daemon: FAIL (gnome-keyring-daemon is not installed)"
+fi
+
 echo "=== secret service (login session) ==="
 if command -v secret-tool >/dev/null 2>&1; then
     # Autologin has no password for PAM to pass to gnome-keyring, so unlock
@@ -271,11 +309,19 @@ fi
 
 echo "=== keyring PAM configuration ==="
 for pam in /etc/pam.d/lightdm /etc/pam.d/lightdm-autologin; do
-    if grep -q 'pam_gnome_keyring.so' "$pam" 2>/dev/null; then
-        echo "pam-keyring: PASS ($pam)"
-    else
+    if ! grep -q 'pam_gnome_keyring.so' "$pam" 2>/dev/null; then
         echo "pam-keyring: FAIL ($pam has no pam_gnome_keyring.so)"
+    elif [ "$(grep -E '^session' "$pam" | sed -n '/pam_systemd/,$p' |
+              grep -c pam_gnome_keyring.so)" != 1 ]; then
+        echo "pam-keyring: FAIL ($pam runs pam_gnome_keyring before pam_systemd)"
+    else
+        echo "pam-keyring: PASS ($pam)"
     fi
 done
+if grep -Eq '^-password[[:space:]]+optional[[:space:]]+pam_gnome_keyring\.so' /etc/pam.d/passwd; then
+    echo "pam-keyring-passwd: PASS (/etc/pam.d/passwd)"
+else
+    echo "pam-keyring-passwd: FAIL (/etc/pam.d/passwd does not re-key the keyring)"
+fi
 
 echo "=== reached the end ==="

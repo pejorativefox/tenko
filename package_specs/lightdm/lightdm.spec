@@ -1,6 +1,6 @@
 Name:       lightdm
 Version:    1.33.1
-Release:    7
+Release:    8
 Summary:    Lightweight cross-desktop display manager
 License:    GPL-3.0-or-later
 URL:        https://github.com/ubuntu/lightdm
@@ -85,12 +85,22 @@ install -Dpm0644 %{SOURCE2} %{buildroot}%{_prefix}/lib/systemd/system-preset/50-
 # Unlock the login keyring with the password typed at the greeter.  The
 # module is optional, so a minimal install without gnome-keyring still logs
 # in; the desktop profiles require the provider (issue #39).
+#
+# The session hook goes after pam_systemd: pam_systemd sets XDG_RUNTIME_DIR,
+# and the daemon the hook starts puts its control socket in
+# $XDG_RUNTIME_DIR/keyring only when the variable is set.  That is where the
+# D-Bus activated and autostarted `gnome-keyring-daemon --start` look for
+# the daemon PAM unlocked.
 sed -E -i '/^auth[[:space:]]+required[[:space:]]+pam_unix\.so/a auth      optional pam_gnome_keyring.so' \
     %{buildroot}/%{_sysconfdir}/pam.d/lightdm
-sed -E -i '/^session[[:space:]]+required[[:space:]]+pam_unix\.so/a session   optional pam_gnome_keyring.so auto_start' \
-    %{buildroot}/%{_sysconfdir}/pam.d/lightdm
-sed -E -i '/^session[[:space:]]+required[[:space:]]+pam_unix\.so/a session   optional pam_gnome_keyring.so auto_start' \
-    %{buildroot}/%{_sysconfdir}/pam.d/lightdm-autologin
+for pam in lightdm lightdm-autologin; do
+    sed -E -i '/^session[[:space:]]+optional[[:space:]]+pam_systemd\.so/a session   optional pam_gnome_keyring.so auto_start' \
+        %{buildroot}/%{_sysconfdir}/pam.d/$pam
+    # The keyring hook must be the last session line, after pam_systemd.
+    [ "$(grep -E '^session' %{buildroot}/%{_sysconfdir}/pam.d/$pam | tail -1)" = \
+      'session   optional pam_gnome_keyring.so auto_start' ]
+    [ "$(grep -c pam_systemd.so %{buildroot}/%{_sysconfdir}/pam.d/$pam)" = 1 ]
+done
 
 %pre
 # Idempotent and tolerant of chroot installs where /dev/null is not mounted
@@ -127,6 +137,14 @@ XML needed for building stays there.
 %files gir -f %{_sourcedir}/lightdm-gir.filelist
 
 %changelog
+* Mon Nov 16 2026 tenko <build@tenko.invalid> 1.33.1-8
+- Run the pam_gnome_keyring session hook after pam_systemd in
+  /etc/pam.d/lightdm and /etc/pam.d/lightdm-autologin.  Before pam_systemd
+  XDG_RUNTIME_DIR is unset, so the daemon PAM starts and unlocks put its
+  control socket under ~/.cache where `gnome-keyring-daemon --start` never
+  finds it; a second, locked daemon then took over the Secret Service.
+  Same upstream version (1.33.1).
+
 * Sat Nov 14 2026 tenko <build@tenko.invalid> 1.33.1-7
 - Keep the upstream AccountsService interface symlink
   /usr/share/accountsservice/interfaces/org.freedesktop.DisplayManager.AccountsService.xml

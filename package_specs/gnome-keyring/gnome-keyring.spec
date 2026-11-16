@@ -1,6 +1,6 @@
 Name:       gnome-keyring
 Version:    50.0
-Release:    1
+Release:    2
 Summary:    Secret Service provider and keyring daemon
 License:    LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:        https://wiki.gnome.org/Projects/GnomeKeyring
@@ -61,9 +61,26 @@ pushd _build
 DESTDIR=%{buildroot} ninja install
 popd
 
+# The autostart entries hand the session to the daemon pam_gnome_keyring
+# started and unlocked at login; that daemon exits after 120 seconds when
+# nothing does.  Upstream limits them to GNOME, Unity and MATE, so add the
+# XFCE session Tenko ships.
+for component in pkcs11 secrets; do
+    entry=%{buildroot}/etc/xdg/autostart/gnome-keyring-$component.desktop
+    sed -i 's/^OnlyShowIn=GNOME;Unity;MATE;$/OnlyShowIn=GNOME;Unity;MATE;XFCE;/' $entry
+    grep -qx 'OnlyShowIn=GNOME;Unity;MATE;XFCE;' $entry
+done
+
 %files -f %{_sourcedir}/gnome-keyring.filelist
 
 %changelog
+* Mon Nov 16 2026 tenko <build@tenko.invalid> 50.0-2
+- Run the gnome-keyring autostart entries in XFCE sessions as well.  They
+  initialise the daemon pam_gnome_keyring unlocked at login; without them
+  that daemon exited after its 120 second login timeout and a new, locked
+  daemon was D-Bus activated in its place.  Same upstream version (50.0,
+  latest stable).
+
 * Sun Nov 08 2026 tenko <build@tenko.invalid> 50.0-1
 - New package: gnome-keyring 50.0, the latest stable upstream release
   (2026-03-15), as Tenko's Secret Service provider (issue #39).
