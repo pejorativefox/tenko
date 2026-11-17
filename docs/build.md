@@ -138,7 +138,7 @@ tenko-base-build      tenko-base-runtime + tenko-buildroot + development extras
 tenko-base            tenko-base-runtime + tenko-base-build + the base package
                       set (package_specs/base.json + requires-extra)
 tenko-osdev           tenko-base + podman, publish clients, ISO tools, QEMU/OVMF
-tenko-workstation     tenko-base + Node.js, podman, SSH, git, agent tools
+tenko-workstation     tenko-base + Node.js, podman, SSH, git
 ```
 
 `tenko-buildroot` is what package builds start from: every build runs in

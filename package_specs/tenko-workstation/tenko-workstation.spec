@@ -1,8 +1,8 @@
 Name:       tenko-workstation
 Version:    6
-Release:    2
+Release:    3
 Epoch:      1
-Summary:    Tenko developer workstation (Node.js, SSH, git, agent tools)
+Summary:    Tenko developer workstation (Node.js, SSH, git, containers)
 License:    MIT
 URL:        https://github.com/pejorativefox/tenko
 Prefix:     /usr
@@ -13,21 +13,18 @@ Requires:   openssh
 Requires:   git
 Requires:   make-ca
 Requires:   which
-Requires:   opencode-bin
-Requires:   herdr
 Requires:   sudo
 Requires:   podman
 
 %description
 The Tenko developer workstation: the base system plus Node.js/npm,
 OpenSSH (password authentication through Linux-PAM), git, the CA trust
-store, which, the opencode and herdr agent tools, and the podman container
-engine used by the self-hosted build pipeline.
+store, which, and the podman container engine used by the self-hosted
+build pipeline.
 
-opencode, herdr and podman are not part of the base set.  podman is built
-from source; for opencode and herdr the user explicitly approved packaging
-their official prebuilt binaries (D19).  Node.js 26.13.0 is the approved upstream LTS
-exception to the pinned 26.9.0 version (D17).
+podman is not part of the base set and is built from source.  Node.js
+26.13.0 is the approved upstream LTS exception to the pinned 26.9.0
+version (D17).
 
 %prep
 
@@ -40,6 +37,10 @@ touch %{buildroot}/usr/share/tenko/workstation
 %files -f %{_sourcedir}/tenko-workstation.filelist
 
 %changelog
+* Tue Nov 17 2026 tenko <build@tenko.invalid> 6-3
+- Drop the opencode-bin and herdr requirements: those prebuilt-binary
+  packages are no longer part of the distribution.
+
 * Sat Nov 14 2026 tenko <build@tenko.invalid> 6-2
 - Require podman, built from source, instead of the podman-bin static
   bundle (podman obsoletes podman-bin, so existing installs upgrade).

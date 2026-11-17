@@ -11,7 +11,7 @@
 # Usage:
 #   tenko qemu login
 #   IMAGE_ONLY=1 tenko qemu login        # build the image for tenko qemu run
-#   EXTRA_PACKAGES="opencode-bin" tenko qemu login
+#   EXTRA_PACKAGES="htop" tenko qemu login
 #
 # Output: build/login-firstboot.png, build/login-screenshot.png and the serial
 # log build/login-serial.log.  The image is a test artifact: anyone who knows

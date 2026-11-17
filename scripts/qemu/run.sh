@@ -31,7 +31,7 @@ SSH_FWD=${SSH_FWD:-}
 
 # Test-only extras for the image build (repository packages and RPM files
 # from build/extra-rpms).
-EXTRA_PACKAGES=${EXTRA_PACKAGES-openssh opencode-bin herdr}
+EXTRA_PACKAGES=${EXTRA_PACKAGES-openssh}
 EXTRA_RPMS=${EXTRA_RPMS:-}
 if [ -z "$EXTRA_RPMS" ] && [ -d "$PWD/build/extra-rpms" ]; then
     EXTRA_RPMS=$(find "$PWD/build/extra-rpms" -maxdepth 1 -name '*.rpm' -print | sort | tr '\n' ' ')
