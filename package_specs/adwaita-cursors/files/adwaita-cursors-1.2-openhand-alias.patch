@@ -1,0 +1,11 @@
+--- a/Makefile	2026-11-17 21:12:13.000676375 +0800
++++ b/Makefile	2026-11-17 21:12:16.547431902 +0800
+@@ -96,7 +98,7 @@
+ 	ln   -sf   hand2                 pointing_hand;                    \
+ 	ln   -sf   left_ptr              arrow;                            \
+ 	ln   -sf   left_ptr              default;                          \
+-	ln   -sf   left_ptr              openhand;                         \
++	ln   -sf   hand1                 openhand;                         \
+ 	ln   -sf   left_ptr              top_left_arrow;                   \
+ 	ln   -sf   left_ptr_watch        08e8e1c95fe2fc01f976f1e063a24ccd; \
+ 	ln   -sf   left_ptr_watch        3ecb610c1bf2410f44200f48c40d3599; \
