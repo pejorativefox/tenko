@@ -6,6 +6,7 @@
 %dir /usr/lib
 %dir /usr/lib/systemd
 %dir /usr/lib/systemd/user
+/usr/lib/systemd/user/tumblerd.service
 %dir /usr/lib64
 %dir /usr/lib64/pkgconfig
 %dir /usr/lib64/tumbler-1

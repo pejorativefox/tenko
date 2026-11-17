@@ -139,7 +139,9 @@ are handled; this cross-filesystem behaviour is not a data-loss bug.
 
 ## Thumbnail support
 
-tumbler ships the cover, desktop, font, JPEG and pixbuf thumbnailers.  The
+tumbler ships the cover, desktop, font, JPEG and pixbuf thumbnailers.
+`tumblerd` is D-Bus activated through its `tumblerd.service` user unit,
+which the systemd user manager starts on the first thumbnail request.  The
 GStreamer thumbnailer is deliberately disabled: Tenko does not package the
 codec set it would need for reliable video and audio thumbnails, and
 `libffmpegthumbnailer` is not packaged either.  Image, font, cover and

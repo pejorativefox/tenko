@@ -1,6 +1,6 @@
 Name:       tumbler
 Version:    4.20.2
-Release:    4
+Release:    5
 Summary:    D-Bus service for applications to request thumbnails
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:        https://docs.xfce.org/xfce/tumbler/start
@@ -28,10 +28,15 @@ D-Bus service for applications to request thumbnails
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc
 %make_install
-rm -f %{buildroot}/usr/lib/systemd/user/tumblerd.service
 
 %files -f %{_sourcedir}/tumbler.filelist
 %changelog
+* Tue Nov 17 2026 tenko <build@tenko.invalid> 4.20.2-5
+- Ship the upstream tumblerd.service user unit.  The D-Bus service files
+  declare SystemdService=tumblerd.service, so dropping the unit made
+  D-Bus activation fail with "Unit tumblerd.service not found" and
+  applications such as Ristretto could not request thumbnails.
+
 * Thu Nov 05 2026 browneye <build@browneye.invalid> 4.20.2-4
 - Replace the legacy short licence name with the verified SPDX expression
   (GPL-2.0-or-later AND LGPL-2.0-or-later): COPYING (issue #8).
