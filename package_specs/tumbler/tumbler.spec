@@ -1,6 +1,6 @@
 Name:       tumbler
 Version:    4.20.2
-Release:    5
+Release:    6
 Summary:    D-Bus service for applications to request thumbnails
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:        https://docs.xfce.org/xfce/tumbler/start
@@ -29,8 +29,21 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc
 %make_install
 
+# Every user's session starts xfce-session.target (tenko-desktop-config), so
+# enabling tumblerd for that target starts the thumbnail service with the
+# session.  D-Bus activation still serves requests made outside it.
+mkdir -p %{buildroot}%{_sysconfdir}/systemd/user/xfce-session.target.wants
+ln -s /usr/lib/systemd/user/tumblerd.service \
+    %{buildroot}%{_sysconfdir}/systemd/user/xfce-session.target.wants/tumblerd.service
+
 %files -f %{_sourcedir}/tumbler.filelist
 %changelog
+* Tue Nov 17 2026 tenko <build@tenko.invalid> 4.20.2-6
+- Enable tumblerd.service for every user: link it into the wants
+  directory of xfce-session.target under /etc/systemd/user, so the
+  session's systemd user manager starts it at login instead of leaving
+  thumbnail support to a per-user enable.
+
 * Tue Nov 17 2026 tenko <build@tenko.invalid> 4.20.2-5
 - Ship the upstream tumblerd.service user unit.  The D-Bus service files
   declare SystemdService=tumblerd.service, so dropping the unit made

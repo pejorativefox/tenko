@@ -1,3 +1,5 @@
+%dir /etc/systemd/user/xfce-session.target.wants
+%config(noreplace) /etc/systemd/user/xfce-session.target.wants/tumblerd.service
 %dir /etc/xdg
 %dir /etc/xdg/tumbler
 %dir /usr/include

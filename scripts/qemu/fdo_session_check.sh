@@ -128,6 +128,16 @@ else
         else
             fail "session-targets" "graphical-session.target=${graphical:-unknown} xfce-session.target=${xfce:-unknown}"
         fi
+
+        # Thumbnails: tumblerd.service must be enabled for the user, not
+        # merely installed.  The D-Bus service files name the unit in
+        # SystemdService=, so a request fails outright when it is disabled.
+        if systemctl --user is-enabled -q tumblerd.service; then
+            state=$(systemctl --user is-active tumblerd.service 2>&1) || state=
+            pass "thumbnail-service" "tumblerd.service is enabled for the user (${state:-unknown})"
+        else
+            fail "thumbnail-service" "tumblerd.service is not enabled for the user; thumbnail requests cannot be activated"
+        fi
     fi
 fi
 

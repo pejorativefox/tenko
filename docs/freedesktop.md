@@ -87,7 +87,7 @@ open without weakening the end state.
 | `status-notifier-item` | 0.1 draft | N/A | Draft; no maintained XFCE SNI host is packaged (see the tray section) |
 | `systemtray` | 0.3 | implemented | xfce4-panel systray plugin in the default panel; _NET_SYSTEM_TRAY_S0 checked in the session check |
 | `terminal-intent` | draft | N/A | Draft/Wayland-oriented; no implementation |
-| `thumbnail` | 0.8.0/0.9.0 | implemented | tumbler covers, desktop files, fonts, JPEG and pixbuf; video/audio unsupported and documented below |
+| `thumbnail` | 0.8.0/0.9.0 | implemented | tumbler covers, desktop files, fonts, JPEG and pixbuf with tumblerd enabled in the session; video/audio unsupported and documented below |
 | `trash` | 1.0 | implemented | gvfsd-trash via gvfs; home layout tested; cross-filesystem limitation documented below |
 | `wm` | 1.5 | implemented | xfwm4; EWMH atoms checked in the session check |
 | `xembed` | 0.5 | implemented | xfce4-panel systray plugin (XEmbed host); checked in the session check |
@@ -140,8 +140,9 @@ are handled; this cross-filesystem behaviour is not a data-loss bug.
 ## Thumbnail support
 
 tumbler ships the cover, desktop, font, JPEG and pixbuf thumbnailers.
-`tumblerd` is D-Bus activated through its `tumblerd.service` user unit,
-which the systemd user manager starts on the first thumbnail request.  The
+`tumblerd.service` is enabled for every user: the session's
+`xfce-session.target` starts it at login, and the D-Bus service files
+activate it on demand for requests made outside the session.  The
 GStreamer thumbnailer is deliberately disabled: Tenko does not package the
 codec set it would need for reliable video and audio thumbnails, and
 `libffmpegthumbnailer` is not packaged either.  Image, font, cover and

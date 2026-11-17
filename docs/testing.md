@@ -202,7 +202,9 @@ one `PASS`/`FAIL`/`SKIP` line per check.  It requires the systemd user manager
 bus (`XDG_RUNTIME_DIR/bus`): a private `dbus-launch` bus cannot activate the
 portal, so it is reported as a failure rather than a pass.  It also verifies
 that `graphical-session.target` and `xfce-session.target` are active (the
-session-target autostart entry from `tenko-desktop-config`):
+session-target autostart entry from `tenko-desktop-config`) and that
+`tumblerd.service` is enabled for the user, so thumbnail requests reach a
+service the user manager can start:
 
 ```sh
 # run as the logged-in user inside the guest

@@ -321,6 +321,20 @@ class SessionComponentsTest(unittest.TestCase):
             self.assertIn("dbus-daemon", needed, name)
             self.assertIn("dbus-x11", needed, name)
 
+    def test_thumbnail_service_is_enabled_with_the_session(self):
+        """tumblerd must be enabled for the user, not only installed.
+
+        The D-Bus service files name it in SystemdService=, so a request
+        fails with "Unit tumblerd.service not found" unless the session's
+        systemd user manager can start it.
+        """
+        link = ("/etc/systemd/user/xfce-session.target.wants/"
+                "tumblerd.service")
+        self.assertIn(link, packaged_paths())
+        spec = read_text(SPECS / "tumbler" / "tumbler.spec")
+        self.assertIn("xfce-session.target.wants/tumblerd.service", spec)
+        self.assertIn("/usr/lib/systemd/user/tumblerd.service", spec)
+
     def test_session_checker_is_posix_shell(self):
         script = REPO_ROOT / "scripts" / "qemu" / "fdo_session_check.sh"
         self.assertTrue(script.is_file())
