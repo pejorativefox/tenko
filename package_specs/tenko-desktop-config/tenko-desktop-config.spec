@@ -1,6 +1,6 @@
 Name:       tenko-desktop-config
 Version:    6
-Release:    8
+Release:    9
 Epoch:      1
 Summary:    Tenko X11/XFCE session configuration
 License:    MIT
@@ -77,6 +77,7 @@ cat > "$xfconfdir/xsettings.xml" <<'EOF'
     <property name="SoundThemeName" type="string" value="freedesktop"/>
   </property>
   <property name="Gtk" type="empty">
+    <property name="CursorThemeName" type="string" value="Adwaita"/>
     <property name="DecorationLayout" type="string" value="icon,menu:minimize,maximize,close"/>
   </property>
   <property name="Xfce" type="empty">
@@ -179,6 +180,11 @@ EOF
 %files -f %{_sourcedir}/tenko-desktop-config.filelist
 
 %changelog
+* Tue Nov 17 2026 tenko <build@tenko.invalid> 6-9
+- Set Gtk/CursorThemeName to Adwaita for new accounts, so GTK and xfwm4
+  use the thirteen-size Adwaita cursor theme from adwaita-cursors.
+  Existing accounts keep their current cursor theme.
+
 * Tue Nov 10 2026 tenko <build@tenko.invalid> 6-8
 - Make Ristretto the default image viewer in /etc/xdg/mimeapps.list for
   every image type its desktop file handles: PNG, JPEG, GIF, WebP, BMP,

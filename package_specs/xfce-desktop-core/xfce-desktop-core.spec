@@ -1,6 +1,6 @@
 Name:       xfce-desktop-core
 Version:    4.20
-Release:    20
+Release:    21
 Summary:    Tenko XFCE 4.20 core desktop (VM/headless, no vendor firmware)
 License:    MIT
 URL:        https://github.com/pejorativefox/tenko
@@ -63,6 +63,9 @@ Requires:   hicolor-icon-theme
 Requires:   arc-theme
 Requires:   kora-icon-theme
 Requires:   font-terminus
+# The Adwaita icon theme requires adwaita-cursors, whose thirteen-size
+# cursor theme the new-user defaults name (Gtk/CursorThemeName).
+Requires:   adwaita-icon-theme
 Requires:   shared-mime-info
 # Software metadata: appstreamcli and the installed metainfo.
 Requires:   appstream
@@ -125,6 +128,11 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-core
 %files -f %{_sourcedir}/xfce-desktop-core.filelist
 
 %changelog
+* Tue Nov 17 2026 tenko <build@tenko.invalid> 4.20-21
+- Require adwaita-icon-theme, which brings the thirteen-size Adwaita
+  cursor theme from adwaita-cursors, matching the cursor theme the
+  new-user defaults name.
+
 * Mon Nov 16 2026 tenko <build@tenko.invalid> 4.20-20
 - Require pinentry so gpg-agent can ask for a passphrase in the desktop.
 

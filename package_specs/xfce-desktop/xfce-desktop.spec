@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    32
+Release:    33
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 URL:        https://github.com/pejorativefox/tenko
@@ -114,6 +114,9 @@ Requires:   hicolor-icon-theme
 Requires:   arc-theme
 Requires:   kora-icon-theme
 Requires:   font-terminus
+# The Adwaita icon theme requires adwaita-cursors, whose thirteen-size
+# cursor theme the new-user defaults name (Gtk/CursorThemeName).
+Requires:   adwaita-icon-theme
 # Event sounds through libcanberra (Sound Theme 0.2 / Sound Naming 0.2).
 Requires:   sound-theme-freedesktop
 # Playback for the sound theme (canberra-gtk-play) and the libsecret client
@@ -179,6 +182,11 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Tue Nov 17 2026 tenko <build@tenko.invalid> 4.20-33
+- Require adwaita-icon-theme, which brings the thirteen-size Adwaita
+  cursor theme from adwaita-cursors, matching the cursor theme the
+  new-user defaults name.
+
 * Mon Nov 16 2026 tenko <build@tenko.invalid> 4.20-32
 - Require seahorse, the keyring manager for the login keyring (view stored
   secrets, change the keyring password), and pinentry, so gpg-agent can ask

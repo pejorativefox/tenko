@@ -97,6 +97,13 @@ class DesktopMetadataTest(unittest.TestCase):
             self.assertIn("Requires:   desktop-file-utils", text, name)
         self.assertIn("Requires:   mpv", spec_text("xfce-desktop-core"))
 
+    def test_desktop_profiles_install_the_adwaita_cursor_theme(self):
+        # adwaita-icon-theme requires adwaita-cursors, whose thirteen-size
+        # cursor theme the new-user defaults name.
+        for name in ("xfce-desktop", "xfce-desktop-core"):
+            self.assertIn("Requires:   adwaita-icon-theme",
+                          spec_text(name), name)
+
     def test_full_desktop_profile_ships_one_screen_locker(self):
         text = spec_text("xfce-desktop")
         # xfce4-screensaver provides org.xfce.ScreenSaver and locks on

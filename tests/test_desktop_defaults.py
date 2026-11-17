@@ -75,6 +75,11 @@ class DesktopDefaultsTest(unittest.TestCase):
             xfwm4.find("./property[@name='general']/property[@name='theme']"
                        ).get("value"),
             "Arc-Dark")
+        self.assertEqual(
+            xsettings.find(
+                "./property[@name='Gtk']/property[@name='CursorThemeName']"
+            ).get("value"),
+            "Adwaita")
 
 
 if __name__ == "__main__":
