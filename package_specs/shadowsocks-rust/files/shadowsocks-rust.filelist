@@ -1,0 +1,13 @@
+/usr/bin/sslocal
+/usr/bin/ssmanager
+/usr/bin/ssserver
+/usr/bin/ssservice
+/usr/bin/ssurl
+%dir /usr/lib/systemd
+%dir /usr/lib/systemd/system
+/usr/lib/systemd/system/shadowsocks-rust-local@.service
+/usr/lib/systemd/system/shadowsocks-rust-server@.service
+%dir /usr/share/licenses/shadowsocks-rust
+/usr/share/licenses/shadowsocks-rust/LICENSE
+%dir /usr/share/shadowsocks-rust
+/usr/share/shadowsocks-rust/config.json.example
