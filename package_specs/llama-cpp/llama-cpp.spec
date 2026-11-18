@@ -1,11 +1,14 @@
 Name:       llama-cpp
 Version:    1.0.0
-Release:    1
+Release:    2
 Summary:    LLM inference engine with a Vulkan GPU backend
 License:    MIT
 URL:        https://github.com/ggml-org/llama.cpp
 Prefix:     /usr
 Source0:    llama.cpp-%{version}.tar.gz
+# Pre-built web UI assets for the server, pinned to the upstream build number
+# (llama.cpp build b12359); verified against upstream's dist.tar.gz.sha256.
+Source1:    llama-ui-b12359-dist.tar.gz
 
 BuildRequires: cmake
 BuildRequires: ninja
@@ -32,6 +35,10 @@ Vulkan carries the heavy compute.
 
 %prep
 %setup -q -n llama.cpp-%{version}
+# The build-time HF download for the web UI cannot be relied on; the assets
+# are vendored instead (scripts/ui-assets.cmake uses tools/ui/dist first).
+mkdir -p tools/ui/dist
+tar -xzf %{SOURCE1} -C tools/ui/dist
 
 %build
 cmake -S . -B build -G Ninja            \
@@ -55,10 +62,20 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 grep -q 'version:' version.txt
 grep -q 'b1b770d' version.txt
 test -e %{buildroot}%{_libdir}/libggml-vulkan.so
+# The generated header defines LLAMA_UI_HAS_ASSETS only when web UI assets
+# were embedded in llama-server.
+grep -q '#define LLAMA_UI_HAS_ASSETS 1' build/tools/ui/ui.h
 
 %files -f %{_sourcedir}/%{name}.filelist
 
 %changelog
+* Wed Nov 18 2026 tenko <build@tenko.invalid> 1.0.0-2
+- Vendor the pre-built web UI assets (Source1, pinned to build b12359,
+  sha256-verified against upstream's digest) so llama-server embeds them
+  deterministically; the build-time HF download fails silently in a
+  sandbox and produced a server without the UI.  %check now verifies the
+  embedded assets.
+
 * Wed Nov 18 2026 tenko <build@tenko.invalid> 1.0.0-1
 - New package, not in the base set: latest upstream stable release
   (1.0.0, checked 2026-11-18).  Built with the Vulkan GPU backend
