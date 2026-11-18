@@ -1,0 +1,45 @@
+%dir /usr/include/SDL3_mixer
+/usr/include/SDL3_mixer/SDL_mixer.h
+%dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/SDL3_mixer
+/usr/lib64/cmake/SDL3_mixer/FindFLAC.cmake
+/usr/lib64/cmake/SDL3_mixer/FindFluidSynth.cmake
+/usr/lib64/cmake/SDL3_mixer/FindOgg.cmake
+/usr/lib64/cmake/SDL3_mixer/FindOpus.cmake
+/usr/lib64/cmake/SDL3_mixer/FindOpusFile.cmake
+/usr/lib64/cmake/SDL3_mixer/FindVorbis.cmake
+/usr/lib64/cmake/SDL3_mixer/Findgme.cmake
+/usr/lib64/cmake/SDL3_mixer/Findlibxmp-lite.cmake
+/usr/lib64/cmake/SDL3_mixer/Findlibxmp.cmake
+/usr/lib64/cmake/SDL3_mixer/Findmpg123.cmake
+/usr/lib64/cmake/SDL3_mixer/Findtremor.cmake
+/usr/lib64/cmake/SDL3_mixer/Findwavpack.cmake
+/usr/lib64/cmake/SDL3_mixer/PkgConfigHelper.cmake
+/usr/lib64/cmake/SDL3_mixer/SDL3_mixer-shared-targets-release.cmake
+/usr/lib64/cmake/SDL3_mixer/SDL3_mixer-shared-targets.cmake
+/usr/lib64/cmake/SDL3_mixer/SDL3_mixerConfig.cmake
+/usr/lib64/cmake/SDL3_mixer/SDL3_mixerConfigVersion.cmake
+/usr/lib64/libSDL3_mixer.so
+/usr/lib64/libSDL3_mixer.so.0
+/usr/lib64/libSDL3_mixer.so.0.2.4
+/usr/lib64/pkgconfig/sdl3-mixer.pc
+%dir /usr/libexec/installed-examples
+%dir /usr/libexec/installed-examples/SDL3_mixer
+/usr/libexec/installed-examples/SDL3_mixer/advanced-tag-tracks
+/usr/libexec/installed-examples/SDL3_mixer/basics-load-and-play
+/usr/libexec/installed-examples/SDL3_mixer/basics-metadata
+/usr/libexec/installed-examples/SDL3_mixer/basics-play-multiple-sounds
+/usr/libexec/installed-examples/SDL3_mixer/basics-play-with-options
+/usr/libexec/installed-examples/SDL3_mixer/basics-seeking
+/usr/libexec/installed-examples/SDL3_mixer/basics-sinewave
+/usr/libexec/installed-examples/SDL3_mixer/music.mp3
+/usr/libexec/installed-examples/SDL3_mixer/splash.wav
+/usr/libexec/installed-examples/SDL3_mixer/spring.wav
+/usr/libexec/installed-examples/SDL3_mixer/sword.wav
+%dir /usr/libexec/installed-tests
+%dir /usr/libexec/installed-tests/SDL3_mixer
+/usr/libexec/installed-tests/SDL3_mixer/testaudiodecoder
+/usr/libexec/installed-tests/SDL3_mixer/testmixer
+/usr/libexec/installed-tests/SDL3_mixer/testspatialization
+%dir /usr/share/licenses/SDL3_mixer
+/usr/share/licenses/SDL3_mixer/LICENSE.txt

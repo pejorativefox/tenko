@@ -1,0 +1,19 @@
+%dir /usr/include/SDL3_ttf
+/usr/include/SDL3_ttf/SDL_textengine.h
+/usr/include/SDL3_ttf/SDL_ttf.h
+%dir /usr/lib64/cmake
+%dir /usr/lib64/cmake/SDL3_ttf
+/usr/lib64/cmake/SDL3_ttf/Findharfbuzz.cmake
+/usr/lib64/cmake/SDL3_ttf/Findplutosvg.cmake
+/usr/lib64/cmake/SDL3_ttf/Findplutovg.cmake
+/usr/lib64/cmake/SDL3_ttf/PkgConfigHelper.cmake
+/usr/lib64/cmake/SDL3_ttf/SDL3_ttf-shared-targets-release.cmake
+/usr/lib64/cmake/SDL3_ttf/SDL3_ttf-shared-targets.cmake
+/usr/lib64/cmake/SDL3_ttf/SDL3_ttfConfig.cmake
+/usr/lib64/cmake/SDL3_ttf/SDL3_ttfConfigVersion.cmake
+/usr/lib64/libSDL3_ttf.so
+/usr/lib64/libSDL3_ttf.so.0
+/usr/lib64/libSDL3_ttf.so.0.2.2
+/usr/lib64/pkgconfig/sdl3-ttf.pc
+%dir /usr/share/licenses/SDL3_ttf
+/usr/share/licenses/SDL3_ttf/LICENSE.txt
