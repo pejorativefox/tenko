@@ -1,0 +1,37 @@
+glslang and SPIRV-Tools are vendored and statically linked into the glslc
+binary and libshaderc; their install rules must stay off so the system
+glslang and spirv-tools packages keep owning those files.  Upstream
+derives both skip flags from SHADERC_SKIP_INSTALL, which we need OFF to
+install shaderc itself, so force them on; and turn off glslang's install
+export directly, because upstream sets it from a generator expression on
+the skip flag, which still evaluates true as a CMake condition and makes
+the generate step fail with SPIRV-Tools targets missing from the export.
+
+diff -ruN a/third_party/CMakeLists.txt b/third_party/CMakeLists.txt
+--- a/third_party/CMakeLists.txt
++++ b/third_party/CMakeLists.txt
+@@ -20,8 +20,10 @@
+ set(SHADERC_ABSL_DIR "${SHADERC_THIRD_PARTY_ROOT_DIR}/abseil_cpp" CACHE STRING
+   "Location of re2 source")
+ 
+-set( SKIP_GLSLANG_INSTALL ${SHADERC_SKIP_INSTALL} )
+-set( SKIP_SPIRV_TOOLS_INSTALL ${SHADERC_SKIP_INSTALL} )
++# The vendored glslang and SPIRV-Tools are statically linked; the system
++# glslang and spirv-tools packages own their files.
++set( SKIP_GLSLANG_INSTALL ON )
++set( SKIP_SPIRV_TOOLS_INSTALL ON )
+ set( SKIP_GOOGLETEST_INSTALL ${SHADERC_SKIP_INSTALL} )
+ 
+ # Configure third party projects.
+@@ -91,9 +93,10 @@
+     if (SHADERC_ENABLE_TESTS)
+       # Glslang tests are off by default. Turn them on if testing Shaderc.
+       set(GLSLANG_TESTS ON)
+     endif()
+-    set(GLSLANG_ENABLE_INSTALL $<NOT:${SKIP_GLSLANG_INSTALL}>)
++    # The vendored glslang is statically linked and must not install.
++    set(GLSLANG_ENABLE_INSTALL OFF)
+     set(ENABLE_HLSL "${SHADERC_ENABLE_HLSL}")
+     add_subdirectory(${SHADERC_GLSLANG_DIR} glslang)
+   endif()
+   if (NOT TARGET glslang)

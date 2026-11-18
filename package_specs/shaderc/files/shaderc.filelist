@@ -1,0 +1,19 @@
+/usr/bin/glslc
+%dir /usr/include/shaderc
+/usr/include/shaderc/env.h
+/usr/include/shaderc/shaderc.h
+/usr/include/shaderc/shaderc.hpp
+/usr/include/shaderc/status.h
+/usr/include/shaderc/visibility.h
+/usr/lib64/libshaderc.a
+/usr/lib64/libshaderc_combined.a
+/usr/lib64/libshaderc_shared.so
+/usr/lib64/libshaderc_shared.so.1
+/usr/lib64/pkgconfig/shaderc.pc
+/usr/lib64/pkgconfig/shaderc_combined.pc
+/usr/lib64/pkgconfig/shaderc_static.pc
+%dir /usr/share/licenses/shaderc
+/usr/share/licenses/shaderc/LICENSE
+/usr/share/licenses/shaderc/glslang-LICENSE.txt
+/usr/share/licenses/shaderc/spirv-headers-LICENSE
+/usr/share/licenses/shaderc/spirv-tools-LICENSE
