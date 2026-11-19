@@ -1,0 +1,6 @@
+/usr/bin/rtorrent
+%dir /usr/share/doc/rtorrent
+/usr/share/doc/rtorrent/rtorrent.rc
+%dir /usr/share/rtorrent
+%dir /usr/share/rtorrent/lua
+/usr/share/rtorrent/lua/rtorrent.lua

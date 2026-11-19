@@ -1,0 +1,98 @@
+%dir /usr/include/torrent
+/usr/include/torrent/bitfield.h
+/usr/include/torrent/common.h
+%dir /usr/include/torrent/data
+/usr/include/torrent/data/block.h
+/usr/include/torrent/data/block_list.h
+/usr/include/torrent/data/block_transfer.h
+/usr/include/torrent/data/chunk_utils.h
+/usr/include/torrent/data/download_data.h
+/usr/include/torrent/data/file.h
+/usr/include/torrent/data/file_list.h
+/usr/include/torrent/data/file_list_iterator.h
+/usr/include/torrent/data/file_manager.h
+/usr/include/torrent/data/file_utils.h
+/usr/include/torrent/data/piece.h
+/usr/include/torrent/data/transfer_list.h
+%dir /usr/include/torrent/download
+/usr/include/torrent/download.h
+/usr/include/torrent/download/choke_group.h
+/usr/include/torrent/download/choke_queue.h
+/usr/include/torrent/download/download_manager.h
+/usr/include/torrent/download/group_entry.h
+/usr/include/torrent/download/resource_manager.h
+/usr/include/torrent/download/types.h
+/usr/include/torrent/download_info.h
+/usr/include/torrent/exceptions.h
+/usr/include/torrent/hash_string.h
+%dir /usr/include/torrent/net
+/usr/include/torrent/net/address_info.h
+/usr/include/torrent/net/fd.h
+/usr/include/torrent/net/http_get.h
+/usr/include/torrent/net/http_stack.h
+/usr/include/torrent/net/resolver.h
+/usr/include/torrent/net/socket_address.h
+/usr/include/torrent/net/socket_address_key.h
+/usr/include/torrent/net/types.h
+/usr/include/torrent/object.h
+/usr/include/torrent/object_raw_bencode.h
+/usr/include/torrent/object_static_map.h
+/usr/include/torrent/object_stream.h
+/usr/include/torrent/path.h
+%dir /usr/include/torrent/peer
+/usr/include/torrent/peer/choke_status.h
+/usr/include/torrent/peer/client_info.h
+/usr/include/torrent/peer/client_list.h
+/usr/include/torrent/peer/connection_list.h
+/usr/include/torrent/peer/peer.h
+/usr/include/torrent/peer/peer_info.h
+/usr/include/torrent/peer/peer_list.h
+/usr/include/torrent/rate.h
+%dir /usr/include/torrent/runtime
+/usr/include/torrent/runtime/client_config.h
+/usr/include/torrent/runtime/memory_manager.h
+/usr/include/torrent/runtime/network_config.h
+/usr/include/torrent/runtime/network_manager.h
+/usr/include/torrent/runtime/proxy_manager.h
+/usr/include/torrent/runtime/runtime.h
+/usr/include/torrent/runtime/socket_manager.h
+%dir /usr/include/torrent/system
+/usr/include/torrent/system/callbacks.h
+/usr/include/torrent/system/common.h
+/usr/include/torrent/system/event.h
+/usr/include/torrent/system/poll.h
+/usr/include/torrent/system/scheduler.h
+/usr/include/torrent/system/spawn_process.h
+/usr/include/torrent/system/thread.h
+/usr/include/torrent/system/types.h
+/usr/include/torrent/throttle.h
+/usr/include/torrent/torrent.h
+%dir /usr/include/torrent/tracker
+/usr/include/torrent/tracker/dht_controller.h
+/usr/include/torrent/tracker/manager.h
+/usr/include/torrent/tracker/tracker.h
+/usr/include/torrent/tracker/tracker_state.h
+/usr/include/torrent/tracker/wrappers.h
+%dir /usr/include/torrent/types
+/usr/include/torrent/types/string_utf8.h
+%dir /usr/include/torrent/utils
+/usr/include/torrent/utils/chrono.h
+/usr/include/torrent/utils/directory_events.h
+/usr/include/torrent/utils/extents.h
+/usr/include/torrent/utils/file_stat.h
+/usr/include/torrent/utils/functional.h
+/usr/include/torrent/utils/limited_vector.h
+/usr/include/torrent/utils/linked_unordered_set.h
+/usr/include/torrent/utils/log.h
+/usr/include/torrent/utils/log_buffer.h
+/usr/include/torrent/utils/option_strings.h
+/usr/include/torrent/utils/random.h
+/usr/include/torrent/utils/ranges.h
+/usr/include/torrent/utils/resume.h
+/usr/include/torrent/utils/string_manip.h
+/usr/include/torrent/utils/unordered_vector.h
+/usr/include/torrent/utils/uri_parser.h
+/usr/lib64/libtorrent.so
+/usr/lib64/libtorrent.so.56
+/usr/lib64/libtorrent.so.56.0.0
+/usr/lib64/pkgconfig/libtorrent.pc
