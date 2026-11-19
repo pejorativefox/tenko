@@ -1,6 +1,6 @@
 Name:       xfce-desktop
 Version:    4.20
-Release:    33
+Release:    34
 Summary:    Tenko XFCE 4.20 desktop meta-package
 License:    MIT
 URL:        https://github.com/pejorativefox/tenko
@@ -49,6 +49,10 @@ Requires:   xfce4-screensaver
 # GLX backend brings in libGL.
 Requires:   xfce4-pulseaudio-plugin
 Requires:   libva
+# ALSA UCM profiles.  libasound needs the Intel/sof-hda-dsp profile to
+# activate speakers, headphones and the internal microphone on SOF HDA
+# sound cards; without it the card has no usable PulseAudio profile.
+Requires:   alsa-ucm-conf
 # Bluetooth: bluez ships the daemon, bluetoothctl and the systemd/D-Bus
 # integration; pulseaudio-bluez adds the A2DP/HFP modules so paired audio
 # devices become normal sinks the panel plugin can select.  Vendor Bluetooth
@@ -159,6 +163,10 @@ Recommends: linux-firmware-ath
 Recommends: linux-firmware-bluetooth
 Recommends: linux-firmware-nic
 Recommends: linux-firmware-other
+# The Intel audio DSP firmware is hardware-dependent like the vendor packs
+# above: a normal desktop install gets it, while install_weak_deps=False
+# leaves it to xfce-desktop-hardware's hard requirement.
+Recommends: sof-firmware
 
 %description
 The Tenko XFCE 4.20 desktop: X11 only, no Wayland.
@@ -182,6 +190,11 @@ if [ -x /usr/bin/systemctl ]; then
 fi
 
 %changelog
+* Thu Nov 19 2026 tenko <build@tenko.invalid> 4.20-34
+- Require alsa-ucm-conf so libasound can apply the SOF HDA use-case
+  profiles that route speakers, headphones and microphones.
+- Recommend sof-firmware alongside the vendor firmware packs.
+
 * Tue Nov 17 2026 tenko <build@tenko.invalid> 4.20-33
 - Require adwaita-icon-theme, which brings the thirteen-size Adwaita
   cursor theme from adwaita-cursors, matching the cursor theme the

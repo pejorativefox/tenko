@@ -11,8 +11,9 @@ SPECS = os.path.join(REPO_ROOT, "package_specs")
 BASE_PACKAGES = ("lsof", "strace", "nano", "libblockdev", "udisks2", "fwupd",
                  "tuned")
 
-# Requested desktop-profile packages: panel volume control and VA-API.
-DESKTOP_PACKAGES = ("xfce4-pulseaudio-plugin", "libva")
+# Requested desktop-profile packages: panel volume control, VA-API and the
+# ALSA use-case profiles the SOF HDA sound card needs to route audio.
+DESKTOP_PACKAGES = ("xfce4-pulseaudio-plugin", "libva", "alsa-ucm-conf")
 
 # Command-line desktop tools carried by both X11 desktop profiles.
 DESKTOP_TOOLS = ("xsel",)

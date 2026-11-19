@@ -1,6 +1,6 @@
 Name:       xfce-desktop-hardware
 Version:    4.20
-Release:    3
+Release:    4
 Summary:    Hardware extras for the Tenko XFCE desktop
 License:    MIT
 URL:        https://github.com/pejorativefox/tenko
@@ -21,12 +21,17 @@ Requires:   linux-firmware-ath
 Requires:   linux-firmware-bluetooth
 Requires:   linux-firmware-nic
 Requires:   linux-firmware-other
+# The Intel audio DSP loads its firmware from intel/sof and intel/sof-tplg;
+# Intel moved those out of linux-firmware, so the SOF machines need this
+# package or the DSP probe fails and no sound card is registered.
+Requires:   sof-firmware
 
 %description
 Hardware enablement for the Tenko XFCE desktop: the udev hardware
-database, the Mesa userspace (llvmpipe and GPU drivers) and every
+database, the Mesa userspace (llvmpipe and GPU drivers), every
 linux-firmware vendor pack (Intel Wi-Fi/GPU, NVIDIA, AMD GPU, MediaTek,
-Atheros, Bluetooth, NIC and misc).
+Atheros, Bluetooth, NIC and misc) and the Sound Open Firmware images for
+Intel audio DSPs.
 
 Install this on physical hardware.  It is pulled in by xfce-desktop-full
 and can be added to a xfce-desktop-core install with
@@ -43,6 +48,10 @@ touch %{buildroot}/usr/share/tenko/xfce-desktop-hardware
 %files -f %{_sourcedir}/xfce-desktop-hardware.filelist
 
 %changelog
+* Thu Nov 19 2026 tenko <build@tenko.invalid> 4.20-4
+- Require sof-firmware: the Intel SOF audio DSP firmware is no longer part
+  of linux-firmware, and without it those machines register no sound card.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 4.20-3
 - Drop the browneye marker cleanup; no Browneye installs remain.
 
