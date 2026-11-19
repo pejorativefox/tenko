@@ -1,0 +1,80 @@
+/usr/bin/s-tui
+%dir /usr/lib64/python3.15
+%dir /usr/lib64/python3.15/site-packages
+%dir /usr/lib64/python3.15/site-packages/s_tui
+%dir /usr/lib64/python3.15/site-packages/s_tui-1.5.0.dist-info
+/usr/lib64/python3.15/site-packages/s_tui-1.5.0.dist-info/INSTALLER
+/usr/lib64/python3.15/site-packages/s_tui-1.5.0.dist-info/METADATA
+/usr/lib64/python3.15/site-packages/s_tui-1.5.0.dist-info/RECORD
+/usr/lib64/python3.15/site-packages/s_tui-1.5.0.dist-info/REQUESTED
+/usr/lib64/python3.15/site-packages/s_tui-1.5.0.dist-info/WHEEL
+/usr/lib64/python3.15/site-packages/s_tui-1.5.0.dist-info/direct_url.json
+/usr/lib64/python3.15/site-packages/s_tui-1.5.0.dist-info/entry_points.txt
+%dir /usr/lib64/python3.15/site-packages/s_tui-1.5.0.dist-info/licenses
+/usr/lib64/python3.15/site-packages/s_tui-1.5.0.dist-info/licenses/LICENSE
+/usr/lib64/python3.15/site-packages/s_tui-1.5.0.dist-info/top_level.txt
+/usr/lib64/python3.15/site-packages/s_tui/__init__.py
+%dir /usr/lib64/python3.15/site-packages/s_tui/__pycache__
+/usr/lib64/python3.15/site-packages/s_tui/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/__pycache__/about_menu.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/__pycache__/builtin_stress_menu.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/__pycache__/builtin_stresser.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/__pycache__/help_menu.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/__pycache__/helper_functions.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/__pycache__/power_profile_menu.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/__pycache__/s_tui.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/__pycache__/sensors_menu.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/__pycache__/stress_menu.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/about_menu.py
+/usr/lib64/python3.15/site-packages/s_tui/builtin_stress_menu.py
+/usr/lib64/python3.15/site-packages/s_tui/builtin_stresser.py
+/usr/lib64/python3.15/site-packages/s_tui/help_menu.py
+/usr/lib64/python3.15/site-packages/s_tui/helper_functions.py
+/usr/lib64/python3.15/site-packages/s_tui/power_profile_menu.py
+/usr/lib64/python3.15/site-packages/s_tui/s_tui.py
+/usr/lib64/python3.15/site-packages/s_tui/sensors_menu.py
+%dir /usr/lib64/python3.15/site-packages/s_tui/sources
+/usr/lib64/python3.15/site-packages/s_tui/sources/__init__.py
+%dir /usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/amd_pstate_limit.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/fan_source.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/freq_source.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/hook.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/hook_script.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/intel_therm.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/msr.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/rapl_power_source.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/rapl_read.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/script_hook_loader.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/source.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/temp_source.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/__pycache__/util_source.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sources/amd_pstate_limit.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/fan_source.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/freq_source.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/hook.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/hook_script.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/intel_therm.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/msr.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/rapl_power_source.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/rapl_read.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/script_hook_loader.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/source.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/temp_source.py
+/usr/lib64/python3.15/site-packages/s_tui/sources/util_source.py
+/usr/lib64/python3.15/site-packages/s_tui/stress_menu.py
+%dir /usr/lib64/python3.15/site-packages/s_tui/sturwid
+/usr/lib64/python3.15/site-packages/s_tui/sturwid/__init__.py
+%dir /usr/lib64/python3.15/site-packages/s_tui/sturwid/__pycache__
+/usr/lib64/python3.15/site-packages/s_tui/sturwid/__pycache__/__init__.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sturwid/__pycache__/bar_graph_vector.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sturwid/__pycache__/complex_bar_graph.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sturwid/__pycache__/summary_text_list.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sturwid/__pycache__/ui_elements.cpython-315.pyc
+/usr/lib64/python3.15/site-packages/s_tui/sturwid/bar_graph_vector.py
+/usr/lib64/python3.15/site-packages/s_tui/sturwid/complex_bar_graph.py
+/usr/lib64/python3.15/site-packages/s_tui/sturwid/summary_text_list.py
+/usr/lib64/python3.15/site-packages/s_tui/sturwid/ui_elements.py
+%dir /usr/share/doc/s-tui
+/usr/share/doc/s-tui/README.md
