@@ -4,6 +4,7 @@
 /etc/finit.d/available/crond.conf
 %dir /etc/pam.d
 %config(noreplace) /etc/pam.d/crond
+%config(noreplace) /etc/cron.deny
 /usr/bin/anacron
 /usr/bin/crond
 /usr/bin/cronnext

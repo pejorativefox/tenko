@@ -1,11 +1,12 @@
 Name:       cronie
 Version:    1.7.2
-Release:    1
+Release:    2
 Summary:    The Vixie Cron daemon (crond) and the crontab command
 License:    BSD-2-Clause AND ISC AND GPL-2.0-or-later
 URL:        https://github.com/cronie-crond/cronie
 Source0:    %{name}-%{version}.tar.gz
 Source1:    crond.conf
+Source2:    cron.deny
 # GCC 16 defaults to C23: the load_entry error callback must be declared
 # with a (const char *) parameter, not an empty () list.
 Patch0:     %{name}-%{version}-c23-error-callback.patch
@@ -53,9 +54,18 @@ chmod 700 %{buildroot}/var/spool/cron
 mkdir -pv %{buildroot}/etc/finit.d/available
 cp %{SOURCE1} %{buildroot}/etc/finit.d/available/crond.conf
 
+# With neither cron.allow nor cron.deny present, cronie only lets root
+# use crontab.  Ship an empty deny file: every user may use crontab.
+cp %{SOURCE2} %{buildroot}/etc/cron.deny
+
 %files -f %{_sourcedir}/cronie.filelist
 
 %changelog
+* Fri Nov 20 2026 tenko <build@tenko.invalid> 1.7.2-2
+- Ship an empty /etc/cron.deny: with neither cron.allow nor cron.deny
+  present, cronie only lets root use crontab (reported by the first
+  `crontab -e` run).
+
 * Fri Nov 20 2026 tenko <build@tenko.invalid> 1.7.2-1
 - New package, added to the base set: latest upstream stable release
   (1.7.2, checked 2026-11-20).
