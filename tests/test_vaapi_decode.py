@@ -36,8 +36,14 @@ class VaapiDecodeTest(unittest.TestCase):
                       "mpv must build the EGL/VAAPI interop")
         self.assertIn("-Degl=enabled", body,
                       "the VAAPI interop shares surfaces with EGL")
+        self.assertIn("-Ddrm=enabled", body,
+                      "drm plus egl builds the GL dmabuf interop")
         self.assertIn("libva", requires(body),
                       "mpv must build against libva")
+        self.assertIn("libdrm", requires(body),
+                      "the GL dmabuf interop builds against libdrm")
+        self.assertIn("libdisplay-info", requires(body),
+                      "the drm feature needs libdisplay-info")
 
 
 if __name__ == "__main__":

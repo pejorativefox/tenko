@@ -1,6 +1,6 @@
 Name:       mpv
 Version:    0.42.0
-Release:    4
+Release:    5
 Summary:    Media player for the command line
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:        https://mpv.io/
@@ -36,6 +36,8 @@ BuildRequires: openssl
 BuildRequires: sdl2
 BuildRequires: xorgproto
 BuildRequires: libva
+BuildRequires: libdrm
+BuildRequires: libdisplay-info
 
 %description
 mpv is a free media player for the command line.  It supports a wide
@@ -43,8 +45,9 @@ variety of media file formats, audio and video codecs, and subtitle types.
 
 This build provides the mpv command-line player and libmpv with X11 video
 output, OpenGL/EGL rendering through libplacebo, VA-API hardware decoding
-with the zero-copy EGL interop, ALSA and PulseAudio output, LuaJIT
-scripting, and JPEG, libarchive and libcurl support.
+with the zero-copy dmabuf interops, DRM/KMS output for the Linux console,
+ALSA and PulseAudio output, LuaJIT scripting, and JPEG, libarchive and
+libcurl support.
 
 %prep
 %setup -q
@@ -65,7 +68,7 @@ meson setup ..                            \
     -Dxv=enabled                          \
     -Dgl=enabled                          \
     -Degl=enabled                         \
-    -Ddrm=disabled                        \
+    -Ddrm=enabled                         \
     -Dalsa=enabled                        \
     -Dpulse=enabled                       \
     -Dpipewire=disabled                   \
@@ -109,6 +112,13 @@ DESTDIR=%{buildroot} ninja -C build install
 %files -f %{_sourcedir}/mpv.filelist
 
 %changelog
+* Fri Nov 20 2026 tenko <build@tenko.invalid> 0.42.0-5
+- Enable DRM (-Ddrm=enabled, BuildRequires: libdrm, libdisplay-info):
+  together with egl this builds the GL dmabuf interop
+  (video/out/hwdec/dmabuf_interop_gl.c), the direct EGL path for
+  importing decoded VA-API surfaces, alongside the libplacebo one, and
+  the vo_drm KMS console output.
+
 * Fri Nov 20 2026 tenko <build@tenko.invalid> 0.42.0-4
 - Enable VA-API (-Dvaapi=enabled, BuildRequires: libva).  The 0.42.0-1
   build disabled it because ffmpeg had no VA-API support; ffmpeg now
