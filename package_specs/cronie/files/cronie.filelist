@@ -1,10 +1,11 @@
 %dir /etc/cron.d
-%dir /etc/finit.d
-%dir /etc/finit.d/available
-/etc/finit.d/available/crond.conf
 %dir /etc/pam.d
 %config(noreplace) /etc/pam.d/crond
 %config(noreplace) /etc/cron.deny
+%dir /usr/lib/systemd/system
+%dir /usr/lib/systemd/system-preset
+/usr/lib/systemd/system/crond.service
+/usr/lib/systemd/system-preset/90-cronie.preset
 /usr/bin/anacron
 /usr/bin/crond
 /usr/bin/cronnext

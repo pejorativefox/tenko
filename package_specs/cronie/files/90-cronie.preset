@@ -1,0 +1,4 @@
+# Enable the cron daemon by default.  Later preset files can still
+# override this, but systemd's stock 90-systemd.preset does not mention
+# crond.
+enable crond.service

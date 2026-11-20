@@ -1,0 +1,14 @@
+[Unit]
+Description=Command Scheduler
+Documentation=man:crond(8)
+After=systemd-user-sessions.service
+
+[Service]
+ExecStart=/usr/bin/crond -n
+ExecReload=/bin/kill -URG $MAINPID
+KillMode=process
+Restart=on-failure
+RestartSec=30s
+
+[Install]
+WantedBy=multi-user.target
