@@ -1,6 +1,6 @@
 Name:       mpv
 Version:    0.42.0
-Release:    3
+Release:    4
 Summary:    Media player for the command line
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:        https://mpv.io/
@@ -35,14 +35,16 @@ BuildRequires: libxpresent
 BuildRequires: openssl
 BuildRequires: sdl2
 BuildRequires: xorgproto
+BuildRequires: libva
 
 %description
 mpv is a free media player for the command line.  It supports a wide
 variety of media file formats, audio and video codecs, and subtitle types.
 
 This build provides the mpv command-line player and libmpv with X11 video
-output, OpenGL/EGL rendering through libplacebo, ALSA and PulseAudio output,
-LuaJIT scripting, and JPEG, libarchive and libcurl support.
+output, OpenGL/EGL rendering through libplacebo, VA-API hardware decoding
+with the zero-copy EGL interop, ALSA and PulseAudio output, LuaJIT
+scripting, and JPEG, libarchive and libcurl support.
 
 %prep
 %setup -q
@@ -76,7 +78,7 @@ meson setup ..                            \
     -Dvulkan=disabled                     \
     -Dshaderc=disabled                    \
     -Dspirv-cross=disabled                \
-    -Dvaapi=disabled                      \
+    -Dvaapi=enabled                       \
     -Dvdpau=disabled                      \
     -Dcuda-hwaccel=disabled               \
     -Dcuda-interop=disabled               \
@@ -107,6 +109,13 @@ DESTDIR=%{buildroot} ninja -C build install
 %files -f %{_sourcedir}/mpv.filelist
 
 %changelog
+* Fri Nov 20 2026 tenko <build@tenko.invalid> 0.42.0-4
+- Enable VA-API (-Dvaapi=enabled, BuildRequires: libva).  The 0.42.0-1
+  build disabled it because ffmpeg had no VA-API support; ffmpeg now
+  ships VA-API decoding and mesa the Gallium VA drivers, so mpv gets
+  the EGL/VAAPI interop and decodes zero-copy instead of falling back
+  to vaapi-copy.
+
 * Thu Nov 12 2026 tenko <build@tenko.invalid> 0.42.0-3
 - Drop the PKG_CONFIG_PATH=/usr/lib/pkgconfig workaround: ffmpeg 9.0.2-4
   installs its libraries and .pc files in /usr/lib64.
