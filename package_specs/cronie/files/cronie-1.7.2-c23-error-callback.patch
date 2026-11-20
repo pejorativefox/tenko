@@ -1,0 +1,22 @@
+--- a/src/funcs.h	2026-11-20 08:48:58.904889950 +0800
++++ b/src/funcs.h	2026-11-20 08:48:58.908228200 +0800
+@@ -89,7 +89,7 @@
+ user		*load_user(int, struct passwd *, const char *, const char *, const char *),
+ 		*find_user(cron_db *, const char *, const char *);
+ 
+-entry		*load_entry(FILE *, void (*)(), struct passwd *, char **);
++entry		*load_entry(FILE *, void (*)(const char *), struct passwd *, char **);
+ 
+ FILE		*cron_popen(char *, const char *, struct passwd *, char **);
+ 
+--- a/src/entry.c	2026-11-20 08:48:58.905690917 +0800
++++ b/src/entry.c	2026-11-20 08:48:58.910935974 +0800
+@@ -90,7 +90,7 @@
+ /* return NULL if eof or syntax error occurs;
+  * otherwise return a pointer to a new entry.
+  */
+-entry *load_entry(FILE * file, void (*error_func) (), struct passwd *pw,
++entry *load_entry(FILE * file, void (*error_func) (const char *), struct passwd *pw,
+ 	char **envp) {
+ 	/* this function reads one crontab entry -- the next -- from a file.
+ 	 * it skips any leading blank lines, ignores comments, and returns

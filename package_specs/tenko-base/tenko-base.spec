@@ -111,6 +111,7 @@ Requires:   libblockdev
 Requires:   udisks2
 Requires:   fwupd
 Requires:   tuned
+Requires:   cronie
 Requires:   tenko-rpm-config
 Requires:   tenko-basefs
 Requires:   tenko-sysconfig

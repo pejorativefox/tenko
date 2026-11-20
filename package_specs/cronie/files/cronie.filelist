@@ -1,0 +1,19 @@
+%dir /etc/cron.d
+%dir /etc/finit.d
+%dir /etc/finit.d/available
+/etc/finit.d/available/crond.conf
+%dir /etc/pam.d
+%config(noreplace) /etc/pam.d/crond
+/usr/bin/anacron
+/usr/bin/crond
+/usr/bin/cronnext
+%attr(4755,root,root) /usr/bin/crontab
+/usr/share/man/man1/cronnext.1.gz
+/usr/share/man/man1/crontab.1.gz
+/usr/share/man/man5/anacrontab.5.gz
+/usr/share/man/man5/crontab.5.gz
+/usr/share/man/man8/anacron.8.gz
+/usr/share/man/man8/cron.8.gz
+/usr/share/man/man8/crond.8.gz
+%dir /var
+%attr(0700,root,root) %dir /var/spool/cron

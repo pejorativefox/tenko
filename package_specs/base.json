@@ -93,7 +93,8 @@
     "libblockdev",
     "udisks2",
     "fwupd",
-    "tuned"
+    "tuned",
+    "cronie"
   ],
   "aliases": {
     "flit-core": "python-flit-core",
@@ -190,6 +191,7 @@
     "markupsafe",
     "jinja2",
     "linux-pam",
+    "cronie",
     "systemd",
     "openssh",
     "dbus",
