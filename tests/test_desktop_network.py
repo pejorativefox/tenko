@@ -49,6 +49,37 @@ class DesktopNetworkTest(unittest.TestCase):
         self.assertIn("enable NetworkManager.service", rules)
         self.assertIn("disable systemd-networkd.service", rules)
 
+    def test_wifi_recovery_after_wired_unplug_is_shipped(self):
+        # A Wi-Fi link that sat idle behind a wired link can stay
+        # "connected" but dead after the cable is pulled, and NM never
+        # re-associates it on its own (issue #70).  The shipped default
+        # disables 802.11 power save and a dispatcher script re-
+        # associates Wi-Fi that passes no traffic.
+        conf = os.path.join(SPECS, "networkmanager", "files",
+                            "NetworkManager.conf")
+        with open(conf, encoding="utf-8") as handle:
+            self.assertIn("wifi.powersave = 2", handle.read())
+
+        recover = os.path.join(SPECS, "networkmanager", "files",
+                               "tenko-wifi-recover")
+        with open(recover, encoding="utf-8") as handle:
+            script = handle.read()
+        self.assertIn("#!/bin/sh", script)
+        self.assertIn("no-carrier", script)
+
+        filelist = os.path.join(SPECS, "networkmanager", "files",
+                                "networkmanager.filelist")
+        with open(filelist, encoding="utf-8") as handle:
+            paths = handle.read().splitlines()
+        self.assertIn(
+            "/etc/NetworkManager/dispatcher.d/50-tenko-wifi-recover", paths)
+        config_lines = [line for line in paths
+                        if line.startswith("%config")]
+        self.assertTrue(
+            any(line.endswith("/etc/NetworkManager/NetworkManager.conf")
+                for line in config_lines),
+            "shipped NetworkManager.conf must be %config(noreplace)")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,5 +1,7 @@
-/etc/NetworkManager/NetworkManager.conf
-/etc/finit.d/available/networkmanager.conf
+%config(noreplace) /etc/NetworkManager/NetworkManager.conf
+%dir /etc/NetworkManager/dispatcher.d
+/etc/NetworkManager/dispatcher.d/50-tenko-wifi-recover
+%config(noreplace) /etc/finit.d/available/networkmanager.conf
 /usr/lib/systemd/system-preset/40-tenko-networkmanager.preset
 /usr/bin/nm-online
 /usr/bin/nmcli

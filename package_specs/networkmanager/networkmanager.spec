@@ -1,6 +1,6 @@
 Name:       NetworkManager
 Version:    1.58.1
-Release:    3
+Release:    4
 Summary:    Network configuration tool suite.
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:        https://networkmanager.dev/
@@ -63,6 +63,12 @@ rm -vf %{buildroot}%{_infodir}/dir*
 mkdir -pv %{buildroot}/etc/NetworkManager
 cp %{SOURCE1} %{buildroot}/etc/NetworkManager/
 
+# Wi-Fi recovery: when a wired link goes away, re-associate Wi-Fi that
+# still shows connected but passes no traffic (issue #70).
+install -vdm755 %{buildroot}/etc/NetworkManager/dispatcher.d
+install -vm755 %{_sourcedir}/tenko-wifi-recover \
+    %{buildroot}/etc/NetworkManager/dispatcher.d/50-tenko-wifi-recover
+
 # polkit policy
 mkdir -pv %{buildroot}/usr/share/polkit-1/rules.d/
 cp %{SOURCE2} %{buildroot}/usr/share/polkit-1/rules.d/
@@ -102,6 +108,13 @@ fi
 %files -f %{_sourcedir}/networkmanager.filelist
 
 %changelog
+* Sat Nov 21 2026 tenko <build@tenko.invalid> 1.58.1-4
+- Recover Wi-Fi after the wired link goes away (issue #70): disable
+  802.11 power save by default ([connection] wifi.powersave=2) and ship
+  a dispatcher script that re-associates Wi-Fi showing connected but
+  passing no traffic once a wired device drops.  Upstream 1.58.1
+  unchanged; a profile may still override the powersave default.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 1.58.1-3
 - Require wpa-supplicant so installing NetworkManager brings the wireless
   supplicant the Wi-Fi backend needs.
