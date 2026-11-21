@@ -1,0 +1,8 @@
+/usr/bin/rg
+%dir /usr/share/bash-completion
+%dir /usr/share/bash-completion/completions
+/usr/share/bash-completion/completions/rg
+%dir /usr/share/licenses/ripgrep
+/usr/share/licenses/ripgrep/COPYING
+/usr/share/licenses/ripgrep/LICENSE-MIT
+/usr/share/man/man1/rg.1.gz
