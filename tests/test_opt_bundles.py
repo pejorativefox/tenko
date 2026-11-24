@@ -35,6 +35,7 @@ class OptBundleTest(unittest.TestCase):
         "dotnet-bin/dotnet-bin.spec",
         "firefox-bin/firefox-bin.spec",
         "google-chrome-bin/google-chrome-bin.spec",
+        "temurin21-bin/temurin21-bin.spec",
     )
 
     def test_bundles_link_commands_into_usr_bin(self):
