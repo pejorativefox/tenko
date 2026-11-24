@@ -217,7 +217,6 @@ nettle
 nghttp2
 nmap
 nodejs
-numactl
 openjpeg
 openssh
 openssl
