@@ -137,8 +137,14 @@ class Temurin21PackageTest(unittest.TestCase):
             with self.subTest(relative=relative):
                 self.assertIn(self.home() + "/" + relative, paths)
 
+    def test_gtk_integration_uses_the_actual_tenko_package_name(self):
+        # gtk3 is the spec directory; its RPM is named gtk+.
+        self.assertRegex(self.body, r"(?m)^Recommends:\s+gtk\+\s*$")
+
     def test_upstream_configuration_is_preserved_on_upgrade(self):
-        prefix = self.home() + "/conf/"
+        # Stable configuration paths keep edits active when a patch update
+        # redirects /opt/temurin21 to a differently versioned payload.
+        prefix = "/etc/temurin21/"
         lines = self.expanded_filelist().splitlines()
         configs = [line for line in lines if line.split() and
                    line.split()[-1].startswith(prefix) and
@@ -147,8 +153,13 @@ class Temurin21PackageTest(unittest.TestCase):
         for line in configs:
             with self.subTest(config=line):
                 self.assertTrue(line.startswith("%config(noreplace) "), line)
-        for relative in ("conf/net.properties", "conf/security/java.security"):
-            self.assertIn(self.home() + "/" + relative, self.payload_paths())
+        for relative in ("net.properties", "security/java.security"):
+            self.assertIn(prefix + relative, self.payload_paths())
+        self.assertIn(self.home() + "/conf", self.payload_paths())
+        self.assertRegex(
+            self.body,
+            r"ln\s+-s\s+(?:%\{_sysconfdir\}|/etc)/temurin21\s+"
+            r"\S*%\{java_payload\}/conf")
 
     def test_java_uses_the_system_managed_ca_store(self):
         self.assertRegex(self.body, r"(?m)^Requires:\s+make-ca\s*$")

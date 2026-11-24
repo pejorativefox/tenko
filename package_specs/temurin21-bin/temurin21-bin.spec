@@ -9,7 +9,7 @@
 
 Name:       temurin21-bin
 Version:    21.0.13.1
-Release:    1
+Release:    3
 Summary:    Eclipse Temurin Java 21 LTS runtime and development kit
 License:    GPL-2.0-only WITH Classpath-exception-2.0
 URL:        https://adoptium.net/temurin/
@@ -41,7 +41,7 @@ Requires:   liberation-fonts
 Requires:   make-ca
 # Optional runtime-loaded desktop integrations; Java has fallback paths.
 Recommends: cups
-Recommends: gtk3
+Recommends: gtk+
 Recommends: libxcomposite
 Recommends: libxinerama
 Recommends: libxrandr
@@ -66,6 +66,8 @@ The official upstream binaries live in a versioned directory under /opt,
 with /opt/temurin21 as the stable JAVA_HOME and all JDK commands linked into
 /usr/bin. Java uses Tenko's managed CA certificates. Login shells receive
 JAVA_HOME from /etc/profile.d/temurin21.sh; commands also work without it.
+JDK configuration lives in /etc/temurin21 so patch updates preserve local
+settings independently of the versioned binary payload.
 
 %prep
 %setup -q -n jdk-%{version}+%{jdk_build}
@@ -76,9 +78,13 @@ JAVA_HOME from /etc/profile.d/temurin21.sh; commands also work without it.
 %install
 rm -rf %{buildroot}
 install -d %{buildroot}%{java_payload} %{buildroot}%{_bindir}
-cp -a bin conf include jmods legal lib man NOTICE release \
+cp -a bin include jmods legal lib man NOTICE release \
     %{buildroot}%{java_payload}/
 ln -s temurin21-%{version}+%{jdk_build} %{buildroot}%{java_home}
+
+install -d %{buildroot}%{_sysconfdir}/temurin21
+cp -a conf/. %{buildroot}%{_sysconfdir}/temurin21/
+ln -s %{_sysconfdir}/temurin21 %{buildroot}%{java_payload}/conf
 
 for command in bin/*; do
     test -f "$command" && test -x "$command"
@@ -103,6 +109,15 @@ bin/java -Djava.awt.headless=true \
 %files -f %{_sourcedir}/temurin21-bin.filelist
 
 %changelog
+* Tue Nov 24 2026 tenko <build@tenko.invalid> 21.0.13.1-3
+- Recommend gtk+, the Tenko RPM providing GTK 3, for native desktop
+  integration. Upstream basis remains Temurin 21.0.13.1+2.
+
+* Tue Nov 24 2026 tenko <build@tenko.invalid> 21.0.13.1-2
+- Preserve local JDK configuration across patch updates in /etc/temurin21,
+  linked from the versioned payload. Upstream basis remains the latest
+  stable Java 21 update, Temurin 21.0.13.1+2.
+
 * Tue Nov 24 2026 tenko <build@tenko.invalid> 21.0.13.1-1
 - New package outside the base set: official Temurin 21.0.13.1+2,
   latest upstream stable Java 21 update checked 2026-11-24.

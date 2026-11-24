@@ -1,5 +1,28 @@
 %dir /etc/profile.d
 %config(noreplace) /etc/profile.d/temurin21.sh
+%dir /etc/temurin21
+%config(noreplace) /etc/temurin21/jaxp.properties
+%config(noreplace) /etc/temurin21/logging.properties
+%dir /etc/temurin21/management
+%config(noreplace) /etc/temurin21/management/jmxremote.access
+%config(noreplace) /etc/temurin21/management/jmxremote.password.template
+%config(noreplace) /etc/temurin21/management/management.properties
+%config(noreplace) /etc/temurin21/net.properties
+%dir /etc/temurin21/sdp
+%config(noreplace) /etc/temurin21/sdp/sdp.conf.template
+%dir /etc/temurin21/security
+%config(noreplace) /etc/temurin21/security/java.policy
+%config(noreplace) /etc/temurin21/security/java.security
+%dir /etc/temurin21/security/policy
+%config(noreplace) /etc/temurin21/security/policy/README.txt
+%dir /etc/temurin21/security/policy/limited
+%config(noreplace) /etc/temurin21/security/policy/limited/default_US_export.policy
+%config(noreplace) /etc/temurin21/security/policy/limited/default_local.policy
+%config(noreplace) /etc/temurin21/security/policy/limited/exempt_local.policy
+%dir /etc/temurin21/security/policy/unlimited
+%config(noreplace) /etc/temurin21/security/policy/unlimited/default_US_export.policy
+%config(noreplace) /etc/temurin21/security/policy/unlimited/default_local.policy
+%config(noreplace) /etc/temurin21/sound.properties
 /opt/temurin21
 %dir /opt/temurin21-21.0.13.1+2
 /opt/temurin21-21.0.13.1+2/NOTICE
@@ -33,29 +56,7 @@
 /opt/temurin21-21.0.13.1+2/bin/keytool
 /opt/temurin21-21.0.13.1+2/bin/rmiregistry
 /opt/temurin21-21.0.13.1+2/bin/serialver
-%dir /opt/temurin21-21.0.13.1+2/conf
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/jaxp.properties
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/logging.properties
-%dir /opt/temurin21-21.0.13.1+2/conf/management
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/management/jmxremote.access
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/management/jmxremote.password.template
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/management/management.properties
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/net.properties
-%dir /opt/temurin21-21.0.13.1+2/conf/sdp
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/sdp/sdp.conf.template
-%dir /opt/temurin21-21.0.13.1+2/conf/security
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/java.policy
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/java.security
-%dir /opt/temurin21-21.0.13.1+2/conf/security/policy
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/README.txt
-%dir /opt/temurin21-21.0.13.1+2/conf/security/policy/limited
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/limited/default_US_export.policy
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/limited/default_local.policy
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/limited/exempt_local.policy
-%dir /opt/temurin21-21.0.13.1+2/conf/security/policy/unlimited
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/unlimited/default_US_export.policy
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/unlimited/default_local.policy
-%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/sound.properties
+/opt/temurin21-21.0.13.1+2/conf
 %dir /opt/temurin21-21.0.13.1+2/include
 /opt/temurin21-21.0.13.1+2/include/classfile_constants.h
 /opt/temurin21-21.0.13.1+2/include/jawt.h
