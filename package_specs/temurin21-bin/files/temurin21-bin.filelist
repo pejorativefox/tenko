@@ -1,0 +1,574 @@
+%dir /etc/profile.d
+%config(noreplace) /etc/profile.d/temurin21.sh
+/opt/temurin21
+%dir /opt/temurin21-21.0.13.1+2
+/opt/temurin21-21.0.13.1+2/NOTICE
+%dir /opt/temurin21-21.0.13.1+2/bin
+/opt/temurin21-21.0.13.1+2/bin/jar
+/opt/temurin21-21.0.13.1+2/bin/jarsigner
+/opt/temurin21-21.0.13.1+2/bin/java
+/opt/temurin21-21.0.13.1+2/bin/javac
+/opt/temurin21-21.0.13.1+2/bin/javadoc
+/opt/temurin21-21.0.13.1+2/bin/javap
+/opt/temurin21-21.0.13.1+2/bin/jcmd
+/opt/temurin21-21.0.13.1+2/bin/jconsole
+/opt/temurin21-21.0.13.1+2/bin/jdb
+/opt/temurin21-21.0.13.1+2/bin/jdeprscan
+/opt/temurin21-21.0.13.1+2/bin/jdeps
+/opt/temurin21-21.0.13.1+2/bin/jfr
+/opt/temurin21-21.0.13.1+2/bin/jhsdb
+/opt/temurin21-21.0.13.1+2/bin/jimage
+/opt/temurin21-21.0.13.1+2/bin/jinfo
+/opt/temurin21-21.0.13.1+2/bin/jlink
+/opt/temurin21-21.0.13.1+2/bin/jmap
+/opt/temurin21-21.0.13.1+2/bin/jmod
+/opt/temurin21-21.0.13.1+2/bin/jpackage
+/opt/temurin21-21.0.13.1+2/bin/jps
+/opt/temurin21-21.0.13.1+2/bin/jrunscript
+/opt/temurin21-21.0.13.1+2/bin/jshell
+/opt/temurin21-21.0.13.1+2/bin/jstack
+/opt/temurin21-21.0.13.1+2/bin/jstat
+/opt/temurin21-21.0.13.1+2/bin/jstatd
+/opt/temurin21-21.0.13.1+2/bin/jwebserver
+/opt/temurin21-21.0.13.1+2/bin/keytool
+/opt/temurin21-21.0.13.1+2/bin/rmiregistry
+/opt/temurin21-21.0.13.1+2/bin/serialver
+%dir /opt/temurin21-21.0.13.1+2/conf
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/jaxp.properties
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/logging.properties
+%dir /opt/temurin21-21.0.13.1+2/conf/management
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/management/jmxremote.access
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/management/jmxremote.password.template
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/management/management.properties
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/net.properties
+%dir /opt/temurin21-21.0.13.1+2/conf/sdp
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/sdp/sdp.conf.template
+%dir /opt/temurin21-21.0.13.1+2/conf/security
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/java.policy
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/java.security
+%dir /opt/temurin21-21.0.13.1+2/conf/security/policy
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/README.txt
+%dir /opt/temurin21-21.0.13.1+2/conf/security/policy/limited
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/limited/default_US_export.policy
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/limited/default_local.policy
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/limited/exempt_local.policy
+%dir /opt/temurin21-21.0.13.1+2/conf/security/policy/unlimited
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/unlimited/default_US_export.policy
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/security/policy/unlimited/default_local.policy
+%config(noreplace) /opt/temurin21-21.0.13.1+2/conf/sound.properties
+%dir /opt/temurin21-21.0.13.1+2/include
+/opt/temurin21-21.0.13.1+2/include/classfile_constants.h
+/opt/temurin21-21.0.13.1+2/include/jawt.h
+/opt/temurin21-21.0.13.1+2/include/jdwpTransport.h
+/opt/temurin21-21.0.13.1+2/include/jni.h
+/opt/temurin21-21.0.13.1+2/include/jvmti.h
+/opt/temurin21-21.0.13.1+2/include/jvmticmlr.h
+%dir /opt/temurin21-21.0.13.1+2/include/linux
+/opt/temurin21-21.0.13.1+2/include/linux/jawt_md.h
+/opt/temurin21-21.0.13.1+2/include/linux/jni_md.h
+%dir /opt/temurin21-21.0.13.1+2/jmods
+/opt/temurin21-21.0.13.1+2/jmods/java.base.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.compiler.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.datatransfer.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.desktop.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.instrument.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.logging.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.management.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.management.rmi.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.naming.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.net.http.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.prefs.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.rmi.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.scripting.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.se.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.security.jgss.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.security.sasl.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.smartcardio.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.sql.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.sql.rowset.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.transaction.xa.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.xml.crypto.jmod
+/opt/temurin21-21.0.13.1+2/jmods/java.xml.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.accessibility.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.attach.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.charsets.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.compiler.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.crypto.cryptoki.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.crypto.ec.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.dynalink.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.editpad.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.hotspot.agent.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.httpserver.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.incubator.vector.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.internal.ed.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.internal.jvmstat.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.internal.le.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.internal.opt.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.internal.vm.ci.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.internal.vm.compiler.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.internal.vm.compiler.management.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jartool.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.javadoc.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jcmd.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jconsole.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jdeps.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jdi.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jdwp.agent.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jfr.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jlink.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jpackage.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jshell.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jsobject.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.jstatd.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.localedata.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.management.agent.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.management.jfr.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.management.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.naming.dns.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.naming.rmi.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.net.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.nio.mapmode.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.random.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.sctp.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.security.auth.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.security.jgss.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.unsupported.desktop.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.unsupported.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.xml.dom.jmod
+/opt/temurin21-21.0.13.1+2/jmods/jdk.zipfs.jmod
+%dir /opt/temurin21-21.0.13.1+2/legal
+%dir /opt/temurin21-21.0.13.1+2/legal/java.base
+/opt/temurin21-21.0.13.1+2/legal/java.base/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.base/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.base/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/java.base/aes.md
+/opt/temurin21-21.0.13.1+2/legal/java.base/asm.md
+/opt/temurin21-21.0.13.1+2/legal/java.base/c-libutl.md
+/opt/temurin21-21.0.13.1+2/legal/java.base/cldr.md
+/opt/temurin21-21.0.13.1+2/legal/java.base/gcc.md
+/opt/temurin21-21.0.13.1+2/legal/java.base/icu.md
+/opt/temurin21-21.0.13.1+2/legal/java.base/public_suffix.md
+/opt/temurin21-21.0.13.1+2/legal/java.base/siphash.md
+/opt/temurin21-21.0.13.1+2/legal/java.base/unicode.md
+/opt/temurin21-21.0.13.1+2/legal/java.base/zlib.md
+%dir /opt/temurin21-21.0.13.1+2/legal/java.compiler
+/opt/temurin21-21.0.13.1+2/legal/java.compiler/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.compiler/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.compiler/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.datatransfer
+/opt/temurin21-21.0.13.1+2/legal/java.datatransfer/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.datatransfer/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.datatransfer/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.desktop
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/colorimaging.md
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/freetype.md
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/giflib.md
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/harfbuzz.md
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/jpeg.md
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/lcms.md
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/libpng.md
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/mesa3d.md
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/pipewire.md
+/opt/temurin21-21.0.13.1+2/legal/java.desktop/xwd.md
+%dir /opt/temurin21-21.0.13.1+2/legal/java.instrument
+/opt/temurin21-21.0.13.1+2/legal/java.instrument/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.instrument/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.instrument/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.logging
+/opt/temurin21-21.0.13.1+2/legal/java.logging/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.logging/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.logging/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.management
+%dir /opt/temurin21-21.0.13.1+2/legal/java.management.rmi
+/opt/temurin21-21.0.13.1+2/legal/java.management.rmi/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.management.rmi/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.management.rmi/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/java.management/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.management/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.management/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.naming
+/opt/temurin21-21.0.13.1+2/legal/java.naming/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.naming/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.naming/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.net.http
+/opt/temurin21-21.0.13.1+2/legal/java.net.http/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.net.http/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.net.http/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.prefs
+/opt/temurin21-21.0.13.1+2/legal/java.prefs/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.prefs/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.prefs/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.rmi
+/opt/temurin21-21.0.13.1+2/legal/java.rmi/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.rmi/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.rmi/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.scripting
+/opt/temurin21-21.0.13.1+2/legal/java.scripting/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.scripting/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.scripting/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.se
+/opt/temurin21-21.0.13.1+2/legal/java.se/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.se/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.se/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.security.jgss
+/opt/temurin21-21.0.13.1+2/legal/java.security.jgss/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.security.jgss/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.security.jgss/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.security.sasl
+/opt/temurin21-21.0.13.1+2/legal/java.security.sasl/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.security.sasl/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.security.sasl/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.smartcardio
+/opt/temurin21-21.0.13.1+2/legal/java.smartcardio/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.smartcardio/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.smartcardio/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/java.smartcardio/pcsclite.md
+%dir /opt/temurin21-21.0.13.1+2/legal/java.sql
+%dir /opt/temurin21-21.0.13.1+2/legal/java.sql.rowset
+/opt/temurin21-21.0.13.1+2/legal/java.sql.rowset/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.sql.rowset/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.sql.rowset/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/java.sql/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.sql/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.sql/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.transaction.xa
+/opt/temurin21-21.0.13.1+2/legal/java.transaction.xa/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.transaction.xa/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.transaction.xa/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/java.xml
+%dir /opt/temurin21-21.0.13.1+2/legal/java.xml.crypto
+/opt/temurin21-21.0.13.1+2/legal/java.xml.crypto/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.xml.crypto/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.xml.crypto/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/java.xml.crypto/santuario.md
+/opt/temurin21-21.0.13.1+2/legal/java.xml/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/java.xml/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/java.xml/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/java.xml/bcel.md
+/opt/temurin21-21.0.13.1+2/legal/java.xml/dom.md
+/opt/temurin21-21.0.13.1+2/legal/java.xml/jcup.md
+/opt/temurin21-21.0.13.1+2/legal/java.xml/xalan.md
+/opt/temurin21-21.0.13.1+2/legal/java.xml/xerces.md
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.accessibility
+/opt/temurin21-21.0.13.1+2/legal/jdk.accessibility/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.accessibility/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.accessibility/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.attach
+/opt/temurin21-21.0.13.1+2/legal/jdk.attach/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.attach/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.attach/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.charsets
+/opt/temurin21-21.0.13.1+2/legal/jdk.charsets/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.charsets/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.charsets/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.compiler
+/opt/temurin21-21.0.13.1+2/legal/jdk.compiler/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.compiler/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.compiler/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.crypto.cryptoki
+/opt/temurin21-21.0.13.1+2/legal/jdk.crypto.cryptoki/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.crypto.cryptoki/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.crypto.cryptoki/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/jdk.crypto.cryptoki/pkcs11cryptotoken.md
+/opt/temurin21-21.0.13.1+2/legal/jdk.crypto.cryptoki/pkcs11wrapper.md
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.crypto.ec
+/opt/temurin21-21.0.13.1+2/legal/jdk.crypto.ec/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.crypto.ec/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.crypto.ec/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.dynalink
+/opt/temurin21-21.0.13.1+2/legal/jdk.dynalink/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.dynalink/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.dynalink/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/jdk.dynalink/dynalink.md
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.editpad
+/opt/temurin21-21.0.13.1+2/legal/jdk.editpad/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.editpad/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.editpad/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.hotspot.agent
+/opt/temurin21-21.0.13.1+2/legal/jdk.hotspot.agent/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.hotspot.agent/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.hotspot.agent/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.httpserver
+/opt/temurin21-21.0.13.1+2/legal/jdk.httpserver/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.httpserver/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.httpserver/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.incubator.vector
+/opt/temurin21-21.0.13.1+2/legal/jdk.incubator.vector/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.incubator.vector/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.incubator.vector/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.internal.ed
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.ed/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.ed/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.ed/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.internal.jvmstat
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.jvmstat/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.jvmstat/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.jvmstat/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.internal.le
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.le/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.le/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.le/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.le/jline.md
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.internal.opt
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.opt/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.opt/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.opt/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.opt/jopt-simple.md
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.ci
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.ci/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.ci/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.ci/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.compiler
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.compiler.management
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.compiler.management/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.compiler.management/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.compiler.management/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.compiler/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.compiler/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.internal.vm.compiler/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jartool
+/opt/temurin21-21.0.13.1+2/legal/jdk.jartool/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jartool/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jartool/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.javadoc
+/opt/temurin21-21.0.13.1+2/legal/jdk.javadoc/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.javadoc/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.javadoc/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/jdk.javadoc/jquery.md
+/opt/temurin21-21.0.13.1+2/legal/jdk.javadoc/jqueryUI.md
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jcmd
+/opt/temurin21-21.0.13.1+2/legal/jdk.jcmd/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jcmd/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jcmd/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jconsole
+/opt/temurin21-21.0.13.1+2/legal/jdk.jconsole/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jconsole/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jconsole/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jdeps
+/opt/temurin21-21.0.13.1+2/legal/jdk.jdeps/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jdeps/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jdeps/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jdi
+/opt/temurin21-21.0.13.1+2/legal/jdk.jdi/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jdi/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jdi/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jdwp.agent
+/opt/temurin21-21.0.13.1+2/legal/jdk.jdwp.agent/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jdwp.agent/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jdwp.agent/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jfr
+/opt/temurin21-21.0.13.1+2/legal/jdk.jfr/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jfr/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jfr/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jlink
+/opt/temurin21-21.0.13.1+2/legal/jdk.jlink/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jlink/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jlink/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jpackage
+/opt/temurin21-21.0.13.1+2/legal/jdk.jpackage/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jpackage/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jpackage/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jshell
+/opt/temurin21-21.0.13.1+2/legal/jdk.jshell/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jshell/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jshell/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jsobject
+/opt/temurin21-21.0.13.1+2/legal/jdk.jsobject/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jsobject/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jsobject/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.jstatd
+/opt/temurin21-21.0.13.1+2/legal/jdk.jstatd/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.jstatd/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.jstatd/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.localedata
+/opt/temurin21-21.0.13.1+2/legal/jdk.localedata/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.localedata/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.localedata/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/jdk.localedata/cldr.md
+/opt/temurin21-21.0.13.1+2/legal/jdk.localedata/thaidict.md
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.management
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.management.agent
+/opt/temurin21-21.0.13.1+2/legal/jdk.management.agent/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.management.agent/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.management.agent/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.management.jfr
+/opt/temurin21-21.0.13.1+2/legal/jdk.management.jfr/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.management.jfr/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.management.jfr/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/jdk.management/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.management/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.management/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.naming.dns
+/opt/temurin21-21.0.13.1+2/legal/jdk.naming.dns/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.naming.dns/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.naming.dns/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.naming.rmi
+/opt/temurin21-21.0.13.1+2/legal/jdk.naming.rmi/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.naming.rmi/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.naming.rmi/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.net
+/opt/temurin21-21.0.13.1+2/legal/jdk.net/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.net/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.net/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.nio.mapmode
+/opt/temurin21-21.0.13.1+2/legal/jdk.nio.mapmode/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.nio.mapmode/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.nio.mapmode/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.random
+/opt/temurin21-21.0.13.1+2/legal/jdk.random/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.random/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.random/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.sctp
+/opt/temurin21-21.0.13.1+2/legal/jdk.sctp/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.sctp/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.sctp/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.security.auth
+/opt/temurin21-21.0.13.1+2/legal/jdk.security.auth/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.security.auth/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.security.auth/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.security.jgss
+/opt/temurin21-21.0.13.1+2/legal/jdk.security.jgss/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.security.jgss/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.security.jgss/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.unsupported
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.unsupported.desktop
+/opt/temurin21-21.0.13.1+2/legal/jdk.unsupported.desktop/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.unsupported.desktop/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.unsupported.desktop/LICENSE
+/opt/temurin21-21.0.13.1+2/legal/jdk.unsupported/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.unsupported/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.unsupported/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.xml.dom
+/opt/temurin21-21.0.13.1+2/legal/jdk.xml.dom/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.xml.dom/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.xml.dom/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/legal/jdk.zipfs
+/opt/temurin21-21.0.13.1+2/legal/jdk.zipfs/ADDITIONAL_LICENSE_INFO
+/opt/temurin21-21.0.13.1+2/legal/jdk.zipfs/ASSEMBLY_EXCEPTION
+/opt/temurin21-21.0.13.1+2/legal/jdk.zipfs/LICENSE
+%dir /opt/temurin21-21.0.13.1+2/lib
+/opt/temurin21-21.0.13.1+2/lib/classlist
+/opt/temurin21-21.0.13.1+2/lib/ct.sym
+/opt/temurin21-21.0.13.1+2/lib/jexec
+%dir /opt/temurin21-21.0.13.1+2/lib/jfr
+/opt/temurin21-21.0.13.1+2/lib/jfr/default.jfc
+/opt/temurin21-21.0.13.1+2/lib/jfr/profile.jfc
+/opt/temurin21-21.0.13.1+2/lib/jrt-fs.jar
+/opt/temurin21-21.0.13.1+2/lib/jspawnhelper
+/opt/temurin21-21.0.13.1+2/lib/jvm.cfg
+/opt/temurin21-21.0.13.1+2/lib/libattach.so
+/opt/temurin21-21.0.13.1+2/lib/libawt.so
+/opt/temurin21-21.0.13.1+2/lib/libawt_headless.so
+/opt/temurin21-21.0.13.1+2/lib/libawt_xawt.so
+/opt/temurin21-21.0.13.1+2/lib/libdt_socket.so
+/opt/temurin21-21.0.13.1+2/lib/libextnet.so
+/opt/temurin21-21.0.13.1+2/lib/libfontmanager.so
+/opt/temurin21-21.0.13.1+2/lib/libfreetype.so
+/opt/temurin21-21.0.13.1+2/lib/libinstrument.so
+/opt/temurin21-21.0.13.1+2/lib/libj2gss.so
+/opt/temurin21-21.0.13.1+2/lib/libj2pcsc.so
+/opt/temurin21-21.0.13.1+2/lib/libj2pkcs11.so
+/opt/temurin21-21.0.13.1+2/lib/libjaas.so
+/opt/temurin21-21.0.13.1+2/lib/libjava.so
+/opt/temurin21-21.0.13.1+2/lib/libjavajpeg.so
+/opt/temurin21-21.0.13.1+2/lib/libjawt.so
+/opt/temurin21-21.0.13.1+2/lib/libjdwp.so
+/opt/temurin21-21.0.13.1+2/lib/libjimage.so
+/opt/temurin21-21.0.13.1+2/lib/libjli.so
+/opt/temurin21-21.0.13.1+2/lib/libjsig.so
+/opt/temurin21-21.0.13.1+2/lib/libjsound.so
+/opt/temurin21-21.0.13.1+2/lib/libjsvml.so
+/opt/temurin21-21.0.13.1+2/lib/liblcms.so
+/opt/temurin21-21.0.13.1+2/lib/lible.so
+/opt/temurin21-21.0.13.1+2/lib/libmanagement.so
+/opt/temurin21-21.0.13.1+2/lib/libmanagement_agent.so
+/opt/temurin21-21.0.13.1+2/lib/libmanagement_ext.so
+/opt/temurin21-21.0.13.1+2/lib/libmlib_image.so
+/opt/temurin21-21.0.13.1+2/lib/libnet.so
+/opt/temurin21-21.0.13.1+2/lib/libnio.so
+/opt/temurin21-21.0.13.1+2/lib/libprefs.so
+/opt/temurin21-21.0.13.1+2/lib/librmi.so
+/opt/temurin21-21.0.13.1+2/lib/libsaproc.so
+/opt/temurin21-21.0.13.1+2/lib/libsctp.so
+/opt/temurin21-21.0.13.1+2/lib/libsplashscreen.so
+/opt/temurin21-21.0.13.1+2/lib/libsyslookup.so
+/opt/temurin21-21.0.13.1+2/lib/libverify.so
+/opt/temurin21-21.0.13.1+2/lib/libzip.so
+/opt/temurin21-21.0.13.1+2/lib/modules
+/opt/temurin21-21.0.13.1+2/lib/psfont.properties.ja
+/opt/temurin21-21.0.13.1+2/lib/psfontj2d.properties
+%dir /opt/temurin21-21.0.13.1+2/lib/security
+/opt/temurin21-21.0.13.1+2/lib/security/blocked.certs
+/opt/temurin21-21.0.13.1+2/lib/security/cacerts
+/opt/temurin21-21.0.13.1+2/lib/security/default.policy
+/opt/temurin21-21.0.13.1+2/lib/security/public_suffix_list.dat
+%dir /opt/temurin21-21.0.13.1+2/lib/server
+/opt/temurin21-21.0.13.1+2/lib/server/classes.jsa
+/opt/temurin21-21.0.13.1+2/lib/server/classes_nocoops.jsa
+/opt/temurin21-21.0.13.1+2/lib/server/libjsig.so
+/opt/temurin21-21.0.13.1+2/lib/server/libjvm.so
+/opt/temurin21-21.0.13.1+2/lib/src.zip
+/opt/temurin21-21.0.13.1+2/lib/tzdb.dat
+%dir /opt/temurin21-21.0.13.1+2/man
+%dir /opt/temurin21-21.0.13.1+2/man/man1
+/opt/temurin21-21.0.13.1+2/man/man1/jar.1
+/opt/temurin21-21.0.13.1+2/man/man1/jarsigner.1
+/opt/temurin21-21.0.13.1+2/man/man1/java.1
+/opt/temurin21-21.0.13.1+2/man/man1/javac.1
+/opt/temurin21-21.0.13.1+2/man/man1/javadoc.1
+/opt/temurin21-21.0.13.1+2/man/man1/javap.1
+/opt/temurin21-21.0.13.1+2/man/man1/jcmd.1
+/opt/temurin21-21.0.13.1+2/man/man1/jconsole.1
+/opt/temurin21-21.0.13.1+2/man/man1/jdb.1
+/opt/temurin21-21.0.13.1+2/man/man1/jdeprscan.1
+/opt/temurin21-21.0.13.1+2/man/man1/jdeps.1
+/opt/temurin21-21.0.13.1+2/man/man1/jfr.1
+/opt/temurin21-21.0.13.1+2/man/man1/jhsdb.1
+/opt/temurin21-21.0.13.1+2/man/man1/jinfo.1
+/opt/temurin21-21.0.13.1+2/man/man1/jlink.1
+/opt/temurin21-21.0.13.1+2/man/man1/jmap.1
+/opt/temurin21-21.0.13.1+2/man/man1/jmod.1
+/opt/temurin21-21.0.13.1+2/man/man1/jpackage.1
+/opt/temurin21-21.0.13.1+2/man/man1/jps.1
+/opt/temurin21-21.0.13.1+2/man/man1/jrunscript.1
+/opt/temurin21-21.0.13.1+2/man/man1/jshell.1
+/opt/temurin21-21.0.13.1+2/man/man1/jstack.1
+/opt/temurin21-21.0.13.1+2/man/man1/jstat.1
+/opt/temurin21-21.0.13.1+2/man/man1/jstatd.1
+/opt/temurin21-21.0.13.1+2/man/man1/jwebserver.1
+/opt/temurin21-21.0.13.1+2/man/man1/keytool.1
+/opt/temurin21-21.0.13.1+2/man/man1/rmiregistry.1
+/opt/temurin21-21.0.13.1+2/man/man1/serialver.1
+/opt/temurin21-21.0.13.1+2/release
+/usr/bin/jar
+/usr/bin/jarsigner
+/usr/bin/java
+/usr/bin/javac
+/usr/bin/javadoc
+/usr/bin/javap
+/usr/bin/jcmd
+/usr/bin/jconsole
+/usr/bin/jdb
+/usr/bin/jdeprscan
+/usr/bin/jdeps
+/usr/bin/jfr
+/usr/bin/jhsdb
+/usr/bin/jimage
+/usr/bin/jinfo
+/usr/bin/jlink
+/usr/bin/jmap
+/usr/bin/jmod
+/usr/bin/jpackage
+/usr/bin/jps
+/usr/bin/jrunscript
+/usr/bin/jshell
+/usr/bin/jstack
+/usr/bin/jstat
+/usr/bin/jstatd
+/usr/bin/jwebserver
+/usr/bin/keytool
+/usr/bin/rmiregistry
+/usr/bin/serialver
