@@ -68,15 +68,20 @@ without uploading.
 
 ## Headless and remote hosts
 
-systemd-logind stops a user's processes when their last session ends.  A
-long build started over SSH on a remote host therefore dies when the SSH
-connection closes, even under `nohup`, `setsid` or tmux.  Either keep the
-session open for the duration of the build, or enable lingering once (as
-an administrator) so the user's processes survive logout:
+Tenko builds systemd with `KillUserProcesses=no`: logind does not terminate
+processes in an ending login session.  Use tmux or `nohup` for a long build
+over SSH so it can survive terminal hangups.
+
+For builds launched as systemd user services, enable lingering once (as
+an administrator) to keep the user service manager running after logout:
 
 ```sh
 sudo loginctl enable-linger "$USER"
 ```
+
+Lingering does not exempt processes inside login-session scopes from an
+administrator's `KillUserProcesses=yes` override; persistent jobs must run
+outside those scopes, for example as systemd user services.
 
 A host needs network access for `tenko sync`, source downloads, Go and
 Rust builds (which download their modules and crates) and publishing.

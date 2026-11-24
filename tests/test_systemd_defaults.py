@@ -1,4 +1,4 @@
-"""logind leaves user processes running after the last session exits."""
+"""logind does not kill processes when their login session ends."""
 
 import os
 import re

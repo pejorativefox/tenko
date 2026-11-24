@@ -1,6 +1,6 @@
 Name:       systemd
 Version:    262.1
-Release:    5
+Release:    6
 Summary:    The systemd package contains programs for controlling the startup, running, and shutdown of the system.
 License:    LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:        https://systemd.io/
@@ -59,6 +59,7 @@ meson setup ..                  \
       --prefix=/usr             \
       --buildtype=release       \
       -D default-dnssec=no      \
+      -D default-kill-user-processes=false \
       -D firstboot=false        \
       -D install-tests=false    \
       -D ldconfig=false         \
@@ -97,12 +98,25 @@ test -f %{buildroot}/usr/lib/systemd/boot/efi/systemd-bootx64.efi || {
     exit 1
 }
 
+# Keep the compiled logind default compatible with detached terminal jobs.
+grep -qx '#KillUserProcesses=no' %{buildroot}/etc/systemd/logind.conf || {
+    echo "systemd-logind must default to KillUserProcesses=no" >&2
+    exit 1
+}
+
 %files -f %{_sourcedir}/systemd.filelist
 %files hwdb -f %{_sourcedir}/systemd-hwdb.filelist
 %files lang -f %{_sourcedir}/systemd-lang.filelist
 %files doc -f %{_sourcedir}/systemd-doc.filelist
 
 %changelog
+* Tue Nov 24 2026 tenko <build@tenko.invalid> 262.1-6
+- Default KillUserProcesses to no so detached tmux, screen and nohup jobs
+  are not terminated by logind when their login session ends.
+- Assert the generated logind configuration reflects the compiled default.
+- Version basis: retain packaged upstream stable 262.1 for the
+  user-requested logout-policy rebuild; no upstream version change.
+
 * Sat Nov 07 2026 tenko <build@tenko.invalid> 262.1-5
 - Drop -D sbat-distro-url: tenko-release 6-3 ships BUG_REPORT_URL,
   HOME_URL and the other os-release fields, so meson's SBAT
@@ -152,4 +166,3 @@ test -f %{buildroot}/usr/lib/systemd/boot/efi/systemd-bootx64.efi || {
 
 * Tue Dec 10 2019 Chris Statzer <chris.statzer@qq.com> 245
 - Initial RPM
-
