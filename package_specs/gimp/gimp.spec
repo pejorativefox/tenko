@@ -52,7 +52,11 @@ BuildRequires: python3-pycairo
 BuildRequires: shared-mime-info
 BuildRequires: webp
 BuildRequires: xz
+BuildRequires: libxslt
 BuildRequires: zlib
+
+# GIMP shells out to xdg-email for the Send-to command at runtime.
+Requires:   xdg-utils
 
 %description
 GIMP (GNU Image Manipulation Program) is a raster image editor for
