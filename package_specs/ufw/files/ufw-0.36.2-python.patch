@@ -1,0 +1,56 @@
+--- a/setup.py
++++ b/setup.py
+@@ -25,8 +25,8 @@
+ #
+ 
+ from __future__ import print_function
+-from distutils.command.install import install as _install
+-from distutils.core import setup
++from setuptools.command.install import install as _install
++from setuptools import setup
+ import errno
+ import os
+ import re
+--- a/tests/unit/support.py
++++ b/tests/unit/support.py
+@@ -23,6 +23,31 @@
+ import sys
+ _ = None
+ 
++# The upstream suite uses the alias removed in Python 3.12.
++unittest.TestCase.assertEquals = unittest.TestCase.assertEqual
++
++# Unit fixtures assume Debian's legacy service assignments. IANA registers
++# additional protocols and does not include the fsp alias. Keep these four
++# fixture names deterministic without changing the builder's /etc/services.
++import socket
++_getservbyname = socket.getservbyname
++_services = {
++    'tcpmux': (1, 'tcp'),
++    'fsp': (21, 'udp'),
++    'smtp': (25, 'tcp'),
++    'tftp': (69, 'udp'),
++}
++
++def _fixture_getservbyname(name, protocol=None):
++    if name not in _services:
++        return _getservbyname(name, protocol) if protocol else _getservbyname(name)
++    port, expected = _services[name]
++    if protocol is not None and protocol != expected:
++        raise OSError('service/proto not found')
++    return port
++
++socket.getservbyname = _fixture_getservbyname
++
+ topdir = "./tests/unit/tmp"
+ 
+ 
+@@ -111,7 +136,7 @@
+ 
+     suite = unittest.TestSuite()
+     for cls in classes:
+-        suite.addTest(unittest.makeSuite(cls))
++        suite.addTest(unittest.defaultTestLoader.loadTestsFromTestCase(cls))
+ 
+     runner = unittest.TextTestRunner(sys.stdout, verbosity=2)
+     result = runner.run(suite)

@@ -1,0 +1,28 @@
+UFW on Tenko
+============
+
+Installation leaves the firewall and ufw.service disabled. Configure access
+before enabling it, especially on a remote machine. For SSH on TCP port 22:
+
+    sudo ufw allow 22/tcp
+    sudo ufw enable
+    sudo systemctl enable ufw.service
+    sudo ufw status verbose
+
+Use your actual SSH port and allow any other required services first.
+The systemd unit restores enabled UFW rules before network setup at boot.
+Enabling the unit alone does not enable filtering: /etc/ufw/ufw.conf must
+also contain ENABLED=yes, which "ufw enable" sets.
+
+    sudo ufw disable
+    sudo systemctl disable ufw.service
+
+Configuration and administrator-managed rules live in /etc/default/ufw and
+/etc/ufw. RPM upgrades preserve local edits. Helper scripts live in
+/usr/lib/ufw, and pristine rule templates in /usr/share/ufw/iptables.
+IPv6 support is enabled in /etc/default/ufw.
+
+Use UFW as the firewall manager instead of simultaneously running an
+iptables, nftables or firewalld service. Container networking and other
+software can also manage netfilter rules; review their interaction before
+enabling or reloading UFW. See ufw(8) and ufw-framework(8).

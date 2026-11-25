@@ -243,6 +243,29 @@ install and guided UI).  It needs no QEMU, root, network or block devices.
 `tenko check` is the local/CI entry point: it runs the unit tests,
 `tenko base-requires --check` and the static freedesktop audit.
 
+### UFW package checks
+
+`tenko build ufw` runs upstream's unit suite with fake iptables binaries
+and temporary configuration. It does not run upstream's root firewall tests
+in the build container, which shares the host network.
+
+To check the installed RPM, point `TENKO_UFW_RPM` at the build result:
+
+```sh
+TENKO_UFW_RPM=build/ufw/build/ufw/RPMS/noarch/ufw-0.36.2-1.noarch.rpm ./tenko check
+```
+
+This installs the RPM from the offline mirror into a disposable buildroot
+container with a private network namespace (`--network=none`), checks the
+CLI, IPv4/IPv6 dry runs, inactive defaults and systemd unit. Add
+`TENKO_UFW_KERNEL_TESTS=1` to exercise allow/limit rules, enable, reload,
+stop/start and disable against the running host kernel inside that namespace.
+The container receives `NET_ADMIN`, not host networking or full privileges;
+the host must support legacy IPv4 and IPv6 iptables. These checks do not
+establish boot persistence or coexistence with container networking.
+Rootless containers cannot load host kernel modules: load the required
+netfilter modules separately before requesting kernel tests.
+
 ## Freedesktop audit
 
 [`freedesktop.md`](freedesktop.md) is the durable compliance matrix.  The

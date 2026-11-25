@@ -1,0 +1,20 @@
+[Unit]
+Description=Uncomplicated firewall
+Documentation=man:ufw(8) man:ufw-framework(8)
+DefaultDependencies=no
+Before=network-pre.target
+Wants=network-pre.target
+After=local-fs.target
+After=systemd-sysctl.service
+Conflicts=shutdown.target iptables.service ip6tables.service nftables.service firewalld.service
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/lib/ufw/ufw-init start quiet
+ExecStop=/usr/lib/ufw/ufw-init stop
+ExecReload=/usr/lib/ufw/ufw-init force-reload
+
+[Install]
+WantedBy=multi-user.target
