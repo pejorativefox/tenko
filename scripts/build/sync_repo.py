@@ -34,14 +34,17 @@ WORKERS = 8
 
 
 def fetch(url, timeout=60):
-    with urllib.request.urlopen(url, timeout=timeout) as response:
+    # The public site rejects the default "Python-urllib" agent.
+    request = urllib.request.Request(url, headers={"User-Agent": "tenko-sync"})
+    with urllib.request.urlopen(request, timeout=timeout) as response:
         return response.read()
 
 
 def download(url, path, timeout=300):
     """Download url to path through a .part file."""
     part = path + ".part"
-    with urllib.request.urlopen(url, timeout=timeout) as response, \
+    request = urllib.request.Request(url, headers={"User-Agent": "tenko-sync"})
+    with urllib.request.urlopen(request, timeout=timeout) as response, \
             open(part, "wb") as handle:
         shutil.copyfileobj(response, handle, 1024 * 1024)
     os.replace(part, path)

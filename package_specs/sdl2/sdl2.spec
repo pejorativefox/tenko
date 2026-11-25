@@ -1,6 +1,6 @@
 Name:       sdl2 
 Version:    2.32.74
-Release:    1
+Release:    2
 Summary:    Simple Direct Media Layer 2
 License:    GPM
 URL:        https://github.com/libsdl-org/sdl2-compat
@@ -12,6 +12,11 @@ BuildRequires: libXdmcp
 BuildRequires: libxau
 BuildRequires: libxcb
 BuildRequires: xorgproto
+
+# sdl2-compat dlopens libSDL3.so.0 at runtime; without sdl3 installed
+# every program that links libSDL2 aborts with "Failed loading SDL3
+# library." (seen with gegl's sdl2-display operation inside GIMP).
+Requires:   sdl3
 
 %description
 Simple DirectMedia Layer is a cross-platform development library designed to 
@@ -43,6 +48,12 @@ popd
 %files -f %{_sourcedir}/sdl2.filelist
 
 %changelog
+* Wed Nov 25 2026 tenko <build@tenko.invalid> 2.32.74-2
+- Require sdl3 at runtime: sdl2-compat dlopens libSDL3.so.0, and
+  programs linking libSDL2 abort when it is missing.  Found while
+  building gimp (gegl's sdl2-display operation aborted every
+  gimp-console start, so the splash image generation failed).
+
 * Tue Nov 03 2026 browneye <build@browneye.invalid> 2.32.74-1
 - Track upstream: sdl2 is now sdl2-compat (a shim over sdl3)
 
