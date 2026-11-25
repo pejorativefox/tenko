@@ -10,6 +10,7 @@ Source0:    gimp-%{version}.tar.xz
 BuildRequires: alsa-lib
 BuildRequires: appstream
 BuildRequires: at-spi2-core
+BuildRequires: at-spi2-core-gir
 BuildRequires: babl
 BuildRequires: babl-gir
 BuildRequires: bash-completion
@@ -30,6 +31,7 @@ BuildRequires: gobject-introspection
 BuildRequires: gobject-introspection-gir
 BuildRequires: gtk+
 BuildRequires: gtk+-gir
+BuildRequires: harfbuzz-gir
 BuildRequires: harfbuzz
 BuildRequires: iso-codes
 BuildRequires: json-glib
@@ -64,9 +66,11 @@ BuildRequires: zlib
 # GIMP shells out to xdg-email for the Send-to command, and the shipped
 # Python plug-ins import gi (Babl, Gegl, Gimp) and cairo at runtime.
 Requires:   babl-gir
+Requires:   at-spi2-core-gir
 Requires:   gegl-gir
 Requires:   gobject-introspection-gir
 Requires:   gtk+-gir
+Requires:   harfbuzz-gir
 Requires:   pango-gir
 Requires:   gdk-pixbuf-gir
 Requires:   python3-gobject
