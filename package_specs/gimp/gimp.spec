@@ -11,6 +11,7 @@ BuildRequires: alsa-lib
 BuildRequires: appstream
 BuildRequires: at-spi2-core
 BuildRequires: babl
+BuildRequires: babl-gir
 BuildRequires: bash-completion
 BuildRequires: bzip2
 BuildRequires: cairo
@@ -20,6 +21,7 @@ BuildRequires: freetype
 BuildRequires: fribidi
 BuildRequires: gdk-pixbuf
 BuildRequires: gegl
+BuildRequires: gegl-gir
 BuildRequires: gexiv2
 BuildRequires: glib
 BuildRequires: glib-networking
@@ -55,7 +57,12 @@ BuildRequires: xz
 BuildRequires: libxslt
 BuildRequires: zlib
 
-# GIMP shells out to xdg-email for the Send-to command at runtime.
+# GIMP shells out to xdg-email for the Send-to command, and the shipped
+# Python plug-ins import gi (Babl, Gegl, Gimp) and cairo at runtime.
+Requires:   babl-gir
+Requires:   gegl-gir
+Requires:   python3-gobject
+Requires:   python3-pycairo
 Requires:   xdg-utils
 
 %description
