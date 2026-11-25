@@ -26,6 +26,7 @@ BuildRequires: gexiv2
 BuildRequires: glib
 BuildRequires: glib-networking
 BuildRequires: gobject-introspection
+BuildRequires: gobject-introspection-gir
 BuildRequires: gtk+
 BuildRequires: harfbuzz
 BuildRequires: iso-codes
@@ -61,6 +62,7 @@ BuildRequires: zlib
 # Python plug-ins import gi (Babl, Gegl, Gimp) and cairo at runtime.
 Requires:   babl-gir
 Requires:   gegl-gir
+Requires:   gobject-introspection-gir
 Requires:   python3-gobject
 Requires:   python3-pycairo
 Requires:   xdg-utils
