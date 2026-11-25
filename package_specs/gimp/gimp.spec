@@ -107,7 +107,6 @@ meson setup ..                        \
       -D jpeg2000=enabled            \
       -D mng=disabled                \
       -D openexr=disabled             \
-      -D pdf=enabled                  \
       -D webp=enabled                \
       -D wmf=disabled                \
       -D xcursor=enabled              \
