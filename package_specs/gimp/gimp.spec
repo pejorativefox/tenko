@@ -20,6 +20,7 @@ BuildRequires: fontconfig
 BuildRequires: freetype
 BuildRequires: fribidi
 BuildRequires: gdk-pixbuf
+BuildRequires: gdk-pixbuf-gir
 BuildRequires: gegl
 BuildRequires: gegl-gir
 BuildRequires: gexiv2
@@ -28,6 +29,7 @@ BuildRequires: glib-networking
 BuildRequires: gobject-introspection
 BuildRequires: gobject-introspection-gir
 BuildRequires: gtk+
+BuildRequires: gtk+-gir
 BuildRequires: harfbuzz
 BuildRequires: iso-codes
 BuildRequires: json-glib
@@ -48,6 +50,7 @@ BuildRequires: libxmu
 BuildRequires: mypaint-brushes
 BuildRequires: openjpeg
 BuildRequires: pango
+BuildRequires: pango-gir
 BuildRequires: poppler-data
 BuildRequires: python
 BuildRequires: python3-gobject
@@ -63,6 +66,9 @@ BuildRequires: zlib
 Requires:   babl-gir
 Requires:   gegl-gir
 Requires:   gobject-introspection-gir
+Requires:   gtk+-gir
+Requires:   pango-gir
+Requires:   gdk-pixbuf-gir
 Requires:   python3-gobject
 Requires:   python3-pycairo
 Requires:   xdg-utils
