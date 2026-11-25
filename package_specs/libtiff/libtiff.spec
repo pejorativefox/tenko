@@ -28,8 +28,9 @@ toolkits build against.
 %setup -q -n tiff-%{version}
 
 %build
-mkdir build
-pushd build
+# The source tree ships its own build/ directory, so use another name.
+mkdir build-dir
+pushd build-dir
 cmake -D CMAKE_INSTALL_PREFIX=/usr \
       -D CMAKE_INSTALL_LIBDIR=lib64 \
       -D CMAKE_BUILD_TYPE=Release \
@@ -46,7 +47,7 @@ popd
 
 %install
 rm -rf %{buildroot}
-pushd build
+pushd build-dir
 DESTDIR=%{buildroot} ninja install
 popd
 

@@ -9,6 +9,7 @@ Prefix:     /usr
 
 BuildRequires: glib
 BuildRequires: gobject-introspection
+BuildRequires: intltool
 
 %description
 libmypaint is the brush dynamics engine developed for MyPaint,
