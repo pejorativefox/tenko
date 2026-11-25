@@ -1,0 +1,29 @@
+%dir /usr/include/libmypaint
+%dir /usr/include/libmypaint/fastapprox
+%dir /usr/include/libmypaint/glib
+%dir /usr/lib64/girepository-1.0
+%dir /usr/share/gir-1.0
+/usr/include/libmypaint/fastapprox/cast.h
+/usr/include/libmypaint/fastapprox/fastexp.h
+/usr/include/libmypaint/fastapprox/fastlog.h
+/usr/include/libmypaint/fastapprox/fastpow.h
+/usr/include/libmypaint/fastapprox/sse.h
+/usr/include/libmypaint/glib/mypaint-brush.h
+/usr/include/libmypaint/mypaint-brush-settings-gen.h
+/usr/include/libmypaint/mypaint-brush-settings.h
+/usr/include/libmypaint/mypaint-brush.h
+/usr/include/libmypaint/mypaint-config.h
+/usr/include/libmypaint/mypaint-fixed-tiled-surface.h
+/usr/include/libmypaint/mypaint-glib-compat.h
+/usr/include/libmypaint/mypaint-mapping.h
+/usr/include/libmypaint/mypaint-matrix.h
+/usr/include/libmypaint/mypaint-rectangle.h
+/usr/include/libmypaint/mypaint-surface.h
+/usr/include/libmypaint/mypaint-symmetry.h
+/usr/include/libmypaint/mypaint-tiled-surface.h
+/usr/lib64/girepository-1.0/MyPaint-1.6.typelib
+/usr/lib64/libmypaint.so
+/usr/lib64/libmypaint.so.0
+/usr/lib64/libmypaint.so.0.0.0
+/usr/lib64/pkgconfig/libmypaint.pc
+/usr/share/gir-1.0/MyPaint-1.6.gir
