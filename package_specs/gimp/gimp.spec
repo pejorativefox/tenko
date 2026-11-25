@@ -83,8 +83,9 @@ the main package.
 %setup -q -n gimp-%{version}
 
 %build
-mkdir build
-pushd build
+# The source tree ships its own build/ directory, so use another name.
+mkdir build-dir
+pushd build-dir
 meson setup ..                        \
       --prefix=/usr                   \
       --buildtype=release             \
@@ -116,7 +117,7 @@ popd
 
 %install
 rm -rf %{buildroot}
-pushd build
+pushd build-dir
 DESTDIR=%{buildroot} ninja install
 popd
 
