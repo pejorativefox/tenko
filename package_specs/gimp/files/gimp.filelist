@@ -750,6 +750,9 @@
 /usr/lib64/gimp/3.0/plug-ins/wavelet-decompose/wavelet-decompose
 %dir /usr/lib64/gimp/3.0/plug-ins/web-browser
 /usr/lib64/gimp/3.0/plug-ins/web-browser/web-browser
+%dir /usr/lib64/girepository-1.0
+/usr/lib64/girepository-1.0/Gimp-3.0.typelib
+/usr/lib64/girepository-1.0/GimpUi-3.0.typelib
 /usr/lib64/libgimp-3.0.so
 /usr/lib64/libgimp-3.0.so.0
 /usr/lib64/libgimp-3.0.so.0.206.2

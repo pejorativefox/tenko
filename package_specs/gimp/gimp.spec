@@ -1,11 +1,13 @@
 Name:       gimp
 Version:    3.2.8
-Release:    1
+Release:    2
 Summary:    GNU Image Manipulation Program
 License:    GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:        https://www.gimp.org/
 Prefix:     /usr
 Source0:    gimp-%{version}.tar.xz
+Obsoletes:  gimp-gir < %{version}-%{release}
+Provides:   gimp-gir = %{version}-%{release}
 
 BuildRequires: alsa-lib
 BuildRequires: appstream
@@ -65,6 +67,8 @@ BuildRequires: zlib
 
 # GIMP shells out to xdg-email for the Send-to command, and the shipped
 # Python plug-ins import gi (Babl, Gegl, Gimp) and cairo at runtime.
+# The Gimp/GimpUi typelibs ship in this package: the Python plug-ins load
+# them, so they are not optional.
 Requires:   babl-gir
 Requires:   at-spi2-core-gir
 Requires:   gegl-gir
@@ -90,17 +94,6 @@ Requires:   gimp = %{version}-%{release}
 
 %description lang
 Translations for gimp.
-
-%package gir
-Summary:    GObject Introspection data for gimp
-License:    LGPL-3.0-or-later
-Requires:   %{name} = %{version}-%{release}
-
-%description gir
-GObject Introspection typelibs for the Gimp and GimpUi libraries,
-split out of the runtime package so a plain install does not carry
-the introspection data.  The .gir XML needed for building stays in
-the main package.
 
 %prep
 %setup -q -n gimp-%{version}
@@ -145,9 +138,19 @@ popd
 
 %files -f %{_sourcedir}/gimp.filelist
 %files lang -f %{_sourcedir}/gimp-lang.filelist
-%files gir -f %{_sourcedir}/gimp-gir.filelist
 
 %changelog
+* Thu Nov 26 2026 tenko <build@tenko.invalid> 3.2.8-2
+- Fold gimp-gir back into gimp: the Gimp-3.0 and GimpUi-3.0
+  typelibs return to the runtime package, so the shipped Python
+  plug-ins work on a plain install without a separate gimp-gir
+  install.  The subpackage's premise, that introspection data is
+  optional, does not hold when the plug-ins that load it are in the
+  main package.
+  gimp obsoletes gimp-gir < 3.2.8-2 and provides gimp-gir = 3.2.8-2,
+  so an upgrade replaces the published 3.2.8-1 gimp-gir (which
+  Requires gimp = 3.2.8-1) instead of keeping both.
+
 * Wed Nov 25 2026 tenko <build@tenko.invalid> 3.2.8-1
 - New package, not in the base set: latest upstream stable release
   (3.2.8, checked 2026-11-25), built with babl 0.1.128 and gegl 0.4.72.
